@@ -149,7 +149,6 @@ public class ChimpController : MonoBehaviour
 			jumpSound.Play(); //Turned off for testing purposes but turn back on for final version
 			chimpBody2D.velocity = new Vector2(chimpBody2D.velocity.x , jumpHeight);
 			chimpBlockers[1].SetActive(false);
-			selfieButton.SetActive(true);
 		}
 
 		if(superMode)
@@ -163,6 +162,7 @@ public class ChimpController : MonoBehaviour
 		if(col2D.gameObject.tag.Equals("Ground"))
 		{
 			grounded = false;
+			selfieButton.SetActive(true);
 		}
 	}
 
@@ -171,6 +171,7 @@ public class ChimpController : MonoBehaviour
 		if(col2D.gameObject.tag.Equals("Ground"))
 		{
 			grounded = true;
+			selfieButton.SetActive(false);
 		}
 	}
 
