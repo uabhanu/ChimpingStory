@@ -271,7 +271,7 @@ namespace SVGImporter
                 return;
             
             TextureImporter textureImporter  = (TextureImporter) assetImporter;
-            textureImporter.textureType = TextureImporterType.Advanced;
+            textureImporter.textureType = TextureImporterType.Default;
             textureImporter.alphaIsTransparency = true;
             textureImporter.anisoLevel = 0;
             textureImporter.filterMode = FilterMode.Bilinear;

@@ -1,5 +1,5 @@
-﻿using GooglePlayGames;
-using GooglePlayGames.BasicApi;
+﻿//using GooglePlayGames;
+//using GooglePlayGames.BasicApi;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -44,10 +44,10 @@ public class ScoreManager : MonoBehaviour
 		{
 			Debug.Log("Login Success");
 
-			PlayGamesPlatform.Instance.LoadScores(trophiesLeaderboard , LeaderboardStart.PlayerCentered , 1 , LeaderboardCollection.Public , LeaderboardTimeSpan.AllTime , (LeaderboardScoreData lsd) => 
-			{
-				Debug.Log("Retrieve Score from Leaderboard");
-			});	
+//			PlayGamesPlatform.Instance.LoadScores(trophiesLeaderboard , LeaderboardStart.PlayerCentered , 1 , LeaderboardCollection.Public , LeaderboardTimeSpan.AllTime , (LeaderboardScoreData lsd) => 
+//			{
+//				Debug.Log("Retrieve Score from Leaderboard");
+//			});	
 		} 
 		else
 		{

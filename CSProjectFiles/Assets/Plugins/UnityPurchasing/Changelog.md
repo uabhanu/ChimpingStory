@@ -1,3 +1,91 @@
+## [1.9.2] - 2016-11-29
+### Fixed
+- GooglePlay - addresses warning about usage of WebViewClient.onReceivedSslError if CloudMoolah.aar is included
+- CloudMoolah - simplify Login API and rename LoginError enum to LoginResultState
+- Android - remove READ_PHONE_STATE permission from AndroidManifest.xml simplifying logic around CloudMoolah Register and Login by removing automatic SystemInfo.deviceUniqueIdentifier calls. Developers may now choose to include this permission using this API to collect a user identifer, or provide an alternate long-lived user identifier, in a CloudMoolah supporting game for the Register and Login API password parameter.
+
+## [1.9.1] - 2016-11-17
+### Added
+- [Beta] Codeless IAP — UI fields show title, price, and description downloaded from the platform store
+- IAP Catalog now includes a store ID field for the CloudMoolah store
+
+### Fixed
+- IAPButton component now updates product ID list as the IAP Catalog is being edited
+- Fixed a problem with opening a project containing the Unity IAP plugin while IAP was disabled in the Services window
+- IAPButton inspector field for Product ID now works correctly with Undo
+- Set GooglePlay as default Android store AAR fileset. Excludes other store's assets (Java, resource XML, localization), saving ~196kb in default APK. Creates Assets/Plugins/UnityPurchasing/Resources/BillingMode.json in Project. Configure manually with Window > Unity IAP > Android menu, or UnityPurchasingEditor.TargetAndroidStore(AndroidStore).
+- CloudMoolah - update Window > Unity IAP > Android menu checkmarks when CloudMoolah selected
+
+## [1.9.0] - 2016-10-31
+### Added
+- CloudMoolah support. CloudMoolah website [here](http://www.cloudmoolah.com). Preliminary store guide available [here](https://docs.google.com/document/d/1T9CEZe6eNCwgWkq7lLwrEw7rpSbu3_EjcUVgJJL6xA0/edit). Preliminary configuration document available [here](https://docs.google.com/document/d/1dpc3zqsyROeFUVBy9W9pc0sskCPyfhcRnsGxtyITmyQ/edit).
+- [Beta] Codeless IAP tools. Implement IAP by adding IAP Buttons to your project (Window > Unity IAP > Create IAP Button) and configure your catalog of IAP products without writing a line of code (Window > Unity IAP > IAP Catalog). Preliminary documentation is available [here](https://docs.google.com/document/d/1597oxEI1UkZ1164j1lR7s-2YIrJyidbrfNwTfSI1Ksc/edit).
+- [Beta] Google Play - Support for Daydream VR. Requires Unity 5.4+ "GVR" Technical Preview, enabling VR, and including the Daydream SDK. Additional details [here](https://unity3d.com/partners/google/daydream).
+- Samsung Galaxy Store - Added support for receiving auto-recurring subscriptions
+- Highlights chosen Android store in menu Window > Unity IAP > Android
+
+### Fixed
+- Remove the menu item to select Android store at runtime
+- Fix an exception that occurred when parsing prices while culture was set to use commas as a decimal separator
+
+## [1.8.3] - 2016-10-13
+### Fixed
+- iOS crash when calling PurchasingManager.ConfirmPendingPurchase with a product that does not have a transaction ID
+- Ensure tvOS build uses correct stub DLL
+- Support transaction receipt logging for all store platforms. Requires corresponding Unity Engine: currently unreleased Unity 5.3/5.4 patch, or Unity 5.5.0b7+.
+
+## [1.8.2] - 2016-09-23
+### Fixed
+- Tizen Store - Product list not delivered to new app or new user
+
+## [1.8.1] - 2016-08-30
+### Fixed
+- Windows Store - Windows App Compatibility Kit Supported API failure with exposure of Tizen API.
+- Tizen Store - Added sample products and GroupId to `IAPDemo.cs`
+
+## [1.8.0] - 2016-08-23
+### Added
+- Tizen Store support. Preliminary documentation is available [here](https://docs.google.com/document/d/1A2TidgeV4lY16IcjdU7lX4EIvx6NNfONaph12iT8KyY).
+
+### Fixed
+- Google Play - Promo code redemptions not being detected whilst the App is running.
+- Google Play - Guard against spurious SecurityException (additional details [here](https://github.com/googlesamples/android-play-billing/issues/26).)
+
+## [1.7.0] - 2016-08-07
+### Added
+- Samsung Galaxy store support. Preliminary documentation is available [here](https://docs.google.com/document/d/1kUq-AHKyJftUA68xr44mrp7gs_MNxNiQ693s0b7qDdM).
+- Google Play - failed purchases - the [Google Play server response code](https://developer.android.com/google/play/billing/billing_reference.html#billing-codes) is now supplied as the [PurchaseFailedEventArgs.message](https://docs.unity3d.com/ScriptReference/Purchasing.PurchaseFailedEventArgs-message.html) property for failed purchases.
+- Android - it is now possible to choose the store implementation to use at runtime.
+    - Make a build containing all store implementations by choosing Window > Unity IAP > Android > "Select store at runtime"
+
+```csharp
+// Pass the desired store to the module, e.g. Amazon Apps.
+var module = StandardPurchasingModule.Instance(AndroidStore.AmazonAppStore);
+```
+
+### Fixed
+- Google Play - PurchaseFailureReason.ItemUnavailable and PurchaseFailureReason.BillingUnavailable being reported as 'Unknown' errors.
+
+## [1.6.1] - 2016-07-18
+### Fixed
+- Google Play - fixed non fatal 'IllegalArgumentException: Receiver not registered' warning appearing in crashlogs.
+
+## [1.6.0] - 2016-7-7
+### Added
+- Support for redeeming [Google Play promo codes](https://developer.android.com/google/play/billing/billing_promotions.html) for IAPs.
+- IAndroidStoreSelection extended configuration for accessing the currently selected Android store.
+
+```csharp
+var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
+Debug.Log(builder.Configure<IAndroidStoreSelection>().androidStore);
+```
+
+### Fixed
+- Apple Stores - ProcessPurchase not being called on initialize for existing transactions if another storekit transaction observer is added elsewhere in the App. This addresses a number of issues when using third party SDKs, including Facebook's.
+- Google Play - sandbox purchases. In Google's sandbox Unity IAP now uses Google's purchase token instead of Order ID to represent transaction IDs.
+- iOS not initializing when IAP purchase restrictions are active. IAP will now initialise if restrictions are active, enabling browsing of IAP metadata, although purchases will fail until restrictions are disabled.
+- Instantiating multiple ConfigurationBuilders causing purchasing to break on Google Play & iOS.
+
 ## [1.5.0] - 2016-5-10
 ### Added
 - Amazon stores - Added NotifyUnableToFulfillUnavailableProduct(string transactionID) to IAmazonExtensions.

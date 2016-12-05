@@ -1,4 +1,4 @@
-﻿using GooglePlayGames;
+﻿//using GooglePlayGames;
 using SVGImporter;
 using System.Collections;
 using UnityEngine;
@@ -11,8 +11,8 @@ public class BhanusGP : MonoBehaviour
 
 	void Awake()
 	{
-		PlayGamesPlatform.DebugLogEnabled = true;
-		PlayGamesPlatform.Activate();
+		//PlayGamesPlatform.DebugLogEnabled = true;
+		//PlayGamesPlatform.Activate();
 	}
 
 	void Start()
@@ -61,7 +61,7 @@ public class BhanusGP : MonoBehaviour
 
 	public void SignOut()
 	{
-		PlayGamesPlatform.Instance.SignOut(); //Or ((PlayGamesPlatform) Social.Active).SignOut();
+		//PlayGamesPlatform.Instance.SignOut(); //Or ((PlayGamesPlatform) Social.Active).SignOut();
 
 		if(!Social.localUser.authenticated)
 		{

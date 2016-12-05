@@ -1320,7 +1320,7 @@ namespace SVGImporter
 
                 int vertexCount = _sharedMesh.vertexCount;
                 UnityEditor.MeshUtility.SetMeshCompression(_sharedMesh, GetModelImporterMeshCompression(_meshCompression));
-                if(_optimizeMesh) _sharedMesh.Optimize();
+                if(_optimizeMesh) ;
                 if(_generateNormals)
                 {
                     Vector3[] normals = new Vector3[vertexCount];

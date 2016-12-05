@@ -97,3 +97,12 @@ E:\Projects\Unity Projects\ChimpingStory\CSProjectFiles\Temp\bin\Debug\UnityEngi
 E:\Projects\Unity Projects\ChimpingStory\CSProjectFiles\obj\Debug\Assembly-CSharp-firstpass.csprojResolveAssemblyReference.cache
 E:\Projects\Unity Projects\ChimpingStory\CSProjectFiles\obj\Debug\Assembly-CSharp-firstpass.dll
 E:\Projects\Unity Projects\ChimpingStory\CSProjectFiles\obj\Debug\Assembly-CSharp-firstpass.pdb
+E:\Projects\Unity Projects\ChimpingStory\CSProjectFiles\Temp\bin\Debug\UnityEditor.iOS.Extensions.Common.dll
+E:\Projects\Unity Projects\ChimpingStory\CSProjectFiles\Temp\bin\Debug\UnityEditor.iOS.Extensions.Xcode.dll
+E:\Projects\Unity Projects\ChimpingStory\CSProjectFiles\Temp\bin\Debug\UnityEngine.HoloLens.dll
+E:\Projects\Unity Projects\ChimpingStory\CSProjectFiles\Temp\bin\Debug\UnityEngine.PlaymodeTestsRunner.dll
+E:\Projects\Unity Projects\ChimpingStory\CSProjectFiles\Temp\bin\Debug\UnityEngine.VR.dll
+E:\Projects\Unity Projects\ChimpingStory\CSProjectFiles\Temp\bin\Debug\UnityEngine.PlaymodeTestsRunner.xml
+E:\Projects\Unity Projects\ChimpingStory\CSProjectFiles\Temp\bin\Debug\UnityEngine.HoloLens.xml
+E:\Projects\Unity Projects\ChimpingStory\CSProjectFiles\Temp\bin\Debug\UnityEngine.VR.xml
+E:\Projects\Unity Projects\ChimpingStory\CSProjectFiles\Temp\bin\Debug\Tizen.dll

@@ -273,7 +273,7 @@ namespace SVGImporter.Geometry
                 res.uv2 = uv2.ToArray();
                 res.triangles = tri.ToArray();
                 res.RecalculateBounds();
-                res.Optimize();
+                ;
                 return res;
             }
             
