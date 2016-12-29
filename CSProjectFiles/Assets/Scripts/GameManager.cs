@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour
 		adsMenu.SetActive(false);
 		adWatched = false;
 		PlayerPrefs.DeleteKey("BananaScore");
+        PlayerPrefs.DeleteKey("BananasLeft");
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 		

@@ -107,8 +107,12 @@ public class Banana : MonoBehaviour
 
 			if(bananaType == "normal")
 			{
-				//bananaAchievementScore++;
-				scoreManagementScript.bananaScoreValue++;
+                //bananaAchievementScore++;
+
+                if(scoreManagementScript.bananasLeft > 0)
+                {
+                    scoreManagementScript.bananasLeft--;
+                }
 
 //				if(Social.localUser.authenticated)
 //				{
@@ -121,9 +125,13 @@ public class Banana : MonoBehaviour
 
 			if(bananaType == "super")
 			{
-				//bananaAchievementScore += 5;
-				scoreManagementScript.bananaScoreValue += 5;
+                //bananaAchievementScore += 5;
 
+                if(scoreManagementScript.bananasLeft > 0)
+                {
+                    scoreManagementScript.bananasLeft -= 5;
+                }
+                
 //				if(Social.localUser.authenticated)
 //				{
 //					PlayGamesPlatform.Instance.IncrementAchievement(achievementID , 5 , (bool success) => //Working and enable this code for final version
