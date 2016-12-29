@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Pillar : MonoBehaviour 
+public class Movement : MonoBehaviour 
 {
 	private Ground groundScript;
 
