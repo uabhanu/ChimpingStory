@@ -6,10 +6,10 @@ public class SuperChimp : MonoBehaviour
 {
 	BoxCollider2D superchimpCollider2D;
 	ChimpController chimpControlScript;
-	float maxY;
+    float maxY;
 	float minY;
 	float startPos;
-	int direction = 1;
+    int direction = 1;
 	Rigidbody2D nutBody2D;
 	ScoreManager scoreManagementScript;
 	SpriteRenderer superchimpRenderer;
@@ -18,7 +18,7 @@ public class SuperChimp : MonoBehaviour
 
 	void Start() 
 	{
-		nutBody2D = GetComponent<Rigidbody2D>();
+        nutBody2D = GetComponent<Rigidbody2D>();
 		chimpControlScript = GameObject.Find("Chimp").GetComponent<ChimpController>();
 		maxY = this.transform.position.y + 0.5f;
 		minY = maxY - 1.0f;

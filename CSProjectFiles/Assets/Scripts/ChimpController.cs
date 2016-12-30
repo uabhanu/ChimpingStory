@@ -30,7 +30,7 @@ public class ChimpController : MonoBehaviour
 	public float slideTime;
 	public float slipTime;
 	public float superTime;
-	public GameObject[] chimpBlockers;
+	public GameObject chimpBlocker;
 	public GameManager gameManagementScript;
 	//public Image bananaImage;
 	//public Image dollarButtonImage;
@@ -117,7 +117,7 @@ public class ChimpController : MonoBehaviour
 	IEnumerator SuperChimpTimer()
 	{
 		yield return new WaitForSeconds(superTime);
-		chimpBlockers[0].SetActive(false);
+		chimpBlocker.SetActive(false);
 		chimpBody2D.gravityScale = 5f;
 		superMode = false;
 	}
@@ -148,7 +148,7 @@ public class ChimpController : MonoBehaviour
 		{
 			jumpSound.Play(); //Turned off for testing purposes but turn back on for final version
 			chimpBody2D.velocity = new Vector2(chimpBody2D.velocity.x , jumpHeight);
-			chimpBlockers[1].SetActive(false);
+			chimpBlocker.SetActive(false);
 		}
 
 		if(superMode)
@@ -226,9 +226,9 @@ public class ChimpController : MonoBehaviour
 
 	void SuperChimp()
 	{
-		chimpBlockers[0].SetActive(true);
-		chimpBlockers[1].SetActive(true);
-		chimpBody2D.gravityScale = 2.5f;
+		chimpBlocker.SetActive(true);
+	
+		chimpBody2D.gravityScale = 3.5f;
 
 		if(groundScript.speed == 8f)
 		{

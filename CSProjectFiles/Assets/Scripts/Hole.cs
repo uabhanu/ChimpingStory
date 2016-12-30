@@ -26,29 +26,32 @@ public class Hole : MonoBehaviour
 		{
 			Debug.Log("Player in the Hole"); //Working
 
-//			holeAchievementScore++; //All working fit and fine and beware that the achievement progress won't be updated now as the code is commented
+            //			holeAchievementScore++; //All working fit and fine and beware that the achievement progress won't be updated now as the code is commented
 
-//			if(Social.localUser.authenticated)
-//			{
-//				PlayGamesPlatform.Instance.IncrementAchievement(achievementID , 1 , (bool success) => //Working and enable this code for final version
-//				{
-//					Debug.Log("Incremental Achievement");
-//				});
-//
-//				if(holeAchievementScore == 50)
-//				{
-//					PlayGamesPlatform.Instance.IncrementAchievement(achievementID , holeAchievementScore , (bool success) => //Working and enable this code for final version
-//					{
-//						Debug.Log("Incremental Achievement");
-//						holeAchievementScore = 0;
-//					});
-//				}
-//			}
+            //			if(Social.localUser.authenticated)
+            //			{
+            //				PlayGamesPlatform.Instance.IncrementAchievement(achievementID , 1 , (bool success) => //Working and enable this code for final version
+            //				{
+            //					Debug.Log("Incremental Achievement");
+            //				});
+            //
+            //				if(holeAchievementScore == 50)
+            //				{
+            //					PlayGamesPlatform.Instance.IncrementAchievement(achievementID , holeAchievementScore , (bool success) => //Working and enable this code for final version
+            //					{
+            //						Debug.Log("Incremental Achievement");
+            //						holeAchievementScore = 0;
+            //					});
+            //				}
+            //			}
 
-			chimpControlScript.canJump = false;
-			ground01Collider2D.isTrigger = true;
-			ground02Collider2D.isTrigger = true;
-			ground03Collider2D.isTrigger = true;
+            if(!chimpControlScript.superMode)
+            {
+                chimpControlScript.canJump = false;
+                ground01Collider2D.isTrigger = true;
+                ground02Collider2D.isTrigger = true;
+                ground03Collider2D.isTrigger = true;
+            }
 		}
 	}
 }
