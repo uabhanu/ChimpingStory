@@ -127,7 +127,7 @@ public class Banana : MonoBehaviour
 			{
                 //bananaAchievementScore += 5;
 
-                if(scoreManagementScript.bananasLeft > 0)
+                if(scoreManagementScript.bananasLeft > 4)
                 {
                     scoreManagementScript.bananasLeft -= 5;
                 }
