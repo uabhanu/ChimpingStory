@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e4769d3ae8dd444081584085931f18e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyBody2D: {fileID: 0}
+  enemyBody2D: {fileID: 50607081209291468}
 --- !u!114 &114307230875176122
 MonoBehaviour:
   m_ObjectHideFlags: 1

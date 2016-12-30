@@ -66,11 +66,11 @@ TagManager:
   - name: Ground
     uniqueID: 63635491
     locked: 0
-  - name: Player
-    uniqueID: 418572561
-    locked: 0
   - name: Hole
     uniqueID: 2334818195
+    locked: 0
+  - name: Player
+    uniqueID: 418572561
     locked: 0
   - name: TreeForward
     uniqueID: 3746257621
