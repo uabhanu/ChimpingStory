@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 212276954392342856}
   m_Layer: 11
   m_Name: PF_SmallHole
-  m_TagString: EnemyCombo
+  m_TagString: OBJ
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

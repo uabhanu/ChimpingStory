@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 50738983632912080}
   m_Layer: 11
   m_Name: PF_Obstacle
-  m_TagString: EnemyCombo
+  m_TagString: OBJ
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

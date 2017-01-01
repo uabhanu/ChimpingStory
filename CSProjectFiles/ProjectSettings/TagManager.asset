@@ -9,7 +9,6 @@ TagManager:
   - Death
   - PauseQuit
   - SC
-  - EnemyCombo
   - BananaCombo
   - SMBs
   - Enemy
@@ -17,6 +16,7 @@ TagManager:
   - Cleaner
   - GameArea
   - Skin
+  - OBJ
   layers:
   - Default
   - TransparentFX

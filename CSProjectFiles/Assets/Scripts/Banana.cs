@@ -131,6 +131,11 @@ public class Banana : MonoBehaviour
                 {
                     scoreManagementScript.bananasLeft -= 5;
                 }
+
+                if(scoreManagementScript.bananasLeft <= 4)
+                {
+                    scoreManagementScript.bananasLeft = 0;
+                }
                 
 //				if(Social.localUser.authenticated)
 //				{

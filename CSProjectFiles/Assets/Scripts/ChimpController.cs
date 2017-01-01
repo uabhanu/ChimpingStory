@@ -197,7 +197,7 @@ public class ChimpController : MonoBehaviour
 			SuperChimp();
 		}
 
-		if(col2D.gameObject.tag.Equals("Skin"))
+		if(col2D.gameObject.name.Equals("PF_BananaSkin(Clone)"))
 		{
             if(!superMode)
             {
