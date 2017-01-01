@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 212612997370100350}
   m_Layer: 11
   m_Name: PF_BananaSkin
-  m_TagString: Slip
+  m_TagString: Skin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
