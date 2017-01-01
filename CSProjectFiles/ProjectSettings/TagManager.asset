@@ -13,10 +13,10 @@ TagManager:
   - BananaCombo
   - SMBs
   - Enemy
-  - Slip
   - CSZ
   - Cleaner
   - GameArea
+  - Skin
   layers:
   - Default
   - TransparentFX

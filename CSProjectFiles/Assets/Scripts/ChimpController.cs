@@ -197,14 +197,17 @@ public class ChimpController : MonoBehaviour
 			SuperChimp();
 		}
 
-		if(col2D.gameObject.tag.Equals("Slip"))
+		if(col2D.gameObject.tag.Equals("Skin"))
 		{
-			//Debug.Log("Chimp Slip"); //Working
-			chimpAnim.SetBool("DefaultSpeed" , false);
-			chimpAnim.SetBool("MediumSpeed" , true);
-			chimpSlip = true;
-			groundScript.speed += 4f;
-			StartCoroutine("ChimpSlip");
+            if(!superMode)
+            {
+                //Debug.Log("Chimp Slip"); //Working
+                chimpAnim.SetBool("DefaultSpeed", false);
+                chimpAnim.SetBool("MediumSpeed", true);
+                chimpSlip = true;
+                groundScript.speed += 4f;
+                StartCoroutine("ChimpSlip");
+            }
 		}
 	}
 
