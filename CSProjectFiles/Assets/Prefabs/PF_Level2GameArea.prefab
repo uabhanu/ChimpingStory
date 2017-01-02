@@ -1907,11 +1907,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfd8ade6068deb74a9277687bd273551, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bananasLeft: 500
-  bananaScoreValue: 0
+  bananasLeft: 0
   superChimpScoreValue: 0
   trophiesScoreValue: 0
-  gameManagementScript: {fileID: 11416222}
   trophiesLeaderboard: CgkImbKe5scYEAIQBg
   bananaScoreLabel: {fileID: 11479136}
   superChimpScoreLabel: {fileID: 0}
@@ -2304,7 +2302,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 114264193301218404}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -3356,7 +3354,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -20, y: -55.02185}
+  m_AnchoredPosition: {x: -50, y: -55.02185}
   m_SizeDelta: {x: 200, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &100100000

@@ -6,10 +6,7 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour 
 {
-	public int bananasLeft = 500 , bananaScoreValue , superChimpScoreValue , trophiesScoreValue;
-
-	[SerializeField] GameManager gameManagementScript;
-
+	public int bananasLeft = 500 , superChimpScoreValue , trophiesScoreValue;
 	public string trophiesLeaderboard;
 	public Text bananaScoreLabel , superChimpScoreLabel , trophiesScoreLabel;
 
@@ -19,11 +16,6 @@ public class ScoreManager : MonoBehaviour
         {
             bananasLeft = PlayerPrefs.GetInt("BananasLeft");
         }
-
-        if (PlayerPrefs.HasKey("BananaScore"))
-		{
-			bananaScoreValue = PlayerPrefs.GetInt("BananaScore");
-		}
 
 		if(PlayerPrefs.HasKey("MonkeynutScore"))
 		{
@@ -85,7 +77,6 @@ public class ScoreManager : MonoBehaviour
 			PlayerPrefs.SetInt("TrophiesScore" , trophiesScoreValue);
 		}
 
-		PlayerPrefs.SetInt("BananaScore" , bananaScoreValue);
         PlayerPrefs.SetInt("BananasLeft", bananasLeft);
     }
 }

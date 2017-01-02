@@ -5,13 +5,13 @@ using UnityEngine.SocialPlatforms;
 
 public class Banana : MonoBehaviour 
 {
-	private AudioSource bananaSound;
-	private bool clickSafeZone;
-	private BoxCollider2D bananaCollider2D;
-	private ChimpController chimpControlScript;
-	private GameObject bananaSoundObj;
-	private ScoreManager scoreManagementScript;
-	private SpriteRenderer bananaRenderer;
+	AudioSource bananaSound;
+	bool clickSafeZone;
+	BoxCollider2D bananaCollider2D;
+	ChimpController chimpControlScript;
+	GameObject bananaSoundObj;
+	ScoreManager scoreManagementScript;
+	SpriteRenderer bananaRenderer;
 
 	//public int bananaAchievementScore;
 	public string bananaType;
@@ -77,29 +77,56 @@ public class Banana : MonoBehaviour
 		StartCoroutine("SoundObjectTimer");
 	}
 
-	void OnMouseDown()
-	{
-		if(clickSafeZone)
-		{
-			if(bananaSound != null)
-			{
-				if(!bananaSound.isPlaying) 
-				{
-					bananaSound.Stop ();
-					bananaSound.Play ();
-				} 
-				else
-				{
-					bananaSound.Play();
-				}
-			}
+    void OnMouseDown()
+    {
+        if(clickSafeZone)
+        {
+            if(bananaSound != null)
+            {
+                if(!bananaSound.isPlaying)
+                {
+                    bananaSound.Stop();
+                    bananaSound.Play();
+                }
+                else
+                {
+                    bananaSound.Play();
+                }
+            }
 
-			scoreManagementScript.bananaScoreValue++;
-			Destroy(gameObject);
-		}
-	}
+            if(scoreManagementScript.bananasLeft > 0)
+            {
+                scoreManagementScript.bananasLeft--;
+            }
+            
+            Destroy(gameObject);
+        }
 
-	void OnTriggerEnter2D(Collider2D col2D)
+        if(!clickSafeZone)
+        {
+            if(bananaSound != null)
+            {
+                if(!bananaSound.isPlaying)
+                {
+                    bananaSound.Stop();
+                    bananaSound.Play();
+                }
+                else
+                {
+                    bananaSound.Play();
+                }
+            }
+
+            if(scoreManagementScript.bananasLeft < 500)
+            {
+                scoreManagementScript.bananasLeft++;
+            }
+
+            Destroy(gameObject);
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D col2D)
 	{
 		if(col2D.gameObject.tag.Equals("Player"))
 		{
@@ -162,8 +189,8 @@ public class Banana : MonoBehaviour
 			{
 				if(!bananaSound.isPlaying) 
 				{
-					bananaSound.Stop ();
-					bananaSound.Play ();
+					bananaSound.Stop();
+					bananaSound.Play();
 				} 
 				else
 				{
@@ -174,27 +201,27 @@ public class Banana : MonoBehaviour
 			Destroy(gameObject);
 		}
 
-		if(col2D.gameObject.tag.Equals("Cleaner"))
-		{
-			if(scoreManagementScript.bananaScoreValue > 0)
-			{
-				scoreManagementScript.bananaScoreValue--;
-			}
+        if(col2D.gameObject.tag.Equals("Cleaner"))
+        {
+            if(scoreManagementScript.bananasLeft < 500)
+            {
+                scoreManagementScript.bananasLeft++;
+            }
 
-			Destroy(gameObject);
-		}
+            Destroy(gameObject);
+        }
 
-		if(col2D.gameObject.tag.Equals("CSZ"))
-		{
-			clickSafeZone = true;
-		}
-	}
+        if(col2D.gameObject.tag.Equals("CSZ"))
+        {
+            clickSafeZone = true;
+        }
+    }
 
-	void OnTriggerExit2D(Collider2D col2D)
-	{
-		if(col2D.gameObject.tag.Equals("CSZ"))
-		{
-			clickSafeZone = false;
-		}
-	}
+    void OnTriggerExit2D(Collider2D col2D)
+    {
+        if(col2D.gameObject.tag.Equals("CSZ"))
+        {
+            clickSafeZone = false;
+        }
+    }
 }
