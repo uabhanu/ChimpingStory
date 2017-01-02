@@ -201,7 +201,7 @@ public class Banana : MonoBehaviour
 			Destroy(gameObject);
 		}
 
-        if(col2D.gameObject.tag.Equals("Cleaner"))
+        if(col2D.gameObject.tag.Equals("BananaMissed"))
         {
             if(scoreManagementScript.bananasLeft < 500)
             {

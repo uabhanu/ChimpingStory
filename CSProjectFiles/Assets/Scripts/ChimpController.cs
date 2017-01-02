@@ -207,6 +207,11 @@ public class ChimpController : MonoBehaviour
 	{
 		chimpAnim.SetBool("Grounded" , grounded);
 		//chimpBody2D.velocity = new Vector2(chimpSpeed , chimpBody2D.velocity.y);
+
+        if(scoreManagementScript.bananasLeft == 0)
+        {
+            gameManagementScript.WinCard();
+        }
 	}
 
 	public void Slide()

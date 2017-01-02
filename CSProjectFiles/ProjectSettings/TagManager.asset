@@ -16,6 +16,7 @@ TagManager:
   - Cleaner
   - GameArea
   - OBJ
+  - BananaMissed
   layers:
   - Default
   - TransparentFX

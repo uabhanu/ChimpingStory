@@ -527,7 +527,7 @@ GameObject:
   - component: {fileID: 6106636}
   m_Layer: 17
   m_Name: BananaDestroyer
-  m_TagString: Cleaner
+  m_TagString: BananaMissed
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1560,6 +1560,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selfieButton: {fileID: 0}
+  gameSpawnScript: {fileID: 0}
   adWatched: 0
   chimpControlScript: {fileID: 0}
   chimpCam: {fileID: 138772}

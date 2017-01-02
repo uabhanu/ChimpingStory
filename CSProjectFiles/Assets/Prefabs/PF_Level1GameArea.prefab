@@ -2445,10 +2445,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bananasLeft: 500
-  bananaScoreValue: 0
   superChimpScoreValue: 0
   trophiesScoreValue: 0
-  gameManagementScript: {fileID: 11429832}
   trophiesLeaderboard: CgkImbKe5scYEAIQBg
   bananaScoreLabel: {fileID: 11423986}
   superChimpScoreLabel: {fileID: 11430618}
@@ -2550,6 +2548,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selfieButton: {fileID: 1000012443289012}
+  gameSpawnScript: {fileID: 0}
   adWatched: 0
   chimpControlScript: {fileID: 11460272}
   chimpCam: {fileID: 188224}
@@ -3389,7 +3388,6 @@ MonoBehaviour:
   bananaComboToSpawn: {fileID: 0}
   PF_BananaCombosList:
   - {fileID: 100574, guid: 69048ae476d8b3445b8ab1297bc4a94b, type: 2}
-  - {fileID: 149378, guid: d38914ef3e936f2479589794cc4dd39a, type: 2}
   - {fileID: 178104, guid: 964f0cc6caf82034f8f4f91385f4b9e9, type: 2}
   - {fileID: 131818, guid: 9d10c5142038f774ca43feac489d48fd, type: 2}
   - {fileID: 1000010269802204, guid: b6a47dad63796fb4cbbca37288942bf1, type: 2}

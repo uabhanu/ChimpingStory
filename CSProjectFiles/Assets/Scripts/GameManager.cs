@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 	bool chimpGrounded;
 	bool chimpSuperMode;
 	[SerializeField] GameObject selfieButton;
+    GameSpawner gameSpawnScript;
 
 	public bool adWatched;
 	public ChimpController chimpControlScript;
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour
 	void Start() 
 	{
 		bhanusPurchaseScript = GetComponent<BhanusPurchaser>();
+        gameSpawnScript = GameObject.Find("GameSpawner").GetComponent<GameSpawner>();
 
 		if(Advertisement.isSupported)
 		{
@@ -40,7 +42,7 @@ public class GameManager : MonoBehaviour
 			
 		Time.timeScale = 1f;
 	}
-		
+	
 	public void AchievementsUI()
 	{
 		Social.ShowAchievementsUI();
@@ -98,13 +100,23 @@ public class GameManager : MonoBehaviour
 		//This method should launch IAP Panel you design later which will have a buyable item based on which BuyConsumable should be called
 	}
 
-//	public void LoadGame()
-//	{
-//		int slot = 0;
-//		((PlayGamesPlatform)Social.Active).LoadState(slot , this);
-//	}
+    public void LeaderboardUI()
+    {
+        Social.ShowLeaderboardUI();
+    }
 
-	public void MonkeynutNo()
+    public void LevelUp()
+    {
+        gameSpawnScript.playerLevel++;
+    }
+
+    //	public void LoadGame()
+    //	{
+    //		int slot = 0;
+    //		((PlayGamesPlatform)Social.Active).LoadState(slot , this);
+    //	}
+
+    public void MonkeynutNo()
 	{
 		//This deactivates confirm panel and activates iapMenu
 	}
@@ -126,31 +138,7 @@ public class GameManager : MonoBehaviour
 		pauseButton.SetActive(true);
 		Time.timeScale = 1f;
 	}
-
-	public void OnGameLoaded(bool success , int slot , byte[] data)
-	{
-		if(success) 
-		{
-
-		} 
-		else 
-		{
-
-		}
-	}
-
-	public void OnGameSaved(bool success , int slot)
-	{
-		if(success)
-		{
-
-		}
-		else
-		{
-
-		}
-	}
-		
+	
 	public void Pause()
 	{
 		Time.timeScale = 0f;
@@ -238,8 +226,9 @@ public class GameManager : MonoBehaviour
 		Time.timeScale = 1f;
 	}
 
-	public void LeaderboardUI()
-	{
-		Social.ShowLeaderboardUI();
-	}
+    public void WinCard()
+    {
+        Debug.Log("Victory is Mine");
+        //Show animated count down scores Win Card   
+    }
 }

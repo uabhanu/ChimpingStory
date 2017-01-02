@@ -24,16 +24,8 @@ public class BananaMover : MonoBehaviour
 		{
 			return;
 		}
-
-		if(gameSpawnScript.level == 1)
-		{
-			bananaBody2D.velocity = new Vector2(-groundScript.speed , bananaBody2D.velocity.y);
-		}
-
-		if(gameSpawnScript.level == 2)
-		{
-			bananaBody2D.velocity = new Vector2(bananaBody2D.velocity.x , -1f);
-		}
+		
+		bananaBody2D.velocity = new Vector2(-groundScript.speed , bananaBody2D.velocity.y);
 			
 		if(transform.position.x < -24.5f)
 		{
