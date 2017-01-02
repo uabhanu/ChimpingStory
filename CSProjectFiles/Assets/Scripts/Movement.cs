@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour 
 {
-	private Ground groundScript;
+	Ground groundScript;
 
-	public Rigidbody2D enemyBody2D;
+	[SerializeField] Rigidbody2D objBody2D;
 
 	void Update()
 	{
@@ -16,7 +16,7 @@ public class Movement : MonoBehaviour
 		}
 			
 		groundScript = FindObjectOfType<Ground>();
-		enemyBody2D.velocity = new Vector2(-groundScript.speed , enemyBody2D.velocity.y);
+        objBody2D.velocity = new Vector2(-groundScript.speed , objBody2D.velocity.y);
 
 		if(transform.position.x < -17f)
 		{

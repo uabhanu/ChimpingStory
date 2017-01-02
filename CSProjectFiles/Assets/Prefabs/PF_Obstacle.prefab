@@ -332,7 +332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e4769d3ae8dd444081584085931f18e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyBody2D: {fileID: 50738983632912080}
+  objBody2D: {fileID: 50738983632912080}
 --- !u!114 &114757069023092354
 MonoBehaviour:
   m_ObjectHideFlags: 1

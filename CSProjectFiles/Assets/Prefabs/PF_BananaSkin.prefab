@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e4769d3ae8dd444081584085931f18e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyBody2D: {fileID: 50318997227749626}
+  objBody2D: {fileID: 50318997227749626}
 --- !u!212 &212612997370100350
 SpriteRenderer:
   m_ObjectHideFlags: 1
