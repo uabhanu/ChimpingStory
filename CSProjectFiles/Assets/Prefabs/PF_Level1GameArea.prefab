@@ -2845,6 +2845,7 @@ MonoBehaviour:
   slide: 0
   superMode: 0
   chimpSpeed: 0
+  groundCheckRadius: 0.8
   jumpHeight: 20
   slideTime: 0.75
   slipTime: 10

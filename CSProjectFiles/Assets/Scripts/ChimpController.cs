@@ -25,7 +25,7 @@ public class ChimpController : MonoBehaviour
 	public bool slide;
 	public bool superMode;
 	public float chimpSpeed;
-	//public float groundCheckRadius;
+	public float groundCheckRadius;
 	public float jumpHeight;
 	public float slideTime;
 	public float slipTime;
@@ -59,7 +59,17 @@ public class ChimpController : MonoBehaviour
 		if(!superMode) 
 		{			
 			chimpAnim.SetBool("Super" , false);
-			//grounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
+			grounded = Physics2D.OverlapCircle(groundCheck.position , groundCheckRadius , whatIsGround);
+
+            if(grounded)
+            {
+                selfieButton.SetActive(false);
+            }
+
+            if(!grounded)
+            {
+                selfieButton.SetActive(true);
+            }
 		} 
 
 		else if(superMode) 
@@ -149,29 +159,11 @@ public class ChimpController : MonoBehaviour
 			jumpSound.Play(); //Turned off for testing purposes but turn back on for final version
 			chimpBody2D.velocity = new Vector2(chimpBody2D.velocity.x , jumpHeight);
 			chimpBlocker.SetActive(false);
-		}
+        }
 
 		if(superMode)
 		{
 			chimpBody2D.velocity = new Vector2(chimpBody2D.velocity.x , jumpHeight*1.1f);
-		}
-	}
-
-	void OnCollisionExit2D(Collision2D col2D)
-	{
-		if(col2D.gameObject.tag.Equals("Ground"))
-		{
-			grounded = false;
-			selfieButton.SetActive(true);
-		}
-	}
-
-	void OnCollisionStay2D(Collision2D col2D)
-	{
-		if(col2D.gameObject.tag.Equals("Ground"))
-		{
-			grounded = true;
-			selfieButton.SetActive(false);
 		}
 	}
 
