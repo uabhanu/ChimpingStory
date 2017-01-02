@@ -3389,7 +3389,14 @@ MonoBehaviour:
   bananaComboToSpawn: {fileID: 0}
   PF_BananaCombosList:
   - {fileID: 100574, guid: 69048ae476d8b3445b8ab1297bc4a94b, type: 2}
+  - {fileID: 149378, guid: d38914ef3e936f2479589794cc4dd39a, type: 2}
   - {fileID: 178104, guid: 964f0cc6caf82034f8f4f91385f4b9e9, type: 2}
+  - {fileID: 131818, guid: 9d10c5142038f774ca43feac489d48fd, type: 2}
+  - {fileID: 1000010269802204, guid: b6a47dad63796fb4cbbca37288942bf1, type: 2}
+  - {fileID: 1000014101137262, guid: 23f4bafcd2a1beb4cb0726f6c5662de8, type: 2}
+  - {fileID: 1000013288018276, guid: 009fafae67e586a4ca78b738df4aa814, type: 2}
+  - {fileID: 1000010795236338, guid: e1eac2f7d190a1842b41200efcf3e6a9, type: 2}
+  - {fileID: 1000013930240786, guid: 98c1320f0d742fd48bfc88c7e1b3a2c2, type: 2}
 --- !u!124 &12406232
 Behaviour:
   m_ObjectHideFlags: 1

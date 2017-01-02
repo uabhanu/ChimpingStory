@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 21272590}
   m_Layer: 12
   m_Name: PF_Banana
-  m_TagString: Untagged
+  m_TagString: BananaCombo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

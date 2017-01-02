@@ -8,8 +8,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 478402}
-  - component: {fileID: 61476215512644730}
   - component: {fileID: 11485486}
+  - component: {fileID: 61476215512644730}
   - component: {fileID: 21252460}
   m_Layer: 12
   m_Name: Banana
@@ -26,8 +26,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 494444}
-  - component: {fileID: 61907352220111742}
   - component: {fileID: 11421564}
+  - component: {fileID: 61907352220111742}
   - component: {fileID: 21257034}
   m_Layer: 12
   m_Name: Banana
@@ -61,8 +61,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 479272}
-  - component: {fileID: 61724265192183284}
   - component: {fileID: 11474402}
+  - component: {fileID: 61724265192183284}
   - component: {fileID: 21272980}
   m_Layer: 12
   m_Name: Banana
