@@ -229,6 +229,7 @@ public class GameManager : MonoBehaviour
     public void WinCard()
     {
         Debug.Log("Victory is Mine");
-        //Show animated count down scores Win Card   
+        //Show animated count down scores Win Card 
+        return;  
     }
 }
