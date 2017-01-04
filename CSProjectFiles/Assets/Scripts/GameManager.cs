@@ -1,5 +1,6 @@
 ﻿using CompleteProject;
 //using GooglePlayGames;
+using SVGImporter;
 using System.Collections;
 using System.IO;
 using UnityEngine;
@@ -12,7 +13,8 @@ public class GameManager : MonoBehaviour
 	BhanusPurchaser bhanusPurchaseScript;
 	bool chimpGrounded;
 	bool chimpSuperMode;
-	[SerializeField] GameObject selfieButton;
+	[SerializeField] SVGImage selfieButtonImage;
+    [SerializeField] ParticleSystem selfieButtonParticleSystem;
     GameSpawner gameSpawnScript;
 
 	public bool adWatched;
@@ -195,7 +197,8 @@ public class GameManager : MonoBehaviour
 	public void Selfie()
 	{
 		Debug.Log("Selfie");
-		selfieButton.SetActive(false);
+        selfieButtonParticleSystem.Play();
+        selfieButtonImage.enabled = false;
 	}
 
 //	public void SaveGame()

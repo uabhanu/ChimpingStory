@@ -8,8 +8,9 @@ public class ChimpController : MonoBehaviour
 {
 	//private BoxCollider2D superchimpCollider2D;
 	//private GameObject superChimp;
-	[SerializeField] GameObject bananaCountObj , bananaImageObj , dollarButtonObj , pauseButtonObj , selfieButton , superChimpCountObj , superChimpImageObj , trophyCountObj , trophyImageObj;
-	Rigidbody2D chimpBody2D;
+	[SerializeField] GameObject bananaCountObj , bananaImageObj , dollarButtonObj , pauseButtonObj , superChimpCountObj , superChimpImageObj , trophyCountObj , trophyImageObj;
+    Rigidbody2D chimpBody2D;
+    [SerializeField] SVGImage selfieButtonImage;
 	//private SVGRenderer ground01Renderer;
 	//private SVGRenderer ground02Renderer;
 	//private SVGRenderer ground03Renderer;
@@ -63,12 +64,12 @@ public class ChimpController : MonoBehaviour
 
             if(grounded)
             {
-                selfieButton.SetActive(false);
+                selfieButtonImage.enabled = false;
             }
 
             if(!grounded)
             {
-                selfieButton.SetActive(true);
+                selfieButtonImage.enabled = true;
             }
 		} 
 
