@@ -84,6 +84,6 @@ TagManager:
   - name: Enemy
     uniqueID: 2445450117
     locked: 0
-  - name: Rocks
+  - name: Coin
     uniqueID: 4105668959
     locked: 0
