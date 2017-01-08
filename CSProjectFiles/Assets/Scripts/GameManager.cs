@@ -11,11 +11,12 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour 
 {
 	BhanusPurchaser bhanusPurchaseScript;
+    [SerializeField] Button selfieButton;
 	bool chimpGrounded;
 	bool chimpSuperMode;
-	[SerializeField] SVGImage selfieButtonImage;
-    [SerializeField] ParticleSystem selfieButtonParticleSystem;
     GameSpawner gameSpawnScript;
+    [SerializeField] ParticleSystem selfieButtonParticleSystem;
+    [SerializeField] SVGImage selfieButtonImage;
 
 	public bool adWatched;
 	public ChimpController chimpControlScript;
@@ -37,13 +38,19 @@ public class GameManager : MonoBehaviour
 		bhanusPurchaseScript = GetComponent<BhanusPurchaser>();
         gameSpawnScript = GameObject.Find("GameSpawner").GetComponent<GameSpawner>();
 
-		if(Advertisement.isSupported)
-		{
-			Advertisement.Initialize("rewardedVideo");
-		}
-			
-		Time.timeScale = 1f;
+        if (Advertisement.isSupported)
+        {
+            Advertisement.Initialize("rewardedVideo");
+        }
+
+        Time.timeScale = 1f;
 	}
+
+    IEnumerator ButtonInteraction()
+    {
+        yield return new WaitForSeconds(0.7f);
+        selfieButton.interactable = true;
+    }
 	
 	public void AchievementsUI()
 	{
@@ -197,8 +204,10 @@ public class GameManager : MonoBehaviour
 	public void Selfie()
 	{
 		Debug.Log("Selfie");
-        selfieButtonParticleSystem.Play();
+        selfieButton.interactable = false;
         selfieButtonImage.enabled = false;
+        selfieButtonParticleSystem.Play();
+        StartCoroutine("ButtonInteraction");
 	}
 
 //	public void SaveGame()

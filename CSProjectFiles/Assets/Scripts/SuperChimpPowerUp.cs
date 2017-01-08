@@ -2,7 +2,7 @@
 //using SVGImporter;
 using UnityEngine;
 
-public class SuperChimp : MonoBehaviour 
+public class SuperChimpPowerUp : MonoBehaviour 
 {
 	BoxCollider2D superchimpCollider2D;
 	ChimpController chimpControlScript;

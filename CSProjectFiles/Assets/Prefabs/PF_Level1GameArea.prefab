@@ -2547,8 +2547,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46920867b2bbc83479306bb423e2f00d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selfieButtonImage: {fileID: 114000013212042770}
+  selfieButton: {fileID: 114000011603682998}
   selfieButtonParticleSystem: {fileID: 198308562370837136}
+  selfieButtonImage: {fileID: 114000013212042770}
   adWatched: 0
   chimpControlScript: {fileID: 11460272}
   chimpCam: {fileID: 188224}
