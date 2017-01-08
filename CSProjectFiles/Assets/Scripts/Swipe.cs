@@ -47,13 +47,21 @@ public class Swipe : MonoBehaviour
 					else if(!swipeHorizontal && deltaY > 0) //Swiped Down
 					{
 						Debug.Log("Swipe Down");
-						chimpControlScript.Slide();
+
+                        if(chimpControlScript.canSlide)
+                        {
+                            chimpControlScript.Slide();
+                        }
 					}
 
 					else if(!swipeHorizontal && deltaY <= 0) //Swiped Up
 					{
 						Debug.Log("Swipe Up");
-						chimpControlScript.Jump();
+
+                        if(chimpControlScript.canJump)
+                        {
+                            chimpControlScript.Jump();
+                        }
 					}
 
 					//hasSwiped = true;

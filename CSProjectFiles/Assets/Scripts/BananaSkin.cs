@@ -23,13 +23,13 @@ public class BananaSkin : MonoBehaviour
 			return;
 		}
 
-		if(chimpControlScript.chimpSlip)
+		if(chimpControlScript.chimpSlip || chimpControlScript.superMode)
 		{
 			skinCollider2D.enabled = false;
 			skinRenderer.enabled = false;
 		}
 
-		if(!chimpControlScript.chimpSlip)
+		if(!chimpControlScript.chimpSlip && !chimpControlScript.superMode)
 		{
 			skinCollider2D.enabled = true;
 			skinRenderer.enabled = true;

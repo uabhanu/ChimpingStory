@@ -195,8 +195,8 @@ PlayerSettings:
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 2
   androidSplashScreen: {fileID: 2800000, guid: c53eb9e28e0cfe747ae49cb3e82e3db2, type: 3}
-  AndroidKeystoreName: E:/Projects/Unity Projects/ChimpingStory/CSProjectFiles/TestStore.keystore
-  AndroidKeyaliasName: teststore
+  AndroidKeystoreName: E:/Projects/Unity Projects/ChimpingStory/CSProjectFiles/Test.keystore
+  AndroidKeyaliasName: test
   AndroidTVCompatibility: 1
   AndroidIsGame: 1
   androidEnableBanner: 1

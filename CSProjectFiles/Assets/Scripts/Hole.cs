@@ -4,23 +4,36 @@ using UnityEngine;
 
 public class Hole : MonoBehaviour 
 {
-	private BoxCollider2D ground01Collider2D;
-	private BoxCollider2D ground02Collider2D;
-	private BoxCollider2D ground03Collider2D;
-	private ChimpController chimpControlScript;
-	//private int holeAchievementScore;
+    BoxCollider2D chimpCollider2D , holeCollider2D;
+	ChimpController chimpControlScript;
+    SpriteRenderer holeRenderer;
+	//int holeAchievementScore;
 
-	//public string achievementID;
+	//[SerializeField] string achievementID;
 
 	void Start() 
 	{
+        chimpCollider2D = GameObject.Find("Chimp").GetComponent<BoxCollider2D>();
 		chimpControlScript = GameObject.Find("Chimp").GetComponent<ChimpController>();
-		ground01Collider2D = GameObject.Find("Ground01").GetComponent<BoxCollider2D>();
-		ground02Collider2D = GameObject.Find("Ground02").GetComponent<BoxCollider2D>();
-		ground03Collider2D = GameObject.Find("Ground03").GetComponent<BoxCollider2D>();
+        holeCollider2D = GetComponent<BoxCollider2D>();
+        holeRenderer = GetComponent<SpriteRenderer>();
 	}
-		
-	void OnTriggerEnter2D(Collider2D col2D)
+
+    void Update()
+    {
+        if(Time.timeScale == 0f)
+        {
+            return;
+        }
+
+        if(chimpControlScript.superMode)
+        {
+            holeCollider2D.enabled = false;
+            holeRenderer.enabled = false;
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D col2D)
 	{
 		if(col2D.gameObject.tag.Equals("Player"))
 		{
@@ -45,13 +58,11 @@ public class Hole : MonoBehaviour
             //				}
             //			}
 
-            if(!chimpControlScript.superMode)
-            {
-                chimpControlScript.canJump = false;
-                ground01Collider2D.isTrigger = true;
-                ground02Collider2D.isTrigger = true;
-                ground03Collider2D.isTrigger = true;
-            }
+           
+            chimpControlScript.canJump = false;
+            chimpControlScript.canSlide = false;
+            chimpCollider2D.isTrigger = true;
+            chimpControlScript.StartCoroutine("ChimpCollider2D");
 		}
 	}
 }
