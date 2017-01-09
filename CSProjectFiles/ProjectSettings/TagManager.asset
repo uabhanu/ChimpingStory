@@ -9,7 +9,6 @@ TagManager:
   - Death
   - PauseQuit
   - SC
-  - BananaCombo
   - SMBs
   - Enemy
   - CSZ
@@ -17,6 +16,8 @@ TagManager:
   - GameArea
   - OBJ
   - BananaMissed
+  - PickUpCombo
+  - BananaCombo
   layers:
   - Default
   - TransparentFX

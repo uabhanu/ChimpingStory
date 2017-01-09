@@ -623,7 +623,7 @@ GameObject:
   - component: {fileID: 473936}
   - component: {fileID: 11499638}
   m_Layer: 0
-  m_Name: BananaSpawner
+  m_Name: PickUpSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -2647,11 +2647,6 @@ MonoBehaviour:
   - {fileID: 1537185004364772, guid: bb35b567e77d3894e833a9e1989dc5de, type: 2}
   - {fileID: 1537185004364772, guid: bb35b567e77d3894e833a9e1989dc5de, type: 2}
   - {fileID: 1537185004364772, guid: bb35b567e77d3894e833a9e1989dc5de, type: 2}
-  - {fileID: 1174682040993520, guid: d6715cdaf322c734ebec5944004756d0, type: 2}
-  - {fileID: 1174682040993520, guid: d6715cdaf322c734ebec5944004756d0, type: 2}
-  - {fileID: 1174682040993520, guid: d6715cdaf322c734ebec5944004756d0, type: 2}
-  - {fileID: 1174682040993520, guid: d6715cdaf322c734ebec5944004756d0, type: 2}
-  - {fileID: 1174682040993520, guid: d6715cdaf322c734ebec5944004756d0, type: 2}
 --- !u!114 &11441474
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3405,16 +3400,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chimpControlScript: {fileID: 11460272}
-  bananaComboToSpawn: {fileID: 0}
-  PF_BananaCombosList:
+  pickUpComboToSpawn: {fileID: 0}
+  PF_PickUpCombosList:
   - {fileID: 100574, guid: 69048ae476d8b3445b8ab1297bc4a94b, type: 2}
-  - {fileID: 178104, guid: 964f0cc6caf82034f8f4f91385f4b9e9, type: 2}
-  - {fileID: 131818, guid: 9d10c5142038f774ca43feac489d48fd, type: 2}
-  - {fileID: 1000010269802204, guid: b6a47dad63796fb4cbbca37288942bf1, type: 2}
-  - {fileID: 1000014101137262, guid: 23f4bafcd2a1beb4cb0726f6c5662de8, type: 2}
-  - {fileID: 1000013288018276, guid: 009fafae67e586a4ca78b738df4aa814, type: 2}
-  - {fileID: 1000010795236338, guid: e1eac2f7d190a1842b41200efcf3e6a9, type: 2}
-  - {fileID: 1000013930240786, guid: 98c1320f0d742fd48bfc88c7e1b3a2c2, type: 2}
+  - {fileID: 1159123350344890, guid: b8d38ceb86c891f42afbaf8b98d4b995, type: 2}
+  - {fileID: 1387673702460790, guid: e0f710b7f3a7e764c99230d5c40df1ad, type: 2}
+  - {fileID: 1125751515177052, guid: 675bedc586e468c4bbcf97b0e7aeae45, type: 2}
+  - {fileID: 1901018821687522, guid: dd2c4d0bc99d7ef4fb1700f932faf785, type: 2}
+  - {fileID: 1322371704757854, guid: cd648221670974f4e85b1abc9ae80c98, type: 2}
+  - {fileID: 1753882667042238, guid: f37eaa5b32cdf5042a763694f569b7e0, type: 2}
+  - {fileID: 1853170578674228, guid: 135dcc07e9fd1fa4d8a712f9dca7f91f, type: 2}
+  - {fileID: 1195901356807440, guid: d5bf4b569a866ca49b5c601343feeae8, type: 2}
 --- !u!124 &12406232
 Behaviour:
   m_ObjectHideFlags: 1

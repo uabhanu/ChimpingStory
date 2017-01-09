@@ -1,17 +1,17 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class BananaMover : MonoBehaviour 
+public class PickUpMover : MonoBehaviour 
 {
 	private float startPos;
 	private int defaultChildCount;
 	private GameSpawner gameSpawnScript;
 	private Ground groundScript;
-	private Rigidbody2D bananaBody2D;
+	private Rigidbody2D pickUpBody2D;
 
 	void Start() 
 	{
-		bananaBody2D = GetComponent<Rigidbody2D>();
+        pickUpBody2D = GetComponent<Rigidbody2D>();
 		defaultChildCount = transform.childCount;
 		gameSpawnScript = GameObject.Find("GameSpawner").GetComponent<GameSpawner>();
 		groundScript = FindObjectOfType<Ground>();
@@ -24,8 +24,8 @@ public class BananaMover : MonoBehaviour
 		{
 			return;
 		}
-		
-		bananaBody2D.velocity = new Vector2(-groundScript.speed , bananaBody2D.velocity.y);
+
+        pickUpBody2D.velocity = new Vector2(-groundScript.speed , pickUpBody2D.velocity.y);
 			
 		if(transform.position.x < -24.5f)
 		{
