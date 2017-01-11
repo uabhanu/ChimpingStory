@@ -2631,23 +2631,7 @@ MonoBehaviour:
   - {fileID: 1095523156153794, guid: e1c1b9b29bba0ad4c919a910de05e8c4, type: 2}
   - {fileID: 1762799989423662, guid: 09a227e0651097341bb222e2f742f977, type: 2}
   - {fileID: 1537185004364772, guid: bb35b567e77d3894e833a9e1989dc5de, type: 2}
-  - {fileID: 1762799989423662, guid: 09a227e0651097341bb222e2f742f977, type: 2}
-  - {fileID: 1399955245923470, guid: 8e377ccb21eb0014e9d49837e4bfab70, type: 2}
   - {fileID: 1592198228500762, guid: be9b45d8354aef543bc6c928510e712a, type: 2}
-  - {fileID: 1537185004364772, guid: bb35b567e77d3894e833a9e1989dc5de, type: 2}
-  - {fileID: 1537185004364772, guid: bb35b567e77d3894e833a9e1989dc5de, type: 2}
-  - {fileID: 1537185004364772, guid: bb35b567e77d3894e833a9e1989dc5de, type: 2}
-  - {fileID: 1537185004364772, guid: bb35b567e77d3894e833a9e1989dc5de, type: 2}
-  - {fileID: 1537185004364772, guid: bb35b567e77d3894e833a9e1989dc5de, type: 2}
-  - {fileID: 1537185004364772, guid: bb35b567e77d3894e833a9e1989dc5de, type: 2}
-  - {fileID: 1537185004364772, guid: bb35b567e77d3894e833a9e1989dc5de, type: 2}
-  - {fileID: 1537185004364772, guid: bb35b567e77d3894e833a9e1989dc5de, type: 2}
-  - {fileID: 1537185004364772, guid: bb35b567e77d3894e833a9e1989dc5de, type: 2}
-  - {fileID: 1537185004364772, guid: bb35b567e77d3894e833a9e1989dc5de, type: 2}
-  - {fileID: 1537185004364772, guid: bb35b567e77d3894e833a9e1989dc5de, type: 2}
-  - {fileID: 1537185004364772, guid: bb35b567e77d3894e833a9e1989dc5de, type: 2}
-  - {fileID: 1537185004364772, guid: bb35b567e77d3894e833a9e1989dc5de, type: 2}
-  - {fileID: 1537185004364772, guid: bb35b567e77d3894e833a9e1989dc5de, type: 2}
 --- !u!114 &11441474
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2854,7 +2838,7 @@ MonoBehaviour:
   jumpSound: {fileID: 8251552}
   bananaSkinScript: {fileID: 0}
   canJump: 1
-  canSlide: 1
+  chimpInTheHole: 0
   chimpSlip: 0
   grounded: 0
   slide: 0

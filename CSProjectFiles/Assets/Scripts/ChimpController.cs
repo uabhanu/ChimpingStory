@@ -21,7 +21,7 @@ public class ChimpController : MonoBehaviour
 	public AudioSource deathSound;
 	public AudioSource jumpSound;
 	public BananaSkin bananaSkinScript;
-	public bool canJump , canSlide;
+	public bool canJump , canSlide , chimpInTheHole;
 	public bool chimpSlip;
 	public bool grounded;
 	public bool slide;
@@ -50,6 +50,7 @@ public class ChimpController : MonoBehaviour
 		//chimpAnim.SetBool("HighSpeed" , false);
 		chimpBody2D = GetComponent<Rigidbody2D>();
         chimpCollider2D = GetComponent<BoxCollider2D>();
+        chimpInTheHole = false;
 	}
 
 	void FixedUpdate()
@@ -177,14 +178,17 @@ public class ChimpController : MonoBehaviour
 
 	public void Jump()
 	{
-		jumpSound.Play(); //Turned off for testing purposes but turn back on for final version
-		chimpBody2D.velocity = new Vector2(chimpBody2D.velocity.x , jumpHeight);
-		chimpBlocker.SetActive(false);
-        
-		if(superMode)
-		{
-			chimpBody2D.velocity = new Vector2(chimpBody2D.velocity.x , jumpHeight*1.1f);
-		}
+        if(!chimpInTheHole)
+        {
+            jumpSound.Play(); //Turned off for testing purposes but turn back on for final version
+            chimpBody2D.velocity = new Vector2(chimpBody2D.velocity.x, jumpHeight);
+            chimpBlocker.SetActive(false);
+
+            if (superMode)
+            {
+                chimpBody2D.velocity = new Vector2(chimpBody2D.velocity.x, jumpHeight * 1.1f);
+            }
+        }
 	}
 
 	void OnTriggerEnter2D(Collider2D col2D)
@@ -236,9 +240,12 @@ public class ChimpController : MonoBehaviour
 
 	public void Slide()
 	{
-		//Debug.Log("Slide"); //Working
-		chimpAnim.SetBool("Slide" , true);
-		StartCoroutine("SlideTimer");	
+        if(!chimpInTheHole)
+        {
+            //Debug.Log("Slide"); //Working
+            chimpAnim.SetBool("Slide", true);
+            StartCoroutine("SlideTimer");
+        }
 	}
 
 	void SuperChimp()

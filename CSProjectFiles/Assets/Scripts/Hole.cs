@@ -58,9 +58,9 @@ public class Hole : MonoBehaviour
             //				}
             //			}
 
-           
-            chimpControlScript.canJump = false;
+
             chimpControlScript.canSlide = false;
+            chimpControlScript.chimpInTheHole = true;
             chimpCollider2D.isTrigger = true;
             chimpControlScript.StartCoroutine("ChimpCollider2D");
 		}
