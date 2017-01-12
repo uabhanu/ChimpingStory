@@ -10,6 +10,7 @@ public class Banana : MonoBehaviour
 	BoxCollider2D bananaCollider2D;
 	ChimpController chimpControlScript;
 	GameObject bananaSoundObj;
+    //ParticleSystem bananaParticle;
 	ScoreManager scoreManagementScript;
 	SpriteRenderer bananaRenderer;
 
@@ -20,6 +21,7 @@ public class Banana : MonoBehaviour
 	void Start() 
 	{
 		bananaCollider2D = GetComponent<BoxCollider2D>();
+        //bananaParticle = GetComponent<ParticleSystem>();
 		bananaRenderer = GetComponent<SpriteRenderer>();
 		chimpControlScript = FindObjectOfType<ChimpController>();
 		scoreManagementScript = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
@@ -130,7 +132,9 @@ public class Banana : MonoBehaviour
 	{
 		if(col2D.gameObject.tag.Equals("Player"))
 		{
-			//Debug.Log("Banana & Player Collision");// Working
+            //Debug.Log("Banana & Player Collision");// Working
+
+            //bananaParticle.Play();
 
 			if(bananaType == "normal")
 			{

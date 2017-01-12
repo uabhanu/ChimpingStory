@@ -671,7 +671,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 438320}
-  - component: {fileID: 6189710}
+  - component: {fileID: 61204307099101640}
   - component: {fileID: 5039926}
   - component: {fileID: 212000010498215498}
   - component: {fileID: 11409026}
@@ -1689,20 +1689,6 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 4, y: 0.1}
---- !u!61 &6189710
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 175670}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1.38}
 --- !u!81 &8122116
 AudioListener:
   m_ObjectHideFlags: 1
@@ -2846,7 +2832,7 @@ MonoBehaviour:
   superMode: 0
   chimpSpeed: 0
   groundCheckRadius: 0.8
-  jumpHeight: 20
+  jumpHeight: 17
   slideTime: 0.75
   slipTime: 10
   superTime: 15
@@ -4556,6 +4542,20 @@ Transform:
   m_Father: {fileID: 22418958}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &61204307099101640
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 175670}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
 --- !u!82 &82790555890826884
 AudioSource:
   m_ObjectHideFlags: 1
@@ -5253,7 +5253,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 751894941
+  randomSeed: 93812458
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -7971,6 +7971,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 31, y: 11.28}
   m_SizeDelta: {x: 1400, y: 1000}
   m_Pivot: {x: 0.5, y: 0.5}

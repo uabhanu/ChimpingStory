@@ -7,11 +7,13 @@ public class Coin : MonoBehaviour
     AudioSource coinSound;
     CircleCollider2D coinCollider2D;
     GameObject coinSoundObj;
+    //ParticleSystem coinParticle;
     ScoreManager scoreManagementScript;
 
     void Start()
     {
         coinCollider2D = GetComponent<CircleCollider2D>();
+        //coinParticle = GetComponent<ParticleSystem>();
         scoreManagementScript = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         StartCoroutine("SoundObjectTimer");
     }
@@ -39,6 +41,8 @@ public class Coin : MonoBehaviour
     {
         if(col2D.gameObject.tag.Equals("Player"))
         {
+            //coinParticle.Play();
+
             if (coinSound != null)
             {
                 if (!coinSound.isPlaying)

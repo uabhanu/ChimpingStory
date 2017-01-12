@@ -86,9 +86,10 @@ public class SuperChimpPowerUp : MonoBehaviour
 	{
 		if(col2D.gameObject.tag.Equals("Player"))
 		{
-			superchimpCollider2D.enabled = false;
-			superchimpRenderer.enabled = false;
-			scoreManagementScript.superChimpScoreValue++;
+			//superchimpCollider2D.enabled = false;
+			//superchimpRenderer.enabled = false;
+            transform.position = new Vector3(startPos , 2f , 0f);
+            scoreManagementScript.superChimpScoreValue++;
 		}
 	}
 }
