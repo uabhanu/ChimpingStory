@@ -1590,7 +1590,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 3, y: 0.1}
+  m_Size: {x: 3, y: 3}
 --- !u!61 &6107648
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -2838,6 +2838,7 @@ MonoBehaviour:
   jumpSound: {fileID: 8251552}
   bananaSkinScript: {fileID: 0}
   canJump: 1
+  canSlide: 0
   chimpInTheHole: 0
   chimpSlip: 0
   grounded: 0
