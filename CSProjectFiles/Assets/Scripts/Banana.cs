@@ -9,8 +9,11 @@ public class Banana : MonoBehaviour
 	bool clickSafeZone;
 	BoxCollider2D bananaCollider2D;
 	ChimpController chimpControlScript;
-	GameObject bananaSoundObj;
+    float startXPos , startYPos;
+    GameObject bananaSoundObj;
+    [SerializeField] Ground groundScript;
     //ParticleSystem bananaParticle;
+    Rigidbody2D bananaBody2D;
 	ScoreManager scoreManagementScript;
 	SpriteRenderer bananaRenderer;
 
@@ -20,15 +23,33 @@ public class Banana : MonoBehaviour
 
 	void Start() 
 	{
-		bananaCollider2D = GetComponent<BoxCollider2D>();
+        bananaBody2D = GetComponent<Rigidbody2D>();
+        bananaCollider2D = GetComponent<BoxCollider2D>();
         //bananaParticle = GetComponent<ParticleSystem>();
 		bananaRenderer = GetComponent<SpriteRenderer>();
 		chimpControlScript = FindObjectOfType<ChimpController>();
 		scoreManagementScript = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
 		StartCoroutine("SoundObjectTimer");
-	}
+        startXPos = transform.position.x;
+        startYPos = transform.position.y;
+    }
 
-	void Update()
+    void FixedUpdate()
+    {
+        if(Time.timeScale == 0f)
+        {
+            return;
+        }
+
+        bananaBody2D.velocity = new Vector2(-groundScript.speed , bananaBody2D.velocity.y);
+
+        if(transform.position.x < -8.5f)
+        {
+            transform.position = new Vector3(startXPos , startYPos , 0f);
+        }
+    }
+
+    void Update()
 	{
 		if(Time.timeScale == 0f)
 		{
@@ -100,7 +121,7 @@ public class Banana : MonoBehaviour
             {
                 scoreManagementScript.bananasLeft--;
             }
-            
+
             Destroy(gameObject);
         }
 
@@ -202,8 +223,8 @@ public class Banana : MonoBehaviour
 				}
 			}
 
-			Destroy(gameObject);
-		}
+            transform.position = new Vector3(startXPos , startYPos , 0f);
+        }
 
         if(col2D.gameObject.tag.Equals("BananaMissed"))
         {
