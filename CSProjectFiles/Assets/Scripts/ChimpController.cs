@@ -9,8 +9,11 @@ public class ChimpController : MonoBehaviour
     //private BoxCollider2D superchimpCollider2D;
     //private GameObject superChimp;
     BoxCollider2D chimpCollider2D;
+
 	[SerializeField] GameObject bananaCountObj , bananaImageObj , dollarButtonObj , pauseButtonObj , superChimpCountObj , superChimpImageObj , trophyCountObj , trophyImageObj;
+
     Rigidbody2D chimpBody2D;
+
     [SerializeField] SVGImage selfieButtonImage;
 	//private SVGRenderer ground01Renderer;
 	//private SVGRenderer ground02Renderer;
@@ -193,7 +196,7 @@ public class ChimpController : MonoBehaviour
 
 	void OnTriggerEnter2D(Collider2D col2D)
 	{
-        if(col2D.gameObject.name.Equals("PF_BananaSkin(Clone)"))
+        if(col2D.gameObject.name.Equals("BananaSkin"))
         {
             if (!superMode)
             {

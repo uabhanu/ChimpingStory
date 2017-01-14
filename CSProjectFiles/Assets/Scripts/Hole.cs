@@ -6,6 +6,9 @@ public class Hole : MonoBehaviour
 {
     BoxCollider2D chimpCollider2D , holeCollider2D;
 	ChimpController chimpControlScript;
+    float startXPos , startYPos;
+    [SerializeField] Ground groundScript;
+    Rigidbody2D holeBody2D;
     SpriteRenderer holeRenderer;
 	//int holeAchievementScore;
 
@@ -15,9 +18,22 @@ public class Hole : MonoBehaviour
 	{
         chimpCollider2D = GameObject.Find("Chimp").GetComponent<BoxCollider2D>();
 		chimpControlScript = GameObject.Find("Chimp").GetComponent<ChimpController>();
+        holeBody2D = GetComponent<Rigidbody2D>();
         holeCollider2D = GetComponent<BoxCollider2D>();
         holeRenderer = GetComponent<SpriteRenderer>();
-	}
+        startXPos = transform.position.x;
+        startYPos = transform.position.y;
+    }
+
+    void FixedUpdate()
+    {
+        if (Time.timeScale == 0f)
+        {
+            return;
+        }
+
+        holeBody2D.velocity = new Vector2(-groundScript.speed , holeBody2D.velocity.y);
+    }
 
     void Update()
     {
@@ -35,6 +51,11 @@ public class Hole : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col2D)
 	{
+        if(col2D.gameObject.tag.Equals("Cleaner"))
+        {
+            transform.position = new Vector2(startXPos , startYPos);
+        }
+
 		if(col2D.gameObject.tag.Equals("Player"))
 		{
 			Debug.Log("Player in the Hole"); //Working

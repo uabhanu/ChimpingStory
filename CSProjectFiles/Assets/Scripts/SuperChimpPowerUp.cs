@@ -8,9 +8,9 @@ public class SuperChimpPowerUp : MonoBehaviour
 	ChimpController chimpControlScript;
     float maxY;
 	float minY;
-	float startPos;
+	float startXPos , startYPos;
     int direction = 1;
-	Rigidbody2D nutBody2D;
+	Rigidbody2D powerUpBody2D;
 	ScoreManager scoreManagementScript;
 	SpriteRenderer superchimpRenderer;
 
@@ -18,13 +18,14 @@ public class SuperChimpPowerUp : MonoBehaviour
 
 	void Start() 
 	{
-        nutBody2D = GetComponent<Rigidbody2D>();
+        powerUpBody2D = GetComponent<Rigidbody2D>();
 		chimpControlScript = GameObject.Find("Chimp").GetComponent<ChimpController>();
 		maxY = this.transform.position.y + 0.5f;
 		minY = maxY - 1.0f;
 		scoreManagementScript = FindObjectOfType<ScoreManager>();
 		StartCoroutine("SoundObjectTimer");
-		startPos = transform.position.x;
+        startXPos = transform.position.x;
+        startYPos = transform.position.y;
 		superchimpCollider2D = GetComponent<BoxCollider2D>();
 		superchimpRenderer = GetComponent<SpriteRenderer>();
 	}
@@ -35,13 +36,8 @@ public class SuperChimpPowerUp : MonoBehaviour
 		{
 			return;
 		}
-			
-		nutBody2D.velocity = new Vector2(-groundScript.speed , nutBody2D.velocity.y);
 
-		if(transform.position.x < -8.5f)
-		{
-			transform.position = new Vector3(startPos , 2f , 0f);
-		}
+        powerUpBody2D.velocity = new Vector2(-groundScript.speed , powerUpBody2D.velocity.y);
 	}
 
 	void Update() 
@@ -84,11 +80,16 @@ public class SuperChimpPowerUp : MonoBehaviour
 		
 	void OnTriggerEnter2D(Collider2D col2D)
 	{
-		if(col2D.gameObject.tag.Equals("Player"))
+        if (col2D.gameObject.tag.Equals("Cleaner"))
+        {
+            transform.position = new Vector2(startXPos, startYPos);
+        }
+
+        if (col2D.gameObject.tag.Equals("Player"))
 		{
-			//superchimpCollider2D.enabled = false;
-			//superchimpRenderer.enabled = false;
-            transform.position = new Vector3(startPos , 2f , 0f);
+            //superchimpCollider2D.enabled = false;
+            //superchimpRenderer.enabled = false;
+            transform.position = new Vector2(startXPos , startYPos);
             scoreManagementScript.superChimpScoreValue++;
 		}
 	}
