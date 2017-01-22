@@ -19,8 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4644283679774014}
-  - component: {fileID: 114663713249346462}
-  - component: {fileID: 50444076371017866}
+  - component: {fileID: 114237335084468740}
   m_Layer: 12
   m_Name: PF_PickUpsCombo14
   m_TagString: PickUpCombo
@@ -39,6 +38,7 @@ GameObject:
   - component: {fileID: 95040754534307548}
   - component: {fileID: 58296522890967162}
   - component: {fileID: 114088434083498524}
+  - component: {fileID: 50336673807566776}
   - component: {fileID: 212828334997053276}
   m_Layer: 12
   m_Name: PF_Coin06
@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 95463448850771238}
   - component: {fileID: 58705674868344138}
   - component: {fileID: 114694095987365644}
+  - component: {fileID: 50413669393342064}
   - component: {fileID: 212562453741676518}
   m_Layer: 12
   m_Name: PF_Coin03
@@ -77,6 +78,7 @@ GameObject:
   - component: {fileID: 95143382703709938}
   - component: {fileID: 58852437573284342}
   - component: {fileID: 114634912344999128}
+  - component: {fileID: 50345227155839026}
   - component: {fileID: 212244362178988336}
   m_Layer: 12
   m_Name: PF_Coin01
@@ -96,6 +98,7 @@ GameObject:
   - component: {fileID: 95888656369890930}
   - component: {fileID: 58280537673879508}
   - component: {fileID: 114829307767861880}
+  - component: {fileID: 50692280330537016}
   - component: {fileID: 212017068051216696}
   m_Layer: 12
   m_Name: PF_Coin04
@@ -115,6 +118,7 @@ GameObject:
   - component: {fileID: 95310972693584536}
   - component: {fileID: 58267093826676064}
   - component: {fileID: 114538208944507098}
+  - component: {fileID: 50089735461544960}
   - component: {fileID: 212058947761395222}
   m_Layer: 12
   m_Name: PF_Coin02
@@ -134,6 +138,7 @@ GameObject:
   - component: {fileID: 95649690536371464}
   - component: {fileID: 58687352063364668}
   - component: {fileID: 114431573235943716}
+  - component: {fileID: 50009807305786092}
   - component: {fileID: 212880374599882798}
   m_Layer: 12
   m_Name: PF_Coin05
@@ -239,14 +244,14 @@ Transform:
   m_Father: {fileID: 4644283679774014}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &50444076371017866
+--- !u!50 &50009807305786092
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1047182693335188}
-  m_BodyType: 1
+  m_GameObject: {fileID: 1433603842684840}
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -258,7 +263,107 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 6
+  m_Constraints: 0
+--- !u!50 &50089735461544960
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1407473255751094}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!50 &50336673807566776
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1050179044019220}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!50 &50345227155839026
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1114123393365104}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!50 &50413669393342064
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1073668549685844}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!50 &50692280330537016
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1342019654307912}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!58 &58267093826676064
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -456,6 +561,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23c7f8ff5866ce24f87db9ff5c78ad9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114237335084468740
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1047182693335188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 061141a918bef8d43b1f1b50c0a4d40e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114431573235943716
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -487,17 +603,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 23c7f8ff5866ce24f87db9ff5c78ad9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114663713249346462
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1047182693335188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: babe1ce6000115444a4b1406f40eecfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114694095987365644

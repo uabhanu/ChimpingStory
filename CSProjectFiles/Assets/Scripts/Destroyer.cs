@@ -3,23 +3,21 @@ using UnityEngine;
 
 public class Destroyer : MonoBehaviour 
 {
-	public Transform destructionPoint;
+    void Start()
+    {
+        
+    }
 
-	void Start() 
-	{
-		destructionPoint = GameObject.Find("DestructionPoint").transform;
-	}
+    void Update()
+    {
+        if(Time.timeScale == 0)
+        {
+            return;
+        }
 
-	void Update() 
-	{
-		if(Time.timeScale == 0f)
-		{
-			return;
-		}
-
-		if(transform.position.x < destructionPoint.position.x)
-		{
-			gameObject.SetActive(false);
-		}
-	}
+        if(transform.childCount == 0)
+        {
+            Destroy(gameObject);
+        }
+    }
 }

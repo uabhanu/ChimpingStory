@@ -9,13 +9,12 @@ public class Banana : MonoBehaviour
 	bool clickSafeZone;
 	BoxCollider2D bananaCollider2D;
 	ChimpController chimpControlScript;
-    float startXPos , startYPos;
+    //float startXPos , startYPos;
 
-    [SerializeField] float randomXValue , randomYValue;
+    //[SerializeField] float randomXValue , randomYValue;
 
     GameObject bananaSoundObj;
-
-    [SerializeField] Ground groundScript;
+    Ground groundScript;
 
     //ParticleSystem bananaParticle;
     Rigidbody2D bananaBody2D;
@@ -26,7 +25,7 @@ public class Banana : MonoBehaviour
 	SpriteRenderer bananaRenderer;
 
 	//public int bananaAchievementScore;
-	public string bananaType;
+	//public string bananaType;
 	//public string achievementID;
 
 	void Start() 
@@ -36,10 +35,11 @@ public class Banana : MonoBehaviour
         //bananaParticle = GetComponent<ParticleSystem>();
 		bananaRenderer = GetComponent<SpriteRenderer>();
 		chimpControlScript = FindObjectOfType<ChimpController>();
+        groundScript = FindObjectOfType<Ground>();
 		scoreManagementScript = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
 		StartCoroutine("SoundObjectTimer");
-        startXPos = transform.position.x;
-        startYPos = transform.position.y;
+        //startXPos = transform.position.x;
+        //startYPos = transform.position.y;
     }
 
     void FixedUpdate()
@@ -175,7 +175,8 @@ public class Banana : MonoBehaviour
 
         if (col2D.gameObject.tag.Equals("Cleaner"))
         {
-            transform.position = new Vector2(Random.Range(startXPos , startXPos + randomXValue) , Random.Range(startYPos , startYPos + randomYValue));
+            //transform.position = new Vector2(Random.Range(startXPos , startXPos + randomXValue) , Random.Range(startYPos , startYPos + randomYValue));
+            Destroy(gameObject);
         }
 
         if (col2D.gameObject.tag.Equals("CSZ"))
@@ -255,7 +256,8 @@ public class Banana : MonoBehaviour
 				}
 			}
 
-            transform.position = new Vector2(Random.Range(startXPos , startXPos + randomXValue) , Random.Range(startYPos , startYPos + randomYValue));
+            //transform.position = new Vector2(Random.Range(startXPos , startXPos + randomXValue) , Random.Range(startYPos , startYPos + randomYValue));
+            Destroy(gameObject);
         }
     }
 

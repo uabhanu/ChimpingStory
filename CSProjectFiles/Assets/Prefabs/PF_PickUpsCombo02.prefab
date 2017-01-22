@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 95492235364972794}
   - component: {fileID: 114461218315026810}
   - component: {fileID: 61705774502556696}
+  - component: {fileID: 50098069933107342}
   - component: {fileID: 212127142609320658}
   m_Layer: 12
   m_Name: PF_Banana03
@@ -41,6 +42,7 @@ GameObject:
   - component: {fileID: 95155470451479354}
   - component: {fileID: 114023614451264286}
   - component: {fileID: 61612595054005654}
+  - component: {fileID: 50429783249825126}
   - component: {fileID: 212425878434320714}
   m_Layer: 12
   m_Name: PF_Banana02
@@ -60,6 +62,7 @@ GameObject:
   - component: {fileID: 95330367421263162}
   - component: {fileID: 114747907358895294}
   - component: {fileID: 61040740466641522}
+  - component: {fileID: 50571430997701302}
   - component: {fileID: 212969165069272626}
   m_Layer: 12
   m_Name: PF_Banana01
@@ -76,8 +79,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4775533856388318}
-  - component: {fileID: 114620587466299126}
-  - component: {fileID: 50207046233976076}
+  - component: {fileID: 114368481890812822}
   m_Layer: 12
   m_Name: PF_PickUpsCombo02
   m_TagString: PickUpCombo
@@ -140,14 +142,54 @@ Transform:
   m_Father: {fileID: 4775533856388318}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &50207046233976076
+--- !u!50 &50098069933107342
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1997157024541376}
-  m_BodyType: 1
+  m_GameObject: {fileID: 1382888948504512}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!50 &50429783249825126
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1584021387059662}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!50 &50571430997701302
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1913290410585054}
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -264,7 +306,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fffe0225af092d46b4530888e2b936d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bananaType: 
+  normalSprite: {fileID: 21300000, guid: e3802dcfd8ab6ea42bcb81b3beb69e01, type: 3}
+  superSprite: {fileID: 21300000, guid: 46392d444bb638e4986126e5701c1963, type: 3}
+--- !u!114 &114368481890812822
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1997157024541376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 061141a918bef8d43b1f1b50c0a4d40e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114461218315026810
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -276,18 +330,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fffe0225af092d46b4530888e2b936d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bananaType: 
---- !u!114 &114620587466299126
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1997157024541376}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: babe1ce6000115444a4b1406f40eecfb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  normalSprite: {fileID: 21300000, guid: e3802dcfd8ab6ea42bcb81b3beb69e01, type: 3}
+  superSprite: {fileID: 21300000, guid: 46392d444bb638e4986126e5701c1963, type: 3}
 --- !u!114 &114747907358895294
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -299,7 +343,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fffe0225af092d46b4530888e2b936d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bananaType: 
+  normalSprite: {fileID: 21300000, guid: e3802dcfd8ab6ea42bcb81b3beb69e01, type: 3}
+  superSprite: {fileID: 21300000, guid: 46392d444bb638e4986126e5701c1963, type: 3}
 --- !u!212 &212127142609320658
 SpriteRenderer:
   m_ObjectHideFlags: 1

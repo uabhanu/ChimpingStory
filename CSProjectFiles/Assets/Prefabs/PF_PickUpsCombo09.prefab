@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 95785819301722018}
   - component: {fileID: 58060947804999324}
   - component: {fileID: 114356402021262506}
+  - component: {fileID: 50849541347667186}
   - component: {fileID: 212054080784183256}
   m_Layer: 12
   m_Name: PF_Coin03
@@ -38,8 +39,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4808862492190510}
-  - component: {fileID: 114520430962390744}
-  - component: {fileID: 50955638634594832}
+  - component: {fileID: 114470998326433354}
   m_Layer: 12
   m_Name: PF_PickUpsCombo09
   m_TagString: PickUpCombo
@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 95733511576640120}
   - component: {fileID: 58935290027884068}
   - component: {fileID: 114898031881774382}
+  - component: {fileID: 50556350910981816}
   - component: {fileID: 212194210123341182}
   m_Layer: 12
   m_Name: PF_Coin01
@@ -77,6 +78,7 @@ GameObject:
   - component: {fileID: 95024819508634572}
   - component: {fileID: 58996065101214576}
   - component: {fileID: 114739491159651132}
+  - component: {fileID: 50045746879799380}
   - component: {fileID: 212918362427102314}
   m_Layer: 12
   m_Name: PF_Coin02
@@ -140,14 +142,54 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &50955638634594832
+--- !u!50 &50045746879799380
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1284422092151434}
-  m_BodyType: 1
+  m_GameObject: {fileID: 1694784861222332}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!50 &50556350910981816
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1532873846941832}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!50 &50849541347667186
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1196605923592188}
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -264,7 +306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23c7f8ff5866ce24f87db9ff5c78ad9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114520430962390744
+--- !u!114 &114470998326433354
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -272,7 +314,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1284422092151434}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: babe1ce6000115444a4b1406f40eecfb, type: 3}
+  m_Script: {fileID: 11500000, guid: 061141a918bef8d43b1f1b50c0a4d40e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114739491159651132

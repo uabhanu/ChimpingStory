@@ -6,13 +6,12 @@ public class Coin : MonoBehaviour
 {
     AudioSource coinSound;
     CircleCollider2D coinCollider2D;
-    float startXPos , startYPos;
+    //float startXPos , startYPos;
 
-    [SerializeField] float randomYValue;
+    //[SerializeField] float randomYValue;
 
     GameObject coinSoundObj;
-
-    [SerializeField] Ground groundScript;
+    Ground groundScript;
     
     //ParticleSystem coinParticle;
     Rigidbody2D coinBody2D;
@@ -23,10 +22,11 @@ public class Coin : MonoBehaviour
         coinBody2D = GetComponent<Rigidbody2D>();
         coinCollider2D = GetComponent<CircleCollider2D>();
         //coinParticle = GetComponent<ParticleSystem>();
+        groundScript = FindObjectOfType<Ground>();
         scoreManagementScript = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         StartCoroutine("SoundObjectTimer");
-        startXPos = transform.position.x;
-        startYPos = transform.position.y;
+        //startXPos = transform.position.x;
+        //startYPos = transform.position.y;
     }
 
     void FixedUpdate()
@@ -57,7 +57,8 @@ public class Coin : MonoBehaviour
     {
         if(col2D.gameObject.tag.Equals("Cleaner"))
         {
-            transform.position = new Vector2(startXPos , Random.Range(startYPos , startYPos + randomYValue));
+            //transform.position = new Vector2(startXPos , Random.Range(startYPos , startYPos + randomYValue));
+            Destroy(gameObject);
         }
 
         if(col2D.gameObject.tag.Equals("Player"))
@@ -77,7 +78,8 @@ public class Coin : MonoBehaviour
                 }
             }
 
-            transform.position = new Vector2(startXPos , Random.Range(startYPos , startYPos - randomYValue));
+            //transform.position = new Vector2(startXPos , Random.Range(startYPos , startYPos - randomYValue));
+            Destroy(gameObject);
         }
     }
 }

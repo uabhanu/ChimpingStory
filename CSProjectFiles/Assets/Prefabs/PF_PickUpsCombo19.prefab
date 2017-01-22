@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 95070229015162508}
   - component: {fileID: 114832145389532006}
   - component: {fileID: 61154641158914196}
+  - component: {fileID: 50901014009596904}
   - component: {fileID: 212834138937312246}
   m_Layer: 12
   m_Name: PF_Banana05
@@ -41,6 +42,7 @@ GameObject:
   - component: {fileID: 95671354965045492}
   - component: {fileID: 114520175311143876}
   - component: {fileID: 61914184263544080}
+  - component: {fileID: 50377748928017216}
   - component: {fileID: 212213113689593788}
   m_Layer: 12
   m_Name: PF_Banana01
@@ -60,6 +62,7 @@ GameObject:
   - component: {fileID: 95154717970004420}
   - component: {fileID: 114444076651785382}
   - component: {fileID: 61774176467881736}
+  - component: {fileID: 50468409843754008}
   - component: {fileID: 212945516789995730}
   m_Layer: 12
   m_Name: PF_Banana06
@@ -79,6 +82,7 @@ GameObject:
   - component: {fileID: 95241583684834440}
   - component: {fileID: 114419910275650656}
   - component: {fileID: 61174400948664454}
+  - component: {fileID: 50409887373129882}
   - component: {fileID: 212173654463363938}
   m_Layer: 12
   m_Name: PF_Banana02
@@ -98,6 +102,7 @@ GameObject:
   - component: {fileID: 95701077209667788}
   - component: {fileID: 114185459749656894}
   - component: {fileID: 61538702450744732}
+  - component: {fileID: 50781931259161430}
   - component: {fileID: 212804755936183486}
   m_Layer: 12
   m_Name: PF_Banana04
@@ -114,8 +119,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4199735423318842}
-  - component: {fileID: 114494507403630054}
-  - component: {fileID: 50941962776149178}
+  - component: {fileID: 114214176523477342}
   m_Layer: 12
   m_Name: PF_PickUpsCombo19
   m_TagString: PickUpCombo
@@ -134,7 +138,6 @@ GameObject:
   - component: {fileID: 95325793552267538}
   - component: {fileID: 58516841446200154}
   - component: {fileID: 114671141277356738}
-  - component: {fileID: 114399339952603490}
   - component: {fileID: 50193610846930886}
   - component: {fileID: 212890550781994666}
   m_Layer: 12
@@ -155,6 +158,7 @@ GameObject:
   - component: {fileID: 95734998502384252}
   - component: {fileID: 114148745601634090}
   - component: {fileID: 61965255621521946}
+  - component: {fileID: 50733407744211714}
   - component: {fileID: 212039418240211842}
   m_Layer: 12
   m_Name: PF_Banana03
@@ -294,14 +298,14 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!50 &50941962776149178
+--- !u!50 &50377748928017216
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1706951718599548}
-  m_BodyType: 1
+  m_GameObject: {fileID: 1156604459605936}
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -313,7 +317,107 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 6
+  m_Constraints: 0
+--- !u!50 &50409887373129882
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1487285970578734}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!50 &50468409843754008
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1274921192722250}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!50 &50733407744211714
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1983610078204830}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!50 &50781931259161430
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1525508130827114}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!50 &50901014009596904
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1028395262927960}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!58 &58516841446200154
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -542,7 +646,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fffe0225af092d46b4530888e2b936d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bananaType: normal
+  normalSprite: {fileID: 21300000, guid: e3802dcfd8ab6ea42bcb81b3beb69e01, type: 3}
+  superSprite: {fileID: 21300000, guid: 46392d444bb638e4986126e5701c1963, type: 3}
 --- !u!114 &114185459749656894
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -554,16 +659,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fffe0225af092d46b4530888e2b936d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bananaType: normal
---- !u!114 &114399339952603490
+  normalSprite: {fileID: 21300000, guid: e3802dcfd8ab6ea42bcb81b3beb69e01, type: 3}
+  superSprite: {fileID: 21300000, guid: 46392d444bb638e4986126e5701c1963, type: 3}
+--- !u!114 &114214176523477342
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1808419428950632}
+  m_GameObject: {fileID: 1706951718599548}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: babe1ce6000115444a4b1406f40eecfb, type: 3}
+  m_Script: {fileID: 11500000, guid: 061141a918bef8d43b1f1b50c0a4d40e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114419910275650656
@@ -577,7 +683,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fffe0225af092d46b4530888e2b936d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bananaType: normal
+  normalSprite: {fileID: 21300000, guid: e3802dcfd8ab6ea42bcb81b3beb69e01, type: 3}
+  superSprite: {fileID: 21300000, guid: 46392d444bb638e4986126e5701c1963, type: 3}
 --- !u!114 &114444076651785382
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -589,18 +696,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fffe0225af092d46b4530888e2b936d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bananaType: normal
---- !u!114 &114494507403630054
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1706951718599548}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: babe1ce6000115444a4b1406f40eecfb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  normalSprite: {fileID: 21300000, guid: e3802dcfd8ab6ea42bcb81b3beb69e01, type: 3}
+  superSprite: {fileID: 21300000, guid: 46392d444bb638e4986126e5701c1963, type: 3}
 --- !u!114 &114520175311143876
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -612,7 +709,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fffe0225af092d46b4530888e2b936d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bananaType: normal
+  normalSprite: {fileID: 21300000, guid: e3802dcfd8ab6ea42bcb81b3beb69e01, type: 3}
+  superSprite: {fileID: 21300000, guid: 46392d444bb638e4986126e5701c1963, type: 3}
 --- !u!114 &114671141277356738
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -635,7 +733,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fffe0225af092d46b4530888e2b936d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bananaType: normal
+  normalSprite: {fileID: 21300000, guid: e3802dcfd8ab6ea42bcb81b3beb69e01, type: 3}
+  superSprite: {fileID: 21300000, guid: 46392d444bb638e4986126e5701c1963, type: 3}
 --- !u!212 &212039418240211842
 SpriteRenderer:
   m_ObjectHideFlags: 1

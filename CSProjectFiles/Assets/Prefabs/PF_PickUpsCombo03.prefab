@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 95924592196940858}
   - component: {fileID: 114385154685852206}
   - component: {fileID: 61114923487796366}
+  - component: {fileID: 50755080371813734}
   - component: {fileID: 212145293169735382}
   m_Layer: 12
   m_Name: PF_Banana01
@@ -38,8 +39,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4836132609890894}
-  - component: {fileID: 114645997345945768}
-  - component: {fileID: 50447233360970102}
+  - component: {fileID: 114424017935746462}
   m_Layer: 12
   m_Name: PF_PickUpsCombo03
   m_TagString: PickUpCombo
@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 95703676459876928}
   - component: {fileID: 114255920218061790}
   - component: {fileID: 61100810577913588}
+  - component: {fileID: 50633554483363812}
   - component: {fileID: 212023062903089502}
   m_Layer: 12
   m_Name: PF_Banana02
@@ -77,6 +78,7 @@ GameObject:
   - component: {fileID: 95058991280053598}
   - component: {fileID: 114158076060465886}
   - component: {fileID: 61811546378596410}
+  - component: {fileID: 50365036372671322}
   - component: {fileID: 212240562363712444}
   m_Layer: 12
   m_Name: PF_Banana03
@@ -140,14 +142,14 @@ Transform:
   m_Father: {fileID: 4836132609890894}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &50447233360970102
+--- !u!50 &50365036372671322
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1125751515177052}
-  m_BodyType: 1
+  m_GameObject: {fileID: 1367777130736118}
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -159,7 +161,47 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 6
+  m_Constraints: 0
+--- !u!50 &50633554483363812
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1218540216914792}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!50 &50755080371813734
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1085576508402572}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!61 &61100810577913588
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -264,7 +306,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fffe0225af092d46b4530888e2b936d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bananaType: normal
+  normalSprite: {fileID: 21300000, guid: e3802dcfd8ab6ea42bcb81b3beb69e01, type: 3}
+  superSprite: {fileID: 21300000, guid: 46392d444bb638e4986126e5701c1963, type: 3}
 --- !u!114 &114255920218061790
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -276,7 +319,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fffe0225af092d46b4530888e2b936d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bananaType: normal
+  normalSprite: {fileID: 21300000, guid: e3802dcfd8ab6ea42bcb81b3beb69e01, type: 3}
+  superSprite: {fileID: 21300000, guid: 46392d444bb638e4986126e5701c1963, type: 3}
 --- !u!114 &114385154685852206
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -288,8 +332,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fffe0225af092d46b4530888e2b936d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bananaType: normal
---- !u!114 &114645997345945768
+  normalSprite: {fileID: 21300000, guid: e3802dcfd8ab6ea42bcb81b3beb69e01, type: 3}
+  superSprite: {fileID: 21300000, guid: 46392d444bb638e4986126e5701c1963, type: 3}
+--- !u!114 &114424017935746462
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -297,7 +342,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1125751515177052}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: babe1ce6000115444a4b1406f40eecfb, type: 3}
+  m_Script: {fileID: 11500000, guid: 061141a918bef8d43b1f1b50c0a4d40e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &212023062903089502

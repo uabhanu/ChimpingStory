@@ -19,8 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4818980742690730}
-  - component: {fileID: 114154960076265632}
-  - component: {fileID: 50424883296449580}
+  - component: {fileID: 114219578576225466}
   m_Layer: 12
   m_Name: PF_PickUpsCombo04
   m_TagString: PickUpCombo
@@ -39,6 +38,7 @@ GameObject:
   - component: {fileID: 95758603564646402}
   - component: {fileID: 114817387759036288}
   - component: {fileID: 61777395920147318}
+  - component: {fileID: 50216467276140802}
   - component: {fileID: 212779242525426282}
   m_Layer: 12
   m_Name: PF_Banana02
@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 95875690249546822}
   - component: {fileID: 114287249503780896}
   - component: {fileID: 61338224918487448}
+  - component: {fileID: 50254717649596756}
   - component: {fileID: 212042319448743286}
   m_Layer: 12
   m_Name: PF_Banana01
@@ -77,6 +78,7 @@ GameObject:
   - component: {fileID: 95856707034133028}
   - component: {fileID: 114595831508661564}
   - component: {fileID: 61512406451385860}
+  - component: {fileID: 50311385212921464}
   - component: {fileID: 212896500963894578}
   m_Layer: 12
   m_Name: PF_Banana03
@@ -140,14 +142,54 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &50424883296449580
+--- !u!50 &50216467276140802
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1001319128233902}
-  m_BodyType: 1
+  m_GameObject: {fileID: 1187460811112090}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!50 &50254717649596756
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1767248259427954}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!50 &50311385212921464
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1999032363145592}
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -253,7 +295,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114154960076265632
+--- !u!114 &114219578576225466
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -261,7 +303,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1001319128233902}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: babe1ce6000115444a4b1406f40eecfb, type: 3}
+  m_Script: {fileID: 11500000, guid: 061141a918bef8d43b1f1b50c0a4d40e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114287249503780896
@@ -275,7 +317,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fffe0225af092d46b4530888e2b936d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bananaType: 
+  normalSprite: {fileID: 21300000, guid: e3802dcfd8ab6ea42bcb81b3beb69e01, type: 3}
+  superSprite: {fileID: 21300000, guid: 46392d444bb638e4986126e5701c1963, type: 3}
 --- !u!114 &114595831508661564
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -287,7 +330,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fffe0225af092d46b4530888e2b936d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bananaType: 
+  normalSprite: {fileID: 21300000, guid: e3802dcfd8ab6ea42bcb81b3beb69e01, type: 3}
+  superSprite: {fileID: 21300000, guid: 46392d444bb638e4986126e5701c1963, type: 3}
 --- !u!114 &114817387759036288
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -299,7 +343,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fffe0225af092d46b4530888e2b936d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bananaType: 
+  normalSprite: {fileID: 21300000, guid: e3802dcfd8ab6ea42bcb81b3beb69e01, type: 3}
+  superSprite: {fileID: 21300000, guid: 46392d444bb638e4986126e5701c1963, type: 3}
 --- !u!212 &212042319448743286
 SpriteRenderer:
   m_ObjectHideFlags: 1
