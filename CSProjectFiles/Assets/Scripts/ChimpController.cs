@@ -24,7 +24,7 @@ public class ChimpController : MonoBehaviour
 	public AudioSource deathSound;
 	public AudioSource jumpSound;
 	public BananaSkin bananaSkinScript;
-	public bool canJump , canSlide , chimpInTheHole;
+	public bool canJump , chimpInTheHole;
 	public bool chimpSlip;
 	public bool grounded;
 	public bool slide;
@@ -71,7 +71,6 @@ public class ChimpController : MonoBehaviour
             if(grounded)
             {
                 canJump = true;
-                canSlide = true;
 
                 if(!chimpAnim.GetBool("Slide"))
                 {
@@ -87,7 +86,6 @@ public class ChimpController : MonoBehaviour
             if(!grounded)
             {
                 canJump = false;
-                canSlide = false;
                 selfieButtonImage.enabled = true;
             }
 		} 
@@ -116,7 +114,7 @@ public class ChimpController : MonoBehaviour
 			Jump();
 		}
 
-		else if(Input.GetMouseButton(1) && canSlide)
+		else if(Input.GetMouseButton(1))
 		{
 			Slide();
 		}
