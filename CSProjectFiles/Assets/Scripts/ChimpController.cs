@@ -124,7 +124,7 @@ public class ChimpController : MonoBehaviour
 
     IEnumerator ChimpCollider2D()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         chimpCollider2D.isTrigger = false;
     }
 
