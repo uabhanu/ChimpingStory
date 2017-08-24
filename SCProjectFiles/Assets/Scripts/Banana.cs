@@ -5,24 +5,17 @@ using UnityEngine.SocialPlatforms;
 
 public class Banana : MonoBehaviour 
 {
-	AudioSource bananaSound;
-	bool clickSafeZone;
-	BoxCollider2D bananaCollider2D;
-	ChimpController chimpControlScript;
-    //float startXPos , startYPos;
+	AudioSource m_bananaSound;
+	bool m_clickSafeZone;
+	BoxCollider2D m_bananaCollider2D;
+	ChimpController m_chimpControlScript;
+    GameObject m_bananaSoundObj;
+    Ground m_groundScript;
+    Rigidbody2D m_bananaBody2D;
+	ScoreManager m_scoreManagementScript;
+	SpriteRenderer m_bananaRenderer;
 
-    //[SerializeField] float randomXValue , randomYValue;
-
-    GameObject bananaSoundObj;
-    Ground groundScript;
-
-    //ParticleSystem bananaParticle;
-    Rigidbody2D bananaBody2D;
-	ScoreManager scoreManagementScript;
-
-    [SerializeField] Sprite normalSprite , superSprite;
-
-	SpriteRenderer bananaRenderer;
+    [SerializeField] Sprite m_normalSprite , m_superSprite;
 
 	//public int bananaAchievementScore;
 	//public string bananaType;
@@ -30,13 +23,13 @@ public class Banana : MonoBehaviour
 
 	void Start() 
 	{
-        bananaBody2D = GetComponent<Rigidbody2D>();
-        bananaCollider2D = GetComponent<BoxCollider2D>();
+        m_bananaBody2D = GetComponent<Rigidbody2D>();
+        m_bananaCollider2D = GetComponent<BoxCollider2D>();
         //bananaParticle = GetComponent<ParticleSystem>();
-		bananaRenderer = GetComponent<SpriteRenderer>();
-		chimpControlScript = FindObjectOfType<ChimpController>();
-        groundScript = FindObjectOfType<Ground>();
-		scoreManagementScript = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+		m_bananaRenderer = GetComponent<SpriteRenderer>();
+		m_chimpControlScript = FindObjectOfType<ChimpController>();
+        m_groundScript = FindObjectOfType<Ground>();
+		m_scoreManagementScript = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
 		StartCoroutine("SoundObjectTimer");
         //startXPos = transform.position.x;
         //startYPos = transform.position.y;
@@ -49,7 +42,7 @@ public class Banana : MonoBehaviour
             return;
         }
 
-        bananaBody2D.velocity = new Vector2(-groundScript.speed , bananaBody2D.velocity.y);
+        m_bananaBody2D.velocity = new Vector2(-m_groundScript.speed , m_bananaBody2D.velocity.y);
     }
 
     void Update()
@@ -61,40 +54,17 @@ public class Banana : MonoBehaviour
 
 		//bananaAchievementScore = scoreManagementScript.bananaScoreValue;
 
-		if(chimpControlScript != null)
+		if(m_chimpControlScript != null)
 		{
-            if(chimpControlScript.superMode)
+            if(m_chimpControlScript.superMode)
             {
-                bananaRenderer.sprite = superSprite;
+                m_bananaRenderer.sprite = m_superSprite;
             }
 
-            if(!chimpControlScript.superMode)
+            if(!m_chimpControlScript.superMode)
             {
-                bananaRenderer.sprite = normalSprite;
+                m_bananaRenderer.sprite = m_normalSprite;
             }
-			//if(chimpControlScript.superMode && bananaType == "normal")
-			//{
-			//	bananaCollider2D.enabled = false;
-			//	bananaRenderer.enabled = false;
-			//}
-
-			//if(chimpControlScript.superMode && bananaType == "super")
-			//{
-			//	bananaCollider2D.enabled = true;
-			//	bananaRenderer.enabled = true;
-			//}
-
-			//if(!chimpControlScript.superMode && bananaType == "normal")
-			//{
-			//	bananaCollider2D.enabled = true;
-			//	bananaRenderer.enabled = true;
-			//}
-
-			//if(!chimpControlScript.superMode && bananaType == "super")
-			//{
-			//	bananaCollider2D.enabled = false;
-			//	bananaRenderer.enabled = false;
-			//}
 		}
 	}
 
@@ -102,11 +72,11 @@ public class Banana : MonoBehaviour
 	{
 		yield return new WaitForSeconds(0.4f);
 
-		bananaSoundObj = GameObject.Find("BananaSound");
+		m_bananaSoundObj = GameObject.Find("BananaSound");
 
-		if(bananaSoundObj != null) 
+		if(m_bananaSoundObj != null) 
 		{
-			bananaSound = bananaSoundObj.GetComponent<AudioSource>();
+			m_bananaSound = m_bananaSoundObj.GetComponent<AudioSource>();
 		}
 
 		StartCoroutine("SoundObjectTimer");
@@ -114,47 +84,47 @@ public class Banana : MonoBehaviour
 
     void OnMouseDown()
     {
-        if(clickSafeZone)
+        if(m_clickSafeZone)
         {
-            if(bananaSound != null)
+            if(m_bananaSound != null)
             {
-                if(!bananaSound.isPlaying)
+                if(!m_bananaSound.isPlaying)
                 {
-                    bananaSound.Stop();
-                    bananaSound.Play();
+                    m_bananaSound.Stop();
+                    m_bananaSound.Play();
                 }
                 else
                 {
-                    bananaSound.Play();
+                    m_bananaSound.Play();
                 }
             }
 
-            if(scoreManagementScript.bananasLeft > 0)
+            if(m_scoreManagementScript.bananasLeft > 0)
             {
-                scoreManagementScript.bananasLeft--;
+                m_scoreManagementScript.bananasLeft--;
             }
 
             Destroy(gameObject);
         }
 
-        if(!clickSafeZone)
+        if(!m_clickSafeZone)
         {
-            if(bananaSound != null)
+            if(m_bananaSound != null)
             {
-                if(!bananaSound.isPlaying)
+                if(!m_bananaSound.isPlaying)
                 {
-                    bananaSound.Stop();
-                    bananaSound.Play();
+                    m_bananaSound.Stop();
+                    m_bananaSound.Play();
                 }
                 else
                 {
-                    bananaSound.Play();
+                    m_bananaSound.Play();
                 }
             }
 
-            if(scoreManagementScript.bananasLeft < 500)
+            if(m_scoreManagementScript.bananasLeft < 500)
             {
-                scoreManagementScript.bananasLeft++;
+                m_scoreManagementScript.bananasLeft++;
             }
 
             Destroy(gameObject);
@@ -163,25 +133,24 @@ public class Banana : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col2D)
 	{
-        if (col2D.gameObject.tag.Equals("BananaMissed"))
+        if(col2D.gameObject.tag.Equals("BananaMissed"))
         {
-            if (scoreManagementScript.bananasLeft < 500)
+            if(m_scoreManagementScript.bananasLeft < 500)
             {
-                scoreManagementScript.bananasLeft++;
+                m_scoreManagementScript.bananasLeft++;
             }
 
             Destroy(gameObject);
         }
 
-        if (col2D.gameObject.tag.Equals("Cleaner"))
+        if(col2D.gameObject.tag.Equals("Cleaner"))
         {
-            //transform.position = new Vector2(Random.Range(startXPos , startXPos + randomXValue) , Random.Range(startYPos , startYPos + randomYValue));
             Destroy(gameObject);
         }
 
-        if (col2D.gameObject.tag.Equals("CSZ"))
+        if(col2D.gameObject.tag.Equals("CSZ"))
         {
-            clickSafeZone = true;
+            m_clickSafeZone = true;
         }
 
         if (col2D.gameObject.tag.Equals("Player"))
@@ -190,13 +159,13 @@ public class Banana : MonoBehaviour
 
             //bananaParticle.Play();
 
-			if(bananaRenderer.sprite == normalSprite)
+			if(m_bananaRenderer.sprite == m_normalSprite)
 			{
                 //bananaAchievementScore++;
 
-                if(scoreManagementScript.bananasLeft > 0)
+                if(m_scoreManagementScript.bananasLeft > 0)
                 {
-                    scoreManagementScript.bananasLeft--;
+                    m_scoreManagementScript.bananasLeft--;
                 }
 
 //				if(Social.localUser.authenticated)
@@ -208,18 +177,18 @@ public class Banana : MonoBehaviour
 //				}
 			}
 
-			if(bananaRenderer.sprite == superSprite)
+			if(m_bananaRenderer.sprite == m_superSprite)
 			{
                 //bananaAchievementScore += 5;
 
-                if(scoreManagementScript.bananasLeft > 10)
+                if(m_scoreManagementScript.bananasLeft > 10)
                 {
-                    scoreManagementScript.bananasLeft -= 10;
+                    m_scoreManagementScript.bananasLeft -= 10;
                 }
 
-                if(scoreManagementScript.bananasLeft <= 10)
+                if(m_scoreManagementScript.bananasLeft <= 10)
                 {
-                    scoreManagementScript.bananasLeft = 0;
+                    m_scoreManagementScript.bananasLeft = 0;
                 }
                 
 //				if(Social.localUser.authenticated)
@@ -243,20 +212,19 @@ public class Banana : MonoBehaviour
 //				}
 //			}
 
-			if(bananaSound != null)
+			if(m_bananaSound != null)
 			{
-				if(!bananaSound.isPlaying) 
+				if(!m_bananaSound.isPlaying) 
 				{
-					bananaSound.Stop();
-					bananaSound.Play();
+					m_bananaSound.Stop();
+					m_bananaSound.Play();
 				} 
 				else
 				{
-					bananaSound.Play();
+					m_bananaSound.Play();
 				}
 			}
 
-            //transform.position = new Vector2(Random.Range(startXPos , startXPos + randomXValue) , Random.Range(startYPos , startYPos + randomYValue));
             Destroy(gameObject);
         }
     }
@@ -265,7 +233,7 @@ public class Banana : MonoBehaviour
     {
         if(col2D.gameObject.tag.Equals("CSZ"))
         {
-            clickSafeZone = false;
+            m_clickSafeZone = false;
         }
     }
 }

@@ -10,32 +10,30 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour 
 {
 	//BhanusPurchaser bhanusPurchaseScript;
-    [SerializeField] Button selfieButton;
-	bool chimpGrounded;
-	bool chimpSuperMode;
-    GameSpawner gameSpawnScript;
-    [SerializeField] ParticleSystem selfieButtonParticleSystem;
-    [SerializeField] Image selfieButtonImage;
+	bool m_chimpGrounded;
+	bool m_chimpSuperMode;
 
-	public bool adWatched;
-	public ChimpController chimpControlScript;
-	public GameObject chimpCam;
-	public GameObject adsMenu;
-	public GameObject dollarButton;
-	public GameObject iapMenu;
-	public GameObject pauseButton;
-	public GameObject pauseImage;
-	public GameObject pauseMenu;
-	public GameObject quitButton;
-	public GameObject quitMenu;
-	public GameObject restartButton;
-	public ScoreManager scoreManagementScript;
-	public string mainMenuLevel;
+    [SerializeField] bool m_adWatched;
+
+    [SerializeField] Button m_selfieButton;
+
+    [SerializeField] ChimpController m_chimpControlScript;
+
+    [SerializeField] GameObject m_adsMenu , m_dollarButton , m_iapMenu , m_pauseButton , m_pauseMenu , m_quitButton , m_quitMenu , m_restartButton;
+
+    [SerializeField] ParticleSystem m_selfieButtonParticleSystem;
+
+    [SerializeField] Image m_selfieButtonImage;
+
+    [SerializeField] ScoreManager m_scoreManagementScript;
+
+    [SerializeField] string m_level;
+
+	//public GameObject m_chimpCam;
 
 	void Start() 
 	{
 		//bhanusPurchaseScript = GetComponent<BhanusPurchaser>();
-        gameSpawnScript = GameObject.Find("GameSpawner").GetComponent<GameSpawner>();
 
         //if (Advertisement.isSupported)
         //{
@@ -48,7 +46,7 @@ public class GameManager : MonoBehaviour
     IEnumerator ButtonInteraction()
     {
         yield return new WaitForSeconds(0.7f);
-        selfieButton.interactable = true;
+        m_selfieButton.interactable = true;
     }
 	
 	public void AchievementsUI()
@@ -58,8 +56,8 @@ public class GameManager : MonoBehaviour
 
 	public void AdsNo()
 	{
-		adsMenu.SetActive(false);
-		adWatched = false;
+		m_adsMenu.SetActive(false);
+		m_adWatched = false;
 		PlayerPrefs.DeleteKey("BananaScore");
         PlayerPrefs.DeleteKey("BananasLeft");
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -68,15 +66,15 @@ public class GameManager : MonoBehaviour
 	public void AdsYes()
 	{
 		Debug.Log("Ads Yes Button"); //Working
-		adWatched = true;
+		m_adWatched = true;
 		//ShowRewardedAd();
 	}
 
 	public void Back()
 	{
 		//dollarButton.SetActive(true);
-		iapMenu.SetActive(false);
-		pauseButton.SetActive(true);
+		m_iapMenu.SetActive(false);
+		m_pauseButton.SetActive(true);
 		Time.timeScale = 1f;
 	}
 
@@ -102,8 +100,8 @@ public class GameManager : MonoBehaviour
 	public void IAP()
 	{
 		//dollarButton.SetActive(false);
-		iapMenu.SetActive(true);
-		pauseButton.SetActive(false);
+		m_iapMenu.SetActive(true);
+		m_pauseButton.SetActive(false);
 		Time.timeScale = 0f;
 		//This method should launch IAP Panel you design later which will have a buyable item based on which BuyConsumable should be called
 	}
@@ -111,11 +109,6 @@ public class GameManager : MonoBehaviour
     public void LeaderboardUI()
     {
         Social.ShowLeaderboardUI();
-    }
-
-    public void LevelUp()
-    {
-        gameSpawnScript.playerLevel++;
     }
 
     //	public void LoadGame()
@@ -133,7 +126,7 @@ public class GameManager : MonoBehaviour
 	{
 		//bhanusPurchaseScript.BuyOneMonkeynut();
 		//dollarButton.SetActive(true);
-		iapMenu.SetActive(false);
+		m_iapMenu.SetActive(false);
 		Time.timeScale = 1f;
 	}
 
@@ -142,8 +135,8 @@ public class GameManager : MonoBehaviour
 		//This activates confirm panel once that's ready & deactivates iapMenu
 		//bhanusPurchaseScript.BuyOneMonkeynut();
 		//dollarButton.SetActive(true);
-		iapMenu.SetActive(false);
-		pauseButton.SetActive(true);
+		m_iapMenu.SetActive(false);
+		m_pauseButton.SetActive(true);
 		Time.timeScale = 1f;
 	}
 	
@@ -151,8 +144,8 @@ public class GameManager : MonoBehaviour
 	{
 		Time.timeScale = 0f;
 		//dollarButton.SetActive(false);
-		pauseButton.SetActive(false);
-		pauseMenu.SetActive(true);
+		m_pauseButton.SetActive(false);
+		m_pauseMenu.SetActive(true);
 	}
 		
 	public void PlayVideo()
@@ -163,20 +156,20 @@ public class GameManager : MonoBehaviour
 
 	public void Quit() 
 	{
-		pauseMenu.SetActive(false);
-		quitMenu.SetActive(true);
+		m_pauseMenu.SetActive(false);
+		m_quitMenu.SetActive(true);
 	}
 
 	public void QuitNo()
 	{
-		quitMenu.SetActive(false);
-		pauseMenu.SetActive(true);
+		m_quitMenu.SetActive(false);
+		m_pauseMenu.SetActive(true);
 	}
 
 	public void QuitYes()
 	{
 		PlayerPrefs.DeleteKey("BananaScore");
-		SceneManager.LoadScene(mainMenuLevel);
+		SceneManager.LoadScene(m_level);
 	}
 
 	public void Restart() 
@@ -188,7 +181,7 @@ public class GameManager : MonoBehaviour
 	public void RestartGame()
 	{
 		//Debug.Log("Restart Game"); Working
-		adsMenu.SetActive(true);
+		m_adsMenu.SetActive(true);
 		Time.timeScale = 0;
 	}
 
@@ -196,16 +189,16 @@ public class GameManager : MonoBehaviour
 	{
 		Time.timeScale = 1f;
 		//dollarButton.SetActive(true);
-		pauseButton.SetActive(true);
-		pauseMenu.SetActive(false);
+		m_pauseButton.SetActive(true);
+		m_pauseMenu.SetActive(false);
 	}
 
 	public void Selfie()
 	{
 		Debug.Log("Selfie");
-        selfieButton.interactable = false;
-        selfieButtonImage.enabled = false;
-        selfieButtonParticleSystem.Play();
+        m_selfieButton.interactable = false;
+        m_selfieButtonImage.enabled = false;
+        m_selfieButtonParticleSystem.Play();
         StartCoroutine("ButtonInteraction");
 	}
 
@@ -232,8 +225,8 @@ public class GameManager : MonoBehaviour
 		//This activates confirm panel once that's ready & deactivates iapMenu
 		//bhanusPurchaseScript.BuyTwoMonkeynuts();
 		//dollarButton.SetActive(true);
-		iapMenu.SetActive(false);
-		pauseButton.SetActive(true);
+		m_iapMenu.SetActive(false);
+		m_pauseButton.SetActive(true);
 		Time.timeScale = 1f;
 	}
 

@@ -3,19 +3,19 @@ using UnityEngine;
 //This script is used to activate 'Disintegration_Test_Algorithm' and identify the collided object.
 public class Activator : MonoBehaviour 
 {
-	private ChimpController chimpControlScript;
-	private ParticleSystem enemyParticleSystem;
-	private ScoreManager scoreManagementScript;
-	private Vector2 rando;
-	private Vector3 randomDirection;
+	ChimpController m_chimpControlScript;
+	ParticleSystem m_enemyParticleSystem;
+	ScoreManager m_scoreManagementScript;
+	Vector2 m_rando;
+	Vector3 m_randomDirection;
 
-	public GameObject objToBeDestroyedBy;
+	public GameObject m_objToBeDestroyedBy;
 
 	void Start() 
 	{
-		chimpControlScript = GameObject.FindGameObjectWithTag("Player").GetComponent<ChimpController>();
-		enemyParticleSystem = GetComponent<ParticleSystem>();
-		scoreManagementScript = FindObjectOfType<ScoreManager>();
+		m_chimpControlScript = GameObject.FindGameObjectWithTag("Player").GetComponent<ChimpController>();
+		m_enemyParticleSystem = GetComponent<ParticleSystem>();
+		m_scoreManagementScript = FindObjectOfType<ScoreManager>();
 	}
 
 	void AddComplement(GameObject n)
@@ -35,31 +35,32 @@ public class Activator : MonoBehaviour
 
 	void Explosion()
 	{
-		transform.Rotate(randomDirection);
+		transform.Rotate(m_randomDirection);
 		AddComplement(this.gameObject);
-		GetComponent<Rigidbody2D>().velocity = rando;
+		GetComponent<Rigidbody2D>().velocity = m_rando;
 	}
 
 	void Init()
 	{
-		objToBeDestroyedBy = this.gameObject.transform.parent.GetComponent<Activator>().objToBeDestroyedBy; //collided object
+		m_objToBeDestroyedBy = this.gameObject.transform.parent.GetComponent<Activator>().m_objToBeDestroyedBy; //collided object
 		gameObject.layer = 4;
 		Physics2D.IgnoreLayerCollision(4 , 4); 
-		randomDirection = new Vector3(0 , 0 , Random.Range(-30f , 30f));
+		m_randomDirection = new Vector3(0 , 0 , Random.Range(-30f , 30f));
 
-		if (objToBeDestroyedBy)
+		if (m_objToBeDestroyedBy)
 		{
-			if(OnRight(objToBeDestroyedBy)==true)
+			if(OnRight(m_objToBeDestroyedBy)==true)
 			{
-				rando = new Vector3(Random.Range(-4.5f,1f), Random.Range(-3f,3f)); 
-			}else
+				m_rando = new Vector3(Random.Range(-4.5f,1f), Random.Range(-3f,3f)); 
+			}
+            else
 			{
-				rando = new Vector3(Random.Range(4.5f,1f), Random.Range(-3f,3f)); 
+				m_rando = new Vector3(Random.Range(4.5f,1f), Random.Range(-3f,3f)); 
 			}
 		}
 		else
 		{
-			rando = new Vector3(Random.Range(-4.5f,1f), Random.Range(-3f,3f)); 
+			m_rando = new Vector3(Random.Range(-4.5f,1f), Random.Range(-3f,3f)); 
 		}
 
 		//Invoke("Mov" , 0);
@@ -98,10 +99,10 @@ public class Activator : MonoBehaviour
 			
 		}
 
-		else if(chimpControlScript.superMode)
+		else if(m_chimpControlScript.superMode)
 		{
-			enemyParticleSystem.Play();
-			objToBeDestroyedBy = col2D.gameObject;
+			m_enemyParticleSystem.Play();
+			m_objToBeDestroyedBy = col2D.gameObject;
 			Invoke("TrophyScore" , 0.5f);
 			OnDestroy();
 		}
@@ -109,11 +110,11 @@ public class Activator : MonoBehaviour
 
 	void TrophyScore()
 	{
-		scoreManagementScript.trophiesScoreValue++;
+		m_scoreManagementScript.trophiesScoreValue++;
 
 		if(Social.localUser.authenticated)
 		{
-			Social.ReportScore(scoreManagementScript.trophiesScoreValue , scoreManagementScript.trophiesLeaderboard , (bool success) =>
+			Social.ReportScore(m_scoreManagementScript.trophiesScoreValue , m_scoreManagementScript.trophiesLeaderboard , (bool success) =>
 			{
 				Debug.Log("Send Score to Leaderboard");
 			});
