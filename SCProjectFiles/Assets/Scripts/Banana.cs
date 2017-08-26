@@ -56,12 +56,12 @@ public class Banana : MonoBehaviour
 
 		if(m_chimpControlScript != null)
 		{
-            if(m_chimpControlScript.superMode)
+            if(m_chimpControlScript.m_superMode)
             {
                 m_bananaRenderer.sprite = m_superSprite;
             }
 
-            if(!m_chimpControlScript.superMode)
+            if(!m_chimpControlScript.m_superMode)
             {
                 m_bananaRenderer.sprite = m_normalSprite;
             }

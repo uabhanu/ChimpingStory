@@ -59,13 +59,13 @@ public class SuperChimpPowerUp : MonoBehaviour
 			direction = 1;
 		}
 
-		if(chimpControlScript.superMode)
+		if(chimpControlScript.m_superMode)
 		{
 			superchimpCollider2D.enabled = false;
 			superchimpRenderer.enabled = false;
 		}
 
-		if(!chimpControlScript.superMode)
+		if(!chimpControlScript.m_superMode)
 		{
 			superchimpCollider2D.enabled = true; //IAP will make monkeynutTaken false again
 			superchimpRenderer.enabled = true;

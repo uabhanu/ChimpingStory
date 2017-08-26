@@ -4,25 +4,26 @@ using UnityEngine;
 
 public class Hole : MonoBehaviour 
 {
-    BoxCollider2D chimpCollider2D , holeCollider2D;
-	ChimpController chimpControlScript;
-    float startXPos , startYPos;
-    [SerializeField] Ground groundScript;
-    Rigidbody2D holeBody2D;
-    SpriteRenderer holeRenderer;
+    BoxCollider2D m_chimpCollider2D , m_holeCollider2D;
+	ChimpController m_chimpControlScript;
+    float m_startXPos , m_startYPos;
+    Rigidbody2D m_holeBody2D;
+    SpriteRenderer m_holeRenderer;
 	//int holeAchievementScore;
 
-	//[SerializeField] string achievementID;
+	[SerializeField] Ground m_groundScript;
+    
+    //[SerializeField] string achievementID;
 
 	void Start() 
 	{
-        chimpCollider2D = GameObject.Find("Chimp").GetComponent<BoxCollider2D>();
-		chimpControlScript = GameObject.Find("Chimp").GetComponent<ChimpController>();
-        holeBody2D = GetComponent<Rigidbody2D>();
-        holeCollider2D = GetComponent<BoxCollider2D>();
-        holeRenderer = GetComponent<SpriteRenderer>();
-        startXPos = transform.position.x;
-        startYPos = transform.position.y;
+        m_chimpCollider2D = GameObject.Find("Chimp").GetComponent<BoxCollider2D>();
+		m_chimpControlScript = GameObject.Find("Chimp").GetComponent<ChimpController>();
+        m_holeBody2D = GetComponent<Rigidbody2D>();
+        m_holeCollider2D = GetComponent<BoxCollider2D>();
+        m_holeRenderer = GetComponent<SpriteRenderer>();
+        m_startXPos = transform.position.x;
+        m_startYPos = transform.position.y;
     }
 
     void FixedUpdate()
@@ -32,7 +33,7 @@ public class Hole : MonoBehaviour
             return;
         }
 
-        holeBody2D.velocity = new Vector2(-groundScript.speed , holeBody2D.velocity.y);
+        m_holeBody2D.velocity = new Vector2(-m_groundScript.speed , m_holeBody2D.velocity.y);
     }
 
     void Update()
@@ -42,10 +43,10 @@ public class Hole : MonoBehaviour
             return;
         }
 
-        if(chimpControlScript.superMode)
+        if(m_chimpControlScript.m_superMode)
         {
-            holeCollider2D.enabled = false;
-            holeRenderer.enabled = false;
+            m_holeCollider2D.enabled = false;
+            m_holeRenderer.enabled = false;
         }
     }
 
@@ -53,7 +54,7 @@ public class Hole : MonoBehaviour
 	{
         if(col2D.gameObject.tag.Equals("Cleaner"))
         {
-            transform.position = new Vector2(startXPos , startYPos);
+            transform.position = new Vector2(m_startXPos , m_startYPos);
         }
 
 		if(col2D.gameObject.tag.Equals("Player"))
@@ -80,9 +81,9 @@ public class Hole : MonoBehaviour
             //			}
 
 
-            chimpControlScript.chimpInTheHole = true;
-            chimpCollider2D.isTrigger = true;
-            chimpControlScript.StartCoroutine("ChimpCollider2D");
+            m_chimpControlScript.m_chimpInTheHole = true;
+            m_chimpCollider2D.isTrigger = true;
+            m_chimpControlScript.StartCoroutine("ChimpCollider2D");
 		}
 	}
 }

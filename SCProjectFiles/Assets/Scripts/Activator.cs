@@ -99,7 +99,7 @@ public class Activator : MonoBehaviour
 			
 		}
 
-		else if(m_chimpControlScript.superMode)
+		else if(m_chimpControlScript.m_superMode)
 		{
 			m_enemyParticleSystem.Play();
 			m_objToBeDestroyedBy = col2D.gameObject;

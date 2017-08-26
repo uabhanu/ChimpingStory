@@ -3,15 +3,16 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour 
 {
-	private Rigidbody2D cameraBody2D;
+	Rigidbody2D m_cameraBody2D;
 
-	public ChimpController chimpControlScript;
-	public float acceptableError;
+	[SerializeField] ChimpController m_chimpControlScript;
+
+    public float acceptableError;
 	public float moveOffset;
 
 	void Start() 
 	{
-		cameraBody2D = GetComponent<Rigidbody2D>();
+		m_cameraBody2D = GetComponent<Rigidbody2D>();
 	}
 
 	void FixedUpdate()
@@ -21,7 +22,7 @@ public class CameraController : MonoBehaviour
 			return;
 		}
 
-		cameraBody2D.velocity = new Vector2(chimpControlScript.chimpSpeed , cameraBody2D.velocity.y);
+		m_cameraBody2D.velocity = new Vector2(m_chimpControlScript.m_chimpSpeed , m_cameraBody2D.velocity.y);
 	}
 
 	void Update() 
@@ -31,13 +32,13 @@ public class CameraController : MonoBehaviour
 			return;
 		}
 
-		if((transform.position.x - chimpControlScript.transform.position.x) > (moveOffset + acceptableError) || (transform.position.x - chimpControlScript.transform.position.x) < (moveOffset - acceptableError))
+		if((transform.position.x - m_chimpControlScript.transform.position.x) > (moveOffset + acceptableError) || (transform.position.x - m_chimpControlScript.transform.position.x) < (moveOffset - acceptableError))
 		{
 			//Debug.Log("If Correction");
 			transform.position = new Vector3(transform.position.x + acceptableError , transform.position.y , transform.position.z);
 		}
 
-		else if((transform.position.x - chimpControlScript.transform.position.x) < (moveOffset - acceptableError) || (transform.position.x - chimpControlScript.transform.position.x) > (moveOffset + acceptableError))
+		else if((transform.position.x - m_chimpControlScript.transform.position.x) < (moveOffset - acceptableError) || (transform.position.x - m_chimpControlScript.transform.position.x) > (moveOffset + acceptableError))
 		{
 			//Debug.Log("Else If Correction");
 			transform.position = new Vector3(transform.position.x - acceptableError , transform.position.y , transform.position.z);

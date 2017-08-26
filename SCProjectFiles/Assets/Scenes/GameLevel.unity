@@ -774,7 +774,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300076, guid: 4fcc48751ef32d645b881b9e005046bf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1169,40 +1169,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6ec4b36d7379a3448a2a76f09f37602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bananaCountObj: {fileID: 1130015554}
-  bananaImageObj: {fileID: 83836857}
-  dollarButtonObj: {fileID: 0}
-  pauseButtonObj: {fileID: 1304037502}
-  superChimpCountObj: {fileID: 1893136002}
-  superChimpImageObj: {fileID: 1358330272}
-  trophyCountObj: {fileID: 1452250906}
-  trophyImageObj: {fileID: 1159666119}
-  selfieButtonImage: {fileID: 1785290026}
-  chimpAnim: {fileID: 339445713}
-  deathSound: {fileID: 572824433}
-  jumpSound: {fileID: 1432935804}
-  bananaSkinScript: {fileID: 1796773924}
-  canJump: 1
-  chimpInTheHole: 0
-  chimpSlip: 0
-  grounded: 0
-  slide: 0
-  superMode: 0
-  chimpSpeed: 0
-  groundCheckRadius: 0.8
-  jumpHeight: 17
-  slideTime: 0.75
-  slipTime: 10
-  superTime: 15
-  chimpBlocker: {fileID: 1233812203}
-  gameManagementScript: {fileID: 1268614041}
-  groundScript: {fileID: 1109458533}
-  whatIsGround:
+  m_bananaCountObj: {fileID: 1130015554}
+  m_bananaImageObj: {fileID: 83836857}
+  m_pauseButtonObj: {fileID: 1304037502}
+  m_superChimpCountObj: {fileID: 1893136002}
+  m_superChimpImageObj: {fileID: 1358330272}
+  m_trophyCountObj: {fileID: 1452250906}
+  m_trophyImageObj: {fileID: 1159666119}
+  m_selfieButtonImage: {fileID: 1785290026}
+  m_chimpAnim: {fileID: 339445713}
+  m_deathSound: {fileID: 572824433}
+  m_jumpSound: {fileID: 1432935804}
+  m_bananaSkinScript: {fileID: 1796773924}
+  m_canJump: 0
+  m_chimpInTheHole: 0
+  m_chimpSlip: 0
+  m_grounded: 0
+  m_slide: 0
+  m_superMode: 0
+  m_chimpSpeed: 0
+  m_groundCheckRadius: 0.8
+  m_jumpHeight: 17
+  m_slideTime: 0.75
+  m_slipTime: 10
+  m_superTime: 15
+  m_chimpBlocker: {fileID: 537984848}
+  m_gameManagementScript: {fileID: 1268614041}
+  m_groundScript: {fileID: 1109458533}
+  m_whatIsGround:
     serializedVersion: 2
     m_Bits: 256
-  scoreManagementScript: {fileID: 1733370755}
-  superChimpRenderer: {fileID: 0}
-  groundCheck: {fileID: 2084667218}
+  m_scoreManagementScript: {fileID: 1733370755}
+  m_superChimpRenderer: {fileID: 662245835}
+  m_groundCheck: {fileID: 2084667218}
 --- !u!61 &339445712
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3532,7 +3531,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: e38a2d9689045754e8932cc0cf12c328, type: 3}
+  m_Sprite: {fileID: 21300034, guid: 4fcc48751ef32d645b881b9e005046bf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3711,7 +3710,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 93812458
+  randomSeed: 1354331710
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -7284,7 +7283,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: a168bec4b21a4e04f951c3fdd19973ca, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7727,9 +7726,9 @@ RectTransform:
   m_Father: {fileID: 1470118076}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 250, y: -20}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -50, y: 0}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1751384928
@@ -7751,7 +7750,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300158, guid: 4fcc48751ef32d645b881b9e005046bf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8041,7 +8040,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f19f1327d5cb7444eb1f67e4b84c8554, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundScript: {fileID: 1109458533}
+  m_groundScript: {fileID: 1109458533}
 --- !u!61 &1763738170
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8106,8 +8105,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300198, guid: 4fcc48751ef32d645b881b9e005046bf, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -8361,14 +8360,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300076, guid: 4fcc48751ef32d645b881b9e005046bf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9033,9 +9032,9 @@ RectTransform:
   m_Father: {fileID: 1470118076}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -250, y: -20}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 50, y: 0}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2139446869
@@ -9057,7 +9056,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 1f419d9c392e7ac4ba6a76c3c062fd63, type: 3}
+  m_Sprite: {fileID: 21300160, guid: 4fcc48751ef32d645b881b9e005046bf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
