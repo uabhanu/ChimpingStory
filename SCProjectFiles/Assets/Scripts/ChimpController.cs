@@ -10,15 +10,15 @@ public class ChimpController : MonoBehaviour
     BoxCollider2D m_chimpCollider2D;
     Rigidbody2D m_chimpBody2D;
 
-	[SerializeField] GameObject m_bananaCountObj , m_bananaImageObj , /*m_dollarButtonObj ,*/ m_pauseButtonObj , m_superChimpCountObj , m_superChimpImageObj , m_trophyCountObj , m_trophyImageObj;
+	[SerializeField] GameObject m_bananaCountObj , m_bananaImageObj , /*m_dollarButtonObj ,*/ m_pauseButtonObj , m_superChimpCountObj , m_selfieButtonObj , m_superChimpImageObj , m_trophyCountObj;
 
-    [SerializeField] Image m_selfieButtonImage;
+    [SerializeField] GameObject m_trophyImageObj;
 
 	public Animator m_chimpAnim;
 	public AudioSource m_deathSound;
 	public AudioSource m_jumpSound;
 	public BananaSkin m_bananaSkinScript;
-	public bool m_canJump , m_chimpInTheHole;
+	public bool m_canJump , m_chimpInTheHole , m_clickEnableTest;
 	public bool m_chimpSlip;
 	public bool m_grounded;
 	public bool m_slide;
@@ -75,19 +75,19 @@ public class ChimpController : MonoBehaviour
 
                 if(!m_chimpAnim.GetBool("Slide"))
                 {
-                    m_selfieButtonImage.enabled = false;
+                    m_selfieButtonObj.SetActive(false);
                 }
 
                 if(m_chimpAnim.GetBool("Slide"))
                 {
-                    m_selfieButtonImage.enabled = true;
+                    m_selfieButtonObj.SetActive(true);
                 }
             }
 
             if(!m_grounded)
             {
                 m_canJump = false;
-                m_selfieButtonImage.enabled = true;
+                m_selfieButtonObj.SetActive(true);
             }
 		} 
 
@@ -180,7 +180,7 @@ public class ChimpController : MonoBehaviour
 
 	public void Jump()
 	{
-        if(!m_chimpInTheHole)
+        if(!m_chimpInTheHole && m_clickEnableTest)
         {
             m_jumpSound.Play(); //Turned off for testing purposes but turn back on for final version
             m_chimpBody2D.velocity = new Vector2(m_chimpBody2D.velocity.x , m_jumpHeight);

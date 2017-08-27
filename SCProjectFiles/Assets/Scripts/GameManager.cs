@@ -19,11 +19,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] ChimpController m_chimpControlScript;
 
-    [SerializeField] GameObject m_adsMenu , m_dollarButton , m_iapMenu , m_pauseButton , m_pauseMenu , m_quitButton , m_quitMenu , m_restartButton;
+    [SerializeField] GameObject /*m_adsMenuObj , m_dollarButtonObj , m_iapMenuObj ,*/ m_pauseButtonObj , m_pauseMenuObj , m_quitButtonObj , m_quitMenuObj , m_restartButtonObj , m_selfieButtonObj;
 
     [SerializeField] ParticleSystem m_selfieButtonParticleSystem;
-
-    [SerializeField] Image m_selfieButtonImage;
 
     [SerializeField] ScoreManager m_scoreManagementScript;
 
@@ -56,7 +54,7 @@ public class GameManager : MonoBehaviour
 
 	public void AdsNo()
 	{
-		m_adsMenu.SetActive(false);
+		//m_adsMenuObj.SetActive(false);
 		m_adWatched = false;
 		PlayerPrefs.DeleteKey("BananaScore");
         PlayerPrefs.DeleteKey("BananasLeft");
@@ -73,8 +71,8 @@ public class GameManager : MonoBehaviour
 	public void Back()
 	{
 		//dollarButton.SetActive(true);
-		m_iapMenu.SetActive(false);
-		m_pauseButton.SetActive(true);
+		//m_iapMenuObj.SetActive(false);
+		m_pauseButtonObj.SetActive(true);
 		Time.timeScale = 1f;
 	}
 
@@ -100,8 +98,8 @@ public class GameManager : MonoBehaviour
 	public void IAP()
 	{
 		//dollarButton.SetActive(false);
-		m_iapMenu.SetActive(true);
-		m_pauseButton.SetActive(false);
+		//m_iapMenuObj.SetActive(true);
+		m_pauseButtonObj.SetActive(false);
 		Time.timeScale = 0f;
 		//This method should launch IAP Panel you design later which will have a buyable item based on which BuyConsumable should be called
 	}
@@ -126,7 +124,7 @@ public class GameManager : MonoBehaviour
 	{
 		//bhanusPurchaseScript.BuyOneMonkeynut();
 		//dollarButton.SetActive(true);
-		m_iapMenu.SetActive(false);
+		//m_iapMenuObj.SetActive(false);
 		Time.timeScale = 1f;
 	}
 
@@ -135,8 +133,8 @@ public class GameManager : MonoBehaviour
 		//This activates confirm panel once that's ready & deactivates iapMenu
 		//bhanusPurchaseScript.BuyOneMonkeynut();
 		//dollarButton.SetActive(true);
-		m_iapMenu.SetActive(false);
-		m_pauseButton.SetActive(true);
+		//m_iapMenuObj.SetActive(false);
+		m_pauseButtonObj.SetActive(true);
 		Time.timeScale = 1f;
 	}
 	
@@ -144,8 +142,8 @@ public class GameManager : MonoBehaviour
 	{
 		Time.timeScale = 0f;
 		//dollarButton.SetActive(false);
-		m_pauseButton.SetActive(false);
-		m_pauseMenu.SetActive(true);
+		m_pauseButtonObj.SetActive(false);
+		m_pauseMenuObj.SetActive(true);
 	}
 		
 	public void PlayVideo()
@@ -156,14 +154,14 @@ public class GameManager : MonoBehaviour
 
 	public void Quit() 
 	{
-		m_pauseMenu.SetActive(false);
-		m_quitMenu.SetActive(true);
+		m_pauseMenuObj.SetActive(false);
+		m_quitMenuObj.SetActive(true);
 	}
 
 	public void QuitNo()
 	{
-		m_quitMenu.SetActive(false);
-		m_pauseMenu.SetActive(true);
+		m_quitMenuObj.SetActive(false);
+		m_pauseMenuObj.SetActive(true);
 	}
 
 	public void QuitYes()
@@ -181,7 +179,7 @@ public class GameManager : MonoBehaviour
 	public void RestartGame()
 	{
 		//Debug.Log("Restart Game"); Working
-		m_adsMenu.SetActive(true);
+		//m_adsMenuObj.SetActive(true);
 		Time.timeScale = 0;
 	}
 
@@ -189,15 +187,15 @@ public class GameManager : MonoBehaviour
 	{
 		Time.timeScale = 1f;
 		//dollarButton.SetActive(true);
-		m_pauseButton.SetActive(true);
-		m_pauseMenu.SetActive(false);
+		m_pauseButtonObj.SetActive(true);
+		m_pauseMenuObj.SetActive(false);
 	}
 
 	public void Selfie()
 	{
 		Debug.Log("Selfie");
         m_selfieButton.interactable = false;
-        m_selfieButtonImage.enabled = false;
+        m_selfieButtonObj.SetActive(false);
         m_selfieButtonParticleSystem.Play();
         StartCoroutine("ButtonInteraction");
 	}
@@ -225,8 +223,8 @@ public class GameManager : MonoBehaviour
 		//This activates confirm panel once that's ready & deactivates iapMenu
 		//bhanusPurchaseScript.BuyTwoMonkeynuts();
 		//dollarButton.SetActive(true);
-		m_iapMenu.SetActive(false);
-		m_pauseButton.SetActive(true);
+		//m_iapMenuObj.SetActive(false);
+		m_pauseButtonObj.SetActive(true);
 		Time.timeScale = 1f;
 	}
 
