@@ -6,26 +6,26 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour 
 {
-	public int bananasLeft = 500 , superChimpScoreValue , trophiesScoreValue;
-	public string trophiesLeaderboard;
-	public Text bananaScoreLabel , superChimpScoreLabel , trophiesScoreLabel;
+	public int m_bananasCollected = 0 , m_superChimpScoreValue , m_trophiesScoreValue;
+	//public string m_trophiesLeaderboard;
+	public Text m_bananaScoreLabel , m_superChimpScoreLabel , m_trophiesScoreLabel;
 
 	void Start() 
 	{
-        if(PlayerPrefs.HasKey("BananasLeft"))
+        if(PlayerPrefs.HasKey("BananasCollected"))
         {
-            bananasLeft = PlayerPrefs.GetInt("BananasLeft");
+            m_bananasCollected = PlayerPrefs.GetInt("BananasCollected");
         }
 
 		if(PlayerPrefs.HasKey("MonkeynutScore"))
 		{
-			superChimpScoreValue = PlayerPrefs.GetInt("MonkeynutScore");
+			m_superChimpScoreValue = PlayerPrefs.GetInt("MonkeynutScore");
 		}
 
 		if(PlayerPrefs.HasKey("TrophiesScore"))
 		{
 			//Debug.Log("Retrieve Score from PlayerPrefs"); //Working
-			trophiesScoreValue = PlayerPrefs.GetInt("TrophiesScore"); //Do not forget to use this for final version of game
+			m_trophiesScoreValue = PlayerPrefs.GetInt("TrophiesScore"); //Do not forget to use this for final version of game
 		}
 
 		//StartCoroutine("ScoreFromLeaderboard"); //After you got this working but for now, not needed
@@ -49,7 +49,7 @@ public class ScoreManager : MonoBehaviour
 			if(PlayerPrefs.HasKey("TrophiesScore"))
 			{
 				Debug.Log("Retrieve Score from PlayerPrefs");
-				trophiesScoreValue = PlayerPrefs.GetInt("TrophiesScore"); //Do not forget to use this for final version of game
+				m_trophiesScoreValue = PlayerPrefs.GetInt("TrophiesScore"); //Do not forget to use this for final version of game
 			}
 		}
 
@@ -63,20 +63,20 @@ public class ScoreManager : MonoBehaviour
 			return;
 		}
 			
-		bananaScoreLabel.text = "" + bananasLeft;
+		m_bananaScoreLabel.text = "" + m_bananasCollected;
 
-		if(superChimpScoreLabel != null)
+		if(m_superChimpScoreLabel != null)
 		{
-			superChimpScoreLabel.text = "" + superChimpScoreValue;
-			PlayerPrefs.SetInt("MonkeynutScore" , superChimpScoreValue);
+			m_superChimpScoreLabel.text = "" + m_superChimpScoreValue;
+			PlayerPrefs.SetInt("MonkeynutScore" , m_superChimpScoreValue);
 		}
 
-		if(trophiesScoreLabel != null)
+		if(m_trophiesScoreLabel != null)
 		{
-			trophiesScoreLabel.text = " " + trophiesScoreValue;
-			PlayerPrefs.SetInt("TrophiesScore" , trophiesScoreValue);
+			m_trophiesScoreLabel.text = " " + m_trophiesScoreValue;
+			PlayerPrefs.SetInt("TrophiesScore" , m_trophiesScoreValue);
 		}
 
-        PlayerPrefs.SetInt("BananasLeft", bananasLeft);
+        PlayerPrefs.SetInt("BananasCollected", m_bananasCollected);
     }
 }

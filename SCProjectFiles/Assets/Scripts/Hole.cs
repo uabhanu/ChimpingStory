@@ -7,11 +7,10 @@ public class Hole : MonoBehaviour
     BoxCollider2D m_chimpCollider2D , m_holeCollider2D;
 	ChimpController m_chimpControlScript;
     float m_startXPos , m_startYPos;
+    Ground m_groundScript;
+    //int holeAchievementScore;
     Rigidbody2D m_holeBody2D;
     SpriteRenderer m_holeRenderer;
-	//int holeAchievementScore;
-
-	[SerializeField] Ground m_groundScript;
     
     //[SerializeField] string achievementID;
 
@@ -19,6 +18,7 @@ public class Hole : MonoBehaviour
 	{
         m_chimpCollider2D = GameObject.Find("Chimp").GetComponent<BoxCollider2D>();
 		m_chimpControlScript = GameObject.Find("Chimp").GetComponent<ChimpController>();
+        m_groundScript = FindObjectOfType<Ground>();
         m_holeBody2D = GetComponent<Rigidbody2D>();
         m_holeCollider2D = GetComponent<BoxCollider2D>();
         m_holeRenderer = GetComponent<SpriteRenderer>();

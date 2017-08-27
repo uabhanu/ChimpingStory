@@ -146,6 +146,7 @@ public class ChimpController : MonoBehaviour
 		if(m_chimpAnim.GetBool("Slide"))
 		{
             //Debug.Log("Slide Time"); Working
+            m_canJump = true;
 			m_chimpAnim.SetBool("Slide" , false);
 		}
 	}
@@ -233,15 +234,12 @@ public class ChimpController : MonoBehaviour
 	{
 		m_chimpAnim.SetBool("Grounded" , m_grounded);
 		//chimpBody2D.velocity = new Vector2(chimpSpeed , chimpBody2D.velocity.y);
-
-        if(m_scoreManagementScript.bananasLeft == 0)
-        {
-            m_gameManagementScript.WinCard();
-        }
 	}
 
 	public void Slide()
 	{
+        m_canJump = false;
+
         if(!m_chimpInTheHole)
         {
             //Debug.Log("Slide"); //Working

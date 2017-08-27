@@ -82,67 +82,8 @@ public class Banana : MonoBehaviour
 		StartCoroutine("SoundObjectTimer");
 	}
 
-    void OnMouseDown()
-    {
-        if(m_clickSafeZone)
-        {
-            if(m_bananaSound != null)
-            {
-                if(!m_bananaSound.isPlaying)
-                {
-                    m_bananaSound.Stop();
-                    m_bananaSound.Play();
-                }
-                else
-                {
-                    m_bananaSound.Play();
-                }
-            }
-
-            if(m_scoreManagementScript.bananasLeft > 0)
-            {
-                m_scoreManagementScript.bananasLeft--;
-            }
-
-            Destroy(gameObject);
-        }
-
-        if(!m_clickSafeZone)
-        {
-            if(m_bananaSound != null)
-            {
-                if(!m_bananaSound.isPlaying)
-                {
-                    m_bananaSound.Stop();
-                    m_bananaSound.Play();
-                }
-                else
-                {
-                    m_bananaSound.Play();
-                }
-            }
-
-            if(m_scoreManagementScript.bananasLeft < 500)
-            {
-                m_scoreManagementScript.bananasLeft++;
-            }
-
-            Destroy(gameObject);
-        }
-    }
-
     void OnTriggerEnter2D(Collider2D col2D)
 	{
-        if(col2D.gameObject.tag.Equals("BananaMissed"))
-        {
-            if(m_scoreManagementScript.bananasLeft < 500)
-            {
-                m_scoreManagementScript.bananasLeft++;
-            }
-
-            Destroy(gameObject);
-        }
-
         if(col2D.gameObject.tag.Equals("Cleaner"))
         {
             Destroy(gameObject);
@@ -162,12 +103,8 @@ public class Banana : MonoBehaviour
 			if(m_bananaRenderer.sprite == m_normalSprite)
 			{
                 //bananaAchievementScore++;
-
-                if(m_scoreManagementScript.bananasLeft > 0)
-                {
-                    m_scoreManagementScript.bananasLeft--;
-                }
-
+                m_scoreManagementScript.m_bananasCollected++;
+                
 //				if(Social.localUser.authenticated)
 //				{
 //					PlayGamesPlatform.Instance.IncrementAchievement(achievementID , 1 , (bool success) => //Working and enable this code for final version
@@ -180,16 +117,7 @@ public class Banana : MonoBehaviour
 			if(m_bananaRenderer.sprite == m_superSprite)
 			{
                 //bananaAchievementScore += 5;
-
-                if(m_scoreManagementScript.bananasLeft > 10)
-                {
-                    m_scoreManagementScript.bananasLeft -= 10;
-                }
-
-                if(m_scoreManagementScript.bananasLeft <= 10)
-                {
-                    m_scoreManagementScript.bananasLeft = 0;
-                }
+                m_scoreManagementScript.m_bananasCollected += 5;
                 
 //				if(Social.localUser.authenticated)
 //				{

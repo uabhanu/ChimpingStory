@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 4fcc48751ef32d645b881b9e005046bf
-timeCreated: 1503600527
+timeCreated: 1503830750
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -44,7 +44,7 @@ TextureImporter:
     21300074: Restart
     21300076: Sound
     21300078: Store
-    21300080: Buttons_40
+    21300080: Locked
     21300082: Buttons_41
     21300084: Buttons_42
     21300086: Buttons_43
@@ -58,13 +58,13 @@ TextureImporter:
     21300102: Buttons_51
     21300104: Buttons_52
     21300106: Buttons_53
-    21300108: Buttons_54
-    21300110: Buttons_55
+    21300108: ArrowLeft
+    21300110: ArrowRight
     21300112: Buttons_56
     21300114: Buttons_57
-    21300116: Buttons_58
-    21300118: Buttons_59
-    21300120: Buttons_60
+    21300116: ArrowUp
+    21300118: ArrowDown
+    21300120: Dollar
     21300122: Buttons_61
     21300124: Buttons_62
     21300126: Buttons_63
@@ -83,12 +83,12 @@ TextureImporter:
     21300152: Buttons_76
     21300154: Buttons_77
     21300156: Buttons_78
-    21300158: Buttons_79
-    21300160: Buttons_80
-    21300162: Buttons_81
+    21300158: X
+    21300160: Tick
+    21300162: Star
     21300164: Buttons_82
-    21300166: Buttons_83
-    21300168: Buttons_84
+    21300166: i
+    21300168: Home
     21300170: Buttons_85
     21300172: Buttons_86
     21300174: Buttons_87
@@ -101,12 +101,12 @@ TextureImporter:
     21300188: Buttons_94
     21300190: Buttons_95
     21300192: Buttons_96
-    21300194: Buttons_97
-    21300196: Buttons_98
+    21300194: Music
+    21300196: Picture
     21300198: Camera
-    21300200: Buttons_100
+    21300200: Mail
     21300202: Buttons_101
-    21300204: Buttons_102
+    21300204: Trophy
     21300206: Buttons_103
     21300208: Buttons_104
     21300210: Buttons_105
@@ -234,132 +234,6 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Buttons_0
-      rect:
-        serializedVersion: 2
-        x: 6
-        y: 1145
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_1
-      rect:
-        serializedVersion: 2
-        x: 286
-        y: 1145
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_2
-      rect:
-        serializedVersion: 2
-        x: 306
-        y: 1145
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_3
-      rect:
-        serializedVersion: 2
-        x: 586
-        y: 1145
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_4
-      rect:
-        serializedVersion: 2
-        x: 606
-        y: 1145
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_5
-      rect:
-        serializedVersion: 2
-        x: 886
-        y: 1145
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_6
-      rect:
-        serializedVersion: 2
-        x: 906
-        y: 1145
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_7
-      rect:
-        serializedVersion: 2
-        x: 26
-        y: 1125
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_8
-      rect:
-        serializedVersion: 2
-        x: 266
-        y: 1125
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
       name: Buttons_9
       rect:
         serializedVersion: 2
@@ -368,77 +242,7 @@ TextureImporter:
         width: 8
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_10
-      rect:
-        serializedVersion: 2
-        x: 566
-        y: 1125
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_11
-      rect:
-        serializedVersion: 2
-        x: 626
-        y: 1125
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_12
-      rect:
-        serializedVersion: 2
-        x: 866
-        y: 1125
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_13
-      rect:
-        serializedVersion: 2
-        x: 926
-        y: 1125
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_14
-      rect:
-        serializedVersion: 2
-        x: 46
-        y: 1105
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -447,12 +251,12 @@ TextureImporter:
       name: Play
       rect:
         serializedVersion: 2
-        x: 58
-        y: 918
-        width: 199
-        height: 203
+        x: 64
+        y: 931
+        width: 189
+        height: 189
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -461,12 +265,12 @@ TextureImporter:
       name: Quit
       rect:
         serializedVersion: 2
-        x: 274
-        y: 918
-        width: 199
-        height: 203
+        x: 280
+        y: 931
+        width: 189
+        height: 189
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -475,12 +279,12 @@ TextureImporter:
       name: Pause
       rect:
         serializedVersion: 2
-        x: 696
-        y: 918
-        width: 199
-        height: 203
+        x: 702
+        y: 931
+        width: 189
+        height: 189
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -489,40 +293,12 @@ TextureImporter:
       name: Help
       rect:
         serializedVersion: 2
-        x: 909
-        y: 918
-        width: 200
-        height: 203
+        x: 915
+        y: 931
+        width: 189
+        height: 189
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_19
-      rect:
-        serializedVersion: 2
-        x: 1146
-        y: 1105
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_20
-      rect:
-        serializedVersion: 2
-        x: 1126
-        y: 1085
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -536,189 +312,7 @@ TextureImporter:
         width: 8
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_22
-      rect:
-        serializedVersion: 2
-        x: 1106
-        y: 1065
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_23
-      rect:
-        serializedVersion: 2
-        x: 686
-        y: 945
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_24
-      rect:
-        serializedVersion: 2
-        x: 1106
-        y: 945
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_25
-      rect:
-        serializedVersion: 2
-        x: 1126
-        y: 925
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_26
-      rect:
-        serializedVersion: 2
-        x: 46
-        y: 905
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_27
-      rect:
-        serializedVersion: 2
-        x: 246
-        y: 905
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_28
-      rect:
-        serializedVersion: 2
-        x: 346
-        y: 905
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_29
-      rect:
-        serializedVersion: 2
-        x: 546
-        y: 905
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_30
-      rect:
-        serializedVersion: 2
-        x: 646
-        y: 905
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_31
-      rect:
-        serializedVersion: 2
-        x: 846
-        y: 905
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_32
-      rect:
-        serializedVersion: 2
-        x: 946
-        y: 905
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_33
-      rect:
-        serializedVersion: 2
-        x: 1146
-        y: 905
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_34
-      rect:
-        serializedVersion: 2
-        x: 26
-        y: 885
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -727,26 +321,12 @@ TextureImporter:
       name: Settings
       rect:
         serializedVersion: 2
-        x: 58
-        y: 702
-        width: 199
-        height: 203
+        x: 64
+        y: 714
+        width: 189
+        height: 189
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_36
-      rect:
-        serializedVersion: 2
-        x: 266
-        y: 885
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -755,12 +335,12 @@ TextureImporter:
       name: Restart
       rect:
         serializedVersion: 2
-        x: 274
-        y: 702
-        width: 199
-        height: 203
+        x: 280
+        y: 714
+        width: 189
+        height: 189
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -769,12 +349,12 @@ TextureImporter:
       name: Sound
       rect:
         serializedVersion: 2
-        x: 485
-        y: 702
-        width: 199
-        height: 203
+        x: 491
+        y: 714
+        width: 189
+        height: 189
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -783,152 +363,26 @@ TextureImporter:
       name: Store
       rect:
         serializedVersion: 2
-        x: 696
-        y: 702
-        width: 199
-        height: 203
+        x: 702
+        y: 714
+        width: 189
+        height: 189
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Buttons_40
+      name: Locked
       rect:
         serializedVersion: 2
-        x: 909
-        y: 702
-        width: 200
-        height: 203
+        x: 915
+        y: 714
+        width: 189
+        height: 189
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_41
-      rect:
-        serializedVersion: 2
-        x: 6
-        y: 865
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_42
-      rect:
-        serializedVersion: 2
-        x: 906
-        y: 865
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_43
-      rect:
-        serializedVersion: 2
-        x: 6
-        y: 845
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_44
-      rect:
-        serializedVersion: 2
-        x: 906
-        y: 845
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_45
-      rect:
-        serializedVersion: 2
-        x: 26
-        y: 825
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_46
-      rect:
-        serializedVersion: 2
-        x: 266
-        y: 825
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_47
-      rect:
-        serializedVersion: 2
-        x: 46
-        y: 805
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_48
-      rect:
-        serializedVersion: 2
-        x: 1146
-        y: 805
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_49
-      rect:
-        serializedVersion: 2
-        x: 1126
-        y: 785
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -942,21 +396,7 @@ TextureImporter:
         width: 8
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_51
-      rect:
-        serializedVersion: 2
-        x: 1106
-        y: 765
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -970,7 +410,7 @@ TextureImporter:
         width: 8
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -984,35 +424,35 @@ TextureImporter:
         width: 21
         height: 18
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Buttons_54
+      name: ArrowLeft
       rect:
         serializedVersion: 2
-        x: 58
-        y: 489
-        width: 199
-        height: 205
+        x: 64
+        y: 503
+        width: 189
+        height: 189
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Buttons_55
+      name: ArrowRight
       rect:
         serializedVersion: 2
-        x: 266
-        y: 485
-        width: 207
-        height: 207
+        x: 280
+        y: 503
+        width: 189
+        height: 189
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1026,7 +466,7 @@ TextureImporter:
         width: 8
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1040,49 +480,49 @@ TextureImporter:
         width: 8
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Buttons_58
+      name: ArrowUp
       rect:
         serializedVersion: 2
-        x: 485
-        y: 489
-        width: 199
-        height: 203
+        x: 491
+        y: 503
+        width: 189
+        height: 189
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Buttons_59
+      name: ArrowDown
       rect:
         serializedVersion: 2
-        x: 696
-        y: 489
-        width: 199
-        height: 205
+        x: 702
+        y: 503
+        width: 189
+        height: 189
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Buttons_60
+      name: Dollar
       rect:
         serializedVersion: 2
-        x: 906
-        y: 489
-        width: 203
-        height: 205
+        x: 915
+        y: 503
+        width: 189
+        height: 189
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1096,161 +536,7 @@ TextureImporter:
         width: 8
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_62
-      rect:
-        serializedVersion: 2
-        x: 1106
-        y: 645
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_63
-      rect:
-        serializedVersion: 2
-        x: 1126
-        y: 625
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_64
-      rect:
-        serializedVersion: 2
-        x: 46
-        y: 605
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_65
-      rect:
-        serializedVersion: 2
-        x: 1146
-        y: 605
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_66
-      rect:
-        serializedVersion: 2
-        x: 26
-        y: 585
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_67
-      rect:
-        serializedVersion: 2
-        x: 6
-        y: 565
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_68
-      rect:
-        serializedVersion: 2
-        x: 6
-        y: 545
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_69
-      rect:
-        serializedVersion: 2
-        x: 26
-        y: 525
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_70
-      rect:
-        serializedVersion: 2
-        x: 46
-        y: 505
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_71
-      rect:
-        serializedVersion: 2
-        x: 1146
-        y: 505
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_72
-      rect:
-        serializedVersion: 2
-        x: 66
-        y: 485
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1264,161 +550,77 @@ TextureImporter:
         width: 8
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Buttons_74
+      name: X
       rect:
         serializedVersion: 2
-        x: 526
-        y: 485
-        width: 8
-        height: 9
+        x: 64
+        y: 286
+        width: 189
+        height: 189
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Buttons_75
+      name: Tick
       rect:
         serializedVersion: 2
-        x: 666
-        y: 485
-        width: 8
-        height: 9
+        x: 280
+        y: 286
+        width: 189
+        height: 189
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Buttons_76
+      name: Star
       rect:
         serializedVersion: 2
-        x: 826
-        y: 485
-        width: 8
-        height: 9
+        x: 491
+        y: 286
+        width: 189
+        height: 189
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Buttons_77
+      name: i
       rect:
         serializedVersion: 2
-        x: 966
-        y: 485
-        width: 8
-        height: 9
+        x: 702
+        y: 286
+        width: 189
+        height: 189
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Buttons_78
+      name: Home
       rect:
         serializedVersion: 2
-        x: 1126
-        y: 485
-        width: 8
-        height: 9
+        x: 915
+        y: 286
+        width: 189
+        height: 189
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_79
-      rect:
-        serializedVersion: 2
-        x: 58
-        y: 273
-        width: 199
-        height: 203
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_80
-      rect:
-        serializedVersion: 2
-        x: 274
-        y: 273
-        width: 200
-        height: 203
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_81
-      rect:
-        serializedVersion: 2
-        x: 472
-        y: 265
-        width: 212
-        height: 211
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_82
-      rect:
-        serializedVersion: 2
-        x: 686
-        y: 465
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_83
-      rect:
-        serializedVersion: 2
-        x: 696
-        y: 273
-        width: 199
-        height: 203
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_84
-      rect:
-        serializedVersion: 2
-        x: 909
-        y: 273
-        width: 205
-        height: 203
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1432,7 +634,7 @@ TextureImporter:
         width: 8
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1446,21 +648,7 @@ TextureImporter:
         width: 8
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_87
-      rect:
-        serializedVersion: 2
-        x: 46
-        y: 305
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1474,49 +662,7 @@ TextureImporter:
         width: 8
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_89
-      rect:
-        serializedVersion: 2
-        x: 26
-        y: 285
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_90
-      rect:
-        serializedVersion: 2
-        x: 266
-        y: 285
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_91
-      rect:
-        serializedVersion: 2
-        x: 6
-        y: 265
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1530,7 +676,7 @@ TextureImporter:
         width: 8
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1544,77 +690,35 @@ TextureImporter:
         width: 8
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Buttons_94
+      name: Music
       rect:
         serializedVersion: 2
-        x: 886
-        y: 265
-        width: 8
-        height: 9
+        x: 64
+        y: 75
+        width: 189
+        height: 189
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Buttons_95
+      name: Picture
       rect:
         serializedVersion: 2
-        x: 906
-        y: 265
-        width: 8
-        height: 9
+        x: 280
+        y: 75
+        width: 189
+        height: 189
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_96
-      rect:
-        serializedVersion: 2
-        x: 6
-        y: 245
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_97
-      rect:
-        serializedVersion: 2
-        x: 58
-        y: 62
-        width: 199
-        height: 203
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_98
-      rect:
-        serializedVersion: 2
-        x: 274
-        y: 62
-        width: 200
-        height: 203
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1623,96 +727,40 @@ TextureImporter:
       name: Camera
       rect:
         serializedVersion: 2
-        x: 485
-        y: 62
-        width: 199
-        height: 203
+        x: 491
+        y: 75
+        width: 189
+        height: 189
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Buttons_100
+      name: Mail
       rect:
         serializedVersion: 2
-        x: 696
-        y: 62
-        width: 199
-        height: 203
+        x: 702
+        y: 75
+        width: 189
+        height: 189
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Buttons_101
+      name: Trophy
       rect:
         serializedVersion: 2
-        x: 906
-        y: 245
-        width: 8
-        height: 9
+        x: 915
+        y: 75
+        width: 189
+        height: 189
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_102
-      rect:
-        serializedVersion: 2
-        x: 909
-        y: 62
-        width: 205
-        height: 203
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_103
-      rect:
-        serializedVersion: 2
-        x: 26
-        y: 225
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_104
-      rect:
-        serializedVersion: 2
-        x: 266
-        y: 225
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_105
-      rect:
-        serializedVersion: 2
-        x: 46
-        y: 205
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1726,7 +774,7 @@ TextureImporter:
         width: 8
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1740,21 +788,7 @@ TextureImporter:
         width: 8
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_108
-      rect:
-        serializedVersion: 2
-        x: 686
-        y: 165
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1768,35 +802,7 @@ TextureImporter:
         width: 21
         height: 18
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_110
-      rect:
-        serializedVersion: 2
-        x: 86
-        y: 45
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_111
-      rect:
-        serializedVersion: 2
-        x: 206
-        y: 45
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1810,49 +816,7 @@ TextureImporter:
         width: 8
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_113
-      rect:
-        serializedVersion: 2
-        x: 506
-        y: 45
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_114
-      rect:
-        serializedVersion: 2
-        x: 686
-        y: 45
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_115
-      rect:
-        serializedVersion: 2
-        x: 806
-        y: 45
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1866,49 +830,7 @@ TextureImporter:
         width: 8
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_117
-      rect:
-        serializedVersion: 2
-        x: 1106
-        y: 45
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_118
-      rect:
-        serializedVersion: 2
-        x: 66
-        y: 25
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_119
-      rect:
-        serializedVersion: 2
-        x: 226
-        y: 25
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1922,49 +844,7 @@ TextureImporter:
         width: 8
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_121
-      rect:
-        serializedVersion: 2
-        x: 526
-        y: 25
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_122
-      rect:
-        serializedVersion: 2
-        x: 666
-        y: 25
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_123
-      rect:
-        serializedVersion: 2
-        x: 826
-        y: 25
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1978,49 +858,7 @@ TextureImporter:
         width: 8
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_125
-      rect:
-        serializedVersion: 2
-        x: 1126
-        y: 25
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_126
-      rect:
-        serializedVersion: 2
-        x: 46
-        y: 5
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_127
-      rect:
-        serializedVersion: 2
-        x: 246
-        y: 5
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2034,49 +872,7 @@ TextureImporter:
         width: 8
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_129
-      rect:
-        serializedVersion: 2
-        x: 546
-        y: 5
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_130
-      rect:
-        serializedVersion: 2
-        x: 646
-        y: 5
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_131
-      rect:
-        serializedVersion: 2
-        x: 846
-        y: 5
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2090,21 +886,7 @@ TextureImporter:
         width: 8
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_133
-      rect:
-        serializedVersion: 2
-        x: 1146
-        y: 5
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2113,12 +895,12 @@ TextureImporter:
       name: Options
       rect:
         serializedVersion: 2
-        x: 490
-        y: 918
-        width: 199
-        height: 203
+        x: 491
+        y: 931
+        width: 189
+        height: 189
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

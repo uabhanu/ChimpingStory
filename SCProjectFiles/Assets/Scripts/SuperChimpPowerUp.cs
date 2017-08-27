@@ -90,7 +90,7 @@ public class SuperChimpPowerUp : MonoBehaviour
             //superchimpCollider2D.enabled = false;
             //superchimpRenderer.enabled = false;
             transform.position = new Vector2(startXPos , startYPos);
-            scoreManagementScript.superChimpScoreValue++;
+            scoreManagementScript.m_superChimpScoreValue++;
 		}
 	}
 }

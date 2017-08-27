@@ -19,7 +19,11 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] ChimpController m_chimpControlScript;
 
-    [SerializeField] GameObject /*m_adsMenuObj , m_dollarButtonObj , m_iapMenuObj ,*/ m_pauseButtonObj , m_pauseMenuObj , m_quitButtonObj , m_quitMenuObj , m_restartButtonObj , m_selfieButtonObj;
+    [SerializeField] GameObject /*m_adsMenuObj , m_dollarButtonObj , m_iapMenuObj ,*/ m_pauseButtonObj , m_pauseMenuObj , m_quitButtonObj , m_quitMenuObj , m_restartButtonObj;
+
+    [SerializeField] GameObject m_selfieButtonObj;
+
+    [SerializeField] GameObject[] m_infoObjs;
 
     [SerializeField] ParticleSystem m_selfieButtonParticleSystem;
 
@@ -144,6 +148,11 @@ public class GameManager : MonoBehaviour
 		//dollarButton.SetActive(false);
 		m_pauseButtonObj.SetActive(false);
 		m_pauseMenuObj.SetActive(true);
+
+        for(int i = 0; i < m_infoObjs.Length; i++)
+        {
+            m_infoObjs[i].SetActive(false);
+        }
 	}
 		
 	public void PlayVideo()
@@ -189,6 +198,11 @@ public class GameManager : MonoBehaviour
 		//dollarButton.SetActive(true);
 		m_pauseButtonObj.SetActive(true);
 		m_pauseMenuObj.SetActive(false);
+
+        for(int i = 0; i < m_infoObjs.Length; i++)
+        {
+            m_infoObjs[i].SetActive(true);
+        }
 	}
 
 	public void Selfie()
@@ -199,24 +213,6 @@ public class GameManager : MonoBehaviour
         m_selfieButtonParticleSystem.Play();
         StartCoroutine("ButtonInteraction");
 	}
-
-//	public void SaveGame()
-//	{
-//		byte[] gamedata;
-//		int slot = 0;
-//
-//		((PlayGamesPlatform) Social.Active).UpdateState(slot , gamedata , this);
-//	}
-
-	//public void ShowRewardedAd()
-	//{
-	//	if(Advertisement.IsReady("rewardedVideo"))
-	//	{
-	//		Debug.Log("Ads Yes Button showing Rewarded Ad");
-	//		var options = new ShowOptions { resultCallback = HandleShowResult };
-	//		Advertisement.Show("rewardedVideo" , options);
-	//	}
-	//}
 
 	public void TwoMonkeynuts()
 	{

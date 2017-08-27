@@ -1,72 +1,72 @@
-﻿//using GooglePlayGames;
-using System.Collections;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+﻿////using GooglePlayGames;
+//using System.Collections;
+//using UnityEngine;
+//using UnityEngine.SceneManagement;
+//using UnityEngine.UI;
 
-public class BhanusGP : MonoBehaviour 
-{
-	[SerializeField] Image signInButtonImage , signOutButtonImage , signOutImage;
+//public class BhanusGP : MonoBehaviour 
+//{
+//	[SerializeField] Image signInButtonImage , signOutButtonImage , signOutImage;
 
-	void Awake()
-	{
-		//PlayGamesPlatform.DebugLogEnabled = true;
-		//PlayGamesPlatform.Activate();
-	}
+//	void Awake()
+//	{
+//		//PlayGamesPlatform.DebugLogEnabled = true;
+//		//PlayGamesPlatform.Activate();
+//	}
 
-	void Start()
-	{
-		Social.localUser.Authenticate((bool success) => 
-		{
-			if(success) 
-			{
-				Debug.Log ("Login Success");
-				signInButtonImage.enabled = false;
-				signOutButtonImage.enabled = true;
-				signOutImage.enabled = true;
-			}
+//	void Start()
+//	{
+//		Social.localUser.Authenticate((bool success) => 
+//		{
+//			if(success) 
+//			{
+//				Debug.Log ("Login Success");
+//				signInButtonImage.enabled = false;
+//				signOutButtonImage.enabled = true;
+//				signOutImage.enabled = true;
+//			}
 
-			if(!success)
-			{
-				Debug.Log ("Login Failed");
-				signInButtonImage.enabled = true;
-				signOutButtonImage.enabled = false;
-				signOutImage.enabled = false;
-			}
-		});
-	}
+//			if(!success)
+//			{
+//				Debug.Log ("Login Failed");
+//				signInButtonImage.enabled = true;
+//				signOutButtonImage.enabled = false;
+//				signOutImage.enabled = false;
+//			}
+//		});
+//	}
 
-	public void SignIn()
-	{
-		Social.localUser.Authenticate((bool success) => 
-		{
-			if(success) 
-			{
-				Debug.Log ("Login Success");
-				signInButtonImage.enabled = false;
-				signOutButtonImage.enabled = true;
-				signOutImage.enabled = true;
-			}
+//	public void SignIn()
+//	{
+//		Social.localUser.Authenticate((bool success) => 
+//		{
+//			if(success) 
+//			{
+//				Debug.Log ("Login Success");
+//				signInButtonImage.enabled = false;
+//				signOutButtonImage.enabled = true;
+//				signOutImage.enabled = true;
+//			}
 
-			if(!success)
-			{
-				Debug.Log ("Login Failed");
-				signInButtonImage.enabled = true;
-				signOutButtonImage.enabled = false;
-				signOutImage.enabled = false;
-			}
-		});
-	}
+//			if(!success)
+//			{
+//				Debug.Log ("Login Failed");
+//				signInButtonImage.enabled = true;
+//				signOutButtonImage.enabled = false;
+//				signOutImage.enabled = false;
+//			}
+//		});
+//	}
 
-	public void SignOut()
-	{
-		//PlayGamesPlatform.Instance.SignOut(); //Or ((PlayGamesPlatform) Social.Active).SignOut();
+//	public void SignOut()
+//	{
+//		//PlayGamesPlatform.Instance.SignOut(); //Or ((PlayGamesPlatform) Social.Active).SignOut();
 
-		if(!Social.localUser.authenticated)
-		{
-			signInButtonImage.enabled = true;
-			signOutButtonImage.enabled = false;
-			signOutImage.enabled = false;
-		}
-	}
-}
+//		if(!Social.localUser.authenticated)
+//		{
+//			signInButtonImage.enabled = true;
+//			signOutButtonImage.enabled = false;
+//			signOutImage.enabled = false;
+//		}
+//	}
+//}

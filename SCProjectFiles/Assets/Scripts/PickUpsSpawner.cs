@@ -3,11 +3,10 @@ using UnityEngine;
 
 public class PickUpsSpawner : MonoBehaviour 
 {
-    GameObject pickUpComboToSpawn;
-    int i;
+    GameObject m_pickUpComboToSpawn;
+    int m_index;
 
-	[SerializeField] ChimpController chimpControlScript;
-    [SerializeField] GameObject[] PF_PickUpCombosList;
+    [SerializeField] GameObject[] m_pickUpComboPrefabs;
 
 	void Start() 
 	{
@@ -18,27 +17,15 @@ public class PickUpsSpawner : MonoBehaviour
 	{
 		yield return new WaitForSeconds(1.5f);
 
-		//if(!chimpControlScript.superMode)
-		//{
-			i = Random.Range(0 , PF_PickUpCombosList.Length);
-            pickUpComboToSpawn = GameObject.FindGameObjectWithTag("PickUpCombo");
+		
+		m_index = Random.Range(0 , m_pickUpComboPrefabs.Length);
+        m_pickUpComboToSpawn = GameObject.FindGameObjectWithTag("PickUpCombo");
 
-			if(pickUpComboToSpawn == null)
-			{
-                pickUpComboToSpawn = Instantiate(PF_PickUpCombosList[i] , new Vector3(15f , 0f , 0f) , transform.rotation) as GameObject;
-			}
-		//}
-
-		//if(chimpControlScript.superMode)
-		//{
-  //          pickUpComboToSpawn = GameObject.FindGameObjectWithTag("SMBs");
-
-		//	if(pickUpComboToSpawn == null)
-		//	{
-  //              pickUpComboToSpawn = Instantiate(PF_PickUpCombosList[0] , new Vector3(5f , 0f , 0f) , transform.rotation) as GameObject;
-		//	}
-		//}
-
+		if(m_pickUpComboToSpawn == null)
+		{
+            m_pickUpComboToSpawn = Instantiate(m_pickUpComboPrefabs[m_index] , new Vector3(15f , 0f , 0f) , transform.rotation) as GameObject;
+		}
+		
 		StartCoroutine("Spawning");
 	}
 }

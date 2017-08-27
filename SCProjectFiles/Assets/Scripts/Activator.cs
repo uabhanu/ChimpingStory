@@ -110,14 +110,14 @@ public class Activator : MonoBehaviour
 
 	void TrophyScore()
 	{
-		m_scoreManagementScript.trophiesScoreValue++;
+		m_scoreManagementScript.m_trophiesScoreValue++;
 
-		if(Social.localUser.authenticated)
-		{
-			Social.ReportScore(m_scoreManagementScript.trophiesScoreValue , m_scoreManagementScript.trophiesLeaderboard , (bool success) =>
-			{
-				Debug.Log("Send Score to Leaderboard");
-			});
-		}
+		//if(Social.localUser.authenticated)
+		//{
+		//	Social.ReportScore(m_scoreManagementScript.m_trophiesScoreValue , m_scoreManagementScript.m_trophiesLeaderboard , (bool success) =>
+		//	{
+		//		Debug.Log("Send Score to Leaderboard");
+		//	});
+		//}
 	}
 }
