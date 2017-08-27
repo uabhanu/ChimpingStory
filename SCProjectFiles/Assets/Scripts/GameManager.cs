@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] ChimpController m_chimpControlScript;
 
-    [SerializeField] GameObject /*m_adsMenuObj , m_dollarButtonObj , m_iapMenuObj ,*/ m_pauseButtonObj , m_pauseMenuObj , m_quitButtonObj , m_quitMenuObj , m_restartButtonObj;
+    [SerializeField] GameObject m_adsMenuObj , /*m_dollarButtonObj , m_iapMenuObj ,*/ m_pauseButtonObj , m_pauseMenuObj , m_quitButtonObj , m_quitMenuObj , m_restartButtonObj;
 
     [SerializeField] GameObject m_selfieButtonObj;
 
@@ -188,7 +188,7 @@ public class GameManager : MonoBehaviour
 	public void RestartGame()
 	{
 		//Debug.Log("Restart Game"); Working
-		//m_adsMenuObj.SetActive(true);
+		m_adsMenuObj.SetActive(true);
 		Time.timeScale = 0;
 	}
 

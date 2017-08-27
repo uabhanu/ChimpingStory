@@ -110,7 +110,7 @@ public class ChimpController : MonoBehaviour
 
 #if UNITY_EDITOR_64
 
-        if(Input.GetMouseButton(0) && m_canJump)
+        if(Input.GetMouseButton(0))
 		{
 			Jump();
 		}
@@ -181,7 +181,7 @@ public class ChimpController : MonoBehaviour
 
 	public void Jump()
 	{
-        if(!m_chimpInTheHole && m_clickEnableTest)
+        if(!m_chimpInTheHole && m_canJump && m_clickEnableTest)
         {
             m_jumpSound.Play(); //Turned off for testing purposes but turn back on for final version
             m_chimpBody2D.velocity = new Vector2(m_chimpBody2D.velocity.x , m_jumpHeight);
