@@ -11,6 +11,8 @@ public class Hole : MonoBehaviour
     //int holeAchievementScore;
     Rigidbody2D m_holeBody2D;
     SpriteRenderer m_holeRenderer;
+
+    [SerializeField] float m_randomValue;
     
     //[SerializeField] string achievementID;
 
@@ -54,7 +56,7 @@ public class Hole : MonoBehaviour
 	{
         if(col2D.gameObject.tag.Equals("Cleaner"))
         {
-            transform.position = new Vector2(m_startXPos , m_startYPos);
+            transform.position = new Vector2(Random.Range(m_startXPos - m_randomValue , m_startXPos + m_randomValue) , m_startYPos);
         }
 
 		if(col2D.gameObject.tag.Equals("Player"))

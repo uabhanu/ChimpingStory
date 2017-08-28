@@ -23,8 +23,6 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject m_selfieButtonObj;
 
-    [SerializeField] GameObject[] m_infoObjs;
-
     [SerializeField] ParticleSystem m_selfieButtonParticleSystem;
 
     [SerializeField] ScoreManager m_scoreManagementScript;
@@ -148,11 +146,6 @@ public class GameManager : MonoBehaviour
 		//dollarButton.SetActive(false);
 		m_pauseButtonObj.SetActive(false);
 		m_pauseMenuObj.SetActive(true);
-
-        for(int i = 0; i < m_infoObjs.Length; i++)
-        {
-            m_infoObjs[i].SetActive(false);
-        }
 	}
 		
 	public void PlayVideo()
@@ -198,11 +191,6 @@ public class GameManager : MonoBehaviour
 		//dollarButton.SetActive(true);
 		m_pauseButtonObj.SetActive(true);
 		m_pauseMenuObj.SetActive(false);
-
-        for(int i = 0; i < m_infoObjs.Length; i++)
-        {
-            m_infoObjs[i].SetActive(true);
-        }
 	}
 
 	public void Selfie()

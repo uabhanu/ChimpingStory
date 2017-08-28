@@ -4,30 +4,30 @@ using UnityEngine;
 
 public class SuperChimpPowerUp : MonoBehaviour 
 {
-	BoxCollider2D superchimpCollider2D;
-	ChimpController chimpControlScript;
-    float maxY;
-	float minY;
-	float startXPos , startYPos;
-    int direction = 1;
-	Rigidbody2D powerUpBody2D;
-	ScoreManager scoreManagementScript;
-	SpriteRenderer superchimpRenderer;
-
-	public Ground groundScript;
+	BoxCollider2D m_superchimpCollider2D;
+	ChimpController m_chimpControlScript;
+    float m_maxY;
+	float m_minY;
+	float m_startXPos , m_startYPos;
+    Ground m_groundScript;
+    int m_direction = 1;
+	Rigidbody2D m_powerUpBody2D;
+	ScoreManager m_scoreManagementScript;
+	SpriteRenderer m_superchimpRenderer;
 
 	void Start() 
 	{
-        powerUpBody2D = GetComponent<Rigidbody2D>();
-		chimpControlScript = GameObject.Find("Chimp").GetComponent<ChimpController>();
-		maxY = this.transform.position.y + 0.5f;
-		minY = maxY - 1.0f;
-		scoreManagementScript = FindObjectOfType<ScoreManager>();
+		m_chimpControlScript = GameObject.Find("Chimp").GetComponent<ChimpController>();
+        m_groundScript = FindObjectOfType<Ground>();
+		m_maxY = transform.position.y + 0.5f;
+		m_minY = m_maxY - 1.0f;
+        m_powerUpBody2D = GetComponent<Rigidbody2D>();
+		m_scoreManagementScript = FindObjectOfType<ScoreManager>();
 		StartCoroutine("SoundObjectTimer");
-        startXPos = transform.position.x;
-        startYPos = transform.position.y;
-		superchimpCollider2D = GetComponent<BoxCollider2D>();
-		superchimpRenderer = GetComponent<SpriteRenderer>();
+        m_startXPos = transform.position.x;
+        m_startYPos = transform.position.y;
+		m_superchimpCollider2D = GetComponent<BoxCollider2D>();
+		m_superchimpRenderer = GetComponent<SpriteRenderer>();
 	}
 
 	void FixedUpdate()
@@ -37,7 +37,7 @@ public class SuperChimpPowerUp : MonoBehaviour
 			return;
 		}
 
-        powerUpBody2D.velocity = new Vector2(-groundScript.speed , powerUpBody2D.velocity.y);
+        m_powerUpBody2D.velocity = new Vector2(-m_groundScript.speed , m_powerUpBody2D.velocity.y);
 	}
 
 	void Update() 
@@ -47,28 +47,28 @@ public class SuperChimpPowerUp : MonoBehaviour
 			return;
 		}
 
-		this.transform.position = new Vector2(this.transform.position.x , this.transform.position.y + (direction * 0.05f));
+		transform.position = new Vector2(transform.position.x , transform.position.y + (m_direction * 0.05f));
 
-		if(this.transform.position.y > maxY) 
+		if(transform.position.y > m_maxY) 
 		{
-			direction = -1;
+			m_direction = -1;
 		}
 			
-		if(this.transform.position.y < minY) 
+		if(transform.position.y < m_minY) 
 		{
-			direction = 1;
+			m_direction = 1;
 		}
 
-		if(chimpControlScript.m_superMode)
+		if(m_chimpControlScript.m_superMode)
 		{
-			superchimpCollider2D.enabled = false;
-			superchimpRenderer.enabled = false;
+			m_superchimpCollider2D.enabled = false;
+			m_superchimpRenderer.enabled = false;
 		}
 
-		if(!chimpControlScript.m_superMode)
+		if(!m_chimpControlScript.m_superMode)
 		{
-			superchimpCollider2D.enabled = true; //IAP will make monkeynutTaken false again
-			superchimpRenderer.enabled = true;
+			m_superchimpCollider2D.enabled = true; //IAP will make monkeynutTaken false again
+			m_superchimpRenderer.enabled = true;
 		}
 	}
 		
@@ -80,17 +80,15 @@ public class SuperChimpPowerUp : MonoBehaviour
 		
 	void OnTriggerEnter2D(Collider2D col2D)
 	{
-        if (col2D.gameObject.tag.Equals("Cleaner"))
+        if(col2D.gameObject.tag.Equals("Cleaner"))
         {
-            transform.position = new Vector2(startXPos, startYPos);
+            transform.position = new Vector2(m_startXPos , m_startYPos);
         }
 
-        if (col2D.gameObject.tag.Equals("Player"))
+        if(col2D.gameObject.tag.Equals("Player"))
 		{
-            //superchimpCollider2D.enabled = false;
-            //superchimpRenderer.enabled = false;
-            transform.position = new Vector2(startXPos , startYPos);
-            scoreManagementScript.m_superChimpScoreValue++;
+            transform.position = new Vector2(m_startXPos , m_startYPos);
+            m_scoreManagementScript.m_superChimpScoreValue++;
 		}
 	}
 }

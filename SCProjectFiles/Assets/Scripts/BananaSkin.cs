@@ -10,7 +10,7 @@ public class BananaSkin : MonoBehaviour
     Rigidbody2D m_skinBody2D;
 	SpriteRenderer m_skinRenderer;
 
-    [SerializeField] float randomValue;
+    [SerializeField] float m_randomValue;
 
 	void Start() 
 	{
@@ -57,14 +57,14 @@ public class BananaSkin : MonoBehaviour
 	{
         if(col2D.gameObject.tag.Equals("Cleaner"))
         {
-            transform.position = new Vector2(Random.Range(m_startXPos - randomValue , m_startXPos + randomValue) , m_startYPos);
+            transform.position = new Vector2(Random.Range(m_startXPos - m_randomValue , m_startXPos + m_randomValue) , m_startYPos);
         }
 
 		if(col2D.gameObject.tag.Equals("Player"))
 		{
 			m_skinCollider2D.enabled = false;
 			m_skinRenderer.enabled = false;
-            transform.position = new Vector2(Random.Range(m_startXPos - randomValue , m_startXPos + randomValue) , m_startYPos);
+            transform.position = new Vector2(Random.Range(m_startXPos - m_randomValue , m_startXPos + m_randomValue) , m_startYPos);
         }
 	}
 }

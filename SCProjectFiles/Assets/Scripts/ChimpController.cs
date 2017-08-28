@@ -10,9 +10,7 @@ public class ChimpController : MonoBehaviour
     BoxCollider2D m_chimpCollider2D;
     Rigidbody2D m_chimpBody2D;
 
-	[SerializeField] GameObject m_bananaCountObj , m_bananaImageObj , /*m_dollarButtonObj ,*/ m_pauseButtonObj , m_superChimpCountObj , m_selfieButtonObj , m_superChimpImageObj , m_trophyCountObj;
-
-    [SerializeField] GameObject m_trophyImageObj;
+	[SerializeField] GameObject /*m_dollarButtonObj ,*/ m_pauseButtonObj , m_selfieButtonObj;
 
 	public Animator m_chimpAnim;
 	public AudioSource m_deathSound;
@@ -49,6 +47,7 @@ public class ChimpController : MonoBehaviour
 
     void Start() 
 	{
+        m_canJump = true;
 		m_chimpAnim.SetBool("DefaultSpeed" , true);
 		m_chimpAnim.SetBool("MediumSpeed" , false);
 		m_chimpAnim.SetBool("HighSpeed" , false);
@@ -93,7 +92,6 @@ public class ChimpController : MonoBehaviour
 
 		else if(m_superMode) 
 		{
-            m_canJump = true;
 			m_chimpAnim.SetBool("Super" , true);
 		}
 
@@ -135,6 +133,7 @@ public class ChimpController : MonoBehaviour
 		m_chimpSlip = false;
 		m_chimpAnim.SetBool("DefaultSpeed" , true);
 		m_chimpAnim.SetBool("MediumSpeed" , false);
+        m_chimpAnim.SetBool("HighSpeed" , false);
 		m_groundScript.speed = 4f;
 	}
 
@@ -164,14 +163,8 @@ public class ChimpController : MonoBehaviour
 		//Debug.Log("Player Died"); Working
 		m_deathSound.Play();
 		m_gameManagementScript.RestartGame();
-		m_bananaCountObj.SetActive(false);
-		m_bananaImageObj.SetActive(false);
-		//dollarButtonObj.SetActive(false);
-		m_superChimpCountObj.SetActive(false);
-		m_superChimpImageObj.SetActive(false);
+        m_selfieButtonObj.SetActive(false);
 		m_pauseButtonObj.SetActive(false);
-		m_trophyCountObj.SetActive(false);
-		m_trophyImageObj.SetActive(false);
 	}
 
 	void Dying()
@@ -194,9 +187,9 @@ public class ChimpController : MonoBehaviour
         }
 	}
 
-	void OnTriggerEnter2D(Collider2D col2D)
+	void OnTriggerEnter2D(Collider2D tri2D)
 	{
-        if(col2D.gameObject.name.Equals("BananaSkin"))
+        if(tri2D.gameObject.name.Equals("BananaSkin"))
         {
             if(!m_superMode)
             {
@@ -209,34 +202,24 @@ public class ChimpController : MonoBehaviour
             }
         }
 
-        if(col2D.gameObject.tag.Equals("Death")) 
-		{
-			if(!m_superMode)
-			{
-				Debug.Log("Chimp Died");
-				Death();
-			}
-		}
+        if(tri2D.gameObject.tag.Equals("Death"))
+        {
+            Debug.Log("Chimp Died");
+            Death();
+        }
 
-		if(col2D.gameObject.tag.Equals("Enemy") && !m_superMode) 
-		{
-			Debug.Log("Chimp Died");
-			Death();
-		}
-
-		if(col2D.gameObject.tag.Equals("SC"))
+        if(tri2D.gameObject.tag.Equals("SC"))
 		{
 			SuperChimp();
 		}
 	}
 
-	void Run()
-	{
-		m_chimpAnim.SetBool("Grounded" , m_grounded);
-		//chimpBody2D.velocity = new Vector2(chimpSpeed , chimpBody2D.velocity.y);
-	}
+    void Run()
+    {
+        m_chimpAnim.SetBool("Grounded" , m_grounded);
+    }
 
-	public void Slide()
+    public void Slide()
 	{
         m_canJump = false;
 
@@ -250,7 +233,8 @@ public class ChimpController : MonoBehaviour
 
 	void SuperChimp()
 	{
-		m_chimpBlocker.SetActive(true);
+        m_canJump = true;
+        m_chimpBlocker.SetActive(true);
 		m_chimpBody2D.gravityScale = 3.5f;
 
 		if(m_groundScript.speed == 8f)
