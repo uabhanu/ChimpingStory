@@ -6,13 +6,10 @@ public class Hole : MonoBehaviour
 {
     BoxCollider2D m_chimpCollider2D , m_holeCollider2D;
 	ChimpController m_chimpControlScript;
-    float m_startXPos , m_startYPos;
     Ground m_groundScript;
     //int holeAchievementScore;
     Rigidbody2D m_holeBody2D;
     SpriteRenderer m_holeRenderer;
-
-    [SerializeField] float m_randomValue;
     
     //[SerializeField] string achievementID;
 
@@ -24,8 +21,6 @@ public class Hole : MonoBehaviour
         m_holeBody2D = GetComponent<Rigidbody2D>();
         m_holeCollider2D = GetComponent<BoxCollider2D>();
         m_holeRenderer = GetComponent<SpriteRenderer>();
-        m_startXPos = transform.position.x;
-        m_startYPos = transform.position.y;
     }
 
     void FixedUpdate()
@@ -56,7 +51,7 @@ public class Hole : MonoBehaviour
 	{
         if(col2D.gameObject.tag.Equals("Cleaner"))
         {
-            transform.position = new Vector2(Random.Range(m_startXPos - m_randomValue , m_startXPos + m_randomValue) , m_startYPos);
+            Destroy(gameObject);
         }
 
 		if(col2D.gameObject.tag.Equals("Player"))

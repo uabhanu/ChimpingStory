@@ -8,9 +8,13 @@ public class ClickEnabled : MonoBehaviour
 
     [SerializeField] bool m_clickEnabled;
 
+    void Start()
+    {
+        m_chimpControlScript = GameObject.Find("Chimp").GetComponent<ChimpController>();    
+    }
+
     void OnMouseDown()
     {
-        m_chimpControlScript = FindObjectOfType<ChimpController>();
-        m_chimpControlScript.m_clickEnableTest = m_clickEnabled;
+        m_chimpControlScript.m_clickEnableTest = m_clickEnabled;    
     }
 }

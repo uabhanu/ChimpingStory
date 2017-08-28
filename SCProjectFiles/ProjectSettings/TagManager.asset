@@ -16,6 +16,7 @@ TagManager:
   - BananaMissed
   - PickUpCombo
   - BananaCombo
+  - Trouble
   layers:
   - Default
   - TransparentFX

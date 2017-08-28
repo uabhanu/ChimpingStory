@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 50994997262273274}
   m_Layer: 11
   m_Name: PF_Pillar
-  m_TagString: Untagged
+  m_TagString: Death
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -141,7 +141,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1818797274845896}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15, y: 1, z: 0}
+  m_LocalPosition: {x: 20, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4072273198676728}
@@ -391,7 +391,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a21867b7fc45e8c4788cc64c1db16c42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_randomValue: 10
 --- !u!114 &114756826482415626
 MonoBehaviour:
   m_ObjectHideFlags: 1

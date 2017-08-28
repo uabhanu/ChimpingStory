@@ -7,6 +7,7 @@ public class ChimpController : MonoBehaviour
 {
     //private BoxCollider2D superchimpCollider2D;
     //private GameObject superChimp;
+    BananaSkin m_bananaSkinScript;
     BoxCollider2D m_chimpCollider2D;
     Rigidbody2D m_chimpBody2D;
 
@@ -15,7 +16,6 @@ public class ChimpController : MonoBehaviour
 	public Animator m_chimpAnim;
 	public AudioSource m_deathSound;
 	public AudioSource m_jumpSound;
-	public BananaSkin m_bananaSkinScript;
 	public bool m_canJump , m_chimpInTheHole , m_clickEnableTest;
 	public bool m_chimpSlip;
 	public bool m_grounded;
@@ -54,6 +54,7 @@ public class ChimpController : MonoBehaviour
 		m_chimpBody2D = GetComponent<Rigidbody2D>();
         m_chimpCollider2D = GetComponent<BoxCollider2D>();
         m_chimpInTheHole = false;
+        StartCoroutine("GetScriptsRoutine");
 	}
 
 	void FixedUpdate()
@@ -71,6 +72,7 @@ public class ChimpController : MonoBehaviour
             if(m_grounded)
             {
                 m_canJump = true;
+                m_clickEnableTest = false;
 
                 if(!m_chimpAnim.GetBool("Slide"))
                 {
@@ -86,6 +88,7 @@ public class ChimpController : MonoBehaviour
             if(!m_grounded)
             {
                 m_canJump = false;
+                m_clickEnableTest = true;
                 m_selfieButtonObj.SetActive(true);
             }
 		} 
@@ -137,6 +140,12 @@ public class ChimpController : MonoBehaviour
 		m_groundScript.speed = 4f;
 	}
 
+    IEnumerator GetScriptsRoutine()
+    {
+        yield return new WaitForSeconds(1f);
+        m_bananaSkinScript = FindObjectOfType<BananaSkin>();
+        StartCoroutine("GetScriptsRoutine");
+    }
 
 	IEnumerator SlideTimer()
 	{
@@ -189,7 +198,7 @@ public class ChimpController : MonoBehaviour
 
 	void OnTriggerEnter2D(Collider2D tri2D)
 	{
-        if(tri2D.gameObject.name.Equals("BananaSkin"))
+        if(tri2D.gameObject.name.Equals("PF_BananaSkin(Clone)"))
         {
             if(!m_superMode)
             {
