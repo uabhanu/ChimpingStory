@@ -5,12 +5,17 @@ using UnityEngine;
 public class Pillar : MonoBehaviour
 {
     Ground m_groundScript;
+    int m_index;
     Rigidbody2D m_pillarBody;
+
+    [SerializeField] float[] m_xPositions;
 
     void Start()
     {
         m_groundScript = FindObjectOfType<Ground>();
+        m_index = Random.Range(0 , m_xPositions.Length);
         m_pillarBody = GetComponent<Rigidbody2D>();
+        transform.position = new Vector3(m_xPositions[m_index] , transform.position.y , transform.position.z);
     }
 
     void FixedUpdate()

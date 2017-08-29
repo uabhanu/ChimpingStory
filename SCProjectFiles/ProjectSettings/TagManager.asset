@@ -16,7 +16,7 @@ TagManager:
   - BananaMissed
   - PickUpCombo
   - BananaCombo
-  - Trouble
+  - Hole
   layers:
   - Default
   - TransparentFX
@@ -72,6 +72,9 @@ TagManager:
   - name: Player
     uniqueID: 418572561
     locked: 0
+  - name: Pillar
+    uniqueID: 2445450117
+    locked: 0
   - name: TreeForward
     uniqueID: 3746257621
     locked: 0
@@ -80,9 +83,6 @@ TagManager:
     locked: 0
   - name: SC
     uniqueID: 1235662983
-    locked: 0
-  - name: Enemy
-    uniqueID: 2445450117
     locked: 0
   - name: Coin
     uniqueID: 4105668959

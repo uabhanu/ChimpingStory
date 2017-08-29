@@ -7,9 +7,12 @@ public class Hole : MonoBehaviour
     BoxCollider2D m_chimpCollider2D , m_holeCollider2D;
 	ChimpController m_chimpControlScript;
     Ground m_groundScript;
-    //int holeAchievementScore;
+    //int m_holeAchievementScore;
+    int m_index;
     Rigidbody2D m_holeBody2D;
     SpriteRenderer m_holeRenderer;
+
+    [SerializeField] float[] m_xPositions;
     
     //[SerializeField] string achievementID;
 
@@ -21,6 +24,8 @@ public class Hole : MonoBehaviour
         m_holeBody2D = GetComponent<Rigidbody2D>();
         m_holeCollider2D = GetComponent<BoxCollider2D>();
         m_holeRenderer = GetComponent<SpriteRenderer>();
+        m_index = Random.Range(0 , m_xPositions.Length);
+        transform.position = new Vector3(m_xPositions[m_index] , transform.position.y , transform.position.z);
     }
 
     void FixedUpdate()
