@@ -43,7 +43,7 @@ public class crateScript : MonoBehaviour {
 			switch(crateRender.sprite.name){
 
 			case "crates_0":
-				GameObject.Find("Main Camera").GetComponent<levelCreator>().gameSpeed -=1.0f; // CHANGE V4 BEGINNING 8
+				GameObject.Find("Main Camera").GetComponent<LevelCreator>().gameSpeed -=1.0f; // CHANGE V4 BEGINNING 8
 				break;
 			case "crates_1":
 				GameObject.Find("Player").GetComponent<Rigidbody2D>().AddForce(Vector2.up*6000);
@@ -74,7 +74,7 @@ public class crateScript : MonoBehaviour {
 		inPlay = true;
 		releaseCrate = false;
 
-		GameObject tmpTile = GameObject.Find ("Main Camera").GetComponent<levelCreator> ().tilePos;
+		GameObject tmpTile = GameObject.Find ("Main Camera").GetComponent<LevelCreator> ().tilePos;
 		this.transform.position = new Vector2 (tmpTile.transform.position.x, tmpTile.transform.position.y +5.5f); 
 		maxY = this.transform.position.y + .5f;
 		minY = maxY - 1.0f;
