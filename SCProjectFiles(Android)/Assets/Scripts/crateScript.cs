@@ -49,14 +49,14 @@ public class crateScript : MonoBehaviour {
 				GameObject.Find("Player").GetComponent<Rigidbody2D>().AddForce(Vector2.up*6000);
 				break;
 			case "crates_2":
-				GameObject.Find("Main Camera").GetComponent<scoreHandler>().Points +=10;
+				//GameObject.Find("Main Camera").GetComponent<ScoreHandler>().Points +=10;
 
 				break;
 			}
 			inPlay = false;
 			this.transform.position = new Vector2(this.transform.position.x, this.transform.position.y + 30.0f);
 
-			GameObject.Find("Main Camera").GetComponent<playSound>().PlaySound("power");
+			GameObject.Find("Main Camera").GetComponent<PlaySound>().SoundToPlay("power");
 
 		}
 

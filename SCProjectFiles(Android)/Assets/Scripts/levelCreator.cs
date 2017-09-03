@@ -7,7 +7,7 @@ public class LevelCreator : MonoBehaviour
     bool enemyAdded = false , playerDead = false;
     const float tileWidth= 1.25f;
     float blankCounter = 0 , middleCounter = 0 , outofbounceX , outOfBounceY , startUpPosY , startTime;
-    GameObject bgLayer , collectedTiles , gameLayer , _player , tmpTile;
+    GameObject bgLayer , collectedTiles , gameLayer , m_chimp , tmpTile;
 	int heightLevel = 0;
 	string lastTile = "right";
 
@@ -59,7 +59,7 @@ public class LevelCreator : MonoBehaviour
 		startUpPosY = tilePos.transform.position.y;
 		outofbounceX = tilePos.transform.position.x - 5.0f;
 		outOfBounceY = startUpPosY - 3.0f;
-		_player = GameObject.Find("Player");
+		m_chimp = GameObject.FindGameObjectWithTag("Player");
 		FillScene();
 		startTime = Time.time;
 	}
@@ -124,7 +124,7 @@ public class LevelCreator : MonoBehaviour
             SpawnTile();
         }
 
-		if(_player.transform.position.y < outOfBounceY)
+		if(m_chimp.transform.position.y < outOfBounceY)
         {
             KillPlayer();
         }
@@ -139,8 +139,8 @@ public class LevelCreator : MonoBehaviour
         } 
 
         playerDead = true;
-		GetComponent<scoreHandler> ().sendToHighScore ();
-		GetComponent<playSound>().PlaySound("restart");
+		//GetComponent<ScoreHandler> ().sendToHighScore ();
+		GetComponent<PlaySound>().SoundToPlay("restart");
 		Invoke("ReloadScene" , 1);
 	}
 
@@ -215,7 +215,7 @@ public class LevelCreator : MonoBehaviour
         
         else if(lastTile =="right")
         {
-			GetComponent<scoreHandler> ().Points++;
+			//GetComponent<ScoreHandler> ().Points++;
 			blankCounter = (int)Random.Range(1 , 3);
 
 		}

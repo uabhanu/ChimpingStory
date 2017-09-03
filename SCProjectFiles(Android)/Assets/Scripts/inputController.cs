@@ -1,63 +1,67 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class inputController : MonoBehaviour {
+public class InputController : MonoBehaviour
+{
+	bool isMobile = true;
+	ChimpController m_chimpController;
 
-	private bool isMobile = true;
-	private playerHandler _player;
+	void Start()
+    {
+		if(Application.isEditor)
+        {
+            isMobile = false;
+        }
 
-	void Start () {
-		if (Application.isEditor)
-						isMobile = false;
-		_player = GameObject.Find ("Player").GetComponent<playerHandler> ();
-
+		m_chimpController = GameObject.FindGameObjectWithTag("Player").GetComponent<ChimpController>();
 	}
 
-	
-	// Update is called once per frame
-	void Update () {
+	void Update()
+    {
+        if(Time.timeScale == 0)
+        {
+            return;
+        }
 
-
-		if (isMobile) {
-
+		if(isMobile)
+        {
 			int tmpC = Input.touchCount;
 			tmpC--;
 
-			if(Input.GetTouch(tmpC).phase == TouchPhase.Began){
-				handleInteraction(true);
-			}
-			if(Input.GetTouch(tmpC).phase == TouchPhase.Ended){
-				handleInteraction(false);
+			if(Input.GetTouch(tmpC).phase == TouchPhase.Began)
+            {
+				HandleInteraction(true);
 			}
 
-		}else{
-
-			if(Input.GetMouseButtonDown(0)){
-				handleInteraction(true);
-			}
-			if(Input.GetMouseButtonUp(0)){
-				handleInteraction(false);
+			if(Input.GetTouch(tmpC).phase == TouchPhase.Ended)
+            {
+				HandleInteraction(false);
 			}
 
 		}
+        else
+        {
+			if(Input.GetMouseButtonDown(0))
+            {
+				HandleInteraction(true);
+			}
 
-	
-	}
-
-
-	void handleInteraction(bool starting){
-
-		if (starting) {
-			_player.jump();
-		}else{
-			_player.jumpPress=false;
+			if(Input.GetMouseButtonUp(0))
+            {
+				HandleInteraction(false);
+			}
 		}
-
-
 	}
 
-
-
-
-
+	void HandleInteraction(bool starting)
+    {
+		if(starting)
+        {
+			m_chimpController.Jump();
+		}
+        else
+        {
+		    m_chimpController.jumpPress=false;
+		}
+	}
 }
