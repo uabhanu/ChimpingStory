@@ -37,7 +37,6 @@ public class InputController : MonoBehaviour
             {
 				HandleInteraction(false);
 			}
-
 		}
         else
         {
@@ -61,7 +60,7 @@ public class InputController : MonoBehaviour
 		}
         else
         {
-		    m_chimpController.jumpPress=false;
+		    m_chimpController.m_jumpPress = false;
 		}
 	}
 }

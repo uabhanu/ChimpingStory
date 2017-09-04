@@ -3,15 +3,15 @@ using System.Collections;
 
 public class ChimpController : MonoBehaviour
 {
-    Animator _animator;
-	bool inAir = false;
-	int _animState = Animator.StringToHash("animState");
+    Animator m_animator;
+	bool m_inAir = false;
+	int m_animState = Animator.StringToHash("animState");
 
-    public bool jumpPress = false;
+    public bool m_jumpPress = false;
 
 	void Start()
     {
-		_animator = GetComponent<Animator>();
+		m_animator = GetComponent<Animator>();
 	}
 	
 	void Update()
@@ -21,18 +21,18 @@ public class ChimpController : MonoBehaviour
             return;
         } 
 
-		if(!inAir && Mathf.Abs(GetComponent<Rigidbody2D>().velocity.y) > 0.05f)
+		if(!m_inAir && Mathf.Abs(GetComponent<Rigidbody2D>().velocity.y) > 0.05f)
         {
-			_animator.SetInteger(_animState,1);
-			inAir =true;
+			m_animator.SetInteger(m_animState,1);
+			m_inAir =true;
 		}
         
-        else if(inAir && GetComponent<Rigidbody2D>().velocity.y == 0.00f)
+        else if(m_inAir && GetComponent<Rigidbody2D>().velocity.y == 0.00f)
         {
-			_animator.SetInteger(_animState , 0);
-			inAir =false;
+			m_animator.SetInteger(m_animState , 0);
+			m_inAir =false;
 
-			if(jumpPress)
+			if(m_jumpPress)
             {
                 Jump();
             } 
@@ -41,9 +41,9 @@ public class ChimpController : MonoBehaviour
 
 	public void Jump()
     {
-		jumpPress = true;
+		m_jumpPress = true;
 
-        if(inAir)
+        if(m_inAir)
         {
             return;
         } 

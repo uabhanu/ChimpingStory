@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class LevelCreator : MonoBehaviour
 {
     bool enemyAdded = false , playerDead = false;
-    const float tileWidth= 1.25f;
+    const float tileWidth = 1.25f;
     float blankCounter = 0 , middleCounter = 0 , outofbounceX , outOfBounceY , startUpPosY , startTime;
     GameObject bgLayer , collectedTiles , gameLayer , m_chimp , tmpTile;
 	int heightLevel = 0;
@@ -14,12 +14,10 @@ public class LevelCreator : MonoBehaviour
     public float gameSpeed = 6.0f;
     public GameObject tilePos;
 
-
 	void Awake()
     {
 		Application.targetFrameRate = 60;
 	}
-
 
 	void Start() 
 	{

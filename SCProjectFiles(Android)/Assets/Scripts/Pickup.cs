@@ -85,15 +85,4 @@ public class Pickup : MonoBehaviour
 		m_maxY = transform.position.y + 0.5f;
 		m_minY = m_maxY - 1.0f;
 	}
-
-
-
-
-
-
-
-
-
-
-
 }
