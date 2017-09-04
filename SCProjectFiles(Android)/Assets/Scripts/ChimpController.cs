@@ -3,15 +3,15 @@ using System.Collections;
 
 public class ChimpController : MonoBehaviour
 {
-    Animator m_animator;
-	bool m_inAir = false;
-	int m_animState = Animator.StringToHash("animState");
+    Animator m_chimpAnim;
+	bool m_grounded = true , m_inAir = false;
 
     public bool m_jumpPress = false;
 
 	void Start()
     {
-		m_animator = GetComponent<Animator>();
+		m_chimpAnim = GetComponent<Animator>();
+        m_chimpAnim.SetBool("Jog" , true);
 	}
 	
 	void Update()
@@ -19,18 +19,26 @@ public class ChimpController : MonoBehaviour
         if(Time.timeScale == 0)
         {
             return;
-        } 
-
-		if(!m_inAir && Mathf.Abs(GetComponent<Rigidbody2D>().velocity.y) > 0.05f)
+        }
+        
+        if(m_grounded)
         {
-			m_animator.SetInteger(m_animState,1);
-			m_inAir =true;
+            m_chimpAnim.SetBool("Jump" , true);
+        }
+
+        if(!m_grounded)
+        {
+            m_chimpAnim.SetBool("Jump" , false);
+        }
+
+		if(!m_inAir && Mathf.Abs(GetComponent<Rigidbody2D>().velocity.y) > 0.00f)
+        {
+            m_inAir = true;
 		}
         
         else if(m_inAir && GetComponent<Rigidbody2D>().velocity.y == 0.00f)
         {
-			m_animator.SetInteger(m_animState , 0);
-			m_inAir =false;
+            m_inAir = false;
 
 			if(m_jumpPress)
             {
@@ -42,7 +50,7 @@ public class ChimpController : MonoBehaviour
 	public void Jump()
     {
 		m_jumpPress = true;
-
+        
         if(m_inAir)
         {
             return;
@@ -51,4 +59,20 @@ public class ChimpController : MonoBehaviour
 		GetComponent<Rigidbody2D>().AddForce(Vector2.up * 3000);
 		GameObject.Find("Main Camera").GetComponent<PlaySound>().SoundToPlay("Jump");	
 	}
+
+    void OnCollisionEnter2D(Collision2D col2D) //This sucks so try Raycast or Layermask method
+    {
+        if(col2D.gameObject.tag.Equals("Ground"))
+        {
+            m_grounded = true;
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D col2D) //This sucks so try Raycast or Layermask method
+    {
+        if(col2D.gameObject.tag.Equals("Ground"))
+        {
+            m_grounded = false;
+        }
+    }
 }

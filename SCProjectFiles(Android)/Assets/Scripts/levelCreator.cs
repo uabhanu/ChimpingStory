@@ -64,7 +64,6 @@ public class LevelCreator : MonoBehaviour
 
 	void FixedUpdate() 
 	{
-
 		if(startTime - Time.time % 5 == 0)
         {
 			gameSpeed += 0.5f;
@@ -128,7 +127,6 @@ public class LevelCreator : MonoBehaviour
         }
 	}
 
-
 	void KillPlayer()
     {
 		if(playerDead)
@@ -144,7 +142,7 @@ public class LevelCreator : MonoBehaviour
 
 	void ReloadScene()
     {
-		SceneManager.LoadScene(0);
+		SceneManager.LoadScene("LandRunner");
 	}
 
 	void FillScene()
