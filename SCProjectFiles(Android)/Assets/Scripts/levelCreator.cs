@@ -109,7 +109,7 @@ public class LevelCreator : MonoBehaviour
 				    break;
 
 				    case "Reward":
-					    GameObject.Find("Reward").GetComponent<crateScript>().inPlay = false;
+					    GameObject.Find("Reward").GetComponent<Pickup>().m_inPlay = false;
 				    break;
 
 				    default:
@@ -209,14 +209,14 @@ public class LevelCreator : MonoBehaviour
         {
 			ChangeHeight();
 			SetTile("left");
-			middleCounter = (int)Random.Range(1 , 8);
+			middleCounter = Random.Range(1 , 8);
 
 		}
         
         else if(lastTile =="right")
         {
 			//GetComponent<ScoreHandler> ().Points++;
-			blankCounter = (int)Random.Range(1 , 3);
+			blankCounter = Random.Range(1 , 3);
 
 		}
         

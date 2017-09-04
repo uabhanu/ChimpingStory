@@ -14,15 +14,15 @@ public class PlaySound : MonoBehaviour
     {
 		switch(type)
         {
-	        case "jump":
+	        case "Jump":
 		        _audiSource[0].Play();
 	        break;
 
-	        case "power":
+	        case "Pickup":
 		        _audiSource[1].Play();
 	        break;
 
-	        case "die":
+	        case "EnemyDeath":
 		        _audiSource[2].Play();
 	        break;
 

@@ -49,6 +49,6 @@ public class ChimpController : MonoBehaviour
         } 
 
 		GetComponent<Rigidbody2D>().AddForce(Vector2.up * 3000);
-		GameObject.Find("Main Camera").GetComponent<PlaySound>().SoundToPlay("jump");	
+		GameObject.Find("Main Camera").GetComponent<PlaySound>().SoundToPlay("Jump");	
 	}
 }
