@@ -26,7 +26,7 @@ public class PlaySound : MonoBehaviour
 		        _audiSource[2].Play();
 	        break;
 
-	        case "restart":
+	        case "FallDeath":
 		        _audiSource[3].Play();
 	        break;
 		}
