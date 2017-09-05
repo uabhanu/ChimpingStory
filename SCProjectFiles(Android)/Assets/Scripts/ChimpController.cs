@@ -57,7 +57,7 @@ public class ChimpController : MonoBehaviour
             return;
         } 
 
-		m_chimpBody2D.AddForce(Vector2.up * m_jumpHeight);
+		m_chimpBody2D.AddForce(Vector2.up * m_jumpHeight * Time.deltaTime);
 		GameObject.Find("Main Camera").GetComponent<PlaySound>().SoundToPlay("Jump");	
 	}
 }
