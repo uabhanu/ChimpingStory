@@ -51,11 +51,11 @@ public class Pickup : MonoBehaviour
             {
 
 			    case "crates_0":
-				    GameObject.Find("Main Camera").GetComponent<LevelCreator>().gameSpeed -= 1.0f; // CHANGE V4 BEGINNING 8
+				    GameObject.Find("Main Camera").GetComponent<LevelCreator>().m_gameSpeed -= 1.0f; // CHANGE V4 BEGINNING 8
 			    break;
 
 			    case "crates_1":
-				    GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>().AddForce(Vector2.up * 6000);
+				    
 			    break;
 
 			    case "crates_2":
@@ -80,7 +80,7 @@ public class Pickup : MonoBehaviour
     {
 		m_inPlay = true;
 		m_releasePickup = false;
-		GameObject tmpTile = GameObject.Find ("Main Camera").GetComponent<LevelCreator>().tilePos;
+		GameObject tmpTile = GameObject.Find ("Main Camera").GetComponent<LevelCreator>().m_tilePos;
 		transform.position = new Vector2 (tmpTile.transform.position.x , tmpTile.transform.position.y + 5.5f); 
 		m_maxY = transform.position.y + 0.5f;
 		m_minY = m_maxY - 1.0f;

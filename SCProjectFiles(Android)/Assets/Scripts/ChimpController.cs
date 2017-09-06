@@ -8,7 +8,7 @@ public class ChimpController : MonoBehaviour
 
     [SerializeField] bool m_grounded = true;
 
-    [SerializeField] float m_jumpHeight;
+    [SerializeField] float m_jumpForward , m_jumpHeight;
 
     [SerializeField] Transform m_bottom , m_top;
 
@@ -57,7 +57,7 @@ public class ChimpController : MonoBehaviour
             return;
         } 
 
-		m_chimpBody2D.AddForce(Vector2.up * m_jumpHeight * Time.deltaTime);
+		m_chimpBody2D.AddForce(new Vector2(m_jumpForward * Time.deltaTime , m_jumpHeight * Time.deltaTime));
 		GameObject.Find("Main Camera").GetComponent<PlaySound>().SoundToPlay("Jump");	
 	}
 }
