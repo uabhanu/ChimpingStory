@@ -71,7 +71,6 @@ public class LevelCreator : MonoBehaviour
 		}
 
 		m_gameLayer.transform.position = new Vector2 (m_gameLayer.transform.position.x - m_gameSpeed * Time.deltaTime , 0);
-		m_bgLayer.transform.position = new Vector2 (m_bgLayer.transform.position.x - m_gameSpeed / 4 * Time.deltaTime , 0);
 
 		foreach(Transform child in m_gameLayer.transform)
         {
