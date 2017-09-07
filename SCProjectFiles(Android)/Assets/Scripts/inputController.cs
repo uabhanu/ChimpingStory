@@ -30,38 +30,57 @@ public class InputController : MonoBehaviour
 
 			if(Input.GetTouch(tmpC).phase == TouchPhase.Began)
             {
-				HandleInteraction(true);
+				HandleMouseLeftInteraction(true);
+                HandleMouseRightInteraction(true);
 			}
 
 			if(Input.GetTouch(tmpC).phase == TouchPhase.Ended)
             {
-				HandleInteraction(false);
+				HandleMouseLeftInteraction(false);
+                HandleMouseRightInteraction(false);
 			}
 		}
         else
         {
 			if(Input.GetMouseButtonDown(0))
             {
-				HandleInteraction(true);
+				HandleMouseLeftInteraction(true);
+			}
+
+            if(Input.GetMouseButtonDown(1))
+            {
+				HandleMouseRightInteraction(true);
 			}
 
 			if(Input.GetMouseButtonUp(0))
             {
-				HandleInteraction(false);
+				HandleMouseLeftInteraction(false);
+			}
+
+            if(Input.GetMouseButtonUp(1))
+            {
+				HandleMouseRightInteraction(false);
 			}
 		}
 	}
 
-	void HandleInteraction(bool starting)
+	void HandleMouseLeftInteraction(bool starting)
     {
 		if(starting)
         {
 			m_chimpController.Jump();
-            m_chimpController.Slide();
 		}
         else
         {
 		    m_chimpController.m_jumpPress = false;
+		}
+	}
+
+    void HandleMouseRightInteraction(bool starting)
+    {
+		if(starting)
+        {
+			m_chimpController.Slide();
 		}
 	}
 }

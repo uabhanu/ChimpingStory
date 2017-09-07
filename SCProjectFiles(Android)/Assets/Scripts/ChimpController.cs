@@ -44,6 +44,11 @@ public class ChimpController : MonoBehaviour
     IEnumerator SlideRoutine()
     {
         yield return new WaitForSeconds(m_slideTime);
+
+        if(m_chimpAnim.GetBool("Slide"))
+		{
+			m_chimpAnim.SetBool("Slide" , false);
+		}
     }
 
     void GroundCheck()
@@ -68,6 +73,7 @@ public class ChimpController : MonoBehaviour
 
     public void Slide()
     {
-
+        m_chimpAnim.SetBool("Slide", true);
+        StartCoroutine("SlideRoutine");   
     }
 }
