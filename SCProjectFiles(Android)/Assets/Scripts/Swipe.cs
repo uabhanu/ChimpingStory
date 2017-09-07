@@ -56,8 +56,6 @@ public class Swipe : MonoBehaviour
 						Debug.Log("Swipe Up");
                         m_chimpControlScript.Jump();
 					}
-
-					//hasSwiped = true;
 				}
 			}
 

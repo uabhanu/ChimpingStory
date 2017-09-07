@@ -8,7 +8,7 @@ public class ChimpController : MonoBehaviour
 
     [SerializeField] bool m_grounded = true;
 
-    [SerializeField] float m_jumpForward , m_jumpHeight , m_slideTime;
+    [SerializeField] float m_jumpHeight , m_slideTime;
 
     [SerializeField] Transform m_bottom , m_top;
 
@@ -32,13 +32,19 @@ public class ChimpController : MonoBehaviour
         m_chimpAnim.SetBool("Jog" , m_grounded);
         m_chimpAnim.SetBool("Jump" , !m_grounded);
 
-        if(m_grounded)
-        { 
-            if(m_jumpPress)
-            {
-                Jump();
-            }
-        }
+        #if UNITY_EDITOR_64
+
+            if(Input.GetMouseButton(0))
+		    {
+			    Jump();
+		    }
+
+		    else if(Input.GetMouseButton(1))
+		    {
+			    Slide();
+		    }
+
+		#endif
 	}
 
     IEnumerator SlideRoutine()
@@ -67,7 +73,7 @@ public class ChimpController : MonoBehaviour
             return;
         } 
 
-		m_chimpBody2D.AddForce(new Vector2(m_jumpForward * Time.deltaTime , m_jumpHeight * Time.deltaTime));
+		m_chimpBody2D.velocity = new Vector2(m_chimpBody2D.velocity.x , m_jumpHeight);
 		GameObject.Find("Main Camera").GetComponent<PlaySound>().SoundToPlay("Jump");	
 	}
 
