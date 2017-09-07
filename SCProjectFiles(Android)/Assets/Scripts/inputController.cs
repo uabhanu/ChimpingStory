@@ -3,14 +3,14 @@ using System.Collections;
 
 public class InputController : MonoBehaviour
 {
-	bool isMobile = true;
+	bool m_isMobile = true;
 	ChimpController m_chimpController;
 
 	void Start()
     {
 		if(Application.isEditor)
         {
-            isMobile = false;
+            m_isMobile = false;
         }
 
 		m_chimpController = GameObject.FindGameObjectWithTag("Player").GetComponent<ChimpController>();
@@ -23,7 +23,7 @@ public class InputController : MonoBehaviour
             return;
         }
 
-		if(isMobile)
+		if(m_isMobile)
         {
 			int tmpC = Input.touchCount;
 			tmpC--;
@@ -57,6 +57,7 @@ public class InputController : MonoBehaviour
 		if(starting)
         {
 			m_chimpController.Jump();
+            m_chimpController.Slide();
 		}
         else
         {
