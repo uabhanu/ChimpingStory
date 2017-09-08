@@ -21,7 +21,7 @@ public class Mountains : MonoBehaviour
 
 		m_mountainsBody2D.velocity = new Vector2(-m_levelCreationScript.m_gameSpeed / 4 , m_mountainsBody2D.velocity.y);
 
-		if(transform.position.x <= -28.8f)
+		if(transform.position.x <= -43.2f)
 		{
 			transform.position = new Vector3(0f , transform.position.y , transform.position.z);
 		}

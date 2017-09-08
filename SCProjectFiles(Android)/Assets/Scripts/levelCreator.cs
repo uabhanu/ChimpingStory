@@ -222,7 +222,7 @@ public class LevelCreator : MonoBehaviour
 
 	void ChangeHeight()
 	{
-		int newHeightLevel = Random.Range(0 , 4);
+		int newHeightLevel = Random.Range(0 , 2);
 
 		if(newHeightLevel < m_heightLevel)
         {

@@ -27,12 +27,7 @@ public class ChimpController : MonoBehaviour
             return;
         }
 
-        GroundCheck();
-
-        m_chimpAnim.SetBool("Jog" , m_grounded);
-        m_chimpAnim.SetBool("Jump" , !m_grounded);
-
-        #if UNITY_EDITOR_64
+        #if UNITY_EDITOR_64 || UNITY_STANDALONE_WIN
 
             if(Input.GetMouseButton(0))
 		    {
@@ -45,6 +40,11 @@ public class ChimpController : MonoBehaviour
 		    }
 
 		#endif
+
+        GroundCheck();
+
+        m_chimpAnim.SetBool("Jog" , m_grounded);
+        m_chimpAnim.SetBool("Jump" , !m_grounded);
 	}
 
     IEnumerator SlideRoutine()
