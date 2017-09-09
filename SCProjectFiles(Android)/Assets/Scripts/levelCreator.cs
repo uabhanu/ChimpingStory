@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelCreator : MonoBehaviour
 {
-    bool m_PF_EnemyAdded = false , m_playerDead = false;
+    bool m_enemyAdded = false , m_playerDead = false;
     const float m_tileWidth = 1.25f;
     float m_blankCounter = 0 , m_middleCounter = 0 , m_outofbounceX , m_outOfBounceY , m_startUpPosY;
     GameObject m_bgLayer , m_chimp , m_collectedTiles , m_gameLayer ,  m_tmpTile;
@@ -207,7 +207,7 @@ public class LevelCreator : MonoBehaviour
 			return;
 		}
 
-		m_PF_EnemyAdded = false;
+		m_enemyAdded = false;
 
 		if(m_lastTile == "PF_Blank")
         {
@@ -244,18 +244,18 @@ public class LevelCreator : MonoBehaviour
 
 	void RandomizeEnemy()
     {
-		if(m_PF_EnemyAdded)
+		if(m_enemyAdded)
         {
 			return;
 		}
 
-		if(Random.Range (0 , 4) == 1 && m_middleCounter > 3)
+		if(Random.Range (0 , 4) == 1 && m_middleCounter > 2)
         {
 			GameObject trouble = m_collectedTiles.transform.Find("Troubles").transform.GetChild(0).gameObject;
 			trouble.transform.parent = m_gameLayer.transform;
-			trouble.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 2)));
+			trouble.transform.position = new Vector2(m_tilePos.transform.position.x + (m_tileWidth * 1.35f) , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 2)));
 
-			m_PF_EnemyAdded = true;
+			m_enemyAdded = true;
 		}
 	}
 }
