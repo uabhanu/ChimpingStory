@@ -50,7 +50,7 @@ public class Pickup : MonoBehaviour
 			switch(m_pickUpRenderer.sprite.name)
             {
 			    case "Brakes":
-				    GameObject.Find("Main Camera").GetComponent<LevelCreator>().m_gameSpeed -= 2.0f;
+				    GameObject.Find("Main Camera").GetComponent<LevelCreator>().m_gameSpeed = 4.5f;
 			    break;
 
 			    case "crates_1":

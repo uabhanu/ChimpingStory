@@ -8,11 +8,13 @@ public class ChimpController : MonoBehaviour
 
     [SerializeField] bool m_grounded = true;
 
-    [SerializeField] float m_jumpHeight , m_slideTime;
+    [SerializeField] float m_jumpHeight , m_slideTime , m_slipTime;
+
+    [SerializeField] LevelCreator m_levelCreationScript;
 
     [SerializeField] Transform m_bottom , m_top;
 
-    public bool m_jumpPress = false;
+    public bool m_jumpPress = false , m_slip;
 
 	void Start()
     {
@@ -57,6 +59,18 @@ public class ChimpController : MonoBehaviour
 		}
     }
 
+    IEnumerator SlipRoutine()
+    {
+        yield return new WaitForSeconds(m_slipTime);
+
+        if(m_chimpAnim.GetBool("Slip"))
+		{
+			m_chimpAnim.SetBool("Slip" , false);
+            m_levelCreationScript.m_gameSpeed = 6.0f;
+            m_slip = false;
+		}
+    }
+
     void GroundCheck()
     {
         Debug.DrawLine(m_top.position , m_bottom.position , Color.green);
@@ -77,9 +91,25 @@ public class ChimpController : MonoBehaviour
 		GameObject.Find("Main Camera").GetComponent<PlaySound>().SoundToPlay("Jump");	
 	}
 
+    void OnTriggerEnter2D(Collider2D tri2D)
+    {
+        if(tri2D.gameObject.tag.Equals("Skin"))
+        {
+            Slip();
+        }
+    }
+
     public void Slide()
     {
-        m_chimpAnim.SetBool("Slide", true);
+        m_chimpAnim.SetBool("Slide" , true);
         StartCoroutine("SlideRoutine");   
+    }
+
+    void Slip()
+    {
+        m_chimpAnim.SetBool("Slip" , true);
+        m_levelCreationScript.m_gameSpeed *= 1.5f;
+        m_slip = true;
+        StartCoroutine("SlipRoutine");
     }
 }

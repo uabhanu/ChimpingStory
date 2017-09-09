@@ -6,12 +6,12 @@ public class LevelCreator : MonoBehaviour
 {
     bool m_PF_EnemyAdded = false , m_playerDead = false;
     const float m_tileWidth = 1.25f;
-    float m_blankCounter = 0 , m_middleCounter = 0 , m_outofbounceX , m_outOfBounceY , m_startUpPosY , m_startTime;
+    float m_blankCounter = 0 , m_middleCounter = 0 , m_outofbounceX , m_outOfBounceY , m_startUpPosY;
     GameObject m_bgLayer , m_chimp , m_collectedTiles , m_gameLayer ,  m_tmpTile;
 	int m_heightLevel = 0;
 	string m_lastTile = "PF_GroundRight";
 
-    public float m_gameSpeed = 6.0f;
+    public float m_gameSpeed;
     public GameObject m_tilePos;
 
 	void Awake()
@@ -65,16 +65,16 @@ public class LevelCreator : MonoBehaviour
 		m_outOfBounceY = m_startUpPosY - 3.0f;
 		m_chimp = GameObject.FindGameObjectWithTag("Player");
 		FillScene();
-		m_startTime = Time.time;
 	}
 
 	void FixedUpdate() 
 	{
-		if(m_startTime - Time.time % 5 == 0)
-        {
-			m_gameSpeed += 0.5f;
+		//if(m_startTime - Time.time % 5 == 0)
+  //      {
+		//	m_gameSpeed += 0.5f;
+		//}
 
-		}
+        //Do better logic for game speed increase and only 2 speeds, Medium & High and at set intervals
 
 		m_gameLayer.transform.position = new Vector2 (m_gameLayer.transform.position.x - m_gameSpeed * Time.deltaTime , 0);
 
