@@ -9,7 +9,7 @@ public class LevelCreator : MonoBehaviour
     float m_blankCounter = 0 , m_middleCounter = 0 , m_outofbounceX , m_outOfBounceY , m_startUpPosY , m_startTime;
     GameObject m_bgLayer , m_chimp , m_collectedTiles , m_gameLayer ,  m_tmpTile;
 	int m_heightLevel = 0;
-	string m_lastTile = "right";
+	string m_lastTile = "PF_GroundRight";
 
     public float m_gameSpeed = 6.0f;
     public GameObject m_tilePos;
@@ -46,9 +46,15 @@ public class LevelCreator : MonoBehaviour
 
 		for(int i = 0; i < 10; i++)
         {
-			GameObject tmpG5 = Instantiate(Resources.Load("PF_Enemy" , typeof(GameObject))) as GameObject;
-			tmpG5.transform.parent = m_collectedTiles.transform.Find("Killers").transform;
-			tmpG5.transform.position = Vector2.zero;
+			GameObject trouble01 = Instantiate(Resources.Load("PF_Enemy" , typeof(GameObject))) as GameObject;
+			trouble01.transform.parent = m_collectedTiles.transform.Find("Troubles").transform;
+			trouble01.transform.position = Vector2.zero;
+
+            GameObject trouble02 = Instantiate(Resources.Load("PF_BananaSkin" , typeof(GameObject))) as GameObject;
+			trouble02.transform.parent = m_collectedTiles.transform.Find("Troubles").transform;
+			trouble02.transform.position = Vector2.zero;
+
+            //Modify this code and make it select only one of the available enemies for actual version, this is fine for testing
 		}
 
 		m_collectedTiles.transform.position = new Vector2 (-60.0f , -20.0f);
@@ -78,7 +84,25 @@ public class LevelCreator : MonoBehaviour
             {
 				switch(child.gameObject.name)
                 {
-					
+                    case "PF_Banana(Clone)":
+					    GameObject.FindGameObjectWithTag("Goodies").GetComponent<Pickup>().m_inPlay = false;
+				    break;
+
+                    case "PF_BananaSkin(Clone)":
+					    child.gameObject.transform.position = m_collectedTiles.transform.Find("Troubles").transform.position;
+					    child.gameObject.transform.parent = m_collectedTiles.transform.Find("Troubles").transform;
+				    break;
+
+					case "PF_Blank(Clone)":
+					    child.gameObject.transform.position = m_collectedTiles.transform.Find("gBlank").transform.position;
+					    child.gameObject.transform.parent = m_collectedTiles.transform.Find("gBlank").transform;
+				    break;
+
+                    case "PF_Enemy(Clone)":
+					    child.gameObject.transform.position = m_collectedTiles.transform.Find("Troubles").transform.position;
+					    child.gameObject.transform.parent = m_collectedTiles.transform.Find("Troubles").transform;
+				    break;
+
 				    case "PF_GroundLeft(Clone)":
 					    child.gameObject.transform.position = m_collectedTiles.transform.Find("gLeft").transform.position;
 					    child.gameObject.transform.parent = m_collectedTiles.transform.Find("gLeft").transform;
@@ -92,20 +116,6 @@ public class LevelCreator : MonoBehaviour
 				    case "PF_GroundRight(Clone)":
 					    child.gameObject.transform.position = m_collectedTiles.transform.Find("gRight").transform.position;
 					    child.gameObject.transform.parent = m_collectedTiles.transform.Find("gRight").transform;
-				    break;
-
-				    case "PF_Blank(Clone)":
-					    child.gameObject.transform.position = m_collectedTiles.transform.Find("gBlank").transform.position;
-					    child.gameObject.transform.parent = m_collectedTiles.transform.Find("gBlank").transform;
-				    break;
-
-				    case "PF_Enemy(Clone)":
-					    child.gameObject.transform.position = m_collectedTiles.transform.Find("Killers").transform.position;
-					    child.gameObject.transform.parent = m_collectedTiles.transform.Find("Killers").transform;
-				    break;
-
-				    case "Reward":
-					    GameObject.Find("Reward").GetComponent<Pickup>().m_inPlay = false;
 				    break;
 
 				    default:
@@ -147,30 +157,30 @@ public class LevelCreator : MonoBehaviour
 	{
 		for(int i = 0; i < 15; i++)
 		{
-			SetTile("middle");
+			SetTile("PF_GroundMiddle");
 		}
 
-		SetTile("right");
+		SetTile("PF_GroundRight");
 	}
 
 	void SetTile(string type)
 	{
 		switch(type)
         {
-		    case "left":
+            case "PF_Blank":
+			    m_tmpTile = m_collectedTiles.transform.Find("gBlank").transform.GetChild(0).gameObject;
+		    break;
+
+		    case "PF_GroundLeft":
 			    m_tmpTile = m_collectedTiles.transform.Find("gLeft").transform.GetChild(0).gameObject;
 		    break;
 
-		    case "middle":
+		    case "PF_GroundMiddle":
 			    m_tmpTile = m_collectedTiles.transform.Find("gMiddle").transform.GetChild(0).gameObject;
 		    break;
 
-		    case "right":
+		    case "PF_GroundRight":
 			    m_tmpTile = m_collectedTiles.transform.Find("gRight").transform.GetChild(0).gameObject;
-		    break;
-
-		    case "PF_Blank":
-			    m_tmpTile = m_collectedTiles.transform.Find("gBlank").transform.GetChild(0).gameObject;
 		    break;
 		}
 
@@ -192,7 +202,7 @@ public class LevelCreator : MonoBehaviour
 		if(m_middleCounter > 0)
         {
 			RandomizeEnemy();
-			SetTile("middle");
+			SetTile("PF_GroundMiddle");
 			m_middleCounter--;
 			return;
 		}
@@ -202,21 +212,18 @@ public class LevelCreator : MonoBehaviour
 		if(m_lastTile == "PF_Blank")
         {
 			ChangeHeight();
-			SetTile("left");
+			SetTile("PF_GroundLeft");
 			m_middleCounter = Random.Range(1 , 8);
-
 		}
         
-        else if(m_lastTile =="right")
+        else if(m_lastTile =="PF_GroundRight")
         {
-			//GetComponent<ScoreHandler> ().Points++;
 			m_blankCounter = Random.Range(1 , 3);
-
 		}
         
-        else if(m_lastTile == "middle")
+        else if(m_lastTile == "PF_GroundMiddle")
         {
-			SetTile("right");
+			SetTile("PF_GroundRight");
 		}
 	}
 
@@ -244,9 +251,10 @@ public class LevelCreator : MonoBehaviour
 
 		if(Random.Range (0 , 4) == 1 && m_middleCounter > 3)
         {
-			GameObject newEnemy = m_collectedTiles.transform.Find("Killers").transform.GetChild(0).gameObject;
-			newEnemy.transform.parent = m_gameLayer.transform;
-			newEnemy.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 2)));
+			GameObject trouble = m_collectedTiles.transform.Find("Troubles").transform.GetChild(0).gameObject;
+			trouble.transform.parent = m_gameLayer.transform;
+			trouble.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 2)));
+
 			m_PF_EnemyAdded = true;
 		}
 	}

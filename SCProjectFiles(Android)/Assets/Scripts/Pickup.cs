@@ -6,7 +6,7 @@ public class Pickup : MonoBehaviour
     bool m_releasePickup = false;
     float m_minY , m_maxY;
 	int m_direction = 1;
-	SpriteRenderer m_powerUpRenderer;
+	SpriteRenderer m_pickUpRenderer;
 
     public bool m_inPlay = true;
 
@@ -14,7 +14,7 @@ public class Pickup : MonoBehaviour
     {
 		m_maxY = transform.position.y + 0.5f;
 		m_minY = m_maxY - 1.0f;
-		m_powerUpRenderer = GetComponent<SpriteRenderer>();
+		m_pickUpRenderer = GetComponent<SpriteRenderer>();
 	}
 	
 	void Update()
@@ -47,11 +47,10 @@ public class Pickup : MonoBehaviour
     {
 		if(tri2D.gameObject.tag == "Player")
         {
-			switch(m_powerUpRenderer.sprite.name)
+			switch(m_pickUpRenderer.sprite.name)
             {
-
-			    case "crates_0":
-				    GameObject.Find("Main Camera").GetComponent<LevelCreator>().m_gameSpeed -= 1.0f; // CHANGE V4 BEGINNING 8
+			    case "Brakes":
+				    GameObject.Find("Main Camera").GetComponent<LevelCreator>().m_gameSpeed -= 2.0f;
 			    break;
 
 			    case "crates_1":
@@ -80,8 +79,8 @@ public class Pickup : MonoBehaviour
     {
 		m_inPlay = true;
 		m_releasePickup = false;
-		GameObject tmpTile = GameObject.Find ("Main Camera").GetComponent<LevelCreator>().m_tilePos;
-		transform.position = new Vector2 (tmpTile.transform.position.x , tmpTile.transform.position.y + 5.5f); 
+		GameObject tmpTile = GameObject.Find("Main Camera").GetComponent<LevelCreator>().m_tilePos;
+		transform.position = new Vector2(tmpTile.transform.position.x , tmpTile.transform.position.y + 5.5f); 
 		m_maxY = transform.position.y + 0.5f;
 		m_minY = m_maxY - 1.0f;
 	}
