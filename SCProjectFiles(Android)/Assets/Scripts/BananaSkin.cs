@@ -9,6 +9,7 @@ public class BananaSkin : MonoBehaviour
     ChimpController m_chimpControlScript;
     float m_skinInCameraView;
     SpriteRenderer m_skinRenderer;
+    Vector3 m_positionOnScreen;
 
     [SerializeField] float m_activeInactiveTime;
 
@@ -27,6 +28,7 @@ public class BananaSkin : MonoBehaviour
         }
 
         m_chimpSlipping = m_chimpControlScript.m_slip;
+        m_positionOnScreen = Camera.main.WorldToScreenPoint(transform.position);
 
         if(m_chimpSlipping)
         {
@@ -34,6 +36,10 @@ public class BananaSkin : MonoBehaviour
             m_skinRenderer.enabled = false;
         }
 
-        //If Slipping is false and skin is outside camera view, make collider and renderer true
+        if(!m_chimpSlipping && m_positionOnScreen.x >= 765.3f)
+        {
+            m_skinCollider2D.enabled = true;
+            m_skinRenderer.enabled = true;
+        }
 	}
 }
