@@ -45,8 +45,12 @@ public class ChimpController : MonoBehaviour
 
         GroundCheck();
 
+        if(m_grounded)
+        {
+            m_chimpAnim.SetBool("Jump" , false);
+        }
+
         m_chimpAnim.SetBool("Jog" , m_grounded);
-        m_chimpAnim.SetBool("Jump" , !m_grounded);
 	}
 
     IEnumerator SlideRoutine()
@@ -81,6 +85,8 @@ public class ChimpController : MonoBehaviour
 	public void Jump()
     {
 		m_jumpPress = true;
+
+        m_chimpAnim.SetBool("Jump" , true);
         
         if(!m_grounded)
         {

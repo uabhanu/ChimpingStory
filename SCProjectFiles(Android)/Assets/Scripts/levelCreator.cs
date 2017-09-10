@@ -44,9 +44,16 @@ public class LevelCreator : MonoBehaviour
 			tmpG4.transform.position = Vector2.zero;
 		}
 
+        for(int i = 0; i < 10; i++)
+        {
+            GameObject banana = Instantiate(Resources.Load("PF_Banana" , typeof(GameObject))) as GameObject;
+			banana.transform.parent = m_collectedTiles.transform.Find("Goodies").transform;
+			banana.transform.position = Vector2.zero;
+        }
+
 		for(int i = 0; i < 10; i++)
         {
-			GameObject trouble01 = Instantiate(Resources.Load("PF_Enemy" , typeof(GameObject))) as GameObject;
+			GameObject trouble01 = Instantiate(Resources.Load("PF_Rock" , typeof(GameObject))) as GameObject;
 			trouble01.transform.parent = m_collectedTiles.transform.Find("Troubles").transform;
 			trouble01.transform.position = Vector2.zero;
 
@@ -85,7 +92,8 @@ public class LevelCreator : MonoBehaviour
 				switch(child.gameObject.name)
                 {
                     case "PF_Banana(Clone)":
-					    GameObject.FindGameObjectWithTag("Goodies").GetComponent<Pickup>().m_inPlay = false;
+					    child.gameObject.transform.position = m_collectedTiles.transform.Find("Goodies").transform.position;
+					    child.gameObject.transform.parent = m_collectedTiles.transform.Find("Goodies").transform;
 				    break;
 
                     case "PF_BananaSkin(Clone)":
@@ -98,7 +106,7 @@ public class LevelCreator : MonoBehaviour
 					    child.gameObject.transform.parent = m_collectedTiles.transform.Find("gBlank").transform;
 				    break;
 
-                    case "PF_Enemy(Clone)":
+                    case "PF_Rock(Clone)":
 					    child.gameObject.transform.position = m_collectedTiles.transform.Find("Troubles").transform.position;
 					    child.gameObject.transform.parent = m_collectedTiles.transform.Find("Troubles").transform;
 				    break;

@@ -11,13 +11,14 @@ public class BananaSkin : MonoBehaviour
     SpriteRenderer m_skinRenderer;
     Vector3 m_positionOnScreen;
 
-    [SerializeField] float m_activeInactiveTime;
+    [SerializeField] float m_timeToActiveInactive;
 
 	void Start()
     {
 		m_chimpControlScript = GameObject.FindGameObjectWithTag("Player").GetComponent<ChimpController>();
         m_skinCollider2D = GetComponent<Collider2D>();
         m_skinRenderer = GetComponent<SpriteRenderer>();
+        StartCoroutine("ActiveInactiveRoutine");
 	}
 	
 	void Update()
@@ -29,6 +30,11 @@ public class BananaSkin : MonoBehaviour
 
         m_chimpSlipping = m_chimpControlScript.m_slip;
         m_positionOnScreen = Camera.main.WorldToScreenPoint(transform.position);
+	}
+
+    IEnumerator ActiveInactiveRoutine()
+    {
+        yield return new WaitForSeconds(m_timeToActiveInactive);
 
         if(m_chimpSlipping)
         {
@@ -41,5 +47,16 @@ public class BananaSkin : MonoBehaviour
             m_skinCollider2D.enabled = true;
             m_skinRenderer.enabled = true;
         }
-	}
+
+        StartCoroutine("ActiveInactiveRoutine");
+    }
+
+    void OnTriggerEnter2D(Collider2D tri2D)
+    {
+        if(tri2D.gameObject.tag.Equals("Player"))
+        {
+            m_skinCollider2D.enabled = false;
+            m_skinRenderer.enabled = false;
+        }
+    }
 }
