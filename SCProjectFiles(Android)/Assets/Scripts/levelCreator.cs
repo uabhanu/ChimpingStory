@@ -39,19 +39,6 @@ public class LevelCreator : MonoBehaviour
 			tmpG4.transform.position = Vector2.zero;
 		}
 
-		for(int i = 0; i < 10; i++)
-        {
-			GameObject trouble01 = Instantiate(Resources.Load("PF_Rock" , typeof(GameObject))) as GameObject;
-			trouble01.transform.parent = m_collectedTiles.transform.Find("Troubles").transform;
-			trouble01.transform.position = Vector2.zero;
-
-            GameObject trouble02 = Instantiate(Resources.Load("PF_BananaSkin" , typeof(GameObject))) as GameObject;
-			trouble02.transform.parent = m_collectedTiles.transform.Find("Troubles").transform;
-			trouble02.transform.position = Vector2.zero;
-
-            //Modify this code and make it select only one of the available enemies for actual version, this is fine for testing
-		}
-
 		m_collectedTiles.transform.position = new Vector2 (-60.0f , -20.0f);
 
 		m_tilePos = GameObject.Find("StartTilePosition");
@@ -79,19 +66,9 @@ public class LevelCreator : MonoBehaviour
             {
 				switch(child.gameObject.name)
                 {
-                    case "PF_BananaSkin(Clone)":
-					    child.gameObject.transform.position = m_collectedTiles.transform.Find("Troubles").transform.position;
-					    child.gameObject.transform.parent = m_collectedTiles.transform.Find("Troubles").transform;
-				    break;
-
 					case "PF_Blank(Clone)":
 					    child.gameObject.transform.position = m_collectedTiles.transform.Find("gBlank").transform.position;
 					    child.gameObject.transform.parent = m_collectedTiles.transform.Find("gBlank").transform;
-				    break;
-
-                    case "PF_Rock(Clone)":
-					    child.gameObject.transform.position = m_collectedTiles.transform.Find("Troubles").transform.position;
-					    child.gameObject.transform.parent = m_collectedTiles.transform.Find("Troubles").transform;
 				    break;
 
 				    case "PF_GroundLeft(Clone)":
@@ -192,7 +169,6 @@ public class LevelCreator : MonoBehaviour
 
 		if(m_middleCounter > 0)
         {
-            RandomizeEnemy();
 			SetTile("PF_GroundMiddle");
 			m_middleCounter--;
 			return;
@@ -231,22 +207,5 @@ public class LevelCreator : MonoBehaviour
         {
             m_heightLevel++;
         }
-	}
-
-	void RandomizeEnemy()
-    {
-		if(m_enemyAdded)
-        {
-			return;
-		}
-
-		if(Random.Range (0 , 4) == 1 && m_middleCounter > 2)
-        {
-            GameObject trouble = m_collectedTiles.transform.Find("Troubles").transform.GetChild(0).gameObject;
-			trouble.transform.parent = m_gameLayer.transform;
-			trouble.transform.position = new Vector2(m_tilePos.transform.position.x + (m_tileWidth * 1.35f) , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 2)));
-
-			m_enemyAdded = true;
-		}
 	}
 }
