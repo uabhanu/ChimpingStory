@@ -14,11 +14,6 @@ public class LevelCreator : MonoBehaviour
     public float m_gameSpeed;
     public GameObject m_tilePos;
 
-	void Awake()
-    {
-		Application.targetFrameRate = 60;
-	}
-
 	void Start() 
 	{
 		m_gameLayer = GameObject.Find("GameLayer");
@@ -43,13 +38,6 @@ public class LevelCreator : MonoBehaviour
 			tmpG4.transform.parent = m_collectedTiles.transform.Find("gBlank").transform;
 			tmpG4.transform.position = Vector2.zero;
 		}
-
-        for(int i = 0; i < 10; i++)
-        {
-            GameObject banana = Instantiate(Resources.Load("PF_Banana" , typeof(GameObject))) as GameObject;
-			banana.transform.parent = m_collectedTiles.transform.Find("Goodies").transform;
-			banana.transform.position = Vector2.zero;
-        }
 
 		for(int i = 0; i < 10; i++)
         {
@@ -91,11 +79,6 @@ public class LevelCreator : MonoBehaviour
             {
 				switch(child.gameObject.name)
                 {
-                    case "PF_Banana(Clone)":
-					    child.gameObject.transform.position = m_collectedTiles.transform.Find("Goodies").transform.position;
-					    child.gameObject.transform.parent = m_collectedTiles.transform.Find("Goodies").transform;
-				    break;
-
                     case "PF_BananaSkin(Clone)":
 					    child.gameObject.transform.position = m_collectedTiles.transform.Find("Troubles").transform.position;
 					    child.gameObject.transform.parent = m_collectedTiles.transform.Find("Troubles").transform;
@@ -209,7 +192,7 @@ public class LevelCreator : MonoBehaviour
 
 		if(m_middleCounter > 0)
         {
-			RandomizeEnemy();
+            RandomizeEnemy();
 			SetTile("PF_GroundMiddle");
 			m_middleCounter--;
 			return;
@@ -259,7 +242,7 @@ public class LevelCreator : MonoBehaviour
 
 		if(Random.Range (0 , 4) == 1 && m_middleCounter > 2)
         {
-			GameObject trouble = m_collectedTiles.transform.Find("Troubles").transform.GetChild(0).gameObject;
+            GameObject trouble = m_collectedTiles.transform.Find("Troubles").transform.GetChild(0).gameObject;
 			trouble.transform.parent = m_gameLayer.transform;
 			trouble.transform.position = new Vector2(m_tilePos.transform.position.x + (m_tileWidth * 1.35f) , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 2)));
 
