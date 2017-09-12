@@ -5,6 +5,7 @@ using UnityEngine;
 public class BananaSkin : MonoBehaviour
 {
     bool m_chimpSlipping;
+    Camera m_mainCamera;
     Collider2D m_skinCollider2D;
     ChimpController m_chimpControlScript;
     float m_skinInCameraView;
@@ -15,6 +16,7 @@ public class BananaSkin : MonoBehaviour
 
 	void Start()
     {
+        m_mainCamera = FindObjectOfType<Camera>();
 		m_chimpControlScript = GameObject.FindGameObjectWithTag("Player").GetComponent<ChimpController>();
         m_skinCollider2D = GetComponent<Collider2D>();
         m_skinRenderer = GetComponent<SpriteRenderer>();
@@ -29,7 +31,7 @@ public class BananaSkin : MonoBehaviour
         }
 
         m_chimpSlipping = m_chimpControlScript.m_slip;
-        m_positionOnScreen = Camera.main.WorldToScreenPoint(transform.position);
+        m_positionOnScreen = m_mainCamera.WorldToScreenPoint(transform.position);
 	}
 
     IEnumerator ActiveInactiveRoutine()
