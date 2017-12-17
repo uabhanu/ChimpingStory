@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class Clouds : MonoBehaviour 
 {
-	LevelCreator m_levelCreationScript;
+	LevelCreator m_levelCreator;
 	Rigidbody2D m_cloudsBody2D;
 
 	void Start() 
 	{
 		m_cloudsBody2D = GetComponent<Rigidbody2D>();
-		m_levelCreationScript = FindObjectOfType<LevelCreator>();
+		m_levelCreator = FindObjectOfType<LevelCreator>();
 	}
 
 	void Update() 
@@ -19,7 +19,7 @@ public class Clouds : MonoBehaviour
 			return;
 		}
 			
-		m_cloudsBody2D.velocity = new Vector2(-m_levelCreationScript.m_gameSpeed / 8 , m_cloudsBody2D.velocity.y);
+		m_cloudsBody2D.velocity = new Vector2(-m_levelCreator.m_gameSpeed / 8 , m_cloudsBody2D.velocity.y);
 
 		if(transform.position.x <= -43.2f)
 		{

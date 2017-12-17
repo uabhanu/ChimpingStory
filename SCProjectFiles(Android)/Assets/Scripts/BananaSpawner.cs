@@ -5,7 +5,7 @@ using UnityEngine;
 public class BananaSpawner : MonoBehaviour
 {
     float m_startUpPosY;
-    GameObject m_banana , m_bananaPrefab , m_collectedTiles , m_tilePos;
+	GameObject m_bananaObj , m_bananaPrefab , m_collectedTiles , m_tilePos;
     int m_heightLevel = 0 , m_totalBananas;
 
     [SerializeField] float m_spawnTime;
@@ -23,7 +23,7 @@ public class BananaSpawner : MonoBehaviour
 
     void Start()
     {
-        m_banana = GameObject.FindGameObjectWithTag("Banana");
+        m_bananaObj = GameObject.FindGameObjectWithTag("Banana");
         m_bananaPrefab = Resources.Load("PF_Banana") as GameObject;
         m_collectedTiles = GameObject.Find("Tiles");
         m_tilePos = GameObject.Find("StartTilePosition");
@@ -37,13 +37,13 @@ public class BananaSpawner : MonoBehaviour
 
         m_totalBananas = Random.Range(0 , 10);
 
-        if(m_banana == null)
+        if(m_bananaObj == null)
         {
             for(int i = 0 ; i < m_totalBananas; i++)
             {
-                m_banana = Instantiate(m_bananaPrefab , transform.position , Quaternion.identity);
-                m_banana.transform.parent = m_collectedTiles.transform.Find("Goodies").transform;
-				m_banana.transform.position = new Vector2(transform.position.x + i + Random.Range(m_minDistance , m_maxDistance) , m_startUpPosY + Random.Range(m_minSpawnHeight , m_maxSpawnHeight));
+                m_bananaObj = Instantiate(m_bananaPrefab , transform.position , Quaternion.identity);
+                m_bananaObj.transform.parent = m_collectedTiles.transform.Find("Goodies").transform;
+				m_bananaObj.transform.position = new Vector2(transform.position.x + i + Random.Range(m_minDistance , m_maxDistance) , m_startUpPosY + Random.Range(m_minSpawnHeight , m_maxSpawnHeight));
             }
         }
 

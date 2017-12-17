@@ -40,7 +40,6 @@ public class BananaSkin : MonoBehaviour
 			m_skinRenderer.enabled = true;
 		}
         
-
         m_chimpSlipping = m_chimpController.m_slip;
         m_positionOnScreen = m_mainCamera.WorldToScreenPoint(transform.position);
 	}
