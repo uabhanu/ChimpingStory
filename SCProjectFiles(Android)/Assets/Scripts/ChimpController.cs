@@ -14,7 +14,7 @@ public class ChimpController : MonoBehaviour
 
     [SerializeField] Transform m_bottom , m_top;
 
-    public bool m_jumpPress = false , m_slip;
+    public bool m_jumpPress = false , m_slip , m_super;
 
 	void Start()
     {

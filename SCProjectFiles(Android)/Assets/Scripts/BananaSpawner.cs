@@ -10,13 +10,15 @@ public class BananaSpawner : MonoBehaviour
 
     [SerializeField] float m_spawnTime;
 
-    [SerializeField] int m_maxBananaSpawnHeight , m_minBananaSpawnHeight;
+    [SerializeField] int m_minDistance , m_maxDistance , m_maxSpawnHeight , m_minSpawnHeight;
 
     void Reset()
     {
-        m_maxBananaSpawnHeight = 7;
-        m_minBananaSpawnHeight = 4;
-        m_spawnTime = 3.5f;
+		m_minDistance = 10;
+		m_maxDistance = 20;
+		m_maxSpawnHeight = 7;
+        m_minSpawnHeight = 5;
+        m_spawnTime = 35.5f;
     }
 
     void Start()
@@ -33,17 +35,15 @@ public class BananaSpawner : MonoBehaviour
     {
         yield return new WaitForSeconds(m_spawnTime);
 
-        m_totalBananas = Random.Range(0 , 20);
+        m_totalBananas = Random.Range(0 , 10);
 
         if(m_banana == null)
         {
-            for(int i = 0 ; i < m_totalBananas; i += 2)
+            for(int i = 0 ; i < m_totalBananas; i++)
             {
                 m_banana = Instantiate(m_bananaPrefab , transform.position , Quaternion.identity);
                 m_banana.transform.parent = m_collectedTiles.transform.Find("Goodies").transform;
-                //m_banana.transform.position = new Vector2(transform.position.x + i , m_startUpPosY + m_heightLevel + Random.Range(6 , 11));
-                int distanceBetween = 20;
-                m_banana.transform.position = new Vector2(i + transform.position.x + distanceBetween , m_startUpPosY + Random.Range(m_minBananaSpawnHeight , m_maxBananaSpawnHeight));
+				m_banana.transform.position = new Vector2(transform.position.x + i + Random.Range(m_minDistance , m_maxDistance) , m_startUpPosY + Random.Range(m_minSpawnHeight , m_maxSpawnHeight));
             }
         }
 

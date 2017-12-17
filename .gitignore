@@ -31,3 +31,5 @@ sysinfo.txt
 Library
 Packages
 *.md
+obj
+UnityPackageManager
