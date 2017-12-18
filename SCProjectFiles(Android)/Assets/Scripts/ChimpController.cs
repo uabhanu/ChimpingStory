@@ -4,6 +4,7 @@ using System.Collections;
 public class ChimpController : MonoBehaviour
 {
     Animator m_chimpAnim;
+	GameManager m_gameManager;
     Rigidbody2D m_chimpBody2D;
 
     [SerializeField] bool m_grounded = true;
@@ -20,6 +21,7 @@ public class ChimpController : MonoBehaviour
     {
 		m_chimpAnim = GetComponent<Animator>();
         m_chimpBody2D = GetComponent<Rigidbody2D>();
+		m_gameManager = FindObjectOfType<GameManager>();
 	}
 	
 	void Update()
@@ -93,8 +95,11 @@ public class ChimpController : MonoBehaviour
             return;
         } 
 
-		m_chimpBody2D.velocity = new Vector2(m_chimpBody2D.velocity.x , m_jumpHeight);
-		GameObject.Find("Main Camera").GetComponent<PlaySound>().SoundToPlay("Jump");	
+		//if(!m_gameManager.m_uiButtonTapped)
+		//{
+			m_chimpBody2D.velocity = new Vector2(m_chimpBody2D.velocity.x , m_jumpHeight);
+			GameObject.Find("Main Camera").GetComponent<PlaySound>().SoundToPlay("Jump");		
+		//}
 	}
 
     void OnTriggerEnter2D(Collider2D tri2D)
