@@ -48,17 +48,16 @@ public class BananaSkin : MonoBehaviour
     {
         yield return new WaitForSeconds(m_timeToActiveInactive);
 
-        if(m_chimpSlipping)
+		if(m_chimpSlipping && m_positionOnScreen.x >= 0.99f) //Try >= 765.3f if this doesn't work)
         {
-            m_skinCollider2D.enabled = false;
-            m_skinRenderer.enabled = false;
+			m_skinCollider2D.enabled = false;
+			m_skinRenderer.enabled = false;
         }
 
-        if(!m_chimpSlipping && m_positionOnScreen.x >= 765.3f)
-        {
-            m_skinCollider2D.enabled = true;
-            m_skinRenderer.enabled = true;
-        }
+		if(m_positionOnScreen.x < 0)
+		{
+			Destroy(gameObject);
+		}
 
         StartCoroutine("ActiveInactiveRoutine");
     }
