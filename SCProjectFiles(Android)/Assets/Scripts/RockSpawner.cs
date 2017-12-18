@@ -5,7 +5,7 @@ using UnityEngine;
 public class RockSpawner : MonoBehaviour
 {
 	float m_startUpPosY;
-	GameObject m_rockObj , m_rockPrefab , m_collectedTiles , m_tilePos;
+	GameObject m_collectedTiles , m_rockObj , m_rockPrefab , m_tilePos;
 
 	[SerializeField] float m_spawnTime;
 

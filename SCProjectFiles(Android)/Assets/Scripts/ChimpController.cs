@@ -4,24 +4,39 @@ using System.Collections;
 public class ChimpController : MonoBehaviour
 {
     Animator m_chimpAnim;
+	BoxCollider2D m_blockerCollider2D;
+	Ground[] m_grounds;
 	GameManager m_gameManager;
+	LevelCreator m_levelCreator;
     Rigidbody2D m_chimpBody2D;
+	Transform m_groundCheckBottom , m_groundCheckTop , m_holeCheckBottom , m_holeCheckTop;
 
-    [SerializeField] bool m_grounded = true;
+	[SerializeField] bool m_grounded = true;
+    [SerializeField] float m_defaultJumpHeight = 15.5f , m_jumpHeight , m_slideTime , m_slipTime , m_superTime;
 
-    [SerializeField] float m_jumpHeight , m_slideTime , m_slipTime;
+    public bool m_slip , m_super;
 
-    [SerializeField] LevelCreator m_levelCreationScript;
-
-    [SerializeField] Transform m_bottom , m_top;
-
-    public bool m_jumpPress = false , m_slip , m_super;
+	void Reset()
+	{
+		m_jumpHeight = 15.5f;
+		m_slideTime = 1.1f;
+		m_slip = false;
+		m_slipTime = 5.15f;
+		m_super = false;
+		m_superTime = 30.25f;
+	}
 
 	void Start()
     {
+		m_blockerCollider2D = GameObject.Find("BlockerBottom").GetComponent<BoxCollider2D>();
 		m_chimpAnim = GetComponent<Animator>();
         m_chimpBody2D = GetComponent<Rigidbody2D>();
 		m_gameManager = FindObjectOfType<GameManager>();
+		m_groundCheckBottom = GameObject.Find("GroundCheckBottom").transform;
+		m_groundCheckTop = GameObject.Find("GroundCheckTop").transform;
+		m_holeCheckBottom = GameObject.Find("HoleCheckBottom").transform;
+		m_holeCheckTop = GameObject.Find("HoleCheckTop").transform;
+		m_levelCreator = FindObjectOfType<LevelCreator>();
 	}
 	
 	void Update()
@@ -46,6 +61,7 @@ public class ChimpController : MonoBehaviour
 		#endif
 
         GroundCheck();
+		HoleCheck();
 
         if(m_grounded)
         {
@@ -72,34 +88,47 @@ public class ChimpController : MonoBehaviour
         if(m_chimpAnim.GetBool("Slip"))
 		{
 			m_chimpAnim.SetBool("Slip" , false);
-            m_levelCreationScript.m_gameSpeed = 6.0f;
+            m_levelCreator.m_gameSpeed = 6.0f;
             m_slip = false;
 		}
     }
 
+	IEnumerator SuperRoutine()
+	{
+		yield return new WaitForSeconds(m_superTime);
+
+		if(HoleCheck()) //Tried !HoleCheck() at first but reverse seems to work instead of the actual one. but fine for now
+		{
+			m_blockerCollider2D.enabled = false;
+			m_chimpAnim.SetBool("Super" , false);
+			m_jumpHeight = m_defaultJumpHeight;
+			m_super = false;	
+		}
+	}
+
     void GroundCheck()
     {
-        Debug.DrawLine(m_top.position , m_bottom.position , Color.green);
-        m_grounded = Physics2D.Linecast(m_top.position , m_bottom.position);
+        Debug.DrawLine(m_groundCheckTop.position , m_groundCheckBottom.position , Color.green);
+        m_grounded = Physics2D.Linecast(m_groundCheckTop.position , m_groundCheckBottom.position);
     }
 
-
+	bool HoleCheck()
+	{
+		Debug.DrawLine(m_holeCheckTop.position , m_holeCheckBottom.position , Color.red);
+		return(Physics2D.Linecast(m_holeCheckTop.position , m_holeCheckBottom.position)); //This should return true if line collided with Hole
+	}
+		
 	public void Jump()
     {
-		m_jumpPress = true;
-
         m_chimpAnim.SetBool("Jump" , true);
         
         if(!m_grounded)
         {
             return;
         } 
-
-		//if(!m_gameManager.m_uiButtonTapped)
-		//{
-			m_chimpBody2D.velocity = new Vector2(m_chimpBody2D.velocity.x , m_jumpHeight);
-			GameObject.Find("Main Camera").GetComponent<PlaySound>().SoundToPlay("Jump");		
-		//}
+			
+		m_chimpBody2D.velocity = new Vector2(m_chimpBody2D.velocity.x , m_jumpHeight);
+		GameObject.Find("Main Camera").GetComponent<PlaySound>().SoundToPlay("Jump");		
 	}
 
     void OnTriggerEnter2D(Collider2D tri2D)
@@ -108,6 +137,11 @@ public class ChimpController : MonoBehaviour
         {
             Slip();
         }
+
+		if(tri2D.gameObject.tag.Equals("Super"))
+		{
+			Super();
+		}
     }
 
     public void Slide()
@@ -119,8 +153,18 @@ public class ChimpController : MonoBehaviour
     void Slip()
     {
         m_chimpAnim.SetBool("Slip" , true);
-        m_levelCreationScript.m_gameSpeed *= 1.5f;
+        m_levelCreator.m_gameSpeed *= 1.5f;
         m_slip = true;
         StartCoroutine("SlipRoutine");
     }
+
+	void Super()
+	{
+		transform.position = new Vector2(transform.position.x , m_blockerCollider2D.gameObject.transform.position.y + 1.5f);
+		m_blockerCollider2D.enabled = true;
+		m_chimpAnim.SetBool("Super" , true);
+		m_jumpHeight += 6.5f;
+		m_super = true;
+		StartCoroutine("SuperRoutine");
+	}
 }
