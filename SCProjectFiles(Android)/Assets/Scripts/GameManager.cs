@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
 
 	IEnumerator GetBhanuObjectsRoutine()
 	{
-		yield return new WaitForSeconds(0.75f);
+		yield return new WaitForSeconds(0.15f);
 
 		m_musicSource = GetComponent<AudioSource>();
 
@@ -72,6 +72,7 @@ public class GameManager : MonoBehaviour
 
 	public void ExitAccept()
 	{
+		MediaManager.m_musicSource.Play();
 		SceneManager.LoadScene("MainMenu");
 	}
 
@@ -150,6 +151,7 @@ public class GameManager : MonoBehaviour
 
 	public void RestartAccept()
 	{
+		MediaManager.m_musicSource.Play();
 		Time.timeScale = 1;
 		SceneManager.LoadScene(m_currentScene);
 	}

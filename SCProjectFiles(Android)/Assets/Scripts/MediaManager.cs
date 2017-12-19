@@ -28,15 +28,27 @@ public class MediaManager : MonoBehaviour
 
 		if(!m_logoPlayed)
 		{
+			m_backgroundImage.enabled = false;
+			m_playButtonImage.enabled = false;
+			m_quitButtonImage.enabled = false;
 			m_videoPlayer.Play();
 			m_videoPlayer.loopPointReached += EndReached; //APK Build Success but corrupted for some reason, but not because of Video Player
+		}
+
+		if(m_logoPlayed)
+		{
+			m_backgroundImage.enabled = true;
+			m_playButtonImage.enabled = true;
+			m_quitButtonImage.enabled = true;
+			m_videoPlayer.enabled = false;
+			m_musicSource.Play();
 		}
 	}
 
 	void EndReached(VideoPlayer videoPlayer)
 	{
-		m_backgroundImage.enabled = true;
 		m_logoPlayed = true;
+		m_backgroundImage.enabled = true;
 		m_playButtonImage.enabled = true;
 		m_quitButtonImage.enabled = true;
 		videoPlayer.enabled = false;

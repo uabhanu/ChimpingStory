@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameBoss : MonoBehaviour {
+public class BhanuGame : MonoBehaviour 
+{
+	[SerializeField] GameObject m_mediaManagerObj , m_mediaManagerPrefab;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+	void Start() 
+	{
+		m_mediaManagerObj = GameObject.FindGameObjectWithTag("MediaManager");
+
+		if(m_mediaManagerObj == null)
+		{
+			m_mediaManagerObj = Instantiate(m_mediaManagerPrefab);
+		}
 	}
 }
