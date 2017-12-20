@@ -9,6 +9,7 @@ public class ChimpController : MonoBehaviour
 	GameManager m_gameManager;
 	LevelCreator m_levelCreator;
     Rigidbody2D m_chimpBody2D;
+	SoundsContainer m_soundsManager;
 	Transform m_groundCheckBottom , m_groundCheckTop , m_holeCheckBottom , m_holeCheckTop;
 
 	[SerializeField] bool m_grounded = true;
@@ -37,6 +38,7 @@ public class ChimpController : MonoBehaviour
 		m_holeCheckBottom = GameObject.Find("HoleCheckBottom").transform;
 		m_holeCheckTop = GameObject.Find("HoleCheckTop").transform;
 		m_levelCreator = FindObjectOfType<LevelCreator>();
+		m_soundsManager = FindObjectOfType<SoundsContainer>();
 	}
 	
 	void Update()
@@ -128,7 +130,8 @@ public class ChimpController : MonoBehaviour
         } 
 			
 		m_chimpBody2D.velocity = new Vector2(m_chimpBody2D.velocity.x , m_jumpHeight);
-		GameObject.Find("Main Camera").GetComponent<PlaySound>().SoundToPlay("Jump");		
+		m_soundsManager.m_soundsSource.clip = m_soundsManager.m_jumpSound;
+		m_soundsManager.m_soundsSource.Play();
 	}
 
     void OnTriggerEnter2D(Collider2D tri2D)

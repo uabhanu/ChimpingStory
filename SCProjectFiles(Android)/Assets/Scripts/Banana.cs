@@ -9,6 +9,7 @@ public class Banana : MonoBehaviour
 	ChimpController m_chimpController;
     LevelCreator m_levelCreationScript;
 	Rigidbody2D m_bananaBody2D;
+	SoundsContainer m_soundsContainer;
 	SpriteRenderer m_bananaRenderer;
     Vector3 m_positionOnScreen;
 
@@ -20,6 +21,7 @@ public class Banana : MonoBehaviour
 		m_chimpController = FindObjectOfType<ChimpController>();
         m_mainCamera = FindObjectOfType<Camera>();
 		m_levelCreationScript = FindObjectOfType<LevelCreator>();  
+		m_soundsContainer = FindObjectOfType<SoundsContainer>();
     }
 
     void Update() 
@@ -54,6 +56,8 @@ public class Banana : MonoBehaviour
     {
         if(tri2D.gameObject.tag.Equals("Player"))
         {
+			m_soundsContainer.m_soundsSource.clip = m_soundsContainer.m_bananaSound;
+			m_soundsContainer.m_soundsSource.Play();
             Destroy(gameObject);
         }
     }

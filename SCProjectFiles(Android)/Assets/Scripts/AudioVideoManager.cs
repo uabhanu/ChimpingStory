@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
-public class MediaManager : MonoBehaviour 
+public class AudioVideoManager : MonoBehaviour 
 {
 	Image m_backgroundImage , m_playButtonImage , m_quitButtonImage;
 	VideoPlayer m_videoPlayer;

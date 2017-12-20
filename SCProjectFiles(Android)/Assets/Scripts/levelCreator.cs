@@ -112,7 +112,7 @@ public class LevelCreator : MonoBehaviour
         } 
 
         m_playerDead = true;
-		GetComponent<PlaySound>().SoundToPlay("FallDeath");
+		//GetComponent<PlaySound>().SoundToPlay("FallDeath"); //SoundsManager Death Here
 		Invoke("ReloadScene" , 0.5f);
 	}
 

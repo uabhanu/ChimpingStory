@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
 
 	public void ExitAccept()
 	{
-		MediaManager.m_musicSource.Play();
+		AudioVideoManager.m_musicSource.Play();
 		SceneManager.LoadScene("MainMenu");
 	}
 
@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
 
 	public void Pause()
 	{
-		MediaManager.m_musicSource.Pause();
+		AudioVideoManager.m_musicSource.Pause();
 		m_pauseButtonImage.enabled = false;
 
 		m_exitButtonImage.enabled = true;
@@ -151,7 +151,7 @@ public class GameManager : MonoBehaviour
 
 	public void RestartAccept()
 	{
-		MediaManager.m_musicSource.Play();
+		AudioVideoManager.m_musicSource.Play();
 		Time.timeScale = 1;
 		SceneManager.LoadScene(m_currentScene);
 	}
@@ -171,7 +171,7 @@ public class GameManager : MonoBehaviour
 
 	public void Resume()
 	{
-		MediaManager.m_musicSource.Play();
+		AudioVideoManager.m_musicSource.Play();
 		m_pauseButtonImage.enabled = true;
 
 		m_exitButtonImage.enabled = false;
