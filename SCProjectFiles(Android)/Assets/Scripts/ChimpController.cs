@@ -45,7 +45,7 @@ public class ChimpController : MonoBehaviour
 		m_levelCreator = FindObjectOfType<LevelCreator>();
 		m_soundsContainer = FindObjectOfType<SoundsContainer>();
         m_soundsSource = GetComponent<AudioSource>();
-	}
+    }
 	
 	void Update()
     {
@@ -114,6 +114,11 @@ public class ChimpController : MonoBehaviour
 		}
 	}
 
+    void CheatDeath()
+    {
+        m_gameManager.Ads();
+    }
+
     void GroundCheck()
     {
         Debug.DrawLine(m_groundCheckTop.position , m_groundCheckBottom.position , Color.green);
@@ -142,12 +147,21 @@ public class ChimpController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D tri2D)
     {
-        if(tri2D.gameObject.tag.Equals("Death"))
+        if(tri2D.gameObject.tag.Equals("Fall"))
         {
-            Restart();
+            m_soundsSource.clip = m_soundsContainer.m_fallDeathSound;
+            m_soundsSource.Play();
+            CheatDeath();
         }
 
-        if(tri2D.gameObject.tag.Equals("Skin"))
+        if(tri2D.gameObject.tag.Equals("Hurdle"))
+        {
+            m_soundsSource.clip = m_soundsContainer.m_enemyDeathSound;
+            m_soundsSource.Play();
+            CheatDeath();
+        }
+
+        if (tri2D.gameObject.tag.Equals("Skin"))
         {
             Slip();
         }
@@ -156,13 +170,6 @@ public class ChimpController : MonoBehaviour
 		{
 			Super();
 		}
-    }
-
-    void Restart()
-    {
-        m_soundsSource.clip = m_soundsContainer.m_fallDeathSound;
-        m_soundsSource.Play();
-        SceneManager.LoadScene(m_currentScene);
     }
 
     public void Slide()

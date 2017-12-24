@@ -4,160 +4,71 @@ using UnityEngine;
 
 public class BhanuParticles : MonoBehaviour
 {
-    public Transform container;                 //Contains the layer elements
+    bool m_paused;
+    float m_speedMultiplier;
+    List<Transform> m_activeElements, m_inactiveElements;
 
-    public GameObject coinPrefab;               //The coin particle prefab, used to instantiate more if needed
-    public GameObject explosionPrefab;          //The explosion particle prefab, used to instantiate more if needed
+    [SerializeField] float m_startingSpeed;
+    [SerializeField] GameObject m_bananaParticlePrefab , m_explosionPrefab;
+    [SerializeField] Transform m_container;
 
-    public float startingSpeed;                 //The starting speed of the layer
+    public void Reset()
+    {
+        m_paused = true;
+        m_startingSpeed = 5.0f;
 
-    private List<Transform> activeElements;     //Contains the active layer elements, which has not reached the spawnAt position
-    private List<Transform> inactive;           //Contains the inactive layer elements
+        StopAllCoroutines();
 
-    private float speedMultiplier;              //The current speed multiplier
+        foreach(Transform item in m_activeElements)
+        {
+            item.transform.position = new Vector3(-12 , item.transform.position.y , 0);
+            item.gameObject.SetActive(false);
+            m_inactiveElements.Add(item);
+        }
 
-    private bool paused;                        //True, if the level is paused
+        m_activeElements.Clear();
+    }
 
-    // Use this for initialization
     void Start()
     {
-        speedMultiplier = 1;
-        paused = true;
+        m_speedMultiplier = 1;
+        m_paused = true;
 
-        activeElements = new List<Transform>();
-        inactive = new List<Transform>();
+        m_activeElements = new List<Transform>();
+        m_inactiveElements = new List<Transform>();
 
-        foreach (Transform child in container)
-            inactive.Add(child);
+        foreach(Transform child in m_container)
+        {
+            m_inactiveElements.Add(child);
+        }
     }
-    // Update is called once per frame
+    
     void Update()
     {
-        if (!paused)
+        if(!m_paused)
         {
-            //Loop through the active elemets
-            foreach (Transform item in activeElements)
+            foreach (Transform item in m_activeElements)
             {
-                //Move the item to the left
-                item.transform.position -= Vector3.right * startingSpeed * speedMultiplier * Time.deltaTime;
+                item.transform.position -= Vector3.right * m_startingSpeed * m_speedMultiplier * Time.deltaTime;
             }
         }
     }
 
-    //Adds the given element to the layer
-    private void AddElement(Transform item, Vector2 pos)
-    {
-        item.transform.position = pos;
-        item.gameObject.SetActive(true);
-
-        inactive.Remove(item);
-        activeElements.Add(item);
-
-        StartCoroutine(PlayParticle(item, 2f));
-    }
-    //Removes the given element
-    private void RemoveElement(Transform item)
-    {
-        //Reset it's position, disable it, and remove it from the active elements
-        item.transform.position = new Vector3(-12, item.transform.position.y, 0);
-
-        //Remove it from the active elements, add it to the inactive, and disable it
-        activeElements.Remove(item);
-        inactive.Add(item);
-
-        item.gameObject.SetActive(false);
-    }
-    //Generates a new explosion particle
-    private Transform SpawnNewParticle(GameObject prefab)
-    {
-        //Create a new object from the given prefab, and name it
-        GameObject newGo = (GameObject)Instantiate(prefab);
-        newGo.name = prefab.name;
-
-        //Put it to the system
-        newGo.transform.parent = this.transform;
-        inactive.Add(newGo.transform);
-
-        return newGo.transform;
-    }
-
-    //Enables the generator
-    public void StartGenerating()
-    {
-        //Unpause the layer
-        paused = false;
-    }
-    //Adds an explosion particle to the given position
-    public void AddExplosion(Vector2 position)
-    {
-        //Find an unused explosion particle
-        Transform item = inactive.Find(x => x.name == "ExplosionParticle");
-
-        //If there is none, create a new
-        if (item == null)
-            item = SpawnNewParticle(explosionPrefab);
-
-        //Add it to the level
-        AddElement(item, position);
-    }
-    //Adds a coin particle to the given position
-    public void AddBananaParticle(Vector2 position)
-    {
-        //Find an unused coin particle
-        Transform item = inactive.Find(x => x.name == "CoinParticle");
-
-        //If there is none, create a new
-        if (item == null)
-            item = SpawnNewParticle(coinPrefab);
-
-        //Add it to the level
-        AddElement(item, position);
-    }
-    //Resets the layer
-    public void Reset()
-    {
-        paused = true;
-
-        StopAllCoroutines();
-
-        foreach (Transform item in activeElements)
-        {
-            item.transform.position = new Vector3(-12, item.transform.position.y, 0);
-            item.gameObject.SetActive(false);
-
-            inactive.Add(item);
-        }
-
-        activeElements.Clear();
-    }
-    //Sets scrolling state
-    public void SetPauseState(bool state)
-    {
-        paused = state;
-    }
-    //Updates speed multiplier
-    public void UpdateSpeedMultiplier(float n)
-    {
-        speedMultiplier = n;
-    }
-
-    //Plays the particle then remove it
-    IEnumerator PlayParticle(Transform particle, float time)
+    IEnumerator PlayParticle(Transform particle , float time)
     {
         ParticleSystem p = particle.GetComponent("ParticleSystem") as ParticleSystem;
         p.Play();
 
-        //Declare variables, get the starting position, and move the object
         float i = 0.0f;
         float rate = 1.0f / time;
 
-        while (i < 1.0)
+        while(i < 1.0)
         {
-            //If the game is not paused, increase t, and scale the object
-            if (!paused)
+            if(!m_paused)
+            {
                 i += Time.deltaTime * rate;
+            }
 
-            //Wait for the end of frame
             yield return 0;
         }
 
@@ -165,5 +76,72 @@ public class BhanuParticles : MonoBehaviour
         p.Clear();
 
         RemoveElement(particle);
+    }
+
+    public void AddBananaParticle(Vector2 position)
+    {
+        Transform item = m_inactiveElements.Find(x => x.name == "PF_BananaParticle");
+
+        if(item == null)
+        {
+            item = SpawnNewParticle(m_bananaParticlePrefab);
+        }
+
+        AddElement(item , position);
+    }
+
+    void AddElement(Transform item , Vector2 pos)
+    {
+        item.transform.position = pos;
+        item.gameObject.SetActive(true);
+
+        m_inactiveElements.Remove(item);
+        m_activeElements.Add(item);
+
+        StartCoroutine(PlayParticle(item , 2f));
+    }
+
+    public void AddExplosion(Vector2 position)
+    {
+        Transform item = m_inactiveElements.Find(x => x.name == "PF_Explosion");
+
+        if(item == null)
+        {
+            item = SpawnNewParticle(m_explosionPrefab);
+        }
+
+        AddElement(item , position);
+    }
+
+    void RemoveElement(Transform item)
+    {
+        item.transform.position = new Vector3(-12 , item.transform.position.y , 0);
+        m_activeElements.Remove(item);
+        m_inactiveElements.Add(item);
+        item.gameObject.SetActive(false);
+    }
+
+    public void SetPauseState(bool state)
+    {
+        m_paused = state;
+    }
+
+    Transform SpawnNewParticle(GameObject prefab)
+    {
+        GameObject newGo = Instantiate(prefab);
+        newGo.name = prefab.name;
+        newGo.transform.parent = transform;
+        m_inactiveElements.Add(newGo.transform);
+        return newGo.transform;
+    }
+
+    public void StartGenerating()
+    {
+        m_paused = false;
+    }
+    
+    public void UpdateSpeedMultiplier(float n)
+    {
+        m_speedMultiplier = n;
     }
 }

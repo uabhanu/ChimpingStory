@@ -6,7 +6,7 @@ public class BananaSpawner : MonoBehaviour
 {
     float m_startUpPosY;
 	GameObject m_bananaObj , m_bananaPrefab , m_collectedTiles , m_tilePos;
-    int m_heightLevel = 0 , m_totalBananas;
+    int m_heightLevel = 0 , m_totalBananas = 1;
 
     [SerializeField] float m_spawnTime;
 
@@ -18,7 +18,7 @@ public class BananaSpawner : MonoBehaviour
 		m_maxDistance = 20;
 		m_maxSpawnHeight = 7;
         m_minSpawnHeight = 5;
-        m_spawnTime = 15.5f;
+        m_spawnTime = 25.5f;
     }
 
     void Start()
@@ -35,7 +35,7 @@ public class BananaSpawner : MonoBehaviour
     {
         yield return new WaitForSeconds(m_spawnTime);
 
-        m_totalBananas = Random.Range(0 , 10);
+        //m_totalBananas = Random.Range(0 , 10);
 
         if(m_bananaObj == null)
         {

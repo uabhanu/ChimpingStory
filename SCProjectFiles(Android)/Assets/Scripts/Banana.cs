@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Banana : MonoBehaviour
 {
-    AudioSource m_soundsSource;
+    AudioClip m_bananaSound;
     BoxCollider2D m_bananaCollider2D;
 	Camera m_mainCamera;
 	ChimpController m_chimpController;
+    float m_defaultGameSpeed = 6.0f;
     LevelCreator m_levelCreationScript;
 	Rigidbody2D m_bananaBody2D;
 	SoundsContainer m_soundsContainer;
@@ -21,9 +22,9 @@ public class Banana : MonoBehaviour
 		m_bananaRenderer = GetComponent<SpriteRenderer>();
 		m_chimpController = FindObjectOfType<ChimpController>();
         m_mainCamera = FindObjectOfType<Camera>();
-		m_levelCreationScript = FindObjectOfType<LevelCreator>();  
-		m_soundsContainer = FindObjectOfType<SoundsContainer>();
-        m_soundsSource = GetComponent<AudioSource>();
+		m_levelCreationScript = FindObjectOfType<LevelCreator>();
+        m_soundsContainer = FindObjectOfType<SoundsContainer>();
+        m_bananaSound = m_soundsContainer.m_bananaSound;
     }
 
     void Update() 
@@ -58,8 +59,8 @@ public class Banana : MonoBehaviour
     {
         if(tri2D.gameObject.tag.Equals("Player"))
         {
-			m_soundsSource.clip = m_soundsContainer.m_bananaSound;
-			m_soundsSource.Play();
+            AudioSource.PlayClipAtPoint(m_bananaSound , transform.position , 1000f);
+            m_levelCreationScript.m_gameSpeed = m_defaultGameSpeed;
             Destroy(gameObject);
         }
     }

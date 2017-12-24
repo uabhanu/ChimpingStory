@@ -4,23 +4,15 @@ using System.Collections.Generic;
 
 public class LevelGenerator : MonoBehaviour
 {
-    public GUIManager guiManager;                               //A link to the GUI Manager
-    public MissionManager missionManager;                       //A link to the Mission Manager
-
     public List<MovingLayer> movingLayers;                      //Holds the moving layer
-    public List<ScrollingLayer> scrollingLayers;                //Holds the scrolling layers
 
-    public TorpedoLayer torpedoLayer;                           //A link to the torpedo layer
     public PowerupLayer powerupLayer;                           //A link to the powerup layer
     public ParticleLayer particleLayer;                         //A link to the particle player
 
-    public GameObject hangar;									//Holds the hangar
-    public GameObject playTriggerer;                            //Holds the play triggerer
+    //public GameObject playTriggerer;                            //Holds the play triggerer
 
     public float speedIncreaseRate;                             //The scrolling speed increase rate per second
     public float distance;                                      //The current distance
-
-    private float hangarStartPosX;                              //The hangar starting position
 
     private float speedMultiplier;                              //Holds the speed multiplier
     private float lastSpeedMultiplier;                          //Holds the last speed multiplier
@@ -47,7 +39,6 @@ public class LevelGenerator : MonoBehaviour
                 speedMultiplier += speedIncreaseRate * Time.deltaTime;
 
                 powerupLayer.UpdateSpeedMultiplier(speedMultiplier);
-                torpedoLayer.UpdateSpeedMultiplier(speedMultiplier);
             }
 
             //Increase distance
@@ -57,14 +48,7 @@ public class LevelGenerator : MonoBehaviour
             foreach (MovingLayer item in movingLayers)
                 item.UpdateSpeedMultiplier(speedMultiplier);
 
-            foreach (ScrollingLayer item in scrollingLayers)
-                item.UpdateSpeedMultiplier(speedMultiplier);
-
             particleLayer.UpdateSpeedMultiplier(speedMultiplier);
-
-            //Update GUI and Mission Manager
-            guiManager.UpdateDistance((int)distance);
-            missionManager.DistanceEvent((int)distance);
         }
     }
 
@@ -75,16 +59,12 @@ public class LevelGenerator : MonoBehaviour
         float i = 0.0f;
         float rate = 1.0f / time;
 
-        Vector3 startPos = hangar.transform.position;
-        Vector3 endPos = new Vector3(posX, hangar.transform.position.y, 0);
-
         while (i < 1.0)
         {
             //If the game is not paused, increase t, and scale the object
             if (!paused)
             {
                 i += Time.deltaTime * rate * speedMultiplier;
-                hangar.transform.position = Vector3.Lerp(startPos, endPos, i);
             }
 
             //Wait for the end of frame
@@ -112,13 +92,6 @@ public class LevelGenerator : MonoBehaviour
             //Wait for the end of frame
             yield return 0;
         }
-
-        //If we stopped the generator because of a crash
-        if (newValue == 0)
-        {
-            //Notify the mission manager
-            missionManager.CrashEvent((int)distance);
-        }
     }
 
 	//Adds a coin particle to the level
@@ -134,7 +107,6 @@ public class LevelGenerator : MonoBehaviour
     //Resume the generator after a revive
 	public void ContinueGeneration()
     {
-        torpedoLayer.EnableSpawning(true);
         powerupLayer.EnableSpawning(true);
 
         StartCoroutine(ChangeScrollingMultiplier(lastSpeedMultiplier, 0.5f, true));
@@ -150,22 +122,15 @@ public class LevelGenerator : MonoBehaviour
 
         StopAllCoroutines();
 
-        playTriggerer.SetActive(true);
+        //playTriggerer.SetActive(true);
 
         foreach (MovingLayer item in movingLayers)
             item.Reset();
 
-        foreach (ScrollingLayer item in scrollingLayers)
-            item.SetPauseState(true);
-
-        torpedoLayer.EnableSpawning(true);
         powerupLayer.EnableSpawning(true);
 
-        torpedoLayer.Reset();
         powerupLayer.Reset();
         particleLayer.Reset();
-
-        hangar.transform.position = new Vector3(hangarStartPosX, hangar.transform.position.y, 0);
 	}
     //Starts the level Generator
 	public void StartToGenerate()
@@ -173,19 +138,14 @@ public class LevelGenerator : MonoBehaviour
         paused = false;
         canModifySpeed = true;
 
-        playTriggerer.SetActive(false);
+        //playTriggerer.SetActive(false);
 
         foreach (MovingLayer item in movingLayers)
             item.StartGenerating();
 
-        foreach (ScrollingLayer item in scrollingLayers)
-            item.SetPauseState(false);
-
-        torpedoLayer.StartGenerating();
         powerupLayer.StartGenerating();
         particleLayer.StartGenerating();
 
-        hangarStartPosX = hangar.transform.position.x;
         StartCoroutine(MoveHangar(-30, 4.75f));
 	}
     //Stops the level generaton under time
@@ -194,7 +154,6 @@ public class LevelGenerator : MonoBehaviour
         lastSpeedMultiplier = speedMultiplier;
         canModifySpeed = false;
 
-        torpedoLayer.EnableSpawning(false);
         powerupLayer.EnableSpawning(false);
 
         StartCoroutine(ChangeScrollingMultiplier(0, time, false));
@@ -207,10 +166,6 @@ public class LevelGenerator : MonoBehaviour
         foreach (MovingLayer item in movingLayers)
             item.SetPauseState(state);
 
-        foreach (ScrollingLayer item in scrollingLayers)
-            item.SetPauseState(state);
-
-        torpedoLayer.SetPauseState(state);
         powerupLayer.SetPauseState(state);
         particleLayer.SetPauseState(state);
     }
@@ -228,7 +183,6 @@ public class LevelGenerator : MonoBehaviour
         speedMultiplier = newSpeed;
 
         powerupLayer.UpdateSpeedMultiplier(speedMultiplier);
-        torpedoLayer.UpdateSpeedMultiplier(speedMultiplier);
     }
     //Stops the extra speed powerup effect
     public void EndExtraSpeed()

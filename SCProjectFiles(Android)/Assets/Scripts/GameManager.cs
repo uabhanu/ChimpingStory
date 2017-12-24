@@ -7,15 +7,39 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour 
 {
 	AudioSource m_musicSource;
-	Image m_backgroundImage , m_exitButtonImage , m_exitAcceptButtonImage , m_exitCancelButtonImage , m_exitMenuImage , m_pauseButtonImage , m_pauseMenuImage , m_playButtonImage;
-	Image m_quitButtonImage , m_quitAcceptButtonImage , m_quitCancelButtonImage , m_quitMenuImage , m_restartButtonImage , m_restartAcceptButtonImage , m_restartCancelButtonImage;
-	Image  m_restartMenuImage , m_resumeButtonImage;
+	Image m_adsAcceptButtonImage , m_adsCancelButtonImage , m_adsMenuImage , m_backgroundImage , m_exitButtonImage , m_exitAcceptButtonImage , m_exitCancelButtonImage , m_exitMenuImage;
+    Image m_pauseButtonImage , m_pauseMenuImage , m_playButtonImage , m_quitButtonImage , m_quitAcceptButtonImage , m_quitCancelButtonImage , m_quitMenuImage , m_restartButtonImage;
+    Image m_restartAcceptButtonImage , m_restartCancelButtonImage , m_restartMenuImage , m_resumeButtonImage;
 	string m_currentScene;
-	Text m_exit , m_quit , m_restart;
+	Text m_ads , m_exit , m_quit , m_restart;
 
 	void Start()
 	{
 		GetBhanuObjects();
+    }
+
+    public void Ads()
+    {
+        m_adsMenuImage.enabled = true;
+        m_adsAcceptButtonImage.enabled = true;
+        m_adsCancelButtonImage.enabled = true;
+        m_ads.enabled = true;
+        Time.timeScale = 0;
+    }
+
+    public void AdsAccept()
+    {
+        m_adsMenuImage.enabled = false;
+        m_adsAcceptButtonImage.enabled = false;
+        m_adsCancelButtonImage.enabled = false;
+        m_ads.enabled = false;
+        Time.timeScale = 1;
+    }
+
+    public void AdsCancel()
+    {
+        SceneManager.LoadScene(m_currentScene);
+        Time.timeScale = 1;
     }
 
 	public void Exit()
@@ -70,6 +94,10 @@ public class GameManager : MonoBehaviour
 
         else if(m_currentScene == "LandRunner")
         {
+            m_ads = GameObject.Find("AdsText").GetComponent<Text>();
+            m_adsAcceptButtonImage = GameObject.Find("AdsAcceptButton").GetComponent<Image>();
+            m_adsCancelButtonImage = GameObject.Find("AdsCancelButton").GetComponent<Image>();
+            m_adsMenuImage = GameObject.Find("AdsMenu").GetComponent<Image>();
             m_exit = GameObject.Find("ExitText").GetComponent<Text>();
             m_exitButtonImage = GameObject.Find("ExitButton").GetComponent<Image>();
             m_exitAcceptButtonImage = GameObject.Find("ExitAcceptButton").GetComponent<Image>();
