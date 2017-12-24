@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BhanuObjects : MonoBehaviour
+public class BhanuObjectsMover : MonoBehaviour
 {
     protected bool m_paused , m_removeLast;
     protected float m_speedMultiplier;
@@ -12,9 +12,17 @@ public class BhanuObjects : MonoBehaviour
     [SerializeField] float m_delayBeforeFirst , m_resetAt , m_spawningRate , m_startAt , m_startingSpeed;
     [SerializeField] Transform m_container;
 
-    void Reset() //public virtual if any issues
+    public virtual void Reset()
     {
+        m_childCheck = true;
+        m_container = gameObject.transform;
+        m_delayBeforeFirst = 2.0f;
+        m_generateInMiddle = false;
         m_paused = true;
+        m_resetAt = -12.0f;
+        m_spawningRate = 3.5f;
+        m_startAt = 21.0f;
+        m_startingSpeed = 5.0f;
 
         StopAllCoroutines();
 
@@ -39,7 +47,7 @@ public class BhanuObjects : MonoBehaviour
         }
     }
 
-    void Start() //public virtual if any issues
+    public virtual void Start()
     {
         m_speedMultiplier = 1;
         m_paused = true;
@@ -80,7 +88,7 @@ public class BhanuObjects : MonoBehaviour
         }
     }
 
-    IEnumerator SpawnDelayedElement(float time) //private if any issues
+    private IEnumerator SpawnDelayedElement(float time)
     {
         float i = 0.0f;
         float rate = 1.0f / time;
@@ -98,7 +106,7 @@ public class BhanuObjects : MonoBehaviour
         StartCoroutine("Generator");
     }
 
-    IEnumerator Generator() //private if any issues
+    private IEnumerator Generator()
     {
         SpawnElement(false);
 
@@ -118,7 +126,7 @@ public class BhanuObjects : MonoBehaviour
         StartCoroutine("Generator");
     }
 
-    void EnableChild(Transform element) //private if any issues
+    private void EnableChild(Transform element)
     {
         foreach (Transform item in element)
         {
@@ -127,7 +135,7 @@ public class BhanuObjects : MonoBehaviour
         }
     }
 
-    void RemoveElement(Transform item) //private if any issues
+    private void RemoveElement(Transform item)
     {
         if(m_childCheck)
         {
@@ -140,12 +148,12 @@ public class BhanuObjects : MonoBehaviour
         item.transform.position = new Vector3(m_startAt , item.transform.position.y , 0);
     }
 
-    void SetPauseState(bool newState) //public virtual if any issues
+    public virtual void SetPauseState(bool newState)
     {
         m_paused = newState;
     }
 
-    void SpawnElement(bool inMiddle) //public virtual if any issues
+    public virtual void SpawnElement(bool inMiddle)
     {
         Transform item = m_inactiveElements[Random.Range(0, m_inactiveElements.Count)];
 
@@ -159,13 +167,13 @@ public class BhanuObjects : MonoBehaviour
         m_activeElements.Add(item);
     }
 
-    void StartGenerating() //public virtual if any issues
+    public virtual void StartGenerating()
     {
         m_paused = false;
         StartCoroutine(SpawnDelayedElement(m_delayBeforeFirst));
     }
 
-    void UpdateSpeedMultiplier(float n) //public if any issues
+    public void UpdateSpeedMultiplier(float n)
     {
         m_speedMultiplier = n;
     }

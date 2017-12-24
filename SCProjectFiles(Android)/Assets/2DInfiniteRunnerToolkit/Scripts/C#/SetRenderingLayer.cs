@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 [ExecuteInEditMode()]  
 public class SetRenderingLayer : MonoBehaviour 
@@ -9,7 +8,7 @@ public class SetRenderingLayer : MonoBehaviour
 
 	void Start()
 	{
-		this.GetComponent<Renderer>().sortingLayerName = sortingLayer;
-		this.GetComponent<Renderer>().sortingOrder = sortingOrder;
+		GetComponent<Renderer>().sortingLayerName = sortingLayer;
+		GetComponent<Renderer>().sortingOrder = sortingOrder;
 	}
 }
