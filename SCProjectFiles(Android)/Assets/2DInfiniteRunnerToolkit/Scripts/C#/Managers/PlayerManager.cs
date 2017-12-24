@@ -63,7 +63,11 @@ public class PlayerManager : MonoBehaviour
         rotationDiv = maxVerticalSpeed / maxRotation;
 
 		currentSkinID = SaveManager.currentSkinID;
+<<<<<<< HEAD
 		//subRenderer.sprite = subTextures[currentSkinID * 2 + 1];
+=======
+		subRenderer.sprite = subTextures[currentSkinID * 2 + 1];
+>>>>>>> 1dea97ba9f2d045c86fbc217709d67c67ac9831a
     }
     //Called at every frame
     void Update()
@@ -152,7 +156,11 @@ public class PlayerManager : MonoBehaviour
         playerVulnerability = PlayerVulnerability.Enabled;
         powerupUsage = PowerupUsage.Enabled;
 
+<<<<<<< HEAD
 		//subRenderer.sprite = subTextures[currentSkinID * 2 + 1];
+=======
+		subRenderer.sprite = subTextures[currentSkinID * 2 + 1];
+>>>>>>> 1dea97ba9f2d045c86fbc217709d67c67ac9831a
         bubbles.Play();
 
         StartCoroutine(FunctionLibrary.MoveElementBy(this.transform, new Vector2(0.4f, 0.2f), 0.5f));
@@ -189,7 +197,11 @@ public class PlayerManager : MonoBehaviour
 
         newRotation = new Vector3(0, 0, 0);
 
+<<<<<<< HEAD
 		//subRenderer.sprite = subTextures[currentSkinID * 2 + 1];
+=======
+		subRenderer.sprite = subTextures[currentSkinID * 2 + 1];
+>>>>>>> 1dea97ba9f2d045c86fbc217709d67c67ac9831a
 
         bubbles.Stop();
         bubbles.Clear();
