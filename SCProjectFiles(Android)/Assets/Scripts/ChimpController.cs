@@ -1,21 +1,25 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ChimpController : MonoBehaviour
 {
     Animator m_chimpAnim;
+    AudioSource m_soundsSource;
 	BoxCollider2D m_blockerCollider2D;
 	Ground[] m_grounds;
 	GameManager m_gameManager;
 	LevelCreator m_levelCreator;
     Rigidbody2D m_chimpBody2D;
-	SoundsContainer m_soundsManager;
+	SoundsContainer m_soundsContainer;
+    string m_currentScene;
 	Transform m_groundCheckBottom , m_groundCheckTop , m_holeCheckBottom , m_holeCheckTop;
 
 	[SerializeField] bool m_grounded = true;
     [SerializeField] float m_defaultJumpHeight = 15.5f , m_jumpHeight , m_slideTime , m_slipTime , m_superTime;
 
     public bool m_slip , m_super;
+    [HideInInspector] public int m_superPickUpsAvailable = 1;
 
 	void Reset()
 	{
@@ -32,13 +36,15 @@ public class ChimpController : MonoBehaviour
 		m_blockerCollider2D = GameObject.Find("BlockerBottom").GetComponent<BoxCollider2D>();
 		m_chimpAnim = GetComponent<Animator>();
         m_chimpBody2D = GetComponent<Rigidbody2D>();
+        m_currentScene = SceneManager.GetActiveScene().name;
 		m_gameManager = FindObjectOfType<GameManager>();
 		m_groundCheckBottom = GameObject.Find("GroundCheckBottom").transform;
 		m_groundCheckTop = GameObject.Find("GroundCheckTop").transform;
 		m_holeCheckBottom = GameObject.Find("HoleCheckBottom").transform;
 		m_holeCheckTop = GameObject.Find("HoleCheckTop").transform;
 		m_levelCreator = FindObjectOfType<LevelCreator>();
-		m_soundsManager = FindObjectOfType<SoundsContainer>();
+		m_soundsContainer = FindObjectOfType<SoundsContainer>();
+        m_soundsSource = GetComponent<AudioSource>();
 	}
 	
 	void Update()
@@ -130,12 +136,17 @@ public class ChimpController : MonoBehaviour
         } 
 			
 		m_chimpBody2D.velocity = new Vector2(m_chimpBody2D.velocity.x , m_jumpHeight);
-		m_soundsManager.m_soundsSource.clip = m_soundsManager.m_jumpSound;
-		m_soundsManager.m_soundsSource.Play();
+		m_soundsSource.clip = m_soundsContainer.m_jumpSound;
+		m_soundsSource.Play();
 	}
 
     void OnTriggerEnter2D(Collider2D tri2D)
     {
+        if(tri2D.gameObject.tag.Equals("Death"))
+        {
+            Restart();
+        }
+
         if(tri2D.gameObject.tag.Equals("Skin"))
         {
             Slip();
@@ -145,6 +156,13 @@ public class ChimpController : MonoBehaviour
 		{
 			Super();
 		}
+    }
+
+    void Restart()
+    {
+        m_soundsSource.clip = m_soundsContainer.m_fallDeathSound;
+        m_soundsSource.Play();
+        SceneManager.LoadScene(m_currentScene);
     }
 
     public void Slide()
@@ -168,6 +186,7 @@ public class ChimpController : MonoBehaviour
 		m_chimpAnim.SetBool("Super" , true);
 		m_jumpHeight += 6.5f;
 		m_super = true;
+        m_superPickUpsAvailable--;
 		StartCoroutine("SuperRoutine");
 	}
 }

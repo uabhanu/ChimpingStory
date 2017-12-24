@@ -4,9 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class LevelCreator : MonoBehaviour
 {
-    bool m_enemyAdded = false , m_playerDead = false;
     const float m_tileWidth = 1.25f;
-    float m_blankCounter = 0 , m_middleCounter = 0 , m_outofbounceX , m_outOfBounceY , m_startUpPosY;
+    float m_blankCounter = 0 , m_middleCounter = 0 , m_outofbounceX , m_outOfBounceY , m_startTime , m_startUpPosY;
     GameObject m_bgLayer , m_chimp , m_collectedTiles , m_gameLayer ,  m_tmpTile;
 	int m_heightLevel = 0;
 	string m_lastTile = "PF_GroundRight";
@@ -19,6 +18,7 @@ public class LevelCreator : MonoBehaviour
 		m_gameLayer = GameObject.Find("GameLayer");
 		m_bgLayer = GameObject.Find("BackgroundLayer");
 		m_collectedTiles = GameObject.Find("Tiles");
+        m_startTime = Time.time;
 
 		for(int i = 0; i < 30; i++)
         {
@@ -51,14 +51,14 @@ public class LevelCreator : MonoBehaviour
 
 	void FixedUpdate() 
 	{
-		//if(m_startTime - Time.time % 5 == 0)
-  //      {
-		//	m_gameSpeed += 0.5f;
-		//}
+        if(m_startTime - Time.time % 5 == 0)
+        {
+            m_gameSpeed += 0.5f;
+        }
 
         //Do better logic for game speed increase and only 2 speeds, Medium & High and at set intervals
 
-		m_gameLayer.transform.position = new Vector2 (m_gameLayer.transform.position.x - m_gameSpeed * Time.deltaTime , 0);
+        m_gameLayer.transform.position = new Vector2 (m_gameLayer.transform.position.x - m_gameSpeed * Time.deltaTime , 0);
 
 		foreach(Transform child in m_gameLayer.transform)
         {
@@ -97,28 +97,6 @@ public class LevelCreator : MonoBehaviour
         {
             SpawnTile();
         }
-
-		if(m_chimp.transform.position.y < m_outOfBounceY)
-        {
-            KillPlayer();
-        }
-	}
-
-	void KillPlayer()
-    {
-		if(m_playerDead)
-        {
-            return;
-        } 
-
-        m_playerDead = true;
-		//GetComponent<PlaySound>().SoundToPlay("FallDeath"); //SoundsManager Death Here
-		Invoke("ReloadScene" , 0.5f);
-	}
-
-	void ReloadScene()
-    {
-		SceneManager.LoadScene("LandRunner");
 	}
 
 	void FillScene()
@@ -173,8 +151,6 @@ public class LevelCreator : MonoBehaviour
 			m_middleCounter--;
 			return;
 		}
-
-		m_enemyAdded = false;
 
 		if(m_lastTile == "PF_Blank")
         {

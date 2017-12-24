@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Banana : MonoBehaviour
 {
-	BoxCollider2D m_bananaCollider2D;
+    AudioSource m_soundsSource;
+    BoxCollider2D m_bananaCollider2D;
 	Camera m_mainCamera;
 	ChimpController m_chimpController;
     LevelCreator m_levelCreationScript;
@@ -22,6 +23,7 @@ public class Banana : MonoBehaviour
         m_mainCamera = FindObjectOfType<Camera>();
 		m_levelCreationScript = FindObjectOfType<LevelCreator>();  
 		m_soundsContainer = FindObjectOfType<SoundsContainer>();
+        m_soundsSource = GetComponent<AudioSource>();
     }
 
     void Update() 
@@ -56,8 +58,8 @@ public class Banana : MonoBehaviour
     {
         if(tri2D.gameObject.tag.Equals("Player"))
         {
-			m_soundsContainer.m_soundsSource.clip = m_soundsContainer.m_bananaSound;
-			m_soundsContainer.m_soundsSource.Play();
+			m_soundsSource.clip = m_soundsContainer.m_bananaSound;
+			m_soundsSource.Play();
             Destroy(gameObject);
         }
     }

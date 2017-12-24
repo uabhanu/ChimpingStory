@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SuperSpawner : MonoBehaviour
@@ -30,7 +29,7 @@ public class SuperSpawner : MonoBehaviour
 	{
 		yield return new WaitForSeconds(m_spawnTime);
 
-		if(m_superObj == null && !m_chimpController.m_super)
+		if(m_superObj == null && !m_chimpController.m_super && m_chimpController.m_superPickUpsAvailable > 0)
 		{
 			m_superObj = Instantiate(m_superPrefab , transform.position , Quaternion.identity);
 			m_superObj.transform.parent = m_collectedTiles.transform.Find("Goodies").transform;

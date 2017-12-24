@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Super : MonoBehaviour 
 {
@@ -24,8 +22,10 @@ public class Super : MonoBehaviour
 
 	void Update() 
 	{
-		if (Time.timeScale == 0)
-			return;
+		if(Time.timeScale == 0)
+        {
+            return;
+        }
 
 		m_superBody2D.velocity = new Vector2(-m_levelCreator.m_gameSpeed , m_superBody2D.velocity.y);
 		m_positionOnScreen = m_mainCamera.WorldToScreenPoint(transform.position);
@@ -40,8 +40,7 @@ public class Super : MonoBehaviour
 	{
 		if(tri2D.gameObject.tag.Equals("Player"))
 		{
-			m_superCollider2D.enabled = false;
-			m_superRenderer.enabled = false;
-		}
+            Destroy(gameObject);
+        }
 	}
 }

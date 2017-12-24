@@ -2,7 +2,6 @@
 
 public class Rock : MonoBehaviour 
 {
-    [SerializeField] bool m_toggleExplosion;
     Camera m_mainCamera;
 	ChimpController m_chimpController;
 	Collider2D m_rockCollider2D;
