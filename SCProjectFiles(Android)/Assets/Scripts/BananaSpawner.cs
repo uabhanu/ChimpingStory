@@ -18,7 +18,7 @@ public class BananaSpawner : MonoBehaviour
 		m_maxDistance = 20;
 		m_maxSpawnHeight = 7;
         m_minSpawnHeight = 5;
-        m_spawnTime = 35.5f;
+        m_spawnTime = 15.5f;
     }
 
     void Start()

@@ -15,46 +15,8 @@ public class GameManager : MonoBehaviour
 
 	void Start()
 	{
-		m_currentScene = SceneManager.GetActiveScene().name;
-		StartCoroutine("GetBhanuObjectsRoutine");
-	}
-
-	IEnumerator GetBhanuObjectsRoutine()
-	{
-		yield return new WaitForSeconds(0.15f);
-
-		m_musicSource = GetComponent<AudioSource>();
-
-		if(m_currentScene == "MainMenu")
-		{
-			m_backgroundImage = GameObject.Find("BackgroundImage").GetComponent<Image>();
-			m_playButtonImage = GameObject.Find("PlayButton").GetComponent<Image>();
-			m_quit = GameObject.Find("QuitText").GetComponent<Text>();
-			m_quitButtonImage = GameObject.Find("QuitButton").GetComponent<Image>();
-			m_quitAcceptButtonImage = GameObject.Find("QuitAcceptButton").GetComponent<Image>();
-			m_quitCancelButtonImage = GameObject.Find("QuitCancelButton").GetComponent<Image>();
-			m_quitMenuImage = GameObject.Find("QuitMenu").GetComponent<Image>();
-		}
-
-		if(m_currentScene == "LandRunner") 
-		{
-			m_exit = GameObject.Find("ExitText").GetComponent<Text>();
-			m_exitButtonImage = GameObject.Find("ExitButton").GetComponent<Image>();
-			m_exitAcceptButtonImage = GameObject.Find("ExitAcceptButton").GetComponent<Image>();
-			m_exitCancelButtonImage = GameObject.Find("ExitCancelButton").GetComponent<Image>();
-			m_exitMenuImage = GameObject.Find("ExitMenu").GetComponent<Image>();
-			m_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
-			m_pauseMenuImage = GameObject.Find("PauseMenu").GetComponent<Image>();
-			m_restart = GameObject.Find("RestartText").GetComponent<Text>();
-			m_restartButtonImage = GameObject.Find("RestartButton").GetComponent<Image>();
-			m_restartAcceptButtonImage = GameObject.Find("RestartAcceptButton").GetComponent<Image>();
-			m_restartCancelButtonImage = GameObject.Find("RestartCancelButton").GetComponent<Image>();
-			m_restartMenuImage = GameObject.Find("RestartMenu").GetComponent<Image>();
-			m_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();	
-		} 
-
-		StartCoroutine("GetBhanuObjectsRoutine");
-	}
+		GetBhanuObjects();
+    }
 
 	public void Exit()
 	{
@@ -90,7 +52,41 @@ public class GameManager : MonoBehaviour
 		m_resumeButtonImage.enabled = true;
 	}
 
-	public void Pause()
+    void GetBhanuObjects()
+    {
+        m_currentScene = SceneManager.GetActiveScene().name;
+        m_musicSource = GetComponent<AudioSource>();
+
+        if(m_currentScene == "MainMenu")
+        {
+            m_backgroundImage = GameObject.Find("BackgroundImage").GetComponent<Image>();
+            m_playButtonImage = GameObject.Find("PlayButton").GetComponent<Image>();
+            m_quit = GameObject.Find("QuitText").GetComponent<Text>();
+            m_quitButtonImage = GameObject.Find("QuitButton").GetComponent<Image>();
+            m_quitAcceptButtonImage = GameObject.Find("QuitAcceptButton").GetComponent<Image>();
+            m_quitCancelButtonImage = GameObject.Find("QuitCancelButton").GetComponent<Image>();
+            m_quitMenuImage = GameObject.Find("QuitMenu").GetComponent<Image>();
+        }
+
+        else if(m_currentScene == "LandRunner")
+        {
+            m_exit = GameObject.Find("ExitText").GetComponent<Text>();
+            m_exitButtonImage = GameObject.Find("ExitButton").GetComponent<Image>();
+            m_exitAcceptButtonImage = GameObject.Find("ExitAcceptButton").GetComponent<Image>();
+            m_exitCancelButtonImage = GameObject.Find("ExitCancelButton").GetComponent<Image>();
+            m_exitMenuImage = GameObject.Find("ExitMenu").GetComponent<Image>();
+            m_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
+            m_pauseMenuImage = GameObject.Find("PauseMenu").GetComponent<Image>();
+            m_restart = GameObject.Find("RestartText").GetComponent<Text>();
+            m_restartButtonImage = GameObject.Find("RestartButton").GetComponent<Image>();
+            m_restartAcceptButtonImage = GameObject.Find("RestartAcceptButton").GetComponent<Image>();
+            m_restartCancelButtonImage = GameObject.Find("RestartCancelButton").GetComponent<Image>();
+            m_restartMenuImage = GameObject.Find("RestartMenu").GetComponent<Image>();
+            m_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
+        }
+    }
+
+    public void Pause()
 	{
 		AudioVideoManager.m_musicSource.Pause();
 		m_pauseButtonImage.enabled = false;

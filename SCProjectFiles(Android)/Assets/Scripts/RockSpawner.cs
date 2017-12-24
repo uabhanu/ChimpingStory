@@ -12,7 +12,7 @@ public class RockSpawner : MonoBehaviour
 
 	void Reset()
 	{
-		m_spawnTime = 39.5f;
+		m_spawnTime = 3.5f;
 	}
 
 	void Start()
