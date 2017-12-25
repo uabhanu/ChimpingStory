@@ -5,6 +5,7 @@ using UnityEngine;
 public class LevelCreator : MonoBehaviour
 {
     bool m_enemyAdded;
+    ChimpController m_chimpController;
     const float m_tileWidth = 1.25f;
     float m_blankCounter = 0 , m_middleCounter = 0 , m_outofbounceX , m_outOfBounceY , m_startTime , m_startUpPosY;
     GameObject m_bgLayer , m_chimp , m_collectedTiles , m_gameLayer ,  m_tmpTile;
@@ -13,12 +14,13 @@ public class LevelCreator : MonoBehaviour
 
     [Tooltip("This is number of seconds before gameSpeed increase")] [SerializeField] [Range(0.0f , 50.0f)] float m_gameSpeedTime;
 
-    public float m_gameSpeed;
+    [HideInInspector] public float m_gameSpeed;
     public GameObject m_tilePos;
 
 	void Start() 
 	{
-		m_gameLayer = GameObject.Find("GameLayer");
+        m_chimpController = FindObjectOfType<ChimpController>();
+        m_gameLayer = GameObject.Find("GameLayer");
 		m_bgLayer = GameObject.Find("BackgroundLayer");
 		m_collectedTiles = GameObject.Find("Tiles");
         m_startTime = Time.time;
@@ -44,9 +46,16 @@ public class LevelCreator : MonoBehaviour
 
         for(int i = 0; i < 10; i++)
         {
-            GameObject hurdle = Instantiate(Resources.Load("PF_Hurdle", typeof(GameObject))) as GameObject;
-            hurdle.transform.parent = m_collectedTiles.transform.Find("Troubles").transform;
+            GameObject hurdle = Instantiate(Resources.Load("PF_Hurdle" , typeof(GameObject))) as GameObject;
+            hurdle.transform.parent = m_collectedTiles.transform.Find("Hurdles").transform;
             hurdle.transform.position = Vector2.zero;
+        }
+
+        for(int i = 0; i < 5; i++)
+        {
+            GameObject bananaSkin = Instantiate(Resources.Load("PF_BananaSkin", typeof(GameObject))) as GameObject;
+            bananaSkin.transform.parent = m_collectedTiles.transform.Find("Skins").transform;
+            bananaSkin.transform.position = Vector2.zero;
         }
 
         m_collectedTiles.transform.position = new Vector2 (-60.0f , -20.0f);
@@ -63,6 +72,11 @@ public class LevelCreator : MonoBehaviour
 
 	void FixedUpdate() 
 	{
+        if(Time.timeScale == 0)
+        {
+            return;
+        }
+
         m_gameLayer.transform.position = new Vector2 (m_gameLayer.transform.position.x - m_gameSpeed * Time.deltaTime , 0);
 
 		foreach(Transform child in m_gameLayer.transform)
@@ -92,8 +106,13 @@ public class LevelCreator : MonoBehaviour
 				    break;
 
                     case "PF_Hurdle(Clone)":
-                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Troubles").transform.position;
-                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Troubles").transform;
+                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Hurdles").transform.position;
+                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Hurdles").transform;
+                    break;
+
+                    case "PF_BananaSkin(Clone)":
+                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Skins").transform.position;
+                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Skins").transform;
                     break;
 
                     default:
@@ -109,16 +128,34 @@ public class LevelCreator : MonoBehaviour
         }
 	}
 
+    void Update()
+    {
+        if(Time.timeScale == 0)
+        {
+            return;
+        }
+
+        if(m_chimpController.m_super)
+        {
+            m_middleCounter = 5.5f;
+        }
+    }
+
     IEnumerator GameSpeedRoutine()
     {
         yield return new WaitForSeconds(m_gameSpeedTime);
-        m_gameSpeed += 0.5f;
+
+        if(!m_chimpController.m_super)
+        {
+            m_gameSpeed += 0.5f;
+        }
+        
         StartCoroutine("GameSpeedRoutine");
     }
 
     void ChangeHeight()
     {
-        int newHeightLevel = Random.Range(0, 2);
+        int newHeightLevel = Random.Range(0 , 2);
 
         if(newHeightLevel < m_heightLevel)
         {
@@ -141,7 +178,7 @@ public class LevelCreator : MonoBehaviour
 		SetTile("PF_GroundRight");
 	}
 
-    void RandomizeEnemy()
+    void RandomizeHurdle()
     {
         if(m_enemyAdded)
         {
@@ -151,9 +188,17 @@ public class LevelCreator : MonoBehaviour
         if(Random.Range(0 , 4) == 1)
         {
 
-            GameObject newHurdle = m_collectedTiles.transform.Find("Troubles").transform.GetChild(0).gameObject;
-            newHurdle.transform.parent = m_gameLayer.transform;
-            newHurdle.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3 , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 2.8f)));
+            GameObject hurdle = m_collectedTiles.transform.Find("Hurdles").transform.GetChild(0).gameObject;
+            hurdle.transform.parent = m_gameLayer.transform;
+            hurdle.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3 , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 2.8f)));
+            m_enemyAdded = true;
+        }
+
+        else if(Random.Range(0 , 2) == 1)
+        {
+            GameObject skin = m_collectedTiles.transform.Find("Skins").transform.GetChild(0).gameObject;
+            skin.transform.parent = m_gameLayer.transform;
+            skin.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 2f)));
             m_enemyAdded = true;
         }
     }
@@ -207,11 +252,12 @@ public class LevelCreator : MonoBehaviour
         {
 			ChangeHeight();
 			SetTile("PF_GroundLeft");
-			m_middleCounter = Random.Range(1 , 8);
+            m_middleCounter = Random.Range(1 , 8);
+            
 
             if(m_middleCounter > 5)
             {
-                RandomizeEnemy();
+                RandomizeHurdle();
             }
 		}
         

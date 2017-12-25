@@ -190,7 +190,7 @@ public class ChimpController : MonoBehaviour
 		transform.position = new Vector2(transform.position.x , m_blockerCollider2D.gameObject.transform.position.y + 1.5f);
 		m_blockerCollider2D.enabled = true;
 		m_chimpAnim.SetBool("Super" , true);
-		m_jumpHeight += 6.5f;
+        m_levelCreator.m_gameSpeed = 6.0f;
 		m_super = true;
         m_superPickUpsAvailable--;
 		StartCoroutine("SuperRoutine");

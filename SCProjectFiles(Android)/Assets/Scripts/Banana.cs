@@ -34,13 +34,13 @@ public class Banana : MonoBehaviour
 			return;
 		}
 
-		if(m_chimpController.m_super)
+		if(m_chimpController.m_slip || m_chimpController.m_super)
 		{
 			m_bananaCollider2D.enabled = false;
 			m_bananaRenderer.enabled = false;
 		}
 
-		if(!m_chimpController.m_super)
+		if(!m_chimpController.m_slip && !m_chimpController.m_super)
 		{
 			m_bananaCollider2D.enabled = true;
 			m_bananaRenderer.enabled = true;
@@ -59,7 +59,7 @@ public class Banana : MonoBehaviour
     {
         if(tri2D.gameObject.tag.Equals("Player"))
         {
-            AudioSource.PlayClipAtPoint(m_bananaSound , transform.position , 1000f);
+            AudioSource.PlayClipAtPoint(m_bananaSound , transform.position , 1f);
             m_levelCreationScript.m_gameSpeed = m_defaultGameSpeed;
             Destroy(gameObject);
         }
