@@ -33,3 +33,4 @@ Packages
 *.md
 obj
 UnityPackageManager
+.vs
