@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 
 public class LevelCreator : MonoBehaviour
@@ -9,6 +10,8 @@ public class LevelCreator : MonoBehaviour
     GameObject m_bgLayer , m_chimp , m_collectedTiles , m_gameLayer ,  m_tmpTile;
 	int m_heightLevel = 0;
 	string m_lastTile = "PF_GroundRight";
+
+    [Tooltip("This is number of seconds before gameSpeed increase")] [SerializeField] [Range(0.0f , 50.0f)] float m_gameSpeedTime;
 
     public float m_gameSpeed;
     public GameObject m_tilePos;
@@ -54,15 +57,12 @@ public class LevelCreator : MonoBehaviour
 		m_outOfBounceY = m_startUpPosY - 3.0f;
 		m_chimp = GameObject.FindGameObjectWithTag("Player");
 		FillScene();
-	}
+
+        StartCoroutine("GameSpeedRoutine");
+    }
 
 	void FixedUpdate() 
 	{
-        if(m_startTime - Time.time % 5 == 0) // TODO This is working only once and not working after level restart upon player death
-        {
-            m_gameSpeed += 0.5f;
-        }
-
         m_gameLayer.transform.position = new Vector2 (m_gameLayer.transform.position.x - m_gameSpeed * Time.deltaTime , 0);
 
 		foreach(Transform child in m_gameLayer.transform)
@@ -108,6 +108,13 @@ public class LevelCreator : MonoBehaviour
             SpawnTile();
         }
 	}
+
+    IEnumerator GameSpeedRoutine()
+    {
+        yield return new WaitForSeconds(m_gameSpeedTime);
+        m_gameSpeed += 0.5f;
+        StartCoroutine("GameSpeedRoutine");
+    }
 
     void ChangeHeight()
     {
