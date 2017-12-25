@@ -7,7 +7,6 @@ public class ChimpController : MonoBehaviour
     Animator m_chimpAnim;
     AudioSource m_soundsSource;
 	BoxCollider2D m_blockerCollider2D;
-	Ground[] m_grounds;
 	GameManager m_gameManager;
 	LevelCreator m_levelCreator;
     Rigidbody2D m_chimpBody2D;

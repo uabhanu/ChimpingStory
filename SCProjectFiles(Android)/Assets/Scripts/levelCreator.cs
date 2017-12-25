@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 
 public class LevelCreator : MonoBehaviour
 {
+    bool m_enemyAdded;
     const float m_tileWidth = 1.25f;
     float m_blankCounter = 0 , m_middleCounter = 0 , m_outofbounceX , m_outOfBounceY , m_startTime , m_startUpPosY;
     GameObject m_bgLayer , m_chimp , m_collectedTiles , m_gameLayer ,  m_tmpTile;
@@ -39,7 +39,14 @@ public class LevelCreator : MonoBehaviour
 			tmpG4.transform.position = Vector2.zero;
 		}
 
-		m_collectedTiles.transform.position = new Vector2 (-60.0f , -20.0f);
+        for(int i = 0; i < 10; i++)
+        {
+            GameObject hurdle = Instantiate(Resources.Load("PF_Hurdle", typeof(GameObject))) as GameObject;
+            hurdle.transform.parent = m_collectedTiles.transform.Find("Troubles").transform;
+            hurdle.transform.position = Vector2.zero;
+        }
+
+        m_collectedTiles.transform.position = new Vector2 (-60.0f , -20.0f);
 
 		m_tilePos = GameObject.Find("StartTilePosition");
 		m_startUpPosY = m_tilePos.transform.position.y;
@@ -51,12 +58,10 @@ public class LevelCreator : MonoBehaviour
 
 	void FixedUpdate() 
 	{
-        if(m_startTime - Time.time % 5 == 0)
+        if(m_startTime - Time.time % 5 == 0) // TODO This is working only once and not working after level restart upon player death
         {
             m_gameSpeed += 0.5f;
         }
-
-        //Do better logic for game speed increase and only 2 speeds, Medium & High and at set intervals
 
         m_gameLayer.transform.position = new Vector2 (m_gameLayer.transform.position.x - m_gameSpeed * Time.deltaTime , 0);
 
@@ -86,7 +91,12 @@ public class LevelCreator : MonoBehaviour
 					    child.gameObject.transform.parent = m_collectedTiles.transform.Find("gRight").transform;
 				    break;
 
-				    default:
+                    case "PF_Hurdle(Clone)":
+                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Troubles").transform.position;
+                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Troubles").transform;
+                    break;
+
+                    default:
 					    Destroy(child.gameObject);
 				    break;
 				}
@@ -99,7 +109,22 @@ public class LevelCreator : MonoBehaviour
         }
 	}
 
-	void FillScene()
+    void ChangeHeight()
+    {
+        int newHeightLevel = Random.Range(0, 2);
+
+        if(newHeightLevel < m_heightLevel)
+        {
+            m_heightLevel--;
+        }
+
+        else if(newHeightLevel > m_heightLevel)
+        {
+            m_heightLevel++;
+        }
+    }
+
+    void FillScene()
 	{
 		for(int i = 0; i < 15; i++)
 		{
@@ -109,7 +134,24 @@ public class LevelCreator : MonoBehaviour
 		SetTile("PF_GroundRight");
 	}
 
-	void SetTile(string type)
+    void RandomizeEnemy()
+    {
+        if(m_enemyAdded)
+        {
+            return;
+        }
+
+        if(Random.Range(0 , 4) == 1)
+        {
+
+            GameObject newHurdle = m_collectedTiles.transform.Find("Troubles").transform.GetChild(0).gameObject;
+            newHurdle.transform.parent = m_gameLayer.transform;
+            newHurdle.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3 , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 2.8f)));
+            m_enemyAdded = true;
+        }
+    }
+
+    void SetTile(string type)
 	{
 		switch(type)
         {
@@ -128,7 +170,7 @@ public class LevelCreator : MonoBehaviour
 		    case "PF_GroundRight":
 			    m_tmpTile = m_collectedTiles.transform.Find("gRight").transform.GetChild(0).gameObject;
 		    break;
-		}
+        }
 
 		m_tmpTile.transform.parent = m_gameLayer.transform;
 		m_tmpTile.transform.position = new Vector3(m_tilePos.transform.position.x + (m_tileWidth) , m_startUpPosY + (m_heightLevel * m_tileWidth) , 0);
@@ -142,24 +184,31 @@ public class LevelCreator : MonoBehaviour
         {
 			SetTile("PF_Blank");
 			m_blankCounter--;
+            return;
+		}
+
+        if(m_middleCounter > 0)
+        {
+            SetTile("PF_GroundMiddle");
+            m_middleCounter--;
 			return;
 		}
 
-		if(m_middleCounter > 0)
-        {
-			SetTile("PF_GroundMiddle");
-			m_middleCounter--;
-			return;
-		}
+        m_enemyAdded = false;
 
 		if(m_lastTile == "PF_Blank")
         {
 			ChangeHeight();
 			SetTile("PF_GroundLeft");
 			m_middleCounter = Random.Range(1 , 8);
+
+            if(m_middleCounter > 5)
+            {
+                RandomizeEnemy();
+            }
 		}
         
-        else if(m_lastTile =="PF_GroundRight")
+        else if(m_lastTile == "PF_GroundRight")
         {
 			m_blankCounter = Random.Range(1 , 3);
 		}
@@ -168,20 +217,5 @@ public class LevelCreator : MonoBehaviour
         {
 			SetTile("PF_GroundRight");
 		}
-	}
-
-	void ChangeHeight()
-	{
-		int newHeightLevel = Random.Range(0 , 2);
-
-		if(newHeightLevel < m_heightLevel)
-        {
-            m_heightLevel--;
-        }
-		
-		else if(newHeightLevel > m_heightLevel)
-        {
-            m_heightLevel++;
-        }
 	}
 }
