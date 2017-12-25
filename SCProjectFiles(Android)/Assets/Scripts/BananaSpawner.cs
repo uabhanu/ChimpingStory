@@ -42,7 +42,7 @@ public class BananaSpawner : MonoBehaviour
             for(int i = 0 ; i < m_totalBananas; i++)
             {
                 m_bananaObj = Instantiate(m_bananaPrefab , transform.position , Quaternion.identity);
-                m_bananaObj.transform.parent = m_collectedTiles.transform.Find("Goodies").transform;
+                m_bananaObj.transform.parent = m_collectedTiles.transform.Find("Banana").transform;
 				m_bananaObj.transform.position = new Vector2(transform.position.x + i + Random.Range(m_minDistance , m_maxDistance) , m_startUpPosY + Random.Range(m_minSpawnHeight , m_maxSpawnHeight));
             }
         }

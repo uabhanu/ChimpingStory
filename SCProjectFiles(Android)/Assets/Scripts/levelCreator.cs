@@ -47,16 +47,18 @@ public class LevelCreator : MonoBehaviour
         for(int i = 0; i < 10; i++)
         {
             GameObject hurdle = Instantiate(Resources.Load("PF_Hurdle" , typeof(GameObject))) as GameObject;
-            hurdle.transform.parent = m_collectedTiles.transform.Find("Hurdles").transform;
+            hurdle.transform.parent = m_collectedTiles.transform.Find("Hurdle").transform;
             hurdle.transform.position = Vector2.zero;
         }
 
         for(int i = 0; i < 5; i++)
         {
             GameObject bananaSkin = Instantiate(Resources.Load("PF_BananaSkin", typeof(GameObject))) as GameObject;
-            bananaSkin.transform.parent = m_collectedTiles.transform.Find("Skins").transform;
+            bananaSkin.transform.parent = m_collectedTiles.transform.Find("Skin").transform;
             bananaSkin.transform.position = Vector2.zero;
         }
+
+        // TODO Do the same for Portals , Banana & Super later
 
         m_collectedTiles.transform.position = new Vector2 (-60.0f , -20.0f);
 
@@ -106,13 +108,13 @@ public class LevelCreator : MonoBehaviour
 				    break;
 
                     case "PF_Hurdle(Clone)":
-                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Hurdles").transform.position;
-                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Hurdles").transform;
+                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Hurdle").transform.position;
+                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Hurdle").transform;
                     break;
 
                     case "PF_BananaSkin(Clone)":
-                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Skins").transform.position;
-                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Skins").transform;
+                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Skin").transform.position;
+                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Skin").transform;
                     break;
 
                     default:
@@ -178,7 +180,12 @@ public class LevelCreator : MonoBehaviour
 		SetTile("PF_GroundRight");
 	}
 
-    void RandomizeHurdle()
+    void RandomizeCollectible() // TODO Use this later
+    {
+
+    }
+
+    void RandomizeEnemy()
     {
         if(m_enemyAdded)
         {
@@ -188,7 +195,7 @@ public class LevelCreator : MonoBehaviour
         if(Random.Range(0 , 4) == 1)
         {
 
-            GameObject hurdle = m_collectedTiles.transform.Find("Hurdles").transform.GetChild(0).gameObject;
+            GameObject hurdle = m_collectedTiles.transform.Find("Hurdle").transform.GetChild(0).gameObject;
             hurdle.transform.parent = m_gameLayer.transform;
             hurdle.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3 , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 2.8f)));
             m_enemyAdded = true;
@@ -196,7 +203,7 @@ public class LevelCreator : MonoBehaviour
 
         else if(Random.Range(0 , 2) == 1)
         {
-            GameObject skin = m_collectedTiles.transform.Find("Skins").transform.GetChild(0).gameObject;
+            GameObject skin = m_collectedTiles.transform.Find("Skin").transform.GetChild(0).gameObject;
             skin.transform.parent = m_gameLayer.transform;
             skin.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 2f)));
             m_enemyAdded = true;
@@ -257,7 +264,7 @@ public class LevelCreator : MonoBehaviour
 
             if(m_middleCounter > 5)
             {
-                RandomizeHurdle();
+                RandomizeEnemy();
             }
 		}
         
