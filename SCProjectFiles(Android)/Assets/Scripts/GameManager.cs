@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -42,7 +40,22 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-	public void Exit()
+    public void BrickDestroyed()
+    {
+        if(BrickBlock.m_breakableBricksCount <= 0)
+        {
+            // TODO Load LandRunner or UI
+            //SceneManager.LoadScene("LandRunner");
+        }
+    }
+
+    public void BrickNotDestroyed()
+    {
+        // TODO Load LandRunner or UI
+        //SceneManager.LoadScene("LandRunner");
+    }
+
+    public void Exit()
 	{
 		m_exitButtonImage.enabled = false;
 
