@@ -12,7 +12,7 @@ public class PowerUpSpawner : MonoBehaviour
 
 	void Reset()
 	{
-		m_spawnTime = 80.5f;
+        m_spawnTime = 27.5f;
 	}
 
 	void Start()

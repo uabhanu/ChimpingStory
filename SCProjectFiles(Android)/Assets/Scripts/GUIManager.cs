@@ -106,15 +106,19 @@ public class GUIManager : MonoBehaviour
         m_backToLandWin = GameObject.Find("BackToLandWin").GetComponent<Text>();
         m_backToLandWinMenuImage = GameObject.Find("BackToLandWinMenu").GetComponent<Image>();
         m_continueButtonWinImage = GameObject.Find("ContinueButtonWin").GetComponent<Image>();
-        m_musicSource = GameObject.Find("Main Camera").GetComponent<AudioSource>();
         m_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
         m_pauseMenuImage = GameObject.Find("PauseMenu").GetComponent<Image>();
         m_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
+        m_musicSource = GameObject.FindGameObjectWithTag("MediaManager").GetComponent<AudioSource>();
     }
 
     public void BhanuPause()
     {
-        m_musicSource.Pause();
+        if(m_musicSource != null)
+        {
+            m_musicSource.Pause();
+        }
+
         m_pauseButtonImage.enabled = false;
 
         m_pauseMenuImage.enabled = true;
@@ -124,7 +128,11 @@ public class GUIManager : MonoBehaviour
 
     public void BhanuResume()
     {
-        m_musicSource.Play();
+        if(m_musicSource != null)
+        {
+            m_musicSource.Play();
+        }
+
         m_pauseButtonImage.enabled = true;
 
         m_pauseMenuImage.enabled = false;
