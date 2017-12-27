@@ -63,7 +63,7 @@ public class LevelGenerator : MonoBehaviour
             particleLayer.UpdateSpeedMultiplier(speedMultiplier);
 
             //Update GUI and Mission Manager
-            guiManager.UpdateDistance((int)distance);
+            //guiManager.UpdateDistance((int)distance);
             missionManager.DistanceEvent((int)distance);
         }
     }

@@ -92,7 +92,7 @@ public class LevelManager : MonoBehaviour
     {
         levelGenerator.StopGeneration(2);
 
-        StartCoroutine(FunctionLibrary.CallWithDelay(guiManager.ShowCrashScreen, levelGenerator.CurrentDistance(), 2.5f));
+        StartCoroutine(FunctionLibrary.CallWithDelay(guiManager.BackToLandLose , levelGenerator.CurrentDistance(), 2.5f));
     }
     //Revives the player, launches a sonic wave, and continue the level generation
     public void ReviveUsed()

@@ -53,7 +53,7 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         newRotation = new Vector3();
-        startingPos = this.transform.position;
+        startingPos = transform.position;
 
         playerStatus = PlayerStatus.Idle;
         playerState = PlayerState.Disabled;
@@ -68,9 +68,9 @@ public class PlayerManager : MonoBehaviour
     //Called at every frame
     void Update()
     {
-        if (playerState == PlayerState.Enabled)
+        if(playerState == PlayerState.Enabled)
         {
-            if (playerStatus == PlayerStatus.MovingDown || playerStatus == PlayerStatus.MovinUp)
+            if(playerStatus == PlayerStatus.MovingDown || playerStatus == PlayerStatus.MovinUp)
             {
                 //Calculate smooth zone distance
                 CalculateDistances();
@@ -81,7 +81,7 @@ public class PlayerManager : MonoBehaviour
                 //Move and rotate the submarine
                 MoveAndRotate();
             }
-            else if (playerStatus == PlayerStatus.Sinking)
+            else if(playerStatus == PlayerStatus.Sinking)
             {
                 Sink();
             }
@@ -91,7 +91,7 @@ public class PlayerManager : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         //If the submarine is collided with a coin
-        if (other.tag == "Coin")
+        if(other.tag == "Coin")
         {
             //Notify the level manager, and disable the coin's renderer and collider
             levelManager.CoinCollected(other.transform.position);
@@ -101,7 +101,7 @@ public class PlayerManager : MonoBehaviour
 			AudioManager.Instance.PlayCoinCollected();
         }
         //If the submarine is collided with an obstacle
-        else if (other.tag == "Obstacle")
+        else if(other.tag == "Obstacle")
         {
             //Notify the level manager, and disable the obstacle's renderer and collider
             levelManager.Collision(other.name, other.transform.position);
@@ -111,11 +111,11 @@ public class PlayerManager : MonoBehaviour
 			AudioManager.Instance.PlayExplosion();
 
             //If the obstacle is a torpedo, disable it's child as well
-            if (other.name == "Torpedo")
+            if(other.name == "Torpedo")
                 other.transform.Find("TorpedoFire").gameObject.SetActive(false);
 
             //If the player is vulnerable
-            if (playerVulnerability == PlayerVulnerability.Enabled)
+            if(playerVulnerability == PlayerVulnerability.Enabled)
             {
                 //Sink the submarine
                 powerupUsage = PowerupUsage.Disabled;
@@ -126,13 +126,13 @@ public class PlayerManager : MonoBehaviour
                 bubbles.Stop();
             }
             //If the player is shielded, collapse it
-            else if (playerVulnerability == PlayerVulnerability.Shielded)
+            else if(playerVulnerability == PlayerVulnerability.Shielded)
             {
                 CollapseShield();
             }
         }
         //If the submarine is collided with a powerup
-        else if (other.tag == "Powerup")
+        else if(other.tag == "Powerup")
         {
             //Notify the level manager, and disable the powerup's components
             other.GetComponent<Renderer>().enabled = false;
@@ -160,7 +160,7 @@ public class PlayerManager : MonoBehaviour
     //Sets the pause state of the submarine
     public void SetPauseState(bool pauseState)
     {
-        if (pauseState)
+        if(pauseState)
         {
             playerState = PlayerState.Disabled;
             bubbles.Pause();
@@ -194,8 +194,8 @@ public class PlayerManager : MonoBehaviour
         bubbles.Stop();
         bubbles.Clear();
 
-        this.transform.position = startingPos;
-        this.transform.eulerAngles = newRotation;
+        transform.position = startingPos;
+        transform.eulerAngles = newRotation;
 	}
     //Revives the submarine
 	public void Revive()
@@ -349,7 +349,7 @@ public class PlayerManager : MonoBehaviour
         float crashDepth = maxDepth - 0.8f;
         float crashDepthEdge = 0.5f;
 
-        float distance = this.transform.position.y - crashDepth;
+        float distance = transform.position.y - crashDepth;
 
         //If the sub is too close to minDepth
         if (distanceToMin < depthEdge)
@@ -428,8 +428,8 @@ public class PlayerManager : MonoBehaviour
 
         //Reset rotation, and move the submarine up
         newRotation = new Vector3(0, 0, 0);
-        this.transform.eulerAngles = newRotation;
-        StartCoroutine(FunctionLibrary.MoveElementBy(this.transform, new Vector2(0, Mathf.Abs(this.transform.position.y - maxDepth)), 0.5f));
+        transform.eulerAngles = newRotation;
+        StartCoroutine(FunctionLibrary.MoveElementBy(transform, new Vector2(0, Mathf.Abs(transform.position.y - maxDepth)), 0.5f));
 
         yield return new WaitForSeconds(0.5f);
 

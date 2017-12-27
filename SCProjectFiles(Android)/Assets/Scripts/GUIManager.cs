@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 public class GUIManager : MonoBehaviour
 {
     AudioSource m_musicSource;
-    Image m_exitButtonImage , m_pauseButtonImage , m_pauseMenuImage , m_restartButtonImage , m_resumeButtonImage;
-    string m_currentScene;
+    Image m_backToLandLoseMenuImage , m_backToLandWinMenuImage , m_continueButtonLoseImage , m_continueButtonWinImage , m_pauseButtonImage , m_pauseMenuImage , m_resumeButtonImage;
+    Text m_backToLandLose , m_backToLandWin;
 
     public LevelManager levelManager;                       //A link to the level manager
     public MissionManager missionManager;                   //A link to the mission manager
@@ -58,8 +58,7 @@ public class GUIManager : MonoBehaviour
     //Called at the beginning of the game
     void Start()
     {
-        BhanuUI();
-
+        BhanuElements();
         //Updates the audio buttons sprites
         UpdateAudioButtons();
 
@@ -78,19 +77,39 @@ public class GUIManager : MonoBehaviour
         }
     }
 
-    public void BhanuExit()
+    public void BackToLandLose(int distance)
     {
-        //TODO Exit Menu Logic here
+        m_backToLandLose.enabled = true;
+        m_backToLandLoseMenuImage.enabled = true;
+        m_continueButtonLoseImage.enabled = true;
+
+        m_pauseButtonImage.enabled = false;
+        Time.timeScale = 0;
     }
 
-    public void BhanuExitAccept()
+    public void BackToLandWin()
     {
-        SceneManager.LoadScene("MainMenu");
+
     }
 
-    public void BhanuExitCancel()
+    public void BhanuContinue()
     {
+        SceneManager.LoadScene("LandRunner");
+        Time.timeScale = 1;
+    }
 
+    void BhanuElements()
+    {
+        m_backToLandLose = GameObject.Find("BackToLandLose").GetComponent<Text>();
+        m_backToLandLoseMenuImage = GameObject.Find("BackToLandLoseMenu").GetComponent<Image>();
+        m_continueButtonLoseImage = GameObject.Find("ContinueButtonLose").GetComponent<Image>();
+        m_backToLandWin = GameObject.Find("BackToLandWin").GetComponent<Text>();
+        m_backToLandWinMenuImage = GameObject.Find("BackToLandWinMenu").GetComponent<Image>();
+        m_continueButtonWinImage = GameObject.Find("ContinueButtonWin").GetComponent<Image>();
+        m_musicSource = GameObject.Find("Main Camera").GetComponent<AudioSource>();
+        m_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
+        m_pauseMenuImage = GameObject.Find("PauseMenu").GetComponent<Image>();
+        m_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
     }
 
     public void BhanuPause()
@@ -100,24 +119,7 @@ public class GUIManager : MonoBehaviour
 
         m_pauseMenuImage.enabled = true;
         m_resumeButtonImage.enabled = true;
-        m_restartButtonImage.enabled = true;
-        m_exitButtonImage.enabled = true;
         Time.timeScale = 0;
-    }
-
-    public void BhanuRestart()
-    {
-        //TODO Restart Menu Logic here
-    }
-
-    public void BhanuRestartAccept()
-    {
-        SceneManager.LoadScene(m_currentScene);
-    }
-
-    public void BhanuRestartCancel()
-    {
-
     }
 
     public void BhanuResume()
@@ -127,20 +129,7 @@ public class GUIManager : MonoBehaviour
 
         m_pauseMenuImage.enabled = false;
         m_resumeButtonImage.enabled = false;
-        m_restartButtonImage.enabled = false;
-        m_exitButtonImage.enabled = false;
         Time.timeScale = 1;
-    }
-
-    void BhanuUI()
-    {
-        m_currentScene = SceneManager.GetActiveScene().name;
-        m_exitButtonImage = GameObject.Find("ExitButton").GetComponent<Image>();
-        m_musicSource = GameObject.Find("Main Camera").GetComponent<AudioSource>();
-        m_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
-        m_pauseMenuImage = GameObject.Find("PauseMenu").GetComponent<Image>();
-        m_restartButtonImage = GameObject.Find("RestartButton").GetComponent<Image>();
-        m_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
     }
 
     //Called, when the player clicks on the top menu arrow button
