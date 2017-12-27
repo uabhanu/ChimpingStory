@@ -41,7 +41,7 @@ public class Ball : MonoBehaviour
             if(Input.GetMouseButtonDown(0))
             {
                 m_gameStarted = true; //Use of this boolean is to undo the Lock ball position every frame so ball actually moves around now which is correct
-                m_ballBody2D.velocity = new Vector2(4f , 15f);
+                m_ballBody2D.velocity = new Vector2(2f , 10f);
             }
         }
     }
