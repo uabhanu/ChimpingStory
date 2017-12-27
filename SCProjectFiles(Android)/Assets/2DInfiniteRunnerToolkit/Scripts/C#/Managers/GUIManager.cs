@@ -1,9 +1,14 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class GUIManager : MonoBehaviour
 {
+    AudioSource m_musicSource;
+    Image m_exitButtonImage , m_pauseButtonImage , m_pauseMenuImage , m_restartButtonImage , m_resumeButtonImage;
+    string m_currentScene;
+
     public LevelManager levelManager;                       //A link to the level manager
     public MissionManager missionManager;                   //A link to the mission manager
     public PlayerManager playerManager;                     //A link to the player manager
@@ -53,6 +58,8 @@ public class GUIManager : MonoBehaviour
     //Called at the beginning of the game
     void Start()
     {
+        BhanuUI();
+
         //Updates the audio buttons sprites
         UpdateAudioButtons();
 
@@ -70,6 +77,72 @@ public class GUIManager : MonoBehaviour
             distanceText.text = AddDigitDisplay(distanceTraveled, 5);
         }
     }
+
+    public void BhanuExit()
+    {
+        //TODO Exit Menu Logic here
+    }
+
+    public void BhanuExitAccept()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void BhanuExitCancel()
+    {
+
+    }
+
+    public void BhanuPause()
+    {
+        m_musicSource.Pause();
+        m_pauseButtonImage.enabled = false;
+
+        m_pauseMenuImage.enabled = true;
+        m_resumeButtonImage.enabled = true;
+        m_restartButtonImage.enabled = true;
+        m_exitButtonImage.enabled = true;
+        Time.timeScale = 0;
+    }
+
+    public void BhanuRestart()
+    {
+        //TODO Restart Menu Logic here
+    }
+
+    public void BhanuRestartAccept()
+    {
+        SceneManager.LoadScene(m_currentScene);
+    }
+
+    public void BhanuRestartCancel()
+    {
+
+    }
+
+    public void BhanuResume()
+    {
+        m_musicSource.Play();
+        m_pauseButtonImage.enabled = true;
+
+        m_pauseMenuImage.enabled = false;
+        m_resumeButtonImage.enabled = false;
+        m_restartButtonImage.enabled = false;
+        m_exitButtonImage.enabled = false;
+        Time.timeScale = 1;
+    }
+
+    void BhanuUI()
+    {
+        m_currentScene = SceneManager.GetActiveScene().name;
+        m_exitButtonImage = GameObject.Find("ExitButton").GetComponent<Image>();
+        m_musicSource = GameObject.Find("Main Camera").GetComponent<AudioSource>();
+        m_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
+        m_pauseMenuImage = GameObject.Find("PauseMenu").GetComponent<Image>();
+        m_restartButtonImage = GameObject.Find("RestartButton").GetComponent<Image>();
+        m_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
+    }
+
     //Called, when the player clicks on the top menu arrow button
     public void ChangeTopMenuState(Image arrowImage)
     {
