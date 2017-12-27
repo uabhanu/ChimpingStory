@@ -8,11 +8,16 @@ public class Ball : MonoBehaviour
     Rigidbody2D m_ballBody2D;
     Vector3 m_paddleToBallDistance;
 
+    [SerializeField] int m_bananasDestroyed;
+
+    public static int m_totalDestroyableBananas;
+
     void Start()
     {
         m_ballBody2D = GetComponent<Rigidbody2D>();
         m_gameManager = FindObjectOfType<GameManager>();
-        m_paddleToBallDistance = transform.position - m_paddleController.transform.position;    
+        m_paddleToBallDistance = transform.position - m_paddleController.transform.position;
+        m_totalDestroyableBananas = BananasBlock.m_breakableBananasCount;
     }
 
     void Update()
@@ -20,6 +25,13 @@ public class Ball : MonoBehaviour
         if(Time.timeScale == 0)
         {
             return;
+        }
+
+        m_bananasDestroyed = BananasBlock.m_destroyedBananasCount;
+
+        if(m_bananasDestroyed == m_totalDestroyableBananas)
+        {
+            m_gameManager.BackToLandWinMenu();
         }
 
         if(!m_gameStarted)
@@ -44,7 +56,7 @@ public class Ball : MonoBehaviour
     {
         if(tri2D.gameObject.tag.Equals("GameOver"))
         {
-            m_gameManager.BrickNotDestroyed();
+            m_gameManager.BackToLandLoseMenu();
         }
     }
 }
