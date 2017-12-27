@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 
-public class Super : MonoBehaviour 
+public class PowerUp : MonoBehaviour 
 {
-	BoxCollider2D m_superCollider2D;
+	BoxCollider2D m_powerUpCollider2D;
 	Camera m_mainCamera;
 	ChimpController m_chimpController;
 	LevelCreator m_levelCreator;
-	Rigidbody2D m_superBody2D;
-	SpriteRenderer m_superRenderer;
+	Rigidbody2D m_powerUpBody2D;
+	SpriteRenderer m_powerUpRenderer;
 	Vector3 m_positionOnScreen;
 
 	void Start() 
@@ -15,9 +15,9 @@ public class Super : MonoBehaviour
 		m_chimpController = FindObjectOfType<ChimpController>();
 		m_levelCreator = FindObjectOfType<LevelCreator>();
 		m_mainCamera = FindObjectOfType<Camera>();
-		m_superBody2D = GetComponent<Rigidbody2D>();
-		m_superCollider2D = GetComponent<BoxCollider2D>();	
-		m_superRenderer = GetComponent<SpriteRenderer>();
+		m_powerUpBody2D = GetComponent<Rigidbody2D>();
+		m_powerUpCollider2D = GetComponent<BoxCollider2D>();	
+		m_powerUpRenderer = GetComponent<SpriteRenderer>();
 	}
 
 	void Update() 
@@ -29,11 +29,11 @@ public class Super : MonoBehaviour
 
         if(m_chimpController.m_slip)
         {
-            m_superCollider2D.enabled = false;
-            m_superRenderer.enabled = false;
+            m_powerUpCollider2D.enabled = false;
+            m_powerUpRenderer.enabled = false;
         }
 
-		m_superBody2D.velocity = new Vector2(-m_levelCreator.m_gameSpeed , m_superBody2D.velocity.y);
+		m_powerUpBody2D.velocity = new Vector2(-m_levelCreator.m_gameSpeed , m_powerUpBody2D.velocity.y);
 		m_positionOnScreen = m_mainCamera.WorldToScreenPoint(transform.position);
 
 		if(m_positionOnScreen.x < 0)

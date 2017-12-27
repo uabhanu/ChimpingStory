@@ -146,6 +146,11 @@ public class ChimpController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D tri2D)
     {
+        if(tri2D.gameObject.tag.Equals("BPortal"))
+        {
+            SceneManager.LoadScene("BananaDestroyer");
+        }
+
         if(tri2D.gameObject.tag.Equals("Fall"))
         {
             m_soundsSource.clip = m_soundsContainer.m_fallDeathSound;
@@ -160,7 +165,7 @@ public class ChimpController : MonoBehaviour
             CheatDeath();
         }
 
-        if (tri2D.gameObject.tag.Equals("Skin"))
+        if(tri2D.gameObject.tag.Equals("Skin"))
         {
             Slip();
         }
@@ -169,6 +174,11 @@ public class ChimpController : MonoBehaviour
 		{
 			Super();
 		}
+
+        if(tri2D.gameObject.tag.Equals("WPortal"))
+        {
+            SceneManager.LoadScene("WaterSwimmer");
+        }
     }
 
     public void Slide()

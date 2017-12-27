@@ -137,7 +137,7 @@ public class GameManager : MonoBehaviour
             m_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
         }
 
-        else if (m_currentScene == "BananaDestroyer")
+        else if(m_currentScene == "BananaDestroyer")
         {
             m_backToLandLose = GameObject.Find("BackToLandLose").GetComponent<Text>();
             m_backToLandLoseMenuImage = GameObject.Find("BackToLandLoseMenu").GetComponent<Image>();
@@ -145,18 +145,8 @@ public class GameManager : MonoBehaviour
             m_backToLandWin = GameObject.Find("BackToLandWin").GetComponent<Text>();
             m_backToLandWinMenuImage = GameObject.Find("BackToLandWinMenu").GetComponent<Image>();
             m_continueButtonWinImage = GameObject.Find("ContinueButtonWin").GetComponent<Image>();
-            m_exit = GameObject.Find("ExitText").GetComponent<Text>();
-            m_exitButtonImage = GameObject.Find("ExitButton").GetComponent<Image>();
-            m_exitAcceptButtonImage = GameObject.Find("ExitAcceptButton").GetComponent<Image>();
-            m_exitCancelButtonImage = GameObject.Find("ExitCancelButton").GetComponent<Image>();
-            m_exitMenuImage = GameObject.Find("ExitMenu").GetComponent<Image>();
             m_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
             m_pauseMenuImage = GameObject.Find("PauseMenu").GetComponent<Image>();
-            m_restart = GameObject.Find("RestartText").GetComponent<Text>();
-            m_restartButtonImage = GameObject.Find("RestartButton").GetComponent<Image>();
-            m_restartAcceptButtonImage = GameObject.Find("RestartAcceptButton").GetComponent<Image>();
-            m_restartCancelButtonImage = GameObject.Find("RestartCancelButton").GetComponent<Image>();
-            m_restartMenuImage = GameObject.Find("RestartMenu").GetComponent<Image>();
             m_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
         }
     }
@@ -170,9 +160,18 @@ public class GameManager : MonoBehaviour
         
 		m_pauseButtonImage.enabled = false;
 
-		m_exitButtonImage.enabled = true;
+        if(m_exitButtonImage != null)
+        {
+            m_exitButtonImage.enabled = true;
+        }
+        
 		m_pauseMenuImage.enabled = true;
-		m_restartButtonImage.enabled = true;
+
+        if(m_restartButtonImage != null)
+        {
+            m_restartButtonImage.enabled = true;
+        }
+        
 		m_resumeButtonImage.enabled = true;
 		Time.timeScale = 0;
 	}
@@ -257,10 +256,19 @@ public class GameManager : MonoBehaviour
 
         m_pauseButtonImage.enabled = true;
 
-		m_exitButtonImage.enabled = false;
-		m_pauseMenuImage.enabled = false;
-		m_restartButtonImage.enabled = false;
-		m_resumeButtonImage.enabled = false;
+        if(m_exitButtonImage != null)
+        {
+            m_exitButtonImage.enabled = false;
+        }
+
+        m_pauseMenuImage.enabled = false;
+
+        if(m_restartButtonImage != null)
+        {
+            m_restartButtonImage.enabled = false;
+        }
+
+        m_resumeButtonImage.enabled = false;
 		Time.timeScale = 1;
 	}
 }
