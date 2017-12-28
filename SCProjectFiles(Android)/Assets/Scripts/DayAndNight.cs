@@ -7,7 +7,7 @@ public class DayAndNight : MonoBehaviour
     SpriteRenderer m_cloudsRenderer;
 
     [SerializeField] bool m_nightTime;
-    [SerializeField] Sprite[] m_cloudSprites;
+    [SerializeField] Sprite[] m_dayAndNightSprites;
 
     void Start()
     {
@@ -15,11 +15,11 @@ public class DayAndNight : MonoBehaviour
 
         if(!m_nightTime)
         {
-            m_cloudsRenderer.sprite = m_cloudSprites[0];
+            m_cloudsRenderer.sprite = m_dayAndNightSprites[0];
         }
         else
         {
-            m_cloudsRenderer.sprite = m_cloudSprites[1];
+            m_cloudsRenderer.sprite = m_dayAndNightSprites[1];
         }
         
     }

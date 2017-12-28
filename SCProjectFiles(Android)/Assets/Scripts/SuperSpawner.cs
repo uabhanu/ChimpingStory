@@ -1,0 +1,41 @@
+﻿using System.Collections;
+using UnityEngine;
+
+public class SuperSpawner : MonoBehaviour
+{
+	ChimpController m_chimpController;
+	float m_startUpPosY;
+	GameObject m_collectedTiles , m_superObj , m_tilePos;
+
+	[SerializeField] float m_spawnTime;
+    [SerializeField] GameObject m_superPrefab;
+
+	void Reset()
+	{
+        m_spawnTime = 54.5f;
+	}
+
+	void Start()
+	{
+		m_chimpController = FindObjectOfType<ChimpController>();
+		m_superObj = GameObject.FindGameObjectWithTag("Super");
+		m_collectedTiles = GameObject.Find("Tiles");
+		m_tilePos = GameObject.Find("StartTilePosition");
+		m_startUpPosY = m_tilePos.transform.position.y;
+		StartCoroutine("SpawnRoutine");
+	}
+
+	IEnumerator SpawnRoutine()
+	{
+		yield return new WaitForSeconds(m_spawnTime);
+
+		if(m_superObj == null && !m_chimpController.m_super && m_chimpController.m_superPickUpsAvailable > 0)
+		{
+			m_superObj = Instantiate(m_superPrefab , transform.position , Quaternion.identity);
+			m_superObj.transform.parent = m_collectedTiles.transform.Find("PowerUp").transform;
+			m_superObj.transform.position = new Vector2(transform.position.x , m_startUpPosY + 6);
+		}
+
+		StartCoroutine("SpawnRoutine");
+	}
+}

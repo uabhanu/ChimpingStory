@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     string m_currentScene;
 	Text m_ads , m_backToLandLose , m_backToLandWin , m_exit, m_quit , m_restart;
 
+    public static Image m_selfieButtonImage;
+
 	void Start()
 	{
 		GetBhanuObjects();
@@ -23,6 +25,9 @@ public class GameManager : MonoBehaviour
         m_adsAcceptButtonImage.enabled = true;
         m_adsCancelButtonImage.enabled = true;
         m_ads.enabled = true;
+
+        m_pauseButtonImage.enabled = false;
+        m_selfieButtonImage.enabled = false;
         Time.timeScale = 0;
     }
 
@@ -135,6 +140,7 @@ public class GameManager : MonoBehaviour
             m_restartCancelButtonImage = GameObject.Find("RestartCancelButton").GetComponent<Image>();
             m_restartMenuImage = GameObject.Find("RestartMenu").GetComponent<Image>();
             m_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
+            m_selfieButtonImage = GameObject.Find("SelfieButton").GetComponent<Image>();
         }
 
         else if(m_currentScene == "BananaDestroyer")
@@ -271,4 +277,9 @@ public class GameManager : MonoBehaviour
         m_resumeButtonImage.enabled = false;
 		Time.timeScale = 1;
 	}
+
+    public void Selfie()
+    {
+        m_selfieButtonImage.enabled = false;
+    }
 }
