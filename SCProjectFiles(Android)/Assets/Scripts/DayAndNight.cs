@@ -1,26 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 public class DayAndNight : MonoBehaviour
 {
-    SpriteRenderer m_cloudsRenderer;
+    DateTime m_dateAndTime;
+    SpriteRenderer m_spriteRenderer;
 
-    [SerializeField] bool m_nightTime;
     [SerializeField] Sprite[] m_dayAndNightSprites;
 
     void Start()
     {
-        m_cloudsRenderer = GetComponent<SpriteRenderer>();
+        m_spriteRenderer = GetComponent<SpriteRenderer>();
+        m_dateAndTime = DateTime.Now;
 
-        if(!m_nightTime)
+        if(m_dateAndTime.Hour >= 18)
         {
-            m_cloudsRenderer.sprite = m_dayAndNightSprites[0];
+            m_spriteRenderer.sprite = m_dayAndNightSprites[1];
         }
-        else
+
+        else if(m_dateAndTime.Hour < 18)
         {
-            m_cloudsRenderer.sprite = m_dayAndNightSprites[1];
+            m_spriteRenderer.sprite = m_dayAndNightSprites[0];
         }
-        
     }
 }

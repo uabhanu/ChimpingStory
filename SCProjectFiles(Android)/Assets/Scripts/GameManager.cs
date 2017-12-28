@@ -5,14 +5,13 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour 
 {
 	AudioSource m_musicSource;
+    ChimpController m_chimpController;
 	Image m_adsAcceptButtonImage , m_adsCancelButtonImage , m_adsMenuImage , m_backgroundImage , m_backToLandLoseMenuImage , m_backToLandWinMenuImage , m_continueButtonLoseImage;
     Image m_continueButtonWinImage , m_exitButtonImage, m_exitAcceptButtonImage , m_exitCancelButtonImage , m_exitMenuImage , m_pauseButtonImage , m_pauseMenuImage , m_playButtonImage;
     Image m_quitButtonImage , m_quitAcceptButtonImage , m_quitCancelButtonImage , m_quitMenuImage , m_restartButtonImage , m_restartAcceptButtonImage , m_restartCancelButtonImage;
-    Image m_restartMenuImage , m_resumeButtonImage;
+    Image m_restartMenuImage , m_resumeButtonImage , m_selfieButtonImage;
     string m_currentScene;
 	Text m_ads , m_backToLandLose , m_backToLandWin , m_exit, m_quit , m_restart;
-
-    public static Image m_selfieButtonImage;
 
 	void Start()
 	{
@@ -127,6 +126,7 @@ public class GameManager : MonoBehaviour
             m_adsAcceptButtonImage = GameObject.Find("AdsAcceptButton").GetComponent<Image>();
             m_adsCancelButtonImage = GameObject.Find("AdsCancelButton").GetComponent<Image>();
             m_adsMenuImage = GameObject.Find("AdsMenu").GetComponent<Image>();
+            m_chimpController = FindObjectOfType<ChimpController>();
             m_exit = GameObject.Find("ExitText").GetComponent<Text>();
             m_exitButtonImage = GameObject.Find("ExitButton").GetComponent<Image>();
             m_exitAcceptButtonImage = GameObject.Find("ExitAcceptButton").GetComponent<Image>();
@@ -278,8 +278,13 @@ public class GameManager : MonoBehaviour
 		Time.timeScale = 1;
 	}
 
-    public void Selfie()
+    public void SelfieInvisible()
     {
         m_selfieButtonImage.enabled = false;
+    }
+
+    public void SelfieVisible()
+    {
+        m_selfieButtonImage.enabled = true;
     }
 }

@@ -6,7 +6,7 @@ public class RockExplosion : MonoBehaviour
     ParticleSystem m_explosionSystem;
     SoundsContainer m_soundsContainer;
 
-    [Tooltip("Select the value of seconds after which this object should be destroyed")] [SerializeField] [Range(0.1f, 1.1f)] float m_destroyAfter;
+    [SerializeField] [Tooltip("Select the value of seconds after which this object should be destroyed")] [Range(0.1f, 1.1f)] float m_destroyAfter;
 
     void Start()
     {
