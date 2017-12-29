@@ -106,10 +106,10 @@ public class ChimpController : MonoBehaviour
 
 		if(HoleCheck()) //Tried !HoleCheck() at first but reverse seems to work instead of the actual one. but fine for now
 		{
-            m_super = false;	
 			m_blockerCollider2D.enabled = false;
 			m_chimpAnim.SetBool("Super" , false);
 			m_jumpHeight = m_defaultJumpHeight;
+			m_super = false;	
 		}
 	}
 
@@ -142,11 +142,6 @@ public class ChimpController : MonoBehaviour
 		m_chimpBody2D.velocity = new Vector2(m_chimpBody2D.velocity.x , m_jumpHeight);
 		m_soundsSource.clip = m_soundsContainer.m_jumpSound;
 		m_soundsSource.Play();
-
-        if(!m_super)
-        {
-            m_gameManager.SelfieVisible();
-        }
 	}
 
     void OnTriggerEnter2D(Collider2D tri2D)
@@ -195,7 +190,7 @@ public class ChimpController : MonoBehaviour
     void Slip()
     {
         m_chimpAnim.SetBool("Slip" , true);
-        m_levelCreator.m_gameSpeed *= 2.5f;
+        m_levelCreator.m_gameSpeed *= 1.5f;
         m_slip = true;
         StartCoroutine("SlipRoutine");
     }
@@ -205,7 +200,6 @@ public class ChimpController : MonoBehaviour
 		transform.position = new Vector2(transform.position.x , m_blockerCollider2D.gameObject.transform.position.y + 1.5f);
 		m_blockerCollider2D.enabled = true;
 		m_chimpAnim.SetBool("Super" , true);
-        m_gameManager.SelfieVisible();
         m_levelCreator.m_gameSpeed = 6.0f;
 		m_super = true;
         m_superPickUpsAvailable--;

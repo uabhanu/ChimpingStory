@@ -5,11 +5,10 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour 
 {
 	AudioSource m_musicSource;
-    ChimpController m_chimpController;
 	Image m_adsAcceptButtonImage , m_adsCancelButtonImage , m_adsMenuImage , m_backgroundImage , m_backToLandLoseMenuImage , m_backToLandWinMenuImage , m_continueButtonLoseImage;
     Image m_continueButtonWinImage , m_exitButtonImage, m_exitAcceptButtonImage , m_exitCancelButtonImage , m_exitMenuImage , m_pauseButtonImage , m_pauseMenuImage , m_playButtonImage;
     Image m_quitButtonImage , m_quitAcceptButtonImage , m_quitCancelButtonImage , m_quitMenuImage , m_restartButtonImage , m_restartAcceptButtonImage , m_restartCancelButtonImage;
-    Image m_restartMenuImage , m_resumeButtonImage , m_selfieButtonImage;
+    Image m_restartMenuImage , m_resumeButtonImage;
     string m_currentScene;
 	Text m_ads , m_backToLandLose , m_backToLandWin , m_exit, m_quit , m_restart;
 
@@ -24,9 +23,6 @@ public class GameManager : MonoBehaviour
         m_adsAcceptButtonImage.enabled = true;
         m_adsCancelButtonImage.enabled = true;
         m_ads.enabled = true;
-
-        m_pauseButtonImage.enabled = false;
-        m_selfieButtonImage.enabled = false;
         Time.timeScale = 0;
     }
 
@@ -126,7 +122,6 @@ public class GameManager : MonoBehaviour
             m_adsAcceptButtonImage = GameObject.Find("AdsAcceptButton").GetComponent<Image>();
             m_adsCancelButtonImage = GameObject.Find("AdsCancelButton").GetComponent<Image>();
             m_adsMenuImage = GameObject.Find("AdsMenu").GetComponent<Image>();
-            m_chimpController = FindObjectOfType<ChimpController>();
             m_exit = GameObject.Find("ExitText").GetComponent<Text>();
             m_exitButtonImage = GameObject.Find("ExitButton").GetComponent<Image>();
             m_exitAcceptButtonImage = GameObject.Find("ExitAcceptButton").GetComponent<Image>();
@@ -140,7 +135,6 @@ public class GameManager : MonoBehaviour
             m_restartCancelButtonImage = GameObject.Find("RestartCancelButton").GetComponent<Image>();
             m_restartMenuImage = GameObject.Find("RestartMenu").GetComponent<Image>();
             m_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
-            m_selfieButtonImage = GameObject.Find("SelfieButton").GetComponent<Image>();
         }
 
         else if(m_currentScene == "BananaDestroyer")
@@ -277,14 +271,4 @@ public class GameManager : MonoBehaviour
         m_resumeButtonImage.enabled = false;
 		Time.timeScale = 1;
 	}
-
-    public void SelfieInvisible()
-    {
-        m_selfieButtonImage.enabled = false;
-    }
-
-    public void SelfieVisible()
-    {
-        m_selfieButtonImage.enabled = true;
-    }
 }

@@ -12,7 +12,7 @@ public class SuperSpawner : MonoBehaviour
 
 	void Reset()
 	{
-        m_spawnTime = 54.5f;
+        m_spawnTime = 55f;
 	}
 
 	void Start()
@@ -32,7 +32,7 @@ public class SuperSpawner : MonoBehaviour
 		if(m_superObj == null && !m_chimpController.m_super && m_chimpController.m_superPickUpsAvailable > 0)
 		{
 			m_superObj = Instantiate(m_superPrefab , transform.position , Quaternion.identity);
-			m_superObj.transform.parent = m_collectedTiles.transform.Find("PowerUp").transform;
+			m_superObj.transform.parent = m_collectedTiles.transform.Find("Portal").transform;
 			m_superObj.transform.position = new Vector2(transform.position.x , m_startUpPosY + 6);
 		}
 

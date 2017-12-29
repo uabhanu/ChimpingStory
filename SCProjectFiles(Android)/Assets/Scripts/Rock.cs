@@ -52,8 +52,6 @@ public class Rock : MonoBehaviour
             m_explosionSystemObj = Instantiate(m_explosionPrefab);
             Destroy(gameObject);
         }
-
-        RockSpawner.m_rocksCount--;
     }
 
     void OnTriggerEnter2D(Collider2D tri2D)

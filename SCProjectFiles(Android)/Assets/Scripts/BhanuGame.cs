@@ -1,18 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BhanuGame : MonoBehaviour 
 {
-	[SerializeField] GameObject m_mediaManagerObj , m_mediaManagerPrefab;
+	[SerializeField] GameObject m_avManagerObj , m_avManagerPrefab;
 
 	void Start() 
 	{
-		m_mediaManagerObj = GameObject.FindGameObjectWithTag("MediaManager");
+		m_avManagerObj = GameObject.FindGameObjectWithTag("AVManager");
 
-		if(m_mediaManagerObj == null)
+		if(m_avManagerObj == null)
 		{
-			m_mediaManagerObj = Instantiate(m_mediaManagerPrefab);
+			m_avManagerObj = Instantiate(m_avManagerPrefab);
 		}
 	}
 }

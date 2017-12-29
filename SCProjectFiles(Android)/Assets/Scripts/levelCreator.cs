@@ -180,6 +180,11 @@ public class LevelCreator : MonoBehaviour
 		SetTile("PF_GroundRight");
 	}
 
+    void RandomizeCollectible() // TODO Use this later
+    {
+
+    }
+
     void RandomizeEnemy()
     {
         if(m_enemyAdded)
@@ -192,7 +197,7 @@ public class LevelCreator : MonoBehaviour
 
             GameObject hurdle = m_collectedTiles.transform.Find("Hurdle").transform.GetChild(0).gameObject;
             hurdle.transform.parent = m_gameLayer.transform;
-            hurdle.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3 , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 2.2f)));
+            hurdle.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3 , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 2.8f)));
             m_enemyAdded = true;
         }
 
