@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
         m_adsAcceptButtonImage.enabled = true;
         m_adsCancelButtonImage.enabled = true;
         m_ads.enabled = true;
+        m_pauseButtonImage.enabled = false;
         Time.timeScale = 0;
     }
 
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour
         m_adsAcceptButtonImage.enabled = false;
         m_adsCancelButtonImage.enabled = false;
         m_ads.enabled = false;
+        m_pauseButtonImage.enabled = true;
         Time.timeScale = 1;
     }
 
