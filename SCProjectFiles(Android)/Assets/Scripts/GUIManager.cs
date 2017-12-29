@@ -109,7 +109,7 @@ public class GUIManager : MonoBehaviour
         m_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
         m_pauseMenuImage = GameObject.Find("PauseMenu").GetComponent<Image>();
         m_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
-        m_musicSource = GameObject.FindGameObjectWithTag("MediaManager").GetComponent<AudioSource>();
+        m_musicSource = GameObject.FindGameObjectWithTag("AVManager").GetComponent<AudioSource>();
     }
 
     public void BhanuPause()

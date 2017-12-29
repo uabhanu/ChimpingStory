@@ -190,7 +190,7 @@ public class ChimpController : MonoBehaviour
     void Slip()
     {
         m_chimpAnim.SetBool("Slip" , true);
-        m_levelCreator.m_gameSpeed *= 1.5f;
+        m_levelCreator.m_gameSpeed *= 2.5f;
         m_slip = true;
         StartCoroutine("SlipRoutine");
     }

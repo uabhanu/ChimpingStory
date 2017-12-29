@@ -31,7 +31,7 @@ public class PortalSpawner : MonoBehaviour
 
 		if(m_portalObj == null && !m_chimpController.m_super)
 		{
-			m_portalObj = Instantiate(m_portalPrefabs[Random.Range(0 , m_portalPrefabs.Length - 1)] , transform.position , Quaternion.identity);
+			m_portalObj = Instantiate(m_portalPrefabs[Random.Range(0 , m_portalPrefabs.Length)] , transform.position , Quaternion.identity);
 			m_portalObj.transform.parent = m_collectedTiles.transform.Find("Portal").transform;
 			m_portalObj.transform.position = new Vector2(transform.position.x , m_startUpPosY + 6);
 		}

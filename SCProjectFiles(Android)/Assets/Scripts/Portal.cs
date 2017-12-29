@@ -2,7 +2,7 @@
 
 public class Portal : MonoBehaviour 
 {
-	BoxCollider2D m_portalCollider2D;
+	Collider2D m_portalCollider2D;
 	Camera m_mainCamera;
 	ChimpController m_chimpController;
 	LevelCreator m_levelCreator;
@@ -16,7 +16,7 @@ public class Portal : MonoBehaviour
 		m_levelCreator = FindObjectOfType<LevelCreator>();
 		m_mainCamera = FindObjectOfType<Camera>();
 		m_portalBody2D = GetComponent<Rigidbody2D>();
-		m_portalCollider2D = GetComponent<BoxCollider2D>();	
+		m_portalCollider2D = GetComponent<Collider2D>();	
 		m_portalRenderer = GetComponent<SpriteRenderer>();
 	}
 
