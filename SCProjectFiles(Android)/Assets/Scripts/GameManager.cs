@@ -40,7 +40,6 @@ public class GameManager : MonoBehaviour
     public void AdsCancel()
     {
         SceneManager.LoadScene(m_currentScene);
-        Time.timeScale = 1;
     }
 
     public void BackToLandLoseMenu()
@@ -104,6 +103,7 @@ public class GameManager : MonoBehaviour
 
     void GetBhanuObjects()
     {
+        Time.timeScale = 1;
         m_currentScene = SceneManager.GetActiveScene().name;
         m_musicSource = GetComponent<AudioSource>();
 
@@ -181,7 +181,6 @@ public class GameManager : MonoBehaviour
 	public void Play()
 	{
 		SceneManager.LoadScene("LandRunner");
-		Time.timeScale = 1;
 	}
 
 	public void Quit()
@@ -232,7 +231,6 @@ public class GameManager : MonoBehaviour
             AudioVideoManager.m_musicSource.Play();
         }
         
-		Time.timeScale = 1;
 		SceneManager.LoadScene(m_currentScene);
 	}
 

@@ -8,13 +8,12 @@ public class NightMode : MonoBehaviour
     DateTime m_dateAndTime;
     SpriteRenderer m_spriteRenderer;
 
-    [SerializeField] int m_hour , m_minute;
+    [SerializeField] int m_hour;
     [SerializeField] Sprite m_nightSprite;
 
     void Reset()
     {
         m_hour = 18;
-        m_minute = 00;
     }
 
     void Start()
@@ -26,7 +25,7 @@ public class NightMode : MonoBehaviour
     {
         m_dateAndTime = DateTime.Now;
 
-        if(m_dateAndTime.Hour >= m_hour && m_dateAndTime.Minute >= m_minute && !m_nightMode)
+        if(m_dateAndTime.Hour >= m_hour)
         {
             m_spriteRenderer.sprite = m_nightSprite;
             m_nightMode = true;   

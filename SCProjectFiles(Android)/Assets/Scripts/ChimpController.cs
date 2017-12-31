@@ -7,6 +7,7 @@ public class ChimpController : MonoBehaviour
     Animator m_chimpAnim;
     AudioSource m_soundsSource;
 	BoxCollider2D m_blockerCollider2D;
+    float m_startPos;
 	GameManager m_gameManager;
 	LevelCreator m_levelCreator;
     Rigidbody2D m_chimpBody2D;
@@ -44,6 +45,7 @@ public class ChimpController : MonoBehaviour
 		m_levelCreator = FindObjectOfType<LevelCreator>();
 		m_soundsContainer = FindObjectOfType<SoundsContainer>();
         m_soundsSource = GetComponent<AudioSource>();
+        m_startPos = transform.position.x;
     }
 	
 	void Update()
@@ -51,6 +53,13 @@ public class ChimpController : MonoBehaviour
         if(Time.timeScale == 0)
         {
             return;
+        }
+
+        if(transform.position.x < m_startPos - 2.7f)
+        {
+            m_soundsSource.clip = m_soundsContainer.m_fallDeathSound;
+            m_soundsSource.Play();
+            CheatDeath();
         }
 
         #if UNITY_EDITOR_64 || UNITY_STANDALONE_WIN
