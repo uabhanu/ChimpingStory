@@ -13,7 +13,6 @@ public class ChimpController : MonoBehaviour
     Rigidbody2D m_chimpBody2D;
 	SoundsContainer m_soundsContainer;
     string m_currentScene;
-	Transform m_groundCheckBottom , m_groundCheckTop;
 
     [SerializeField] bool m_grounded;
     [SerializeField] float m_defaultJumpHeight = 15.5f , m_jumpHeight , m_slideTime , m_slipTime , m_superTime;
@@ -38,27 +37,28 @@ public class ChimpController : MonoBehaviour
         m_chimpBody2D = GetComponent<Rigidbody2D>();
         m_currentScene = SceneManager.GetActiveScene().name;
 		m_gameManager = FindObjectOfType<GameManager>();
-		m_groundCheckBottom = GameObject.Find("GroundCheckBottom").transform;
-		m_groundCheckTop = GameObject.Find("GroundCheckTop").transform;
 		m_levelCreator = FindObjectOfType<LevelCreator>();
 		m_soundsContainer = FindObjectOfType<SoundsContainer>();
         m_soundsSource = GetComponent<AudioSource>();
         m_startPos = transform.position.x;
     }
-	
-	void Update()
+
+    void FixedUpdate()
     {
         if(Time.timeScale == 0)
         {
             return;
         }
 
-        //if(transform.position.x < m_startPos - 2.7f)
-        //{
-        //    m_soundsSource.clip = m_soundsContainer.m_fallDeathSound;
-        //    m_soundsSource.Play();
-        //    CheatDeath();
-        //}
+        Grounded();
+    }
+
+    void Update()
+    {
+        if(Time.timeScale == 0)
+        {
+            return;
+        }
 
         #if UNITY_EDITOR_64 || UNITY_STANDALONE_WIN
 
@@ -74,19 +74,19 @@ public class ChimpController : MonoBehaviour
 
 		#endif
 
-        Grounded();
+        //Grounded();
         m_chimpAnim.SetBool("Jog" , m_grounded);
         m_chimpAnim.SetBool("Jump" , !m_grounded);
 
-        if(m_grounded)
-        {
-            Debug.Log("Grounded");
-        }
+        //if(m_grounded)
+        //{
+        //    Debug.Log("Grounded");
+        //}
 
-        else if(!m_grounded)
-        {
-            Debug.Log("Not Grounded");
-        }
+        //else if(!m_grounded)
+        //{
+        //    Debug.Log("Not Grounded");
+        //}
     }
 
     IEnumerator SlideRoutine()
@@ -127,16 +127,14 @@ public class ChimpController : MonoBehaviour
 
     void Grounded()
     {
-        //Debug.DrawLine(m_groundCheckTop.position , m_groundCheckBottom.position , Color.green);
-        //RaycastHit2D hit2D = Physics2D.Raycast(m_groundCheckTop.position , m_groundCheckBottom.position);
-
-        Debug.DrawLine(transform.position , Vector2.up , Color.green);
-        RaycastHit2D hit2D = Physics2D.Raycast(transform.position , Vector2.up);
+        Debug.DrawLine(new Vector2(transform.position.x , transform.position.y - 0.9f) , new Vector2(transform.position.x , transform.position.y - 0.11f) , Color.green);
+        RaycastHit2D hit2D = Physics2D.Raycast(new Vector2(transform.position.x , transform.position.y - 0.9f) , new Vector2(transform.position.x , transform.position.y - 0.11f));
 
         if(hit2D)
         {
             if(hit2D.collider.tag.Equals("Ground"))
             {
+                Debug.Log(hit2D.collider.name);
                 m_grounded = true;
             }
             else
@@ -159,7 +157,6 @@ public class ChimpController : MonoBehaviour
         }
         else
         {
-            m_grounded = false;
             m_chimpAnim.SetBool("Jump" , true);
             m_chimpBody2D.velocity = new Vector2(m_chimpBody2D.velocity.x , m_jumpHeight);
             m_soundsSource.clip = m_soundsContainer.m_jumpSound;
