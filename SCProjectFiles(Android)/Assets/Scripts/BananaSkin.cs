@@ -10,8 +10,8 @@ public class BananaSkin : MonoBehaviour
 
 	void Start()
     {
-        m_mainCamera = FindObjectOfType<Camera>();
 		m_chimpController = GameObject.FindGameObjectWithTag("Player").GetComponent<ChimpController>();
+        m_mainCamera = FindObjectOfType<Camera>();
         m_skinCollider2D = GetComponent<Collider2D>();
         m_skinRenderer = GetComponent<SpriteRenderer>();
 	}

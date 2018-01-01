@@ -7,9 +7,11 @@ public class BhanuScroller : MonoBehaviour
     float m_startPos;
     LevelCreator m_levelCreationScript;
     Rigidbody2D m_bhanuBody2D;
-    [SerializeField] Vector3 m_positionOnScreen;
 
-	void Start() 
+    public static Vector3 m_positionOnScreen;
+    //[SerializeField] Vector3 m_positionOnScreen;
+
+    void Start() 
     {
         m_bananaEnabler = FindObjectOfType<BananaEnabler>();
         m_bhanuBody2D = GetComponent<Rigidbody2D>();
@@ -18,7 +20,7 @@ public class BhanuScroller : MonoBehaviour
         m_startPos = transform.position.x;
 	}
 	
-	void Update () 
+	void Update() 
     {
         if(Time.timeScale == 0f)
 		{

@@ -3,14 +3,14 @@ using UnityEngine;
 
 public class BananaEnabler : MonoBehaviour
 {
-    const float ENABLE_TIME = 10.5f;
+    const float ENABLE_TIME = 0.5f;
 
     [SerializeField] GameObject[] m_bananasObjs;
 
     void Start()
     {
         BananaReset();
-        //StartCoroutine("BananaEnableRoutine");
+        StartCoroutine("BananaEnableRoutine");
     }
 
     IEnumerator BananaEnableRoutine()
@@ -24,12 +24,15 @@ public class BananaEnabler : MonoBehaviour
     {
         if(m_bananasObjs[Random.Range(0 , m_bananasObjs.Length)].activeInHierarchy)
         {
-            m_bananasObjs[Random.Range(0 , m_bananasObjs.Length)].SetActive(false);
+            if(BhanuScroller.m_positionOnScreen.x >= 655.1f)
+            {
+                m_bananasObjs[Random.Range(0, m_bananasObjs.Length)].SetActive(false);
+            }
         }
 
         else if(!m_bananasObjs[Random.Range(0 , m_bananasObjs.Length)].activeInHierarchy)
         {
-            m_bananasObjs[Random.Range(0 , m_bananasObjs.Length)].SetActive(true);
+            m_bananasObjs[Random.Range(0, m_bananasObjs.Length)].SetActive(true);
         }
     }
 }

@@ -13,9 +13,9 @@ public class ChimpController : MonoBehaviour
     Rigidbody2D m_chimpBody2D;
 	SoundsContainer m_soundsContainer;
     string m_currentScene;
-	Transform m_groundCheckBottom , m_groundCheckTop , m_holeCheckBottom , m_holeCheckTop;
+	Transform m_groundCheckBottom , m_groundCheckTop;
 
-	[SerializeField] bool m_grounded = true;
+    [SerializeField] bool m_grounded;
     [SerializeField] float m_defaultJumpHeight = 15.5f , m_jumpHeight , m_slideTime , m_slipTime , m_superTime;
 
     public bool m_slip , m_super;
@@ -40,8 +40,6 @@ public class ChimpController : MonoBehaviour
 		m_gameManager = FindObjectOfType<GameManager>();
 		m_groundCheckBottom = GameObject.Find("GroundCheckBottom").transform;
 		m_groundCheckTop = GameObject.Find("GroundCheckTop").transform;
-		m_holeCheckBottom = GameObject.Find("HoleCheckBottom").transform;
-		m_holeCheckTop = GameObject.Find("HoleCheckTop").transform;
 		m_levelCreator = FindObjectOfType<LevelCreator>();
 		m_soundsContainer = FindObjectOfType<SoundsContainer>();
         m_soundsSource = GetComponent<AudioSource>();
@@ -55,12 +53,12 @@ public class ChimpController : MonoBehaviour
             return;
         }
 
-        if(transform.position.x < m_startPos - 2.7f)
-        {
-            m_soundsSource.clip = m_soundsContainer.m_fallDeathSound;
-            m_soundsSource.Play();
-            CheatDeath();
-        }
+        //if(transform.position.x < m_startPos - 2.7f)
+        //{
+        //    m_soundsSource.clip = m_soundsContainer.m_fallDeathSound;
+        //    m_soundsSource.Play();
+        //    CheatDeath();
+        //}
 
         #if UNITY_EDITOR_64 || UNITY_STANDALONE_WIN
 
@@ -76,16 +74,20 @@ public class ChimpController : MonoBehaviour
 
 		#endif
 
-        GroundCheck();
-		HoleCheck();
+        Grounded();
+        m_chimpAnim.SetBool("Jog" , m_grounded);
+        m_chimpAnim.SetBool("Jump" , !m_grounded);
 
         if(m_grounded)
         {
-            m_chimpAnim.SetBool("Jump" , false);
+            Debug.Log("Grounded");
         }
 
-        m_chimpAnim.SetBool("Jog" , m_grounded);
-	}
+        else if(!m_grounded)
+        {
+            Debug.Log("Not Grounded");
+        }
+    }
 
     IEnumerator SlideRoutine()
     {
@@ -112,14 +114,10 @@ public class ChimpController : MonoBehaviour
 	IEnumerator SuperRoutine()
 	{
 		yield return new WaitForSeconds(m_superTime);
-
-		if(HoleCheck()) //Tried !HoleCheck() at first but reverse seems to work instead of the actual one. but fine for now
-		{
-			m_blockerCollider2D.enabled = false;
-			m_chimpAnim.SetBool("Super" , false);
-			m_jumpHeight = m_defaultJumpHeight;
-			m_super = false;	
-		}
+		m_blockerCollider2D.enabled = false;
+		m_chimpAnim.SetBool("Super" , false);
+		m_jumpHeight = m_defaultJumpHeight;
+		m_super = false;	
 	}
 
     void CheatDeath()
@@ -127,30 +125,46 @@ public class ChimpController : MonoBehaviour
         m_gameManager.Ads();
     }
 
-    void GroundCheck()
+    void Grounded()
     {
-        Debug.DrawLine(m_groundCheckTop.position , m_groundCheckBottom.position , Color.green);
-        m_grounded = Physics2D.Linecast(m_groundCheckTop.position , m_groundCheckBottom.position);
-    }
+        //Debug.DrawLine(m_groundCheckTop.position , m_groundCheckBottom.position , Color.green);
+        //RaycastHit2D hit2D = Physics2D.Raycast(m_groundCheckTop.position , m_groundCheckBottom.position);
 
-	bool HoleCheck()
-	{
-		Debug.DrawLine(m_holeCheckTop.position , m_holeCheckBottom.position , Color.red);
-		return(Physics2D.Linecast(m_holeCheckTop.position , m_holeCheckBottom.position)); //This should return true if line collided with Hole
-	}
-		
+        Debug.DrawLine(transform.position , Vector2.up , Color.green);
+        RaycastHit2D hit2D = Physics2D.Raycast(transform.position , Vector2.up);
+
+        if(hit2D)
+        {
+            if(hit2D.collider.tag.Equals("Ground"))
+            {
+                m_grounded = true;
+            }
+            else
+            {
+                m_grounded = false;
+            }
+        }
+
+        else if(!hit2D)
+        {
+            m_grounded = false;
+        }
+    }
+	
 	public void Jump()
     {
-        m_chimpAnim.SetBool("Jump" , true);
-        
         if(!m_grounded)
         {
             return;
-        } 
-			
-		m_chimpBody2D.velocity = new Vector2(m_chimpBody2D.velocity.x , m_jumpHeight);
-		m_soundsSource.clip = m_soundsContainer.m_jumpSound;
-		m_soundsSource.Play();
+        }
+        else
+        {
+            m_grounded = false;
+            m_chimpAnim.SetBool("Jump" , true);
+            m_chimpBody2D.velocity = new Vector2(m_chimpBody2D.velocity.x , m_jumpHeight);
+            m_soundsSource.clip = m_soundsContainer.m_jumpSound;
+            m_soundsSource.Play();
+        }
 	}
 
     void OnTriggerEnter2D(Collider2D tri2D)
@@ -192,14 +206,21 @@ public class ChimpController : MonoBehaviour
 
     public void Slide()
     {
-        m_chimpAnim.SetBool("Slide" , true);
-        StartCoroutine("SlideRoutine");   
+        if(m_grounded)
+        {
+            m_chimpAnim.SetBool("Slide", true);
+            StartCoroutine("SlideRoutine");
+        }
+        else
+        {
+            return;
+        }
     }
 
     void Slip()
     {
         m_chimpAnim.SetBool("Slip" , true);
-        m_levelCreator.m_gameSpeed *= 2.5f;
+        m_levelCreator.m_gameSpeed *= 2.1f;
         m_slip = true;
         StartCoroutine("SlipRoutine");
     }
