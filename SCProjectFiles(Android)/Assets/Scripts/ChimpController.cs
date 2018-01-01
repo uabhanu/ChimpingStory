@@ -62,12 +62,12 @@ public class ChimpController : MonoBehaviour
 
         #if UNITY_EDITOR_64 || UNITY_STANDALONE_WIN
 
-            if(Input.GetMouseButton(0))
+            if(Input.GetMouseButtonDown(0))
 		    {
 			    Jump();
 		    }
 
-		    else if(Input.GetMouseButton(1))
+		    else if(Input.GetMouseButtonDown(1))
 		    {
 			    Slide();
 		    }
@@ -127,8 +127,8 @@ public class ChimpController : MonoBehaviour
 
     void Grounded()
     {
-        Debug.DrawLine(new Vector2(transform.position.x , transform.position.y - 0.9f) , new Vector2(transform.position.x , transform.position.y - 0.11f) , Color.green);
-        RaycastHit2D hit2D = Physics2D.Raycast(new Vector2(transform.position.x , transform.position.y - 0.9f) , new Vector2(transform.position.x , transform.position.y - 0.11f));
+        Debug.DrawLine(new Vector2(transform.position.x , transform.position.y - 0.7f) , new Vector2(transform.position.x , transform.position.y - 0.95f) , Color.green);
+        RaycastHit2D hit2D = Physics2D.Raycast(new Vector2(transform.position.x , transform.position.y - 0.7f) , new Vector2(transform.position.x , transform.position.y - 0.95f));
 
         if(hit2D)
         {
