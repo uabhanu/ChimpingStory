@@ -3,7 +3,6 @@
 public class Banana : MonoBehaviour
 {
     AudioClip m_bananaSound;
-    BananaEnabler m_bananaEnabler;
     BoxCollider2D m_bananaCollider2D;
 	Camera m_mainCamera;
 	ChimpController m_chimpController;
@@ -16,7 +15,6 @@ public class Banana : MonoBehaviour
     void Start()
     {
 		m_bananaCollider2D = GetComponent<BoxCollider2D>();
-        m_bananaEnabler = FindObjectOfType<BananaEnabler>();
 		m_bananaRenderer = GetComponent<SpriteRenderer>();
 		m_chimpController = FindObjectOfType<ChimpController>();
         m_mainCamera = FindObjectOfType<Camera>();

@@ -6,8 +6,9 @@ public class ChimpController : MonoBehaviour
 {
     Animator m_chimpAnim;
     AudioSource m_soundsSource;
-	BoxCollider2D m_blockerCollider2D;
-    float m_startPos;
+    bool m_sliding;
+	BoxCollider2D m_blockerCollider2D , m_chimpCollider2D;
+    float m_defaultGravityScale , m_startPos;
 	GameManager m_gameManager;
 	LevelCreator m_levelCreator;
     Rigidbody2D m_chimpBody2D;
@@ -35,7 +36,9 @@ public class ChimpController : MonoBehaviour
 		m_blockerCollider2D = GameObject.Find("BlockerBottom").GetComponent<BoxCollider2D>();
 		m_chimpAnim = GetComponent<Animator>();
         m_chimpBody2D = GetComponent<Rigidbody2D>();
+        m_chimpCollider2D = GetComponent<BoxCollider2D>();
         m_currentScene = SceneManager.GetActiveScene().name;
+        m_defaultGravityScale = m_chimpBody2D.gravityScale;
 		m_gameManager = FindObjectOfType<GameManager>();
 		m_levelCreator = FindObjectOfType<LevelCreator>();
 		m_soundsContainer = FindObjectOfType<SoundsContainer>();
@@ -67,26 +70,16 @@ public class ChimpController : MonoBehaviour
 			    Jump();
 		    }
 
-		    else if(Input.GetMouseButtonDown(1))
+		    if(Input.GetMouseButtonDown(1))
 		    {
 			    Slide();
 		    }
 
-		#endif
+        #endif
 
-        //Grounded();
         m_chimpAnim.SetBool("Jog" , m_grounded);
         m_chimpAnim.SetBool("Jump" , !m_grounded);
-
-        //if(m_grounded)
-        //{
-        //    Debug.Log("Grounded");
-        //}
-
-        //else if(!m_grounded)
-        //{
-        //    Debug.Log("Not Grounded");
-        //}
+        Grounded();
     }
 
     IEnumerator SlideRoutine()
@@ -95,8 +88,12 @@ public class ChimpController : MonoBehaviour
 
         if(m_chimpAnim.GetBool("Slide"))
 		{
-			m_chimpAnim.SetBool("Slide" , false);
-		}
+            m_sliding = false;
+            m_chimpAnim.SetBool("Jog" , true);
+            m_chimpAnim.SetBool("Slide" , false);
+            m_chimpBody2D.gravityScale = m_defaultGravityScale;
+            m_chimpCollider2D.enabled = true;
+        }
     }
 
     IEnumerator SlipRoutine()
@@ -151,7 +148,7 @@ public class ChimpController : MonoBehaviour
 	
 	public void Jump()
     {
-        if(!m_grounded)
+        if(!m_grounded || m_sliding)
         {
             return;
         }
@@ -203,15 +200,12 @@ public class ChimpController : MonoBehaviour
 
     public void Slide()
     {
-        if(m_grounded)
-        {
-            m_chimpAnim.SetBool("Slide", true);
-            StartCoroutine("SlideRoutine");
-        }
-        else
-        {
-            return;
-        }
+        m_sliding = true;
+        m_chimpAnim.SetBool("Jog" , false);
+        m_chimpAnim.SetBool("Slide" , true);
+        m_chimpBody2D.gravityScale = 0;
+        m_chimpCollider2D.enabled = false;
+        StartCoroutine("SlideRoutine");
     }
 
     void Slip()

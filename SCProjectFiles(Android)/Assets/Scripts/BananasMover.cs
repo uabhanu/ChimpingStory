@@ -1,19 +1,15 @@
 ﻿using UnityEngine;
 
-public class BhanuScroller : MonoBehaviour 
+public class BananasMover : MonoBehaviour 
 {
-    BananaEnabler m_bananaEnabler;
     Camera m_mainCamera;
     float m_startPos;
     LevelCreator m_levelCreationScript;
     Rigidbody2D m_bhanuBody2D;
-
-    public static Vector3 m_positionOnScreen;
-    //[SerializeField] Vector3 m_positionOnScreen;
+    Vector3 m_positionOnScreen;
 
     void Start() 
     {
-        m_bananaEnabler = FindObjectOfType<BananaEnabler>();
         m_bhanuBody2D = GetComponent<Rigidbody2D>();
         m_levelCreationScript = FindObjectOfType<LevelCreator>();
         m_mainCamera = FindObjectOfType<Camera>();
@@ -32,7 +28,8 @@ public class BhanuScroller : MonoBehaviour
 
         if(m_positionOnScreen.x < 0)
         {
-            transform.position = new Vector2(m_startPos , transform.position.y);
+            BananasSpawner.m_bananasCount--;
+            Destroy(gameObject);
         }
 	}
 }
