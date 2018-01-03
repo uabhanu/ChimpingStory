@@ -6,9 +6,9 @@ public class ChimpController : MonoBehaviour
 {
     Animator m_chimpAnim;
     AudioSource m_soundsSource;
-    bool m_sliding;
+    bool m_jumping , m_sliding;
 	BoxCollider2D m_blockerCollider2D , m_chimpCollider2D;
-    float m_defaultGravityScale , m_startPos;
+    float m_defaultGravityScale , m_defaultJumpHeight , m_startPos;
 	GameManager m_gameManager;
 	LevelCreator m_levelCreator;
     Rigidbody2D m_chimpBody2D;
@@ -16,7 +16,7 @@ public class ChimpController : MonoBehaviour
     string m_currentScene;
 
     [SerializeField] bool m_grounded;
-    [SerializeField] float m_defaultJumpHeight = 15.5f , m_jumpHeight , m_slideTime , m_slipTime , m_superTime;
+    [SerializeField] float m_jumpHeight , m_jumpingTime , m_slideTime , m_slipTime , m_superTime;
 
     public bool m_slip , m_super;
     [HideInInspector] public int m_superPickUpsAvailable = 1;
@@ -24,6 +24,7 @@ public class ChimpController : MonoBehaviour
 	void Reset()
 	{
 		m_jumpHeight = 15.5f;
+        m_jumpingTime = 0.75f;
 		m_slideTime = 1.1f;
 		m_slip = false;
 		m_slipTime = 5.15f;
@@ -39,6 +40,7 @@ public class ChimpController : MonoBehaviour
         m_chimpCollider2D = GetComponent<BoxCollider2D>();
         m_currentScene = SceneManager.GetActiveScene().name;
         m_defaultGravityScale = m_chimpBody2D.gravityScale;
+        m_defaultJumpHeight = m_jumpHeight;
 		m_gameManager = FindObjectOfType<GameManager>();
 		m_levelCreator = FindObjectOfType<LevelCreator>();
 		m_soundsContainer = FindObjectOfType<SoundsContainer>();
@@ -80,6 +82,12 @@ public class ChimpController : MonoBehaviour
         m_chimpAnim.SetBool("Jog" , m_grounded);
         m_chimpAnim.SetBool("Jump" , !m_grounded);
         Grounded();
+    }
+
+    IEnumerator JumpingRoutine()
+    {
+        yield return new WaitForSeconds(m_jumpingTime);
+        m_jumping = false;
     }
 
     IEnumerator SlideRoutine()
@@ -152,12 +160,15 @@ public class ChimpController : MonoBehaviour
         {
             return;
         }
-        else
+
+        else if(m_grounded && !m_jumping && !m_sliding)
         {
             m_chimpAnim.SetBool("Jump" , true);
+            m_jumping = true;
             m_chimpBody2D.velocity = new Vector2(m_chimpBody2D.velocity.x , m_jumpHeight);
             m_soundsSource.clip = m_soundsContainer.m_jumpSound;
             m_soundsSource.Play();
+            StartCoroutine("JumpingRoutine");
         }
 	}
 
