@@ -16,6 +16,7 @@ public class Banana : MonoBehaviour
     {
 		m_bananaCollider2D = GetComponent<BoxCollider2D>();
 		m_bananaRenderer = GetComponent<SpriteRenderer>();
+        m_bananaRenderer.enabled = false;
 		m_chimpController = FindObjectOfType<ChimpController>();
         m_mainCamera = FindObjectOfType<Camera>();
 		m_levelCreationScript = FindObjectOfType<LevelCreator>();

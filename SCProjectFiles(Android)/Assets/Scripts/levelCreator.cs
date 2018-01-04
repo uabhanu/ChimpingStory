@@ -54,7 +54,7 @@ public class LevelCreator : MonoBehaviour
 
         for(int i = 0; i < 10; i++)
         {
-            GameObject hurdle = Instantiate(Resources.Load("PF_Hurdle" , typeof(GameObject))) as GameObject;
+            GameObject hurdle = Instantiate(Resources.Load("PF_Hurdle" , typeof(GameObject))) as GameObject; // TODO do the same for Portal & Super
             hurdle.transform.parent = m_collectedTiles.transform.Find("Hurdle").transform;
             hurdle.transform.position = Vector2.zero;
         }
@@ -93,11 +93,6 @@ public class LevelCreator : MonoBehaviour
             {
 				switch(child.gameObject.name)
                 {
-                    case "PF_Bananas01(Clone)":
-                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Bananas").transform.position;
-                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Bananas").transform;
-                    break;
-
                     case "PF_BananaSkin(Clone)":
                         child.gameObject.transform.position = m_collectedTiles.transform.Find("Skin").transform.position;
                         child.gameObject.transform.parent = m_collectedTiles.transform.Find("Skin").transform;
@@ -135,7 +130,25 @@ public class LevelCreator : MonoBehaviour
 			}
 		}
 
-		if(m_gameLayer.transform.childCount < 25)
+        foreach(Transform child in m_gameLayer.transform)
+        {
+            if(child.position.x < m_outofbounceX)
+            {
+                switch(child.gameObject.tag)
+                {
+                    case "Bananas":
+                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Bananas").transform.position;
+                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Bananas").transform;
+                    break;
+
+                    default:
+                        Destroy(child.gameObject);
+                    break;
+                }
+            }
+        }
+
+        if (m_gameLayer.transform.childCount < 25)
         {
             SpawnTile();
         }
@@ -198,11 +211,11 @@ public class LevelCreator : MonoBehaviour
             return;
         }
 
-        if(Random.Range(0 , 2) == 1)
+        if(Random.Range(0, m_bananasPrefabs.Length) < m_bananasPrefabs.Length)
         {
             GameObject bananas = m_collectedTiles.transform.Find("Bananas").transform.GetChild(0).gameObject;
             bananas.transform.parent = m_gameLayer.transform;
-            bananas.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3 , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 2.9f)));
+            bananas.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3, m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 4.9f)));
             m_collectibleAdded = true;
         }
     }
@@ -263,6 +276,7 @@ public class LevelCreator : MonoBehaviour
     {
 		if(m_blankCounter > 0)
         {
+            RandomizeCollectible();
 			SetTile("PF_Blank");
 			m_blankCounter--;
             return;
@@ -280,6 +294,7 @@ public class LevelCreator : MonoBehaviour
 
 		if(m_lastTile == "PF_Blank")
         {
+            RandomizeCollectible();
 			ChangeHeight();
 			SetTile("PF_GroundLeft");
             m_middleCounter = Random.Range(1 , 8);
