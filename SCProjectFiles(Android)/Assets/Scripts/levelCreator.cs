@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelCreator : MonoBehaviour
 {
-    bool m_enemyAdded;
+    bool m_collectibleAdded , m_enemyAdded;
     ChimpController m_chimpController;
     const float m_tileWidth = 1.25f;
     float m_blankCounter = 0 , m_middleCounter = 0 , m_outofbounceX , m_outOfBounceY , m_startTime , m_startUpPosY;
@@ -12,7 +12,8 @@ public class LevelCreator : MonoBehaviour
 	int m_heightLevel = 0;
 	string m_lastTile = "PF_GroundRight";
 
-    [Tooltip("This is number of seconds before gameSpeed increase")] [SerializeField] [Range(0.0f , 50.0f)] float m_gameSpeedTime;
+    [SerializeField] [Tooltip("This is number of seconds before gameSpeed increase")] [Range(0.0f , 50.0f)] float m_gameSpeedTime;
+    [SerializeField] GameObject[] m_bananasPrefabs;
 
     [HideInInspector] public float m_gameSpeed;
     public GameObject m_tilePos;
@@ -44,6 +45,13 @@ public class LevelCreator : MonoBehaviour
 			tmpG4.transform.position = Vector2.zero;
 		}
 
+        for(int i = 0; i < 15; i++)
+        {
+            GameObject bananas = Instantiate(m_bananasPrefabs[Random.Range(0 , m_bananasPrefabs.Length)]);
+            bananas.transform.parent = m_collectedTiles.transform.Find("Bananas").transform;
+            bananas.transform.position = Vector2.zero;
+        }
+
         for(int i = 0; i < 10; i++)
         {
             GameObject hurdle = Instantiate(Resources.Load("PF_Hurdle" , typeof(GameObject))) as GameObject;
@@ -57,8 +65,6 @@ public class LevelCreator : MonoBehaviour
             bananaSkin.transform.parent = m_collectedTiles.transform.Find("Skin").transform;
             bananaSkin.transform.position = Vector2.zero;
         }
-
-        // TODO Do the same for Portals , Banana & Super later
 
         m_collectedTiles.transform.position = new Vector2 (-60.0f , -20.0f);
 
@@ -87,7 +93,17 @@ public class LevelCreator : MonoBehaviour
             {
 				switch(child.gameObject.name)
                 {
-					case "PF_Blank(Clone)":
+                    case "PF_Bananas01(Clone)":
+                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Bananas").transform.position;
+                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Bananas").transform;
+                    break;
+
+                    case "PF_BananaSkin(Clone)":
+                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Skin").transform.position;
+                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Skin").transform;
+                    break;
+
+                    case "PF_Blank(Clone)":
 					    child.gameObject.transform.position = m_collectedTiles.transform.Find("gBlank").transform.position;
 					    child.gameObject.transform.parent = m_collectedTiles.transform.Find("gBlank").transform;
 				    break;
@@ -110,11 +126,6 @@ public class LevelCreator : MonoBehaviour
                     case "PF_Hurdle(Clone)":
                         child.gameObject.transform.position = m_collectedTiles.transform.Find("Hurdle").transform.position;
                         child.gameObject.transform.parent = m_collectedTiles.transform.Find("Hurdle").transform;
-                    break;
-
-                    case "PF_BananaSkin(Clone)":
-                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Skin").transform.position;
-                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Skin").transform;
                     break;
 
                     default:
@@ -180,9 +191,20 @@ public class LevelCreator : MonoBehaviour
 		SetTile("PF_GroundRight");
 	}
 
-    void RandomizeCollectible() // TODO Use this later
+    void RandomizeCollectible()
     {
+        if(m_collectibleAdded)
+        {
+            return;
+        }
 
+        if(Random.Range(0 , 2) == 1)
+        {
+            GameObject bananas = m_collectedTiles.transform.Find("Bananas").transform.GetChild(0).gameObject;
+            bananas.transform.parent = m_gameLayer.transform;
+            bananas.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3 , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 2.9f)));
+            m_collectibleAdded = true;
+        }
     }
 
     void RandomizeEnemy()
@@ -248,6 +270,7 @@ public class LevelCreator : MonoBehaviour
 
         if(m_middleCounter > 0)
         {
+            RandomizeCollectible();
             SetTile("PF_GroundMiddle");
             m_middleCounter--;
 			return;

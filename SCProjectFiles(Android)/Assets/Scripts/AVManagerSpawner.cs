@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class BhanuGame : MonoBehaviour 
+public class AVManagerSpawner : MonoBehaviour 
 {
 	[SerializeField] GameObject m_avManagerObj , m_avManagerPrefab;
 
