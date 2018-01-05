@@ -13,7 +13,6 @@ public class LevelCreator : MonoBehaviour
 	string m_lastTile = "PF_GroundRight";
 
     [SerializeField] [Tooltip("This is number of seconds before gameSpeed increase")] [Range(0.0f , 50.0f)] float m_gameSpeedTime;
-    [SerializeField] GameObject[] m_bananasPrefabs;
 
     [HideInInspector] public float m_gameSpeed;
     public GameObject m_tilePos;
@@ -44,13 +43,6 @@ public class LevelCreator : MonoBehaviour
 			tmpG4.transform.parent = m_collectedTiles.transform.Find("gBlank").transform;
 			tmpG4.transform.position = Vector2.zero;
 		}
-
-        for(int i = 0; i < 15; i++)
-        {
-            GameObject bananas = Instantiate(m_bananasPrefabs[Random.Range(0 , m_bananasPrefabs.Length)]);
-            bananas.transform.parent = m_collectedTiles.transform.Find("Bananas").transform;
-            bananas.transform.position = Vector2.zero;
-        }
 
         for(int i = 0; i < 10; i++)
         {
@@ -130,25 +122,7 @@ public class LevelCreator : MonoBehaviour
 			}
 		}
 
-        foreach(Transform child in m_gameLayer.transform)
-        {
-            if(child.position.x < m_outofbounceX)
-            {
-                switch(child.gameObject.tag)
-                {
-                    case "Bananas":
-                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Bananas").transform.position;
-                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Bananas").transform;
-                    break;
-
-                    default:
-                        Destroy(child.gameObject);
-                    break;
-                }
-            }
-        }
-
-        if (m_gameLayer.transform.childCount < 25)
+        if(m_gameLayer.transform.childCount < 25)
         {
             SpawnTile();
         }
@@ -203,22 +177,6 @@ public class LevelCreator : MonoBehaviour
 
 		SetTile("PF_GroundRight");
 	}
-
-    void RandomizeCollectible()
-    {
-        if(m_collectibleAdded)
-        {
-            return;
-        }
-
-        if(Random.Range(0, m_bananasPrefabs.Length) < m_bananasPrefabs.Length)
-        {
-            GameObject bananas = m_collectedTiles.transform.Find("Bananas").transform.GetChild(0).gameObject;
-            bananas.transform.parent = m_gameLayer.transform;
-            bananas.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3, m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 4.9f)));
-            m_collectibleAdded = true;
-        }
-    }
 
     void RandomizeEnemy()
     {
@@ -276,7 +234,6 @@ public class LevelCreator : MonoBehaviour
     {
 		if(m_blankCounter > 0)
         {
-            RandomizeCollectible();
 			SetTile("PF_Blank");
 			m_blankCounter--;
             return;
@@ -284,7 +241,6 @@ public class LevelCreator : MonoBehaviour
 
         if(m_middleCounter > 0)
         {
-            RandomizeCollectible();
             SetTile("PF_GroundMiddle");
             m_middleCounter--;
 			return;
@@ -294,7 +250,6 @@ public class LevelCreator : MonoBehaviour
 
 		if(m_lastTile == "PF_Blank")
         {
-            RandomizeCollectible();
 			ChangeHeight();
 			SetTile("PF_GroundLeft");
             m_middleCounter = Random.Range(1 , 8);
