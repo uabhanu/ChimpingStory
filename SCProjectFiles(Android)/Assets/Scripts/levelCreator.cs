@@ -14,7 +14,7 @@ public class LevelCreator : MonoBehaviour
 
     [SerializeField] [Tooltip("This is number of seconds before gameSpeed increase")] [Range(0.0f , 50.0f)] float m_gameSpeedTime;
 
-    [HideInInspector] public float m_gameSpeed;
+    public float m_gameSpeed;
     public GameObject m_tilePos;
 
 	void Start() 

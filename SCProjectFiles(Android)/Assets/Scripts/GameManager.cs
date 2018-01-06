@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 
 	void Start()
 	{
+        BananasSpawner.m_bananasCount = 0;
 		GetBhanuObjects();
     }
 

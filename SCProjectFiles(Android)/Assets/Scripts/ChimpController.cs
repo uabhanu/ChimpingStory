@@ -7,7 +7,7 @@ public class ChimpController : MonoBehaviour
     Animator m_chimpAnim;
     AudioSource m_soundsSource;
     bool m_jumping , m_sliding;
-	BoxCollider2D m_blockerCollider2D , m_chimpCollider2D;
+	BoxCollider2D m_blockerBottomCollider2D , m_blockerTopCollider2D , m_chimpCollider2D;
     float m_defaultGravityScale , m_defaultJumpHeight , m_startPos;
 	GameManager m_gameManager;
 	LevelCreator m_levelCreator;
@@ -34,8 +34,9 @@ public class ChimpController : MonoBehaviour
 
 	void Start()
     {
-		m_blockerCollider2D = GameObject.Find("BlockerBottom").GetComponent<BoxCollider2D>();
-		m_chimpAnim = GetComponent<Animator>();
+		m_blockerBottomCollider2D = GameObject.Find("BlockerBottom").GetComponent<BoxCollider2D>();
+        m_blockerTopCollider2D = GameObject.Find("BlockerTop").GetComponent<BoxCollider2D>();
+        m_chimpAnim = GetComponent<Animator>();
         m_chimpBody2D = GetComponent<Rigidbody2D>();
         m_chimpCollider2D = GetComponent<BoxCollider2D>();
         m_currentScene = SceneManager.GetActiveScene().name;
@@ -119,8 +120,10 @@ public class ChimpController : MonoBehaviour
 	IEnumerator SuperRoutine()
 	{
 		yield return new WaitForSeconds(m_superTime);
-		m_blockerCollider2D.enabled = false;
-		m_chimpAnim.SetBool("Super" , false);
+		m_blockerBottomCollider2D.enabled = false;
+        m_blockerTopCollider2D.enabled = false;
+        m_chimpAnim.SetBool("Super" , false);
+        m_chimpBody2D.gravityScale = m_defaultGravityScale;
 		m_jumpHeight = m_defaultJumpHeight;
 		m_super = false;	
 	}
@@ -137,11 +140,17 @@ public class ChimpController : MonoBehaviour
 
         if(hit2D)
         {
-            if(hit2D.collider.tag.Equals("Ground"))
+            if(hit2D.collider.tag.Equals("Blocker"))
+            {
+                return;
+            }
+
+            else if(hit2D.collider.tag.Equals("Ground"))
             {
                 Debug.Log(hit2D.collider.name);
                 m_grounded = true;
             }
+
             else
             {
                 m_grounded = false;
@@ -229,9 +238,10 @@ public class ChimpController : MonoBehaviour
 
 	void Super()
 	{
-		transform.position = new Vector2(transform.position.x , m_blockerCollider2D.gameObject.transform.position.y + 1.5f);
-		m_blockerCollider2D.enabled = true;
-		m_chimpAnim.SetBool("Super" , true);
+		m_blockerBottomCollider2D.enabled = true;
+        m_blockerTopCollider2D.enabled = true;
+        m_chimpAnim.SetBool("Super" , true);
+        m_chimpBody2D.gravityScale /= 2.5f;
         m_levelCreator.m_gameSpeed = 6.0f;
 		m_super = true;
         m_superPickUpsAvailable--;
