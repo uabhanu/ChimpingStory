@@ -44,6 +44,15 @@ public class Banana : MonoBehaviour
     {
         if(tri2D.gameObject.tag.Equals("Player"))
         {
+            if(m_chimpController.m_slip)
+            {
+                ScoreManager.m_scoreValue += 15;
+            }
+            else
+            {
+                ScoreManager.m_scoreValue += 5;
+            }
+
             m_soundSource.clip = m_soundsContainer.m_bananaSound;
             m_soundSource.Play();
             m_bananaCollider2D.enabled = false;

@@ -4,11 +4,10 @@ using UnityEngine;
 public class PortalSpawner : MonoBehaviour
 {
 	ChimpController m_chimpController;
-	float m_startUpPosY;
-	GameObject m_collectedTiles , m_portalObj , m_tilePos;
+	GameObject m_collectedTiles , m_portalObj;
 
 	[SerializeField] float m_spawnTime;
-    [SerializeField] GameObject[] m_portalPrefabs;
+    [SerializeField] GameObject m_portalPrefab;
 
 	void Reset()
 	{
@@ -20,8 +19,6 @@ public class PortalSpawner : MonoBehaviour
 		m_chimpController = FindObjectOfType<ChimpController>();
 		m_portalObj = GameObject.FindGameObjectWithTag("Super");
 		m_collectedTiles = GameObject.Find("Tiles");
-		m_tilePos = GameObject.Find("StartTilePosition");
-		m_startUpPosY = m_tilePos.transform.position.y;
 		StartCoroutine("SpawnRoutine");
 	}
 
@@ -31,9 +28,9 @@ public class PortalSpawner : MonoBehaviour
 
 		if(m_portalObj == null && !m_chimpController.m_super)
 		{
-			m_portalObj = Instantiate(m_portalPrefabs[Random.Range(0 , m_portalPrefabs.Length)] , transform.position , Quaternion.identity);
+			m_portalObj = Instantiate(m_portalPrefab , transform.position , Quaternion.identity);
 			m_portalObj.transform.parent = m_collectedTiles.transform.Find("Portal").transform;
-			m_portalObj.transform.position = new Vector2(transform.position.x , m_startUpPosY + 6);
+			m_portalObj.transform.position = new Vector2(transform.position.x , m_portalObj.transform.position.y + Random.Range(0.5f , 1.5f));
 		}
 
 		StartCoroutine("SpawnRoutine");

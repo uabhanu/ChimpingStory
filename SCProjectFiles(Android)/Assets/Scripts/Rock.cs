@@ -47,6 +47,8 @@ public class Rock : MonoBehaviour
 
     void Explosion()
     {
+        ScoreManager.m_scoreValue += 1000;
+
         if(m_explosionSystemObj == null)
         {
             m_explosionSystemObj = Instantiate(m_explosionPrefab);

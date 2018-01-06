@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     string m_currentScene;
 	Text m_ads , m_backToLandLose , m_backToLandWin , m_exit, m_quit , m_restart;
 
-	void Start()
+    void Start()
 	{
         BananasSpawner.m_bananasCount = 0;
 		GetBhanuObjects();
