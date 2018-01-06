@@ -47,10 +47,12 @@ public class Banana : MonoBehaviour
             if(m_chimpController.m_slip)
             {
                 ScoreManager.m_scoreValue += 15;
+                BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
             }
             else
             {
                 ScoreManager.m_scoreValue += 5;
+                BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
             }
 
             m_soundSource.clip = m_soundsContainer.m_bananaSound;

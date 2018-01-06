@@ -94,7 +94,8 @@ public class PlayerManager : MonoBehaviour
         if(other.tag == "Coin")
         {
             //Notify the level manager, and disable the coin's renderer and collider
-            levelManager.CoinCollected(other.transform.position);
+            ScoreManager.m_scoreValue += 5;
+            BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
             other.GetComponent<Renderer>().enabled = false;
             other.GetComponent<Collider2D>().enabled = false;
 

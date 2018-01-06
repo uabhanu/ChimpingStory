@@ -212,7 +212,7 @@ public class ChimpController : MonoBehaviour
 			Super();
 		}
 
-        if(tri2D.gameObject.tag.Equals("WPortal"))
+        if(tri2D.gameObject.tag.Equals("Portal"))
         {
             SceneManager.LoadScene("WaterSwimmer");
         }

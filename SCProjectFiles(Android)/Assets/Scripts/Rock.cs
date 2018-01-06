@@ -48,6 +48,7 @@ public class Rock : MonoBehaviour
     void Explosion()
     {
         ScoreManager.m_scoreValue += 1000;
+        BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
 
         if(m_explosionSystemObj == null)
         {
