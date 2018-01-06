@@ -6,8 +6,13 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] Text m_scoreDisplay;
 
     public static int m_scoreValue;
-    
-	void Update() 
+
+    void Start()
+    {
+        m_scoreValue = BhanuPrefs.GetHighScore();    
+    }
+
+    void Update() 
     {
 	    if(Time.timeScale == 0)
         {

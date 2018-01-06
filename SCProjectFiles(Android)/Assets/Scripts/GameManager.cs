@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
 
     public void AdsCancel()
     {
+        BhanuPrefs.DeleteAll();
         SceneManager.LoadScene(m_currentScene);
     }
 
@@ -49,19 +50,21 @@ public class GameManager : MonoBehaviour
     {
         if(result == ShowResult.Finished)
         {
-            Debug.Log("Video completed - Offer a reward to the player");
-
+            //Debug.Log("Video completed - Offer a reward to the player");
+            BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
+            SceneManager.LoadScene(m_currentScene);
         }
 
         else if(result == ShowResult.Skipped)
         {
-            Debug.LogWarning("Video was skipped - Do NOT reward the player");
-
+            //Debug.LogWarning("Video was skipped - Do NOT reward the player");
+            BhanuPrefs.DeleteAll();
         }
 
         else if(result == ShowResult.Failed)
         {
-            Debug.LogError("Video failed to show");
+            //Debug.LogError("Video failed to show");
+            BhanuPrefs.DeleteAll();
         }
     }
 
