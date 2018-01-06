@@ -80,9 +80,9 @@ public class GameManager : MonoBehaviour
 
 	public void ExitAccept()
 	{
-        if(AudioVideoManager.m_musicSource != null)
+        if(AVManager.m_musicSource != null)
         {
-            AudioVideoManager.m_musicSource.Play();
+            AVManager.m_musicSource.Play();
         }
 
         SceneManager.LoadScene("MainMenu");
@@ -156,9 +156,9 @@ public class GameManager : MonoBehaviour
 
     public void Pause()
 	{
-        if(AudioVideoManager.m_musicSource != null)
+        if(AVManager.m_musicSource != null)
         {
-            AudioVideoManager.m_musicSource.Pause();
+            AVManager.m_musicSource.Pause();
         }
         
 		m_pauseButtonImage.enabled = false;
@@ -227,9 +227,9 @@ public class GameManager : MonoBehaviour
 
 	public void RestartAccept()
 	{
-        if(AudioVideoManager.m_musicSource != null)
+        if(AVManager.m_musicSource != null)
         {
-            AudioVideoManager.m_musicSource.Play();
+            AVManager.m_musicSource.Play();
         }
         
 		SceneManager.LoadScene(m_currentScene);
@@ -250,9 +250,9 @@ public class GameManager : MonoBehaviour
 
 	public void Resume()
 	{
-        if(AudioVideoManager.m_musicSource != null)
+        if(AVManager.m_musicSource != null)
         {
-            AudioVideoManager.m_musicSource.Play();
+            AVManager.m_musicSource.Play();
         }
 
         m_pauseButtonImage.enabled = true;

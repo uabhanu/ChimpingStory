@@ -25,7 +25,7 @@ public class ChimpController : MonoBehaviour
 	{
 		m_jumpHeight = 15.5f;
         m_jumpingTime = 0.75f;
-		m_slideTime = 1.1f;
+		m_slideTime = 0.75f;
 		m_slip = false;
 		m_slipTime = 5.15f;
 		m_super = false;

@@ -2,7 +2,7 @@
 
 public class Banana : MonoBehaviour
 {
-    AudioClip m_bananaSound;
+    AudioSource m_soundSource;
     BoxCollider2D m_bananaCollider2D;
 	Camera m_mainCamera;
 	ChimpController m_chimpController;
@@ -20,7 +20,7 @@ public class Banana : MonoBehaviour
         m_mainCamera = FindObjectOfType<Camera>();
 		m_levelCreationScript = FindObjectOfType<LevelCreator>();
         m_soundsContainer = FindObjectOfType<SoundsContainer>();
-        m_bananaSound = m_soundsContainer.m_bananaSound;
+        m_soundSource = GetComponent<AudioSource>();
         m_startPos = transform.position.x;
     }
 
@@ -44,7 +44,8 @@ public class Banana : MonoBehaviour
     {
         if(tri2D.gameObject.tag.Equals("Player"))
         {
-            AudioSource.PlayClipAtPoint(m_bananaSound , transform.position , 1f);
+            m_soundSource.clip = m_soundsContainer.m_bananaSound;
+            m_soundSource.Play();
             m_bananaCollider2D.enabled = false;
 			m_bananaRenderer.enabled = false;
         }

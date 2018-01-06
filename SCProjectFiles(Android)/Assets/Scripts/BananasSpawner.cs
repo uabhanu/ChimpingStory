@@ -32,7 +32,7 @@ public class BananasSpawner : MonoBehaviour
         {
             GameObject bananas = Instantiate(m_bananasPrefabs[Random.Range(0 , m_bananasPrefabs.Length)] , transform.position , Quaternion.identity);
             bananas.transform.parent = m_collectedTiles.transform.Find("Bananas").transform;
-            bananas.transform.position = new Vector2(transform.position.x , bananas.transform.position.y - 0.5f);
+            bananas.transform.position = new Vector2(transform.position.x + Random.Range(0 , 2) , bananas.transform.position.y + Random.Range(-0.5f , 0.5f));
             m_bananasCount++;
         }
 

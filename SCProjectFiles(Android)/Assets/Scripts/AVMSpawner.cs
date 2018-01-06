@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class AVManagerSpawner : MonoBehaviour 
+public class AVMSpawner : MonoBehaviour 
 {
 	[SerializeField] GameObject m_avManagerObj , m_avManagerPrefab;
 
