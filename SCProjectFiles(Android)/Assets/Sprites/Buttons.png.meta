@@ -486,7 +486,7 @@ TextureImporter:
       tessellationDetail: 0
     outline: []
     physicsShape: []
-  spritePackingTag: 
+  spritePackingTag: '[TIGHT]'
   userData: 
   assetBundleName: 
   assetBundleVariant: 
