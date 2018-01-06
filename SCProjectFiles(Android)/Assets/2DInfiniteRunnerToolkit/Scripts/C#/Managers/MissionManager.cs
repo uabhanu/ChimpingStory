@@ -1,246 +1,246 @@
-using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+//using UnityEngine;
+//using System.Collections;
+//using System.Collections.Generic;
 
-public class MissionManager : MonoBehaviour 
-{
-    public GUIManager guiManager;                                   //A link to the GUI Manager
-    public LevelManager levelManager;                               //A link to the Level Manager
-    public PowerupManager powerupManager;                           //A link to the Powerup Manager
-    
-	public MissionTemplate[] missions;						        //List of missions
+//public class MissionManager : MonoBehaviour
+//{
+//    public GUIManager guiManager;                                   //A link to the GUI Manager
+//    public LevelManager levelManager;                               //A link to the Level Manager
+//    public PowerupManager powerupManager;                           //A link to the Powerup Manager
 
-	private int[] missionID;					                    //The ID of the active missions
-    private int[] missionData;				                        //Stores the saved data for the active missions
-    private string data = "";										//The data string containing the saved status
+//    public MissionTemplate[] missions;                              //List of missions
 
-    //Load the saved data
-    public void LoadData()
-    {
-        missionID = SaveManager.missionID;
-        missionData = SaveManager.missionData;
+//    private int[] missionID;					                    //The ID of the active missions
+//    private int[] missionData;				                        //Stores the saved data for the active missions
+//    private string data = "";										//The data string containing the saved status
 
-        data = SaveManager.missionDataString;
+//    Load the saved data
+//    public void LoadData()
+//    {
+//        missionID = SaveManager.missionID;
+//        missionData = SaveManager.missionData;
 
-        //If a mission is removed, reset the data string
-        if (data.Length > missions.Length)
-            ResetMissions();
+//        data = SaveManager.missionDataString;
 
-        //If a mission was added, update the data string
-        else if (data.Length < missions.Length)
-            AddNewMissions();
+//        If a mission is removed, reset the data string
+//        if(data.Length > missions.Length)
+//            ResetMissions();
 
-        //Set completition status for the missions
-        for (int i = 0; i < data.Length; i++)
-        {
-            if (data[i] == '1')
-                missions[i].SetCompletition(true);
-        }
+//        If a mission was added, update the data string
+//        else if(data.Length < missions.Length)
+//            AddNewMissions();
 
-        //If a mission slot is empty, or contains a completed mission, look for a new mission, if possible
-        for (int i = 0; i < 3; i++)
-        {
-            if (missionID[i] == -1 || missions[missionID[i]].IsCompleted())
-                GetNewMission(i);
-        }
+//        Set completition status for the missions
+//        for(int i = 0; i < data.Length; i++)
+//            {
+//                if(data[i] == '1')
+//                    missions[i].SetCompletition(true);
+//            }
 
-        //Load saves mission data
-        for (int i = 0; i < 3; i++)
-        {
-			if (missionID[i] != -1 && !missions[missionID[i]].IsCompleted())
-                missions[missionID[i]].SetStoredValue(missionData[i]);
-        }
+//        If a mission slot is empty, or contains a completed mission, look for a new mission, if possible
+//        for(int i = 0; i < 3; i++)
+//                {
+//                    if(missionID[i] == -1 || missions[missionID[i]].IsCompleted())
+//                        GetNewMission(i);
+//                }
 
-        SaveManager.SaveMissionData();
+//        Load saves mission data
+//        for(int i = 0; i < 3; i++)
+//        {
+//            if(missionID[i] != -1 && !missions[missionID[i]].IsCompleted())
+//                missions[missionID[i]].SetStoredValue(missionData[i]);
+//        }
 
-        //Update mission GUI texts
-        //UpdateGUITexts();
-    }
-    //Saves the mission data
-    public void SaveData()
-    {
-        missionData = new int[3];
+//        SaveManager.SaveMissionData();
 
-        for (int i = 0; i < missionID.Length; i++)
-        {
-            if (missionID[i] == -1)
-                missionData[i] = 0;
-            else
-                missionData[i] = missions[missionID[i]].MissionData();
-        }
+//        Update mission GUI texts
+//        UpdateGUITexts();
+//    }
+//    Saves the mission data
+//    public void SaveData()
+//    {
+//        missionData = new int[3];
 
-        SaveManager.missionData = missionData;
-        SaveManager.missionID = missionID;
+//        for(int i = 0; i < missionID.Length; i++)
+//        {
+//            if(missionID[i] == -1)
+//                missionData[i] = 0;
+//            else
+//                missionData[i] = missions[missionID[i]].MissionData();
+//        }
 
-        SaveManager.missionDataString = data;
+//        SaveManager.missionData = missionData;
+//        SaveManager.missionID = missionID;
 
-        SaveManager.SaveMissionData();
-    }
+//        SaveManager.missionDataString = data;
 
-    public string[] GetMissionTexts()
-    {
-        string[] missionTexts = new string[missionID.Length];
+//        SaveManager.SaveMissionData();
+//    }
 
-        for (int i = 0; i < missionID.Length; i++)
-            if (missionID[i] > -1)
-                missionTexts[i] = missions[missionID[i]].MissionDescription();
-            else
-                missionTexts[i] = "Completed";
+//    public string[] GetMissionTexts()
+//    {
+//        string[] missionTexts = new string[missionID.Length];
 
-        return missionTexts;
-    }
-    public string[] GetMissionStats()
-    {
-        string[] missionStatus = new string[missionID.Length];
+//        for(int i = 0; i < missionID.Length; i++)
+//            if(missionID[i] > -1)
+//                missionTexts[i] = missions[missionID[i]].MissionDescription();
+//            else
+//                missionTexts[i] = "Completed";
 
-        for (int i = 0; i < missionID.Length; i++)
-            if (missionID[i] > -1)
-                missionStatus[i] = missions[missionID[i]].MissionStatus();
-            else
-                missionStatus[i] = "";
+//        return missionTexts;
+//    }
+//    public string[] GetMissionStats()
+//    {
+//        string[] missionStatus = new string[missionID.Length];
 
-        return missionStatus;
-    }
+//        for(int i = 0; i < missionID.Length; i++)
+//            if(missionID[i] > -1)
+//                missionStatus[i] = missions[missionID[i]].MissionStatus();
+//            else
+//                missionStatus[i] = "";
 
-    //Distance event
-    public void DistanceEvent(int distance)
-    {
-        for (int i = 0; i < missionID.Length; i++)
-        {
-            if (missionID[i] != -1 && missions[missionID[i]] is DistanceMission && !missions[missionID[i]].IsCompleted())
-            {
-                missions[missionID[i]].UpdateMission(distance, levelManager.CollectedCoins(), powerupManager.PowerupUsed());
+//        return missionStatus;
+//    }
 
-                if (missions[missionID[i]].IsCompleted())
-                    MissionCompleted(i);
-                //else
-                //    UpdateGUITexts();
-            }
-        }
-    }
-    //Coin event
-    public void CoinEvent(int collectedCoins)
-    {
-        for (int i = 0; i < missionID.Length; i++)
-        {
-            if (missionID[i] != -1 && missions[missionID[i]] is CoinMission && !missions[missionID[i]].IsCompleted())
-            {
-                missions[missionID[i]].UpdateMission(collectedCoins);
+//    Distance event
+//    public void DistanceEvent(int distance)
+//    {
+//        for(int i = 0; i < missionID.Length; i++)
+//        {
+//            if(missionID[i] != -1 && missions[missionID[i]] is DistanceMission && !missions[missionID[i]].IsCompleted())
+//            {
+//                missions[missionID[i]].UpdateMission(distance, levelManager.CollectedCoins(), powerupManager.PowerupUsed());
 
-                if (missions[missionID[i]].IsCompleted())
-                    MissionCompleted(i);
-                //else
-                //    UpdateGUITexts();
-            }
-        }
-    }
-    //Crash event
-    public void CrashEvent(int distance)
-    {
-        for (int i = 0; i < missionID.Length; i++)
-        {
-            if (missionID[i] != -1 && missions[missionID[i]] is CrashMission && !missions[missionID[i]].IsCompleted())
-            {
-                missions[missionID[i]].UpdateMission(distance);
+//                if(missions[missionID[i]].IsCompleted())
+//                    MissionCompleted(i);
+//                else
+//                    UpdateGUITexts();
+//            }
+//        }
+//    }
+//    Coin event
+//    public void CoinEvent(int collectedCoins)
+//    {
+//        for(int i = 0; i < missionID.Length; i++)
+//        {
+//            if(missionID[i] != -1 && missions[missionID[i]] is CoinMission && !missions[missionID[i]].IsCompleted())
+//            {
+//                missions[missionID[i]].UpdateMission(collectedCoins);
 
-                if (missions[missionID[i]].IsCompleted())
-                    MissionCompleted(i);
-            }
-        }
-    }
-    //Crash event
-    public void ShopEvent(string bought)
-    {
-        print(bought);
-        for (int i = 0; i < missionID.Length; i++)
-        {
-            if (missionID[i] != -1 && missions[missionID[i]] is ShopMission && !missions[missionID[i]].IsCompleted())
-            {
-                missions[missionID[i]].UpdateMission(bought);
+//                if(missions[missionID[i]].IsCompleted())
+//                    MissionCompleted(i);
+//                else
+//                    UpdateGUITexts();
+//            }
+//        }
+//    }
+//    Crash event
+//    public void CrashEvent(int distance)
+//    {
+//        for(int i = 0; i < missionID.Length; i++)
+//        {
+//            if(missionID[i] != -1 && missions[missionID[i]] is CrashMission && !missions[missionID[i]].IsCompleted())
+//            {
+//                missions[missionID[i]].UpdateMission(distance);
 
-                if (missions[missionID[i]].IsCompleted())
-                    MissionCompleted(i);
-            }
-        }
-    }
-    //Crash event
-    public void CollisionEvent(string collidedWith)
-    {
-        for (int i = 0; i < missionID.Length; i++)
-        {
-            if (missionID[i] != -1 && missions[missionID[i]] is CollisionMission && !missions[missionID[i]].IsCompleted())
-            {
-                missions[missionID[i]].UpdateMission(collidedWith);
+//                if(missions[missionID[i]].IsCompleted())
+//                    MissionCompleted(i);
+//            }
+//        }
+//    }
+//    Crash event
+//    public void ShopEvent(string bought)
+//    {
+//        print(bought);
+//        for(int i = 0; i < missionID.Length; i++)
+//        {
+//            if(missionID[i] != -1 && missions[missionID[i]] is ShopMission && !missions[missionID[i]].IsCompleted())
+//            {
+//                missions[missionID[i]].UpdateMission(bought);
 
-                if (missions[missionID[i]].IsCompleted())
-                    MissionCompleted(i);
-            }
-        }
-    }
+//                if(missions[missionID[i]].IsCompleted())
+//                    MissionCompleted(i);
+//            }
+//        }
+//    }
+//    Crash event
+//    public void CollisionEvent(string collidedWith)
+//    {
+//        for(int i = 0; i < missionID.Length; i++)
+//        {
+//            if(missionID[i] != -1 && missions[missionID[i]] is CollisionMission && !missions[missionID[i]].IsCompleted())
+//            {
+//                missions[missionID[i]].UpdateMission(collidedWith);
 
-    //Resets the mision data
-    private void ResetMissions()
-    {
-        data = "";
+//                if(missions[missionID[i]].IsCompleted())
+//                    MissionCompleted(i);
+//            }
+//        }
+//    }
 
-        for (int i = 0; i < missions.Length; i++)
-            data += "0";
+//    Resets the mision data
+//    private void ResetMissions()
+//    {
+//        data = "";
 
-        for (int i = 0; i < missionID.Length; i++)
-            missionID[i] = -1;
+//        for(int i = 0; i < missions.Length; i++)
+//            data += "0";
 
-        for (int i = 0; i < missionData.Length; i++)
-            missionData[i] = 0;
+//        for(int i = 0; i < missionID.Length; i++)
+//            missionID[i] = -1;
 
-        SaveManager.missionDataString = data;
+//        for(int i = 0; i < missionData.Length; i++)
+//            missionData[i] = 0;
 
-        SaveManager.missionID = missionID;
-        SaveManager.missionData = missionData;
+//        SaveManager.missionDataString = data;
 
-    }
-    //Adds new elements to the mission data string
-    private void AddNewMissions()
-    {
-        for (int i = data.Length; i < missions.Length; i++)
-            data += "0";
+//        SaveManager.missionID = missionID;
+//        SaveManager.missionData = missionData;
 
-        SaveManager.missionDataString = data;
-    }
-    //Called when a mission is completed, notifies the player, and updates the mission data string
-    private void MissionCompleted(int id)
-    {
-        guiManager.ShowMissionComplete(missions[missionID[id]].MissionDescription());
+//    }
+//    Adds new elements to the mission data string
+//    private void AddNewMissions()
+//    {
+//        for(int i = data.Length; i < missions.Length; i++)
+//            data += "0";
 
-        char[] dataChar = data.ToCharArray();
+//        SaveManager.missionDataString = data;
+//    }
+//    Called when a mission is completed, notifies the player, and updates the mission data string
+//    private void MissionCompleted(int id)
+//    {
+//        guiManager.ShowMissionComplete(missions[missionID[id]].MissionDescription());
 
-        dataChar[missionID[id]] = '1';
-        data = new string(dataChar);
+//        char[] dataChar = data.ToCharArray();
 
-        SaveData();
+//        dataChar[missionID[id]] = '1';
+//        data = new string(dataChar);
 
-        if (!guiManager.InPlayMode())
-        {
-            for (int i = 0; i < 3; i++)
-            {
-                if (missionID[i] == -1 || missions[missionID[i]].IsCompleted())
-                    GetNewMission(i);
-            }
-        }
-    }
-    //Gets a new mission to the given slot
-    private void GetNewMission(int id)
-    {
-        for (int i = 0; i < data.Length; i++)
-        {
-            if (data[i] == '0' && missionID[0] != i && missionID[1] != i && missionID[2] != i)
-            {
-                missionID[id] = i;
-                missionData[id] = 0;
-                return;
-            }
-        }
+//        SaveData();
 
-        missionID[id] = -1;
-        missionData[id] = 0;
-    }
-}
+//        if(!guiManager.InPlayMode())
+//        {
+//            for(int i = 0; i < 3; i++)
+//            {
+//                if(missionID[i] == -1 || missions[missionID[i]].IsCompleted())
+//                    GetNewMission(i);
+//            }
+//        }
+//    }
+//    Gets a new mission to the given slot
+//    private void GetNewMission(int id)
+//    {
+//        for(int i = 0; i < data.Length; i++)
+//        {
+//            if(data[i] == '0' && missionID[0] != i && missionID[1] != i && missionID[2] != i)
+//            {
+//                missionID[id] = i;
+//                missionData[id] = 0;
+//                return;
+//            }
+//        }
+
+//        missionID[id] = -1;
+//        missionData[id] = 0;
+//    }
+//}

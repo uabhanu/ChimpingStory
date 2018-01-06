@@ -6,7 +6,7 @@ public class LevelManager : MonoBehaviour
     public PlayerManager playerManager;                 //Holds a link to the Player Manager
     public GUIManager guiManager;                       //Holds a link to the GUI Manager
     public LevelGenerator levelGenerator;               //Holds a link to the Level Generator
-    public MissionManager missionManager;               //Holds a link to the Mission Manager
+    //public MissionManager missionManager;               //Holds a link to the Mission Manager
     public PowerupManager powerupManager;               //Holds a link to the Powerup Manager
 
     private int collectedCoins;                         //Hold the current collected coin ammount
@@ -23,7 +23,7 @@ public class LevelManager : MonoBehaviour
         SaveManager.LoadData();
         SaveManager.LoadMissionData();
 
-        missionManager.LoadData();
+        //missionManager.LoadData();
     }
 
     //Called when a coin is collected by the player
@@ -33,18 +33,18 @@ public class LevelManager : MonoBehaviour
         guiManager.UpdateCoins(collectedCoins);
 
         levelGenerator.AddCoinParticle(contactPoint);
-        missionManager.CoinEvent(collectedCoins);
+        //missionManager.CoinEvent(collectedCoins);
 	}
     //Adds an explosion to the level
     public void Collision(string collidedWith, Vector2 contactPoint)
     {
         levelGenerator.AddExplosionParticle(contactPoint);
-        missionManager.CollisionEvent(collidedWith);
+        //missionManager.CollisionEvent(collidedWith);
     }
     //Called when the player picks up a powerup
     public void PowerupPickup(string name)
     {
-        missionManager.CollisionEvent(name);
+        //missionManager.CollisionEvent(name);
         guiManager.ShowPowerup(name);
     }
     //Restarts the level
@@ -52,7 +52,7 @@ public class LevelManager : MonoBehaviour
     {
         levelGenerator.Reset();
         playerManager.Reset();
-        missionManager.SaveData();
+        //missionManager.SaveData();
 
         StartLevel();
 	}
@@ -61,7 +61,7 @@ public class LevelManager : MonoBehaviour
     {
         playerManager.Reset();
         levelGenerator.Reset();
-        missionManager.SaveData();
+        //missionManager.SaveData();
     }
     //Starts the level
 	public void StartLevel()
@@ -71,7 +71,7 @@ public class LevelManager : MonoBehaviour
         playerManager.EnableSubmarine();
         levelGenerator.StartToGenerate();
 
-        missionManager.LoadData();
+        //missionManager.LoadData();
 	}
     //Pauses the level
 	public void PauseLevel()
@@ -104,8 +104,8 @@ public class LevelManager : MonoBehaviour
     public void LevelEnded()
     {
         SaveStats();
-        missionManager.SaveData();
-        missionManager.LoadData();
+        //missionManager.SaveData();
+        //missionManager.LoadData();
     }
     //Returns the number of collected coins
     public int CollectedCoins()

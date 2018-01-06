@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class LevelGenerator : MonoBehaviour
 {
     public GUIManager guiManager;                               //A link to the GUI Manager
-    public MissionManager missionManager;                       //A link to the Mission Manager
+    //public MissionManager missionManager;                       //A link to the Mission Manager
 
     public List<MovingLayer> movingLayers;                      //Holds the moving layer
     public List<ScrollingLayer> scrollingLayers;                //Holds the scrolling layers
@@ -64,7 +64,7 @@ public class LevelGenerator : MonoBehaviour
 
             //Update GUI and Mission Manager
             //guiManager.UpdateDistance((int)distance);
-            missionManager.DistanceEvent((int)distance);
+            //missionManager.DistanceEvent((int)distance);
         }
     }
 
@@ -117,7 +117,7 @@ public class LevelGenerator : MonoBehaviour
         if (newValue == 0)
         {
             //Notify the mission manager
-            missionManager.CrashEvent((int)distance);
+            //missionManager.CrashEvent((int)distance);
         }
     }
 

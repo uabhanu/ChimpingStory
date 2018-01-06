@@ -10,7 +10,7 @@ public class GUIManager : MonoBehaviour
     Text m_backToLandLose , m_backToLandWin;
 
     public LevelManager levelManager;                       //A link to the level manager
-    public MissionManager missionManager;                   //A link to the mission manager
+    //public MissionManager missionManager;                   //A link to the mission manager
     public PlayerManager playerManager;                     //A link to the player manager
     public PowerupManager powerupManager;                   //A link to the powerup manager
 
@@ -204,13 +204,13 @@ public class GUIManager : MonoBehaviour
         missionMenuAnimator.SetBool("ShowMissions", !missionMenuAnimator.GetBool("ShowMissions"));
 
         //Update mission display
-        string[] missionTexts = missionManager.GetMissionTexts();
-        string[] missionStats = missionManager.GetMissionStats();
+        //string[] missionTexts = missionManager.GetMissionTexts();
+        //string[] missionStats = missionManager.GetMissionStats();
 
         for (int i = 0; i < 3; i++)
         {
-            missionPanelElements[i].Find("Mission Text").GetComponent<Text>().text = missionTexts[i];
-            missionPanelElements[i].Find("Status Text").GetComponent<Text>().text = missionStats[i];
+            //missionPanelElements[i].Find("Mission Text").GetComponent<Text>().text = missionTexts[i];
+            //missionPanelElements[i].Find("Status Text").GetComponent<Text>().text = missionStats[i];
         }
     }
     //Called, when the player buys an extra speed powerup
@@ -228,7 +228,7 @@ public class GUIManager : MonoBehaviour
             SaveManager.SaveData();
 
             //Notify mission manager, and update shop display
-            missionManager.ShopEvent("ExtraSpeed");
+            //missionManager.ShopEvent("ExtraSpeed");
             UpdateShopDisplay();
         }
     }
@@ -247,7 +247,7 @@ public class GUIManager : MonoBehaviour
             SaveManager.SaveData();
 
             //Notify mission manager, and update shop display
-            missionManager.ShopEvent("Shield");
+            //missionManager.ShopEvent("Shield");
             UpdateShopDisplay();
         }
     }
@@ -266,7 +266,7 @@ public class GUIManager : MonoBehaviour
             SaveManager.SaveData();
 
             //Notify mission manager, and update shop display
-            missionManager.ShopEvent("SonicBlast");
+            //missionManager.ShopEvent("SonicBlast");
             UpdateShopDisplay();
         }
     }
@@ -285,7 +285,7 @@ public class GUIManager : MonoBehaviour
             SaveManager.SaveData();
 
             //Notify mission manager, and update shop display
-            missionManager.ShopEvent("Revive");
+            //missionManager.ShopEvent("Revive");
             UpdateShopDisplay();
         }
     }
@@ -439,13 +439,13 @@ public class GUIManager : MonoBehaviour
             mainUI.gameObject.SetActive(false);
 
             //Update pause menu mission texts
-            string[] missionTexts = missionManager.GetMissionTexts();
-            string[] missionStats = missionManager.GetMissionStats();
+            //string[] missionTexts = missionManager.GetMissionTexts();
+            //string[] missionStats = missionManager.GetMissionStats();
 
             for (int i = 3; i < 6; i++)
             {
-                missionPanelElements[i].Find("Mission Text").GetComponent<Text>().text = missionTexts[i - 3];
-                missionPanelElements[i].Find("Status Text").GetComponent<Text>().text = missionStats[i - 3];
+                //missionPanelElements[i].Find("Mission Text").GetComponent<Text>().text = missionTexts[i - 3];
+                //missionPanelElements[i].Find("Status Text").GetComponent<Text>().text = missionStats[i - 3];
             }
 
             //Pause the game
@@ -708,13 +708,13 @@ public class GUIManager : MonoBehaviour
         finishMenuAnimator.SetBool("Visible", true);
 
         //Set mission texts
-        string[] missionTexts = missionManager.GetMissionTexts();
-        string[] missionStats = missionManager.GetMissionStats();
+        //string[] missionTexts = missionManager.GetMissionTexts();
+        //string[] missionStats = missionManager.GetMissionStats();
 
         for (int i = 6; i < 9; i++)
         {
-            missionPanelElements[i].Find("Mission Text").GetComponent<Text>().text = missionTexts[i - 6];
-            missionPanelElements[i].Find("Status Text").GetComponent<Text>().text = missionStats[i - 6];
+            //missionPanelElements[i].Find("Mission Text").GetComponent<Text>().text = missionTexts[i - 6];
+            //missionPanelElements[i].Find("Status Text").GetComponent<Text>().text = missionStats[i - 6];
         }
 
         //Set distance and coin text
