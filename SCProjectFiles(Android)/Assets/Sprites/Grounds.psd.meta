@@ -1,11 +1,13 @@
 fileFormatVersion: 2
 guid: 470e9339ef2f947fa88a166382d4293a
+timeCreated: 1515242922
+licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: spread_0
-    21300002: spread_1
-    21300004: spread_2
-    21300006: spread_3
+    21300000: GroundLeft
+    21300002: GroundMiddle
+    21300004: GroundRight
+    21300006: Blank
     21300008: spread_4
     21300010: spread_5
     21300012: spread_6
@@ -72,7 +74,7 @@ TextureImporter:
     maxTextureSize: 1024
     resizeAlgorithm: 1
     textureFormat: -1
-    textureCompression: 3
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -82,7 +84,7 @@ TextureImporter:
     maxTextureSize: 1024
     resizeAlgorithm: 1
     textureFormat: -1
-    textureCompression: 3
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -92,7 +94,7 @@ TextureImporter:
     maxTextureSize: 1024
     resizeAlgorithm: 1
     textureFormat: -1
-    textureCompression: 3
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -102,7 +104,7 @@ TextureImporter:
     maxTextureSize: 1024
     resizeAlgorithm: 1
     textureFormat: -1
-    textureCompression: 3
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -112,7 +114,7 @@ TextureImporter:
     maxTextureSize: 1024
     resizeAlgorithm: 1
     textureFormat: -1
-    textureCompression: 3
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -122,57 +124,57 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spread_0
+      name: GroundLeft
       rect:
         serializedVersion: 2
         x: 0
-        y: 511
+        y: 0
         width: 129
-        height: 513
+        height: 510
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: spread_1
+      name: GroundMiddle
       rect:
         serializedVersion: 2
         x: 131
-        y: 511
+        y: 0
         width: 132
-        height: 513
+        height: 510
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: spread_2
+      name: GroundRight
       rect:
         serializedVersion: 2
-        x: 265
-        y: 511
+        x: 263
+        y: 0
         width: 130
-        height: 513
+        height: 510
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: spread_3
+      name: Blank
       rect:
         serializedVersion: 2
         x: 397
         y: 0
-        width: 426
-        height: 1023
+        width: 147
+        height: 510
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -186,7 +188,7 @@ TextureImporter:
         width: 158
         height: 1023
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -200,7 +202,7 @@ TextureImporter:
         width: 430
         height: 1023
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -214,7 +216,7 @@ TextureImporter:
         width: 132
         height: 188
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -228,7 +230,7 @@ TextureImporter:
         width: 108
         height: 180
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -242,7 +244,7 @@ TextureImporter:
         width: 114
         height: 180
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -256,7 +258,7 @@ TextureImporter:
         width: 130
         height: 188
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -270,7 +272,7 @@ TextureImporter:
         width: 108
         height: 180
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -284,7 +286,7 @@ TextureImporter:
         width: 114
         height: 180
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -298,7 +300,7 @@ TextureImporter:
         width: 108
         height: 190
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
