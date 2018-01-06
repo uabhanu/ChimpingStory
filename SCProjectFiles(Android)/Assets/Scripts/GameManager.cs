@@ -37,7 +37,6 @@ public class GameManager : MonoBehaviour
         m_ads.enabled = false;
         AdsShow();
         m_pauseButtonImage.enabled = true;
-        Time.timeScale = 1;
     }
 
     public void AdsCancel()
@@ -53,6 +52,7 @@ public class GameManager : MonoBehaviour
             //Debug.Log("Video completed - Offer a reward to the player");
             BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
             SceneManager.LoadScene(m_currentScene);
+            Time.timeScale = 1;
         }
 
         else if(result == ShowResult.Skipped)

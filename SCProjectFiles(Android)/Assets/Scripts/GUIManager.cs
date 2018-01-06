@@ -7,7 +7,7 @@ public class GUIManager : MonoBehaviour
 {
     AudioSource m_musicSource;
     Image m_backToLandLoseMenuImage , m_backToLandWinMenuImage , m_continueButtonLoseImage , m_continueButtonWinImage , m_pauseButtonImage , m_pauseMenuImage , m_resumeButtonImage;
-    Text m_backToLandLose , m_backToLandWin;
+    Text m_backToLandLose , m_backToLandWin , m_highScoreValueDisplay;
 
     public LevelManager levelManager;                       //A link to the level manager
     //public MissionManager missionManager;                   //A link to the mission manager
@@ -16,14 +16,14 @@ public class GUIManager : MonoBehaviour
 
     public TextMesh hangarDistanceText;                     //A link to the hangar distance text
 
-    public Text distanceText;                               //The main UI's distance text
-    public Text coinText;                                   //The main UI's coin ammount text
+    //public Text distanceText;                               //The main UI's distance text
+    //public Text coinText;                                   //The main UI's coin ammount text
 
-    public Text finishDistanceText;                         //The finish menu's distance text
-    public Text finishCoinText;                             //The finish menu's coin ammount text
+    //public Text finishDistanceText;                         //The finish menu's distance text
+    //public Text finishCoinText;                             //The finish menu's coin ammount text
 
     public GameObject mainUI;                               //The main UI
-	public GameObject pauseButton;							//The Pause button on the main ui
+	//public GameObject pauseButton;							//The Pause button on the main ui
 
     public Sprite[] arrowSprites;                           //Up and down arrow sprites
     public Sprite[] audioSprites;                           //Audio enabled and disabled sprites
@@ -68,12 +68,14 @@ public class GUIManager : MonoBehaviour
     //Called at every frame
     void Update()
     {
-        //If the game is in play mode
-        if (inPlayMode)
+        if(Time.timeScale == 0)
         {
-            //Update the main UI's status texts
-            coinText.text = AddDigitDisplay(collectedCoins, 4);
-            distanceText.text = AddDigitDisplay(distanceTraveled, 5);
+            return;
+        }
+
+        if(inPlayMode)
+        {
+            //coinText.text = AddDigitDisplay(collectedCoins, 4);
         }
     }
 
@@ -412,7 +414,7 @@ public class GUIManager : MonoBehaviour
         //If the game is paused
         if (pauseMenuAnimator.GetBool("Visible") == true)
         {
-			pauseButton.SetActive(true);
+			//pauseButton.SetActive(true);
             //Hide the pause menu, and activate the main UI
             overlayAnimator.SetBool("Visible", false);
             pauseMenuAnimator.SetBool("Visible", false);
@@ -432,7 +434,7 @@ public class GUIManager : MonoBehaviour
         //If the game is not paused, and can be paused
         else if (powerupManager.CanUsePowerup())
         {
-			pauseButton.SetActive(false);
+			//pauseButton.SetActive(false);
             // Show the pause menu, and disable the main UI
             overlayAnimator.SetBool("Visible", true);
             pauseMenuAnimator.SetBool("Visible", true);
@@ -718,8 +720,8 @@ public class GUIManager : MonoBehaviour
         }
 
         //Set distance and coin text
-        finishDistanceText.text = distanceTraveled + "M";
-        finishCoinText.text = collectedCoins.ToString();
+        //finishDistanceText.text = distanceTraveled + "M";
+        //finishCoinText.text = collectedCoins.ToString();
 
         levelManager.LevelEnded();
         hangarDistanceText.text = SaveManager.bestDistance + " M";
