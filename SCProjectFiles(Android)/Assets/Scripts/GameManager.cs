@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Advertisements;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -34,6 +35,7 @@ public class GameManager : MonoBehaviour
         m_adsAcceptButtonImage.enabled = false;
         m_adsCancelButtonImage.enabled = false;
         m_ads.enabled = false;
+        AdsShow();
         m_pauseButtonImage.enabled = true;
         Time.timeScale = 1;
     }
@@ -41,6 +43,34 @@ public class GameManager : MonoBehaviour
     public void AdsCancel()
     {
         SceneManager.LoadScene(m_currentScene);
+    }
+
+    void AdResult(ShowResult result)
+    {
+        if(result == ShowResult.Finished)
+        {
+            Debug.Log("Video completed - Offer a reward to the player");
+
+        }
+
+        else if(result == ShowResult.Skipped)
+        {
+            Debug.LogWarning("Video was skipped - Do NOT reward the player");
+
+        }
+
+        else if(result == ShowResult.Failed)
+        {
+            Debug.LogError("Video failed to show");
+        }
+    }
+
+    void AdsShow()
+    {
+        ShowOptions options = new ShowOptions();
+        options.resultCallback = AdResult;
+
+        Advertisement.Show("rewardedVideo" , options);
     }
 
     public void BackToLandLoseMenu()
@@ -235,7 +265,7 @@ public class GameManager : MonoBehaviour
 		SceneManager.LoadScene(m_currentScene);
 	}
 
-	public void RestartCancel()
+    public void RestartCancel()
 	{
 		m_exitButtonImage.enabled = true;
 		m_pauseMenuImage.enabled = true;
