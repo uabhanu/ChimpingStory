@@ -7,16 +7,19 @@ public class GameManager : MonoBehaviour
 {
 	AudioSource m_musicSource;
 	Image m_adsAcceptButtonImage , m_adsCancelButtonImage , m_adsMenuImage , m_backgroundImage , m_backToLandLoseMenuImage , m_backToLandWinMenuImage , m_continueButtonLoseImage;
-    Image m_continueButtonWinImage , m_exitButtonImage, m_exitAcceptButtonImage , m_exitCancelButtonImage , m_exitMenuImage , m_pauseButtonImage , m_pauseMenuImage , m_playButtonImage;
-    Image m_quitButtonImage , m_quitAcceptButtonImage , m_quitCancelButtonImage , m_quitMenuImage , m_restartButtonImage , m_restartAcceptButtonImage , m_restartCancelButtonImage;
-    Image m_restartMenuImage , m_resumeButtonImage;
+    Image m_continueButtonWinImage , m_exitButtonImage , m_pauseButtonImage , m_pauseMenuImage , m_playButtonImage , m_quitButtonImage , m_quitAcceptButtonImage , m_quitCancelButtonImage;
+    Image m_quitMenuImage , m_restartButtonImage , m_restartAcceptButtonImage , m_restartCancelButtonImage , m_restartMenuImage , m_resumeButtonImage;
     string m_currentScene;
-	Text m_ads , m_backToLandLose , m_backToLandWin , m_exit, m_quit , m_restart;
+	Text m_ads , m_backToLandLose , m_backToLandWin , m_quit , m_restart;
+
+    public float m_timeSinceGameStarted;
 
     void Start()
 	{
         BananasSpawner.m_bananasCount = 0;
+        BhanuPrefs.GetGameTime();
 		GetBhanuObjects();
+        m_timeSinceGameStarted = Time.time;
     }
 
     public void Ads()
@@ -36,7 +39,6 @@ public class GameManager : MonoBehaviour
         m_adsCancelButtonImage.enabled = false;
         m_ads.enabled = false;
         AdsShow();
-        m_pauseButtonImage.enabled = true;
     }
 
     public void AdsCancel()
@@ -50,7 +52,6 @@ public class GameManager : MonoBehaviour
         if(result == ShowResult.Finished)
         {
             //Debug.Log("Video completed - Offer a reward to the player");
-            BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
             SceneManager.LoadScene(m_currentScene);
             Time.timeScale = 1;
         }
@@ -97,43 +98,10 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("LandRunner");
     }
 
-    public void Exit()
+    public void ExitToMainMenu()
 	{
-		m_exitButtonImage.enabled = false;
-
-		m_exitMenuImage.enabled = true;
-		m_exitAcceptButtonImage.enabled = true;
-		m_exitCancelButtonImage.enabled = true;
-		m_exit.enabled = true;
-
-		m_pauseMenuImage.enabled = false;
-		m_restartButtonImage.enabled = false;
-		m_resumeButtonImage.enabled = false;
-	}
-
-	public void ExitAccept()
-	{
-        if(AVManager.m_musicSource != null)
-        {
-            AVManager.m_musicSource.Play();
-        }
-
         SceneManager.LoadScene("MainMenu");
-	}
-
-	public void ExitCancel()
-	{
-		m_exitButtonImage.enabled = true;
-
-		m_exitMenuImage.enabled = false;
-		m_exitAcceptButtonImage.enabled = false;
-		m_exitCancelButtonImage.enabled = false;
-		m_exit.enabled = false;
-
-		m_pauseMenuImage.enabled = true;
-		m_restartButtonImage.enabled = true;
-		m_resumeButtonImage.enabled = true;
-	}
+    }
 
     void GetBhanuObjects()
     {
@@ -158,11 +126,7 @@ public class GameManager : MonoBehaviour
             m_adsAcceptButtonImage = GameObject.Find("AdsAcceptButton").GetComponent<Image>();
             m_adsCancelButtonImage = GameObject.Find("AdsCancelButton").GetComponent<Image>();
             m_adsMenuImage = GameObject.Find("AdsMenu").GetComponent<Image>();
-            m_exit = GameObject.Find("ExitText").GetComponent<Text>();
             m_exitButtonImage = GameObject.Find("ExitButton").GetComponent<Image>();
-            m_exitAcceptButtonImage = GameObject.Find("ExitAcceptButton").GetComponent<Image>();
-            m_exitCancelButtonImage = GameObject.Find("ExitCancelButton").GetComponent<Image>();
-            m_exitMenuImage = GameObject.Find("ExitMenu").GetComponent<Image>();
             m_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
             m_pauseMenuImage = GameObject.Find("PauseMenu").GetComponent<Image>();
             m_restart = GameObject.Find("RestartText").GetComponent<Text>();
@@ -265,6 +229,7 @@ public class GameManager : MonoBehaviour
             AVManager.m_musicSource.Play();
         }
         
+        BhanuPrefs.DeleteAll();
 		SceneManager.LoadScene(m_currentScene);
 	}
 

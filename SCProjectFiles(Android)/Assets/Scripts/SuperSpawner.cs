@@ -6,15 +6,15 @@ public class SuperSpawner : MonoBehaviour
 	ChimpController m_chimpController;
 	GameObject m_collectedTiles , m_superObj;
 
-	[SerializeField] float m_spawnTime;
+    [SerializeField] float m_spawnTime;
     [SerializeField] GameObject m_superPrefab;
 
-	void Reset()
-	{
-        m_spawnTime = 55f;
-	}
+    void Reset()
+    {
+        m_spawnTime = 15.5f;    
+    }
 
-	void Start()
+    void Start()
 	{
 		m_chimpController = FindObjectOfType<ChimpController>();
 		m_superObj = GameObject.FindGameObjectWithTag("Super");

@@ -7,7 +7,7 @@ public class ChimpController : MonoBehaviour
     Animator m_chimpAnim;
     AudioSource m_soundsSource;
     bool m_jumping , m_sliding;
-	BoxCollider2D m_blockerBottomCollider2D , m_blockerTopCollider2D , m_chimpCollider2D;
+	BoxCollider2D m_blockerBottomCollider2D , m_chimpCollider2D;
     float m_defaultGravityScale , m_defaultJumpHeight , m_startPos;
 	GameManager m_gameManager;
 	LevelCreator m_levelCreator;
@@ -34,8 +34,7 @@ public class ChimpController : MonoBehaviour
 
 	void Start()
     {
-		m_blockerBottomCollider2D = GameObject.Find("BlockerBottom").GetComponent<BoxCollider2D>();
-        m_blockerTopCollider2D = GameObject.Find("BlockerTop").GetComponent<BoxCollider2D>();
+        m_blockerBottomCollider2D = GameObject.Find("BlockerBottom").GetComponent<BoxCollider2D>();
         m_chimpAnim = GetComponent<Animator>();
         m_chimpBody2D = GetComponent<Rigidbody2D>();
         m_chimpCollider2D = GetComponent<BoxCollider2D>();
@@ -66,6 +65,9 @@ public class ChimpController : MonoBehaviour
             return;
         }
 
+        m_gameManager.m_timeSinceGameStarted = Time.time;
+        BhanuPrefs.SetGameTime(m_gameManager.m_timeSinceGameStarted);
+
         #if UNITY_EDITOR_64 || UNITY_STANDALONE_WIN
 
             if(Input.GetMouseButtonDown(0))
@@ -82,7 +84,6 @@ public class ChimpController : MonoBehaviour
 
         m_chimpAnim.SetBool("Jog" , m_grounded);
         m_chimpAnim.SetBool("Jump" , !m_grounded);
-        Grounded();
     }
 
     IEnumerator JumpingRoutine()
@@ -120,8 +121,7 @@ public class ChimpController : MonoBehaviour
 	IEnumerator SuperRoutine()
 	{
 		yield return new WaitForSeconds(m_superTime);
-		m_blockerBottomCollider2D.enabled = false;
-        m_blockerTopCollider2D.enabled = false;
+        m_blockerBottomCollider2D.enabled = false;
         m_chimpAnim.SetBool("Super" , false);
         m_chimpBody2D.gravityScale = m_defaultGravityScale;
 		m_jumpHeight = m_defaultJumpHeight;
@@ -135,42 +135,45 @@ public class ChimpController : MonoBehaviour
 
     void Grounded()
     {
-        Debug.DrawLine(new Vector2(transform.position.x , transform.position.y - 0.7f) , new Vector2(transform.position.x , transform.position.y - 0.95f) , Color.green);
-        RaycastHit2D hit2D = Physics2D.Raycast(new Vector2(transform.position.x , transform.position.y - 0.7f) , new Vector2(transform.position.x , transform.position.y - 0.95f));
-
-        if(hit2D)
+        if(m_super)
         {
-            if(hit2D.collider.tag.Equals("Blocker"))
+            m_grounded = false;
+            return;
+        }
+        else
+        {
+            Debug.DrawLine(new Vector2(transform.position.x , transform.position.y - 0.7f) , new Vector2(transform.position.x , transform.position.y - 0.95f) , Color.green);
+            RaycastHit2D hit2D = Physics2D.Raycast(new Vector2(transform.position.x , transform.position.y - 0.7f) , new Vector2(transform.position.x , transform.position.y - 0.95f));
+
+            if(hit2D)
             {
-                return;
+                if(hit2D.collider.tag.Equals("Ground"))
+                {
+                    Debug.Log(hit2D.collider.name);
+                    m_grounded = true;
+                }
+
+                else
+                {
+                    m_grounded = false;
+                }
             }
 
-            else if(hit2D.collider.tag.Equals("Ground"))
-            {
-                Debug.Log(hit2D.collider.name);
-                m_grounded = true;
-            }
-
-            else
+            else if(!hit2D)
             {
                 m_grounded = false;
             }
-        }
-
-        else if(!hit2D)
-        {
-            m_grounded = false;
         }
     }
 	
 	public void Jump()
     {
-        if(!m_grounded || m_sliding)
+        if(m_jumping || m_sliding)
         {
             return;
         }
 
-        else if(m_grounded && !m_jumping && !m_sliding)
+        if(!m_jumping && !m_sliding)
         {
             m_chimpAnim.SetBool("Jump" , true);
             m_jumping = true;
@@ -179,7 +182,17 @@ public class ChimpController : MonoBehaviour
             m_soundsSource.Play();
             StartCoroutine("JumpingRoutine");
         }
-	}
+
+        if(m_super)
+        {
+            m_chimpAnim.SetBool("Jump" , true);
+            m_jumping = true;
+            m_chimpBody2D.velocity = new Vector2(m_chimpBody2D.velocity.x , m_jumpHeight);
+            m_soundsSource.clip = m_soundsContainer.m_jumpSound;
+            m_soundsSource.Play();
+            StartCoroutine("JumpingRoutine");
+        }
+    }
 
     void OnTriggerEnter2D(Collider2D tri2D)
     {
@@ -238,8 +251,7 @@ public class ChimpController : MonoBehaviour
 
 	void Super()
 	{
-		m_blockerBottomCollider2D.enabled = true;
-        m_blockerTopCollider2D.enabled = true;
+        m_blockerBottomCollider2D.enabled = true;
         m_chimpAnim.SetBool("Super" , true);
         m_chimpBody2D.gravityScale /= 2.5f;
         m_levelCreator.m_gameSpeed = 6.0f;
