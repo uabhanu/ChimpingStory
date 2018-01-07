@@ -22,12 +22,12 @@ public class GUIManager : MonoBehaviour
     //public Text finishDistanceText;                         //The finish menu's distance text
     //public Text finishCoinText;                             //The finish menu's coin ammount text
 
-    public GameObject mainUI;                               //The main UI
+    //public GameObject mainUI;                               //The main UI
 	//public GameObject pauseButton;							//The Pause button on the main ui
 
-    public Sprite[] arrowSprites;                           //Up and down arrow sprites
-    public Sprite[] audioSprites;                           //Audio enabled and disabled sprites
-    public Sprite[] ShopSkinButtonSprites;                  //The buy, equip, equipped sprites
+    //public Sprite[] arrowSprites;                           //Up and down arrow sprites
+    //public Sprite[] audioSprites;                           //Audio enabled and disabled sprites
+    //public Sprite[] ShopSkinButtonSprites;                  //The buy, equip, equipped sprites
 
     public Animator overlayAnimator;                        //The overlay animator
     public Animator topMenuAnimator;                        //The top menu animator
@@ -35,16 +35,16 @@ public class GUIManager : MonoBehaviour
     public Animator missionMenuAnimator;                    //The mission menu animator
     public Animator pauseMenuAnimator;                      //The pause menu animator
     public Animator finishMenuAnimator;                     //The finish menu animator
-    public Animator[] powerupButtons;                       //The powerup buttons animator (extra speed, shield, sonic wave, revive)
-    public Animator[] missionNotifications;                 //THe mission complete notification panels
+    //public Animator[] powerupButtons;                       //The powerup buttons animator (extra speed, shield, sonic wave, revive)
+    //public Animator[] missionNotifications;                 //THe mission complete notification panels
 
-    public RectTransform[] missionPanelElements;            //The mission panel elements (mission descriptions and mission status)
+    //public RectTransform[] missionPanelElements;            //The mission panel elements (mission descriptions and mission status)
 
-    public Text coinAmmount;                                //The shop menu coin ammount text
-    public Text[] ShopOwnedItems;                           //The shop menu number of owned item texts
+    //public Text coinAmmount;                                //The shop menu coin ammount text
+    //public Text[] ShopOwnedItems;                           //The shop menu number of owned item texts
 
-    public Image[] shopSubmarineButtons;                    //The shop menu submarine 1 and 2 buttons
-    public Image[] audioButtons;                            //The audio buttons
+    //public Image[] shopSubmarineButtons;                    //The shop menu submarine 1 and 2 buttons
+    //public Image[] audioButtons;                            //The audio buttons
 
     //Tells, which mission notification is used at the moment
     private bool[] usedMissionNotifications = new bool[]{false, false, false};
@@ -150,30 +150,30 @@ public class GUIManager : MonoBehaviour
     public void ChangeTopMenuState(Image arrowImage)
     {
         //If the top menu is in the default position
-        if (!topMenuAnimator.GetBool("MoveDown"))
-        {
-            //Change the button sprite, and move the menu down
-            arrowImage.sprite = arrowSprites[1];
-            topMenuAnimator.SetBool("MoveDown", true);
-            overlayAnimator.SetBool("Visible", true);
-        }
-        else
-        {
-            //If the top menu is visible, but but mission menu is not
-            if (!missionMenuAnimator.GetBool("ShowMissions"))
-            {
-                //Hide the top menu
-                overlayAnimator.SetBool("Visible", false);
-                topMenuAnimator.SetBool("MoveDown", false);
-                arrowImage.sprite = arrowSprites[0];
-            }
-            //If the top menu is visible, and the mission menu is visible as well
-            else
-            {
-                //Hide the mission menu
-                missionMenuAnimator.SetBool("ShowMissions", false);
-            }
-        }
+//        if (!topMenuAnimator.GetBool("MoveDown"))
+//        {
+//            //Change the button sprite, and move the menu down
+//            arrowImage.sprite = arrowSprites[1];
+//            topMenuAnimator.SetBool("MoveDown", true);
+//            overlayAnimator.SetBool("Visible", true);
+//        }
+//        else
+//        {
+//            //If the top menu is visible, but but mission menu is not
+//            if (!missionMenuAnimator.GetBool("ShowMissions"))
+//            {
+//                //Hide the top menu
+//                overlayAnimator.SetBool("Visible", false);
+//                topMenuAnimator.SetBool("MoveDown", false);
+//                arrowImage.sprite = arrowSprites[0];
+//            }
+//            //If the top menu is visible, and the mission menu is visible as well
+//            else
+//            {
+//                //Hide the mission menu
+//                missionMenuAnimator.SetBool("ShowMissions", false);
+//            }
+//        }
     }
     //Called, when the player clicks on an audio button. Change audio state (enabled, disabled)
     public void ChangeAudioState()
@@ -189,7 +189,7 @@ public class GUIManager : MonoBehaviour
         shopAnimator.gameObject.SetActive(true);
 
         //If the shop panel is visible
-        if (shopAnimator.GetBool("ShowPanel"))
+        if(shopAnimator.GetBool("ShowPanel"))
         {
             //Hide and disable it
             shopAnimator.SetBool("ShowPanel", false);
@@ -213,7 +213,7 @@ public class GUIManager : MonoBehaviour
         //string[] missionTexts = missionManager.GetMissionTexts();
         //string[] missionStats = missionManager.GetMissionStats();
 
-        for (int i = 0; i < 3; i++)
+        for(int i = 0; i < 3; i++)
         {
             //missionPanelElements[i].Find("Mission Text").GetComponent<Text>().text = missionTexts[i];
             //missionPanelElements[i].Find("Status Text").GetComponent<Text>().text = missionStats[i];
@@ -226,7 +226,7 @@ public class GUIManager : MonoBehaviour
         int price = int.Parse(priceTag.text);
 
         //If the player can purchase the powerup
-        if (SaveManager.coinAmmount - price >= 0)
+        if(SaveManager.coinAmmount - price >= 0)
         {
             //Decrease coin ammount, and increase powerup count
             SaveManager.coinAmmount -= price;
@@ -245,7 +245,7 @@ public class GUIManager : MonoBehaviour
         int price = int.Parse(priceTag.text);
 
         //If the player can purchase the powerup
-        if (SaveManager.coinAmmount - price >= 0)
+        if(SaveManager.coinAmmount - price >= 0)
         {
             //Decrease coin ammount, and increase powerup count
             SaveManager.coinAmmount -= price;
@@ -264,7 +264,7 @@ public class GUIManager : MonoBehaviour
         int price = int.Parse(priceTag.text);
 
         //If the player can purchase the powerup
-        if (SaveManager.coinAmmount - price >= 0)
+        if(SaveManager.coinAmmount - price >= 0)
         {
             //Decrease coin ammount, and increase powerup count
             SaveManager.coinAmmount -= price;
@@ -283,7 +283,7 @@ public class GUIManager : MonoBehaviour
         int price = int.Parse(priceTag.text);
 
         //If the player can purchase the powerup
-        if (SaveManager.coinAmmount - price >= 0)
+        if(SaveManager.coinAmmount - price >= 0)
         {
             //Decrease coin ammount, and increase powerup count
             SaveManager.coinAmmount -= price;
@@ -310,13 +310,13 @@ public class GUIManager : MonoBehaviour
     public void BuySubmarine2(Text priceTag)
     {
         //If the submarine is not yet owned
-        if (SaveManager.skin2Unlocked == 0)
+        if(SaveManager.skin2Unlocked == 0)
         {
             //Obtain the price from the pricetag text
             int skin2Price = int.Parse(priceTag.text);
 
             //If the player can purchase the submarine
-            if (SaveManager.coinAmmount - skin2Price >= 0)
+            if(SaveManager.coinAmmount - skin2Price >= 0)
             {
                 //Decrease coin ammount, and unlock the green submarine
                 SaveManager.coinAmmount -= skin2Price;
@@ -330,7 +330,7 @@ public class GUIManager : MonoBehaviour
             }
         }
         //If the player already owns the submarine
-        else if (SaveManager.currentSkinID != 1)
+        else if(SaveManager.currentSkinID != 1)
         {
             //Change the current skin ID
             SaveManager.currentSkinID = 1;
@@ -345,13 +345,13 @@ public class GUIManager : MonoBehaviour
 	public void BuySubmarine3(Text priceTag)
 	{
 		//If the submarine is not yet owned
-		if (SaveManager.skin3Unlocked == 0)
+		if(SaveManager.skin3Unlocked == 0)
 		{
 			//Obtain the price from the pricetag text
 			int skin3Price = int.Parse(priceTag.text);
 			
 			//If the player can purchase the submarine
-			if (SaveManager.coinAmmount - skin3Price >= 0)
+			if(SaveManager.coinAmmount - skin3Price >= 0)
 			{
 				//Decrease coin ammount, and unlock the green submarine
 				SaveManager.coinAmmount -= skin3Price;
@@ -365,7 +365,7 @@ public class GUIManager : MonoBehaviour
 			}
 		}
 		//If the player already owns the submarine
-		else if (SaveManager.currentSkinID != 2)
+		else if(SaveManager.currentSkinID != 2)
 		{
 			//Change the current skin ID
 			SaveManager.currentSkinID = 2;
@@ -381,84 +381,84 @@ public class GUIManager : MonoBehaviour
     public void PlayTrigger(Image arrowImage)
     {
         //If the game is not in play mode
-        if (!inPlayMode)
+        if(!inPlayMode)
         {
             //Set the game to play mode
             inPlayMode = true;
-            mainUI.SetActive(true);
+            //mainUI.SetActive(true);
 
             //Hide the main menu
-            arrowImage.sprite = arrowSprites[0];
+            //arrowImage.sprite = arrowSprites[0];
             topMenuAnimator.SetBool("Hide", true);
             missionMenuAnimator.SetBool("ShowMissions", false);
             overlayAnimator.SetBool("Visible", false);
 
             //Start the level
-            levelManager.StartLevel();
+            levelManager.StartLevel(); //TODO Inspect this code
 
             //Show the available powerups
-            int[] powerupCount = new int[]{SaveManager.extraSpeed, SaveManager.shield, SaveManager.sonicWave};
+//            int[] powerupCount = new int[]{SaveManager.extraSpeed, SaveManager.shield, SaveManager.sonicWave};
+//
+//            for(int i = 0; i < powerupCount.Length; i++)
+//                if(powerupCount[i] > 0)
+//                    powerupButtons[i].SetBool("Visible", true);
 
-            for (int i = 0; i < powerupCount.Length; i++)
-                if (powerupCount[i] > 0)
-                    powerupButtons[i].SetBool("Visible", true);
-
-            StartCoroutine(DisableMenu(topMenuAnimator, 1));
+            StartCoroutine(DisableMenu(topMenuAnimator , 1));
         }
     }
     //Called, when the playe clicks on the pause button
     public void PauseButton()
     {
-		if (!canPause)
-			return;
-
-		canPause = false;
-        pauseMenuAnimator.gameObject.SetActive(true);
-
-        //If the game is paused
-        if (pauseMenuAnimator.GetBool("Visible") == true)
-        {
-			//pauseButton.SetActive(true);
-            //Hide the pause menu, and activate the main UI
-            overlayAnimator.SetBool("Visible", false);
-            pauseMenuAnimator.SetBool("Visible", false);
-            mainUI.gameObject.SetActive(true);
-
-            //Show the available powerups
-            int[] powerupCount = new int[] { SaveManager.extraSpeed, SaveManager.shield, SaveManager.sonicWave };
-
-            for (int i = 0; i < powerupCount.Length; i++)
-                if (powerupCount[i] > 0)
-                    powerupButtons[i].SetBool("Visible", true);
-
-            //Resume the game
-            levelManager.ResumeLevel();
-            StartCoroutine(DisableMenu(pauseMenuAnimator, 1));
-        }
-        //If the game is not paused, and can be paused
-        else if (powerupManager.CanUsePowerup())
-        {
-			//pauseButton.SetActive(false);
-            // Show the pause menu, and disable the main UI
-            overlayAnimator.SetBool("Visible", true);
-            pauseMenuAnimator.SetBool("Visible", true);
-            mainUI.gameObject.SetActive(false);
-
-            //Update pause menu mission texts
-            //string[] missionTexts = missionManager.GetMissionTexts();
-            //string[] missionStats = missionManager.GetMissionStats();
-
-            for (int i = 3; i < 6; i++)
-            {
-                //missionPanelElements[i].Find("Mission Text").GetComponent<Text>().text = missionTexts[i - 3];
-                //missionPanelElements[i].Find("Status Text").GetComponent<Text>().text = missionStats[i - 3];
-            }
-
-            //Pause the game
-            levelManager.PauseLevel();
-        }
-
-		StartCoroutine ("EnablePause");
+//		if (!canPause)
+//			return;
+//
+//		canPause = false;
+//        pauseMenuAnimator.gameObject.SetActive(true);
+//
+//        //If the game is paused
+//        if(pauseMenuAnimator.GetBool("Visible") == true)
+//        {
+//			//pauseButton.SetActive(true);
+//            //Hide the pause menu, and activate the main UI
+//            overlayAnimator.SetBool("Visible", false);
+//            pauseMenuAnimator.SetBool("Visible", false);
+//            //mainUI.gameObject.SetActive(true);
+//
+//            //Show the available powerups
+//            int[] powerupCount = new int[] { SaveManager.extraSpeed , SaveManager.shield , SaveManager.sonicWave };
+//
+//            for(int i = 0; i < powerupCount.Length; i++)
+//                if(powerupCount[i] > 0)
+//                    powerupButtons[i].SetBool("Visible", true);
+//
+//            //Resume the game
+//            levelManager.ResumeLevel();
+//            StartCoroutine(DisableMenu(pauseMenuAnimator, 1));
+//        }
+//        //If the game is not paused, and can be paused
+//        else if(powerupManager.CanUsePowerup())
+//        {
+//			//pauseButton.SetActive(false);
+//            // Show the pause menu, and disable the main UI
+//            overlayAnimator.SetBool("Visible", true);
+//            pauseMenuAnimator.SetBool("Visible", true);
+//            //mainUI.gameObject.SetActive(false);
+//
+//            //Update pause menu mission texts
+//            //string[] missionTexts = missionManager.GetMissionTexts();
+//            //string[] missionStats = missionManager.GetMissionStats();
+//
+//            for(int i = 3; i < 6; i++)
+//            {
+//                //missionPanelElements[i].Find("Mission Text").GetComponent<Text>().text = missionTexts[i - 3];
+//                //missionPanelElements[i].Find("Status Text").GetComponent<Text>().text = missionStats[i - 3];
+//            }
+//
+//            //Pause the game
+//            levelManager.PauseLevel();
+//        }
+//
+//		StartCoroutine ("EnablePause");
     }
     //Called, when the player clicks on a retry button
     public void Retry()
@@ -466,13 +466,13 @@ public class GUIManager : MonoBehaviour
         //Hide the menus
         overlayAnimator.SetBool("Visible", false);
 
-        if (pauseMenuAnimator.gameObject.activeSelf)
+        if(pauseMenuAnimator.gameObject.activeSelf)
         {
             pauseMenuAnimator.SetBool("Visible", false);
             StartCoroutine(DisableMenu(pauseMenuAnimator, 1));
         }
 
-        if (finishMenuAnimator.gameObject.activeSelf)
+        if(finishMenuAnimator.gameObject.activeSelf)
         {
             finishMenuAnimator.SetBool("Visible", false);
             StartCoroutine(DisableMenu(finishMenuAnimator, 1));
@@ -486,45 +486,45 @@ public class GUIManager : MonoBehaviour
         collectedCoins = 0;
 
         //Activate the main UI
-        mainUI.gameObject.SetActive(true);
+        //mainUI.gameObject.SetActive(true);
 
         //Show available powerup
-        int[] powerupCount = new int[] { SaveManager.extraSpeed, SaveManager.shield, SaveManager.sonicWave };
-
-        for (int i = 0; i < powerupCount.Length; i++)
-            if (powerupCount[i] > 0)
-                powerupButtons[i].SetBool("Visible", true);
+//        int[] powerupCount = new int[] { SaveManager.extraSpeed, SaveManager.shield, SaveManager.sonicWave };
+//
+//        for(int i = 0; i < powerupCount.Length; i++)
+//            if(powerupCount[i] > 0)
+//                powerupButtons[i].SetBool("Visible", true);
     }
     //Called, when the player clicks on a quit button
     public void QuitToMain()
     {
-        //Disable menus
-        overlayAnimator.SetBool("Visible", false);
-
-        if (pauseMenuAnimator.gameObject.activeSelf)
-        {
-            pauseMenuAnimator.SetBool("Visible", false);
-            StartCoroutine(DisableMenu(pauseMenuAnimator, 1));
-        }
-
-        if (finishMenuAnimator.gameObject.activeSelf)
-        {
-            finishMenuAnimator.SetBool("Visible", false);
-            StartCoroutine(DisableMenu(finishMenuAnimator, 1));
-        }
-        
-        //Show top menu
-        topMenuAnimator.gameObject.SetActive(true);
-        topMenuAnimator.SetBool("MoveDown", false);
-        topMenuAnimator.SetBool("Hide", false);
-
-        //Reset the coin ammount
-        collectedCoins = 0;
-
-        //Reset powerups, and quit to main menu
-		powerupManager.Reset();
-        levelManager.QuitToMain();
-        inPlayMode = false;
+//        //Disable menus
+//        overlayAnimator.SetBool("Visible", false);
+//
+//        if(pauseMenuAnimator.gameObject.activeSelf)
+//        {
+//            pauseMenuAnimator.SetBool("Visible", false);
+//            StartCoroutine(DisableMenu(pauseMenuAnimator, 1));
+//        }
+//
+//        if(finishMenuAnimator.gameObject.activeSelf)
+//        {
+//            finishMenuAnimator.SetBool("Visible", false);
+//            StartCoroutine(DisableMenu(finishMenuAnimator, 1));
+//        }
+//        
+//        //Show top menu
+//        topMenuAnimator.gameObject.SetActive(true);
+//        topMenuAnimator.SetBool("MoveDown", false);
+//        topMenuAnimator.SetBool("Hide", false);
+//
+//        //Reset the coin ammount
+//        collectedCoins = 0;
+//
+//        //Reset powerups, and quit to main menu
+//		powerupManager.Reset();
+//        levelManager.QuitToMain();
+//        inPlayMode = false;
     }
     //Receive current distance
     public void UpdateDistance(int newDist)
@@ -540,197 +540,197 @@ public class GUIManager : MonoBehaviour
     public void ShowPowerup(string name)
     {
         //Increase powerup count, and show powerup icon based on the name of the powerup
-        switch (name)
+        switch(name)
         {
-            case "ExtraSpeed":
-                SaveManager.extraSpeed += 1;
-                powerupButtons[0].SetBool("Visible", true);
-                break;
-
-            case "Shield":
-                SaveManager.shield += 1;
-                powerupButtons[1].SetBool("Visible", true);
-                break;
-
-            case "SonicBlast":
-                SaveManager.sonicWave += 1;
-                powerupButtons[2].SetBool("Visible", true);
-                break;
+//            case "ExtraSpeed":
+//                SaveManager.extraSpeed += 1;
+//                powerupButtons[0].SetBool("Visible", true);
+//                break;
+//
+//            case "Shield":
+//                SaveManager.shield += 1;
+//                powerupButtons[1].SetBool("Visible", true);
+//                break;
+//
+//            case "SonicBlast":
+//                SaveManager.sonicWave += 1;
+//                powerupButtons[2].SetBool("Visible", true);
+//                break;
 
             case "Revive":
                 SaveManager.revive += 1;
-                break;
+            break;
         }
     }
     //Called, when the player activates a powerup
     public void HidePowerup(Animator anim)
     {
         //If a powerup can't be activated, return
-        if (!powerupManager.CanUsePowerup())
-            return;
-
-        //Play powerup sound
-        AudioManager.Instance.PlayPowerupUsed();
-
-        //Remove a powerup, and activate it's effect, based on it's name
-        switch (anim.gameObject.name)
-        {
-            case "Speed Button":
-                SaveManager.extraSpeed -= 1;
-                powerupManager.ExtraSpeed();
-                break;
-
-            case "Shield Button":
-                SaveManager.shield -= 1;
-                powerupManager.Shield();
-                break;
-
-            case "Sonic Wave Button":
-                SaveManager.sonicWave -= 1;
-                powerupManager.SonicBlast();
-                break;
-        }
+//        if (!powerupManager.CanUsePowerup())
+//            return;
+//
+//        //Play powerup sound
+//        AudioManager.Instance.PlayPowerupUsed();
+//
+//        //Remove a powerup, and activate it's effect, based on it's name
+//        switch (anim.gameObject.name)
+//        {
+//            case "Speed Button":
+//                SaveManager.extraSpeed -= 1;
+//                powerupManager.ExtraSpeed();
+//                break;
+//
+//            case "Shield Button":
+//                SaveManager.shield -= 1;
+//                powerupManager.Shield();
+//                break;
+//
+//            case "Sonic Wave Button":
+//                SaveManager.sonicWave -= 1;
+//                powerupManager.SonicBlast();
+//                break;
+        //}
 
         //Save changes, and hide the powerup button
-        SaveManager.SaveData();
-        anim.SetBool("Visible", false);
+        //SaveManager.SaveData();
+        //anim.SetBool("Visible", false);
     }
     //Called, when the player activates the revive powerup
     public void RevivePlayer()
     {
         //Remove the used revive
-        SaveManager.revive -= 1;
-        SaveManager.SaveData();
-
-        //Revive the player
-        AudioManager.Instance.PlayRevive();
-        powerupManager.Revive();
-        levelManager.ReviveUsed();
-        StopCoroutine("Revive");
-
-        //Hide revive button
-        powerupButtons[3].SetBool("Visible", false);
+//        SaveManager.revive -= 1;
+//        SaveManager.SaveData();
+//
+//        //Revive the player
+//        AudioManager.Instance.PlayRevive();
+//        powerupManager.Revive();
+//        levelManager.ReviveUsed();
+//        StopCoroutine("Revive");
+//
+//        //Hide revive button
+//        powerupButtons[3].SetBool("Visible", false);
     }
     //Called, after the player has crashed
     public void ShowCrashScreen(int distance)
     {
-        //If the player has a revive, show it
-        if (SaveManager.revive > 0)
-            StartCoroutine("Revive");
-        //Else, show the finish menu
-        else
-            ShowFinishMenu();
+//        //If the player has a revive, show it
+//        if (SaveManager.revive > 0)
+//            StartCoroutine("Revive");
+//        //Else, show the finish menu
+//        else
+//            ShowFinishMenu();
     }
     //Called, when a mission is completed
     public void ShowMissionComplete(string text)
     {
         //Find the first unused mission notificator, and show it
-        for (int i = 0; i < 3; i++)
-        {
-            if (!usedMissionNotifications[i])
-            {
-                usedMissionNotifications[i] = true;
-
-                missionNotifications[i].transform.Find("Text").GetComponent<Text>().text = text;
-                StartCoroutine(MissionNotificationCountdown(missionNotifications[i], "Pos" + (i + 1), i));
-
-                return;
-            }
-        }
+//        for (int i = 0; i < 3; i++)
+//        {
+//            if (!usedMissionNotifications[i])
+//            {
+//                usedMissionNotifications[i] = true;
+//
+//                missionNotifications[i].transform.Find("Text").GetComponent<Text>().text = text;
+//                StartCoroutine(MissionNotificationCountdown(missionNotifications[i], "Pos" + (i + 1), i));
+//
+//                return;
+//            }
+//        }
     }
     //Updates the sprite of the audio buttons
     private void UpdateAudioButtons()
     {
-        Sprite s = AudioManager.Instance.audioEnabled == true ? audioSprites[0] : audioSprites[1];
-
-        foreach (Image item in audioButtons)
-            item.sprite = s;
+//        Sprite s = AudioManager.Instance.audioEnabled == true ? audioSprites[0] : audioSprites[1];
+//
+//        foreach (Image item in audioButtons)
+//            item.sprite = s;
     }
     //Updates the shop display texts
     private void UpdateShopDisplay()
     {
         //Update texts
-        coinAmmount.text = SaveManager.coinAmmount.ToString();
+        //coinAmmount.text = SaveManager.coinAmmount.ToString();
 
-        ShopOwnedItems[0].text = SaveManager.extraSpeed.ToString();
-        ShopOwnedItems[1].text = SaveManager.shield.ToString();
-        ShopOwnedItems[2].text = SaveManager.sonicWave.ToString();
-        ShopOwnedItems[3].text = SaveManager.revive.ToString();
+        //ShopOwnedItems[0].text = SaveManager.extraSpeed.ToString();
+        //ShopOwnedItems[1].text = SaveManager.shield.ToString();
+        //ShopOwnedItems[2].text = SaveManager.sonicWave.ToString();
+        //ShopOwnedItems[3].text = SaveManager.revive.ToString();
 
 		//If the yellow submarine is active
-		if (SaveManager.currentSkinID == 0)
-		{
-			//Set button sprite
-			shopSubmarineButtons[0].sprite = ShopSkinButtonSprites[0];
-			
-			//Set sprite for button 2
-			if (SaveManager.skin2Unlocked == 1)
-				shopSubmarineButtons[1].sprite = ShopSkinButtonSprites[1];
-			else
-				shopSubmarineButtons[1].sprite = ShopSkinButtonSprites[2];
-			
-			//Set sprite for button 3
-			if (SaveManager.skin3Unlocked == 1)
-				shopSubmarineButtons[2].sprite = ShopSkinButtonSprites[1];
-			else
-				shopSubmarineButtons[2].sprite = ShopSkinButtonSprites[2];
-		}
-		//If the green submarine is active
-		else if (SaveManager.currentSkinID == 1)
-		{
-			//Set button sprites
-			shopSubmarineButtons[0].sprite = ShopSkinButtonSprites[1];
-			shopSubmarineButtons[1].sprite = ShopSkinButtonSprites[0];
-			
-			//Set sprite for button 3
-			if (SaveManager.skin3Unlocked == 1)
-				shopSubmarineButtons[2].sprite = ShopSkinButtonSprites[1];
-			else
-				shopSubmarineButtons[2].sprite = ShopSkinButtonSprites[2];
-		}
-		//If the red submarine is active
-		else
-		{
-			//Set button 1 sprites
-			shopSubmarineButtons[0].sprite = ShopSkinButtonSprites[1];
-			
-			//Set sprite for button 2
-			if (SaveManager.skin2Unlocked == 1)
-				shopSubmarineButtons[1].sprite = ShopSkinButtonSprites[1];
-			else
-				shopSubmarineButtons[1].sprite = ShopSkinButtonSprites[2];
-			
-			//Set button 3 sprites
-			shopSubmarineButtons[2].sprite = ShopSkinButtonSprites[0];
-		}
+//		if (SaveManager.currentSkinID == 0)
+//		{
+//			//Set button sprite
+//			shopSubmarineButtons[0].sprite = ShopSkinButtonSprites[0];
+//			
+//			//Set sprite for button 2
+//			if (SaveManager.skin2Unlocked == 1)
+//				shopSubmarineButtons[1].sprite = ShopSkinButtonSprites[1];
+//			else
+//				shopSubmarineButtons[1].sprite = ShopSkinButtonSprites[2];
+//			
+//			//Set sprite for button 3
+//			if (SaveManager.skin3Unlocked == 1)
+//				shopSubmarineButtons[2].sprite = ShopSkinButtonSprites[1];
+//			else
+//				shopSubmarineButtons[2].sprite = ShopSkinButtonSprites[2];
+//		}
+//		//If the green submarine is active
+//		else if (SaveManager.currentSkinID == 1)
+//		{
+//			//Set button sprites
+//			shopSubmarineButtons[0].sprite = ShopSkinButtonSprites[1];
+//			shopSubmarineButtons[1].sprite = ShopSkinButtonSprites[0];
+//			
+//			//Set sprite for button 3
+//			if (SaveManager.skin3Unlocked == 1)
+//				shopSubmarineButtons[2].sprite = ShopSkinButtonSprites[1];
+//			else
+//				shopSubmarineButtons[2].sprite = ShopSkinButtonSprites[2];
+//		}
+//		//If the red submarine is active
+//		else
+//		{
+//			//Set button 1 sprites
+//			shopSubmarineButtons[0].sprite = ShopSkinButtonSprites[1];
+//			
+//			//Set sprite for button 2
+//			if (SaveManager.skin2Unlocked == 1)
+//				shopSubmarineButtons[1].sprite = ShopSkinButtonSprites[1];
+//			else
+//				shopSubmarineButtons[1].sprite = ShopSkinButtonSprites[2];
+//			
+//			//Set button 3 sprites
+//			shopSubmarineButtons[2].sprite = ShopSkinButtonSprites[0];
+//		}
     }
     //Shows the finish menu
     private void ShowFinishMenu()
     {
-        //Disable main UI, and show the finish menu
-        mainUI.gameObject.SetActive(false);
-        overlayAnimator.SetBool("Visible", true);
-        finishMenuAnimator.gameObject.SetActive(true);
-        finishMenuAnimator.SetBool("Visible", true);
-
-        //Set mission texts
-        //string[] missionTexts = missionManager.GetMissionTexts();
-        //string[] missionStats = missionManager.GetMissionStats();
-
-        for (int i = 6; i < 9; i++)
-        {
-            //missionPanelElements[i].Find("Mission Text").GetComponent<Text>().text = missionTexts[i - 6];
-            //missionPanelElements[i].Find("Status Text").GetComponent<Text>().text = missionStats[i - 6];
-        }
-
-        //Set distance and coin text
-        //finishDistanceText.text = distanceTraveled + "M";
-        //finishCoinText.text = collectedCoins.ToString();
-
-        levelManager.LevelEnded();
-        hangarDistanceText.text = SaveManager.bestDistance + " M";
-
-        collectedCoins = 0;
+//        //Disable main UI, and show the finish menu
+//        mainUI.gameObject.SetActive(false);
+//        overlayAnimator.SetBool("Visible", true);
+//        finishMenuAnimator.gameObject.SetActive(true);
+//        finishMenuAnimator.SetBool("Visible", true);
+//
+//        //Set mission texts
+//        //string[] missionTexts = missionManager.GetMissionTexts();
+//        //string[] missionStats = missionManager.GetMissionStats();
+//
+//        for (int i = 6; i < 9; i++)
+//        {
+//            //missionPanelElements[i].Find("Mission Text").GetComponent<Text>().text = missionTexts[i - 6];
+//            //missionPanelElements[i].Find("Status Text").GetComponent<Text>().text = missionStats[i - 6];
+//        }
+//
+//        //Set distance and coin text
+//        //finishDistanceText.text = distanceTraveled + "M";
+//        //finishCoinText.text = collectedCoins.ToString();
+//
+//        levelManager.LevelEnded();
+//        hangarDistanceText.text = SaveManager.bestDistance + " M";
+//
+//        collectedCoins = 0;
     }
     //Returns true, if the game is in play mode
     public bool InPlayMode()
@@ -760,11 +760,11 @@ public class GUIManager : MonoBehaviour
     //Shows the revive button for 3 seconds
     private IEnumerator Revive()
     {
-        powerupButtons[3].SetBool("Visible", true);
+        //powerupButtons[3].SetBool("Visible", true);
         yield return new WaitForSeconds(3);
 
-        powerupButtons[3].SetBool("Visible", false);
-        ShowFinishMenu();
+        //powerupButtons[3].SetBool("Visible", false);
+        //ShowFinishMenu();
     }
     //Disables a specific menu after a given time
     private IEnumerator DisableMenu(Animator menu, float time)
