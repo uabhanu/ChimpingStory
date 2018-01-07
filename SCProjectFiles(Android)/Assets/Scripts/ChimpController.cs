@@ -19,7 +19,6 @@ public class ChimpController : MonoBehaviour
     [SerializeField] float m_jumpHeight , m_jumpingTime , m_slideTime , m_slipTime , m_superTime;
 
     public bool m_slip , m_super;
-    public int m_superPickUpsAvailable = 1;
 
 	void Reset()
 	{
@@ -46,8 +45,6 @@ public class ChimpController : MonoBehaviour
 		m_soundsContainer = FindObjectOfType<SoundsContainer>();
         m_soundsSource = GetComponent<AudioSource>();
         m_startPos = transform.position.x;
-        //BhanuPrefs.DeleteAll();
-        m_superPickUpsAvailable = BhanuPrefs.GetSupers();
     }
 
     void FixedUpdate()
@@ -258,8 +255,6 @@ public class ChimpController : MonoBehaviour
         m_chimpBody2D.gravityScale /= 2.5f;
         m_levelCreator.m_gameSpeed = 6.0f;
 		m_super = true;
-        m_superPickUpsAvailable--;
-        BhanuPrefs.SetSuperAvailability(m_superPickUpsAvailable);
 		StartCoroutine("SuperRoutine");
 	}
 }

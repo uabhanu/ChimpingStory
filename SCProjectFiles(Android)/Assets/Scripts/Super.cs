@@ -52,6 +52,8 @@ public class Super : MonoBehaviour
 	{
 		if(tri2D.gameObject.tag.Equals("Player"))
 		{
+            ScoreManager.m_supersSpawned++;
+            BhanuPrefs.SetSupers(ScoreManager.m_supersSpawned);
             Destroy(gameObject);
         }
 	}

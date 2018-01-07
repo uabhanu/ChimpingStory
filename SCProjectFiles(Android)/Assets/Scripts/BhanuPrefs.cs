@@ -51,7 +51,7 @@ public class BhanuPrefs : MonoBehaviour
         PlayerPrefs.SetInt(HIGH_SCORE_KEY , score);
     }
 
-    public static void SetSuperAvailability(int supers)
+    public static void SetSupers(int supers)
     {
         PlayerPrefs.SetInt(SUPERS_KEY , supers);
     }

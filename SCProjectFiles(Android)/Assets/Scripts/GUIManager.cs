@@ -7,7 +7,7 @@ public class GUIManager : MonoBehaviour
 {
     AudioSource m_musicSource;
     Image m_backToLandLoseMenuImage , m_backToLandWinMenuImage , m_continueButtonLoseImage , m_continueButtonWinImage , m_pauseButtonImage , m_pauseMenuImage , m_resumeButtonImage;
-    Text m_backToLandLose , m_backToLandWin , m_highScoreValueDisplay;
+    Text m_backToLandLose , m_backToLandWin , m_highScoreTextDisplay , m_highScoreValueDisplay;
 
     public LevelManager levelManager;                       //A link to the level manager
     //public MissionManager missionManager;                   //A link to the mission manager
@@ -85,6 +85,8 @@ public class GUIManager : MonoBehaviour
         m_backToLandLoseMenuImage.enabled = true;
         m_continueButtonLoseImage.enabled = true;
 
+        m_highScoreTextDisplay.enabled = false;
+        m_highScoreValueDisplay.enabled = false;
         m_pauseButtonImage.enabled = false;
         Time.timeScale = 0;
     }
@@ -108,6 +110,8 @@ public class GUIManager : MonoBehaviour
         m_backToLandWin = GameObject.Find("BackToLandWin").GetComponent<Text>();
         m_backToLandWinMenuImage = GameObject.Find("BackToLandWinMenu").GetComponent<Image>();
         m_continueButtonWinImage = GameObject.Find("ContinueButtonWin").GetComponent<Image>();
+        m_highScoreTextDisplay = GameObject.Find("HighScoreTextDisplay").GetComponent<Text>();
+        m_highScoreValueDisplay = GameObject.Find("HighScoreValueDisplay").GetComponent<Text>();
         m_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
         m_pauseMenuImage = GameObject.Find("PauseMenu").GetComponent<Image>();
         m_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();

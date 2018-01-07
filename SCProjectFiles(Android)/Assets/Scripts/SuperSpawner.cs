@@ -26,7 +26,7 @@ public class SuperSpawner : MonoBehaviour
 	{
 		yield return new WaitForSeconds(m_spawnTime);
 
-		if(m_superObj == null && !m_chimpController.m_super && m_chimpController.m_superPickUpsAvailable > 0)
+		if(m_superObj == null && !m_chimpController.m_super && ScoreManager.m_supersSpawned < 1)
 		{
 			m_superObj = Instantiate(m_superPrefab , transform.position , Quaternion.identity);
 			m_superObj.transform.parent = m_collectedTiles.transform.Find("Super").transform;

@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
         m_adsCancelButtonImage.enabled = false;
         m_ads.enabled = false;
         AdsShow();
+        ScoreManager.m_scoreValue /= 2;
+        BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
     }
 
     public void AdsCancel()
@@ -134,19 +136,6 @@ public class GameManager : MonoBehaviour
             m_restartAcceptButtonImage = GameObject.Find("RestartAcceptButton").GetComponent<Image>();
             m_restartCancelButtonImage = GameObject.Find("RestartCancelButton").GetComponent<Image>();
             m_restartMenuImage = GameObject.Find("RestartMenu").GetComponent<Image>();
-            m_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
-        }
-
-        else if(m_currentScene == "BananaDestroyer")
-        {
-            m_backToLandLose = GameObject.Find("BackToLandLose").GetComponent<Text>();
-            m_backToLandLoseMenuImage = GameObject.Find("BackToLandLoseMenu").GetComponent<Image>();
-            m_continueButtonLoseImage = GameObject.Find("ContinueButtonLose").GetComponent<Image>();
-            m_backToLandWin = GameObject.Find("BackToLandWin").GetComponent<Text>();
-            m_backToLandWinMenuImage = GameObject.Find("BackToLandWinMenu").GetComponent<Image>();
-            m_continueButtonWinImage = GameObject.Find("ContinueButtonWin").GetComponent<Image>();
-            m_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
-            m_pauseMenuImage = GameObject.Find("PauseMenu").GetComponent<Image>();
             m_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
         }
     }
