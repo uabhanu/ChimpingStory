@@ -21,11 +21,11 @@ public class BhanuPrefs : MonoBehaviour
         return 0f;
     }
 
-    public static int GetHighScore()
+    public static float GetHighScore()
     {
         if(PlayerPrefs.HasKey(HIGH_SCORE_KEY))
         {
-            return PlayerPrefs.GetInt(HIGH_SCORE_KEY);
+            return PlayerPrefs.GetFloat(HIGH_SCORE_KEY);
         }
 
         return 0;
@@ -46,9 +46,9 @@ public class BhanuPrefs : MonoBehaviour
         PlayerPrefs.SetFloat(GAME_TIME_KEY , time);
     }
 
-    public static void SetHighScore(int score)
+    public static void SetHighScore(float score)
     {
-        PlayerPrefs.SetInt(HIGH_SCORE_KEY , score);
+        PlayerPrefs.SetFloat(HIGH_SCORE_KEY , score);
     }
 
     public static void SetSupers(int supers)

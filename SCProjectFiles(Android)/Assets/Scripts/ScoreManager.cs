@@ -5,7 +5,8 @@ public class ScoreManager : MonoBehaviour
 {
     [SerializeField] Text m_scoreDisplay;
 
-    public static int m_scoreValue , m_supersSpawned;
+	public static float m_scoreValue;
+	public static int m_supersSpawned;
 
     void Start()
     {
@@ -20,6 +21,6 @@ public class ScoreManager : MonoBehaviour
             return;
         }
 
-        m_scoreDisplay.text = m_scoreValue.ToString();
+		m_scoreDisplay.text = m_scoreValue.ToString();
 	}
 }

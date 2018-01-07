@@ -39,7 +39,8 @@ public class GameManager : MonoBehaviour
         m_adsCancelButtonImage.enabled = false;
         m_ads.enabled = false;
         AdsShow();
-        ScoreManager.m_scoreValue /= 2;
+		ScoreManager.m_scoreValue *= 0.25f;
+		ScoreManager.m_scoreValue = Mathf.Round(ScoreManager.m_scoreValue);
         BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
     }
 
