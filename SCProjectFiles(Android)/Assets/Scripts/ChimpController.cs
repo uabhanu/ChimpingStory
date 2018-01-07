@@ -16,7 +16,7 @@ public class ChimpController : MonoBehaviour
     string m_currentScene;
 
     [SerializeField] bool m_grounded;
-    [SerializeField] float m_jumpHeight , m_jumpingTime , m_slideTime , m_slipTime , m_superTime;
+    [SerializeField] float m_jumpHeight , m_jumpingTime , m_slideTime , m_slipTime , m_superTime , m_xPosTime;
 
     public bool m_slip , m_super;
 
@@ -29,6 +29,7 @@ public class ChimpController : MonoBehaviour
 		m_slipTime = 5.15f;
 		m_super = false;
 		m_superTime = 30.25f;
+		m_xPosTime = 0.99f;
 	}
 
 	void Start()
@@ -45,6 +46,8 @@ public class ChimpController : MonoBehaviour
 		m_soundsContainer = FindObjectOfType<SoundsContainer>();
         m_soundsSource = GetComponent<AudioSource>();
         m_startPos = transform.position.x;
+
+		StartCoroutine("XPosRoutine");
     }
 
     void FixedUpdate()
@@ -63,10 +66,7 @@ public class ChimpController : MonoBehaviour
         {
             return;
         }
-
-        m_gameManager.m_timeSinceGameStarted = Time.time;
-        BhanuPrefs.SetGameTime(m_gameManager.m_timeSinceGameStarted);
-
+	
         #if UNITY_EDITOR_64 || UNITY_STANDALONE_WIN
 
             if(Input.GetMouseButtonDown(0))
@@ -125,6 +125,13 @@ public class ChimpController : MonoBehaviour
         m_chimpBody2D.gravityScale = m_defaultGravityScale;
 		m_jumpHeight = m_defaultJumpHeight;
 		m_super = false;	
+	}
+
+	IEnumerator XPosRoutine()
+	{
+		yield return new WaitForSeconds (m_xPosTime);
+		transform.position = new Vector2(m_startPos , transform.position.y);
+		StartCoroutine("XPosRoutine");
 	}
 
     void CheatDeath()

@@ -14,7 +14,7 @@ public class GUIManager : MonoBehaviour
     public PlayerManager playerManager;                     //A link to the player manager
     public PowerupManager powerupManager;                   //A link to the powerup manager
 
-    public TextMesh hangarDistanceText;                     //A link to the hangar distance text
+    //public TextMesh hangarDistanceText;                     //A link to the hangar distance text
 
     //public Text distanceText;                               //The main UI's distance text
     //public Text coinText;                                   //The main UI's coin ammount text
@@ -30,11 +30,11 @@ public class GUIManager : MonoBehaviour
     //public Sprite[] ShopSkinButtonSprites;                  //The buy, equip, equipped sprites
 
     public Animator overlayAnimator;                        //The overlay animator
-    public Animator topMenuAnimator;                        //The top menu animator
-    public Animator shopAnimator;                           //The shop menu animator
-    public Animator missionMenuAnimator;                    //The mission menu animator
-    public Animator pauseMenuAnimator;                      //The pause menu animator
-    public Animator finishMenuAnimator;                     //The finish menu animator
+    //public Animator topMenuAnimator;                        //The top menu animator
+    //public Animator shopAnimator;                           //The shop menu animator
+    //public Animator missionMenuAnimator;                    //The mission menu animator
+    //public Animator pauseMenuAnimator;                      //The pause menu animator
+    //public Animator finishMenuAnimator;                     //The finish menu animator
     //public Animator[] powerupButtons;                       //The powerup buttons animator (extra speed, shield, sonic wave, revive)
     //public Animator[] missionNotifications;                 //THe mission complete notification panels
 
@@ -62,8 +62,8 @@ public class GUIManager : MonoBehaviour
         //Updates the audio buttons sprites
         UpdateAudioButtons();
 
-        hangarDistanceText.text = SaveManager.bestDistance + " M";
-		finishMenuAnimator.gameObject.SetActive(false);
+        //hangarDistanceText.text = SaveManager.bestDistance + " M";
+		//finishMenuAnimator.gameObject.SetActive(false);
     }
     //Called at every frame
     void Update()
@@ -186,28 +186,28 @@ public class GUIManager : MonoBehaviour
     public void ToggleShopMenu()
     {
         //Make sure that the shop is activated
-        shopAnimator.gameObject.SetActive(true);
+        //shopAnimator.gameObject.SetActive(true);
 
         //If the shop panel is visible
-        if(shopAnimator.GetBool("ShowPanel"))
-        {
-            //Hide and disable it
-            shopAnimator.SetBool("ShowPanel", false);
-            StartCoroutine(DisableMenu(shopAnimator, 0.5f));
-        }
+//        if(shopAnimator.GetBool("ShowPanel"))
+//        {
+//            //Hide and disable it
+//            shopAnimator.SetBool("ShowPanel", false);
+//            StartCoroutine(DisableMenu(shopAnimator, 0.5f));
+//        }
         //If the shop menu is hidden
-        else
-        {
-            //Update the shop, and move it to the view
-            UpdateShopDisplay();
-            shopAnimator.SetBool("ShowPanel", true);
-        }
+//        else
+//        {
+//            //Update the shop, and move it to the view
+//            UpdateShopDisplay();
+//            shopAnimator.SetBool("ShowPanel", true);
+//        }
     }
     //Called when the player click on the top menu's mission button
     public void ToggleMissionMenu()
     {
         //Change mission menu state
-        missionMenuAnimator.SetBool("ShowMissions", !missionMenuAnimator.GetBool("ShowMissions"));
+        //missionMenuAnimator.SetBool("ShowMissions", !missionMenuAnimator.GetBool("ShowMissions"));
 
         //Update mission display
         //string[] missionTexts = missionManager.GetMissionTexts();
@@ -389,12 +389,12 @@ public class GUIManager : MonoBehaviour
 
             //Hide the main menu
             //arrowImage.sprite = arrowSprites[0];
-            topMenuAnimator.SetBool("Hide", true);
-            missionMenuAnimator.SetBool("ShowMissions", false);
+            //topMenuAnimator.SetBool("Hide", true);
+            //missionMenuAnimator.SetBool("ShowMissions", false);
             overlayAnimator.SetBool("Visible", false);
 
             //Start the level
-            levelManager.StartLevel(); //TODO Inspect this code
+            levelManager.StartLevel();
 
             //Show the available powerups
 //            int[] powerupCount = new int[]{SaveManager.extraSpeed, SaveManager.shield, SaveManager.sonicWave};
@@ -403,7 +403,7 @@ public class GUIManager : MonoBehaviour
 //                if(powerupCount[i] > 0)
 //                    powerupButtons[i].SetBool("Visible", true);
 
-            StartCoroutine(DisableMenu(topMenuAnimator , 1));
+            //StartCoroutine(DisableMenu(topMenuAnimator , 1));
         }
     }
     //Called, when the playe clicks on the pause button
@@ -466,21 +466,21 @@ public class GUIManager : MonoBehaviour
         //Hide the menus
         overlayAnimator.SetBool("Visible", false);
 
-        if(pauseMenuAnimator.gameObject.activeSelf)
-        {
-            pauseMenuAnimator.SetBool("Visible", false);
-            StartCoroutine(DisableMenu(pauseMenuAnimator, 1));
-        }
-
-        if(finishMenuAnimator.gameObject.activeSelf)
-        {
-            finishMenuAnimator.SetBool("Visible", false);
-            StartCoroutine(DisableMenu(finishMenuAnimator, 1));
-        }
+//        if(pauseMenuAnimator.gameObject.activeSelf)
+//        {
+//            pauseMenuAnimator.SetBool("Visible", false);
+//            StartCoroutine(DisableMenu(pauseMenuAnimator, 1));
+//        }
+//
+//        if(finishMenuAnimator.gameObject.activeSelf)
+//        {
+//            finishMenuAnimator.SetBool("Visible", false);
+//            StartCoroutine(DisableMenu(finishMenuAnimator, 1));
+//        }
         
         //Reset the game
         powerupManager.Reset();
-        levelManager.Restart();
+        //levelManager.Restart();
 
         //Reset the coin ammount
         collectedCoins = 0;
@@ -767,7 +767,7 @@ public class GUIManager : MonoBehaviour
         //ShowFinishMenu();
     }
     //Disables a specific menu after a given time
-    private IEnumerator DisableMenu(Animator menu, float time)
+    private IEnumerator DisableMenu(Animator menu , float time)
     {
         yield return new WaitForSeconds(time);
         menu.gameObject.SetActive(false);

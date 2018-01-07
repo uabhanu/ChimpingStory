@@ -6,13 +6,12 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] Text m_scoreDisplay;
 
 	public static float m_scoreValue;
-	public static int m_supersSpawned;
+	public static int m_defaultSupersCount = 1 , m_supersCount;
 
-    void Start()
-    {
-        m_scoreValue = BhanuPrefs.GetHighScore();
-        m_supersSpawned = BhanuPrefs.GetSupers();
-    }
+	void Start()
+	{
+		m_scoreValue = BhanuPrefs.GetHighScore();
+	}
 
     void Update() 
     {

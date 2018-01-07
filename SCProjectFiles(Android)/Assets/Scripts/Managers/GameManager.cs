@@ -12,14 +12,10 @@ public class GameManager : MonoBehaviour
     string m_currentScene;
 	Text m_ads , m_backToLandLose , m_backToLandWin , m_quit , m_restart;
 
-    public float m_timeSinceGameStarted;
-
     void Start()
 	{
         BananasSpawner.m_bananasCount = 0;
-        BhanuPrefs.GetGameTime();
 		GetBhanuObjects();
-        m_timeSinceGameStarted = Time.time;
     }
 
     public void Ads()
@@ -47,6 +43,8 @@ public class GameManager : MonoBehaviour
     public void AdsCancel()
     {
         BhanuPrefs.DeleteAll();
+		ScoreManager.m_supersCount = ScoreManager.m_defaultSupersCount;
+		BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
         SceneManager.LoadScene(m_currentScene);
     }
 
@@ -98,6 +96,7 @@ public class GameManager : MonoBehaviour
 
     public void Continue()
     {
+		BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
         SceneManager.LoadScene("LandRunner");
     }
 

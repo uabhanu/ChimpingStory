@@ -46,7 +46,7 @@ public class LevelCreator : MonoBehaviour
 
         for(int i = 0; i < 10; i++)
         {
-            GameObject hurdle = Instantiate(Resources.Load("PF_Hurdle" , typeof(GameObject))) as GameObject; // TODO do the same for Portal & Super
+            GameObject hurdle = Instantiate(Resources.Load("PF_Hurdle" , typeof(GameObject))) as GameObject;
             hurdle.transform.parent = m_collectedTiles.transform.Find("Hurdle").transform;
             hurdle.transform.position = Vector2.zero;
         }
