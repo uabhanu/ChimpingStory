@@ -9,7 +9,7 @@ public class RockSpawner : MonoBehaviour
 	GameObject m_collectedTiles , m_rockPrefab , m_tilePos;
 
 	[SerializeField] float m_spawnTime;
-    [SerializeField] [Tooltip("Choose number of rocks you want to spawn, ask Bhanu for more info")] [Range(0, 20)] int m_maxRocks;
+    [SerializeField] [Tooltip("Choose number of rocks you want to spawn, ask Bhanu for more info")] [Range(0 , 50)] int m_maxRocks;
 
 	void Reset()
 	{

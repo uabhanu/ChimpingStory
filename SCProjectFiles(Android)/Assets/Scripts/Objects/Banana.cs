@@ -7,7 +7,7 @@ public class Banana : MonoBehaviour
 	ChimpController m_chimpController;
     float m_startPos;
     LevelCreator m_levelCreationScript;
-	SoundsContainer m_soundsContainer;
+	SoundManager m_soundManager;
 	SpriteRenderer m_bananaRenderer;
     [SerializeField] Vector3 m_positionOnScreen;
 
@@ -18,7 +18,7 @@ public class Banana : MonoBehaviour
 		m_chimpController = FindObjectOfType<ChimpController>();
         m_mainCamera = FindObjectOfType<Camera>();
 		m_levelCreationScript = FindObjectOfType<LevelCreator>();
-        m_soundsContainer = FindObjectOfType<SoundsContainer>();
+        m_soundManager = FindObjectOfType<SoundManager>();
         m_startPos = transform.position.x;
     }
 
@@ -53,8 +53,8 @@ public class Banana : MonoBehaviour
                 BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
             }
 				
-			m_soundsContainer.m_soundsSource.clip = m_soundsContainer.m_bananaCollected;
-			m_soundsContainer.m_soundsSource.Play();
+			m_soundManager.m_soundsSource.clip = m_soundManager.m_bananaCollected;
+			m_soundManager.m_soundsSource.Play();
             m_bananaCollider2D.enabled = false;
 			m_bananaRenderer.enabled = false;
         }

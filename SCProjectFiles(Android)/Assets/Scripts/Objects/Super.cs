@@ -7,7 +7,7 @@ public class Super : MonoBehaviour
 	ChimpController m_chimpController;
 	LevelCreator m_levelCreator;
 	Rigidbody2D m_superBody2D;
-	SoundsContainer m_soundsContainer;
+	SoundManager m_soundManager;
 	SpriteRenderer m_superRenderer;
 	Vector3 m_positionOnScreen;
 
@@ -16,7 +16,7 @@ public class Super : MonoBehaviour
 		m_chimpController = FindObjectOfType<ChimpController>();
 		m_levelCreator = FindObjectOfType<LevelCreator>();
 		m_mainCamera = FindObjectOfType<Camera>();
-		m_soundsContainer = FindObjectOfType<SoundsContainer>();
+		m_soundManager = FindObjectOfType<SoundManager>();
 		m_superBody2D = GetComponent<Rigidbody2D>();
 		m_superCollider2D = GetComponent<BoxCollider2D>();	
 		m_superRenderer = GetComponent<SpriteRenderer>();
@@ -55,8 +55,8 @@ public class Super : MonoBehaviour
 		if(tri2D.gameObject.tag.Equals("Player"))
 		{
             ScoreManager.m_supersCount--;
-			m_soundsContainer.m_soundsSource.clip = m_soundsContainer.m_superCollected;
-			m_soundsContainer.m_soundsSource.Play();
+			m_soundManager.m_soundsSource.clip = m_soundManager.m_superCollected;
+			m_soundManager.m_soundsSource.Play();
             BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
             Destroy(gameObject);
         }

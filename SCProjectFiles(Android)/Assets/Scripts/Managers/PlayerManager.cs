@@ -8,7 +8,7 @@ enum PowerupUsage { Enabled, Disabled };
 
 public class PlayerManager : MonoBehaviour
 {
-	SoundsContainer m_soundsContainer;
+	SoundManager m_soundsContainer;
 
     public LevelManager levelManager;                                   //A link to the Level Manager
 
@@ -66,7 +66,7 @@ public class PlayerManager : MonoBehaviour
 
 		currentSkinID = SaveManager.currentSkinID;
 		subRenderer.sprite = subTextures[currentSkinID * 2 + 1];
-		m_soundsContainer = FindObjectOfType<SoundsContainer>();
+		m_soundsContainer = FindObjectOfType<SoundManager>();
     }
     //Called at every frame
     void Update()
@@ -142,7 +142,8 @@ public class PlayerManager : MonoBehaviour
             other.GetComponent<Renderer>().enabled = false;
             other.GetComponent<Collider2D>().enabled = false;
             other.transform.Find("Trail").gameObject.SetActive(false);
-
+			ScoreManager.m_supersCount++;
+			BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
 			m_soundsContainer.m_soundsSource.clip = m_soundsContainer.m_superCollected;
 			m_soundsContainer.m_soundsSource.Play();
             //levelManager.PowerupPickup(other.name);

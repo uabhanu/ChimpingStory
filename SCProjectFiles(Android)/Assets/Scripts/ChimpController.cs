@@ -11,7 +11,7 @@ public class ChimpController : MonoBehaviour
 	GameManager m_gameManager;
 	LevelCreator m_levelCreator;
     Rigidbody2D m_chimpBody2D;
-	SoundsContainer m_soundsContainer;
+	SoundManager m_soundManager;
     string m_currentScene;
 
     [SerializeField] bool m_grounded;
@@ -28,7 +28,7 @@ public class ChimpController : MonoBehaviour
 		m_slipTime = 5.15f;
 		m_super = false;
 		m_superTime = 30.25f;
-		m_xPosTime = 0.99f;
+		m_xPosTime = 0.65f;
 	}
 
 	void Start()
@@ -42,7 +42,7 @@ public class ChimpController : MonoBehaviour
         m_defaultJumpHeight = m_jumpHeight;
 		m_gameManager = FindObjectOfType<GameManager>();
 		m_levelCreator = FindObjectOfType<LevelCreator>();
-		m_soundsContainer = FindObjectOfType<SoundsContainer>();
+		m_soundManager = FindObjectOfType<SoundManager>();
         m_startPos = transform.position.x;
 
 		StartCoroutine("XPosRoutine");
@@ -182,8 +182,8 @@ public class ChimpController : MonoBehaviour
             m_chimpAnim.SetBool("Jump" , true);
             m_jumping = true;
             m_chimpBody2D.velocity = new Vector2(m_chimpBody2D.velocity.x , m_jumpHeight);
-			m_soundsContainer.m_soundsSource.clip = m_soundsContainer.m_jump;
-			m_soundsContainer.m_soundsSource.Play();
+			m_soundManager.m_soundsSource.clip = m_soundManager.m_jump;
+			m_soundManager.m_soundsSource.Play();
             StartCoroutine("JumpingRoutine");
         }
 
@@ -192,8 +192,8 @@ public class ChimpController : MonoBehaviour
             m_chimpAnim.SetBool("Jump" , true);
             m_jumping = true;
             m_chimpBody2D.velocity = new Vector2(m_chimpBody2D.velocity.x , m_jumpHeight);
-			m_soundsContainer.m_soundsSource.clip = m_soundsContainer.m_jump;
-			m_soundsContainer.m_soundsSource.Play();
+			m_soundManager.m_soundsSource.clip = m_soundManager.m_jump;
+			m_soundManager.m_soundsSource.Play();
             StartCoroutine("JumpingRoutine");
         }
     }
@@ -207,15 +207,15 @@ public class ChimpController : MonoBehaviour
 
         if(tri2D.gameObject.tag.Equals("Fall"))
         {
-			m_soundsContainer.m_soundsSource.clip = m_soundsContainer.m_fallDeath;
-			m_soundsContainer.m_soundsSource.Play();
+			m_soundManager.m_soundsSource.clip = m_soundManager.m_fallDeath;
+			m_soundManager.m_soundsSource.Play();
             CheatDeath();
         }
 
         if(tri2D.gameObject.tag.Equals("Hurdle"))
         {
-			m_soundsContainer.m_soundsSource.clip = m_soundsContainer.m_enemyDeath;
-			m_soundsContainer.m_soundsSource.Play();
+			m_soundManager.m_soundsSource.clip = m_soundManager.m_enemyDeath;
+			m_soundManager.m_soundsSource.Play();
             CheatDeath();
         }
 

@@ -219,6 +219,8 @@ public class GameManager : MonoBehaviour
         }
         
         BhanuPrefs.DeleteAll();
+		ScoreManager.m_supersCount = ScoreManager.m_defaultSupersCount;
+		BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
 		SceneManager.LoadScene(m_currentScene);
 	}
 
