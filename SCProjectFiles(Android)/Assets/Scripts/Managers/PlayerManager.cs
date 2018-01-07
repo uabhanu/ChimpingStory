@@ -8,6 +8,8 @@ enum PowerupUsage { Enabled, Disabled };
 
 public class PlayerManager : MonoBehaviour
 {
+	SoundsContainer m_soundsContainer;
+
     public LevelManager levelManager;                                   //A link to the Level Manager
 
     public Sprite[] subTextures;										//The array containing the sub and sub damaged textures
@@ -64,6 +66,7 @@ public class PlayerManager : MonoBehaviour
 
 		currentSkinID = SaveManager.currentSkinID;
 		subRenderer.sprite = subTextures[currentSkinID * 2 + 1];
+		m_soundsContainer = FindObjectOfType<SoundsContainer>();
     }
     //Called at every frame
     void Update()
@@ -133,15 +136,16 @@ public class PlayerManager : MonoBehaviour
             }
         }
         //If the submarine is collided with a powerup
-        else if(other.tag == "Powerup")
+        else if(other.tag == "Super")
         {
             //Notify the level manager, and disable the powerup's components
             other.GetComponent<Renderer>().enabled = false;
             other.GetComponent<Collider2D>().enabled = false;
             other.transform.Find("Trail").gameObject.SetActive(false);
 
-			AudioManager.Instance.PlayPowerupCollected();
-            levelManager.PowerupPickup(other.name);
+			m_soundsContainer.m_soundsSource.clip = m_soundsContainer.m_superCollected;
+			m_soundsContainer.m_soundsSource.Play();
+            //levelManager.PowerupPickup(other.name);
         }
     }
 

@@ -30,7 +30,7 @@ public class LevelManager : MonoBehaviour
 	public void CoinCollected(Vector2 contactPoint)
     {
         collectedCoins++;
-        guiManager.UpdateCoins(collectedCoins);
+        //guiManager.UpdateCoins(collectedCoins);
 
         levelGenerator.AddCoinParticle(contactPoint);
         //missionManager.CoinEvent(collectedCoins);
