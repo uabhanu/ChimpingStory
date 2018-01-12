@@ -1,6 +1,10 @@
 fileFormatVersion: 2
 guid: 15c130d893a1f6c43845907c407d9c42
+<<<<<<< HEAD:SCProjectFiles(Android)/Assets/Scripts/Objects/Explosion.cs.meta
 timeCreated: 1515788489
+=======
+timeCreated: 1515782219
+>>>>>>> 43ba325a6c6e0027b6381c98a026fa4dfd90bcc0:SCProjectFiles(Android)/Assets/Scripts/Objects/Explosion.cs.meta
 licenseType: Free
 MonoImporter:
   externalObjects: {}

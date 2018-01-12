@@ -64,6 +64,12 @@ public class ChimpController : MonoBehaviour
         {
             return;
         }
+
+		if(!m_grounded && !m_super)
+		{
+			m_chimpBody2D.gravityScale = m_defaultGravityScale;
+			m_chimpCollider2D.enabled = true;
+		}
 			
         #if UNITY_EDITOR_64 || UNITY_STANDALONE_WIN
 
@@ -251,13 +257,21 @@ public class ChimpController : MonoBehaviour
 
     public void Slide()
     {
-        m_chimpAnim.SetBool("Jog" , false);
-        m_chimpAnim.SetBool("Slide" , true);
-        m_chimpBody2D.gravityScale = 0;
-        m_chimpCollider2D.enabled = false;
-		GameManager.m_selfieButtonImage.enabled = true;
-		m_sliding = true;
-        StartCoroutine("SlideRoutine");
+		if(m_jumping) 
+		{
+			return;
+		}
+
+		else if(m_grounded && !m_jumping)
+		{
+			m_chimpAnim.SetBool("Jog" , false);
+			m_chimpAnim.SetBool("Slide" , true);
+			m_chimpBody2D.gravityScale = 0;
+			m_chimpCollider2D.enabled = false;
+			GameManager.m_selfieButtonImage.enabled = true;
+			m_sliding = true;
+			StartCoroutine("SlideRoutine");	
+		}
     }
 
     void Slip()

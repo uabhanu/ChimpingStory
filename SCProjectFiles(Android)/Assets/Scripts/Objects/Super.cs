@@ -52,7 +52,7 @@ public class Super : MonoBehaviour
 			Destroy(gameObject);
 		}
 	}
-
+		
 	void OnTriggerEnter2D(Collider2D tri2D)
 	{
 		if(tri2D.gameObject.tag.Equals("Player"))
@@ -60,6 +60,7 @@ public class Super : MonoBehaviour
             ScoreManager.m_supersCount--;
 			m_soundManager.m_soundsSource.clip = m_soundManager.m_superCollected;
 			m_soundManager.m_soundsSource.Play();
+			SpawnExplosion();
             BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
 			SpawnExplosion();
             Destroy(gameObject);
@@ -68,9 +69,12 @@ public class Super : MonoBehaviour
 
 	void SpawnExplosion()
 	{
+<<<<<<< HEAD
 		ScoreManager.m_scoreValue += 100;
 		BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
 
+=======
+>>>>>>> 43ba325a6c6e0027b6381c98a026fa4dfd90bcc0
 		if(m_explosionSystemObj == null)
 		{
 			m_explosionSystemObj = Instantiate(m_explosionPrefab);

@@ -30,7 +30,7 @@ public class PortalSpawner : MonoBehaviour
 		{
 			m_portalObj = Instantiate(m_portalPrefab , transform.position , Quaternion.identity);
 			m_portalObj.transform.parent = m_collectedTiles.transform.Find("Portal").transform;
-			m_portalObj.transform.position = new Vector2(transform.position.x , m_portalObj.transform.position.y + Random.Range(0.5f , 1.5f));
+			m_portalObj.transform.position = new Vector2(transform.position.x , m_portalObj.transform.position.y + Random.Range(0.5f , 1.1f));
 		}
 
 		StartCoroutine("SpawnRoutine");
