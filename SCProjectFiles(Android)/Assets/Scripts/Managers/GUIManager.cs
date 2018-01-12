@@ -8,6 +8,7 @@ public class GUIManager : MonoBehaviour
     AudioSource m_musicSource;
 	bool[] usedMissionNotifications = new bool[]{false , false , false};
 	bool canPause = true , inPlayMode = false;
+	float m_landRunnerTime = 30f;
     Image m_backToLandLoseMenuImage , m_backToLandWinMenuImage , m_continueButtonLoseImage , m_continueButtonWinImage , m_pauseButtonImage , m_pauseMenuImage , m_resumeButtonImage;
 	int collectedCoins = 0 , distanceTraveled = 0;
     Text m_backToLandLose , m_backToLandWin , m_highScoreTextDisplay , m_highScoreValueDisplay;
@@ -21,6 +22,12 @@ public class GUIManager : MonoBehaviour
     {
         BhanuElements();
     }
+
+	IEnumerator LandRunnerRoutine()
+	{
+		yield return new WaitForSeconds(m_landRunnerTime);
+		BackToLandWin();
+	}
 
     public void BackToLandLose(int distance)
     {
@@ -36,7 +43,14 @@ public class GUIManager : MonoBehaviour
 
     public void BackToLandWin()
     {
+		m_backToLandWin.enabled = true;
+		m_backToLandWinMenuImage.enabled = true;
+		m_continueButtonWinImage.enabled = true;
 
+		m_highScoreTextDisplay.enabled = false;
+		m_highScoreValueDisplay.enabled = false;
+		m_pauseButtonImage.enabled = false;
+		Time.timeScale = 0;
     }
 
     public void BhanuContinue()
@@ -96,6 +110,7 @@ public class GUIManager : MonoBehaviour
             inPlayMode = true;
             overlayAnimator.SetBool("Visible" , false);
             levelManager.StartLevel();
+			StartCoroutine("LandRunnerRoutine");
         }
     }
      

@@ -14,7 +14,7 @@ public class Rock : MonoBehaviour
 	void Start() 
 	{
 		m_chimpController = FindObjectOfType<ChimpController>();
-        m_explosionPrefab = Resources.Load("PF_RockExplosion") as GameObject;
+        m_explosionPrefab = Resources.Load("PF_Explosion") as GameObject;
         m_explosionSystemObj = GameObject.FindGameObjectWithTag("Explosion");
 		m_levelCreator = FindObjectOfType<LevelCreator>();
 		m_mainCamera = FindObjectOfType<Camera>();
@@ -44,24 +44,25 @@ public class Rock : MonoBehaviour
             m_rockRenderer.enabled = false;
         }
     }
-
-    void Explosion()
-    {
-        ScoreManager.m_scoreValue += 100;
-        BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
-
-        if(m_explosionSystemObj == null)
-        {
-            m_explosionSystemObj = Instantiate(m_explosionPrefab);
-            Destroy(gameObject);
-        }
-    }
-
+		
     void OnTriggerEnter2D(Collider2D tri2D)
     {
         if(tri2D.gameObject.tag.Equals("Player"))
         {
-            Explosion();
+            SpawnExplosion();
         }
     }
+
+	void SpawnExplosion()
+	{
+		ScoreManager.m_scoreValue += 100;
+		BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
+
+		if(m_explosionSystemObj == null)
+		{
+			m_explosionSystemObj = Instantiate(m_explosionPrefab);
+			Explosion.m_explosionType = "Rock";
+			Destroy(gameObject);
+		}
+	}
 }
