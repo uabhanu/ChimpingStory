@@ -8,7 +8,7 @@ enum PowerupUsage { Enabled, Disabled };
 
 public class PlayerManager : MonoBehaviour
 {
-	SoundManager m_soundsContainer;
+	SoundManager m_soundManager;
 
     public LevelManager levelManager;                                   //A link to the Level Manager
 
@@ -66,7 +66,7 @@ public class PlayerManager : MonoBehaviour
 
 		currentSkinID = SaveManager.currentSkinID;
 		subRenderer.sprite = subTextures[currentSkinID * 2 + 1];
-		m_soundsContainer = FindObjectOfType<SoundManager>();
+		m_soundManager = FindObjectOfType<SoundManager>();
     }
     //Called at every frame
     void Update()
@@ -102,7 +102,8 @@ public class PlayerManager : MonoBehaviour
             other.GetComponent<Renderer>().enabled = false;
             other.GetComponent<Collider2D>().enabled = false;
 
-			AudioManager.Instance.PlayCoinCollected();
+			m_soundManager.m_soundsSource.clip = m_soundManager.m_coin;
+			m_soundManager.m_soundsSource.Play();
         }
         //If the submarine is collided with an obstacle
         else if(other.tag == "Obstacle")
@@ -112,7 +113,7 @@ public class PlayerManager : MonoBehaviour
             other.GetComponent<Renderer>().enabled = false;
             other.GetComponent<Collider2D>().enabled = false;
 
-			AudioManager.Instance.PlayExplosion();
+			//AudioManager.Instance.PlayExplosion();
 
             //If the obstacle is a torpedo, disable it's child as well
             if(other.name == "Torpedo")
@@ -144,8 +145,8 @@ public class PlayerManager : MonoBehaviour
             other.transform.Find("Trail").gameObject.SetActive(false);
 			ScoreManager.m_supersCount++;
 			BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
-			m_soundsContainer.m_soundsSource.clip = m_soundsContainer.m_superCollected;
-			m_soundsContainer.m_soundsSource.Play();
+			m_soundManager.m_soundsSource.clip = m_soundManager.m_superCollected;
+			m_soundManager.m_soundsSource.Play();
             //levelManager.PowerupPickup(other.name);
         }
     }

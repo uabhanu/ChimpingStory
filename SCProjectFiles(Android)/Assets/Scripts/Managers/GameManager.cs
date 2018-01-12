@@ -261,4 +261,9 @@ public class GameManager : MonoBehaviour
         m_resumeButtonImage.enabled = false;
 		Time.timeScale = 1;
 	}
+
+	public void Selfie()
+	{
+		
+	}
 }
