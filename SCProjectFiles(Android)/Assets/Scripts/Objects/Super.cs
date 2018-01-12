@@ -5,6 +5,7 @@ public class Super : MonoBehaviour
 	BoxCollider2D m_superCollider2D;
 	Camera m_mainCamera;
 	ChimpController m_chimpController;
+	GameObject m_explosionPrefab , m_explosionSystemObj;
 	LevelCreator m_levelCreator;
 	Rigidbody2D m_superBody2D;
 	SoundManager m_soundManager;
@@ -14,6 +15,8 @@ public class Super : MonoBehaviour
 	void Start() 
 	{
 		m_chimpController = FindObjectOfType<ChimpController>();
+		m_explosionPrefab = Resources.Load("PF_Explosion") as GameObject;
+		m_explosionSystemObj = GameObject.FindGameObjectWithTag("Explosion");
 		m_levelCreator = FindObjectOfType<LevelCreator>();
 		m_mainCamera = FindObjectOfType<Camera>();
 		m_soundManager = FindObjectOfType<SoundManager>();
@@ -49,7 +52,7 @@ public class Super : MonoBehaviour
 			Destroy(gameObject);
 		}
 	}
-
+		
 	void OnTriggerEnter2D(Collider2D tri2D)
 	{
 		if(tri2D.gameObject.tag.Equals("Player"))
@@ -57,8 +60,19 @@ public class Super : MonoBehaviour
             ScoreManager.m_supersCount--;
 			m_soundManager.m_soundsSource.clip = m_soundManager.m_superCollected;
 			m_soundManager.m_soundsSource.Play();
+			SpawnExplosion();
             BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
             Destroy(gameObject);
         }
+	}
+
+	void SpawnExplosion()
+	{
+		if(m_explosionSystemObj == null)
+		{
+			m_explosionSystemObj = Instantiate(m_explosionPrefab);
+			Explosion.m_explosionType = "Super";
+			Destroy(gameObject);
+		}
 	}
 }
