@@ -69,12 +69,9 @@ public class Super : MonoBehaviour
 
 	void SpawnExplosion()
 	{
-<<<<<<< HEAD
 		ScoreManager.m_scoreValue += 100;
 		BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
 
-=======
->>>>>>> 43ba325a6c6e0027b6381c98a026fa4dfd90bcc0
 		if(m_explosionSystemObj == null)
 		{
 			m_explosionSystemObj = Instantiate(m_explosionPrefab);
