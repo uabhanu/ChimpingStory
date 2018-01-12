@@ -64,7 +64,7 @@ public class ChimpController : MonoBehaviour
         {
             return;
         }
-	
+			
         #if UNITY_EDITOR_64 || UNITY_STANDALONE_WIN
 
             if(Input.GetMouseButtonDown(0))
@@ -86,6 +86,7 @@ public class ChimpController : MonoBehaviour
     IEnumerator JumpingRoutine()
     {
         yield return new WaitForSeconds(m_jumpingTime);
+		GameManager.m_selfieButtonImage.enabled = false;
         m_jumping = false;
     }
 
@@ -96,6 +97,7 @@ public class ChimpController : MonoBehaviour
         if(m_chimpAnim.GetBool("Slide"))
 		{
             m_sliding = false;
+			GameManager.m_selfieButtonImage.enabled = false;
             m_chimpAnim.SetBool("Jog" , true);
             m_chimpAnim.SetBool("Slide" , false);
             m_chimpBody2D.gravityScale = m_defaultGravityScale;
@@ -180,6 +182,7 @@ public class ChimpController : MonoBehaviour
         if(!m_jumping && !m_sliding)
         {
             m_chimpAnim.SetBool("Jump" , true);
+			GameManager.m_selfieButtonImage.enabled = true;
             m_jumping = true;
             m_chimpBody2D.velocity = new Vector2(m_chimpBody2D.velocity.x , m_jumpHeight);
 			m_soundManager.m_soundsSource.clip = m_soundManager.m_jump;
@@ -238,6 +241,7 @@ public class ChimpController : MonoBehaviour
     public void Slide()
     {
         m_sliding = true;
+		GameManager.m_selfieButtonImage.enabled = true;
         m_chimpAnim.SetBool("Jog" , false);
         m_chimpAnim.SetBool("Slide" , true);
         m_chimpBody2D.gravityScale = 0;

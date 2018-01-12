@@ -9,8 +9,11 @@ public class GameManager : MonoBehaviour
 	Image m_adsAcceptButtonImage , m_adsCancelButtonImage , m_adsMenuImage , m_backgroundImage , m_backToLandLoseMenuImage , m_backToLandWinMenuImage , m_continueButtonLoseImage;
     Image m_continueButtonWinImage , m_exitButtonImage , m_pauseButtonImage , m_pauseMenuImage , m_playButtonImage , m_quitButtonImage , m_quitAcceptButtonImage , m_quitCancelButtonImage;
     Image m_quitMenuImage , m_restartButtonImage , m_restartAcceptButtonImage , m_restartCancelButtonImage , m_restartMenuImage , m_resumeButtonImage;
+	SoundManager m_soundManager;
     string m_currentScene;
 	Text m_ads , m_backToLandLose , m_backToLandWin , m_quit , m_restart;
+
+	public static Image m_selfieButtonImage;
 
     void Start()
 	{
@@ -25,6 +28,7 @@ public class GameManager : MonoBehaviour
         m_adsCancelButtonImage.enabled = true;
         m_ads.enabled = true;
         m_pauseButtonImage.enabled = false;
+		m_selfieButtonImage.enabled = false;
         Time.timeScale = 0;
     }
 
@@ -110,6 +114,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         m_currentScene = SceneManager.GetActiveScene().name;
         m_musicSource = GetComponent<AudioSource>();
+		m_soundManager = FindObjectOfType<SoundManager>();
 
         if(m_currentScene == "MainMenu")
         {
@@ -137,6 +142,7 @@ public class GameManager : MonoBehaviour
             m_restartCancelButtonImage = GameObject.Find("RestartCancelButton").GetComponent<Image>();
             m_restartMenuImage = GameObject.Find("RestartMenu").GetComponent<Image>();
             m_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
+			m_selfieButtonImage = GameObject.Find("SelfieButton").GetComponent<Image>();
         }
     }
 
@@ -264,6 +270,10 @@ public class GameManager : MonoBehaviour
 
 	public void Selfie()
 	{
-		
+		m_soundManager.m_soundsSource.clip = m_soundManager.m_selfie;
+		m_soundManager.m_soundsSource.Play();
+		m_selfieButtonImage.enabled = false;
+		ScoreManager.m_scoreValue += 20;
+		BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
 	}
 }
