@@ -55,25 +55,24 @@ public class GameManager : MonoBehaviour
 
     void AdResult(ShowResult result)
     {
+		Time.timeScale = 1;
+
         if(result == ShowResult.Finished)
         {
             //Debug.Log("Video completed - Offer a reward to the player");
             SceneManager.LoadScene(m_currentScene);
-			Time.timeScale = 1;
         }
 
         else if(result == ShowResult.Skipped)
         {
             //Debug.LogWarning("Video was skipped - Do NOT reward the player");
             BhanuPrefs.DeleteAll();
-			Time.timeScale = 1;
         }
 
         else if(result == ShowResult.Failed)
         {
             //Debug.LogError("Video failed to show");
             BhanuPrefs.DeleteAll();
-			Time.timeScale = 1;
         }
     }
 

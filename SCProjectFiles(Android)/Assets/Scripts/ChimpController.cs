@@ -251,13 +251,20 @@ public class ChimpController : MonoBehaviour
 
     public void Slide()
     {
-        m_chimpAnim.SetBool("Jog" , false);
-        m_chimpAnim.SetBool("Slide" , true);
-        m_chimpBody2D.gravityScale = 0;
-        m_chimpCollider2D.enabled = false;
-		GameManager.m_selfieButtonImage.enabled = true;
-		m_sliding = true;
-        StartCoroutine("SlideRoutine");
+		if(m_jumping) 
+		{
+			return;
+		} 
+		else 
+		{
+			m_chimpAnim.SetBool("Jog" , false);
+			m_chimpAnim.SetBool("Slide" , true);
+			m_chimpBody2D.gravityScale = 0;
+			m_chimpCollider2D.enabled = false;
+			GameManager.m_selfieButtonImage.enabled = true;
+			m_sliding = true;
+			StartCoroutine("SlideRoutine");	
+		}
     }
 
     void Slip()
