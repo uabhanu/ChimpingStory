@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.Advertisements;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -14,13 +15,21 @@ public class GameManager : MonoBehaviour
     string m_currentScene;
 	Text m_ads , m_backToLandLose , m_backToLandWin , m_quit , m_restart;
 
-	public static Image m_selfieButtonImage;
+	[SerializeField] bool m_selfieFlashEnabled;
+
+	public static Image m_selfieButtonImage , m_selfiePanelImage;
 
     void Start()
 	{
         BananasSpawner.m_bananasCount = 0;
 		GetBhanuObjects();
     }
+
+	IEnumerator FlashRoutine()
+	{
+		yield return new WaitForSeconds(0.25f);
+		m_selfiePanelImage.enabled = false;
+	}
 
     public void Ads()
     {
@@ -145,6 +154,7 @@ public class GameManager : MonoBehaviour
             m_restartMenuImage = GameObject.Find("RestartMenu").GetComponent<Image>();
             m_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
 			m_selfieButtonImage = GameObject.Find("SelfieButton").GetComponent<Image>();
+			m_selfiePanelImage = GameObject.Find("SelfiePanel").GetComponent<Image>();
         }
 
 		Time.timeScale = 1;
@@ -277,6 +287,12 @@ public class GameManager : MonoBehaviour
 		m_soundManager.m_soundsSource.clip = m_soundManager.m_selfie;
 		m_soundManager.m_soundsSource.Play();
 		m_selfieButtonImage.enabled = false;
+
+		if(m_selfieFlashEnabled)
+		{
+			m_selfiePanelImage.enabled = true;
+			StartCoroutine("FlashRoutine");
+		}
 
 		if(m_chimpController.m_super) 
 		{
