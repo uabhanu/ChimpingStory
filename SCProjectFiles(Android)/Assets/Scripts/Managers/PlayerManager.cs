@@ -90,7 +90,7 @@ public class PlayerManager : MonoBehaviour
             }
         }
     }
-    //Called when the player enters a triggerer zone
+   
     void OnTriggerEnter2D(Collider2D other)
     {
         //If the submarine is collided with a coin
