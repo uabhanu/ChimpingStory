@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour 
 {
 	AudioSource m_musicSource;
+	ChimpController m_chimpController;
 	Image m_adsAcceptButtonImage , m_adsCancelButtonImage , m_adsMenuImage , m_backgroundImage , m_backToLandLoseMenuImage , m_backToLandWinMenuImage , m_continueButtonLoseImage;
     Image m_continueButtonWinImage , m_exitButtonImage , m_pauseButtonImage , m_pauseMenuImage , m_playButtonImage , m_quitButtonImage , m_quitAcceptButtonImage , m_quitCancelButtonImage;
     Image m_quitMenuImage , m_restartButtonImage , m_restartAcceptButtonImage , m_restartCancelButtonImage , m_restartMenuImage , m_resumeButtonImage;
@@ -29,7 +30,7 @@ public class GameManager : MonoBehaviour
         m_ads.enabled = true;
         m_pauseButtonImage.enabled = false;
 		m_selfieButtonImage.enabled = false;
-        Time.timeScale = 0;
+		Time.timeScale = 0;
     }
 
     public void AdsAccept()
@@ -58,19 +59,21 @@ public class GameManager : MonoBehaviour
         {
             //Debug.Log("Video completed - Offer a reward to the player");
             SceneManager.LoadScene(m_currentScene);
-            Time.timeScale = 1;
+			Time.timeScale = 1;
         }
 
         else if(result == ShowResult.Skipped)
         {
             //Debug.LogWarning("Video was skipped - Do NOT reward the player");
             BhanuPrefs.DeleteAll();
+			Time.timeScale = 1;
         }
 
         else if(result == ShowResult.Failed)
         {
             //Debug.LogError("Video failed to show");
             BhanuPrefs.DeleteAll();
+			Time.timeScale = 1;
         }
     }
 
@@ -111,7 +114,6 @@ public class GameManager : MonoBehaviour
 
     void GetBhanuObjects()
     {
-        Time.timeScale = 1;
         m_currentScene = SceneManager.GetActiveScene().name;
         m_musicSource = GetComponent<AudioSource>();
 		m_soundManager = FindObjectOfType<SoundManager>();
@@ -134,6 +136,7 @@ public class GameManager : MonoBehaviour
             m_adsCancelButtonImage = GameObject.Find("AdsCancelButton").GetComponent<Image>();
             m_adsMenuImage = GameObject.Find("AdsMenu").GetComponent<Image>();
             m_exitButtonImage = GameObject.Find("ExitButton").GetComponent<Image>();
+			m_chimpController = FindObjectOfType<ChimpController>();
             m_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
             m_pauseMenuImage = GameObject.Find("PauseMenu").GetComponent<Image>();
             m_restart = GameObject.Find("RestartText").GetComponent<Text>();
@@ -144,6 +147,8 @@ public class GameManager : MonoBehaviour
             m_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
 			m_selfieButtonImage = GameObject.Find("SelfieButton").GetComponent<Image>();
         }
+
+		Time.timeScale = 1;
     }
 
     public void Pause()
@@ -273,7 +278,16 @@ public class GameManager : MonoBehaviour
 		m_soundManager.m_soundsSource.clip = m_soundManager.m_selfie;
 		m_soundManager.m_soundsSource.Play();
 		m_selfieButtonImage.enabled = false;
-		ScoreManager.m_scoreValue += 20;
+
+		if(m_chimpController.m_super) 
+		{
+			ScoreManager.m_scoreValue += 200;
+		} 
+		else 
+		{
+			ScoreManager.m_scoreValue += 20;
+		}
+
 		BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
 	}
 }

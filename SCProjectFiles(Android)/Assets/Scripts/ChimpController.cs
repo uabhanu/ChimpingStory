@@ -86,7 +86,12 @@ public class ChimpController : MonoBehaviour
     IEnumerator JumpingRoutine()
     {
         yield return new WaitForSeconds(m_jumpingTime);
-		GameManager.m_selfieButtonImage.enabled = false;
+
+		if(!m_super)
+		{
+			GameManager.m_selfieButtonImage.enabled = false;	
+		}
+
         m_jumping = false;
     }
 
@@ -96,12 +101,12 @@ public class ChimpController : MonoBehaviour
 
         if(m_chimpAnim.GetBool("Slide"))
 		{
-            m_sliding = false;
-			GameManager.m_selfieButtonImage.enabled = false;
             m_chimpAnim.SetBool("Jog" , true);
             m_chimpAnim.SetBool("Slide" , false);
             m_chimpBody2D.gravityScale = m_defaultGravityScale;
             m_chimpCollider2D.enabled = true;
+			GameManager.m_selfieButtonImage.enabled = false;
+			m_sliding = false;
         }
     }
 
@@ -123,6 +128,7 @@ public class ChimpController : MonoBehaviour
         m_blockerBottomCollider2D.enabled = false;
         m_chimpAnim.SetBool("Super" , false);
         m_chimpBody2D.gravityScale = m_defaultGravityScale;
+		GameManager.m_selfieButtonImage.enabled = false;
 		m_jumpHeight = m_defaultJumpHeight;
 		m_super = false;	
 	}
@@ -182,9 +188,14 @@ public class ChimpController : MonoBehaviour
         if(!m_jumping && !m_sliding)
         {
             m_chimpAnim.SetBool("Jump" , true);
-			GameManager.m_selfieButtonImage.enabled = true;
-            m_jumping = true;
             m_chimpBody2D.velocity = new Vector2(m_chimpBody2D.velocity.x , m_jumpHeight);
+
+			if(!m_super)
+			{
+				GameManager.m_selfieButtonImage.enabled = true;
+			}
+
+			m_jumping = true;
 			m_soundManager.m_soundsSource.clip = m_soundManager.m_jump;
 			m_soundManager.m_soundsSource.Play();
             StartCoroutine("JumpingRoutine");
@@ -240,12 +251,12 @@ public class ChimpController : MonoBehaviour
 
     public void Slide()
     {
-        m_sliding = true;
-		GameManager.m_selfieButtonImage.enabled = true;
         m_chimpAnim.SetBool("Jog" , false);
         m_chimpAnim.SetBool("Slide" , true);
         m_chimpBody2D.gravityScale = 0;
         m_chimpCollider2D.enabled = false;
+		GameManager.m_selfieButtonImage.enabled = true;
+		m_sliding = true;
         StartCoroutine("SlideRoutine");
     }
 
@@ -262,6 +273,7 @@ public class ChimpController : MonoBehaviour
         m_blockerBottomCollider2D.enabled = true;
         m_chimpAnim.SetBool("Super" , true);
         m_chimpBody2D.gravityScale /= 2.5f;
+		GameManager.m_selfieButtonImage.enabled = true;
         m_levelCreator.m_gameSpeed = 6.0f;
 		m_super = true;
 		StartCoroutine("SuperRoutine");
