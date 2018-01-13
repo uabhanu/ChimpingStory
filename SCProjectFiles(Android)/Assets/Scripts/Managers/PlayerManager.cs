@@ -8,30 +8,27 @@ enum PowerupUsage { Enabled, Disabled };
 
 public class PlayerManager : MonoBehaviour
 {
+	GameObject m_explosionPrefab , m_explosionSystemObj;
 	SoundManager m_soundManager;
 
+	[SerializeField] Sprite[] m_chimpSprites;		
+
     public LevelManager levelManager;                                   //A link to the Level Manager
-
-    public Sprite[] subTextures;										//The array containing the sub and sub damaged textures
     public SpriteRenderer subRenderer;									//A link to the sub material
-
     public Transform extraSpeedFront;                                   //The extra speed front sprite
     public Transform extraSpeedTail;                                    //The extra speed trail sprite
     public Transform shield;                                            //The shield sprite
-
     public float minDepth;                                              //Minimum depth
     public float maxDepth;						                        //Maximum depth
     public float maxRotation;						                    //The maximum rotation of the submarine
-
     public float maxVerticalSpeed;					                    //The maximum vertical speed
     public float depthEdge;					                            //The edge fo the smoothing zone (minDepth- depthEdge and maxDepth - depthEdge)
-
     public ParticleSystem smoke;										//The smoke particle
     public ParticleSystem bubbles;										//The submarine bubble particle system
     public ParticleSystem reviveParticle;								//The revive particle
 
-    public PolygonCollider2D normalCollider;                            //The normal collider of the submarine
-    public CircleCollider2D shieldCollider;                             //The collider of the shield
+    //public PolygonCollider2D normalCollider;                            //The normal collider of the submarine
+    //public CircleCollider2D shieldCollider;                             //The collider of the shield
 
     private PlayerStatus playerStatus;
     private PlayerState playerState;
@@ -54,6 +51,8 @@ public class PlayerManager : MonoBehaviour
     //Used for initialization
     void Start()
     {
+		m_explosionPrefab = Resources.Load("PF_Explosion") as GameObject;
+		m_explosionSystemObj = GameObject.FindGameObjectWithTag("Explosion");
         newRotation = new Vector3();
         startingPos = transform.position;
 
@@ -65,7 +64,7 @@ public class PlayerManager : MonoBehaviour
         rotationDiv = maxVerticalSpeed / maxRotation;
 
 		currentSkinID = SaveManager.currentSkinID;
-		subRenderer.sprite = subTextures[currentSkinID * 2 + 1];
+		subRenderer.sprite = m_chimpSprites[currentSkinID * 2 + 1];
 		m_soundManager = FindObjectOfType<SoundManager>();
     }
     //Called at every frame
@@ -90,6 +89,19 @@ public class PlayerManager : MonoBehaviour
             }
         }
     }
+
+	void BhanuSpawnExplosion()
+	{
+		ScoreManager.m_scoreValue += 100;
+		BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
+
+		if(m_explosionSystemObj == null)
+		{
+			m_explosionSystemObj = Instantiate(m_explosionPrefab);
+			Explosion.m_explosionType = "Super";
+			Destroy(gameObject);
+		}
+	}
    
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -127,7 +139,7 @@ public class PlayerManager : MonoBehaviour
                 playerVulnerability = PlayerVulnerability.Disabled;
                 playerStatus = PlayerStatus.Sinking;
 
-				subRenderer.sprite = subTextures[currentSkinID * 2];
+				subRenderer.sprite = m_chimpSprites[currentSkinID * 2];
                 bubbles.Stop();
             }
             //If the player is shielded, collapse it
@@ -139,7 +151,7 @@ public class PlayerManager : MonoBehaviour
         //If the submarine is collided with a powerup
         else if(other.tag == "Super")
         {
-            //Notify the level manager, and disable the powerup's components
+			BhanuSpawnExplosion();
             other.GetComponent<Renderer>().enabled = false;
             other.GetComponent<Collider2D>().enabled = false;
             other.transform.Find("Trail").gameObject.SetActive(false);
@@ -159,7 +171,7 @@ public class PlayerManager : MonoBehaviour
         playerVulnerability = PlayerVulnerability.Enabled;
         powerupUsage = PowerupUsage.Enabled;
 
-		subRenderer.sprite = subTextures[currentSkinID * 2 + 1];
+		subRenderer.sprite = m_chimpSprites[currentSkinID * 2 + 1];
         bubbles.Play();
 
         StartCoroutine(FunctionLibrary.MoveElementBy(this.transform, new Vector2(0.4f, 0.2f), 0.5f));
@@ -184,7 +196,7 @@ public class PlayerManager : MonoBehaviour
 		currentSkinID = id;
 
 		if (playerStatus != PlayerStatus.Crashed)
-			subRenderer.sprite = subTextures[currentSkinID * 2 + 1];
+			subRenderer.sprite = m_chimpSprites[currentSkinID * 2 + 1];
 	}
     //Resets the submarine
 	public void Reset()
@@ -196,7 +208,7 @@ public class PlayerManager : MonoBehaviour
 
         newRotation = new Vector3(0, 0, 0);
 
-		subRenderer.sprite = subTextures[currentSkinID * 2 + 1];
+		subRenderer.sprite = m_chimpSprites[currentSkinID * 2 + 1];
 
         bubbles.Stop();
         bubbles.Clear();
@@ -250,8 +262,8 @@ public class PlayerManager : MonoBehaviour
     {
         playerVulnerability = PlayerVulnerability.Shielded;
 
-        normalCollider.enabled = false;
-        shieldCollider.enabled = true;
+        //normalCollider.enabled = false;
+        //shieldCollider.enabled = true;
 
         StartCoroutine(FunctionLibrary.ScaleTo(shield, new Vector2(1, 1), 0.25f));
     }
@@ -260,8 +272,8 @@ public class PlayerManager : MonoBehaviour
     {
         playerVulnerability = PlayerVulnerability.Disabled;
 
-        normalCollider.enabled = true;
-        shieldCollider.enabled = false;
+        //normalCollider.enabled = true;
+        //shieldCollider.enabled = false;
 
         StartCoroutine(FunctionLibrary.ScaleTo(shield, new Vector2(0, 0), 0.25f));
         StartCoroutine(EnableVulnerability(0.3f));
@@ -430,7 +442,7 @@ public class PlayerManager : MonoBehaviour
     private IEnumerator ReviveProcess()
     {
         //Change the texture to intact, and play the revive particle
-		subRenderer.sprite = subTextures[currentSkinID * 2 + 1];
+		subRenderer.sprite = m_chimpSprites[currentSkinID * 2 + 1];
         reviveParticle.Play();
 
         //Reset rotation, and move the submarine up
