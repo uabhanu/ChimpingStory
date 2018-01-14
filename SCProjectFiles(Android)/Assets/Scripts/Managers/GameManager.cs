@@ -116,6 +116,7 @@ public class GameManager : MonoBehaviour
     public void Continue()
     {
 		BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
+		Screen.orientation = ScreenOrientation.Landscape;
         SceneManager.LoadScene("LandRunner");
     }
 		
