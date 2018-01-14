@@ -251,7 +251,27 @@ public class ChimpController : MonoBehaviour
 
         if(tri2D.gameObject.tag.Equals("Portal"))
         {
-            SceneManager.LoadScene("WaterSwimmer");
+			int randomValue = Random.Range(0 , 4);
+			string randomLevel = randomValue.ToString();
+
+			switch(randomLevel)
+			{
+				case "0":
+					SceneManager.LoadScene ("WaterSwimmer");
+				break;
+
+				case "1":
+					SceneManager.LoadScene ("WaterSwimmer");
+				break;
+
+				case "2":
+					SceneManager.LoadScene ("FallingDown");
+				break;
+
+				case "3":
+					SceneManager.LoadScene ("FallingDown");
+				break;
+			}
         }
     }
 

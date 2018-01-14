@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
 		yield return new WaitForSeconds(0.25f);
 		m_selfiePanelImage.enabled = false;
 	}
-
+		
     public void Ads()
     {
         m_adsMenuImage.enabled = true;
@@ -114,7 +114,7 @@ public class GameManager : MonoBehaviour
 		BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
         SceneManager.LoadScene("LandRunner");
     }
-
+		
     public void ExitToMainMenu()
 	{
         SceneManager.LoadScene("MainMenu");
@@ -124,6 +124,9 @@ public class GameManager : MonoBehaviour
     {
         m_currentScene = SceneManager.GetActiveScene().name;
         m_musicSource = GetComponent<AudioSource>();
+		m_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
+		m_pauseMenuImage = GameObject.Find("PauseMenu").GetComponent<Image>();
+		m_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
 		m_soundManager = FindObjectOfType<SoundManager>();
 
         if(m_currentScene == "MainMenu")
@@ -145,14 +148,11 @@ public class GameManager : MonoBehaviour
             m_adsMenuImage = GameObject.Find("AdsMenu").GetComponent<Image>();
             m_exitButtonImage = GameObject.Find("ExitButton").GetComponent<Image>();
 			m_chimpController = FindObjectOfType<ChimpController>();
-            m_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
-            m_pauseMenuImage = GameObject.Find("PauseMenu").GetComponent<Image>();
             m_restart = GameObject.Find("RestartText").GetComponent<Text>();
             m_restartButtonImage = GameObject.Find("RestartButton").GetComponent<Image>();
             m_restartAcceptButtonImage = GameObject.Find("RestartAcceptButton").GetComponent<Image>();
             m_restartCancelButtonImage = GameObject.Find("RestartCancelButton").GetComponent<Image>();
             m_restartMenuImage = GameObject.Find("RestartMenu").GetComponent<Image>();
-            m_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
 			m_selfieButtonImage = GameObject.Find("SelfieButton").GetComponent<Image>();
 			m_selfiePanelImage = GameObject.Find("SelfiePanel").GetComponent<Image>();
         }
@@ -167,21 +167,20 @@ public class GameManager : MonoBehaviour
             AVManager.m_musicSource.Pause();
         }
         
-		m_pauseButtonImage.enabled = false;
-
         if(m_exitButtonImage != null)
         {
             m_exitButtonImage.enabled = true;
         }
         
-		m_pauseMenuImage.enabled = true;
-
         if(m_restartButtonImage != null)
         {
             m_restartButtonImage.enabled = true;
         }
         
+		m_pauseButtonImage.enabled = false;
+		m_pauseMenuImage.enabled = true;
 		m_resumeButtonImage.enabled = true;
+		m_selfieButtonImage.enabled = false;
 		Time.timeScale = 0;
 	}
 

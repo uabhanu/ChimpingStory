@@ -1,0 +1,30 @@
+﻿using System.Collections;
+using UnityEngine;
+
+public class TopDownClouds : MonoBehaviour 
+{
+	float m_moveUpSpeed = 1.5f;
+	//LevelCreator m_levelCreator;
+	Rigidbody2D m_cloudsBody2D;
+
+	void Start() 
+	{
+		m_cloudsBody2D = GetComponent<Rigidbody2D>();
+		//m_levelCreator = FindObjectOfType<LevelCreator>();
+	}
+
+	void Update() 
+	{
+		if(Time.timeScale == 0f)
+		{
+			return;
+		}
+
+		m_cloudsBody2D.velocity = new Vector2(m_cloudsBody2D.velocity.x , m_moveUpSpeed);
+
+		if(transform.position.y >= 21.2f)
+		{
+			transform.position = new Vector3(transform.position.x , 0f , transform.position.z);
+		}
+	}
+}
