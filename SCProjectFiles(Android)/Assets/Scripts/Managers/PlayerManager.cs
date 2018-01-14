@@ -67,74 +67,48 @@ public class PlayerManager : MonoBehaviour
 		subRenderer.sprite = m_chimpSprites[currentSkinID * 2 + 1];
 		m_soundManager = FindObjectOfType<SoundManager>();
     }
-    //Called at every frame
+    
     void Update()
     {
         if(playerState == PlayerState.Enabled)
         {
             if(playerStatus == PlayerStatus.MovingDown || playerStatus == PlayerStatus.MovinUp)
             {
-                //Calculate smooth zone distance
                 CalculateDistances();
-
-                //Calculate player movement
                 CalculateMovement();
-
-                //Move and rotate the submarine
                 MoveAndRotate();
             }
+
             else if(playerStatus == PlayerStatus.Sinking)
             {
                 Sink();
             }
         }
     }
-
-	void BhanuSpawnExplosion()
-	{
-		ScoreManager.m_scoreValue += 100;
-		BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
-
-		if(m_explosionSystemObj == null)
-		{
-			m_explosionSystemObj = Instantiate(m_explosionPrefab);
-			Explosion.m_explosionType = "Super";
-			Destroy(gameObject);
-		}
-	}
-   
+		
     void OnTriggerEnter2D(Collider2D other)
     {
-        //If the submarine is collided with a coin
         if(other.tag == "Coin")
         {
-            //Notify the level manager, and disable the coin's renderer and collider
             ScoreManager.m_scoreValue += 5;
             BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
             other.GetComponent<Renderer>().enabled = false;
             other.GetComponent<Collider2D>().enabled = false;
-
 			m_soundManager.m_soundsSource.clip = m_soundManager.m_coin;
 			m_soundManager.m_soundsSource.Play();
         }
-        //If the submarine is collided with an obstacle
+        
         else if(other.tag == "Obstacle")
         {
-            //Notify the level manager, and disable the obstacle's renderer and collider
             levelManager.Collision(other.name, other.transform.position);
             other.GetComponent<Renderer>().enabled = false;
             other.GetComponent<Collider2D>().enabled = false;
 
-			//AudioManager.Instance.PlayExplosion();
-
-            //If the obstacle is a torpedo, disable it's child as well
             if(other.name == "Torpedo")
                 other.transform.Find("TorpedoFire").gameObject.SetActive(false);
 
-            //If the player is vulnerable
             if(playerVulnerability == PlayerVulnerability.Enabled)
             {
-                //Sink the submarine
                 powerupUsage = PowerupUsage.Disabled;
                 playerVulnerability = PlayerVulnerability.Disabled;
                 playerStatus = PlayerStatus.Sinking;
@@ -142,16 +116,15 @@ public class PlayerManager : MonoBehaviour
 				subRenderer.sprite = m_chimpSprites[currentSkinID * 2];
                 bubbles.Stop();
             }
-            //If the player is shielded, collapse it
+            
             else if(playerVulnerability == PlayerVulnerability.Shielded)
             {
                 CollapseShield();
             }
         }
-        //If the submarine is collided with a powerup
+        
         else if(other.tag == "Super")
         {
-			BhanuSpawnExplosion();
             other.GetComponent<Renderer>().enabled = false;
             other.GetComponent<Collider2D>().enabled = false;
             other.transform.Find("Trail").gameObject.SetActive(false);
@@ -159,12 +132,10 @@ public class PlayerManager : MonoBehaviour
 			BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
 			m_soundManager.m_soundsSource.clip = m_soundManager.m_superCollected;
 			m_soundManager.m_soundsSource.Play();
-            //levelManager.PowerupPickup(other.name);
         }
     }
-
-    //Enables the submarine
-	public void EnableSubmarine()
+		
+	public void EnableChimp()
     {
         playerStatus = PlayerStatus.Idle;
         playerState = PlayerState.Enabled;
@@ -176,7 +147,7 @@ public class PlayerManager : MonoBehaviour
 
         StartCoroutine(FunctionLibrary.MoveElementBy(this.transform, new Vector2(0.4f, 0.2f), 0.5f));
 	}
-    //Sets the pause state of the submarine
+    
     public void SetPauseState(bool pauseState)
     {
         if(pauseState)
@@ -198,7 +169,7 @@ public class PlayerManager : MonoBehaviour
 		if (playerStatus != PlayerStatus.Crashed)
 			subRenderer.sprite = m_chimpSprites[currentSkinID * 2 + 1];
 	}
-    //Resets the submarine
+    
 	public void Reset()
     {
         playerStatus = PlayerStatus.Idle;
@@ -221,7 +192,7 @@ public class PlayerManager : MonoBehaviour
     {
         StartCoroutine("ReviveProcess");
 	}
-    //Updates player input
+    
 	public void UpdateInput(bool inputActive)
     {
         if (playerStatus == PlayerStatus.Sinking || playerStatus == PlayerStatus.Crashed)
@@ -238,7 +209,7 @@ public class PlayerManager : MonoBehaviour
         smoke.enableEmission = false;
     }
 
-    //Activates the extra speed submarine effects
+    
     public void ActivateExtraSpeed()
     {
         extraSpeedFront.gameObject.SetActive(true);
@@ -248,7 +219,7 @@ public class PlayerManager : MonoBehaviour
         playerVulnerability = PlayerVulnerability.Disabled;
         powerupUsage = PowerupUsage.Disabled;
     }
-    //Deactivates the extra speed submarine effects
+    
     public void DisableExtraSpeed()
     {
         extraSpeedFront.gameObject.SetActive(false);
@@ -267,102 +238,77 @@ public class PlayerManager : MonoBehaviour
 
         StartCoroutine(FunctionLibrary.ScaleTo(shield, new Vector2(1, 1), 0.25f));
     }
-    //Collapses the shield
+    
     public void CollapseShield()
     {
         playerVulnerability = PlayerVulnerability.Disabled;
-
-        //normalCollider.enabled = true;
-        //shieldCollider.enabled = false;
-
         StartCoroutine(FunctionLibrary.ScaleTo(shield, new Vector2(0, 0), 0.25f));
         StartCoroutine(EnableVulnerability(0.3f));
     }
-    //Returns true, if a powerup can be activated
+    
     public bool CanUsePowerup()
     {
         return playerState == PlayerState.Enabled && powerupUsage == PowerupUsage.Enabled;
     }
-
-    //Calculate distances to minDepth and maxDepth
+		
     private void CalculateDistances()
     {
         distanceToMax = this.transform.position.y - maxDepth;
         distanceToMin = minDepth - this.transform.position.y;
     }
-    //Calculate movement based on input
+    
     private void CalculateMovement()
     {
-        //If the sub is moving up
         if (playerStatus == PlayerStatus.MovinUp)
         {
-            //Increase speed
             speed += Time.deltaTime * maxVerticalSpeed;
 
-            //If the sub is too close to the minDepth
             if (distanceToMin < depthEdge)
             {
-                //Calculate maximum speed at this depth (without this, the sub would leave the gameplay are)
                 newSpeed = maxVerticalSpeed * (minDepth - this.transform.position.y) / depthEdge;
 
-                //If the newSpeed is lesser the the current speed
                 if (newSpeed < speed)
-                    //Make newSpeed the current speed
                     speed = newSpeed;
             }
-            //If the sub is too close to the maxDepth
+        
             else if (distanceToMax < depthEdge)
             {
-                //Calculate maximum speed at this depth (without this, the sub would leave the gameplay are)
                 newSpeed = maxVerticalSpeed * (maxDepth - this.transform.position.y) / depthEdge;
 
-                //If the newSpeed is greater the the current speed
                 if (newSpeed > speed)
-                    //Make newSpeed the current speed
                     speed = newSpeed;
             }
         }
-        //If the sub is moving down
+        
         else
         {
-            //Decrease speed
             speed -= Time.deltaTime * maxVerticalSpeed;
 
-            //If the sub is too close to the maxDepth
             if (distanceToMax < depthEdge)
             {
-                //Calculate maximum speed at this depth (without this, the sub would leave the gameplay are)
                 newSpeed = maxVerticalSpeed * (maxDepth - this.transform.position.y) / depthEdge;
 
-                //If the newSpeed is greater the the current speed
                 if (newSpeed > speed)
-                    //Make newSpeed the current speed
                     speed = newSpeed;
             }
-            //If the sub is too close to the minDepth
+            
             else if (distanceToMin < depthEdge)
             {
-                //Calculate maximum speed at this depth (without this, the sub would leave the gameplay are)
                 newSpeed = maxVerticalSpeed * (minDepth - this.transform.position.y) / depthEdge;
 
-                //If the newSpeed is lesser the the current speed
                 if (newSpeed < speed)
-                    //Make newSpeed the current speed
                     speed = newSpeed;
             }
         }
     }
-    //Move and rotate the submarine based on speed
+    
     private void MoveAndRotate()
     {
-        //Calculate new rotation
         newRotation.z = speed / rotationDiv;
-
-        //Apply new rotation and position
         this.transform.eulerAngles = newRotation;
         this.transform.position += Vector3.up * speed * Time.deltaTime;
     }
-    //Sinks the submarine until it crashes to the sand
+   
     private void Sink()
     {
         float crashDepth = maxDepth - 0.8f;
@@ -370,89 +316,66 @@ public class PlayerManager : MonoBehaviour
 
         float distance = transform.position.y - crashDepth;
 
-        //If the sub is too close to minDepth
         if (distanceToMin < depthEdge)
         {
-            //Calculate maximum speed at this depth (without this, the sub would leave the gameplay are)
             newSpeed = maxVerticalSpeed * (minDepth - this.transform.position.y) / depthEdge;
 
-            //If the newSpeed is greater the the current speed
             if (newSpeed < speed)
-                //Make newSpeed the current speed
                 speed = newSpeed;
         }
-        //If the distance to the sand is greater than 0.1
+        
         if (distance > 0.1f)
         {
-            //Reduce speed
             speed -= Time.deltaTime * maxVerticalSpeed * 0.6f;
 
-            //If the distance to the sand smaller than the crashDepthEdge
             if (distance < crashDepthEdge)
             {
-                //Calculate new speed for impact
                 newSpeed = maxVerticalSpeed * (crashDepth - this.transform.position.y) / crashDepthEdge;
 
-                //If newSpeed is greater than speed
                 if (newSpeed > speed)
-                    //Apply new speed to speed
                     speed = newSpeed;
             }
-
-            //Apply the above to the submarine
+				
             MoveAndRotate();
 
-            //If distance to sand smaller than 0.2
             if (distance < 0.25f)
-                //Enable smoke emission
                 smoke.enableEmission = true;
         }
-        //If the distance to the sand is smaller than 0.1
+        
         else
         {
-            //Disable this function from calling, and stop the level
             playerStatus = PlayerStatus.Crashed;
             levelManager.StopLevel();
-
-            //Disable the smoke
             StartCoroutine(FunctionLibrary.CallWithDelay(DisableSmoke, 2));
         }
     }
-
-    //Enables player vulnerability after time
+		
     private IEnumerator EnableVulnerability(float time)
     {
-        //Declare variables, get the starting position, and move the object
         float i = 0.0f;
         float rate = 1.0f / time;
 
         while (i < 1.0)
         {
-            //If the game is not paused, increase t
             if (playerState == PlayerState.Enabled)
                 i += Time.deltaTime * rate;
 
-            //Wait for the end of frame
             yield return 0;
         }
 
         playerVulnerability = PlayerVulnerability.Enabled;
     }
-    //Revives the player, and moves the submarine upward
+
     private IEnumerator ReviveProcess()
     {
-        //Change the texture to intact, and play the revive particle
 		subRenderer.sprite = m_chimpSprites[currentSkinID * 2 + 1];
         reviveParticle.Play();
-
-        //Reset rotation, and move the submarine up
         newRotation = new Vector3(0, 0, 0);
         transform.eulerAngles = newRotation;
         StartCoroutine(FunctionLibrary.MoveElementBy(transform, new Vector2(0, Mathf.Abs(transform.position.y - maxDepth)), 0.5f));
 
         yield return new WaitForSeconds(0.5f);
 
-        //Reset states
         playerStatus = PlayerStatus.Idle;
         playerState = PlayerState.Enabled;
         playerVulnerability = PlayerVulnerability.Enabled;

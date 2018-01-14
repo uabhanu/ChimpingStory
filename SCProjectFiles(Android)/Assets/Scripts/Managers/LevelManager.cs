@@ -68,7 +68,7 @@ public class LevelManager : MonoBehaviour
     {
         collectedCoins = 0;
 
-        playerManager.EnableSubmarine();
+        playerManager.EnableChimp();
         levelGenerator.StartToGenerate();
 
         //missionManager.LoadData();

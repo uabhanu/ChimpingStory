@@ -163,7 +163,7 @@ public class GameManager : MonoBehaviour
 			m_selfiePanelImage = GameObject.Find("SelfiePanel").GetComponent<Image>();
         }
 
-		else if(m_currentScene == "FallingDown")
+		else
 		{
 			m_backToLandLoseMenuImage = GameObject.Find("BackToLandLoseMenu").GetComponent<Image>();
 			m_backToLandLose = GameObject.Find("BackToLandLose").GetComponent<Text>();
