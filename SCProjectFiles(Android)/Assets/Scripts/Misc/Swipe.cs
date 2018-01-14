@@ -37,12 +37,12 @@ public class Swipe : MonoBehaviour
 				{
 					if(swipeHorizontal && deltaX > 0) //Swiped Left
 					{
-
+						m_fallingChimp.Move(FallingChimp.m_moveAmount);
 					}
 
 					else if(swipeHorizontal && deltaX <= 0) //Swiped Right
 					{
-
+						m_fallingChimp.Move(-FallingChimp.m_moveAmount);
 					}
 
 					else if(!swipeHorizontal && deltaY > 0) //Swiped Down

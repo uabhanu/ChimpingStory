@@ -28,7 +28,7 @@ public class ChimpController : MonoBehaviour
 		m_slipTime = 5.15f;
 		m_super = false;
 		m_superTime = 30.25f;
-		m_xPosTime = 0.65f;
+		m_xPosTime = 0.35f;
 	}
 
 	void Start()
@@ -220,11 +220,6 @@ public class ChimpController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D tri2D)
     {
-        if(tri2D.gameObject.tag.Equals("BPortal"))
-        {
-            SceneManager.LoadScene("BananaDestroyer");
-        }
-
         if(tri2D.gameObject.tag.Equals("Fall"))
         {
 			m_soundManager.m_soundsSource.clip = m_soundManager.m_fallDeath;
@@ -239,6 +234,33 @@ public class ChimpController : MonoBehaviour
             CheatDeath();
         }
 
+		if(tri2D.gameObject.tag.Equals("Portal"))
+		{
+			int randomValue = Random.Range(0 , 4);
+			string randomLevel = randomValue.ToString();
+
+			switch(randomLevel)
+			{
+				case "0":
+					SceneManager.LoadScene("WaterSwimmer");
+					//SceneManager.LoadScene("FallingDown");
+				break;
+
+				case "1":
+					SceneManager.LoadScene("WaterSwimmer");
+					//SceneManager.LoadScene("FallingDown");
+				break;
+
+				case "2":
+					SceneManager.LoadScene("FallingDown");
+				break;
+
+				case "3":
+					SceneManager.LoadScene("FallingDown");
+				break;
+			}
+		}
+
         if(tri2D.gameObject.tag.Equals("Skin"))
         {
             Slip();
@@ -248,31 +270,6 @@ public class ChimpController : MonoBehaviour
 		{
 			Super();
 		}
-
-        if(tri2D.gameObject.tag.Equals("Portal"))
-        {
-			int randomValue = Random.Range(0 , 4);
-			string randomLevel = randomValue.ToString();
-
-			switch(randomLevel)
-			{
-				case "0":
-					SceneManager.LoadScene ("WaterSwimmer");
-				break;
-
-				case "1":
-					SceneManager.LoadScene ("WaterSwimmer");
-				break;
-
-				case "2":
-					SceneManager.LoadScene ("FallingDown");
-				break;
-
-				case "3":
-					SceneManager.LoadScene ("FallingDown");
-				break;
-			}
-        }
     }
 
     public void Slide()
