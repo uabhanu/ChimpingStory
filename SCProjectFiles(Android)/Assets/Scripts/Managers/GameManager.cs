@@ -98,6 +98,8 @@ public class GameManager : MonoBehaviour
         m_backToLandLoseMenuImage.enabled = true;
         m_backToLandLose.enabled = true;
 		m_continueButtonImage.enabled = true;
+		m_highScoreTextDisplay.enabled = false;
+		m_highScoreValueDisplay.enabled = false;
         m_pauseButtonImage.enabled = false;
     }
 
@@ -106,6 +108,8 @@ public class GameManager : MonoBehaviour
         m_backToLandWinMenuImage.enabled = true;
         m_backToLandWin.enabled = true;
 		m_continueButtonImage.enabled = true;
+		m_highScoreTextDisplay.enabled = false;
+		m_highScoreValueDisplay.enabled = false;
         m_pauseButtonImage.enabled = false;
     }
 
@@ -145,6 +149,8 @@ public class GameManager : MonoBehaviour
             m_adsMenuImage = GameObject.Find("AdsMenu").GetComponent<Image>();
             m_exitButtonImage = GameObject.Find("ExitButton").GetComponent<Image>();
 			m_chimpController = FindObjectOfType<ChimpController>();
+			m_highScoreTextDisplay = GameObject.Find("HighScoreTextDisplay").GetComponent<Text>();
+			m_highScoreValueDisplay = GameObject.Find("HighScoreValueDisplay").GetComponent<Text>();
 			m_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
 			m_pauseMenuImage = GameObject.Find("PauseMenu").GetComponent<Image>();
             m_restart = GameObject.Find("RestartText").GetComponent<Text>();
@@ -164,6 +170,8 @@ public class GameManager : MonoBehaviour
 			m_backToLandWinMenuImage = GameObject.Find("BackToLandWinMenu").GetComponent<Image>();
 			m_backToLandWin = GameObject.Find("BackToLandWin").GetComponent<Text>();
 			m_continueButtonImage = GameObject.Find("ContinueButton").GetComponent<Image>();
+			m_highScoreTextDisplay = GameObject.Find("HighScoreTextDisplay").GetComponent<Text>();
+			m_highScoreValueDisplay = GameObject.Find("HighScoreValueDisplay").GetComponent<Text>();
 			m_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
 			m_pauseMenuImage = GameObject.Find("PauseMenu").GetComponent<Image>();
 			m_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
@@ -183,6 +191,9 @@ public class GameManager : MonoBehaviour
         {
             m_exitButtonImage.enabled = true;
         }
+
+		m_highScoreTextDisplay.enabled = false;
+		m_highScoreValueDisplay.enabled = false;
         
         if(m_restartButtonImage != null)
         {
@@ -280,14 +291,16 @@ public class GameManager : MonoBehaviour
             AVManager.m_musicSource.Play();
         }
 
-        m_pauseButtonImage.enabled = true;
-
         if(m_exitButtonImage != null)
         {
             m_exitButtonImage.enabled = false;
         }
 
-        m_pauseMenuImage.enabled = false;
+		m_highScoreTextDisplay.enabled = true;
+		m_highScoreValueDisplay.enabled = true;
+
+		m_pauseButtonImage.enabled = true;
+		m_pauseMenuImage.enabled = false;
 
         if(m_restartButtonImage != null)
         {
@@ -295,6 +308,7 @@ public class GameManager : MonoBehaviour
         }
 
         m_resumeButtonImage.enabled = false;
+
 		Time.timeScale = 1;
 	}
 
