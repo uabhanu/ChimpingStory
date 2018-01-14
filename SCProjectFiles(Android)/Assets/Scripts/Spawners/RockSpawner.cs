@@ -5,11 +5,12 @@ public class RockSpawner : MonoBehaviour
 {
 	ChimpController m_chimpController;
 	float m_startUpPosY;
-    int m_rocksSpawnCount = 0;
 	GameObject m_collectedTiles , m_rockPrefab , m_tilePos;
 
 	[SerializeField] float m_spawnTime;
     [SerializeField] [Tooltip("Choose number of rocks you want to spawn, ask Bhanu for more info")] [Range(0 , 50)] int m_maxRocks;
+
+	public static int m_rocksSpawnCount = 0;
 
 	void Reset()
 	{
@@ -33,7 +34,8 @@ public class RockSpawner : MonoBehaviour
 		if(m_rocksSpawnCount < m_maxRocks && m_chimpController.m_super)
 		{
 			GameObject rockObj = Instantiate(m_rockPrefab , transform.position , Quaternion.identity);
-			rockObj.transform.position = new Vector2(transform.position.x , Random.Range(0.86f , 4.44f));
+			rockObj.transform.position = new Vector2(transform.position.x , Random.Range(-0.99f , 4.44f));
+			m_rocksSpawnCount++;
 		}
 
 		StartCoroutine("SpawnRoutine");

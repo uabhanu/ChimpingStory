@@ -191,7 +191,7 @@ public class ChimpController : MonoBehaviour
             return;
         }
 
-        if(!m_jumping && !m_sliding)
+		if(m_grounded && !m_jumping && !m_sliding)
         {
             m_chimpAnim.SetBool("Jump" , true);
             m_chimpBody2D.velocity = new Vector2(m_chimpBody2D.velocity.x , m_jumpHeight);

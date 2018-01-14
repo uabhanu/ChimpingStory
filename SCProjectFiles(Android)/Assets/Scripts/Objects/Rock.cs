@@ -35,6 +35,7 @@ public class Rock : MonoBehaviour
 
 		if(m_positionOnScreen.x < 0)
 		{
+			RockSpawner.m_rocksSpawnCount--;
 			Destroy(gameObject);
 		}
 
@@ -62,6 +63,7 @@ public class Rock : MonoBehaviour
 		{
 			m_explosionSystemObj = Instantiate(m_explosionPrefab);
 			Explosion.m_explosionType = "Rock";
+			RockSpawner.m_rocksSpawnCount--;
 			Destroy(gameObject);
 		}
 	}
