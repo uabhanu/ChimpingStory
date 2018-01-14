@@ -8,12 +8,12 @@ public class GameManager : MonoBehaviour
 {
 	AudioSource m_musicSource;
 	ChimpController m_chimpController;
-	Image m_adsAcceptButtonImage , m_adsCancelButtonImage , m_adsMenuImage , m_backgroundImage , m_backToLandLoseMenuImage , m_backToLandWinMenuImage , m_continueButtonLoseImage;
-    Image m_continueButtonWinImage , m_exitButtonImage , m_pauseButtonImage , m_pauseMenuImage , m_playButtonImage , m_quitButtonImage , m_quitAcceptButtonImage , m_quitCancelButtonImage;
+	Image m_adsAcceptButtonImage , m_adsCancelButtonImage , m_adsMenuImage , m_backgroundImage , m_backToLandLoseMenuImage , m_backToLandWinMenuImage , m_continueButtonImage;
+    Image m_exitButtonImage , m_pauseButtonImage , m_pauseMenuImage , m_playButtonImage , m_quitButtonImage , m_quitAcceptButtonImage , m_quitCancelButtonImage;
     Image m_quitMenuImage , m_restartButtonImage , m_restartAcceptButtonImage , m_restartCancelButtonImage , m_restartMenuImage , m_resumeButtonImage;
 	SoundManager m_soundManager;
     string m_currentScene;
-	Text m_ads , m_backToLandLose , m_backToLandWin , m_quit , m_restart;
+	Text m_ads , m_backToLandLose , m_backToLandWin , m_highScoreTextDisplay , m_highScoreValueDisplay , m_quit , m_restart;
 
 	[SerializeField] bool m_selfieFlashEnabled;
 
@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour
     {
         m_backToLandLoseMenuImage.enabled = true;
         m_backToLandLose.enabled = true;
-        m_continueButtonLoseImage.enabled = true;
+		m_continueButtonImage.enabled = true;
         m_pauseButtonImage.enabled = false;
     }
 
@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour
     {
         m_backToLandWinMenuImage.enabled = true;
         m_backToLandWin.enabled = true;
-        m_continueButtonWinImage.enabled = true;
+		m_continueButtonImage.enabled = true;
         m_pauseButtonImage.enabled = false;
     }
 
@@ -117,16 +117,13 @@ public class GameManager : MonoBehaviour
 		
     public void ExitToMainMenu()
 	{
+		AVManager.m_musicSource.Play();
         SceneManager.LoadScene("MainMenu");
     }
 
     void GetBhanuObjects()
     {
         m_currentScene = SceneManager.GetActiveScene().name;
-        m_musicSource = GetComponent<AudioSource>();
-		m_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
-		m_pauseMenuImage = GameObject.Find("PauseMenu").GetComponent<Image>();
-		m_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
 		m_soundManager = FindObjectOfType<SoundManager>();
 
         if(m_currentScene == "MainMenu")
@@ -148,7 +145,10 @@ public class GameManager : MonoBehaviour
             m_adsMenuImage = GameObject.Find("AdsMenu").GetComponent<Image>();
             m_exitButtonImage = GameObject.Find("ExitButton").GetComponent<Image>();
 			m_chimpController = FindObjectOfType<ChimpController>();
+			m_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
+			m_pauseMenuImage = GameObject.Find("PauseMenu").GetComponent<Image>();
             m_restart = GameObject.Find("RestartText").GetComponent<Text>();
+			m_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
             m_restartButtonImage = GameObject.Find("RestartButton").GetComponent<Image>();
             m_restartAcceptButtonImage = GameObject.Find("RestartAcceptButton").GetComponent<Image>();
             m_restartCancelButtonImage = GameObject.Find("RestartCancelButton").GetComponent<Image>();
@@ -156,6 +156,18 @@ public class GameManager : MonoBehaviour
 			m_selfieButtonImage = GameObject.Find("SelfieButton").GetComponent<Image>();
 			m_selfiePanelImage = GameObject.Find("SelfiePanel").GetComponent<Image>();
         }
+
+		else if(m_currentScene == "FallingDown")
+		{
+			m_backToLandLoseMenuImage = GameObject.Find("BackToLandLoseMenu").GetComponent<Image>();
+			m_backToLandLose = GameObject.Find("BackToLandLose").GetComponent<Text>();
+			m_backToLandWinMenuImage = GameObject.Find("BackToLandWinMenu").GetComponent<Image>();
+			m_backToLandWin = GameObject.Find("BackToLandWin").GetComponent<Text>();
+			m_continueButtonImage = GameObject.Find("ContinueButton").GetComponent<Image>();
+			m_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
+			m_pauseMenuImage = GameObject.Find("PauseMenu").GetComponent<Image>();
+			m_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
+		}
 
 		Time.timeScale = 1;
     }
@@ -180,7 +192,12 @@ public class GameManager : MonoBehaviour
 		m_pauseButtonImage.enabled = false;
 		m_pauseMenuImage.enabled = true;
 		m_resumeButtonImage.enabled = true;
-		m_selfieButtonImage.enabled = false;
+
+		if(m_selfiePanelImage != null)
+		{
+			m_selfieButtonImage.enabled = false;	
+		}
+
 		Time.timeScale = 0;
 	}
 

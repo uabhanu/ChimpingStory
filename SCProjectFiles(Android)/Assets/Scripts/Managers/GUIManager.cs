@@ -9,7 +9,7 @@ public class GUIManager : MonoBehaviour
 	bool[] usedMissionNotifications = new bool[]{false , false , false};
 	bool canPause = true , inPlayMode = false;
 	float m_landRunnerTime = 30f;
-    Image m_backToLandLoseMenuImage , m_backToLandWinMenuImage , m_continueButtonLoseImage , m_continueButtonWinImage , m_pauseButtonImage , m_pauseMenuImage , m_resumeButtonImage;
+	Image m_backToLandLoseMenuImage , m_backToLandWinMenuImage , m_continueButtonImage , m_pauseButtonImage , m_pauseMenuImage , m_resumeButtonImage;
 	int collectedCoins = 0 , distanceTraveled = 0;
     Text m_backToLandLose , m_backToLandWin , m_highScoreTextDisplay , m_highScoreValueDisplay;
 
@@ -33,7 +33,7 @@ public class GUIManager : MonoBehaviour
     {
         m_backToLandLose.enabled = true;
         m_backToLandLoseMenuImage.enabled = true;
-        m_continueButtonLoseImage.enabled = true;
+        m_continueButtonImage.enabled = true;
 
         m_highScoreTextDisplay.enabled = false;
         m_highScoreValueDisplay.enabled = false;
@@ -45,7 +45,7 @@ public class GUIManager : MonoBehaviour
     {
 		m_backToLandWin.enabled = true;
 		m_backToLandWinMenuImage.enabled = true;
-		m_continueButtonWinImage.enabled = true;
+		m_continueButtonImage.enabled = true;
 
 		m_highScoreTextDisplay.enabled = false;
 		m_highScoreValueDisplay.enabled = false;
@@ -63,10 +63,9 @@ public class GUIManager : MonoBehaviour
     {
         m_backToLandLose = GameObject.Find("BackToLandLose").GetComponent<Text>();
         m_backToLandLoseMenuImage = GameObject.Find("BackToLandLoseMenu").GetComponent<Image>();
-        m_continueButtonLoseImage = GameObject.Find("ContinueButtonLose").GetComponent<Image>();
+		m_continueButtonImage = GameObject.Find("ContinueButton").GetComponent<Image>();
         m_backToLandWin = GameObject.Find("BackToLandWin").GetComponent<Text>();
         m_backToLandWinMenuImage = GameObject.Find("BackToLandWinMenu").GetComponent<Image>();
-        m_continueButtonWinImage = GameObject.Find("ContinueButtonWin").GetComponent<Image>();
         m_highScoreTextDisplay = GameObject.Find("HighScoreTextDisplay").GetComponent<Text>();
         m_highScoreValueDisplay = GameObject.Find("HighScoreValueDisplay").GetComponent<Text>();
         m_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
