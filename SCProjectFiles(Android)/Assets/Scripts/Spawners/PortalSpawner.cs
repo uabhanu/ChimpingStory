@@ -11,7 +11,7 @@ public class PortalSpawner : MonoBehaviour
 
 	void Reset()
 	{
-        m_spawnTime = 12.5f;
+        m_spawnTime = 16.5f;
 	}
 
 	void Start()

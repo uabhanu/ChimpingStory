@@ -241,17 +241,12 @@ public class ChimpController : MonoBehaviour
 
 			switch(randomLevel)
 			{
-				//TODO Case 0 & 1 shoud go to WaterSwimmer which should be the final version
 				case "0":
-					//SceneManager.LoadScene("WaterSwimmer");
-					Screen.orientation = ScreenOrientation.Portrait;
-					SceneManager.LoadScene("FallingDown");
+                    SceneManager.LoadScene("WaterSwimmer");
 				break;
 
 				case "1":
-					//SceneManager.LoadScene("WaterSwimmer");
-					Screen.orientation = ScreenOrientation.Portrait;
-					SceneManager.LoadScene("FallingDown");
+					SceneManager.LoadScene("WaterSwimmer");
 				break;
 
 				case "2":

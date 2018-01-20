@@ -5,9 +5,10 @@ public class Super : MonoBehaviour
 	BoxCollider2D m_superCollider2D;
 	Camera m_mainCamera;
 	ChimpController m_chimpController;
+    float m_maxY , m_minY;
 	GameObject m_explosionPrefab , m_explosionSystemObj;
-	LevelCreator m_levelCreator;
-	Rigidbody2D m_superBody2D;
+    int m_direction = 1;
+    LevelCreator m_levelCreator;
 	SoundManager m_soundManager;
 	SpriteRenderer m_superRenderer;
 	Vector3 m_positionOnScreen;
@@ -19,8 +20,9 @@ public class Super : MonoBehaviour
 		m_explosionSystemObj = GameObject.FindGameObjectWithTag("Explosion");
 		m_levelCreator = FindObjectOfType<LevelCreator>();
 		m_mainCamera = FindObjectOfType<Camera>();
-		m_soundManager = FindObjectOfType<SoundManager>();
-		m_superBody2D = GetComponent<Rigidbody2D>();
+        m_maxY = transform.position.y + 2.1f;
+        m_minY = m_maxY - 2.1f;
+        m_soundManager = FindObjectOfType<SoundManager>();
 		m_superCollider2D = GetComponent<BoxCollider2D>();	
 		m_superRenderer = GetComponent<SpriteRenderer>();
 	}
@@ -32,13 +34,24 @@ public class Super : MonoBehaviour
             return;
         }
 
+        transform.position = new Vector2(transform.position.x , transform.position.y + (m_direction * 0.02f));
+
+        if(transform.position.y > m_maxY)
+        {
+            m_direction = -1;
+        }
+
+        if(transform.position.y < m_minY)
+        {
+            m_direction = 1;
+        }
+
         if(m_chimpController.m_slip || m_chimpController.m_super)
         {
             m_superCollider2D.enabled = false;
             m_superRenderer.enabled = false;
         }
 
-		//m_superBody2D.velocity = new Vector2(-m_levelCreator.m_gameSpeed , m_superBody2D.velocity.y);
 		m_positionOnScreen = m_mainCamera.WorldToScreenPoint(transform.position);
 
         if(m_chimpController.m_slip && m_chimpController.m_super && m_positionOnScreen.x >= 1)
