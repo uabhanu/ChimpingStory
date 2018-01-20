@@ -38,7 +38,7 @@ public class Super : MonoBehaviour
             m_superRenderer.enabled = false;
         }
 
-		m_superBody2D.velocity = new Vector2(-m_levelCreator.m_gameSpeed , m_superBody2D.velocity.y);
+		//m_superBody2D.velocity = new Vector2(-m_levelCreator.m_gameSpeed , m_superBody2D.velocity.y);
 		m_positionOnScreen = m_mainCamera.WorldToScreenPoint(transform.position);
 
         if(m_chimpController.m_slip && m_chimpController.m_super && m_positionOnScreen.x >= 1)
