@@ -3,11 +3,13 @@ using UnityEngine;
 
 public class TopDownClouds : MonoBehaviour 
 {
-	float m_landRunnerTime = 30f , m_moveUpSpeed = 1.5f;
+	float m_landRunnerTime = 30f;
 	GameManager m_gameManager;
 	Rigidbody2D m_cloudsBody2D;
 
-	void Start() 
+    [HideInInspector] public float m_moveUpSpeed = 7.5f;
+
+    void Start() 
 	{
 		m_cloudsBody2D = GetComponent<Rigidbody2D>();
 		m_gameManager = FindObjectOfType<GameManager>();

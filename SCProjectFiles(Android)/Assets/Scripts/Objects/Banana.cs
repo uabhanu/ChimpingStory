@@ -5,7 +5,6 @@ public class Banana : MonoBehaviour
     BoxCollider2D m_bananaCollider2D;
 	Camera m_mainCamera;
 	ChimpController m_chimpController;
-    float m_startPos;
     LevelCreator m_levelCreationScript;
 	SoundManager m_soundManager;
 	SpriteRenderer m_bananaRenderer;
@@ -19,7 +18,6 @@ public class Banana : MonoBehaviour
         m_mainCamera = FindObjectOfType<Camera>();
 		m_levelCreationScript = FindObjectOfType<LevelCreator>();
         m_soundManager = FindObjectOfType<SoundManager>();
-        m_startPos = transform.position.x;
     }
 
     void Update() 
