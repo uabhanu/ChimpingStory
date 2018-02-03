@@ -229,7 +229,7 @@ public class ChimpController : MonoBehaviour
 
         if(tri2D.gameObject.tag.Equals("Hurdle"))
         {
-			m_soundManager.m_soundsSource.clip = m_soundManager.m_enemyDeath;
+			m_soundManager.m_soundsSource.clip = m_soundManager.m_hurdleDeath;
 			m_soundManager.m_soundsSource.Play();
             CheatDeath();
         }

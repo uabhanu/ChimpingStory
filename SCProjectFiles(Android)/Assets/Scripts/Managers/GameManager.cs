@@ -101,6 +101,7 @@ public class GameManager : MonoBehaviour
 		m_highScoreTextDisplay.enabled = false;
 		m_highScoreValueDisplay.enabled = false;
         m_pauseButtonImage.enabled = false;
+        Time.timeScale = 0;
     }
 
     public void BackToLandWinMenu()
@@ -111,6 +112,7 @@ public class GameManager : MonoBehaviour
 		m_highScoreTextDisplay.enabled = false;
 		m_highScoreValueDisplay.enabled = false;
         m_pauseButtonImage.enabled = false;
+        Time.timeScale = 0;
     }
 
     public void Continue()
