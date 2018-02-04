@@ -26,16 +26,19 @@ public class BananasSpawner : MonoBehaviour
 
     IEnumerator SpawnRoutine()
     {
-		m_spawnTime = Random.Range(0.5f , 1.6f);
-
         yield return new WaitForSeconds(m_spawnTime);
 
         if(m_bananasCount < m_maxBananas)
         {
             GameObject bananas = Instantiate(m_bananasPrefabs[Random.Range(0 , m_bananasPrefabs.Length)] , transform.position , Quaternion.identity);
             bananas.transform.parent = m_collectedTiles.transform.Find("Bananas").transform;
-            bananas.transform.position = new Vector2(transform.position.x + Random.Range(2 , 5) , bananas.transform.position.y + Random.Range(-0.5f , 0.05f));
+            bananas.transform.position = new Vector2(transform.position.x + 2f , bananas.transform.position.y - 0.5f);
             m_bananasCount++;
+            
+            if(m_spawnTime == 0.5f)
+            {
+                m_spawnTime += 3;
+            }
         }
 
         StartCoroutine("SpawnRoutine");

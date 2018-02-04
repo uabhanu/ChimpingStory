@@ -26,7 +26,7 @@ public class SpikesBall : MonoBehaviour
 
         if(transform.position.y >= 5.68f)
         {
-            transform.position = new Vector2(Random.Range(-8 , 8) , m_startPosY);
+            transform.position = new Vector2(Random.Range(-2.4f , 2.5f) , m_startPosY);
         }
     }
 
@@ -36,7 +36,7 @@ public class SpikesBall : MonoBehaviour
         {
             m_soundManager.m_soundsSource.clip = m_soundManager.m_spikesBallDeath;
             m_soundManager.m_soundsSource.Play();
-            transform.position = new Vector2(Random.Range(-8 , 8) , m_startPosY);
+            transform.position = new Vector2(Random.Range(-2.4f , 2.5f) , m_startPosY);
         }
     }
 }
