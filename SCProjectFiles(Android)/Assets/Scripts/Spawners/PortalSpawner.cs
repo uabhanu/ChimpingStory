@@ -4,10 +4,13 @@ using UnityEngine;
 public class PortalSpawner : MonoBehaviour
 {
 	ChimpController m_chimpController;
-	GameObject m_collectedTiles , m_portalObj;
+    const float m_tileWidth = 1.25f;
+    float m_startUpPosY;
+	GameObject m_collectedTiles , m_gameLayer , m_portalObj;
+    int m_heightLevel = 0;
 
 	[SerializeField] float m_spawnTime;
-    [SerializeField] GameObject m_portalPrefab;
+    [SerializeField] GameObject m_portalPrefab , m_tilePos;
 
 	void Reset()
 	{
@@ -17,8 +20,10 @@ public class PortalSpawner : MonoBehaviour
 	void Start()
 	{
 		m_chimpController = FindObjectOfType<ChimpController>();
+        m_gameLayer = GameObject.Find("GameLayer");
 		m_portalObj = GameObject.FindGameObjectWithTag("Super");
 		m_collectedTiles = GameObject.Find("Tiles");
+        m_startUpPosY = m_tilePos.transform.position.y;
 		StartCoroutine("SpawnRoutine");
 	}
 
@@ -26,11 +31,16 @@ public class PortalSpawner : MonoBehaviour
 	{
 		yield return new WaitForSeconds(m_spawnTime);
 
-		if(m_portalObj == null && !m_chimpController.m_super)
+		m_portalObj = Instantiate(m_portalPrefab , transform.position , Quaternion.identity);
+		m_portalObj.transform.parent = m_gameLayer.transform;
+
+		if(m_tilePos != null) 
 		{
-			m_portalObj = Instantiate(m_portalPrefab , transform.position , Quaternion.identity);
-			m_portalObj.transform.parent = m_collectedTiles.transform.Find("Portal").transform;
-			m_portalObj.transform.position = new Vector2(transform.position.x , m_portalObj.transform.position.y + Random.Range(0.5f , 1.1f));
+			m_portalObj.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 2f)));	
+		} 
+		else 
+		{
+			Debug.LogWarning("Sir Bhanu, I don't think Super Object exists anymore");
 		}
 
 		StartCoroutine("SpawnRoutine");

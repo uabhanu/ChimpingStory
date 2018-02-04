@@ -23,6 +23,7 @@ public class SuperSpawner : MonoBehaviour
 		m_superObj = GameObject.FindGameObjectWithTag("Super");
 		m_collectedTiles = GameObject.Find("Tiles");
 		m_gameLayer = GameObject.Find("GameLayer");
+        m_startUpPosY = m_tilePos.transform.position.y;
 		StartCoroutine("SpawnRoutine");
 	}
 

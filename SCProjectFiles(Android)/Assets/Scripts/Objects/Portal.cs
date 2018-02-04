@@ -33,7 +33,6 @@ public class Portal : MonoBehaviour
             m_portalRenderer.enabled = false;
         }
 
-		m_portalBody2D.velocity = new Vector2(-m_levelCreator.m_gameSpeed , m_portalBody2D.velocity.y);
 		m_positionOnScreen = m_mainCamera.WorldToScreenPoint(transform.position);
 
         if(m_chimpController.m_slip && m_chimpController.m_super && m_positionOnScreen.x >= 1)
