@@ -37,7 +37,7 @@ public class BananasSpawner : MonoBehaviour
             
             if(m_spawnTime == 0.5f)
             {
-                m_spawnTime += 3;
+                m_spawnTime += 5.5f;
             }
         }
 

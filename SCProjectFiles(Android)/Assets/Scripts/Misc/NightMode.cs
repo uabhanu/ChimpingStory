@@ -19,10 +19,7 @@ public class NightMode : MonoBehaviour
     void Start()
     {
         m_spriteRenderer = GetComponent<SpriteRenderer>();
-    }
 
-    void Update()
-    {
         m_dateAndTime = DateTime.Now;
 
         if(m_dateAndTime.Hour >= m_hour)
@@ -30,5 +27,24 @@ public class NightMode : MonoBehaviour
             m_spriteRenderer.sprite = m_nightSprite;
             m_nightMode = true;   
         }
+
+        StartCoroutine("NightRoutine");
+    }
+
+    IEnumerator NightRoutine()
+    {
+        Debug.Log("Night Mode");
+
+        m_dateAndTime = DateTime.Now;
+
+        yield return new WaitForSeconds(2.2f);
+        
+        if(m_dateAndTime.Hour >= m_hour)
+        {
+            m_spriteRenderer.sprite = m_nightSprite;
+            m_nightMode = true;   
+        }
+
+        StartCoroutine("NightRoutine");
     }
 }
