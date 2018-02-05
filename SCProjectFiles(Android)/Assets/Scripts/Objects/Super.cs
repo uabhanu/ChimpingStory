@@ -71,10 +71,11 @@ public class Super : MonoBehaviour
 		if(tri2D.gameObject.tag.Equals("Player"))
 		{
             ScoreManager.m_supersCount--;
+            BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
+            ScoreManager.m_scoreDisplay.text = ScoreManager.m_scoreValue.ToString();
 			m_soundManager.m_soundsSource.clip = m_soundManager.m_superCollected;
 			m_soundManager.m_soundsSource.Play();
 			SpawnExplosion();
-            BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
 			SpawnExplosion();
             Destroy(gameObject);
         }

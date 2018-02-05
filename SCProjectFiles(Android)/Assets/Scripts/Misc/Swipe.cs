@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Swipe : MonoBehaviour 
 {
@@ -8,9 +7,9 @@ public class Swipe : MonoBehaviour
 
 	[SerializeField] ChimpController m_chimpControlScript;
 	[SerializeField] FallingChimp m_fallingChimp;
+    [SerializeField] float m_swipeValue;
     [SerializeField] Rigidbody2D m_chimpBody2D;
 
-    [SerializeField] float m_swipeValue;
 
 	void Update() 
 	{

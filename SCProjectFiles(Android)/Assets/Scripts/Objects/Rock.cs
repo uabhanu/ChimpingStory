@@ -58,6 +58,7 @@ public class Rock : MonoBehaviour
 	{
 		ScoreManager.m_scoreValue += 100;
 		BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
+        ScoreManager.m_scoreDisplay.text = ScoreManager.m_scoreValue.ToString();
 
 		if(m_explosionSystemObj == null)
 		{
