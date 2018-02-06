@@ -22,7 +22,7 @@ public class ChimpController : MonoBehaviour
 	void Reset()
 	{
 		m_jumpHeight = 15.5f;
-        m_jumpingTime = 0.75f;
+        m_jumpingTime = 0.55f;
 		m_slideTime = 0.75f;
 		m_slip = false;
 		m_slipTime = 5.15f;
@@ -56,13 +56,7 @@ public class ChimpController : MonoBehaviour
         }
 
         Grounded();
-
-		if(!m_grounded && !m_super)
-		{
-			m_chimpBody2D.gravityScale = m_defaultGravityScale;
-			m_chimpCollider2D.enabled = true;
-		}
-			
+	
         #if UNITY_EDITOR_64 || UNITY_STANDALONE_WIN
 
             if(Input.GetMouseButtonDown(0))
@@ -76,14 +70,13 @@ public class ChimpController : MonoBehaviour
 		    }
 
         #endif
-
-        m_chimpAnim.SetBool("Jog" , m_grounded);
-        m_chimpAnim.SetBool("Jump" , !m_grounded);
     }
 
     IEnumerator JumpingRoutine()
     {
         yield return new WaitForSeconds(m_jumpingTime);
+
+        m_chimpAnim.SetBool("Jump" , false);
 
 		if(!m_super)
 		{
@@ -145,38 +138,29 @@ public class ChimpController : MonoBehaviour
 
     void Grounded()
     {
-        //GC Alloc is caused by this method only
-
-        if(m_super)
+        if(!m_super)
         {
-            //Debug.Log("Not Grounded");
-            m_grounded = false;
-            return;
-        }
-        else
-        {
-            //Debug.Log("Grounded");
-            Debug.DrawLine(new Vector2(transform.position.x , transform.position.y - 0.7f) , new Vector2(transform.position.x , transform.position.y - 0.95f) , Color.green);
+            //Debug.DrawLine(new Vector2(transform.position.x , transform.position.y - 0.7f) , new Vector2(transform.position.x , transform.position.y - 0.95f) , Color.green);
             RaycastHit2D hit2D = Physics2D.Raycast(new Vector2(transform.position.x , transform.position.y - 0.7f) , new Vector2(transform.position.x , transform.position.y - 0.95f));
 
             if(hit2D)
             {
                 if(hit2D.collider.tag.Equals("Ground"))
                 {
-                    //Debug.Log(hit2D.collider.name);
-                    Debug.Log("Grounded");
+                    //Debug.Log("Grounded");
+                    m_chimpAnim.SetBool("Jog" , true);
                     m_grounded = true;
                 }
                 else
                 {
-                    Debug.Log("Not Grounded");
+                    //Debug.Log("Not Grounded because fell in the hole");
                     m_grounded = false;
                 }
             }
 
             else if(!hit2D)
             {
-                Debug.Log("Not Grounded");
+                //Debug.Log("Not Grounded because Jumped");
                 m_grounded = false;
             }
         }
