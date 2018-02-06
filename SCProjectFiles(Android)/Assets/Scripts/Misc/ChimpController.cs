@@ -122,6 +122,7 @@ public class ChimpController : MonoBehaviour
 		GameManager.m_selfieButtonImage.enabled = false;
 		m_jumpHeight = m_defaultJumpHeight;
 		m_isSuper = false;	
+        m_levelCreator.m_middleCounter = 0f;
 	}
 
 	IEnumerator XPosRoutine()
@@ -141,6 +142,8 @@ public class ChimpController : MonoBehaviour
         if(!m_isSuper)
         {
             //Debug.DrawLine(new Vector2(transform.position.x , transform.position.y - 0.7f) , new Vector2(transform.position.x , transform.position.y - 0.95f) , Color.green);
+            
+            //TODO if GC Alloc 38B still persists, look into Unallocated boxcast and use that, after all other GC Allocs have been resolved
             RaycastHit2D hit2D = Physics2D.Raycast(m_raycastOrigin.position , -Vector2.down);
 
             if(hit2D)
@@ -286,6 +289,7 @@ public class ChimpController : MonoBehaviour
         m_chimpBody2D.gravityScale /= 2.5f;
 		GameManager.m_selfieButtonImage.enabled = true;
         m_levelCreator.m_gameSpeed = 6.0f;
+        m_levelCreator.m_middleCounter = 5.5f;
 		m_isSuper = true;
 		StartCoroutine("SuperRoutine");
 	}

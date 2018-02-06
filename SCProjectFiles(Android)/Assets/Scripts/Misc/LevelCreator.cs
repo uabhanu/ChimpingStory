@@ -7,11 +7,12 @@ public class LevelCreator : MonoBehaviour
     bool m_collectibleAdded , m_enemyAdded;
     ChimpController m_chimpController;
     const float m_tileWidth = 1.25f;
-    float m_blankCounter = 0 , m_middleCounter = 0 , m_outofbounceX , m_outOfBounceY , m_startTime , m_startUpPosY;
+    float m_blankCounter = 0 , m_outofbounceX , m_outOfBounceY , m_startTime , m_startUpPosY;
     GameObject m_bgLayer , m_chimp , m_collectedTiles , m_gameLayer ,  m_tmpTile;
 	int m_heightLevel = 0;
 	string m_lastTile = "PF_GroundRight";
 
+    [HideInInspector] public float m_middleCounter = 0;
     [SerializeField] [Tooltip("This is number of seconds before gameSpeed increase")] [Range(0.0f , 50.0f)] float m_gameSpeedTime;
 
     public float m_gameSpeed;
@@ -70,76 +71,31 @@ public class LevelCreator : MonoBehaviour
         StartCoroutine("GameSpeedRoutine");
     }
 
-	void FixedUpdate() 
-	{
-        if(Time.timeScale == 0)
-        {
-            return;
-        }
-
-        m_gameLayer.transform.position = new Vector2 (m_gameLayer.transform.position.x - m_gameSpeed * Time.deltaTime , 0);
-
-		foreach(Transform child in m_gameLayer.transform)
-        {
-			if(child.position.x < m_outofbounceX)
-            {
-				switch(child.gameObject.name)
-                {
-                    case "PF_BananaSkin(Clone)":
-                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Skin").transform.position;
-                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Skin").transform;
-                    break;
-
-                    case "PF_Blank(Clone)":
-					    child.gameObject.transform.position = m_collectedTiles.transform.Find("gBlank").transform.position;
-					    child.gameObject.transform.parent = m_collectedTiles.transform.Find("gBlank").transform;
-				    break;
-
-				    case "PF_GroundLeft(Clone)":
-					    child.gameObject.transform.position = m_collectedTiles.transform.Find("gLeft").transform.position;
-					    child.gameObject.transform.parent = m_collectedTiles.transform.Find("gLeft").transform;
-				    break;
-
-				    case "PF_GroundMiddle(Clone)":
-					    child.gameObject.transform.position = m_collectedTiles.transform.Find("gMiddle").transform.position;
-					    child.gameObject.transform.parent = m_collectedTiles.transform.Find("gMiddle").transform;
-				    break;
-
-				    case "PF_GroundRight(Clone)":
-					    child.gameObject.transform.position = m_collectedTiles.transform.Find("gRight").transform.position;
-					    child.gameObject.transform.parent = m_collectedTiles.transform.Find("gRight").transform;
-				    break;
-
-                    case "PF_Hurdle(Clone)":
-                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Hurdle").transform.position;
-                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Hurdle").transform;
-                    break;
-
-                    default:
-					    Destroy(child.gameObject);
-				    break;
-				}
-			}
-		}
-
-        if(m_gameLayer.transform.childCount < 25)
-        {
-            SpawnTile();
-        }
-	}
-
-    void Update()
+	void FixedUpdate()
     {
         if(Time.timeScale == 0)
         {
             return;
         }
 
-        if(m_chimpController.m_isSuper)
+        if(!m_chimpController.m_isSuper)
         {
-            m_middleCounter = 5.5f;
+            LevelGeneration();
         }
     }
+
+    //void Update()
+    //{
+    //    if(Time.timeScale == 0)
+    //    {
+    //        return;
+    //    }
+
+    //    if(m_chimpController.m_isSuper)
+    //    {
+    //        m_middleCounter = 5.5f;
+    //    }
+    //}
 
     IEnumerator GameSpeedRoutine()
     {
@@ -177,6 +133,59 @@ public class LevelCreator : MonoBehaviour
 
 		SetTile("PF_GroundRight");
 	}
+
+    void LevelGeneration()
+    {
+        m_gameLayer.transform.position = new Vector2(m_gameLayer.transform.position.x - m_gameSpeed * Time.deltaTime, 0);
+
+        foreach(Transform child in m_gameLayer.transform)
+        {
+            if(child.position.x < m_outofbounceX)
+            {
+                switch(child.gameObject.name)
+                {
+                    case "PF_BananaSkin(Clone)":
+                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Skin").transform.position;
+                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Skin").transform;
+                    break;
+
+                    case "PF_Blank(Clone)":
+                        child.gameObject.transform.position = m_collectedTiles.transform.Find("gBlank").transform.position;
+                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("gBlank").transform;
+                    break;
+
+                    case "PF_GroundLeft(Clone)":
+                        child.gameObject.transform.position = m_collectedTiles.transform.Find("gLeft").transform.position;
+                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("gLeft").transform;
+                    break;
+
+                    case "PF_GroundMiddle(Clone)":
+                        child.gameObject.transform.position = m_collectedTiles.transform.Find("gMiddle").transform.position;
+                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("gMiddle").transform;
+                    break;
+
+                    case "PF_GroundRight(Clone)":
+                        child.gameObject.transform.position = m_collectedTiles.transform.Find("gRight").transform.position;
+                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("gRight").transform;
+                    break;
+
+                    case "PF_Hurdle(Clone)":
+                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Hurdle").transform.position;
+                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Hurdle").transform;
+                    break;
+
+                    default:
+                        Destroy(child.gameObject);
+                    break;
+                }
+            }
+        }
+
+        if(m_gameLayer.transform.childCount < 25)
+        {
+            SpawnTile();
+        }
+    }
 
     void RandomizeEnemy()
     {

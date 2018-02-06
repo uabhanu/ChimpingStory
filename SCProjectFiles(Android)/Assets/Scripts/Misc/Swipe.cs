@@ -18,8 +18,12 @@ public class Swipe : MonoBehaviour
 			return;
 		}
 
-		foreach(Touch t in Input.touches)
+        #if UNITY_ANDROID || UNITY_IPHONE
+
+        foreach(Touch t in Input.touches)
 		{
+            Debug.Log("Swipe Logic");
+
 			if(t.phase == TouchPhase.Began)
 			{
 				m_initialTouch = t;
@@ -36,11 +40,13 @@ public class Swipe : MonoBehaviour
 				{
 					if(swipeHorizontal && deltaX > 0) //Swiped Left
 					{
+                        Debug.Log("Swipe Left");
 						m_fallingChimp.Move(-FallingChimp.m_moveAmount);
 					}
 
 					else if(swipeHorizontal && deltaX <= 0) //Swiped Right
 					{
+                        Debug.Log("Swipe Right");
 						m_fallingChimp.Move(FallingChimp.m_moveAmount);
 					}
 
@@ -60,8 +66,11 @@ public class Swipe : MonoBehaviour
 
 			else if(t.phase == TouchPhase.Ended)
 			{
+                Debug.Log("No Swipe");
 				m_initialTouch = new Touch();
 			}
 		}
+
+        #endif
 	}
 }
