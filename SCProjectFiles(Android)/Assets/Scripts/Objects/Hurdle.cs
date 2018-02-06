@@ -25,13 +25,12 @@ public class Hurdle : MonoBehaviour
 
         m_positionOnScreen = m_mainCamera.WorldToScreenPoint(transform.position);
 
-        if(m_chimpController.m_isSuper)
+        if(m_chimpController.m_isSlipping || m_chimpController.m_isSuper)
         {
             m_hurdleCollider2D.enabled = false;
             m_hurdleRenderer.enabled = false;
         }
-
-        if(!m_chimpController.m_isSuper)
+        else
         {
             if(m_positionOnScreen.x > 1)
             {

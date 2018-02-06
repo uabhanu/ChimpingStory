@@ -339,4 +339,22 @@ public class GameManager : MonoBehaviour
 		BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
         ScoreManager.m_scoreDisplay.text = ScoreManager.m_scoreValue.ToString();
 	}
+
+    void UIOffForTesting()
+    {
+        Image[] m_images = FindObjectsOfType<Image>();
+        Text[] m_texts = FindObjectsOfType<Text>();
+
+        foreach(Image image in m_images)
+        {
+            image.enabled = false;
+        }
+
+        foreach(Text text in m_texts)
+        {
+            text.enabled = false;
+        }
+
+        //GC Alloc still 384B
+    }
 }

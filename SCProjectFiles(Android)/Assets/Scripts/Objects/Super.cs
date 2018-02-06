@@ -72,7 +72,6 @@ public class Super : MonoBehaviour
 		{
             ScoreManager.m_supersCount--;
             BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
-            ScoreManager.m_scoreDisplay.text = ScoreManager.m_scoreValue.ToString();
 			m_soundManager.m_soundsSource.clip = m_soundManager.m_superCollected;
 			m_soundManager.m_soundsSource.Play();
 			SpawnExplosion();

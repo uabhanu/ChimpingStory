@@ -78,24 +78,8 @@ public class LevelCreator : MonoBehaviour
             return;
         }
 
-        if(!m_chimpController.m_isSuper)
-        {
-            LevelGeneration();
-        }
+        LevelGeneration();
     }
-
-    //void Update()
-    //{
-    //    if(Time.timeScale == 0)
-    //    {
-    //        return;
-    //    }
-
-    //    if(m_chimpController.m_isSuper)
-    //    {
-    //        m_middleCounter = 5.5f;
-    //    }
-    //}
 
     IEnumerator GameSpeedRoutine()
     {
@@ -136,54 +120,59 @@ public class LevelCreator : MonoBehaviour
 
     void LevelGeneration()
     {
-        m_gameLayer.transform.position = new Vector2(m_gameLayer.transform.position.x - m_gameSpeed * Time.deltaTime, 0);
+        //TODO m_middleCounter = 5.5f may be needed later but fine for now
 
-        foreach(Transform child in m_gameLayer.transform)
+        if(!m_chimpController.m_isSuper)
         {
-            if(child.position.x < m_outofbounceX)
+            m_gameLayer.transform.position = new Vector2(m_gameLayer.transform.position.x - m_gameSpeed * Time.deltaTime , 0);
+
+            foreach(Transform child in m_gameLayer.transform)
             {
-                switch(child.gameObject.name)
+                if(child.position.x < m_outofbounceX)
                 {
-                    case "PF_BananaSkin(Clone)":
-                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Skin").transform.position;
-                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Skin").transform;
-                    break;
+                    switch(child.gameObject.name)
+                    {
+                        case "PF_BananaSkin(Clone)":
+                            child.gameObject.transform.position = m_collectedTiles.transform.Find("Skin").transform.position;
+                            child.gameObject.transform.parent = m_collectedTiles.transform.Find("Skin").transform;
+                        break;
 
-                    case "PF_Blank(Clone)":
-                        child.gameObject.transform.position = m_collectedTiles.transform.Find("gBlank").transform.position;
-                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("gBlank").transform;
-                    break;
+                        case "PF_Blank(Clone)":
+                            child.gameObject.transform.position = m_collectedTiles.transform.Find("gBlank").transform.position;
+                            child.gameObject.transform.parent = m_collectedTiles.transform.Find("gBlank").transform;
+                        break;
 
-                    case "PF_GroundLeft(Clone)":
-                        child.gameObject.transform.position = m_collectedTiles.transform.Find("gLeft").transform.position;
-                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("gLeft").transform;
-                    break;
+                        case "PF_GroundLeft(Clone)":
+                            child.gameObject.transform.position = m_collectedTiles.transform.Find("gLeft").transform.position;
+                            child.gameObject.transform.parent = m_collectedTiles.transform.Find("gLeft").transform;
+                        break;
 
-                    case "PF_GroundMiddle(Clone)":
-                        child.gameObject.transform.position = m_collectedTiles.transform.Find("gMiddle").transform.position;
-                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("gMiddle").transform;
-                    break;
+                        case "PF_GroundMiddle(Clone)":
+                            child.gameObject.transform.position = m_collectedTiles.transform.Find("gMiddle").transform.position;
+                            child.gameObject.transform.parent = m_collectedTiles.transform.Find("gMiddle").transform;
+                        break;
 
-                    case "PF_GroundRight(Clone)":
-                        child.gameObject.transform.position = m_collectedTiles.transform.Find("gRight").transform.position;
-                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("gRight").transform;
-                    break;
+                        case "PF_GroundRight(Clone)":
+                            child.gameObject.transform.position = m_collectedTiles.transform.Find("gRight").transform.position;
+                            child.gameObject.transform.parent = m_collectedTiles.transform.Find("gRight").transform;
+                        break;
 
-                    case "PF_Hurdle(Clone)":
-                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Hurdle").transform.position;
-                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Hurdle").transform;
-                    break;
+                        case "PF_Hurdle(Clone)":
+                            child.gameObject.transform.position = m_collectedTiles.transform.Find("Hurdle").transform.position;
+                            child.gameObject.transform.parent = m_collectedTiles.transform.Find("Hurdle").transform;
+                        break;
 
-                    default:
-                        Destroy(child.gameObject);
-                    break;
+                        default:
+                            Destroy(child.gameObject);
+                        break;
+                    }
                 }
             }
-        }
 
-        if(m_gameLayer.transform.childCount < 25)
-        {
-            SpawnTile();
+            if(m_gameLayer.transform.childCount < 25)
+            {
+                SpawnTile();
+            }
         }
     }
 

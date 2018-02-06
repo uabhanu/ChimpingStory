@@ -122,7 +122,6 @@ public class ChimpController : MonoBehaviour
 		GameManager.m_selfieButtonImage.enabled = false;
 		m_jumpHeight = m_defaultJumpHeight;
 		m_isSuper = false;	
-        m_levelCreator.m_middleCounter = 0f;
 	}
 
 	IEnumerator XPosRoutine()
@@ -289,7 +288,6 @@ public class ChimpController : MonoBehaviour
         m_chimpBody2D.gravityScale /= 2.5f;
 		GameManager.m_selfieButtonImage.enabled = true;
         m_levelCreator.m_gameSpeed = 6.0f;
-        m_levelCreator.m_middleCounter = 5.5f;
 		m_isSuper = true;
 		StartCoroutine("SuperRoutine");
 	}

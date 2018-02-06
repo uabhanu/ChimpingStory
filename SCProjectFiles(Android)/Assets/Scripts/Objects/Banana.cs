@@ -43,16 +43,14 @@ public class Banana : MonoBehaviour
             if(m_chimpController.m_isSlipping)
             {
                 ScoreManager.m_scoreValue += 15;
-                BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
-                ScoreManager.m_scoreDisplay.text = ScoreManager.m_scoreValue.ToString();
             }
             else
             {
                 ScoreManager.m_scoreValue += 5;
-                BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
-                ScoreManager.m_scoreDisplay.text = ScoreManager.m_scoreValue.ToString();
             }
-				
+
+            BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
+			ScoreManager.m_scoreDisplay.text = ScoreManager.m_scoreValue.ToString();
 			m_soundManager.m_soundsSource.clip = m_soundManager.m_bananaCollected;
 			m_soundManager.m_soundsSource.Play();
             m_bananaCollider2D.enabled = false;
