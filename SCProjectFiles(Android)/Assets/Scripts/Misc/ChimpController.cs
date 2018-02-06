@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class ChimpController : MonoBehaviour
 {
     Animator m_chimpAnim;
-    bool m_jumping , m_sliding;
+    bool m_isJumping , m_isSliding;
 	BoxCollider2D m_blockerBottomCollider2D , m_chimpCollider2D;
     float m_defaultGravityScale , m_defaultJumpHeight , m_startPos;
 	GameManager m_gameManager;
@@ -16,17 +16,18 @@ public class ChimpController : MonoBehaviour
 
     [SerializeField] bool m_grounded;
     [SerializeField] float m_jumpHeight , m_jumpingTime , m_slideTime , m_slipTime , m_superTime , m_xPosTime;
+    [SerializeField] Transform m_raycastOrigin;
 
-    public bool m_slip , m_super;
+    public bool m_isSlipping , m_isSuper;
 
 	void Reset()
 	{
 		m_jumpHeight = 15.5f;
         m_jumpingTime = 0.55f;
 		m_slideTime = 0.75f;
-		m_slip = false;
+		m_isSlipping = false;
 		m_slipTime = 5.15f;
-		m_super = false;
+		m_isSuper = false;
 		m_superTime = 30.25f;
 		m_xPosTime = 0.35f;
 	}
@@ -76,14 +77,13 @@ public class ChimpController : MonoBehaviour
     {
         yield return new WaitForSeconds(m_jumpingTime);
 
-        m_chimpAnim.SetBool("Jump" , false);
-
-		if(!m_super)
+		if(!m_isSuper)
 		{
 			GameManager.m_selfieButtonImage.enabled = false;	
 		}
 
-        m_jumping = false;
+        m_chimpAnim.SetBool("Jump" , false);
+        m_isJumping = false;
     }
 
     IEnumerator SlideRoutine()
@@ -97,7 +97,7 @@ public class ChimpController : MonoBehaviour
             m_chimpBody2D.gravityScale = m_defaultGravityScale;
             m_chimpCollider2D.enabled = true;
 			GameManager.m_selfieButtonImage.enabled = false;
-			m_sliding = false;
+			m_isSliding = false;
         }
     }
 
@@ -109,7 +109,7 @@ public class ChimpController : MonoBehaviour
 		{
 			m_chimpAnim.SetBool("Slip" , false);
             m_levelCreator.m_gameSpeed = 6.0f;
-            m_slip = false;
+            m_isSlipping = false;
 		}
     }
 
@@ -121,7 +121,7 @@ public class ChimpController : MonoBehaviour
         m_chimpBody2D.gravityScale = m_defaultGravityScale;
 		GameManager.m_selfieButtonImage.enabled = false;
 		m_jumpHeight = m_defaultJumpHeight;
-		m_super = false;	
+		m_isSuper = false;	
 	}
 
 	IEnumerator XPosRoutine()
@@ -138,17 +138,16 @@ public class ChimpController : MonoBehaviour
 
     void Grounded()
     {
-        if(!m_super)
+        if(!m_isSuper)
         {
             //Debug.DrawLine(new Vector2(transform.position.x , transform.position.y - 0.7f) , new Vector2(transform.position.x , transform.position.y - 0.95f) , Color.green);
-            RaycastHit2D hit2D = Physics2D.Raycast(new Vector2(transform.position.x , transform.position.y - 0.7f) , new Vector2(transform.position.x , transform.position.y - 0.95f));
+            RaycastHit2D hit2D = Physics2D.Raycast(m_raycastOrigin.position , -Vector2.down);
 
             if(hit2D)
             {
                 if(hit2D.collider.tag.Equals("Ground"))
                 {
                     //Debug.Log("Grounded");
-                    m_chimpAnim.SetBool("Jog" , true);
                     m_grounded = true;
                 }
                 else
@@ -168,36 +167,35 @@ public class ChimpController : MonoBehaviour
 	
 	public void Jump()
     {
-        if(m_jumping || m_sliding)
+        if(m_isJumping || m_isSliding)
         {
             return;
         }
 
-		if(m_grounded && !m_jumping && !m_sliding)
+		if(m_grounded && !m_isJumping && !m_isSliding)
         {
-            m_chimpAnim.SetBool("Jump" , true);
             m_chimpBody2D.velocity = new Vector2(m_chimpBody2D.velocity.x , m_jumpHeight);
 
-			if(!m_super)
+			if(!m_isSuper)
 			{
 				GameManager.m_selfieButtonImage.enabled = true;
 			}
 
-			m_jumping = true;
 			m_soundManager.m_soundsSource.clip = m_soundManager.m_jump;
 			m_soundManager.m_soundsSource.Play();
             StartCoroutine("JumpingRoutine");
         }
 
-        if(m_super)
+        if(m_isSuper)
         {
-            m_chimpAnim.SetBool("Jump" , true);
-            m_jumping = true;
             m_chimpBody2D.velocity = new Vector2(m_chimpBody2D.velocity.x , m_jumpHeight);
 			m_soundManager.m_soundsSource.clip = m_soundManager.m_jump;
 			m_soundManager.m_soundsSource.Play();
             StartCoroutine("JumpingRoutine");
         }
+
+        m_chimpAnim.SetBool("Jump" , true);
+        m_isJumping = true;
     }
 
     void OnTriggerEnter2D(Collider2D tri2D)
@@ -256,19 +254,19 @@ public class ChimpController : MonoBehaviour
 
     public void Slide()
     {
-		if(m_jumping) 
+		if(m_isJumping) 
 		{
 			return;
 		}
 
-		else if(m_grounded && !m_jumping)
+		else if(m_grounded && !m_isJumping)
 		{
 			m_chimpAnim.SetBool("Jog" , false);
 			m_chimpAnim.SetBool("Slide" , true);
 			m_chimpBody2D.gravityScale = 0;
 			m_chimpCollider2D.enabled = false;
 			GameManager.m_selfieButtonImage.enabled = true;
-			m_sliding = true;
+			m_isSliding = true;
 			StartCoroutine("SlideRoutine");	
 		}
     }
@@ -277,7 +275,7 @@ public class ChimpController : MonoBehaviour
     {
         m_chimpAnim.SetBool("Slip" , true);
         m_levelCreator.m_gameSpeed *= 2.1f;
-        m_slip = true;
+        m_isSlipping = true;
         StartCoroutine("SlipRoutine");
     }
 
@@ -288,7 +286,7 @@ public class ChimpController : MonoBehaviour
         m_chimpBody2D.gravityScale /= 2.5f;
 		GameManager.m_selfieButtonImage.enabled = true;
         m_levelCreator.m_gameSpeed = 6.0f;
-		m_super = true;
+		m_isSuper = true;
 		StartCoroutine("SuperRoutine");
 	}
 }

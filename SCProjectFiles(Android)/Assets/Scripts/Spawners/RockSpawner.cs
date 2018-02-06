@@ -31,7 +31,7 @@ public class RockSpawner : MonoBehaviour
 	{
 		yield return new WaitForSeconds(m_spawnTime);
 
-		if(m_rocksSpawnCount < m_maxRocks && m_chimpController.m_super)
+		if(m_rocksSpawnCount < m_maxRocks && m_chimpController.m_isSuper)
 		{
 			GameObject rockObj = Instantiate(m_rockPrefab , transform.position , Quaternion.identity);
 			rockObj.transform.position = new Vector2(transform.position.x , Random.Range(-0.99f , 4.44f));

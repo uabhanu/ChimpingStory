@@ -135,7 +135,7 @@ public class LevelCreator : MonoBehaviour
             return;
         }
 
-        if(m_chimpController.m_super)
+        if(m_chimpController.m_isSuper)
         {
             m_middleCounter = 5.5f;
         }
@@ -145,7 +145,7 @@ public class LevelCreator : MonoBehaviour
     {
         yield return new WaitForSeconds(m_gameSpeedTime);
 
-        if(!m_chimpController.m_super)
+        if(!m_chimpController.m_isSuper)
         {
             m_gameSpeed += 0.5f;
         }

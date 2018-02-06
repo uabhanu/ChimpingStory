@@ -21,13 +21,13 @@ public class Ground : MonoBehaviour
 		if (Time.timeScale == 0)
 			return;
 
-		if(m_chimpController.m_super)
+		if(m_chimpController.m_isSuper)
 		{
 			//m_groundCollider2D.enabled = false;
 			m_groundRenderer.enabled = false;
 		}
 
-		if(!m_chimpController.m_super)
+		if(!m_chimpController.m_isSuper)
 		{
 			//m_groundCollider2D.enabled = true;
 			m_groundRenderer.enabled = true;

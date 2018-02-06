@@ -26,7 +26,7 @@ public class SuperSpawner : MonoBehaviour
 	{
 		yield return new WaitForSeconds(m_spawnTime);
 
-		if(!m_chimpController.m_super && ScoreManager.m_supersCount > 0)
+		if(!m_chimpController.m_isSuper && ScoreManager.m_supersCount > 0)
 		{
 			m_superObj = Instantiate(m_superPrefab , transform.position , Quaternion.identity);
 			m_superObj.transform.parent = m_gameLayer.transform;

@@ -29,7 +29,7 @@ public class Banana : MonoBehaviour
 	
         m_positionOnScreen = m_mainCamera.WorldToScreenPoint(transform.position);
 
-        if(m_chimpController.m_super)
+        if(m_chimpController.m_isSuper)
         {
             m_bananaCollider2D.enabled = false;
             m_bananaRenderer.enabled = false;
@@ -40,7 +40,7 @@ public class Banana : MonoBehaviour
     {
         if(tri2D.gameObject.tag.Equals("Player"))
         {
-            if(m_chimpController.m_slip)
+            if(m_chimpController.m_isSlipping)
             {
                 ScoreManager.m_scoreValue += 15;
                 BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);

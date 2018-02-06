@@ -327,7 +327,7 @@ public class GameManager : MonoBehaviour
 			StartCoroutine("FlashRoutine");
 		}
 
-		if(m_chimpController.m_super) 
+		if(m_chimpController.m_isSuper) 
 		{
 			ScoreManager.m_scoreValue += 200;
 		} 

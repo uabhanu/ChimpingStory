@@ -43,7 +43,7 @@ public class Portal : MonoBehaviour
             m_direction = 1;
         }
 
-        if(m_chimpController.m_slip || m_chimpController.m_super)
+        if(m_chimpController.m_isSlipping || m_chimpController.m_isSuper)
         {
             m_portalCollider2D.enabled = false;
             m_portalRenderer.enabled = false;
@@ -51,7 +51,7 @@ public class Portal : MonoBehaviour
 
 		m_positionOnScreen = m_mainCamera.WorldToScreenPoint(transform.position);
 
-        if(m_chimpController.m_slip && m_chimpController.m_super && m_positionOnScreen.x >= 1)
+        if(m_chimpController.m_isSlipping && m_chimpController.m_isSuper && m_positionOnScreen.x >= 1)
         {
             m_portalCollider2D.enabled = true;
             m_portalRenderer.enabled = true;

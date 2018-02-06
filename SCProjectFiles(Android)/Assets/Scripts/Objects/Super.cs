@@ -46,7 +46,7 @@ public class Super : MonoBehaviour
             m_direction = 1;
         }
 
-        if(m_chimpController.m_slip || m_chimpController.m_super)
+        if(m_chimpController.m_isSlipping || m_chimpController.m_isSuper)
         {
             m_superCollider2D.enabled = false;
             m_superRenderer.enabled = false;
@@ -54,7 +54,7 @@ public class Super : MonoBehaviour
 
 		m_positionOnScreen = m_mainCamera.WorldToScreenPoint(transform.position);
 
-        if(m_chimpController.m_slip && m_chimpController.m_super && m_positionOnScreen.x >= 1)
+        if(m_chimpController.m_isSlipping && m_chimpController.m_isSuper && m_positionOnScreen.x >= 1)
         {
             m_superCollider2D.enabled = true;
             m_superRenderer.enabled = true;

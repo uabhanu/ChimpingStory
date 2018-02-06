@@ -39,7 +39,7 @@ public class Rock : MonoBehaviour
 			Destroy(gameObject);
 		}
 
-        if (!m_chimpController.m_super && m_positionOnScreen.x >= 0.99f) //Try >= 765.3f if this doesn't work)
+        if (!m_chimpController.m_isSuper && m_positionOnScreen.x >= 0.99f) //Try >= 765.3f if this doesn't work)
         {
             m_rockCollider2D.enabled = false;
             m_rockRenderer.enabled = false;
