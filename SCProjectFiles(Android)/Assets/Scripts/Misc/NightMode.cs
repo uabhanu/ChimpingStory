@@ -33,7 +33,7 @@ public class NightMode : MonoBehaviour
 
     IEnumerator NightRoutine()
     {
-        Debug.Log("Night Mode");
+        //Debug.Log("Night Mode");
 
         m_dateAndTime = DateTime.Now;
 

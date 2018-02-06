@@ -48,7 +48,7 @@ public class ChimpController : MonoBehaviour
 		StartCoroutine("XPosRoutine");
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if(Time.timeScale == 0)
         {
@@ -56,14 +56,6 @@ public class ChimpController : MonoBehaviour
         }
 
         Grounded();
-    }
-
-    void Update()
-    {
-        if(Time.timeScale == 0)
-        {
-            return;
-        }
 
 		if(!m_grounded && !m_super)
 		{
@@ -153,13 +145,17 @@ public class ChimpController : MonoBehaviour
 
     void Grounded()
     {
+        //GC Alloc is caused by this method only
+
         if(m_super)
         {
+            //Debug.Log("Not Grounded");
             m_grounded = false;
             return;
         }
         else
         {
+            //Debug.Log("Grounded");
             Debug.DrawLine(new Vector2(transform.position.x , transform.position.y - 0.7f) , new Vector2(transform.position.x , transform.position.y - 0.95f) , Color.green);
             RaycastHit2D hit2D = Physics2D.Raycast(new Vector2(transform.position.x , transform.position.y - 0.7f) , new Vector2(transform.position.x , transform.position.y - 0.95f));
 
@@ -167,18 +163,20 @@ public class ChimpController : MonoBehaviour
             {
                 if(hit2D.collider.tag.Equals("Ground"))
                 {
-                    Debug.Log(hit2D.collider.name);
+                    //Debug.Log(hit2D.collider.name);
+                    Debug.Log("Grounded");
                     m_grounded = true;
                 }
-
                 else
                 {
+                    Debug.Log("Not Grounded");
                     m_grounded = false;
                 }
             }
 
             else if(!hit2D)
             {
+                Debug.Log("Not Grounded");
                 m_grounded = false;
             }
         }

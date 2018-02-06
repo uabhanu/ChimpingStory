@@ -5,6 +5,8 @@ public class Portal : MonoBehaviour
 	Collider2D m_portalCollider2D;
 	Camera m_mainCamera;
 	ChimpController m_chimpController;
+    float m_maxY , m_minY;
+    int m_direction = 1;
 	LevelCreator m_levelCreator;
 	Rigidbody2D m_portalBody2D;
 	SpriteRenderer m_portalRenderer;
@@ -15,6 +17,8 @@ public class Portal : MonoBehaviour
 		m_chimpController = FindObjectOfType<ChimpController>();
 		m_levelCreator = FindObjectOfType<LevelCreator>();
 		m_mainCamera = FindObjectOfType<Camera>();
+        m_maxY = transform.position.y + 3.1f;
+        m_minY = m_maxY - 3.1f;
 		m_portalBody2D = GetComponent<Rigidbody2D>();
 		m_portalCollider2D = GetComponent<Collider2D>();	
 		m_portalRenderer = GetComponent<SpriteRenderer>();
@@ -25,6 +29,18 @@ public class Portal : MonoBehaviour
 		if(Time.timeScale == 0)
         {
             return;
+        }
+
+        transform.position = new Vector2(transform.position.x , transform.position.y + (m_direction * 0.03f));
+
+        if(transform.position.y > m_maxY)
+        {
+            m_direction = -1;
+        }
+
+        if(transform.position.y < m_minY)
+        {
+            m_direction = 1;
         }
 
         if(m_chimpController.m_slip || m_chimpController.m_super)

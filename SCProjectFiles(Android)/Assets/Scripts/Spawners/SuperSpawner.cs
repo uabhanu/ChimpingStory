@@ -4,26 +4,21 @@ using UnityEngine;
 public class SuperSpawner : MonoBehaviour
 {
 	ChimpController m_chimpController;
-	const float m_tileWidth = 1.25f;
-	float m_startUpPosY;
-	GameObject m_collectedTiles , m_gameLayer , m_superObj;
-	int m_heightLevel = 0;
+	GameObject m_gameLayer , m_superObj;
 
     [SerializeField] float m_spawnTime;
-    [SerializeField] GameObject m_superPrefab , m_tilePos;
+    [SerializeField] GameObject m_superPrefab;
 
     void Reset()
     {
-        m_spawnTime = 15.5f;    
+        m_spawnTime = 5.5f;    
     }
 
     void Start()
 	{
 		m_chimpController = FindObjectOfType<ChimpController>();
+        m_gameLayer = GameObject.Find("GameLayer");
 		m_superObj = GameObject.FindGameObjectWithTag("Super");
-		m_collectedTiles = GameObject.Find("Tiles");
-		m_gameLayer = GameObject.Find("GameLayer");
-        m_startUpPosY = m_tilePos.transform.position.y;
 		StartCoroutine("SpawnRoutine");
 	}
 
@@ -35,15 +30,6 @@ public class SuperSpawner : MonoBehaviour
 		{
 			m_superObj = Instantiate(m_superPrefab , transform.position , Quaternion.identity);
 			m_superObj.transform.parent = m_gameLayer.transform;
-
-			if(m_tilePos != null) 
-			{
-				m_superObj.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 2f)));	
-			} 
-			else 
-			{
-				Debug.LogWarning("Sir Bhanu, I don't think Super Object exists anymore");
-			}
         }
 
 		StartCoroutine("SpawnRoutine");
