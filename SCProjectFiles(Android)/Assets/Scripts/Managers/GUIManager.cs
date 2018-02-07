@@ -39,31 +39,6 @@ public class GUIManager : MonoBehaviour
 			StartCoroutine("LandRunnerRoutine");
         }
     }
-     
-    public void ShowPowerup(string name)
-    {
-        switch(name)
-        {
-//            case "ExtraSpeed":
-//                SaveManager.extraSpeed += 1;
-//                powerupButtons[0].SetBool("Visible", true);
-//                break;
-//
-//            case "Shield":
-//                SaveManager.shield += 1;
-//                powerupButtons[1].SetBool("Visible", true);
-//                break;
-//
-//            case "SonicBlast":
-//                SaveManager.sonicWave += 1;
-//                powerupButtons[2].SetBool("Visible", true);
-//                break;
-
-            case "Revive":
-                SaveManager.revive += 1;
-            break;
-        }
-    }
 		
     public bool InPlayMode()
     {

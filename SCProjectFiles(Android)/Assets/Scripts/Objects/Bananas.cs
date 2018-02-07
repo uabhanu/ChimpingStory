@@ -36,6 +36,7 @@ public class Bananas : MonoBehaviour
         {
             
             ScoreManager.m_scoreValue += 30;
+            ScoreManager.m_scoreDisplay.text = ScoreManager.m_scoreValue.ToString();
             BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
             m_soundManager.m_soundsSource.clip = m_soundManager.m_bananaCollected;
             m_soundManager.m_soundsSource.Play();

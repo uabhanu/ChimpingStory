@@ -122,6 +122,12 @@ public class ChimpController : MonoBehaviour
         m_chimpBody2D.gravityScale = m_defaultGravityScale;
 		GameManager.m_selfieButtonImage.enabled = false;
 		m_jumpHeight = m_defaultJumpHeight;
+
+        if(LevelCreator.m_middleCounter == 5.5f)
+        {
+            LevelCreator.m_middleCounter -= 5.5f;
+        }
+
 		m_isSuper = false;	
 	}
 
@@ -183,7 +189,9 @@ public class ChimpController : MonoBehaviour
 			{
 				GameManager.m_selfieButtonImage.enabled = true;
 			}
-
+            
+            m_chimpAnim.SetBool("Jump" , true);
+            m_isJumping = true;
 			m_soundManager.m_soundsSource.clip = m_soundManager.m_jump;
 			m_soundManager.m_soundsSource.Play();
             StartCoroutine("JumpingRoutine");
@@ -196,9 +204,6 @@ public class ChimpController : MonoBehaviour
 			m_soundManager.m_soundsSource.Play();
             StartCoroutine("JumpingRoutine");
         }
-
-        m_chimpAnim.SetBool("Jump" , true);
-        m_isJumping = true;
     }
 
     void OnTriggerEnter2D(Collider2D tri2D)
@@ -289,6 +294,12 @@ public class ChimpController : MonoBehaviour
         m_chimpBody2D.gravityScale /= 2.5f;
 		GameManager.m_selfieButtonImage.enabled = true;
         m_levelCreator.m_gameSpeed = 6.0f;
+
+        if(LevelCreator.m_middleCounter == 0)
+        {
+            LevelCreator.m_middleCounter += 5.5f;
+        }
+        
 		m_isSuper = true;
 		StartCoroutine("SuperRoutine");
 	}

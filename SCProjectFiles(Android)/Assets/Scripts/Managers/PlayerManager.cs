@@ -91,6 +91,7 @@ public class PlayerManager : MonoBehaviour
         if(other.tag == "Coin")
         {
             ScoreManager.m_scoreValue += 5;
+            ScoreManager.m_scoreDisplay.text = ScoreManager.m_scoreValue.ToString();
             BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
             other.GetComponent<Renderer>().enabled = false;
             other.GetComponent<Collider2D>().enabled = false;

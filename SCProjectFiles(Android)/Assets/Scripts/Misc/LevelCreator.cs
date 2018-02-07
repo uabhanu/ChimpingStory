@@ -13,9 +13,8 @@ public class LevelCreator : MonoBehaviour
 	string m_lastTile = "PF_GroundRight";
     WaitForSeconds m_gameSpeedRoutineDelay = new WaitForSeconds(7.8f);
 
-    [HideInInspector] public float m_middleCounter = 0;
-
     public float m_gameSpeed;
+    public static float m_middleCounter = 0;
     public GameObject m_tilePos;
 
 	void Start() 

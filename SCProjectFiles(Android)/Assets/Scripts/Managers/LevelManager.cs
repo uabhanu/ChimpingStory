@@ -45,7 +45,7 @@ public class LevelManager : MonoBehaviour
     public void PowerupPickup(string name)
     {
         //missionManager.CollisionEvent(name);
-        guiManager.ShowPowerup(name);
+        //guiManager.ShowPowerup(name);
     }
     //Restarts the level
 	public void Restart()
