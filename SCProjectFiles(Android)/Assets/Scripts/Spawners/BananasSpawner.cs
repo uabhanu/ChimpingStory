@@ -5,17 +5,12 @@ public class BananasSpawner : MonoBehaviour
 {
     ChimpController m_chimpController;
     GameObject m_collectedTiles;
+    WaitForSeconds m_spawnRoutineDelay = new WaitForSeconds(3.5f);
 
-    [SerializeField] float m_spawnTime;
     [SerializeField] [Tooltip("This is max number of banana prefabs to spawn at once, Ask Bhanu for more info :)")] [Range(0 , 10)] int m_maxBananas; // Unable to use prefabs.Length for some reason
     [SerializeField] GameObject[] m_bananasPrefabs;
 
     public static int m_bananasCount = 0;
-
-    void Reset()
-    {
-        m_spawnTime = 0.5f;
-    }
 
     void Start()
     {
@@ -26,7 +21,7 @@ public class BananasSpawner : MonoBehaviour
 
     IEnumerator SpawnRoutine()
     {
-        yield return new WaitForSeconds(m_spawnTime);
+        yield return m_spawnRoutineDelay;
 
         if(m_bananasCount < m_maxBananas)
         {
@@ -34,11 +29,6 @@ public class BananasSpawner : MonoBehaviour
             bananas.transform.parent = m_collectedTiles.transform.Find("Bananas").transform;
             bananas.transform.position = new Vector2(transform.position.x + 2f , bananas.transform.position.y - 0.5f);
             m_bananasCount++;
-            
-            if(m_spawnTime == 0.5f)
-            {
-                m_spawnTime += 5.5f;
-            }
         }
 
         StartCoroutine("SpawnRoutine");

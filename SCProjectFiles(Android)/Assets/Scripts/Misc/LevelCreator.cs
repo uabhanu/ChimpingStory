@@ -11,9 +11,9 @@ public class LevelCreator : MonoBehaviour
     GameObject m_bgLayer , m_chimp , m_collectedTiles , m_gameLayer ,  m_tmpTile;
 	int m_heightLevel = 0;
 	string m_lastTile = "PF_GroundRight";
+    WaitForSeconds m_gameSpeedRoutineDelay = new WaitForSeconds(7.8f);
 
     [HideInInspector] public float m_middleCounter = 0;
-    [SerializeField] [Tooltip("This is number of seconds before gameSpeed increase")] [Range(0.0f , 50.0f)] float m_gameSpeedTime;
 
     public float m_gameSpeed;
     public GameObject m_tilePos;
@@ -83,7 +83,7 @@ public class LevelCreator : MonoBehaviour
 
     IEnumerator GameSpeedRoutine()
     {
-        yield return new WaitForSeconds(m_gameSpeedTime);
+        yield return m_gameSpeedRoutineDelay;
 
         if(!m_chimpController.m_isSuper)
         {

@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Video;
+//using UnityEngine.Video;
 
-public class AVManager : MonoBehaviour 
+public class MusicManager : MonoBehaviour 
 {
 	Image m_backgroundImage , m_playButtonImage , m_quitButtonImage;
 	//VideoPlayer m_videoPlayer;
 
-	[SerializeField] bool m_logoPlayed;
+	//[SerializeField] bool m_logoPlayed;
 
 	public static AudioSource m_musicSource;
 
@@ -44,13 +44,13 @@ public class AVManager : MonoBehaviour
 		//}
 	}
 
-	void EndReached(VideoPlayer videoPlayer)
-	{
-		m_logoPlayed = true;
-		m_backgroundImage.enabled = true;
-		m_playButtonImage.enabled = true;
-		m_quitButtonImage.enabled = true;
-		videoPlayer.enabled = false;
-		m_musicSource.Play();
-	}
+	//void EndReached(VideoPlayer videoPlayer)
+	//{
+	//	m_logoPlayed = true;
+	//	m_backgroundImage.enabled = true;
+	//	m_playButtonImage.enabled = true;
+	//	m_quitButtonImage.enabled = true;
+	//	videoPlayer.enabled = false;
+	//	m_musicSource.Play();
+	//}
 }

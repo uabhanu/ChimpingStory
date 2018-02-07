@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 	SoundManager m_soundManager;
     string m_currentScene;
 	Text m_ads , m_backToLandLose , m_backToLandWin , m_highScoreTextDisplay , m_highScoreValueDisplay , m_quit , m_restart;
+    WaitForSeconds m_flashRoutineDelay = new WaitForSeconds(0.25f);
 
 	[SerializeField] bool m_selfieFlashEnabled;
 
@@ -27,7 +28,7 @@ public class GameManager : MonoBehaviour
 
 	IEnumerator FlashRoutine()
 	{
-		yield return new WaitForSeconds(0.25f);
+		yield return m_flashRoutineDelay;
 		m_selfiePanelImage.enabled = false;
 	}
 		
@@ -124,7 +125,7 @@ public class GameManager : MonoBehaviour
 		
     public void ExitToMainMenu()
 	{
-		AVManager.m_musicSource.Play();
+		MusicManager.m_musicSource.Play();
         SceneManager.LoadScene("MainMenu");
     }
 
@@ -185,9 +186,9 @@ public class GameManager : MonoBehaviour
 
     public void Pause()
 	{
-        if(AVManager.m_musicSource != null)
+        if(MusicManager.m_musicSource != null)
         {
-            AVManager.m_musicSource.Pause();
+            MusicManager.m_musicSource.Pause();
         }
         
         if(m_exitButtonImage != null)
@@ -263,9 +264,9 @@ public class GameManager : MonoBehaviour
 
 	public void RestartAccept()
 	{
-        if(AVManager.m_musicSource != null)
+        if(MusicManager.m_musicSource != null)
         {
-            AVManager.m_musicSource.Play();
+            MusicManager.m_musicSource.Play();
         }
         
         BhanuPrefs.DeleteAll();
@@ -289,9 +290,9 @@ public class GameManager : MonoBehaviour
 
 	public void Resume()
 	{
-        if(AVManager.m_musicSource != null)
+        if(MusicManager.m_musicSource != null)
         {
-            AVManager.m_musicSource.Play();
+            MusicManager.m_musicSource.Play();
         }
 
         if(m_exitButtonImage != null)
@@ -354,7 +355,5 @@ public class GameManager : MonoBehaviour
         {
             text.enabled = false;
         }
-
-        //GC Alloc still 384B
     }
 }

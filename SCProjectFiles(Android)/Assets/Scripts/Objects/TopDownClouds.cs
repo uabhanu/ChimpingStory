@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class TopDownClouds : MonoBehaviour 
 {
-	float m_landRunnerTime = 30f;
 	GameManager m_gameManager;
 	Rigidbody2D m_cloudsBody2D;
+    WaitForSeconds m_timeUpRoutineDelay = new WaitForSeconds(30f);
 
     [HideInInspector] public float m_moveUpSpeed = 7.5f;
 
@@ -33,7 +33,7 @@ public class TopDownClouds : MonoBehaviour
 
 	IEnumerator LandRunnerRoutine()
 	{
-		yield return new WaitForSeconds(m_landRunnerTime);
+		yield return m_timeUpRoutineDelay;
 		m_gameManager.BackToLandWinMenu();
 	}
 }

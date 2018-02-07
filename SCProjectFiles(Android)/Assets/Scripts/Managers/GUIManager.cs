@@ -7,9 +7,9 @@ public class GUIManager : MonoBehaviour
     AudioSource m_musicSource;
 	bool[] usedMissionNotifications = new bool[]{false , false , false};
 	bool canPause = true , inPlayMode = false;
-	float m_landRunnerTime = 30f;
 	GameManager m_gameManager;
 	int collectedCoins = 0 , distanceTraveled = 0;
+    WaitForSeconds m_landRunnerRoutineDelay = new WaitForSeconds(30f);
 
 	public Animator overlayAnimator;                        //The overlay animator
 	public LevelManager levelManager;                       //A link to the level manager
@@ -18,7 +18,7 @@ public class GUIManager : MonoBehaviour
 
 	IEnumerator LandRunnerRoutine()
 	{
-		yield return new WaitForSeconds(m_landRunnerTime);
+		yield return m_landRunnerRoutineDelay;
 		m_gameManager.BackToLandWinMenu();
 	}
 

@@ -5,14 +5,9 @@ public class SuperSpawner : MonoBehaviour
 {
 	ChimpController m_chimpController;
 	GameObject m_gameLayer , m_superObj;
+    WaitForSeconds m_spawnRoutineDelay = new WaitForSeconds(5.5f);
 
-    [SerializeField] float m_spawnTime;
     [SerializeField] GameObject m_superPrefab;
-
-    void Reset()
-    {
-        m_spawnTime = 5.5f;    
-    }
 
     void Start()
 	{
@@ -24,7 +19,7 @@ public class SuperSpawner : MonoBehaviour
 
 	IEnumerator SpawnRoutine()
 	{
-		yield return new WaitForSeconds(m_spawnTime);
+		yield return m_spawnRoutineDelay;
 
 		if(!m_chimpController.m_isSuper && ScoreManager.m_supersCount > 0)
 		{

@@ -6,16 +6,11 @@ public class RockSpawner : MonoBehaviour
 	ChimpController m_chimpController;
 	float m_startUpPosY;
 	GameObject m_collectedTiles , m_rockPrefab , m_tilePos;
+    WaitForSeconds m_spawnRoutineDelay = new WaitForSeconds(0.5f);
 
-	[SerializeField] float m_spawnTime;
     [SerializeField] [Tooltip("Choose number of rocks you want to spawn, ask Bhanu for more info")] [Range(0 , 50)] int m_maxRocks;
 
 	public static int m_rocksSpawnCount = 0;
-
-	void Reset()
-	{
-		m_spawnTime = 0.5f;
-	}
 
 	void Start()
 	{
@@ -29,7 +24,7 @@ public class RockSpawner : MonoBehaviour
 
 	IEnumerator SpawnRoutine()
 	{
-		yield return new WaitForSeconds(m_spawnTime);
+		yield return m_spawnRoutineDelay;
 
 		if(m_rocksSpawnCount < m_maxRocks && m_chimpController.m_isSuper)
 		{

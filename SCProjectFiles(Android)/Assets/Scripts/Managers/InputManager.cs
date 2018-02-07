@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections;
 
-public class InputManager : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class InputManager : MonoBehaviour , IPointerDownHandler , IPointerUpHandler
 {
     public PlayerManager playerManager;         //A link to the Player Manager
 

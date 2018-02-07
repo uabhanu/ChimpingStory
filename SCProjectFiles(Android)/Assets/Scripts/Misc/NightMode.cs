@@ -7,6 +7,7 @@ public class NightMode : MonoBehaviour
     bool m_nightMode = false;
     DateTime m_dateAndTime;
     SpriteRenderer m_spriteRenderer;
+    WaitForSeconds m_nightRoutineDelay = new WaitForSeconds(1.1f);
 
     [SerializeField] int m_hour;
     [SerializeField] Sprite m_nightSprite;
@@ -37,7 +38,7 @@ public class NightMode : MonoBehaviour
 
         m_dateAndTime = DateTime.Now;
 
-        yield return new WaitForSeconds(2.2f);
+        yield return m_nightRoutineDelay;
         
         if(m_dateAndTime.Hour >= m_hour)
         {

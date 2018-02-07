@@ -13,6 +13,12 @@ public class ChimpController : MonoBehaviour
     Rigidbody2D m_chimpBody2D;
 	SoundManager m_soundManager;
     string m_currentScene;
+    WaitForSeconds m_jumpRoutineDelay = new WaitForSeconds(0.55f);
+    WaitForSeconds m_slideRoutineDelay = new WaitForSeconds(0.75f);
+    WaitForSeconds m_slipRoutineDelay = new WaitForSeconds(5.15f);
+    WaitForSeconds m_superRoutineDelay = new WaitForSeconds(30.25f);
+    WaitForSeconds m_xPosRoutineDelay = new WaitForSeconds(0.35f);
+
 
     [SerializeField] bool m_grounded;
     [SerializeField] float m_jumpHeight , m_jumpingTime , m_slideTime , m_slipTime , m_superTime , m_xPosTime;
@@ -23,13 +29,8 @@ public class ChimpController : MonoBehaviour
 	void Reset()
 	{
 		m_jumpHeight = 15.5f;
-        m_jumpingTime = 0.55f;
-		m_slideTime = 0.75f;
 		m_isSlipping = false;
-		m_slipTime = 5.15f;
 		m_isSuper = false;
-		m_superTime = 30.25f;
-		m_xPosTime = 0.35f;
 	}
 
 	void Start()
@@ -75,7 +76,7 @@ public class ChimpController : MonoBehaviour
 
     IEnumerator JumpingRoutine()
     {
-        yield return new WaitForSeconds(m_jumpingTime);
+        yield return m_jumpRoutineDelay;
 
 		if(!m_isSuper)
 		{
@@ -88,7 +89,7 @@ public class ChimpController : MonoBehaviour
 
     IEnumerator SlideRoutine()
     {
-        yield return new WaitForSeconds(m_slideTime);
+        yield return m_slideRoutineDelay;
 
         if(m_chimpAnim.GetBool("Slide"))
 		{
@@ -103,7 +104,7 @@ public class ChimpController : MonoBehaviour
 
     IEnumerator SlipRoutine()
     {
-        yield return new WaitForSeconds(m_slipTime);
+        yield return m_slipRoutineDelay;
 
         if(m_chimpAnim.GetBool("Slip"))
 		{
@@ -115,7 +116,7 @@ public class ChimpController : MonoBehaviour
 
 	IEnumerator SuperRoutine()
 	{
-		yield return new WaitForSeconds(m_superTime);
+		yield return m_superRoutineDelay;
         m_blockerBottomCollider2D.enabled = false;
         m_chimpAnim.SetBool("Super" , false);
         m_chimpBody2D.gravityScale = m_defaultGravityScale;
@@ -126,7 +127,7 @@ public class ChimpController : MonoBehaviour
 
 	IEnumerator XPosRoutine()
 	{
-		yield return new WaitForSeconds (m_xPosTime);
+		yield return m_xPosRoutineDelay;
 		transform.position = new Vector2(m_startPos , transform.position.y);
 		StartCoroutine("XPosRoutine");
 	}

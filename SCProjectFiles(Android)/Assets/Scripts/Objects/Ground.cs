@@ -1,6 +1,4 @@
-﻿ using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Ground : MonoBehaviour 
 {
@@ -18,18 +16,17 @@ public class Ground : MonoBehaviour
 
 	void Update() 
 	{
-		if (Time.timeScale == 0)
-			return;
+		if(Time.timeScale == 0)
+        {
+            return;
+        }
 
 		if(m_chimpController.m_isSuper)
 		{
-			//m_groundCollider2D.enabled = false;
 			m_groundRenderer.enabled = false;
 		}
-
-		if(!m_chimpController.m_isSuper)
+		else
 		{
-			//m_groundCollider2D.enabled = true;
 			m_groundRenderer.enabled = true;
 		}
 	}
