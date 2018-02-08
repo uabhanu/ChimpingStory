@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class PowerupLayer : MovingLayer 
 {
@@ -11,7 +10,7 @@ public class PowerupLayer : MovingLayer
     //Spawns a new element
     public override void SpawnElement(bool inMiddle)
     {
-        if (!canSpawn)
+        if(!canSpawn)
             return;
 
         //Get a random item from the inactive elements

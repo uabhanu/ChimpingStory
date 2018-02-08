@@ -26,7 +26,7 @@ public class TorpedoLayer : MovingLayer
         activeIndicators = new List<GameObject>();
         inactiveIndicators = new List<GameObject>();
 
-        foreach (Transform child in indicatorContainer)
+        foreach(Transform child in indicatorContainer)
             inactiveIndicators.Add(child.gameObject);
 
         base.Start();
@@ -35,13 +35,13 @@ public class TorpedoLayer : MovingLayer
     //Spawns new torpedo elements
     public override void SpawnElement(bool inMiddle)
     {
-        if (!canSpawn)
+        if(!canSpawn)
             return;
 
         //Calculate the number
         int toSpawn = Random.Range(minTorpedoes, maxTorpedoes + 1);
 
-        for (int i = 0; i < toSpawn; i++)
+        for(int i = 0; i < toSpawn; i++)
         {
             //Get the first inactive indicator, and add it to the activate ones
             GameObject indicator = inactiveIndicators[0];
@@ -79,7 +79,7 @@ public class TorpedoLayer : MovingLayer
         float i = 0.0f;
         float rate = 1.0f / indicatorTime;
 
-        while (i < 1.0)
+        while(i < 1.0)
         {
             //If the game is not paused, increase t, and scale the object
             if (!paused)

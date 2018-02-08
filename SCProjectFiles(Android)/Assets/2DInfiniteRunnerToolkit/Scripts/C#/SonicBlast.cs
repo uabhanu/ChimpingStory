@@ -44,8 +44,8 @@ public class SonicBlast : MonoBehaviour
     public void Reset()
     {
         StopCoroutine("Move");
-        this.transform.position = startPosition;
-        this.gameObject.SetActive(false);
+        transform.position = startPosition;
+        gameObject.SetActive(false);
     }
     //Set the pause state of the level generator in time
     public void SetPauseState(bool state)
@@ -60,13 +60,13 @@ public class SonicBlast : MonoBehaviour
         float i = 0.0f;
         float rate = 1.0f / time;
 
-        while (i < 1.0)
+        while(i < 1.0)
         {
             //If the game is not paused, increase t
-            if (!paused)
+            if(!paused)
             {
                 i += Time.deltaTime * rate;
-                this.transform.position = Vector3.Lerp(startPosition, endPosition, i);
+                transform.position = Vector3.Lerp(startPosition, endPosition, i);
             }
 
             //Wait for the end of frame
@@ -79,13 +79,13 @@ public class SonicBlast : MonoBehaviour
     //Disable the obstacles of the last obstacle group with the wave collided
     private void Disable()
     {
-        if (lastObstacle)
+        if(lastObstacle)
         {
             Transform obstacleParent = lastObstacle.parent;
 
-            foreach (Transform item in obstacleParent)
+            foreach(Transform item in obstacleParent)
             {
-                if (item.tag == "Obstacle")
+                if(item.tag == "Obstacle")
                 {
                     item.GetComponent<Renderer>().enabled = false;
                     item.GetComponent<Collider2D>().enabled = false;

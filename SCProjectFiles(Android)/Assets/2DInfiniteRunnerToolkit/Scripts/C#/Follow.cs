@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class Follow : MonoBehaviour 
 {
@@ -8,6 +7,6 @@ public class Follow : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
     {
-        this.transform.position = target.position;	
+        transform.position = target.position;	
 	}
 }

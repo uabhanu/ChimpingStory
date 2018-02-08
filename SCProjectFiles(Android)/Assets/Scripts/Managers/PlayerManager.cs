@@ -10,6 +10,7 @@ public class PlayerManager : MonoBehaviour
 {
 	GameObject m_explosionPrefab , m_explosionSystemObj;
 	SoundManager m_soundManager;
+    WaitForSeconds m_reviveRoutineDelay = new WaitForSeconds(0.5f);
 
 	[SerializeField] Sprite[] m_chimpSprites;		
 
@@ -375,7 +376,7 @@ public class PlayerManager : MonoBehaviour
         transform.eulerAngles = newRotation;
         StartCoroutine(FunctionLibrary.MoveElementBy(transform, new Vector2(0, Mathf.Abs(transform.position.y - maxDepth)), 0.5f));
 
-        yield return new WaitForSeconds(0.5f);
+        yield return m_reviveRoutineDelay;
 
         playerStatus = PlayerStatus.Idle;
         playerState = PlayerState.Enabled;
@@ -383,7 +384,7 @@ public class PlayerManager : MonoBehaviour
 
         bubbles.Play();
 
-        yield return new WaitForSeconds(0.5f);
+        yield return m_reviveRoutineDelay;
         powerupUsage = PowerupUsage.Enabled;
         reviveParticle.Clear();
     }
