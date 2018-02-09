@@ -9,11 +9,12 @@ public class ChimpController : MonoBehaviour
 	BoxCollider2D m_blockerBottomCollider2D , m_chimpCollider2D;
     float m_defaultGravityScale , m_defaultJumpHeight , m_startPos;
 	GameManager m_gameManager;
+    [SerializeField] Ground m_ground;
 	LevelCreator m_levelCreator;
     Rigidbody2D m_chimpBody2D;
 	SoundManager m_soundManager;
     string m_currentScene;
-    const string m_groundTag = "Ground";
+    WaitForSeconds m_getGroundRoutine = new WaitForSeconds(0.95f);
     WaitForSeconds m_jumpRoutineDelay = new WaitForSeconds(0.55f);
     WaitForSeconds m_slideRoutineDelay = new WaitForSeconds(0.75f);
     WaitForSeconds m_slipRoutineDelay = new WaitForSeconds(5.15f);
@@ -48,7 +49,8 @@ public class ChimpController : MonoBehaviour
 		m_soundManager = FindObjectOfType<SoundManager>();
         m_startPos = transform.position.x;
 
-		StartCoroutine("XPosRoutine");
+		StartCoroutine("GetGroundRoutine");
+        StartCoroutine("XPosRoutine");
     }
 
     void Update()
@@ -73,6 +75,13 @@ public class ChimpController : MonoBehaviour
 		    }
 
         #endif
+    }
+
+    IEnumerator GetGroundRoutine()
+    {
+        yield return m_getGroundRoutine;
+        m_ground = FindObjectOfType<Ground>();
+        StartCoroutine("GetGroundRoutine");
     }
 
     IEnumerator JumpingRoutine()
@@ -149,13 +158,11 @@ public class ChimpController : MonoBehaviour
         if(!m_isSuper)
         {
             //Debug.DrawLine(new Vector2(transform.position.x , transform.position.y - 0.7f) , new Vector2(transform.position.x , transform.position.y - 0.95f) , Color.green);
-            
-            //TODO if GC Alloc 38B still persists, look into Unallocated boxcast and use that, after all other GC Allocs have been resolved
             RaycastHit2D hit2D = Physics2D.Raycast(m_raycastOrigin.position , -Vector2.down);
 
             if(hit2D)
             {
-                if(hit2D.collider.tag.Equals(m_groundTag))
+                if(!hit2D.collider.isTrigger)
                 {
                     //Debug.Log("Grounded");
                     m_grounded = true;
