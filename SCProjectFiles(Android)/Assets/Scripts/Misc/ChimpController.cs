@@ -13,6 +13,7 @@ public class ChimpController : MonoBehaviour
     Rigidbody2D m_chimpBody2D;
 	SoundManager m_soundManager;
     string m_currentScene;
+    const string m_groundTag = "Ground";
     WaitForSeconds m_jumpRoutineDelay = new WaitForSeconds(0.55f);
     WaitForSeconds m_slideRoutineDelay = new WaitForSeconds(0.75f);
     WaitForSeconds m_slipRoutineDelay = new WaitForSeconds(5.15f);
@@ -154,7 +155,7 @@ public class ChimpController : MonoBehaviour
 
             if(hit2D)
             {
-                if(hit2D.collider.tag.Equals("Ground"))
+                if(hit2D.collider.tag.Equals(m_groundTag))
                 {
                     //Debug.Log("Grounded");
                     m_grounded = true;
