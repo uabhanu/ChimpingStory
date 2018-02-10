@@ -23,7 +23,7 @@ public class Rock : MonoBehaviour
 		m_rockBody2D = GetComponent<Rigidbody2D>();
 		m_rockCollider2D = GetComponent<Collider2D>();
 		m_rockRenderer = GetComponent<SpriteRenderer>();
-        transform.position = m_randomPositions[Random.Range(0 , m_randomPositions.Length)]; //TODO do the same for FallingChimp level by choosing your own position so objects don't clash
+        transform.position = m_randomPositions[Random.Range(0 , m_randomPositions.Length)];
 	}
 
 	void Update() 

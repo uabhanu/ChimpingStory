@@ -2,17 +2,18 @@
 
 public class SpikesBall : MonoBehaviour
 {
-    float m_startPosY;
     Rigidbody2D m_spikesBallBody2D;
     SoundManager m_soundManager;
     TopDownClouds m_topDownClouds;
 
+    [SerializeField] Vector2[] m_randomPositions;
+
     void Start()
     {
         m_spikesBallBody2D = GetComponent<Rigidbody2D>();
-        m_soundManager = FindObjectOfType<SoundManager>();
-        m_startPosY = transform.position.y;
-        m_topDownClouds = FindObjectOfType<TopDownClouds>();
+        m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        m_topDownClouds = GameObject.Find("Clouds").GetComponent<TopDownClouds>();
+        transform.position = m_randomPositions[Random.Range(0 , m_randomPositions.Length)];
     }
 
     void Update()
@@ -26,7 +27,7 @@ public class SpikesBall : MonoBehaviour
 
         if(transform.position.y >= 5.68f)
         {
-            transform.position = new Vector2(Random.Range(-2.4f , 2.5f) , m_startPosY);
+            transform.position = m_randomPositions[Random.Range(0 , m_randomPositions.Length)];
         }
     }
 
@@ -36,7 +37,7 @@ public class SpikesBall : MonoBehaviour
         {
             m_soundManager.m_soundsSource.clip = m_soundManager.m_spikesBallDeath;
             m_soundManager.m_soundsSource.Play();
-            transform.position = new Vector2(Random.Range(-2.4f , 2.5f) , m_startPosY);
+            transform.position = m_randomPositions[Random.Range(0 , m_randomPositions.Length)];
         }
     }
 }

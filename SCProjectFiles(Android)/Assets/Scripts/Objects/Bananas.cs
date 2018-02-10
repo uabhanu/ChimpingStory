@@ -2,17 +2,18 @@
 
 public class Bananas : MonoBehaviour 
 {
-    float m_startPosY;
     Rigidbody2D m_bananasBody2D;
     SoundManager m_soundManager;
     TopDownClouds m_topDownClouds;
+
+    [SerializeField] Vector2[] m_randomPositions;
 
 	void Start() 
     {
         m_bananasBody2D = GetComponent<Rigidbody2D>();
         m_soundManager = FindObjectOfType<SoundManager>();
-        m_startPosY = transform.position.y;
 		m_topDownClouds = FindObjectOfType<TopDownClouds>();
+        transform.position = m_randomPositions[Random.Range(0 , m_randomPositions.Length)];
 	}
 	
 	void Update() 
@@ -26,7 +27,7 @@ public class Bananas : MonoBehaviour
 
         if(transform.position.y >= 5.68f)
         {
-            transform.position = new Vector2(transform.position.x , Random.Range(m_startPosY - 5 , m_startPosY + 6));
+            transform.position = m_randomPositions[Random.Range(0 , m_randomPositions.Length)];
         }
     }
 
@@ -40,7 +41,7 @@ public class Bananas : MonoBehaviour
             BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
             m_soundManager.m_soundsSource.clip = m_soundManager.m_bananaCollected;
             m_soundManager.m_soundsSource.Play();
-            transform.position = new Vector2(transform.position.x , Random.Range(m_startPosY - 5 , m_startPosY + 6));
+            transform.position = m_randomPositions[Random.Range(0 , m_randomPositions.Length)];
         }
     }
 }

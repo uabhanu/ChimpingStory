@@ -75,8 +75,6 @@ public class Super : MonoBehaviour
 			m_soundManager.m_soundsSource.clip = m_soundManager.m_superCollected;
 			m_soundManager.m_soundsSource.Play();
 			SpawnExplosion();
-			SpawnExplosion();
-            Destroy(gameObject);
         }
 	}
 
