@@ -5,22 +5,24 @@ using UnityEngine;
 public class LevelCreator : MonoBehaviour
 {
     bool m_collectibleAdded , m_enemyAdded;
-    ChimpController m_chimpController;
+    LandChimp m_landChimp;
     const float m_tileWidth = 1.25f;
-    float m_blankCounter = 0 , m_outofbounceX , m_outOfBounceY , m_startTime , m_startUpPosY;
+    float m_blankCounter = 0 , m_middleCounter = 0 , m_outofbounceX , m_outOfBounceY , m_startTime , m_startUpPosY;
     GameObject m_bgLayer , m_chimp , m_collectedTiles , m_gameLayer ,  m_tmpTile;
+    Ground m_ground;
 	int m_heightLevel = 0;
 	string m_lastTile = "PF_GroundRight";
     WaitForSeconds m_gameSpeedRoutineDelay = new WaitForSeconds(7.8f);
 
     public float m_gameSpeed;
-    public static float m_middleCounter = 0;
+    //public static float m_middleCounter = 0;
     public GameObject m_tilePos;
 
 	void Start() 
 	{
-        m_chimpController = FindObjectOfType<ChimpController>();
+        m_landChimp = FindObjectOfType<LandChimp>();
         m_gameLayer = GameObject.Find("GameLayer");
+        m_ground = FindObjectOfType<Ground>();
 		m_bgLayer = GameObject.Find("BackgroundLayer");
 		m_collectedTiles = GameObject.Find("Tiles");
         m_startTime = Time.time;
@@ -84,7 +86,7 @@ public class LevelCreator : MonoBehaviour
     {
         yield return m_gameSpeedRoutineDelay;
 
-        if(!m_chimpController.m_isSuper)
+        if(!m_landChimp.m_isSuper)
         {
             m_gameSpeed += 0.5f;
         }
@@ -119,9 +121,7 @@ public class LevelCreator : MonoBehaviour
 
     void LevelGeneration()
     {
-        //TODO m_middleCounter = 5.5f may be needed later but fine for now
-
-        if(!m_chimpController.m_isSuper)
+        if(!m_landChimp.m_isSuper)
         {
             m_gameLayer.transform.position = new Vector2(m_gameLayer.transform.position.x - m_gameSpeed * Time.deltaTime , 0);
 

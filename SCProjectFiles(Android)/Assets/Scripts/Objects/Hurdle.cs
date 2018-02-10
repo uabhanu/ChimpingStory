@@ -3,14 +3,14 @@
 public class Hurdle : MonoBehaviour
 {
     Camera m_mainCamera;
-    ChimpController m_chimpController;
+    LandChimp m_landChimp;
     Collider2D m_hurdleCollider2D;
     SpriteRenderer m_hurdleRenderer;
     Vector3 m_positionOnScreen;
 
     void Start()
     {
-        m_chimpController = FindObjectOfType<ChimpController>();
+        m_landChimp = FindObjectOfType<LandChimp>();
         m_hurdleCollider2D = GetComponent<Collider2D>();
         m_hurdleRenderer = GetComponent<SpriteRenderer>();
         m_mainCamera = FindObjectOfType<Camera>();
@@ -25,7 +25,7 @@ public class Hurdle : MonoBehaviour
 
         m_positionOnScreen = m_mainCamera.WorldToScreenPoint(transform.position);
 
-        if(m_chimpController.m_isSlipping || m_chimpController.m_isSuper)
+        if(m_landChimp.m_isSlipping || m_landChimp.m_isSuper)
         {
             m_hurdleCollider2D.enabled = false;
             m_hurdleRenderer.enabled = false;

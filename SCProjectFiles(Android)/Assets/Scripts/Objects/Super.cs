@@ -4,7 +4,7 @@ public class Super : MonoBehaviour
 {
 	BoxCollider2D m_superCollider2D;
 	Camera m_mainCamera;
-	ChimpController m_chimpController;
+	LandChimp m_landChimp;
     float m_maxY , m_minY;
 	GameObject m_explosionPrefab , m_explosionSystemObj;
     int m_direction = 1;
@@ -15,7 +15,7 @@ public class Super : MonoBehaviour
 
 	void Start() 
 	{
-		m_chimpController = FindObjectOfType<ChimpController>();
+		m_landChimp = FindObjectOfType<LandChimp>();
 		m_explosionPrefab = Resources.Load("PF_Explosion") as GameObject;
 		m_explosionSystemObj = GameObject.FindGameObjectWithTag("Explosion");
 		m_levelCreator = FindObjectOfType<LevelCreator>();
@@ -46,7 +46,7 @@ public class Super : MonoBehaviour
             m_direction = 1;
         }
 
-        if(m_chimpController.m_isSlipping || m_chimpController.m_isSuper)
+        if(m_landChimp.m_isSlipping || m_landChimp.m_isSuper)
         {
             m_superCollider2D.enabled = false;
             m_superRenderer.enabled = false;
@@ -54,7 +54,7 @@ public class Super : MonoBehaviour
 
 		m_positionOnScreen = m_mainCamera.WorldToScreenPoint(transform.position);
 
-        if(m_chimpController.m_isSlipping && m_chimpController.m_isSuper && m_positionOnScreen.x >= 1)
+        if(m_landChimp.m_isSlipping && m_landChimp.m_isSuper && m_positionOnScreen.x >= 1)
         {
             m_superCollider2D.enabled = true;
             m_superRenderer.enabled = true;

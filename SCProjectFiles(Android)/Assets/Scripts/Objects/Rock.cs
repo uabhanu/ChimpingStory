@@ -3,7 +3,7 @@
 public class Rock : MonoBehaviour 
 {
     Camera m_mainCamera;
-	ChimpController m_chimpController;
+	LandChimp m_landChimp;
 	Collider2D m_rockCollider2D;
     GameObject m_explosionPrefab , m_explosionSystemObj;
     LevelCreator m_levelCreator;
@@ -11,9 +11,11 @@ public class Rock : MonoBehaviour
 	SpriteRenderer m_rockRenderer;
 	Vector3 m_positionOnScreen;
 
+    [SerializeField] Vector2[] m_randomPositions;
+
 	void Start() 
 	{
-		m_chimpController = FindObjectOfType<ChimpController>();
+        m_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>(); //TODO FindObjectofType() is causing Garbage so update like this wherever necessary
         m_explosionPrefab = Resources.Load("PF_Explosion") as GameObject;
         m_explosionSystemObj = GameObject.FindGameObjectWithTag("Explosion");
 		m_levelCreator = FindObjectOfType<LevelCreator>();
@@ -21,6 +23,7 @@ public class Rock : MonoBehaviour
 		m_rockBody2D = GetComponent<Rigidbody2D>();
 		m_rockCollider2D = GetComponent<Collider2D>();
 		m_rockRenderer = GetComponent<SpriteRenderer>();
+        transform.position = m_randomPositions[Random.Range(0 , m_randomPositions.Length)]; //TODO do the same for FallingChimp level by choosing your own position so objects don't clash
 	}
 
 	void Update() 
@@ -39,7 +42,7 @@ public class Rock : MonoBehaviour
 			Destroy(gameObject);
 		}
 
-        if (!m_chimpController.m_isSuper && m_positionOnScreen.x >= 0.99f) //Try >= 765.3f if this doesn't work
+        if(!m_landChimp.m_isSuper && m_positionOnScreen.x >= 0.99f) //Try >= 765.3f if this doesn't work
         {
             m_rockCollider2D.enabled = false;
             m_rockRenderer.enabled = false;

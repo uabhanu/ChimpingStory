@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour 
 {
 	AudioSource m_musicSource;
-	ChimpController m_chimpController;
+	LandChimp m_landChimp;
 	Image m_adsAcceptButtonImage , m_adsCancelButtonImage , m_adsMenuImage , m_backgroundImage , m_backToLandLoseMenuImage , m_backToLandWinMenuImage , m_continueButtonImage;
     Image m_exitButtonImage , m_pauseButtonImage , m_pauseMenuImage , m_playButtonImage , m_quitButtonImage , m_quitAcceptButtonImage , m_quitCancelButtonImage;
     Image m_quitMenuImage , m_restartButtonImage , m_restartAcceptButtonImage , m_restartCancelButtonImage , m_restartMenuImage , m_resumeButtonImage;
@@ -152,7 +152,7 @@ public class GameManager : MonoBehaviour
             m_adsCancelButtonImage = GameObject.Find("AdsCancelButton").GetComponent<Image>();
             m_adsMenuImage = GameObject.Find("AdsMenu").GetComponent<Image>();
             m_exitButtonImage = GameObject.Find("ExitButton").GetComponent<Image>();
-			m_chimpController = FindObjectOfType<ChimpController>();
+			m_landChimp = FindObjectOfType<LandChimp>();
 			m_highScoreTextDisplay = GameObject.Find("HighScoreTextDisplay").GetComponent<Text>();
 			m_highScoreValueDisplay = GameObject.Find("HighScoreValueDisplay").GetComponent<Text>();
 			m_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
@@ -328,7 +328,7 @@ public class GameManager : MonoBehaviour
 			StartCoroutine("FlashRoutine");
 		}
 
-		if(m_chimpController.m_isSuper) 
+		if(m_landChimp.m_isSuper) 
 		{
 			ScoreManager.m_scoreValue += 200;
 		} 

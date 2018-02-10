@@ -5,7 +5,7 @@ public class Swipe : MonoBehaviour
 	float m_distance = 0f;
 	Touch m_initialTouch = new Touch();
 
-	[SerializeField] ChimpController m_chimpControlScript;
+	[SerializeField] LandChimp m_chimpControlScript;
 	[SerializeField] FallingChimp m_fallingChimp;
     [SerializeField] float m_swipeValue;
     [SerializeField] Rigidbody2D m_chimpBody2D;

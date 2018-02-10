@@ -4,7 +4,7 @@ public class Portal : MonoBehaviour
 {
 	Collider2D m_portalCollider2D;
 	Camera m_mainCamera;
-	ChimpController m_chimpController;
+	LandChimp m_landChimp;
     float m_maxY , m_minY;
     int m_direction = 1;
 	LevelCreator m_levelCreator;
@@ -14,7 +14,7 @@ public class Portal : MonoBehaviour
 
 	void Start() 
 	{
-		m_chimpController = FindObjectOfType<ChimpController>();
+		m_landChimp = FindObjectOfType<LandChimp>();
 		m_levelCreator = FindObjectOfType<LevelCreator>();
 		m_mainCamera = FindObjectOfType<Camera>();
         m_maxY = transform.position.y + 3.1f;
@@ -43,7 +43,7 @@ public class Portal : MonoBehaviour
             m_direction = 1;
         }
 
-        if(m_chimpController.m_isSlipping || m_chimpController.m_isSuper)
+        if(m_landChimp.m_isSlipping || m_landChimp.m_isSuper)
         {
             m_portalCollider2D.enabled = false;
             m_portalRenderer.enabled = false;
@@ -51,7 +51,7 @@ public class Portal : MonoBehaviour
 
 		m_positionOnScreen = m_mainCamera.WorldToScreenPoint(transform.position);
 
-        if(m_chimpController.m_isSlipping && m_chimpController.m_isSuper && m_positionOnScreen.x >= 1)
+        if(m_landChimp.m_isSlipping && m_landChimp.m_isSuper && m_positionOnScreen.x >= 1)
         {
             m_portalCollider2D.enabled = true;
             m_portalRenderer.enabled = true;

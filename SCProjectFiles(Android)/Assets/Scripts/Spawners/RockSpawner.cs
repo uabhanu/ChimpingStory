@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class RockSpawner : MonoBehaviour
 {
-	ChimpController m_chimpController;
+	LandChimp m_landChimp;
 	float m_startUpPosY;
 	GameObject m_collectedTiles , m_rockPrefab , m_tilePos;
     WaitForSeconds m_spawnRoutineDelay = new WaitForSeconds(0.5f);
@@ -14,7 +14,7 @@ public class RockSpawner : MonoBehaviour
 
 	void Start()
 	{
-		m_chimpController = FindObjectOfType<ChimpController>();
+		m_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
 		m_rockPrefab = Resources.Load("PF_Rock") as GameObject;
 		m_collectedTiles = GameObject.Find("Tiles");
 		m_tilePos = GameObject.Find("StartTilePosition");
@@ -26,13 +26,12 @@ public class RockSpawner : MonoBehaviour
 	{
 		yield return m_spawnRoutineDelay;
 
-		if(m_rocksSpawnCount < m_maxRocks && m_chimpController.m_isSuper)
+		if(m_rocksSpawnCount < m_maxRocks && m_landChimp.m_isSuper)
 		{
-			GameObject rockObj = Instantiate(m_rockPrefab , transform.position , Quaternion.identity);
-			rockObj.transform.position = new Vector2(transform.position.x , Random.Range(-0.99f , 4.44f));
+			Instantiate(m_rockPrefab , transform.position , Quaternion.identity);
 			m_rocksSpawnCount++;
 		}
 
-		StartCoroutine("SpawnRoutine");
+        StartCoroutine("SpawnRoutine");
 	}
 }

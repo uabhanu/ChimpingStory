@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ChimpController : MonoBehaviour
+public class LandChimp : MonoBehaviour
 {
     Animator m_chimpAnim;
     bool m_isJumping , m_isSliding;
@@ -14,12 +14,10 @@ public class ChimpController : MonoBehaviour
     Rigidbody2D m_chimpBody2D;
 	SoundManager m_soundManager;
     string m_currentScene;
-    WaitForSeconds m_getGroundRoutine = new WaitForSeconds(0.95f);
     WaitForSeconds m_jumpRoutineDelay = new WaitForSeconds(0.55f);
     WaitForSeconds m_slideRoutineDelay = new WaitForSeconds(0.75f);
     WaitForSeconds m_slipRoutineDelay = new WaitForSeconds(5.15f);
     WaitForSeconds m_superRoutineDelay = new WaitForSeconds(30.25f);
-    WaitForSeconds m_xPosRoutineDelay = new WaitForSeconds(0.35f);
 
 
     [SerializeField] bool m_grounded;
@@ -48,9 +46,6 @@ public class ChimpController : MonoBehaviour
 		m_levelCreator = FindObjectOfType<LevelCreator>();
 		m_soundManager = FindObjectOfType<SoundManager>();
         m_startPos = transform.position.x;
-
-		StartCoroutine("GetGroundRoutine");
-        StartCoroutine("XPosRoutine");
     }
 
     void Update()
@@ -75,13 +70,6 @@ public class ChimpController : MonoBehaviour
 		    }
 
         #endif
-    }
-
-    IEnumerator GetGroundRoutine()
-    {
-        yield return m_getGroundRoutine;
-        m_ground = FindObjectOfType<Ground>();
-        StartCoroutine("GetGroundRoutine");
     }
 
     IEnumerator JumpingRoutine()
@@ -133,19 +121,12 @@ public class ChimpController : MonoBehaviour
 		GameManager.m_selfieButtonImage.enabled = false;
 		m_jumpHeight = m_defaultJumpHeight;
 
-        if(LevelCreator.m_middleCounter == 5.5f)
-        {
-            LevelCreator.m_middleCounter -= 5.5f;
-        }
+        //if(LevelCreator.m_middleCounter == 5.5f)
+        //{
+        //    LevelCreator.m_middleCounter = 0f;
+        //}
 
-		m_isSuper = false;	
-	}
-
-	IEnumerator XPosRoutine()
-	{
-		yield return m_xPosRoutineDelay;
-		transform.position = new Vector2(m_startPos , transform.position.y);
-		StartCoroutine("XPosRoutine");
+        m_isSuper = false;	
 	}
 
     void CheatDeath()
@@ -303,12 +284,12 @@ public class ChimpController : MonoBehaviour
 		GameManager.m_selfieButtonImage.enabled = true;
         m_levelCreator.m_gameSpeed = 6.0f;
 
-        if(LevelCreator.m_middleCounter == 0)
-        {
-            LevelCreator.m_middleCounter += 5.5f;
-        }
-        
-		m_isSuper = true;
+        //if(LevelCreator.m_middleCounter == 0)
+        //{
+        //    LevelCreator.m_middleCounter = 5.5f;
+        //}
+
+        m_isSuper = true;
 		StartCoroutine("SuperRoutine");
 	}
 }

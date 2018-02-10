@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BananasSpawner : MonoBehaviour
 {
-    ChimpController m_chimpController;
+    LandChimp m_landChimp;
     GameObject m_collectedTiles;
     WaitForSeconds m_spawnRoutineDelay = new WaitForSeconds(3.5f);
 
@@ -14,7 +14,7 @@ public class BananasSpawner : MonoBehaviour
 
     void Start()
     {
-        m_chimpController = FindObjectOfType<ChimpController>();
+        m_landChimp = FindObjectOfType<LandChimp>();
         m_collectedTiles = GameObject.Find("Tiles");
         StartCoroutine("SpawnRoutine");
     }

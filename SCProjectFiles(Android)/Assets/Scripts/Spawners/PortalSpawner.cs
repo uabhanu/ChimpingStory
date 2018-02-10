@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PortalSpawner : MonoBehaviour
 {
-	ChimpController m_chimpController;
+	LandChimp m_landChimp;
 	GameObject m_gameLayer , m_portalObj;
     WaitForSeconds m_spawnRoutineDelay = new WaitForSeconds(15.5f);
 
@@ -11,7 +11,7 @@ public class PortalSpawner : MonoBehaviour
 
     void Start()
 	{
-		m_chimpController = FindObjectOfType<ChimpController>();
+		m_landChimp = FindObjectOfType<LandChimp>();
         m_gameLayer = GameObject.Find("GameLayer");
 		m_portalObj = GameObject.FindGameObjectWithTag("Portal");
 		StartCoroutine("SpawnRoutine");

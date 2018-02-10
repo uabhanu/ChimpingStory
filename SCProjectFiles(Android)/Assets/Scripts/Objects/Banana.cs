@@ -4,7 +4,7 @@ public class Banana : MonoBehaviour
 {
     BoxCollider2D m_bananaCollider2D;
 	Camera m_mainCamera;
-	ChimpController m_chimpController;
+	LandChimp m_landChimp;
     LevelCreator m_levelCreationScript;
 	SoundManager m_soundManager;
 	SpriteRenderer m_bananaRenderer;
@@ -14,7 +14,7 @@ public class Banana : MonoBehaviour
     {
 		m_bananaCollider2D = GetComponent<BoxCollider2D>();
 		m_bananaRenderer = GetComponent<SpriteRenderer>();
-		m_chimpController = FindObjectOfType<ChimpController>();
+		m_landChimp = FindObjectOfType<LandChimp>();
         m_mainCamera = FindObjectOfType<Camera>();
 		m_levelCreationScript = FindObjectOfType<LevelCreator>();
         m_soundManager = FindObjectOfType<SoundManager>();
@@ -29,7 +29,7 @@ public class Banana : MonoBehaviour
 	
         m_positionOnScreen = m_mainCamera.WorldToScreenPoint(transform.position);
 
-        if(m_chimpController.m_isSuper)
+        if(m_landChimp.m_isSuper)
         {
             m_bananaCollider2D.enabled = false;
             m_bananaRenderer.enabled = false;
@@ -40,7 +40,7 @@ public class Banana : MonoBehaviour
     {
         if(tri2D.gameObject.tag.Equals("Player"))
         {
-            if(m_chimpController.m_isSlipping)
+            if(m_landChimp.m_isSlipping)
             {
                 ScoreManager.m_scoreValue += 15;
             }

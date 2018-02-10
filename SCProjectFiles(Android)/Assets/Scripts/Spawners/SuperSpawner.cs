@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SuperSpawner : MonoBehaviour
 {
-	ChimpController m_chimpController;
+	LandChimp m_landChimp;
 	GameObject m_gameLayer , m_superObj;
     WaitForSeconds m_spawnRoutineDelay = new WaitForSeconds(5.5f);
 
@@ -11,7 +11,7 @@ public class SuperSpawner : MonoBehaviour
 
     void Start()
 	{
-		m_chimpController = FindObjectOfType<ChimpController>();
+		m_landChimp = FindObjectOfType<LandChimp>();
         m_gameLayer = GameObject.Find("GameLayer");
 		m_superObj = GameObject.FindGameObjectWithTag("Super");
 		StartCoroutine("SpawnRoutine");
@@ -21,7 +21,7 @@ public class SuperSpawner : MonoBehaviour
 	{
 		yield return m_spawnRoutineDelay;
 
-		if(!m_chimpController.m_isSuper && ScoreManager.m_supersCount > 0)
+		if(!m_landChimp.m_isSuper && ScoreManager.m_supersCount > 0)
 		{
 			m_superObj = Instantiate(m_superPrefab , transform.position , Quaternion.identity);
 			m_superObj.transform.parent = m_gameLayer.transform;

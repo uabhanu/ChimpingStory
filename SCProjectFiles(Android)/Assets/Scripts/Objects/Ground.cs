@@ -2,14 +2,14 @@
 
 public class Ground : MonoBehaviour 
 {
-	ChimpController m_chimpController;
+	LandChimp m_landChimp;
 
 	[HideInInspector] public BoxCollider2D m_groundCollider2D;
 	[HideInInspector] public SpriteRenderer m_groundRenderer;
 
 	void Start() 
 	{
-		m_chimpController = FindObjectOfType<ChimpController>();
+		m_landChimp = FindObjectOfType<LandChimp>();
 		m_groundCollider2D = GetComponent<BoxCollider2D>();	
 		m_groundRenderer = GetComponent<SpriteRenderer>();
 	}
@@ -21,7 +21,7 @@ public class Ground : MonoBehaviour
             return;
         }
 
-		if(m_chimpController.m_isSuper)
+		if(m_landChimp.m_isSuper)
 		{
 			m_groundRenderer.enabled = false;
 		}
