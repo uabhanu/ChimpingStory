@@ -9,7 +9,6 @@ public class LandChimp : MonoBehaviour
 	BoxCollider2D m_blockerBottomCollider2D , m_chimpCollider2D;
     float m_defaultGravityScale , m_defaultJumpHeight , m_startPos;
 	GameManager m_gameManager;
-    [SerializeField] Ground m_ground;
 	LevelCreator m_levelCreator;
     Rigidbody2D m_chimpBody2D;
 	SoundManager m_soundManager;
