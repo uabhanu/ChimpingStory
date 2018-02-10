@@ -13,7 +13,7 @@ public class Explosion : MonoBehaviour
     void Start()
     {
 		m_explosionSystem = GetComponent<ParticleSystem>();
-		m_soundManager = FindObjectOfType<SoundManager>();
+		m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 
 		switch(m_explosionType)
 		{

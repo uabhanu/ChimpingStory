@@ -18,8 +18,8 @@ public class Rock : MonoBehaviour
         m_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>(); //TODO FindObjectofType() is causing Garbage so update like this wherever necessary
         m_explosionPrefab = Resources.Load("PF_Explosion") as GameObject;
         m_explosionSystemObj = GameObject.FindGameObjectWithTag("Explosion");
-		m_levelCreator = FindObjectOfType<LevelCreator>();
-		m_mainCamera = FindObjectOfType<Camera>();
+		m_levelCreator = GameObject.Find("LevelCreator").GetComponent<LevelCreator>();
+		m_mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
 		m_rockBody2D = GetComponent<Rigidbody2D>();
 		m_rockCollider2D = GetComponent<Collider2D>();
 		m_rockRenderer = GetComponent<SpriteRenderer>();
@@ -38,7 +38,6 @@ public class Rock : MonoBehaviour
 
 		if(m_positionOnScreen.x < 0)
 		{
-			RockSpawner.m_rocksSpawnCount--;
 			Destroy(gameObject);
 		}
 
@@ -67,7 +66,6 @@ public class Rock : MonoBehaviour
 		{
 			m_explosionSystemObj = Instantiate(m_explosionPrefab);
 			Explosion.m_explosionType = "Rock";
-			RockSpawner.m_rocksSpawnCount--;
 			Destroy(gameObject);
 		}
 	}

@@ -5,12 +5,14 @@ using UnityEngine.SceneManagement;
 public class LandChimp : MonoBehaviour
 {
     Animator m_chimpAnim;
+    BananasSpawner m_bananaSpawner;
     bool m_isJumping , m_isSliding;
 	BoxCollider2D m_blockerBottomCollider2D , m_chimpCollider2D;
     float m_defaultGravityScale , m_defaultJumpHeight , m_startPos;
 	GameManager m_gameManager;
 	LevelCreator m_levelCreator;
     Rigidbody2D m_chimpBody2D;
+    RockSpawner m_rockSpawner;
 	SoundManager m_soundManager;
     string m_currentScene;
     WaitForSeconds m_jumpRoutineDelay = new WaitForSeconds(0.55f);
@@ -34,6 +36,8 @@ public class LandChimp : MonoBehaviour
 
 	void Start()
     {
+        m_bananaSpawner = GameObject.Find("BananaSpawner").GetComponent<BananasSpawner>();
+        m_bananaSpawner.StartBananaSpawnRoutine();
         m_blockerBottomCollider2D = GameObject.Find("BlockerBottom").GetComponent<BoxCollider2D>();
         m_chimpAnim = GetComponent<Animator>();
         m_chimpBody2D = GetComponent<Rigidbody2D>();
@@ -41,9 +45,10 @@ public class LandChimp : MonoBehaviour
         m_currentScene = SceneManager.GetActiveScene().name;
         m_defaultGravityScale = m_chimpBody2D.gravityScale;
         m_defaultJumpHeight = m_jumpHeight;
-		m_gameManager = FindObjectOfType<GameManager>();
-		m_levelCreator = FindObjectOfType<LevelCreator>();
-		m_soundManager = FindObjectOfType<SoundManager>();
+		m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+		m_levelCreator = GameObject.Find("LevelCreator").GetComponent<LevelCreator>();
+        m_rockSpawner = GameObject.Find("RockSpawner").GetComponent<RockSpawner>();
+		m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         m_startPos = transform.position.x;
     }
 
@@ -78,9 +83,9 @@ public class LandChimp : MonoBehaviour
 		if(!m_isSuper)
 		{
 			GameManager.m_selfieButtonImage.enabled = false;	
+            m_chimpAnim.SetBool("Jump" , false);
 		}
 
-        m_chimpAnim.SetBool("Jump" , false);
         m_isJumping = false;
     }
 
@@ -126,6 +131,7 @@ public class LandChimp : MonoBehaviour
         //}
 
         m_isSuper = false;	
+        m_bananaSpawner.StartBananaSpawnRoutine();
 	}
 
     void CheatDeath()
@@ -289,6 +295,7 @@ public class LandChimp : MonoBehaviour
         //}
 
         m_isSuper = true;
+        m_rockSpawner.StartSpawnRoutine();
 		StartCoroutine("SuperRoutine");
 	}
 }

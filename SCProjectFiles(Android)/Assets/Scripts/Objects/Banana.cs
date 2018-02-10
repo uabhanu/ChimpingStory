@@ -5,7 +5,7 @@ public class Banana : MonoBehaviour
     BoxCollider2D m_bananaCollider2D;
 	Camera m_mainCamera;
 	LandChimp m_landChimp;
-    LevelCreator m_levelCreationScript;
+    LevelCreator m_levelCreator;
 	SoundManager m_soundManager;
 	SpriteRenderer m_bananaRenderer;
     [SerializeField] Vector3 m_positionOnScreen;
@@ -14,10 +14,10 @@ public class Banana : MonoBehaviour
     {
 		m_bananaCollider2D = GetComponent<BoxCollider2D>();
 		m_bananaRenderer = GetComponent<SpriteRenderer>();
-		m_landChimp = FindObjectOfType<LandChimp>();
-        m_mainCamera = FindObjectOfType<Camera>();
-		m_levelCreationScript = FindObjectOfType<LevelCreator>();
-        m_soundManager = FindObjectOfType<SoundManager>();
+		m_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
+        m_mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+		m_levelCreator = GameObject.Find("LevelCreator").GetComponent<LevelCreator>();
+        m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
     void Update() 

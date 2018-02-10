@@ -14,23 +14,28 @@ public class BananasSpawner : MonoBehaviour
 
     void Start()
     {
-        m_landChimp = FindObjectOfType<LandChimp>();
+        m_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
         m_collectedTiles = GameObject.Find("Tiles");
-        StartCoroutine("SpawnRoutine");
     }
 
     IEnumerator SpawnRoutine()
     {
         yield return m_spawnRoutineDelay;
 
-        if(m_bananasCount < m_maxBananas)
+        Debug.Log("Banana Spawn Routine");
+
+        if(m_bananasCount < m_maxBananas && !m_landChimp.m_isSuper)
         {
             GameObject bananas = Instantiate(m_bananasPrefabs[Random.Range(0 , m_bananasPrefabs.Length)] , transform.position , Quaternion.identity);
             bananas.transform.parent = m_collectedTiles.transform.Find("Bananas").transform;
             bananas.transform.position = new Vector2(transform.position.x + 2f , bananas.transform.position.y - 0.5f);
             m_bananasCount++;
+            StartCoroutine("SpawnRoutine");
         }
+    }
 
+    public void StartBananaSpawnRoutine()
+    {
         StartCoroutine("SpawnRoutine");
     }
 }
