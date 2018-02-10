@@ -3,6 +3,7 @@
 public class FallingLevelSuper : MonoBehaviour 
 {
 	Camera m_mainCamera;
+    GameManager m_gameManager;
     Rigidbody2D m_superBody2D;
 	SoundManager m_soundManager;
 	SpriteRenderer m_superRenderer;
@@ -13,6 +14,7 @@ public class FallingLevelSuper : MonoBehaviour
 
 	void Start() 
 	{
+        m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 		m_mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         m_superBody2D = GetComponent<Rigidbody2D>();
@@ -44,7 +46,7 @@ public class FallingLevelSuper : MonoBehaviour
             BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
 			m_soundManager.m_soundsSource.clip = m_soundManager.m_superCollected;
 			m_soundManager.m_soundsSource.Play();
-            transform.position = m_randomPositions[Random.Range(0 , m_randomPositions.Length)];
+            m_gameManager.BackToLandWithSuper();
         }
 	}
 }

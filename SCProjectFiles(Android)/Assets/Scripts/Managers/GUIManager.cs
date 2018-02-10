@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GUIManager : MonoBehaviour
 {
@@ -16,7 +15,15 @@ public class GUIManager : MonoBehaviour
     public PlayerManager playerManager;                     //A link to the player manager
     public PowerupManager powerupManager;                   //A link to the powerup manager
 
-	IEnumerator LandRunnerRoutine()
+    void Start()
+    {
+        inPlayMode = true;
+        overlayAnimator.SetBool("Visible" , false);
+        levelManager.StartLevel();
+		StartCoroutine("LandRunnerRoutine");
+    }
+
+    IEnumerator LandRunnerRoutine()
 	{
 		yield return m_landRunnerRoutineDelay;
 		m_gameManager.BackToLandWinMenu();
@@ -26,20 +33,7 @@ public class GUIManager : MonoBehaviour
     {
 		m_gameManager.BackToLandLoseMenu();
     }
-		    
-    public void PlayTrigger(Image arrowImage)
-    {
-		m_gameManager = FindObjectOfType<GameManager>();
-
-        if(!inPlayMode)
-        {
-            inPlayMode = true;
-            overlayAnimator.SetBool("Visible" , false);
-            levelManager.StartLevel();
-			StartCoroutine("LandRunnerRoutine");
-        }
-    }
-		
+		    	
     public bool InPlayMode()
     {
         return inPlayMode;

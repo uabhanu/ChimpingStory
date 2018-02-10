@@ -8,7 +8,8 @@ enum PowerupUsage { Enabled, Disabled };
 
 public class PlayerManager : MonoBehaviour
 {
-	GameObject m_explosionPrefab , m_explosionSystemObj;
+	GameManager m_gameManager;
+    GameObject m_explosionPrefab , m_explosionSystemObj;
 	SoundManager m_soundManager;
     WaitForSeconds m_reviveRoutineDelay = new WaitForSeconds(0.5f);
 
@@ -52,8 +53,8 @@ public class PlayerManager : MonoBehaviour
     //Used for initialization
     void Start()
     {
-		m_explosionPrefab = Resources.Load("PF_Explosion") as GameObject;
-		m_explosionSystemObj = GameObject.FindGameObjectWithTag("Explosion");
+		m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
         newRotation = new Vector3();
         startingPos = transform.position;
 
@@ -134,6 +135,7 @@ public class PlayerManager : MonoBehaviour
 			BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
 			m_soundManager.m_soundsSource.clip = m_soundManager.m_superCollected;
 			m_soundManager.m_soundsSource.Play();
+            m_gameManager.BackToLandWithSuper();
         }
     }
 		

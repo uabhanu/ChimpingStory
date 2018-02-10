@@ -8,12 +8,12 @@ public class GameManager : MonoBehaviour
 {
 	AudioSource m_musicSource;
 	LandChimp m_landChimp;
-	Image m_adsAcceptButtonImage , m_adsCancelButtonImage , m_adsMenuImage , m_backgroundImage , m_backToLandLoseMenuImage , m_backToLandWinMenuImage , m_continueButtonImage;
+	Image m_adsAcceptButtonImage , m_adsCancelButtonImage , m_adsMenuImage , m_backgroundImage , m_backToLandLoseMenuImage , m_backToLandWinMenuImage , m_backToLandWithSuperMenuImage , m_continueButtonImage;
     Image m_exitButtonImage , m_pauseButtonImage , m_pauseMenuImage , m_playButtonImage , m_quitButtonImage , m_quitAcceptButtonImage , m_quitCancelButtonImage;
     Image m_quitMenuImage , m_restartButtonImage , m_restartAcceptButtonImage , m_restartCancelButtonImage , m_restartMenuImage , m_resumeButtonImage;
 	SoundManager m_soundManager;
     string m_currentScene;
-	Text m_ads , m_backToLandLose , m_backToLandWin , m_highScoreTextDisplay , m_highScoreValueDisplay , m_quit , m_restart;
+	Text m_ads , m_backToLandLose , m_backToLandWin , m_backToLandWithSuper , m_highScoreTextDisplay , m_highScoreValueDisplay , m_quit , m_restart;
     WaitForSeconds m_flashRoutineDelay = new WaitForSeconds(0.25f);
 
 	[SerializeField] bool m_selfieFlashEnabled;
@@ -116,6 +116,17 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
     }
 
+    public void BackToLandWithSuper()
+    {
+        m_backToLandWithSuperMenuImage.enabled = true;
+        m_backToLandWithSuper.enabled = true;
+        m_continueButtonImage.enabled = true;
+		m_highScoreTextDisplay.enabled = false;
+		m_highScoreValueDisplay.enabled = false;
+        m_pauseButtonImage.enabled = false;
+        Time.timeScale = 0;
+    }
+
     public void Continue()
     {
 		BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
@@ -173,6 +184,8 @@ public class GameManager : MonoBehaviour
 			m_backToLandLose = GameObject.Find("BackToLandLose").GetComponent<Text>();
 			m_backToLandWinMenuImage = GameObject.Find("BackToLandWinMenu").GetComponent<Image>();
 			m_backToLandWin = GameObject.Find("BackToLandWin").GetComponent<Text>();
+            m_backToLandWithSuperMenuImage = GameObject.Find("BackToLandWithSuperMenu").GetComponent<Image>();
+			m_backToLandWithSuper = GameObject.Find("BackToLandWithSuper").GetComponent<Text>();
 			m_continueButtonImage = GameObject.Find("ContinueButton").GetComponent<Image>();
 			m_highScoreTextDisplay = GameObject.Find("HighScoreTextDisplay").GetComponent<Text>();
 			m_highScoreValueDisplay = GameObject.Find("HighScoreValueDisplay").GetComponent<Text>();
