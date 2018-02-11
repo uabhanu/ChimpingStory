@@ -87,6 +87,7 @@ public class LandChimp : MonoBehaviour
 		}
 
         m_isJumping = false;
+        StopCoroutine("JumpingRoutine");
     }
 
     IEnumerator SlideRoutine()
@@ -137,6 +138,7 @@ public class LandChimp : MonoBehaviour
     void CheatDeath()
     {
         m_gameManager.Ads();
+        StopAllCoroutines();
     }
 
     void Grounded()
@@ -220,6 +222,7 @@ public class LandChimp : MonoBehaviour
 		{
 			int randomValue = Random.Range(0 , 4);
 			string randomLevel = randomValue.ToString();
+            StopAllCoroutines();
 
 			switch(randomLevel)
 			{
@@ -283,6 +286,7 @@ public class LandChimp : MonoBehaviour
 
 	void Super()
 	{
+        m_bananaSpawner.StopBananaSpawnRoutine();
         m_blockerBottomCollider2D.enabled = true;
         m_chimpAnim.SetBool("Super" , true);
         m_chimpBody2D.gravityScale /= 2.5f;

@@ -22,8 +22,6 @@ public class BananasSpawner : MonoBehaviour
     {
         yield return m_spawnRoutineDelay;
 
-        Debug.Log("Banana Spawn Routine");
-
         if(m_bananasCount < m_maxBananas && !m_landChimp.m_isSuper)
         {
             GameObject bananas = Instantiate(m_bananasPrefabs[Random.Range(0 , m_bananasPrefabs.Length)] , transform.position , Quaternion.identity);
@@ -32,10 +30,17 @@ public class BananasSpawner : MonoBehaviour
             m_bananasCount++;
             StartCoroutine("SpawnRoutine");
         }
+
+        Debug.Log("Land Banana Spawner");
     }
 
     public void StartBananaSpawnRoutine()
     {
         StartCoroutine("SpawnRoutine");
+    }
+
+    public void StopBananaSpawnRoutine()
+    {
+        StopCoroutine("SpawnRoutine");
     }
 }
