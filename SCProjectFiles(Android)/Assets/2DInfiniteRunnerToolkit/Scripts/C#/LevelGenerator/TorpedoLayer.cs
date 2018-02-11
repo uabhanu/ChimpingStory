@@ -31,38 +31,32 @@ public class TorpedoLayer : MovingLayer
 
         base.Start();
     }
-    
-    //Spawns new torpedo elements
+
     public override void SpawnElement(bool inMiddle)
     {
         if(!canSpawn)
             return;
 
-        //Calculate the number
         int toSpawn = Random.Range(minTorpedoes, maxTorpedoes + 1);
 
         for(int i = 0; i < toSpawn; i++)
         {
-            //Get the first inactive indicator, and add it to the activate ones
             GameObject indicator = inactiveIndicators[0];
             inactiveIndicators.Remove(indicator);
             activeIndicators.Add(indicator);
 
-            //Place it in a random Y position
             float yPos = Random.Range(minPosY, maxPosY);
             indicator.transform.position = new Vector3(indicator.transform.position.x, yPos, 0);
-
-            //Activate it
             indicator.SetActive(true);
             StartCoroutine(ShowIndicator(indicator, yPos));
         }
     }
-    //Resets the active indicators
+   
     public override void Reset()
     {
         StopAllCoroutines();
 
-        while (activeIndicators.Count > 0)
+        while(activeIndicators.Count > 0)
         {
             activeIndicators[0].SetActive(false);
             inactiveIndicators.Add(activeIndicators[0]);
@@ -82,7 +76,7 @@ public class TorpedoLayer : MovingLayer
         while(i < 1.0)
         {
             //If the game is not paused, increase t, and scale the object
-            if (!paused)
+            if(!paused)
             {
                 i += Time.deltaTime * rate;
             }
@@ -92,7 +86,7 @@ public class TorpedoLayer : MovingLayer
         }
 
         //Disable the indicator
-        indicator.SetActive(false);    
+        indicator.SetActive(false);
         inactiveIndicators.Add(indicator);
         activeIndicators.Remove(indicator);
 

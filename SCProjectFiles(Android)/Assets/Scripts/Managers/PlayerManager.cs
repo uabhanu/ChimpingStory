@@ -192,12 +192,12 @@ public class PlayerManager : MonoBehaviour
         transform.eulerAngles = newRotation;
 	}
     //Revives the submarine
-	public void Revive()
+    public void Revive()
     {
-        StartCoroutine("ReviveProcess");
-	}
-    
-	public void UpdateInput(bool inputActive)
+        //StartCoroutine("ReviveProcess");
+    }
+
+    public void UpdateInput(bool inputActive)
     {
         if (playerStatus == PlayerStatus.Sinking || playerStatus == PlayerStatus.Crashed)
             return;

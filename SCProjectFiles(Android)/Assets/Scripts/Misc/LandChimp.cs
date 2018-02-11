@@ -10,11 +10,11 @@ public class LandChimp : MonoBehaviour
 	BoxCollider2D m_blockerBottomCollider2D , m_chimpCollider2D;
     float m_defaultGravityScale , m_defaultJumpHeight , m_startPos;
 	GameManager m_gameManager;
+    int m_currentScene;
 	LevelCreator m_levelCreator;
     Rigidbody2D m_chimpBody2D;
     RockSpawner m_rockSpawner;
 	SoundManager m_soundManager;
-    string m_currentScene;
     WaitForSeconds m_jumpRoutineDelay = new WaitForSeconds(0.55f);
     WaitForSeconds m_slideRoutineDelay = new WaitForSeconds(0.75f);
     WaitForSeconds m_slipRoutineDelay = new WaitForSeconds(5.15f);
@@ -42,7 +42,7 @@ public class LandChimp : MonoBehaviour
         m_chimpAnim = GetComponent<Animator>();
         m_chimpBody2D = GetComponent<Rigidbody2D>();
         m_chimpCollider2D = GetComponent<BoxCollider2D>();
-        m_currentScene = SceneManager.GetActiveScene().name;
+        m_currentScene = SceneManager.GetActiveScene().buildIndex;
         m_defaultGravityScale = m_chimpBody2D.gravityScale;
         m_defaultJumpHeight = m_jumpHeight;
 		m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -80,7 +80,7 @@ public class LandChimp : MonoBehaviour
     {
         yield return m_jumpRoutineDelay;
 
-		if(!m_isSuper)
+		if(!m_isSuper && m_currentScene == 1)
 		{
 			GameManager.m_selfieButtonImage.enabled = false;	
             m_chimpAnim.SetBool("Jump" , false);

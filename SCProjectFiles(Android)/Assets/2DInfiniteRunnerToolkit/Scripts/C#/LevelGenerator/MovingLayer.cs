@@ -25,8 +25,8 @@ public class MovingLayer : MonoBehaviour
     protected bool paused;                      //True, if the level is paused
     protected bool removeLast;                  //True, if the first element has passed the reset position
 
-	// Use this for initialization
-	public virtual void Start () 
+    // Use this for initialization
+    public virtual void Start()
     {
         speedMultiplier = 1;
         paused = true;
@@ -34,42 +34,42 @@ public class MovingLayer : MonoBehaviour
         activeElements = new List<Transform>();
         inactive = new List<Transform>();
 
-        foreach (Transform child in container)
+        foreach(Transform child in container)
             inactive.Add(child);
 
-        if (generateInMiddle)
+        if(generateInMiddle)
             SpawnElement(true);
-	}
-	// Update is called once per frame
-	void Update () 
+    }
+    // Update is called once per frame
+    void Update()
     {
-        if (!paused)
+        if(!paused)
         {
             //Loop through the active elemets
-            foreach (Transform item in activeElements)
+            foreach(Transform item in activeElements)
             {
                 //Move the item to the left
                 item.transform.position -= Vector3.right * startingSpeed * speedMultiplier * Time.deltaTime;
 
                 //If the item has reached the reset position
-                if (item.transform.position.x < resetAt)
+                if(item.transform.position.x < resetAt)
                     removeLast = true;
             }
 
             //Remove the first element, if needed
-            if (removeLast)
+            if(removeLast)
             {
                 removeLast = false;
                 RemoveElement(activeElements[0]);
             }
         }
-	}
+    }
 
     //Removes the first element
     private void RemoveElement(Transform item)
     {
         //If this is a special layer, like obstacles, check and activate every child
-        if (childCheck)
+        if(childCheck)
             EnableChild(item);
 
         //Remove it from the active elements, add it to the inactive, and disable it
@@ -85,7 +85,7 @@ public class MovingLayer : MonoBehaviour
     private void EnableChild(Transform element)
     {
         //Loop trough the childrens, and activate their renderer and collider
-        foreach (Transform item in element)
+        foreach(Transform item in element)
         {
             item.GetComponent<Renderer>().enabled = true;
             item.GetComponent<Collider2D>().enabled = true;
@@ -99,9 +99,9 @@ public class MovingLayer : MonoBehaviour
         float rate = 1.0f / time;
 
         //Wait for time
-        while (i < 1.0)
+        while(i < 1.0)
         {
-            if (!paused)
+            if(!paused)
                 i += Time.deltaTime * rate;
 
             yield return 0;
@@ -120,10 +120,10 @@ public class MovingLayer : MonoBehaviour
         float i = 0.0f;
         float rate = 1.0f / spawningRate;
 
-        while (i < 1.0)
+        while(i < 1.0)
         {
             //If the game is not paused, increase t, and scale the object
-            if (!paused)
+            if(!paused)
             {
                 i += (Time.deltaTime * rate) * speedMultiplier;
             }
@@ -150,7 +150,7 @@ public class MovingLayer : MonoBehaviour
         Transform item = inactive[Random.Range(0, inactive.Count)];
 
         //If the item is needed at zero X position
-        if (inMiddle)
+        if(inMiddle)
         {
             //Place it
             item.transform.position = new Vector3(0, item.transform.position.y, 0);
@@ -173,11 +173,11 @@ public class MovingLayer : MonoBehaviour
 
         StopAllCoroutines();
 
-        foreach (Transform item in activeElements)
+        foreach(Transform item in activeElements)
         {
             item.transform.position = new Vector3(startAt, item.transform.position.y, 0);
 
-            if (childCheck)
+            if(childCheck)
                 EnableChild(item);
 
             item.gameObject.SetActive(false);
@@ -186,10 +186,10 @@ public class MovingLayer : MonoBehaviour
 
         activeElements.Clear();
 
-        if (generateInMiddle)
+        if(generateInMiddle)
             SpawnElement(true);
     }
-  
+
     //Updates the speed multiplier
     public void UpdateSpeedMultiplier(float n)
     {

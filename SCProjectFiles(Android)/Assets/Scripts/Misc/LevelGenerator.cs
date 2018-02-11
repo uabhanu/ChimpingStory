@@ -46,8 +46,8 @@ public class LevelGenerator : MonoBehaviour
                 //Increase scrolling speed
                 speedMultiplier += speedIncreaseRate * Time.deltaTime;
 
-                powerupLayer.UpdateSpeedMultiplier(speedMultiplier);
-                torpedoLayer.UpdateSpeedMultiplier(speedMultiplier);
+                //powerupLayer.UpdateSpeedMultiplier(speedMultiplier);
+                //torpedoLayer.UpdateSpeedMultiplier(speedMultiplier);
             }
 
             //Increase distance
