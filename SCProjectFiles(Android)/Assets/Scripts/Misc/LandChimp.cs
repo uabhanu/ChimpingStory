@@ -202,6 +202,12 @@ public class LandChimp : MonoBehaviour
         }
     }
 
+    void OnDestroy()
+    {
+        //Debug.LogWarning("LandChimp Script Successfully Destroyed");
+        StopAllCoroutines(); //JumpRoutine Coroutine still gets called in WaterSwimmer level, no idea why because this method is being called
+    }
+
     void OnTriggerEnter2D(Collider2D tri2D)
     {
         if(tri2D.gameObject.tag.Equals("Fall"))
