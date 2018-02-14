@@ -65,6 +65,8 @@ public class Portal : MonoBehaviour
 
 	void OnTriggerEnter2D(Collider2D tri2D)
 	{
+        StopAllCoroutines();
+
 		if(tri2D.gameObject.tag.Equals("Player"))
 		{
             Destroy(gameObject);

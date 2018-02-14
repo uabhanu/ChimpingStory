@@ -228,7 +228,6 @@ public class LandChimp : MonoBehaviour
 		{
 			int randomValue = Random.Range(0 , 4);
 			string randomLevel = randomValue.ToString();
-            StopAllCoroutines();
 
 			switch(randomLevel)
 			{
