@@ -97,6 +97,8 @@ public class LandChimp : MonoBehaviour
 	
 	public void Jump()
     {
+        m_bananaSpawner.StartBananaSpawnRoutine();
+
 		if(m_grounded && !m_isJumping && !m_isSliding)
         {
             m_chimpBody2D.velocity = new Vector2(m_chimpBody2D.velocity.x , m_jumpHeight);
@@ -122,6 +124,7 @@ public class LandChimp : MonoBehaviour
 
     void JumpFinished()
     {
+        m_bananaSpawner.StopBananaSpawnRoutine();
         m_chimpAnim.SetBool("Jump" , false);
         m_chimpCollider2D.isTrigger = false;
 

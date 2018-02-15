@@ -7,7 +7,7 @@ public class LevelCreator : MonoBehaviour
     bool m_collectibleAdded , m_enemyAdded;
     LandChimp m_landChimp;
     const float m_tileWidth = 1.25f;
-    float m_blankCounter = 0 , m_middleCounter = 0 , m_outofbounceX , m_outOfBounceY , m_startTime , m_startUpPosY;
+    float m_blankCounter = 0 , m_outofbounceX , m_outOfBounceY , m_startTime , m_startUpPosY;
     GameObject m_bgLayer , m_chimp , m_collectedTiles , m_gameLayer ,  m_tmpTile;
     Ground m_ground;
 	int m_heightLevel = 0;
@@ -15,7 +15,7 @@ public class LevelCreator : MonoBehaviour
     WaitForSeconds m_gameSpeedRoutineDelay = new WaitForSeconds(7.8f);
 
     public float m_gameSpeed;
-    //public static float m_middleCounter = 0;
+    public float m_middleCounter = 0;
     public GameObject m_tilePos;
 
 	void Start() 
