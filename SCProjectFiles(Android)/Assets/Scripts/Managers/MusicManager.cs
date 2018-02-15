@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class MusicManager : MonoBehaviour 
 {
-	Image m_backgroundImage , m_playButtonImage , m_quitButtonImage;
+	//Image m_backgroundImage , m_playButtonImage , m_quitButtonImage;
 	//VideoPlayer m_videoPlayer;
 
 	//[SerializeField] bool m_logoPlayed;
@@ -18,9 +18,9 @@ public class MusicManager : MonoBehaviour
 
 	void Start() 
 	{
-		m_backgroundImage = GameObject.Find("BackgroundImage").GetComponent<Image>();
-		m_playButtonImage = GameObject.Find("PlayButton").GetComponent<Image>();
-		m_quitButtonImage = GameObject.Find("QuitButton").GetComponent<Image>();
+		//m_backgroundImage = GameObject.Find("BackgroundImage").GetComponent<Image>();
+		//m_playButtonImage = GameObject.Find("PlayButton").GetComponent<Image>();
+		//m_quitButtonImage = GameObject.Find("QuitButton").GetComponent<Image>();
 		m_musicSource = GetComponent<AudioSource>();
         m_musicSource.Play();
 		//m_videoPlayer = FindObjectOfType<VideoPlayer>();

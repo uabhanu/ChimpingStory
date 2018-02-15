@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LandChimp : MonoBehaviour
@@ -8,24 +7,18 @@ public class LandChimp : MonoBehaviour
     BananasSpawner m_bananaSpawner;
     bool m_isJumping , m_isSliding;
 	BoxCollider2D m_blockerBottomCollider2D , m_chimpCollider2D;
-    float m_defaultGravityScale , m_defaultJumpHeight , m_startPos;
+    float m_defaultGravityScale;
 	GameManager m_gameManager;
-    int m_currentScene;
 	LevelCreator m_levelCreator;
     Rigidbody2D m_chimpBody2D;
     RockSpawner m_rockSpawner;
 	SoundManager m_soundManager;
-    WaitForSeconds m_jumpRoutineDelay = new WaitForSeconds(0.55f);
-    WaitForSeconds m_slideRoutineDelay = new WaitForSeconds(0.75f);
-    WaitForSeconds m_slipRoutineDelay = new WaitForSeconds(5.15f);
-    WaitForSeconds m_superRoutineDelay = new WaitForSeconds(30.25f);
-
 
     [SerializeField] bool m_grounded;
     [SerializeField] float m_jumpHeight , m_jumpingTime , m_slideTime , m_slipTime , m_superTime , m_xPosTime;
     [SerializeField] Transform m_raycastOrigin;
 
-    public bool m_isSlipping , m_isSuper;
+    [HideInInspector] public bool m_isSlipping , m_isSuper;
 
 	void Reset()
 	{
@@ -42,14 +35,11 @@ public class LandChimp : MonoBehaviour
         m_chimpAnim = GetComponent<Animator>();
         m_chimpBody2D = GetComponent<Rigidbody2D>();
         m_chimpCollider2D = GetComponent<BoxCollider2D>();
-        m_currentScene = SceneManager.GetActiveScene().buildIndex;
         m_defaultGravityScale = m_chimpBody2D.gravityScale;
-        m_defaultJumpHeight = m_jumpHeight;
 		m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 		m_levelCreator = GameObject.Find("LevelCreator").GetComponent<LevelCreator>();
         m_rockSpawner = GameObject.Find("RockSpawner").GetComponent<RockSpawner>();
 		m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
-        m_startPos = transform.position.x;
     }
 
     void Update()
@@ -75,65 +65,6 @@ public class LandChimp : MonoBehaviour
 
         #endif
     }
-
-    IEnumerator JumpingRoutine()
-    {
-        yield return m_jumpRoutineDelay;
-
-		if(!m_isSuper && m_currentScene == 1)
-		{
-			GameManager.m_selfieButtonImage.enabled = false;	
-            m_chimpAnim.SetBool("Jump" , false);
-		}
-
-        m_isJumping = false;
-        StopCoroutine("JumpingRoutine");
-    }
-
-    IEnumerator SlideRoutine()
-    {
-        yield return m_slideRoutineDelay;
-
-        if(m_chimpAnim.GetBool("Slide"))
-		{
-            m_chimpAnim.SetBool("Jog" , true);
-            m_chimpAnim.SetBool("Slide" , false);
-            m_chimpBody2D.gravityScale = m_defaultGravityScale;
-            m_chimpCollider2D.enabled = true;
-			GameManager.m_selfieButtonImage.enabled = false;
-			m_isSliding = false;
-        }
-    }
-
-    IEnumerator SlipRoutine()
-    {
-        yield return m_slipRoutineDelay;
-
-        if(m_chimpAnim.GetBool("Slip"))
-		{
-			m_chimpAnim.SetBool("Slip" , false);
-            m_levelCreator.m_gameSpeed = 6.0f;
-            m_isSlipping = false;
-		}
-    }
-
-	IEnumerator SuperRoutine()
-	{
-		yield return m_superRoutineDelay;
-        m_blockerBottomCollider2D.enabled = false;
-        m_chimpAnim.SetBool("Super" , false);
-        m_chimpBody2D.gravityScale = m_defaultGravityScale;
-		GameManager.m_selfieButtonImage.enabled = false;
-		m_jumpHeight = m_defaultJumpHeight;
-
-        //if(LevelCreator.m_middleCounter == 5.5f)
-        //{
-        //    LevelCreator.m_middleCounter = 0f;
-        //}
-
-        m_isSuper = false;	
-        m_bananaSpawner.StartBananaSpawnRoutine();
-	}
 
     void CheatDeath()
     {
@@ -161,51 +92,45 @@ public class LandChimp : MonoBehaviour
                     m_grounded = false;
                 }
             }
-
-            else if(!hit2D)
-            {
-                //Debug.Log("Not Grounded because Jumped");
-                m_grounded = false;
-            }
         }
     }
 	
 	public void Jump()
     {
-        if(m_isJumping || m_isSliding)
-        {
-            return;
-        }
-
 		if(m_grounded && !m_isJumping && !m_isSliding)
         {
             m_chimpBody2D.velocity = new Vector2(m_chimpBody2D.velocity.x , m_jumpHeight);
+            m_chimpCollider2D.isTrigger = true;
+            m_isJumping = true;
+            Invoke("JumpFinished" , 0.55f);
 
 			if(!m_isSuper)
 			{
-				GameManager.m_selfieButtonImage.enabled = true;
+                m_chimpAnim.SetBool("Jump" , true);
+                GameManager.m_selfieButtonImage.enabled = true;
 			}
             
-            m_chimpAnim.SetBool("Jump" , true);
-            m_isJumping = true;
 			m_soundManager.m_soundsSource.clip = m_soundManager.m_jump;
 			m_soundManager.m_soundsSource.Play();
-            StartCoroutine("JumpingRoutine");
         }
 
         if(m_isSuper)
         {
             m_chimpBody2D.velocity = new Vector2(m_chimpBody2D.velocity.x , m_jumpHeight);
-			m_soundManager.m_soundsSource.clip = m_soundManager.m_jump;
-			m_soundManager.m_soundsSource.Play();
-            StartCoroutine("JumpingRoutine");
         }
     }
 
-    void OnDestroy()
+    void JumpFinished()
     {
-        //Debug.LogWarning("LandChimp Script Successfully Destroyed");
-        StopAllCoroutines(); //JumpRoutine Coroutine still gets called in WaterSwimmer level, no idea why because this method is being called
+        m_chimpAnim.SetBool("Jump" , false);
+        m_chimpCollider2D.isTrigger = false;
+
+        if(!m_isSuper)
+        {
+            GameManager.m_selfieButtonImage.enabled = false;
+        }
+        
+        m_isJumping = false;            
     }
 
     void OnTriggerEnter2D(Collider2D tri2D)
@@ -226,25 +151,24 @@ public class LandChimp : MonoBehaviour
 
 		if(tri2D.gameObject.tag.Equals("Portal"))
 		{
-			int randomValue = Random.Range(0 , 4);
-			string randomLevel = randomValue.ToString();
+			int levelToLoadAtRandom = Random.Range(0 , 4);
 
-			switch(randomLevel)
+			switch(levelToLoadAtRandom)
 			{
-				case "0":
+				case 0:
                     SceneManager.LoadScene("WaterSwimmer");
 				break;
 
-				case "1":
+				case 1:
 					SceneManager.LoadScene("WaterSwimmer");
 				break;
 
-				case "2":
+				case 2:
 					Screen.orientation = ScreenOrientation.Portrait;
 					SceneManager.LoadScene("FallingDown");
 				break;
 
-				case "3":
+				case 3:
 					Screen.orientation = ScreenOrientation.Portrait;
 					SceneManager.LoadScene("FallingDown");
 				break;
@@ -277,8 +201,17 @@ public class LandChimp : MonoBehaviour
 			m_chimpCollider2D.enabled = false;
 			GameManager.m_selfieButtonImage.enabled = true;
 			m_isSliding = true;
-			StartCoroutine("SlideRoutine");	
+			Invoke("SlideFinished" , 0.75f);
 		}
+    }
+
+    void SlideFinished()
+    {
+        m_chimpAnim.SetBool("Slide" , false);
+        m_chimpBody2D.gravityScale = m_defaultGravityScale;
+        m_chimpCollider2D.enabled = true;
+		GameManager.m_selfieButtonImage.enabled = false;
+		m_isSliding = false;
     }
 
     void Slip()
@@ -286,7 +219,14 @@ public class LandChimp : MonoBehaviour
         m_chimpAnim.SetBool("Slip" , true);
         m_levelCreator.m_gameSpeed *= 2.1f;
         m_isSlipping = true;
-        StartCoroutine("SlipRoutine");
+        Invoke("SlipFinished" , 5.15f);
+    }
+
+    void SlipFinished()
+    {
+		m_chimpAnim.SetBool("Slip" , false);
+        m_levelCreator.m_gameSpeed = 6.0f;
+        m_isSlipping = false;
     }
 
 	void Super()
@@ -296,6 +236,7 @@ public class LandChimp : MonoBehaviour
         m_chimpAnim.SetBool("Super" , true);
         m_chimpBody2D.gravityScale /= 2.5f;
 		GameManager.m_selfieButtonImage.enabled = true;
+        m_grounded = false;
         m_levelCreator.m_gameSpeed = 6.0f;
 
         //if(LevelCreator.m_middleCounter == 0)
@@ -305,6 +246,22 @@ public class LandChimp : MonoBehaviour
 
         m_isSuper = true;
         m_rockSpawner.StartSpawnRoutine();
-		StartCoroutine("SuperRoutine");
+		Invoke("SuperFinished" , 30.25f);
 	}
+
+    void SuperFinished()
+    {
+        m_blockerBottomCollider2D.enabled = false;
+        m_chimpAnim.SetBool("Super" , false);
+        m_chimpBody2D.gravityScale = m_defaultGravityScale;
+		GameManager.m_selfieButtonImage.enabled = false;
+
+        //if(LevelCreator.m_middleCounter == 5.5f)
+        //{
+        //    LevelCreator.m_middleCounter = 0f;
+        //}
+
+        m_isSuper = false;	
+        m_bananaSpawner.StartBananaSpawnRoutine();
+    }
 }

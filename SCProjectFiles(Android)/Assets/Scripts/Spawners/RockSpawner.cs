@@ -4,17 +4,13 @@ using UnityEngine;
 public class RockSpawner : MonoBehaviour
 {
 	LandChimp m_landChimp;
-	float m_startUpPosY;
-	GameObject m_collectedTiles , m_rockPrefab , m_tilePos;
+	GameObject m_rockPrefab;
     WaitForSeconds m_spawnRoutineDelay = new WaitForSeconds(0.5f);
 
 	void Start()
 	{
 		m_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
 		m_rockPrefab = Resources.Load("PF_Rock") as GameObject;
-		m_collectedTiles = GameObject.Find("Tiles");
-		m_tilePos = GameObject.Find("StartTilePosition");
-		m_startUpPosY = m_tilePos.transform.position.y;
 	}
 
 	IEnumerator SpawnRoutine()

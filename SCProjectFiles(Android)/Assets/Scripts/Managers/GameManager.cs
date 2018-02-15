@@ -8,21 +8,20 @@ public class GameManager : MonoBehaviour
 {
 	AudioSource m_musicSource;
 	LandChimp m_landChimp;
-	Image m_adsAcceptButtonImage , m_adsCancelButtonImage , m_adsMenuImage , m_backgroundImage , m_backToLandLoseMenuImage , m_backToLandWinMenuImage , m_backToLandWithSuperMenuImage , m_continueButtonImage;
+	Image m_adsAcceptButtonImage , m_adsCancelButtonImage , m_adsMenuImage , m_backToLandLoseMenuImage , m_backToLandWinMenuImage , m_backToLandWithSuperMenuImage , m_continueButtonImage;
     Image m_exitButtonImage , m_pauseButtonImage , m_pauseMenuImage , m_playButtonImage , m_quitButtonImage , m_quitAcceptButtonImage , m_quitCancelButtonImage;
     Image m_quitMenuImage , m_restartButtonImage , m_restartAcceptButtonImage , m_restartCancelButtonImage , m_restartMenuImage , m_resumeButtonImage;
 	SoundManager m_soundManager;
-    string m_currentScene;
 	Text m_ads , m_backToLandLose , m_backToLandWin , m_backToLandWithSuper , m_highScoreTextDisplay , m_highScoreValueDisplay , m_quit , m_restart;
     WaitForSeconds m_flashRoutineDelay = new WaitForSeconds(0.25f);
 
 	[SerializeField] bool m_selfieFlashEnabled;
 
-	public static Image m_selfieButtonImage , m_selfiePanelImage;
+    public static Image m_selfieButtonImage , m_selfiePanelImage;
+    public static int m_currentScene;
 
     void Start()
 	{
-        BananasSpawner.m_bananasCount = 0;
 		GetBhanuObjects();
     }
 
@@ -133,7 +132,7 @@ public class GameManager : MonoBehaviour
 		Screen.orientation = ScreenOrientation.Landscape;
         SceneManager.LoadScene("LandRunner");
     }
-		
+
     public void ExitToMainMenu()
 	{
 		MusicManager.m_musicSource.Play();
@@ -142,12 +141,12 @@ public class GameManager : MonoBehaviour
 
     void GetBhanuObjects()
     {
-        m_currentScene = SceneManager.GetActiveScene().name;
+        BananasSpawner.m_bananasCount = 0;
+        m_currentScene = SceneManager.GetActiveScene().buildIndex;
 		m_soundManager = FindObjectOfType<SoundManager>();
 
-        if(m_currentScene == "MainMenu")
+        if(m_currentScene == 0)
         {
-            m_backgroundImage = GameObject.Find("BackgroundImage").GetComponent<Image>();
             m_playButtonImage = GameObject.Find("PlayButton").GetComponent<Image>();
             m_quit = GameObject.Find("QuitText").GetComponent<Text>();
             m_quitButtonImage = GameObject.Find("QuitButton").GetComponent<Image>();
@@ -156,7 +155,7 @@ public class GameManager : MonoBehaviour
             m_quitMenuImage = GameObject.Find("QuitMenu").GetComponent<Image>();
         }
 
-        else if(m_currentScene == "LandRunner")
+        else if(m_currentScene == 1)
         {
             m_ads = GameObject.Find("AdsText").GetComponent<Text>();
             m_adsAcceptButtonImage = GameObject.Find("AdsAcceptButton").GetComponent<Image>();
@@ -353,20 +352,4 @@ public class GameManager : MonoBehaviour
 		BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
         ScoreManager.m_scoreDisplay.text = ScoreManager.m_scoreValue.ToString();
 	}
-
-    void UIOffForTesting()
-    {
-        Image[] m_images = FindObjectsOfType<Image>();
-        Text[] m_texts = FindObjectsOfType<Text>();
-
-        foreach(Image image in m_images)
-        {
-            image.enabled = false;
-        }
-
-        foreach(Text text in m_texts)
-        {
-            text.enabled = false;
-        }
-    }
 }

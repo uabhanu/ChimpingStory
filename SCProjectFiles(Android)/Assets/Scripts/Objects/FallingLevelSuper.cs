@@ -2,11 +2,9 @@
 
 public class FallingLevelSuper : MonoBehaviour 
 {
-	Camera m_mainCamera;
     GameManager m_gameManager;
     Rigidbody2D m_superBody2D;
 	SoundManager m_soundManager;
-	SpriteRenderer m_superRenderer;
     TopDownClouds m_topDownClouds;
 	Vector3 m_positionOnScreen;
 
@@ -15,10 +13,8 @@ public class FallingLevelSuper : MonoBehaviour
 	void Start() 
 	{
         m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-		m_mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         m_superBody2D = GetComponent<Rigidbody2D>();
-		m_superRenderer = GetComponent<SpriteRenderer>();
         m_topDownClouds = GameObject.Find("Clouds").GetComponent<TopDownClouds>();
         transform.position = m_randomPositions[Random.Range(0 , m_randomPositions.Length)];
 	}

@@ -3,7 +3,6 @@
 public class BananasMover : MonoBehaviour 
 {
     Camera m_mainCamera;
-    float m_startPos;
     LevelCreator m_levelCreator;
     Rigidbody2D m_bhanuBody2D;
     Vector3 m_positionOnScreen;
@@ -13,7 +12,6 @@ public class BananasMover : MonoBehaviour
         m_bhanuBody2D = GetComponent<Rigidbody2D>();
         m_levelCreator = GameObject.Find("LevelCreator").GetComponent<LevelCreator>();
         m_mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
-        m_startPos = transform.position.x;
 	}
 	
 	void Update() 

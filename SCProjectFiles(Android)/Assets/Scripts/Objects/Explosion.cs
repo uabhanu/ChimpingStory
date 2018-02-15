@@ -18,12 +18,12 @@ public class Explosion : MonoBehaviour
 		switch(m_explosionType)
 		{
 			case "Rock":
-				m_explosionSystem.GetComponent<Renderer> ().material = m_rock;
+				m_explosionSystem.GetComponent<Renderer>().material = m_rock;
 				m_soundManager.m_soundsSource.clip = m_soundManager.m_rockExplosion;
 			break;
 
 			case "Super":
-				m_explosionSystem.GetComponent<Renderer> ().material = m_super;
+				m_explosionSystem.GetComponent<Renderer>().material = m_super;
 			break;
 		}
 

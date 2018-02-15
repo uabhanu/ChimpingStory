@@ -53,6 +53,8 @@ public class PlayerManager : MonoBehaviour
     //Used for initialization
     void Start()
     {
+        StopAllCoroutines();
+
 		m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         newRotation = new Vector3();
@@ -67,7 +69,7 @@ public class PlayerManager : MonoBehaviour
 
 		currentSkinID = SaveManager.currentSkinID;
 		subRenderer.sprite = m_chimpSprites[currentSkinID * 2 + 1];
-		m_soundManager = FindObjectOfType<SoundManager>();
+		m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
     
     void Update()

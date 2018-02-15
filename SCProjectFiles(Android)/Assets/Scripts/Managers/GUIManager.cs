@@ -4,10 +4,8 @@ using UnityEngine;
 public class GUIManager : MonoBehaviour
 {
     AudioSource m_musicSource;
-	bool[] usedMissionNotifications = new bool[]{false , false , false};
-	bool canPause = true , inPlayMode = false;
+	bool inPlayMode = false;
 	GameManager m_gameManager;
-	int collectedCoins = 0 , distanceTraveled = 0;
     WaitForSeconds m_landRunnerRoutineDelay = new WaitForSeconds(30f);
 
 	public Animator overlayAnimator;                        //The overlay animator

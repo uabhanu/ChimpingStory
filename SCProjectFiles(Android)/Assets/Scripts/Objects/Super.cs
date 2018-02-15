@@ -5,10 +5,7 @@ public class Super : MonoBehaviour
 	BoxCollider2D m_superCollider2D;
 	Camera m_mainCamera;
 	LandChimp m_landChimp;
-    //float m_maxY , m_minY;
 	GameObject m_explosionPrefab , m_explosionSystemObj;
-    //int m_direction = 1;
-    LevelCreator m_levelCreator;
 	SoundManager m_soundManager;
 	SpriteRenderer m_superRenderer;
 	Vector3 m_positionOnScreen;
@@ -18,10 +15,7 @@ public class Super : MonoBehaviour
 		m_landChimp = FindObjectOfType<LandChimp>();
 		m_explosionPrefab = Resources.Load("PF_Explosion") as GameObject;
 		m_explosionSystemObj = GameObject.FindGameObjectWithTag("Explosion");
-		m_levelCreator = FindObjectOfType<LevelCreator>();
 		m_mainCamera = FindObjectOfType<Camera>();
-        //m_maxY = transform.position.y + 3.1f;
-        //m_minY = m_maxY - 3.1f;
         m_soundManager = FindObjectOfType<SoundManager>();
 		m_superCollider2D = GetComponent<BoxCollider2D>();	
 		m_superRenderer = GetComponent<SpriteRenderer>();
@@ -33,18 +27,6 @@ public class Super : MonoBehaviour
         {
             return;
         }
-
-        //transform.position = new Vector2(transform.position.x , transform.position.y + (m_direction * 0.03f));
-
-        //if(transform.position.y > m_maxY)
-        //{
-        //    m_direction = -1;
-        //}
-
-        //if(transform.position.y < m_minY)
-        //{
-        //    m_direction = 1;
-        //}
 
         if(m_landChimp.m_isSlipping || m_landChimp.m_isSuper)
         {
