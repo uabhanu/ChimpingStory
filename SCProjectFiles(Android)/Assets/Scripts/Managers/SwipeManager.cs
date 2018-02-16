@@ -11,7 +11,7 @@ public enum SwipeDirection
 
 public class SwipeManager : MonoBehaviour 
 {
-	float m_swipeResistanceX = 0.5f , m_swipeResistanceY = 0.5f;
+	float m_swipeResistanceX = 50f , m_swipeResistanceY = 50f;
     static SwipeManager instance;
     Vector3 m_touchPos;
 

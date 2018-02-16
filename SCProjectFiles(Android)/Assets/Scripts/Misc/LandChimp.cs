@@ -48,25 +48,31 @@ public class LandChimp : MonoBehaviour
 
         Grounded();
 
-        if(Input.GetMouseButtonDown(0)) //TODO This ia for testing only
-        {
-            Jump();
-        }
+        #if UNITY_EDITOR || UNITY_STANDALONE
+            if(Input.GetMouseButtonDown(0)) //TODO This ia for testing only
+            {
+                Jump();
+            }
 
-        if(Input.GetMouseButtonDown(1)) //TODO This ia for testing only
-        {
-            Slide();
-        }
-	
-        if(SwipeManager.Instance.IsSwiping(SwipeDirection.UP))
-        {
-            Jump();
-        }
+            if(Input.GetMouseButtonDown(1)) //TODO This ia for testing only
+            {
+                Slide();
+            }
+        #endif
 
-        if(SwipeManager.Instance.IsSwiping(SwipeDirection.DOWN))
-        {
-            Slide();
-        }
+        #if UNITY_ANDROID || UNITY_IPHONE
+
+            if(SwipeManager.Instance.IsSwiping(SwipeDirection.UP))
+            {
+                Jump();
+            }
+
+            if(SwipeManager.Instance.IsSwiping(SwipeDirection.DOWN))
+            {
+                Slide();
+            }
+
+        #endif
     }
 
     void CheatDeath()
