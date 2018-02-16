@@ -19,8 +19,8 @@ public class LevelManager : MonoBehaviour
         //SaveManager.SaveData();
         //SaveManager.ResetMissions();
 
-        SaveManager.LoadData();
-        SaveManager.LoadMissionData();
+        //SaveManager.LoadData();
+        //SaveManager.LoadMissionData();
 
         //missionManager.LoadData();
     }
@@ -115,10 +115,10 @@ public class LevelManager : MonoBehaviour
     //Saves the best distance, and the collected coins
     private void SaveStats()
     {
-        if (SaveManager.bestDistance < levelGenerator.CurrentDistance())
-            SaveManager.bestDistance = levelGenerator.CurrentDistance();
+        //if (SaveManager.bestDistance < levelGenerator.CurrentDistance())
+            //SaveManager.bestDistance = levelGenerator.CurrentDistance();
 
-        SaveManager.coinAmmount += collectedCoins;
-        SaveManager.SaveData();
+        //SaveManager.coinAmmount += collectedCoins;
+        //SaveManager.SaveData();
     }
 }

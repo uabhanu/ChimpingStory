@@ -67,7 +67,7 @@ public class PlayerManager : MonoBehaviour
 
         rotationDiv = maxVerticalSpeed / maxRotation;
 
-		currentSkinID = SaveManager.currentSkinID;
+		//currentSkinID = SaveManager.currentSkinID;
 		subRenderer.sprite = m_chimpSprites[currentSkinID * 2 + 1];
 		m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
@@ -212,7 +212,7 @@ public class PlayerManager : MonoBehaviour
     //Disables the crash smoke particle
     public void DisableSmoke()
     {
-        smoke.enableEmission = false;
+        //smoke.enableEmission = false;
     }
 
     
@@ -344,8 +344,8 @@ public class PlayerManager : MonoBehaviour
 				
             MoveAndRotate();
 
-            if (distance < 0.25f)
-                smoke.enableEmission = true;
+            //if (distance < 0.25f)
+                //smoke.enableEmission = true;
         }
         
         else

@@ -7,9 +7,8 @@ public class LevelCreator : MonoBehaviour
     bool m_collectibleAdded , m_enemyAdded;
     LandChimp m_landChimp;
     const float m_tileWidth = 1.25f;
-    float m_blankCounter = 0 , m_outofbounceX , m_outOfBounceY , m_startTime , m_startUpPosY;
-    GameObject m_bgLayer , m_chimp , m_collectedTiles , m_gameLayer ,  m_tmpTile;
-    Ground m_ground;
+    float m_blankCounter = 0 , m_outofbounceX , m_startUpPosY;
+    GameObject m_collectedTiles , m_gameLayer ,  m_tmpTile;
 	int m_heightLevel = 0;
 	string m_lastTile = "PF_GroundRight";
     WaitForSeconds m_gameSpeedRoutineDelay = new WaitForSeconds(7.8f);
@@ -20,12 +19,9 @@ public class LevelCreator : MonoBehaviour
 
 	void Start() 
 	{
-        m_landChimp = FindObjectOfType<LandChimp>();
+        m_collectedTiles = GameObject.Find("Tiles");
         m_gameLayer = GameObject.Find("GameLayer");
-        m_ground = FindObjectOfType<Ground>();
-		m_bgLayer = GameObject.Find("BackgroundLayer");
-		m_collectedTiles = GameObject.Find("Tiles");
-        m_startTime = Time.time;
+        m_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
 
 		for(int i = 0; i < 30; i++)
         {
@@ -65,8 +61,6 @@ public class LevelCreator : MonoBehaviour
 		m_tilePos = GameObject.Find("StartTilePosition");
 		m_startUpPosY = m_tilePos.transform.position.y;
 		m_outofbounceX = m_tilePos.transform.position.x - 5.0f;
-		m_outOfBounceY = m_startUpPosY - 3.0f;
-		m_chimp = GameObject.FindGameObjectWithTag("Player");
 		FillScene();
 
         StartCoroutine("GameSpeedRoutine");
