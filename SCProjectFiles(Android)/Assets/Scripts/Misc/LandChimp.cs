@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 public class LandChimp : MonoBehaviour
 {
     Animator m_chimpAnim;
-    BananasSpawner m_bananaSpawner;
     bool m_isJumping , m_isSliding;
 	BoxCollider2D m_blockerBottomCollider2D , m_chimpCollider2D;
     float m_defaultGravityScale;
@@ -29,8 +28,6 @@ public class LandChimp : MonoBehaviour
 
 	void Start()
     {
-        m_bananaSpawner = GameObject.Find("BananaSpawner").GetComponent<BananasSpawner>();
-        m_bananaSpawner.StartBananaSpawnRoutine();
         m_blockerBottomCollider2D = GameObject.Find("BlockerBottom").GetComponent<BoxCollider2D>();
         m_chimpAnim = GetComponent<Animator>();
         m_chimpBody2D = GetComponent<Rigidbody2D>();
@@ -50,6 +47,16 @@ public class LandChimp : MonoBehaviour
         }
 
         Grounded();
+
+        if(Input.GetMouseButtonDown(0)) //TODO This ia for testing only
+        {
+            Jump();
+        }
+
+        if(Input.GetMouseButtonDown(1)) //TODO This ia for testing only
+        {
+            Slide();
+        }
 	
         if(SwipeManager.Instance.IsSwiping(SwipeDirection.UP))
         {
@@ -93,8 +100,6 @@ public class LandChimp : MonoBehaviour
 	
 	public void Jump()
     {
-        m_bananaSpawner.StartBananaSpawnRoutine();
-
 		if(m_grounded && !m_isJumping && !m_isSliding)
         {
             m_chimpBody2D.velocity = new Vector2(m_chimpBody2D.velocity.x , m_jumpHeight);
@@ -120,7 +125,6 @@ public class LandChimp : MonoBehaviour
 
     void JumpFinished()
     {
-        m_bananaSpawner.StopBananaSpawnRoutine();
         m_chimpAnim.SetBool("Jump" , false);
         m_chimpCollider2D.isTrigger = false;
 
@@ -150,7 +154,7 @@ public class LandChimp : MonoBehaviour
 
 		if(tri2D.gameObject.tag.Equals("Portal"))
 		{
-			int levelToLoadAtRandom = Random.Range(0 , 4);
+            int levelToLoadAtRandom = Random.Range(0 , 4);
 
 			switch(levelToLoadAtRandom)
 			{
@@ -230,7 +234,6 @@ public class LandChimp : MonoBehaviour
 
 	void Super()
 	{
-        m_bananaSpawner.StopBananaSpawnRoutine();
         m_blockerBottomCollider2D.enabled = true;
         m_chimpAnim.SetBool("Super" , true);
         m_chimpBody2D.gravityScale /= 2.5f;
@@ -261,6 +264,5 @@ public class LandChimp : MonoBehaviour
         //}
 
         m_isSuper = false;	
-        m_bananaSpawner.StartBananaSpawnRoutine();
     }
 }

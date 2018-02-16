@@ -7,10 +7,10 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour 
 {
 	AudioSource m_musicSource;
-	LandChimp m_landChimp;
 	Image m_adsAcceptButtonImage , m_adsCancelButtonImage , m_adsMenuImage , m_backToLandLoseMenuImage , m_backToLandWinMenuImage , m_backToLandWithSuperMenuImage , m_continueButtonImage;
     Image m_exitButtonImage , m_pauseButtonImage , m_pauseMenuImage , m_playButtonImage , m_quitButtonImage , m_quitAcceptButtonImage , m_quitCancelButtonImage;
     Image m_quitMenuImage , m_restartButtonImage , m_restartAcceptButtonImage , m_restartCancelButtonImage , m_restartMenuImage , m_resumeButtonImage;
+    LandChimp m_landChimp;
 	SoundManager m_soundManager;
 	Text m_ads , m_backToLandLose , m_backToLandWin , m_backToLandWithSuper , m_highScoreTextDisplay , m_highScoreValueDisplay , m_quit , m_restart;
     WaitForSeconds m_flashRoutineDelay = new WaitForSeconds(0.25f);
