@@ -15,7 +15,7 @@ public class LandChimp : MonoBehaviour
 	SoundManager m_soundManager;
 
     [SerializeField] bool m_grounded;
-    [SerializeField] float m_jumpHeight , m_jumpingTime , m_slideTime , m_slipTime , m_superTime , m_xPosTime;
+    [SerializeField] float m_jumpHeight;
     [SerializeField] Transform m_raycastOrigin;
 
     [HideInInspector] public bool m_isSlipping , m_isSuper;
@@ -51,19 +51,15 @@ public class LandChimp : MonoBehaviour
 
         Grounded();
 	
-        #if UNITY_EDITOR_64 || UNITY_STANDALONE_WIN
+        if(SwipeManager.Instance.IsSwiping(SwipeDirection.UP))
+        {
+            Jump();
+        }
 
-            if(Input.GetMouseButtonDown(0))
-		    {
-			    Jump();
-		    }
-
-		    if(Input.GetMouseButtonDown(1))
-		    {
-			    Slide();
-		    }
-
-        #endif
+        if(SwipeManager.Instance.IsSwiping(SwipeDirection.DOWN))
+        {
+            Slide();
+        }
     }
 
     void CheatDeath()
