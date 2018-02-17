@@ -15,14 +15,14 @@ public class LevelGenerator : MonoBehaviour
     //public ParticleLayer particleLayer;                         //A link to the particle player
 
     //public GameObject hangar;									//Holds the hangar
-    public GameObject playTriggerer;                            //Holds the play triggerer
+    //public GameObject playTriggerer;                            //Holds the play triggerer
 
     public float speedIncreaseRate;                             //The scrolling speed increase rate per second
     public float distance;                                      //The current distance
 
     private float hangarStartPosX;                              //The hangar starting position
 
-    private float speedMultiplier;                              //Holds the speed multiplier
+    public float speedMultiplier;                              //Holds the speed multiplier
     private float lastSpeedMultiplier;                          //Holds the last speed multiplier
 
     private bool paused;                                        //True, if the game is paused
@@ -131,6 +131,7 @@ public class LevelGenerator : MonoBehaviour
     {
         //particleLayer.AddExplosion(contactPoint);
 	}
+
     //Resume the generator after a revive
 	public void ContinueGeneration()
     {
@@ -150,7 +151,7 @@ public class LevelGenerator : MonoBehaviour
 
         StopAllCoroutines();
 
-        playTriggerer.SetActive(true);
+        //playTriggerer.SetActive(true);
 
         foreach (MovingLayer item in movingLayers)
             item.Reset();

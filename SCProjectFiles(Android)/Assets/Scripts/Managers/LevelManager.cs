@@ -3,7 +3,7 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     public PlayerManager playerManager;                 //Holds a link to the Player Manager
-    public GUIManager guiManager;                       //Holds a link to the GUI Manager
+    //public GUIManager guiManager;                       //Holds a link to the GUI Manager
     public LevelGenerator levelGenerator;               //Holds a link to the Level Generator
     //public MissionManager missionManager;               //Holds a link to the Mission Manager
     public PowerupManager powerupManager;               //Holds a link to the Powerup Manager

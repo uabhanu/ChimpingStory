@@ -2,16 +2,18 @@ using UnityEngine;
 using System.Collections;
 
 enum PlayerState { Enabled, Disabled };
-enum PlayerStatus { Idle, MovinUp, MovingDown, Sinking, Crashed };
+enum PlayerStatus { Idle, MovinUp, MovingDown, DROWN, Crashed };
 enum PlayerVulnerability { Enabled, Disabled, Shielded };
 enum PowerupUsage { Enabled, Disabled };
 
 public class PlayerManager : MonoBehaviour
 {
-	GameManager m_gameManager;
+	Animator m_animator;
+    bool m_isDying = false;
+    GameManager m_gameManager;
     GameObject m_explosionPrefab , m_explosionSystemObj;
+    LevelGenerator m_levelGenerator;
 	SoundManager m_soundManager;
-    WaitForSeconds m_reviveRoutineDelay = new WaitForSeconds(0.5f);
 
 	[SerializeField] Sprite[] m_chimpSprites;		
 
@@ -55,7 +57,10 @@ public class PlayerManager : MonoBehaviour
     {
         StopAllCoroutines();
 
-		m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+		m_animator = GetComponent<Animator>();
+        m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        m_levelGenerator = GameObject.Find("LevelGenerator").GetComponent<LevelGenerator>();
+        m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 
         newRotation = new Vector3();
         startingPos = transform.position;
@@ -69,7 +74,8 @@ public class PlayerManager : MonoBehaviour
 
 		//currentSkinID = SaveManager.currentSkinID;
 		subRenderer.sprite = m_chimpSprites[currentSkinID * 2 + 1];
-		m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+
+        Invoke("BackToLandWin" , 30f);
     }
     
     void Update()
@@ -83,40 +89,59 @@ public class PlayerManager : MonoBehaviour
                 MoveAndRotate();
             }
 
-            else if(playerStatus == PlayerStatus.Sinking)
+            else if(playerStatus == PlayerStatus.DROWN)
             {
-                Sink();
+                Drown();
             }
         }
+
+        if(m_isDying && m_levelGenerator.speedMultiplier == 0)
+        {
+            BackToLandLose();
+        }
+    }
+
+    void BackToLandLose()
+    {
+        m_gameManager.BackToLandLoseMenu();
+    }
+
+    void BackToLandWin()
+    {
+        m_gameManager.BackToLandWinMenu();
     }
 		
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D tri2D)
     {
-        if(other.tag == "Coin")
+        if(tri2D.tag == "Coin")
         {
             ScoreManager.m_scoreValue += 5;
             ScoreManager.m_scoreDisplay.text = ScoreManager.m_scoreValue.ToString();
             BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
-            other.GetComponent<Renderer>().enabled = false;
-            other.GetComponent<Collider2D>().enabled = false;
+            tri2D.GetComponent<Renderer>().enabled = false;
+            tri2D.GetComponent<Collider2D>().enabled = false;
 			m_soundManager.m_soundsSource.clip = m_soundManager.m_coin;
 			m_soundManager.m_soundsSource.Play();
         }
         
-        else if(other.tag == "Obstacle")
+        else if(tri2D.tag == "Obstacle")
         {
-            levelManager.Collision(other.name, other.transform.position);
-            other.GetComponent<Renderer>().enabled = false;
-            other.GetComponent<Collider2D>().enabled = false;
+            //m_animator.SetBool("Dying" , true); //TODO use this or the position of player depending on performance
+            m_isDying = true;
+            levelManager.Collision(tri2D.name, tri2D.transform.position);
+            tri2D.GetComponent<Renderer>().enabled = false;
+            tri2D.GetComponent<Collider2D>().enabled = false;
+            m_soundManager.m_soundsSource.clip = m_soundManager.m_spikesBallDeath;
+			m_soundManager.m_soundsSource.Play();
 
-            if(other.name == "Torpedo")
-                other.transform.Find("TorpedoFire").gameObject.SetActive(false);
+            if(tri2D.name == "Torpedo")
+                tri2D.transform.Find("TorpedoFire").gameObject.SetActive(false);
 
             if(playerVulnerability == PlayerVulnerability.Enabled)
             {
                 powerupUsage = PowerupUsage.Disabled;
                 playerVulnerability = PlayerVulnerability.Disabled;
-                playerStatus = PlayerStatus.Sinking;
+                playerStatus = PlayerStatus.DROWN;
 
 				subRenderer.sprite = m_chimpSprites[currentSkinID * 2];
                 bubbles.Stop();
@@ -128,16 +153,16 @@ public class PlayerManager : MonoBehaviour
             }
         }
         
-        else if(other.tag == "Super")
+        else if(tri2D.tag == "Super")
         {
-            other.GetComponent<Renderer>().enabled = false;
-            other.GetComponent<Collider2D>().enabled = false;
+            tri2D.GetComponent<Renderer>().enabled = false;
+            tri2D.GetComponent<Collider2D>().enabled = false;
             //other.transform.Find("Trail").gameObject.SetActive(false);
 			ScoreManager.m_supersCount++;
 			BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
 			m_soundManager.m_soundsSource.clip = m_soundManager.m_superCollected;
 			m_soundManager.m_soundsSource.Play();
-            m_gameManager.BackToLandWithSuper();
+            m_gameManager.BackToLandWithSuperMenu();
         }
     }
 		
@@ -201,7 +226,7 @@ public class PlayerManager : MonoBehaviour
 
     public void UpdateInput(bool inputActive)
     {
-        if (playerStatus == PlayerStatus.Sinking || playerStatus == PlayerStatus.Crashed)
+        if (playerStatus == PlayerStatus.DROWN || playerStatus == PlayerStatus.Crashed)
             return;
 
         if (playerStatus == PlayerStatus.Idle || playerStatus == PlayerStatus.MovingDown || inputActive)
@@ -315,7 +340,7 @@ public class PlayerManager : MonoBehaviour
         this.transform.position += Vector3.up * speed * Time.deltaTime;
     }
    
-    private void Sink()
+    private void Drown()
     {
         float crashDepth = maxDepth - 0.8f;
         float crashDepthEdge = 0.5f;
@@ -352,7 +377,6 @@ public class PlayerManager : MonoBehaviour
         {
             playerStatus = PlayerStatus.Crashed;
             levelManager.StopLevel();
-            //StartCoroutine(FunctionLibrary.CallWithDelay(DisableSmoke, 2));
         }
     }
 		
@@ -372,24 +396,24 @@ public class PlayerManager : MonoBehaviour
         playerVulnerability = PlayerVulnerability.Enabled;
     }
 
-    private IEnumerator ReviveProcess()
-    {
-		subRenderer.sprite = m_chimpSprites[currentSkinID * 2 + 1];
-        reviveParticle.Play();
-        newRotation = new Vector3(0, 0, 0);
-        transform.eulerAngles = newRotation;
-        //StartCoroutine(FunctionLibrary.MoveElementBy(transform, new Vector2(0, Mathf.Abs(transform.position.y - maxDepth)), 0.5f));
+  //  private IEnumerator ReviveProcess()
+  //  {
+		//subRenderer.sprite = m_chimpSprites[currentSkinID * 2 + 1];
+  //      reviveParticle.Play();
+  //      newRotation = new Vector3(0, 0, 0);
+  //      transform.eulerAngles = newRotation;
+  //      //StartCoroutine(FunctionLibrary.MoveElementBy(transform, new Vector2(0, Mathf.Abs(transform.position.y - maxDepth)), 0.5f));
 
-        yield return m_reviveRoutineDelay;
+  //      yield return m_reviveRoutineDelay;
 
-        playerStatus = PlayerStatus.Idle;
-        playerState = PlayerState.Enabled;
-        playerVulnerability = PlayerVulnerability.Enabled;
+  //      playerStatus = PlayerStatus.Idle;
+  //      playerState = PlayerState.Enabled;
+  //      playerVulnerability = PlayerVulnerability.Enabled;
 
-        bubbles.Play();
+  //      bubbles.Play();
 
-        yield return m_reviveRoutineDelay;
-        powerupUsage = PowerupUsage.Enabled;
-        reviveParticle.Clear();
-    }
+  //      yield return m_reviveRoutineDelay;
+  //      powerupUsage = PowerupUsage.Enabled;
+  //      reviveParticle.Clear();
+  //  }
 }

@@ -115,7 +115,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
     }
 
-    public void BackToLandWithSuper()
+    public void BackToLandWithSuperMenu()
     {
         m_backToLandWithSuperMenuImage.enabled = true;
         m_backToLandWithSuper.enabled = true;
