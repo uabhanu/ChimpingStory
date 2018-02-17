@@ -6,7 +6,7 @@ enum PlayerStatus { Idle, MovinUp, MovingDown, DROWN, Crashed };
 enum PlayerVulnerability { Enabled, Disabled, Shielded };
 enum PowerupUsage { Enabled, Disabled };
 
-public class PlayerManager : MonoBehaviour
+public class WaterChimp : MonoBehaviour
 {
 	Animator m_animator;
     bool m_isDying = false;
@@ -19,8 +19,6 @@ public class PlayerManager : MonoBehaviour
 
     public LevelManager levelManager;                                   //A link to the Level Manager
     public SpriteRenderer subRenderer;									//A link to the sub material
-    public Transform extraSpeedFront;                                   //The extra speed front sprite
-    public Transform extraSpeedTail;                                    //The extra speed trail sprite
     public Transform shield;                                            //The shield sprite
     public float minDepth;                                              //Minimum depth
     public float maxDepth;						                        //Maximum depth
@@ -243,8 +241,8 @@ public class PlayerManager : MonoBehaviour
     
     public void ActivateExtraSpeed()
     {
-        extraSpeedFront.gameObject.SetActive(true);
-        extraSpeedTail.gameObject.SetActive(true);
+        //extraSpeedFront.gameObject.SetActive(true);
+        //extraSpeedTail.gameObject.SetActive(true);
         RaiseShield();
 
         playerVulnerability = PlayerVulnerability.Disabled;
@@ -253,8 +251,8 @@ public class PlayerManager : MonoBehaviour
     
     public void DisableExtraSpeed()
     {
-        extraSpeedFront.gameObject.SetActive(false);
-        extraSpeedTail.gameObject.SetActive(false);
+        //extraSpeedFront.gameObject.SetActive(false);
+        //extraSpeedTail.gameObject.SetActive(false);
         CollapseShield();
 
         powerupUsage = PowerupUsage.Enabled;

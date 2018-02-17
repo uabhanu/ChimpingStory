@@ -4,7 +4,7 @@ using UnityEngine;
 public class PowerupManager : MonoBehaviour 
 {
     public LevelGenerator levelGenerator;                       //A link to the Level Generator
-    public PlayerManager playerManager;                         //A link to the Player Manager
+    public WaterChimp m_waterChimp;
     //public SonicBlast sonicBlast;                               //A link to the Sonic Blast
 
     public float extraSpeedFactor;                              //The scrolling speed during the Extra Speed powerup
@@ -29,7 +29,7 @@ public class PowerupManager : MonoBehaviour
     //Return true, if a powerup can be used
     public bool CanUsePowerup()
     {
-        return playerManager.CanUsePowerup();
+        return m_waterChimp.CanUsePowerup();
     }
     //Returns true, if a powerup was used
     public bool PowerupUsed()
@@ -53,7 +53,7 @@ public class PowerupManager : MonoBehaviour
     public void Shield()
     {
         powerupUsed = true;
-        playerManager.RaiseShield();
+        m_waterChimp.RaiseShield();
     }
     //Activate the extra speed powerup
     public void SonicBlast()
@@ -75,7 +75,7 @@ public class PowerupManager : MonoBehaviour
     private IEnumerator ExtraSpeedEffect()
     {
         levelGenerator.StartExtraSpeed(extraSpeedFactor);
-        playerManager.ActivateExtraSpeed();
+        m_waterChimp.ActivateExtraSpeed();
 
         //Declare variables, get the starting position, and move the object
         float i = 0.0f;
@@ -92,6 +92,6 @@ public class PowerupManager : MonoBehaviour
         }
 
         levelGenerator.EndExtraSpeed();
-        playerManager.DisableExtraSpeed();
+        m_waterChimp.DisableExtraSpeed();
     }
 }

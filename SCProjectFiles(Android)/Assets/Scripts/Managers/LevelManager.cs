@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    public PlayerManager playerManager;                 //Holds a link to the Player Manager
+    public WaterChimp m_waterChimp; 
     //public GUIManager guiManager;                       //Holds a link to the GUI Manager
     public LevelGenerator levelGenerator;               //Holds a link to the Level Generator
     //public MissionManager missionManager;               //Holds a link to the Mission Manager
@@ -50,7 +50,7 @@ public class LevelManager : MonoBehaviour
 	public void Restart()
     {
         levelGenerator.Reset();
-        playerManager.Reset();
+        m_waterChimp.Reset();
         //missionManager.SaveData();
 
         StartLevel();
@@ -58,7 +58,7 @@ public class LevelManager : MonoBehaviour
     //Returns to the main menu
     public void QuitToMain()
     {
-        playerManager.Reset();
+        m_waterChimp.Reset();
         levelGenerator.Reset();
         //missionManager.SaveData();
     }
@@ -67,7 +67,7 @@ public class LevelManager : MonoBehaviour
     {
         collectedCoins = 0;
 
-        playerManager.EnableChimp();
+        m_waterChimp.EnableChimp();
         levelGenerator.StartToGenerate();
 
         //missionManager.LoadData();
@@ -75,14 +75,14 @@ public class LevelManager : MonoBehaviour
     //Pauses the level
 	public void PauseLevel()
     {
-        playerManager.SetPauseState(true);
+        m_waterChimp.SetPauseState(true);
         levelGenerator.SetPauseState(true);
         powerupManager.SetPauseState(true);
 	}
     //Resume the level
     public void ResumeLevel()
     {
-        playerManager.SetPauseState(false);
+        m_waterChimp.SetPauseState(false);
         levelGenerator.SetPauseState(false);
         powerupManager.SetPauseState(false);
     }
@@ -96,7 +96,7 @@ public class LevelManager : MonoBehaviour
     //Revives the player, launches a sonic wave, and continue the level generation
     public void ReviveUsed()
     {
-        playerManager.Revive();
+        m_waterChimp.Revive();
         //StartCoroutine(FunctionLibrary.CallWithDelay(levelGenerator.ContinueGeneration, 0.75f));
     }
     //Called when the level has ended

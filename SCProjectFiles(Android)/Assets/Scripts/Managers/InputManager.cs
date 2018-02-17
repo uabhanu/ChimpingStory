@@ -3,15 +3,15 @@ using UnityEngine.EventSystems;
 
 public class InputManager : MonoBehaviour , IPointerDownHandler , IPointerUpHandler
 {
-    public PlayerManager playerManager;         //A link to the Player Manager
+    public WaterChimp m_waterChimp;         //A link to the Player Manager
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        playerManager.UpdateInput(true);
+        m_waterChimp.UpdateInput(true);
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        playerManager.UpdateInput(false);
+        m_waterChimp.UpdateInput(false);
     }
 }
