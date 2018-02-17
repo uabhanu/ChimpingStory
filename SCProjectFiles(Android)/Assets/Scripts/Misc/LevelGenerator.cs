@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class LevelGenerator : MonoBehaviour
 {
-    public GUIManager guiManager;                               //A link to the GUI Manager
+    //public GUIManager guiManager;                               //A link to the GUI Manager
     //public MissionManager missionManager;                       //A link to the Mission Manager
 
     public List<MovingLayer> movingLayers;                      //Holds the moving layer

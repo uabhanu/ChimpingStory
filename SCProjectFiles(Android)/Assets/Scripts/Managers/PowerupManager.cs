@@ -5,7 +5,7 @@ public class PowerupManager : MonoBehaviour
 {
     public LevelGenerator levelGenerator;                       //A link to the Level Generator
     public PlayerManager playerManager;                         //A link to the Player Manager
-    public SonicBlast sonicBlast;                               //A link to the Sonic Blast
+    //public SonicBlast sonicBlast;                               //A link to the Sonic Blast
 
     public float extraSpeedFactor;                              //The scrolling speed during the Extra Speed powerup
     public float extraSpeedLength;                              //The duration of the extra speed powerup
@@ -24,7 +24,7 @@ public class PowerupManager : MonoBehaviour
     public void SetPauseState(bool state)
     {
         paused = state;
-        sonicBlast.SetPauseState(state);
+        //sonicBlast.SetPauseState(state);
     }
     //Return true, if a powerup can be used
     public bool CanUsePowerup()
@@ -59,16 +59,16 @@ public class PowerupManager : MonoBehaviour
     public void SonicBlast()
     {
         powerupUsed = true;
-        sonicBlast.gameObject.SetActive(true);
-        sonicBlast.Activate();
+        //sonicBlast.gameObject.SetActive(true);
+        //sonicBlast.Activate();
     }
     //Revives the player, and launches a Sonic Blast
     public void Revive()
     {
         powerupUsed = true;
 
-        sonicBlast.gameObject.SetActive(true);
-        sonicBlast.Activate();
+        //sonicBlast.gameObject.SetActive(true);
+        //sonicBlast.Activate();
     }
 
     //Activates the extra speed for the given duration, then disables it

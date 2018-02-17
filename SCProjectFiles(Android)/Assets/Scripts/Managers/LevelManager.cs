@@ -91,13 +91,13 @@ public class LevelManager : MonoBehaviour
     {
         levelGenerator.StopGeneration(2);
 
-        StartCoroutine(FunctionLibrary.CallWithDelay(guiManager.BackToLandLose , levelGenerator.CurrentDistance(), 2.5f));
+        //StartCoroutine(FunctionLibrary.CallWithDelay(guiManager.BackToLandLose , levelGenerator.CurrentDistance(), 2.5f));
     }
     //Revives the player, launches a sonic wave, and continue the level generation
     public void ReviveUsed()
     {
         playerManager.Revive();
-        StartCoroutine(FunctionLibrary.CallWithDelay(levelGenerator.ContinueGeneration, 0.75f));
+        //StartCoroutine(FunctionLibrary.CallWithDelay(levelGenerator.ContinueGeneration, 0.75f));
     }
     //Called when the level has ended
     public void LevelEnded()

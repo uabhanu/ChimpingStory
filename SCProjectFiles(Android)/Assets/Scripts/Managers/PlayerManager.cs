@@ -151,7 +151,7 @@ public class PlayerManager : MonoBehaviour
 		subRenderer.sprite = m_chimpSprites[currentSkinID * 2 + 1];
         bubbles.Play();
 
-        StartCoroutine(FunctionLibrary.MoveElementBy(this.transform, new Vector2(0.4f, 0.2f), 0.5f));
+        //StartCoroutine(FunctionLibrary.MoveElementBy(this.transform, new Vector2(0.4f, 0.2f), 0.5f));
 	}
     
     public void SetPauseState(bool pauseState)
@@ -242,14 +242,14 @@ public class PlayerManager : MonoBehaviour
         //normalCollider.enabled = false;
         //shieldCollider.enabled = true;
 
-        StartCoroutine(FunctionLibrary.ScaleTo(shield, new Vector2(1, 1), 0.25f));
+        //StartCoroutine(FunctionLibrary.ScaleTo(shield, new Vector2(1, 1), 0.25f));
     }
     
     public void CollapseShield()
     {
         playerVulnerability = PlayerVulnerability.Disabled;
-        StartCoroutine(FunctionLibrary.ScaleTo(shield, new Vector2(0, 0), 0.25f));
-        StartCoroutine(EnableVulnerability(0.3f));
+        //StartCoroutine(FunctionLibrary.ScaleTo(shield, new Vector2(0, 0), 0.25f));
+        //StartCoroutine(EnableVulnerability(0.3f));
     }
     
     public bool CanUsePowerup()
@@ -352,7 +352,7 @@ public class PlayerManager : MonoBehaviour
         {
             playerStatus = PlayerStatus.Crashed;
             levelManager.StopLevel();
-            StartCoroutine(FunctionLibrary.CallWithDelay(DisableSmoke, 2));
+            //StartCoroutine(FunctionLibrary.CallWithDelay(DisableSmoke, 2));
         }
     }
 		
@@ -378,7 +378,7 @@ public class PlayerManager : MonoBehaviour
         reviveParticle.Play();
         newRotation = new Vector3(0, 0, 0);
         transform.eulerAngles = newRotation;
-        StartCoroutine(FunctionLibrary.MoveElementBy(transform, new Vector2(0, Mathf.Abs(transform.position.y - maxDepth)), 0.5f));
+        //StartCoroutine(FunctionLibrary.MoveElementBy(transform, new Vector2(0, Mathf.Abs(transform.position.y - maxDepth)), 0.5f));
 
         yield return m_reviveRoutineDelay;
 
