@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PowerupLayer : MovingLayer 
+public class PowerupLayer : MovingLayer
 {
     public float minDepth;                      //The minimum depth for the powerup to spawn
     public float maxDepth;                      //The maximum depth for the powerup to spawn
@@ -21,7 +21,7 @@ public class PowerupLayer : MovingLayer
 
         item.GetComponent<Renderer>().enabled = true;
         item.GetComponent<Collider2D>().enabled = true;
-        item.transform.Find("Trail").gameObject.SetActive(true);
+        //item.transform.Find("Trail").gameObject.SetActive(true);
 
         //Activate it, and add it to the active elements
         item.gameObject.SetActive(true);

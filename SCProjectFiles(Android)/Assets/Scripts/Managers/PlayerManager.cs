@@ -132,7 +132,7 @@ public class PlayerManager : MonoBehaviour
         {
             other.GetComponent<Renderer>().enabled = false;
             other.GetComponent<Collider2D>().enabled = false;
-            other.transform.Find("Trail").gameObject.SetActive(false);
+            //other.transform.Find("Trail").gameObject.SetActive(false);
 			ScoreManager.m_supersCount++;
 			BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
 			m_soundManager.m_soundsSource.clip = m_soundManager.m_superCollected;
