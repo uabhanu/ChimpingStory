@@ -4,7 +4,7 @@ public class FallingChimp : MonoBehaviour
 {
 	GameManager m_gameManager;
 
-    public static float m_moveAmount = 2.75f;
+    public static float m_moveAmount = 1.50f;
 
 	void Start() 
 	{
