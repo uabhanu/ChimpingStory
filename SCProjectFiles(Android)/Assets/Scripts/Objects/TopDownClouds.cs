@@ -23,7 +23,7 @@ public class TopDownClouds : MonoBehaviour
 
 		m_cloudsBody2D.velocity = new Vector2(m_cloudsBody2D.velocity.x , m_moveUpSpeed);
 
-		if(transform.position.y >= 21.47f)
+		if(transform.position.y >= 19.75f)
 		{
 			transform.position = new Vector3(transform.position.x , 0f , transform.position.z);
 		}
