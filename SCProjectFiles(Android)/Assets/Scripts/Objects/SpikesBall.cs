@@ -10,8 +10,8 @@ public class SpikesBall : MonoBehaviour
 
     void Start()
     {
-        m_spikesBallBody2D = GetComponent<Rigidbody2D>();
         m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        m_spikesBallBody2D = GetComponent<Rigidbody2D>();
         m_topDownClouds = GameObject.Find("Clouds").GetComponent<TopDownClouds>();
         transform.position = m_randomPositions[Random.Range(0 , m_randomPositions.Length)];
     }

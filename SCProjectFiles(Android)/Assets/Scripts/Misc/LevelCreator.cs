@@ -164,50 +164,6 @@ public class LevelCreator : MonoBehaviour
                 }
             }
 
-            //TODO LevelCreator GC Alloc Eliminated. After thorough testing, remove the foreach code below
-            //foreach(Transform child in m_gameLayer.transform)
-            //{
-            //    if(child.position.x < m_outofbounceX)
-            //    {
-            //        switch(child.gameObject.name)
-            //        {
-            //            case "PF_BananaSkin(Clone)":
-            //                child.gameObject.transform.position = m_collectedTiles.transform.Find("Skin").transform.position;
-            //                child.gameObject.transform.parent = m_collectedTiles.transform.Find("Skin").transform;
-            //            break;
-
-            //            case "PF_Blank(Clone)":
-            //                child.gameObject.transform.position = m_collectedTiles.transform.Find("gBlank").transform.position;
-            //                child.gameObject.transform.parent = m_collectedTiles.transform.Find("gBlank").transform;
-            //            break;
-
-            //            case "PF_GroundLeft(Clone)":
-            //                child.gameObject.transform.position = m_collectedTiles.transform.Find("gLeft").transform.position;
-            //                child.gameObject.transform.parent = m_collectedTiles.transform.Find("gLeft").transform;
-            //            break;
-
-            //            case "PF_GroundMiddle(Clone)":
-            //                child.gameObject.transform.position = m_collectedTiles.transform.Find("gMiddle").transform.position;
-            //                child.gameObject.transform.parent = m_collectedTiles.transform.Find("gMiddle").transform;
-            //            break;
-
-            //            case "PF_GroundRight(Clone)":
-            //                child.gameObject.transform.position = m_collectedTiles.transform.Find("gRight").transform.position;
-            //                child.gameObject.transform.parent = m_collectedTiles.transform.Find("gRight").transform;
-            //            break;
-
-            //            case "PF_Hurdle(Clone)":
-            //                child.gameObject.transform.position = m_collectedTiles.transform.Find("Hurdle").transform.position;
-            //                child.gameObject.transform.parent = m_collectedTiles.transform.Find("Hurdle").transform;
-            //            break;
-
-            //            default:
-            //                Destroy(child.gameObject);
-            //            break;
-            //        }
-            //    }
-            //}
-
             if(m_gameLayer.transform.childCount < 25)
             {
                 SpawnTile();

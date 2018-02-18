@@ -8,7 +8,7 @@ public class FallingChimp : MonoBehaviour
 
 	void Start() 
 	{
-	    m_gameManager = FindObjectOfType<GameManager>();
+	    m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 	}
 
     void Update()

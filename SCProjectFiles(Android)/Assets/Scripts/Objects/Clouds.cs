@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Clouds : MonoBehaviour 
 {
@@ -9,7 +8,7 @@ public class Clouds : MonoBehaviour
 	void Start() 
 	{
 		m_cloudsBody2D = GetComponent<Rigidbody2D>();
-		m_levelCreator = FindObjectOfType<LevelCreator>();
+		m_levelCreator = GameObject.Find("LevelCreator").GetComponent<LevelCreator>();
 	}
 
 	void Update() 

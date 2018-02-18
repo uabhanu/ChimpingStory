@@ -11,8 +11,8 @@ public class Coin : MonoBehaviour
 	void Start() 
     {
         m_coinBody2D = GetComponent<Rigidbody2D>();
-        m_soundManager = FindObjectOfType<SoundManager>();
-		m_topDownClouds = FindObjectOfType<TopDownClouds>();
+        m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+		m_topDownClouds = GameObject.Find("Clouds").GetComponent<TopDownClouds>();
         transform.position = m_randomPositions[Random.Range(0 , m_randomPositions.Length)];
 	}
 	

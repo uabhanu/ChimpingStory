@@ -15,9 +15,9 @@ public class Rock : MonoBehaviour
 
 	void Start() 
 	{
-        m_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>(); //TODO FindObjectofType() is causing Garbage so update like this wherever necessary
         m_explosionPrefab = Resources.Load("PF_Explosion") as GameObject;
         m_explosionSystemObj = GameObject.FindGameObjectWithTag("Explosion");
+        m_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
 		m_levelCreator = GameObject.Find("LevelCreator").GetComponent<LevelCreator>();
 		m_mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
 		m_rockBody2D = GetComponent<Rigidbody2D>();

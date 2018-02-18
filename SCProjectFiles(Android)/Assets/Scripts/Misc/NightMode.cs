@@ -16,12 +16,19 @@ public class NightMode : MonoBehaviour
 
     void Start()
     {
-        m_dateAndTime = DateTime.Now;
         m_spriteRenderer = GetComponent<SpriteRenderer>();
-        
+        Invoke("NightCheck" , 0.5f);
+    }
+
+    void NightCheck()
+    {
+        m_dateAndTime = DateTime.Now;
+
         if(m_dateAndTime.Hour >= m_hour)
         {
             m_spriteRenderer.sprite = m_nightSprite;
         }
+
+        Invoke("NightCheck" , 0.5f);
     }
 }

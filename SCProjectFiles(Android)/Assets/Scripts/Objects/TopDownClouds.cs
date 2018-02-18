@@ -1,19 +1,17 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TopDownClouds : MonoBehaviour 
 {
 	GameManager m_gameManager;
 	Rigidbody2D m_cloudsBody2D;
-    WaitForSeconds m_timeUpRoutineDelay = new WaitForSeconds(30f);
 
     [HideInInspector] public float m_moveUpSpeed = 7.5f;
 
     void Start() 
 	{
 		m_cloudsBody2D = GetComponent<Rigidbody2D>();
-		m_gameManager = FindObjectOfType<GameManager>();
-		StartCoroutine("LandRunnerRoutine");
+		m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+		Invoke("BackToLandWin" , 30f);
 	}
 
 	void Update() 
@@ -31,9 +29,8 @@ public class TopDownClouds : MonoBehaviour
 		}
 	}
 
-	IEnumerator LandRunnerRoutine()
+	void BackToLandWin()
 	{
-		yield return m_timeUpRoutineDelay;
 		m_gameManager.BackToLandWinMenu();
 	}
 }

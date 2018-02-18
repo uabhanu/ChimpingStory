@@ -11,8 +11,8 @@ public class SuperSpawner : MonoBehaviour
 
     void Start()
 	{
-		m_landChimp = FindObjectOfType<LandChimp>();
         m_gameLayer = GameObject.Find("GameLayer");
+		m_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
 		m_superObj = GameObject.FindGameObjectWithTag("Super");
 		StartCoroutine("SpawnRoutine");
 	}

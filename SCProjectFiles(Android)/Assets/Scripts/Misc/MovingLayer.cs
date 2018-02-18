@@ -92,7 +92,7 @@ public class MovingLayer : MonoBehaviour
         }
     }
     //Spawns a new layer element with a delay
-    private IEnumerator SpawnDelayedElement(float time)
+    IEnumerator SpawnDelayedElement(float time)
     {
         //Declare starting variables
         float i = 0.0f;
@@ -109,9 +109,10 @@ public class MovingLayer : MonoBehaviour
 
         //Spawn the element
         StartCoroutine("Generator");
+        //Invoke("Generator" , delayBeforeFirst);
     }
     //Spawn new layer elements at the given rate
-    private IEnumerator Generator()
+    IEnumerator Generator()
     {
         //Spawn a new element
         SpawnElement(false);
@@ -134,6 +135,7 @@ public class MovingLayer : MonoBehaviour
 
         //Restart the generator
         StartCoroutine("Generator");
+        //Invoke("Generator" , delayBeforeFirst);
     }
 
     //Starts the generation of this layer
@@ -142,6 +144,7 @@ public class MovingLayer : MonoBehaviour
         //Unpause the generator, and spawn the first element
         paused = false;
         StartCoroutine(SpawnDelayedElement(delayBeforeFirst));
+        //Invoke("SpawnDelayedElement" , delayBeforeFirst); // Not sure why but unable to call this invoke
     }
     //Spawns a new layer element
     public virtual void SpawnElement(bool inMiddle)

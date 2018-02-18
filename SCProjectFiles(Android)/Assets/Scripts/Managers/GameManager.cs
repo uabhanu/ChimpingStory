@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Advertisements;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -13,7 +12,6 @@ public class GameManager : MonoBehaviour
     LandChimp m_landChimp;
 	SoundManager m_soundManager;
 	Text m_ads , m_backToLandLose , m_backToLandWin , m_backToLandWithSuper , m_highScoreTextDisplay , m_highScoreValueDisplay , m_quit , m_restart;
-    WaitForSeconds m_flashRoutineDelay = new WaitForSeconds(0.25f);
 
 	[SerializeField] bool m_selfieFlashEnabled;
 
@@ -25,9 +23,8 @@ public class GameManager : MonoBehaviour
 		GetBhanuObjects();
     }
 
-	IEnumerator FlashRoutine()
+	void EndFlash()
 	{
-		yield return m_flashRoutineDelay;
 		m_selfiePanelImage.enabled = false;
 	}
 		
@@ -337,7 +334,7 @@ public class GameManager : MonoBehaviour
 		if(m_selfieFlashEnabled)
 		{
 			m_selfiePanelImage.enabled = true;
-			StartCoroutine("FlashRoutine");
+			Invoke("EndFlash" , 0.25f);
 		}
 
 		if(m_landChimp.m_isSuper) 

@@ -10,10 +10,10 @@ public class Hurdle : MonoBehaviour
 
     void Start()
     {
-        m_landChimp = FindObjectOfType<LandChimp>();
         m_hurdleCollider2D = GetComponent<Collider2D>();
         m_hurdleRenderer = GetComponent<SpriteRenderer>();
-        m_mainCamera = FindObjectOfType<Camera>();
+        m_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
+        m_mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
     }
 	
 	void Update()

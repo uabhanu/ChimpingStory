@@ -9,9 +9,9 @@ public class Ground : MonoBehaviour
 
 	void Start() 
 	{
-		m_landChimp = FindObjectOfType<LandChimp>();
-		m_groundCollider2D = GetComponent<BoxCollider2D>();	
+        m_groundCollider2D = GetComponent<BoxCollider2D>();	
 		m_groundRenderer = GetComponent<SpriteRenderer>();
+		m_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
 	}
 
 	void Update() 

@@ -12,11 +12,11 @@ public class Super : MonoBehaviour
 
 	void Start() 
 	{
-		m_landChimp = FindObjectOfType<LandChimp>();
-		m_explosionPrefab = Resources.Load("PF_Explosion") as GameObject;
+        m_explosionPrefab = Resources.Load("PF_Explosion") as GameObject;
 		m_explosionSystemObj = GameObject.FindGameObjectWithTag("Explosion");
-		m_mainCamera = FindObjectOfType<Camera>();
-        m_soundManager = FindObjectOfType<SoundManager>();
+		m_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
+		m_mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 		m_superCollider2D = GetComponent<BoxCollider2D>();	
 		m_superRenderer = GetComponent<SpriteRenderer>();
 	}
