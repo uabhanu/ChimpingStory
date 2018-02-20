@@ -23,7 +23,7 @@ public class Portal : MonoBehaviour
             return;
         }
 
-        if(m_landChimp.m_isSlipping || m_landChimp.m_isSuper)
+        if(m_landChimp.m_isSuper)
         {
             m_portalCollider2D.enabled = false;
             m_portalRenderer.enabled = false;

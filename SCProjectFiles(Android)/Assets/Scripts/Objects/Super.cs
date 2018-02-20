@@ -28,7 +28,7 @@ public class Super : MonoBehaviour
             return;
         }
 
-        if(m_landChimp.m_isSlipping || m_landChimp.m_isSuper)
+        if(m_landChimp.m_isSuper)
         {
             m_superCollider2D.enabled = false;
             m_superRenderer.enabled = false;

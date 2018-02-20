@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PortalSpawner : MonoBehaviour
 {
 	GameObject m_gameLayer , m_portalObj;
-    WaitForSeconds m_spawnRoutineDelay = new WaitForSeconds(15.5f);
 
     [SerializeField] GameObject m_portalPrefab;
 
@@ -12,14 +10,13 @@ public class PortalSpawner : MonoBehaviour
 	{
         m_gameLayer = GameObject.Find("GameLayer");
 		m_portalObj = GameObject.FindGameObjectWithTag("Portal");
-		StartCoroutine("SpawnRoutine");
+		Invoke("SpawnPortal" , 7.5f);
 	}
 
-	IEnumerator SpawnRoutine()
+	void SpawnPortal()
 	{
-		yield return m_spawnRoutineDelay;
 		m_portalObj = Instantiate(m_portalPrefab , transform.position , Quaternion.identity);
 		m_portalObj.transform.parent = m_gameLayer.transform;
-		StartCoroutine("SpawnRoutine");
+		Invoke("SpawnPortal" , 7.5f);
 	}
 }

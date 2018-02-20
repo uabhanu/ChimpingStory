@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RockSpawner : MonoBehaviour
 {
 	LandChimp m_landChimp;
 	GameObject m_rockPrefab;
-    WaitForSeconds m_spawnRoutineDelay = new WaitForSeconds(0.5f);
 
 	void Start()
 	{
@@ -13,19 +11,17 @@ public class RockSpawner : MonoBehaviour
 		m_rockPrefab = Resources.Load("PF_Rock") as GameObject;
 	}
 
-	IEnumerator SpawnRoutine()
+	void SpawnRock()
 	{
-		yield return m_spawnRoutineDelay;
-
 		if(m_landChimp.m_isSuper)
 		{
 			Instantiate(m_rockPrefab , transform.position , Quaternion.identity);
-            StartCoroutine("SpawnRoutine");
+            Invoke("SpawnRock" , 0.5f);
 		}
 	}
 
     public void StartSpawnRoutine()
     {
-        StartCoroutine("SpawnRoutine");
+        Invoke("SpawnRock" , 0.5f);
     }
 }

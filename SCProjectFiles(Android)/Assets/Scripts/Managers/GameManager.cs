@@ -22,12 +22,7 @@ public class GameManager : MonoBehaviour
 	{
 		GetBhanuObjects();
     }
-
-	void EndFlash()
-	{
-		m_selfiePanelImage.enabled = false;
-	}
-		
+	
     public void Ads()
     {
         m_adsMenuImage.enabled = true;
@@ -129,6 +124,11 @@ public class GameManager : MonoBehaviour
 		Screen.orientation = ScreenOrientation.Landscape;
         SceneManager.LoadScene("LandRunner");
     }
+
+    void EndFlash()
+	{
+		m_selfiePanelImage.enabled = false;
+	}
 
     public void ExitToMainMenu()
 	{
@@ -325,7 +325,7 @@ public class GameManager : MonoBehaviour
 		Time.timeScale = 1;
 	}
 
-	public void Selfie()
+	public void SelfieClicked()
 	{
 		m_soundManager.m_soundsSource.clip = m_soundManager.m_selfie;
 		m_soundManager.m_soundsSource.Play();
