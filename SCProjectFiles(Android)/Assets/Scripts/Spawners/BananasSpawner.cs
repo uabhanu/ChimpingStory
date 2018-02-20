@@ -17,7 +17,7 @@ public class BananasSpawner : MonoBehaviour
         m_collectedTiles = GameObject.Find("Tiles");
         m_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
         m_levelCreator = GameObject.Find("LevelCreator").GetComponent<LevelCreator>();
-        SpawnBananas();
+        Invoke("SpawnBananas" , 0.01f);
     }
 
     //TODO if necessary, try to use a delay between spawns without using Coroutines and increase max bananas in the inspector
@@ -31,6 +31,6 @@ public class BananasSpawner : MonoBehaviour
             m_bananasCount++;
         }
 
-        Invoke("SpawnBananas" , 0.1f);
+        Invoke("SpawnBananas" , 0.01f);
     }
 }

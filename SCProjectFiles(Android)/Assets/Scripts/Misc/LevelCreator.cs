@@ -177,7 +177,7 @@ public class LevelCreator : MonoBehaviour
             return;
         }
 
-        if(Random.Range(0 , 4) == 1)
+        if(Random.Range(0 , 10) == 1)
         {
 
             GameObject hurdle = m_collectedTiles.transform.Find("Hurdle").transform.GetChild(0).gameObject;
@@ -186,7 +186,7 @@ public class LevelCreator : MonoBehaviour
             m_enemyAdded = true;
         }
 
-        else if(Random.Range(0 , 2) == 1)
+        else if(Random.Range(0 , 10) == 1)
         {
             GameObject skin = m_collectedTiles.transform.Find("Skin").transform.GetChild(0).gameObject;
             skin.transform.parent = m_gameLayer.transform;

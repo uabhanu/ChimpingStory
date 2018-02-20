@@ -17,7 +17,7 @@ public class NightMode : MonoBehaviour
     void Start()
     {
         m_spriteRenderer = GetComponent<SpriteRenderer>();
-        Invoke("NightCheck" , 0.1f);
+        Invoke("NightCheck" , 0.01f);
     }
 
     void NightCheck()
@@ -29,6 +29,6 @@ public class NightMode : MonoBehaviour
             m_spriteRenderer.sprite = m_nightSprite;
         }
 
-        Invoke("NightCheck" , 0.1f);
+        Invoke("NightCheck" , 0.01f); //Interesting to know that if you just call NightCheck() recursively, you will get StackOverflow Error
     }
 }

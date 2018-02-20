@@ -221,12 +221,7 @@ public class LandChimp : MonoBehaviour
 
     public void Slide()
     {
-		if(m_isJumping) 
-		{
-			return;
-		}
-
-		else if(m_grounded && !m_isJumping)
+		if(m_grounded && !m_isJumping)
 		{
 			m_chimpAnim.SetBool("Jog" , false);
 			m_chimpAnim.SetBool("Slide" , true);
