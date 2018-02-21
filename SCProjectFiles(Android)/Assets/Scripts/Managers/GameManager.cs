@@ -140,7 +140,6 @@ public class GameManager : MonoBehaviour
     {
         BananasSpawner.m_bananasCount = 0;
         m_currentScene = SceneManager.GetActiveScene().buildIndex;
-		m_soundManager = FindObjectOfType<SoundManager>();
 
         if(m_currentScene == 0)
         {
@@ -172,6 +171,7 @@ public class GameManager : MonoBehaviour
             m_restartMenuImage = GameObject.Find("RestartMenu").GetComponent<Image>();
 			m_selfieButtonImage = GameObject.Find("SelfieButton").GetComponent<Image>();
 			m_selfiePanelImage = GameObject.Find("SelfiePanel").GetComponent<Image>();
+            m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         }
 
 		else
@@ -188,6 +188,7 @@ public class GameManager : MonoBehaviour
 			m_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
 			m_pauseMenuImage = GameObject.Find("PauseMenu").GetComponent<Image>();
 			m_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
+            m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 		}
 
 		Time.timeScale = 1;

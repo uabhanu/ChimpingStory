@@ -12,7 +12,7 @@ public class SuperSpawner : MonoBehaviour
         m_gameLayer = GameObject.Find("GameLayer");
 		m_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
 		m_superObj = GameObject.FindGameObjectWithTag("Super");
-		Invoke("SpawnSuper" , 5.5f);
+		Invoke("SpawnSuper" , 7.5f);
 	}
 
 	void SpawnSuper()
@@ -23,6 +23,6 @@ public class SuperSpawner : MonoBehaviour
 			m_superObj.transform.parent = m_gameLayer.transform;
         }
 
-		Invoke("SpawnSuper" , 5.5f);
+		Invoke("SpawnSuper" , 7.5f);
 	}
 }

@@ -17,20 +17,19 @@ public class BananasSpawner : MonoBehaviour
         m_collectedTiles = GameObject.Find("Tiles");
         m_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
         m_levelCreator = GameObject.Find("LevelCreator").GetComponent<LevelCreator>();
-        Invoke("SpawnBananas" , 0.01f);
+        Invoke("SpawnBananas" , 0.5f);
     }
 
     //TODO if necessary, try to use a delay between spawns without using Coroutines and increase max bananas in the inspector
     void SpawnBananas()
     {
-        if(m_bananasCount < m_maxBananas && GameManager.m_currentScene == 1 && !m_landChimp.m_isSuper && LevelCreator.m_middleCounter > 1)
+        if(m_bananasCount < m_maxBananas && GameManager.m_currentScene == 1 && !m_landChimp.m_isSuper/* && LevelCreator.m_middleCounter > 2*/)
         {
             GameObject bananas = Instantiate(m_bananasPrefabs[Random.Range(0 , m_bananasPrefabs.Length)] , transform.position , Quaternion.identity);
             bananas.transform.parent = m_collectedTiles.transform.Find("Bananas").transform;
-            bananas.transform.position = new Vector2(bananas.transform.position.x + 2.5f , bananas.transform.position.y - 0.2f);
+            bananas.transform.position = new Vector2(bananas.transform.position.x , bananas.transform.position.y);
             m_bananasCount++;
+            Invoke("SpawnBananas" , 5.5f);
         }
-
-        Invoke("SpawnBananas" , 0.01f);
     }
 }

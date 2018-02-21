@@ -10,13 +10,13 @@ public class PortalSpawner : MonoBehaviour
 	{
         m_gameLayer = GameObject.Find("GameLayer");
 		m_portalObj = GameObject.FindGameObjectWithTag("Portal");
-		Invoke("SpawnPortal" , 7.5f);
+		Invoke("SpawnPortal" , 6.5f);
 	}
 
 	void SpawnPortal()
 	{
 		m_portalObj = Instantiate(m_portalPrefab , transform.position , Quaternion.identity);
 		m_portalObj.transform.parent = m_gameLayer.transform;
-		Invoke("SpawnPortal" , 7.5f);
+		Invoke("SpawnPortal" , 6.5f);
 	}
 }
