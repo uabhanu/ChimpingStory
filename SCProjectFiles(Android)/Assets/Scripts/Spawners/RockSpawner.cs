@@ -8,7 +8,7 @@ public class RockSpawner : MonoBehaviour
 	void Start()
 	{
 		m_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
-		m_rockPrefab = Resources.Load("PF_Rock") as GameObject;
+		m_rockPrefab = Resources.Load("PF_SuperModeRock") as GameObject;
 	}
 
 	void SpawnRock()
