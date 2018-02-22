@@ -14,6 +14,7 @@ public class LandChimp : MonoBehaviour
 	SoundManager m_soundManager;
 
     [SerializeField] bool m_grounded;
+    [SerializeField] [Tooltip("Check this to test Swipes")] bool m_isTestingSwipe = false;
     [SerializeField] float m_jumpHeight;
     [SerializeField] Transform m_raycastOrigin;
 
@@ -60,19 +61,34 @@ public class LandChimp : MonoBehaviour
 
     void BhanuInput()
     {
-        #if UNITY_EDITOR || UNITY_STANDALONE
-            if(Input.GetMouseButtonDown(0)) //TODO This ia for testing only
-            {
-                Jump();
-            }
+        if(!m_isTestingSwipe)
+        {
+            #if UNITY_EDITOR || UNITY_STANDALONE
+                if(Input.GetMouseButtonDown(0)) //TODO This ia for testing only
+                {
+                    Jump();
+                }
 
-            if(Input.GetMouseButtonDown(1)) //TODO This ia for testing only
-            {
-                Slide();
-            }
-        #endif
+                if(Input.GetMouseButtonDown(1)) //TODO This ia for testing only
+                {
+                    Slide();
+                }
+            #endif
 
-        #if UNITY_ANDROID || UNITY_IPHONE
+            #if UNITY_ANDROID || UNITY_IPHONE
+                if(SwipeManager.Instance.IsSwiping(SwipeDirection.UP))
+                {
+                    Jump();
+                }
+
+                if(SwipeManager.Instance.IsSwiping(SwipeDirection.DOWN))
+                {
+                    Slide();
+                }
+            #endif
+        }
+        else
+        {
             if(SwipeManager.Instance.IsSwiping(SwipeDirection.UP))
             {
                 Jump();
@@ -82,7 +98,7 @@ public class LandChimp : MonoBehaviour
             {
                 Slide();
             }
-        #endif
+        } 
     }
 
     void CheatDeath()

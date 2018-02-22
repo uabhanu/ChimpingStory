@@ -23,7 +23,7 @@ public class BananasSpawner : MonoBehaviour
     //TODO if necessary, try to use a delay between spawns without using Coroutines and increase max bananas in the inspector
     void SpawnBananas()
     {
-        if(m_bananasCount < m_maxBananas && GameManager.m_currentScene == 1 && !m_landChimp.m_isSuper/* && LevelCreator.m_middleCounter > 2*/)
+        if(m_bananasCount < m_maxBananas && GameManager.m_currentScene == 1 && !m_landChimp.m_isSuper && LevelCreator.m_middleCounter > 1)
         {
             GameObject bananas = Instantiate(m_bananasPrefabs[Random.Range(0 , m_bananasPrefabs.Length)] , transform.position , Quaternion.identity);
             bananas.transform.parent = m_collectedTiles.transform.Find("Bananas").transform;

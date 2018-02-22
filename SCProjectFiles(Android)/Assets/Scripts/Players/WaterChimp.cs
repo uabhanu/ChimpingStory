@@ -70,7 +70,6 @@ public class WaterChimp : MonoBehaviour
 
         rotationDiv = maxVerticalSpeed / maxRotation;
 
-		//currentSkinID = SaveManager.currentSkinID;
 		subRenderer.sprite = m_chimpSprites[currentSkinID * 2 + 1];
 
         Invoke("BackToLandWin" , 30f);
@@ -155,7 +154,6 @@ public class WaterChimp : MonoBehaviour
         {
             tri2D.GetComponent<Renderer>().enabled = false;
             tri2D.GetComponent<Collider2D>().enabled = false;
-            //other.transform.Find("Trail").gameObject.SetActive(false);
 			ScoreManager.m_supersCount++;
 			BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
 			m_soundManager.m_soundsSource.clip = m_soundManager.m_superCollected;
@@ -173,8 +171,6 @@ public class WaterChimp : MonoBehaviour
 
 		subRenderer.sprite = m_chimpSprites[currentSkinID * 2 + 1];
         bubbles.Play();
-
-        //StartCoroutine(FunctionLibrary.MoveElementBy(this.transform, new Vector2(0.4f, 0.2f), 0.5f));
 	}
     
     public void SetPauseState(bool pauseState)
@@ -190,7 +186,7 @@ public class WaterChimp : MonoBehaviour
             bubbles.Play();
         }
     }
-	//Changes the active skin ID
+	
 	public void ChangeSkin(int id)
 	{
 		currentSkinID = id;
@@ -366,9 +362,6 @@ public class WaterChimp : MonoBehaviour
             }
 				
             MoveAndRotate();
-
-            //if (distance < 0.25f)
-                //smoke.enableEmission = true;
         }
         
         else
@@ -393,25 +386,4 @@ public class WaterChimp : MonoBehaviour
 
         playerVulnerability = PlayerVulnerability.Enabled;
     }
-
-  //  private IEnumerator ReviveProcess()
-  //  {
-		//subRenderer.sprite = m_chimpSprites[currentSkinID * 2 + 1];
-  //      reviveParticle.Play();
-  //      newRotation = new Vector3(0, 0, 0);
-  //      transform.eulerAngles = newRotation;
-  //      //StartCoroutine(FunctionLibrary.MoveElementBy(transform, new Vector2(0, Mathf.Abs(transform.position.y - maxDepth)), 0.5f));
-
-  //      yield return m_reviveRoutineDelay;
-
-  //      playerStatus = PlayerStatus.Idle;
-  //      playerState = PlayerState.Enabled;
-  //      playerVulnerability = PlayerVulnerability.Enabled;
-
-  //      bubbles.Play();
-
-  //      yield return m_reviveRoutineDelay;
-  //      powerupUsage = PowerupUsage.Enabled;
-  //      reviveParticle.Clear();
-  //  }
 }

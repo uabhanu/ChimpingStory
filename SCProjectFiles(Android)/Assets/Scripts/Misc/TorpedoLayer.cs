@@ -48,7 +48,7 @@ public class TorpedoLayer : MovingLayer
             float yPos = Random.Range(minPosY, maxPosY);
             indicator.transform.position = new Vector3(indicator.transform.position.x, yPos, 0);
             indicator.SetActive(true);
-            StartCoroutine(ShowIndicator(indicator, yPos));
+            //StartCoroutine(ShowIndicator(indicator, yPos));
         }
     }
    

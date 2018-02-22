@@ -47,7 +47,7 @@ public class PowerupManager : MonoBehaviour
     public void ExtraSpeed()
     {
         powerupUsed = true;
-        StartCoroutine("ExtraSpeedEffect");
+        //StartCoroutine("ExtraSpeedEffect");
     }
     //Activate the extra speed powerup
     public void Shield()
