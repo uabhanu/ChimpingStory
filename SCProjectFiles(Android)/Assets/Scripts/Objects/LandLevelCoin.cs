@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class LandRunnerCoin : MonoBehaviour
+public class LandLevelCoin : MonoBehaviour
 {
     CircleCollider2D m_coinCollider2D;
     Camera m_mainCamera;

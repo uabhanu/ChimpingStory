@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Coin : MonoBehaviour 
+public class FallingLevelCoin : MonoBehaviour 
 {
     Rigidbody2D m_coinBody2D;
     SoundManager m_soundManager;

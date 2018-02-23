@@ -50,13 +50,13 @@ public class LevelCreator : MonoBehaviour
             bananaSkin.transform.parent = m_collectedTiles.transform.Find("BananaSkin").transform;
             bananaSkin.transform.position = Vector2.zero;
 
-            GameObject coin = Instantiate(Resources.Load("PF_Coin", typeof(GameObject))) as GameObject;
-            coin.transform.parent = m_collectedTiles.transform.Find("Coin").transform;
-            coin.transform.position = Vector2.zero;
-
             GameObject hurdle = Instantiate(Resources.Load("PF_Hurdle", typeof(GameObject))) as GameObject;
             hurdle.transform.parent = m_collectedTiles.transform.Find("Hurdle").transform;
             hurdle.transform.position = Vector2.zero;
+
+            GameObject coin = Instantiate(Resources.Load("PF_LandLevelCoin", typeof(GameObject))) as GameObject;
+            coin.transform.parent = m_collectedTiles.transform.Find("Coin").transform;
+            coin.transform.position = Vector2.zero;
 
             GameObject portal = Instantiate(Resources.Load("PF_Portal", typeof(GameObject))) as GameObject;
             portal.transform.parent = m_collectedTiles.transform.Find("Portal").transform;
@@ -127,79 +127,76 @@ public class LevelCreator : MonoBehaviour
 
     void LevelGeneration()
     {
-        if(!m_landChimp.m_isSuper)
+        m_gameLayer.transform.position = new Vector2(m_gameLayer.transform.position.x - m_gameSpeed * Time.deltaTime , 0);
+
+        for(int i = 0; i < m_gameLayer.transform.childCount; i++)
         {
-            m_gameLayer.transform.position = new Vector2(m_gameLayer.transform.position.x - m_gameSpeed * Time.deltaTime , 0);
+            Transform child  = m_gameLayer.transform.GetChild(i);
 
-            for(int i = 0; i < m_gameLayer.transform.childCount; i++)
+            if(child.position.x < m_outofbounceX)
             {
-                Transform child  = m_gameLayer.transform.GetChild(i);
-
-                if(child.position.x < m_outofbounceX)
+                switch(child.gameObject.name)
                 {
-                    switch(child.gameObject.name)
-                    {
-                        case "PF_Banana(Clone)":
-                            child.gameObject.transform.position = m_collectedTiles.transform.Find("Banana").transform.position;
-                            child.gameObject.transform.parent = m_collectedTiles.transform.Find("Banana").transform;
-                        break;
+                    case "PF_Banana(Clone)":
+                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Banana").transform.position;
+                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Banana").transform;
+                    break;
 
-                        case "PF_BananaSkin(Clone)":
-                            child.gameObject.transform.position = m_collectedTiles.transform.Find("BananaSkin").transform.position;
-                            child.gameObject.transform.parent = m_collectedTiles.transform.Find("BananaSkin").transform;
-                        break;
+                    case "PF_BananaSkin(Clone)":
+                        child.gameObject.transform.position = m_collectedTiles.transform.Find("BananaSkin").transform.position;
+                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("BananaSkin").transform;
+                    break;
 
-                        case "PF_Coin(Clone)":
-                            child.gameObject.transform.position = m_collectedTiles.transform.Find("Coin").transform.position;
-                            child.gameObject.transform.parent = m_collectedTiles.transform.Find("Coin").transform;
-                        break;
+                    case "PF_Blank(Clone)":
+                        child.gameObject.transform.position = m_collectedTiles.transform.Find("gBlank").transform.position;
+                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("gBlank").transform;
+                    break;
 
-                        case "PF_Blank(Clone)":
-                            child.gameObject.transform.position = m_collectedTiles.transform.Find("gBlank").transform.position;
-                            child.gameObject.transform.parent = m_collectedTiles.transform.Find("gBlank").transform;
-                        break;
+                    case "PF_GroundLeft(Clone)":
+                        child.gameObject.transform.position = m_collectedTiles.transform.Find("gLeft").transform.position;
+                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("gLeft").transform;
+                    break;
 
-                        case "PF_GroundLeft(Clone)":
-                            child.gameObject.transform.position = m_collectedTiles.transform.Find("gLeft").transform.position;
-                            child.gameObject.transform.parent = m_collectedTiles.transform.Find("gLeft").transform;
-                        break;
+                    case "PF_GroundMiddle(Clone)":
+                        child.gameObject.transform.position = m_collectedTiles.transform.Find("gMiddle").transform.position;
+                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("gMiddle").transform;
+                    break;
 
-                        case "PF_GroundMiddle(Clone)":
-                            child.gameObject.transform.position = m_collectedTiles.transform.Find("gMiddle").transform.position;
-                            child.gameObject.transform.parent = m_collectedTiles.transform.Find("gMiddle").transform;
-                        break;
+                    case "PF_GroundRight(Clone)":
+                        child.gameObject.transform.position = m_collectedTiles.transform.Find("gRight").transform.position;
+                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("gRight").transform;
+                    break;
 
-                        case "PF_GroundRight(Clone)":
-                            child.gameObject.transform.position = m_collectedTiles.transform.Find("gRight").transform.position;
-                            child.gameObject.transform.parent = m_collectedTiles.transform.Find("gRight").transform;
-                        break;
+                    case "PF_Hurdle(Clone)":
+                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Hurdle").transform.position;
+                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Hurdle").transform;
+                    break;
 
-                        case "PF_Hurdle(Clone)":
-                            child.gameObject.transform.position = m_collectedTiles.transform.Find("Hurdle").transform.position;
-                            child.gameObject.transform.parent = m_collectedTiles.transform.Find("Hurdle").transform;
-                        break;
+                    case "PF_LandLevelCoin(Clone)":
+                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Coin").transform.position;
+                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Coin").transform;
+                    break;
 
-                        case "PF_Portal(Clone)":
-                            child.gameObject.transform.position = m_collectedTiles.transform.Find("Portal").transform.position;
-                            child.gameObject.transform.parent = m_collectedTiles.transform.Find("Portal").transform;
-                        break;
+                    case "PF_Portal(Clone)":
+                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Portal").transform.position;
+                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Portal").transform;
+                    break;
 
-                        case "PF_Super(Clone)":
-                            child.gameObject.transform.position = m_collectedTiles.transform.Find("Super").transform.position;
-                            child.gameObject.transform.parent = m_collectedTiles.transform.Find("Super").transform;
-                        break;
+                    case "PF_Super(Clone)":
+                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Super").transform.position;
+                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Super").transform;
+                    break;
 
-                        default:
-                            Destroy(child.gameObject);
-                        break;
-                    }
+                    default:
+                        Destroy(child.gameObject);
+                    break;
                 }
             }
+        }
 
-            if(m_gameLayer.transform.childCount < 25)
-            {
-                SpawnTile();
-            }
+        if(m_gameLayer.transform.childCount < 25)
+        {
+            SpawnTile();
         }
     }
 
