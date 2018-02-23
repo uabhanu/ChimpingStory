@@ -39,7 +39,7 @@ public class Coin : MonoBehaviour
             ScoreManager.m_scoreValue += 15;
             ScoreManager.m_scoreDisplay.text = ScoreManager.m_scoreValue.ToString();
             BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
-            m_soundManager.m_soundsSource.clip = m_soundManager.m_coin;
+            m_soundManager.m_soundsSource.clip = m_soundManager.m_coinCollected;
             m_soundManager.m_soundsSource.Play();
             transform.position = m_randomPositions[Random.Range(0 , m_randomPositions.Length)];
         }

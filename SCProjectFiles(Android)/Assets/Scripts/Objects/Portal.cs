@@ -23,31 +23,18 @@ public class Portal : MonoBehaviour
             return;
         }
 
+		m_positionOnScreen = m_mainCamera.WorldToScreenPoint(transform.position);
+
         if(m_landChimp.m_isSuper)
         {
             m_portalCollider2D.enabled = false;
             m_portalRenderer.enabled = false;
         }
 
-		m_positionOnScreen = m_mainCamera.WorldToScreenPoint(transform.position);
-
-        if(m_landChimp.m_isSlipping && m_landChimp.m_isSuper && m_positionOnScreen.x >= 1)
+        else if(!m_landChimp.m_isSuper && m_positionOnScreen.x >= 972)
         {
             m_portalCollider2D.enabled = true;
             m_portalRenderer.enabled = true;
         }
-
-		//if(m_positionOnScreen.x < 0)
-		//{
-		//	Destroy(gameObject);
-		//}
-	}
-
-	void OnTriggerEnter2D(Collider2D tri2D)
-	{
-        if(tri2D.gameObject.tag.Equals("Player"))
-		{
-            //Destroy(gameObject);
-        }
-	}
+    }
 }

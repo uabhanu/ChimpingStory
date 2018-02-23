@@ -28,25 +28,19 @@ public class Super : MonoBehaviour
             return;
         }
 
+        m_positionOnScreen = m_mainCamera.WorldToScreenPoint(transform.position);
+
         if(m_landChimp.m_isSuper)
         {
             m_superCollider2D.enabled = false;
             m_superRenderer.enabled = false;
         }
 
-		m_positionOnScreen = m_mainCamera.WorldToScreenPoint(transform.position);
-
-        if(m_landChimp.m_isSlipping && m_landChimp.m_isSuper && m_positionOnScreen.x >= 1)
+		if(m_positionOnScreen.x >= 972)
         {
             m_superCollider2D.enabled = true;
             m_superRenderer.enabled = true;
         }
-
-		if(m_positionOnScreen.x < 0)
-		{
-			m_superCollider2D.enabled = false;
-            m_superRenderer.enabled = false;
-		}
 	}
 		
 	void OnTriggerEnter2D(Collider2D tri2D)

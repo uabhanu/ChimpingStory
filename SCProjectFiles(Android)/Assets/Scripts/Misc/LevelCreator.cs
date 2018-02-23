@@ -127,88 +127,90 @@ public class LevelCreator : MonoBehaviour
 
     void LevelGeneration()
     {
-        
-        m_gameLayer.transform.position = new Vector2(m_gameLayer.transform.position.x - m_gameSpeed * Time.deltaTime , 0);
-
-        for(int i = 0; i < m_gameLayer.transform.childCount; i++)
+        if(!m_landChimp.m_isSuper)
         {
-            Transform child  = m_gameLayer.transform.GetChild(i);
+            m_gameLayer.transform.position = new Vector2(m_gameLayer.transform.position.x - m_gameSpeed * Time.deltaTime , 0);
 
-            if(child.position.x < m_outofbounceX)
+            for(int i = 0; i < m_gameLayer.transform.childCount; i++)
             {
-                switch(child.gameObject.name)
+                Transform child  = m_gameLayer.transform.GetChild(i);
+
+                if(child.position.x < m_outofbounceX)
                 {
-                    case "PF_Banana(Clone)":
-                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Banana").transform.position;
-                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Banana").transform;
-                    break;
+                    switch(child.gameObject.name)
+                    {
+                        case "PF_Banana(Clone)":
+                            child.gameObject.transform.position = m_collectedTiles.transform.Find("Banana").transform.position;
+                            child.gameObject.transform.parent = m_collectedTiles.transform.Find("Banana").transform;
+                        break;
 
-                    case "PF_BananaSkin(Clone)":
-                        child.gameObject.transform.position = m_collectedTiles.transform.Find("BananaSkin").transform.position;
-                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("BananaSkin").transform;
-                    break;
+                        case "PF_BananaSkin(Clone)":
+                            child.gameObject.transform.position = m_collectedTiles.transform.Find("BananaSkin").transform.position;
+                            child.gameObject.transform.parent = m_collectedTiles.transform.Find("BananaSkin").transform;
+                        break;
 
-                    case "PF_Coin(Clone)":
-                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Coin").transform.position;
-                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Coin").transform;
-                    break;
+                        case "PF_Coin(Clone)":
+                            child.gameObject.transform.position = m_collectedTiles.transform.Find("Coin").transform.position;
+                            child.gameObject.transform.parent = m_collectedTiles.transform.Find("Coin").transform;
+                        break;
 
-                    case "PF_Blank(Clone)":
-                        child.gameObject.transform.position = m_collectedTiles.transform.Find("gBlank").transform.position;
-                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("gBlank").transform;
-                    break;
+                        case "PF_Blank(Clone)":
+                            child.gameObject.transform.position = m_collectedTiles.transform.Find("gBlank").transform.position;
+                            child.gameObject.transform.parent = m_collectedTiles.transform.Find("gBlank").transform;
+                        break;
 
-                    case "PF_GroundLeft(Clone)":
-                        child.gameObject.transform.position = m_collectedTiles.transform.Find("gLeft").transform.position;
-                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("gLeft").transform;
-                    break;
+                        case "PF_GroundLeft(Clone)":
+                            child.gameObject.transform.position = m_collectedTiles.transform.Find("gLeft").transform.position;
+                            child.gameObject.transform.parent = m_collectedTiles.transform.Find("gLeft").transform;
+                        break;
 
-                    case "PF_GroundMiddle(Clone)":
-                        child.gameObject.transform.position = m_collectedTiles.transform.Find("gMiddle").transform.position;
-                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("gMiddle").transform;
-                    break;
+                        case "PF_GroundMiddle(Clone)":
+                            child.gameObject.transform.position = m_collectedTiles.transform.Find("gMiddle").transform.position;
+                            child.gameObject.transform.parent = m_collectedTiles.transform.Find("gMiddle").transform;
+                        break;
 
-                    case "PF_GroundRight(Clone)":
-                        child.gameObject.transform.position = m_collectedTiles.transform.Find("gRight").transform.position;
-                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("gRight").transform;
-                    break;
+                        case "PF_GroundRight(Clone)":
+                            child.gameObject.transform.position = m_collectedTiles.transform.Find("gRight").transform.position;
+                            child.gameObject.transform.parent = m_collectedTiles.transform.Find("gRight").transform;
+                        break;
 
-                    case "PF_Hurdle(Clone)":
-                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Hurdle").transform.position;
-                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Hurdle").transform;
-                    break;
+                        case "PF_Hurdle(Clone)":
+                            child.gameObject.transform.position = m_collectedTiles.transform.Find("Hurdle").transform.position;
+                            child.gameObject.transform.parent = m_collectedTiles.transform.Find("Hurdle").transform;
+                        break;
 
-                    case "PF_Portal(Clone)":
-                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Portal").transform.position;
-                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Portal").transform;
-                    break;
+                        case "PF_Portal(Clone)":
+                            child.gameObject.transform.position = m_collectedTiles.transform.Find("Portal").transform.position;
+                            child.gameObject.transform.parent = m_collectedTiles.transform.Find("Portal").transform;
+                        break;
 
-                    case "PF_Super(Clone)":
-                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Super").transform.position;
-                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Super").transform;
-                    break;
+                        case "PF_Super(Clone)":
+                            child.gameObject.transform.position = m_collectedTiles.transform.Find("Super").transform.position;
+                            child.gameObject.transform.parent = m_collectedTiles.transform.Find("Super").transform;
+                        break;
 
-                    default:
-                        Destroy(child.gameObject);
-                    break;
+                        default:
+                            Destroy(child.gameObject);
+                        break;
+                    }
                 }
             }
-        }
 
-        if(m_gameLayer.transform.childCount < 25)
-        {
-            SpawnTile();
+            if(m_gameLayer.transform.childCount < 25)
+            {
+                SpawnTile();
+            }
         }
     }
 
     void RandomizeMiscObject()
     {
-        if(m_miscObjAdded)
+        if(m_landChimp.m_isSuper || m_miscObjAdded)
         {
             return;
         }
 
-        if(Random.Range(0 , 2) == 1)
+        if(Random.Range(0 , 2) == 0)
         {
             GameObject banana = m_collectedTiles.transform.Find("Banana").transform.GetChild(0).gameObject;
             banana.transform.parent = m_gameLayer.transform;
@@ -216,34 +218,16 @@ public class LevelCreator : MonoBehaviour
             m_miscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 2) == 1)
+        else if(Random.Range(0 , 6) == 4)
         {
-            GameObject bananaSkin = m_collectedTiles.transform.Find("BananaSkin").transform.GetChild(0).gameObject;
-            bananaSkin.transform.parent = m_gameLayer.transform;
-            bananaSkin.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 2f)));
+            GameObject coin = m_collectedTiles.transform.Find("Coin").transform.GetChild(0).gameObject;
+            coin.transform.parent = m_gameLayer.transform;
+            coin.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 4.3f)));
             m_miscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 2) == 1)
+        else if(Random.Range(0 , 4) == 3)
         {
-            GameObject bananaSkin = m_collectedTiles.transform.Find("Coin").transform.GetChild(0).gameObject;
-            bananaSkin.transform.parent = m_gameLayer.transform;
-            bananaSkin.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 4.3f)));
-            m_miscObjAdded = true;
-        }
-
-        else if(Random.Range(0 , 2) == 1 && m_middleCounter > 2)
-        {
-
-            GameObject hurdle = m_collectedTiles.transform.Find("Hurdle").transform.GetChild(0).gameObject;
-            hurdle.transform.parent = m_gameLayer.transform;
-            hurdle.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 2.3f)));
-            m_miscObjAdded = true;
-        }
-
-        else if(Random.Range(0 , 2) == 1)
-        {
-
             GameObject portal = m_collectedTiles.transform.Find("Portal").transform.GetChild(0).gameObject;
             portal.transform.parent = m_gameLayer.transform;
             portal.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 4.3f)));
@@ -252,13 +236,27 @@ public class LevelCreator : MonoBehaviour
 
         else if(Random.Range(0 , 2) == 1 && ScoreManager.m_supersCount > 0)
         {
-
             GameObject super = m_collectedTiles.transform.Find("Super").transform.GetChild(0).gameObject;
             super.transform.parent = m_gameLayer.transform;
             super.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 4.3f)));
             m_miscObjAdded = true;
-            ScoreManager.m_supersCount--;
         }
+
+        if(Random.Range(0 , 10) == 7)
+        {
+            GameObject bananaSkin = m_collectedTiles.transform.Find("BananaSkin").transform.GetChild(0).gameObject;
+            bananaSkin.transform.parent = m_gameLayer.transform;
+            bananaSkin.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 4.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 2f)));
+            m_miscObjAdded = true;
+        }
+
+        else if(Random.Range(0 , 4) == 2 && m_middleCounter > 6.5f)
+        {
+            GameObject hurdle = m_collectedTiles.transform.Find("Hurdle").transform.GetChild(0).gameObject;
+            hurdle.transform.parent = m_gameLayer.transform;
+            hurdle.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 4.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 2.3f)));
+            m_miscObjAdded = true;
+        }        
     }
 
     void SetTile(string type)

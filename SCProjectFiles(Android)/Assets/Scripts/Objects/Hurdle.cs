@@ -6,7 +6,7 @@ public class Hurdle : MonoBehaviour
     LandChimp m_landChimp;
     Collider2D m_hurdleCollider2D;
     SpriteRenderer m_hurdleRenderer;
-    Vector3 m_positionOnScreen;
+    [SerializeField] Vector3 m_positionOnScreen;
 
     void Start()
     {
@@ -32,7 +32,7 @@ public class Hurdle : MonoBehaviour
         }
         else
         {
-            if(m_positionOnScreen.x > 1)
+            if(m_positionOnScreen.x > 972)
             {
                 m_hurdleCollider2D.enabled = true;
                 m_hurdleRenderer.enabled = true;

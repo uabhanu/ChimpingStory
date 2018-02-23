@@ -117,7 +117,7 @@ public class WaterChimp : MonoBehaviour
             BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
             tri2D.GetComponent<Renderer>().enabled = false;
             tri2D.GetComponent<Collider2D>().enabled = false;
-			m_soundManager.m_soundsSource.clip = m_soundManager.m_coin;
+			m_soundManager.m_soundsSource.clip = m_soundManager.m_coinCollected;
 			m_soundManager.m_soundsSource.Play();
         }
         
