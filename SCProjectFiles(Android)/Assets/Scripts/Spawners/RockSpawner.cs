@@ -16,12 +16,12 @@ public class RockSpawner : MonoBehaviour
 		if(m_landChimp.m_isSuper)
 		{
 			Instantiate(m_rockPrefab , transform.position , Quaternion.identity);
-            Invoke("SpawnRock" , 0.5f);
+            Invoke("SpawnRock" , 0.8f);
 		}
 	}
 
     public void StartSpawnRoutine()
     {
-        Invoke("SpawnRock" , 0.5f);
+        Invoke("SpawnRock" , 0.8f);
     }
 }

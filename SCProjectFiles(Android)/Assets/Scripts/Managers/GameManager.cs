@@ -138,7 +138,6 @@ public class GameManager : MonoBehaviour
 
     void GetBhanuObjects()
     {
-        BananasSpawner.m_bananasCount = 0;
         m_currentScene = SceneManager.GetActiveScene().buildIndex;
 
         if(m_currentScene == 0)

@@ -44,7 +44,8 @@ public class Super : MonoBehaviour
 
 		if(m_positionOnScreen.x < 0)
 		{
-			Destroy(gameObject);
+			m_superCollider2D.enabled = false;
+            m_superRenderer.enabled = false;
 		}
 	}
 		
@@ -66,7 +67,8 @@ public class Super : MonoBehaviour
 		{
 			m_explosionSystemObj = Instantiate(m_explosionPrefab);
 			Explosion.m_explosionType = "Super";
-			Destroy(gameObject);
+			m_superCollider2D.enabled = false;
+            m_superRenderer.enabled = false;
 		}
 	}
 }

@@ -3,15 +3,13 @@
 
 public class LevelCreator : MonoBehaviour
 {
-    bool m_bananasAdded , m_enemyAdded;
+    bool m_miscObjAdded;
     LandChimp m_landChimp;
     const float m_tileWidth = 1.25f;
     float m_blankCounter = 0 , m_outofbounceX , m_startUpPosY;
     GameObject m_collectedTiles , m_gameLayer ,  m_tmpTile;
 	int m_heightLevel = 0;
 	string m_lastTile = "PF_GroundRight";
-
-    [SerializeField] GameObject[] m_bananas;
 
     public float m_gameSpeed;
     public GameObject m_tilePos;
@@ -42,54 +40,38 @@ public class LevelCreator : MonoBehaviour
 			tmpG4.transform.position = Vector2.zero;
 		}
 
-        for(int i = 0; i < 5; i++)
+        for(int i = 0; i < 6; i++)
         {
-            GameObject bananas01 = Instantiate(m_bananas[0]) as GameObject;
-            bananas01.transform.parent = m_collectedTiles.transform.Find("Bananas").transform;
-            bananas01.transform.position = Vector2.zero;
+            GameObject banana = Instantiate(Resources.Load("PF_Banana", typeof(GameObject))) as GameObject;
+            banana.transform.parent = m_collectedTiles.transform.Find("Banana").transform;
+            banana.transform.position = Vector2.zero;
 
-            //GameObject bananas02 = Instantiate(Resources.Load("PF_Bananas02", typeof(GameObject))) as GameObject;
-            //bananas02.transform.parent = m_collectedTiles.transform.Find("Bananas").transform;
-            //bananas02.transform.position = Vector2.zero;
-
-            //GameObject bananas03 = Instantiate(Resources.Load("PF_Bananas03", typeof(GameObject))) as GameObject;
-            //bananas03.transform.parent = m_collectedTiles.transform.Find("Bananas").transform;
-            //bananas03.transform.position = Vector2.zero;
-
-            //GameObject bananas04 = Instantiate(Resources.Load("PF_Bananas04", typeof(GameObject))) as GameObject;
-            //bananas04.transform.parent = m_collectedTiles.transform.Find("Bananas").transform;
-            //bananas04.transform.position = Vector2.zero;
-
-            //GameObject bananas05 = Instantiate(Resources.Load("PF_Bananas05", typeof(GameObject))) as GameObject;
-            //bananas05.transform.parent = m_collectedTiles.transform.Find("Bananas").transform;
-            //bananas05.transform.position = Vector2.zero;
-
-            //GameObject bananas06 = Instantiate(Resources.Load("PF_Bananas06", typeof(GameObject))) as GameObject;
-            //bananas06.transform.parent = m_collectedTiles.transform.Find("Bananas").transform;
-            //bananas06.transform.position = Vector2.zero;
-        }
-
-        for(int i = 0; i < 5; i++)
-        {
             GameObject bananaSkin = Instantiate(Resources.Load("PF_BananaSkin", typeof(GameObject))) as GameObject;
-            bananaSkin.transform.parent = m_collectedTiles.transform.Find("Skin").transform;
+            bananaSkin.transform.parent = m_collectedTiles.transform.Find("BananaSkin").transform;
             bananaSkin.transform.position = Vector2.zero;
-        }
 
-        for(int i = 0; i < 10; i++)
-        {
+            GameObject coin = Instantiate(Resources.Load("PF_Coin", typeof(GameObject))) as GameObject;
+            coin.transform.parent = m_collectedTiles.transform.Find("Coin").transform;
+            coin.transform.position = Vector2.zero;
+
             GameObject hurdle = Instantiate(Resources.Load("PF_Hurdle", typeof(GameObject))) as GameObject;
             hurdle.transform.parent = m_collectedTiles.transform.Find("Hurdle").transform;
             hurdle.transform.position = Vector2.zero;
+
+            GameObject portal = Instantiate(Resources.Load("PF_Portal", typeof(GameObject))) as GameObject;
+            portal.transform.parent = m_collectedTiles.transform.Find("Portal").transform;
+            portal.transform.position = Vector2.zero;
+
+            GameObject super = Instantiate(Resources.Load("PF_Super", typeof(GameObject))) as GameObject;
+            super.transform.parent = m_collectedTiles.transform.Find("Super").transform;
+            super.transform.position = Vector2.zero;
         }
 
         m_collectedTiles.transform.position = new Vector2 (-60.0f , -20.0f);
-
 		m_tilePos = GameObject.Find("StartTilePosition");
 		m_startUpPosY = m_tilePos.transform.position.y;
 		m_outofbounceX = m_tilePos.transform.position.x - 5.0f;
 		FillScene();
-
         Invoke("GameSpeed" , 5.8f);
     }
 
@@ -156,39 +138,19 @@ public class LevelCreator : MonoBehaviour
             {
                 switch(child.gameObject.name)
                 {
-                    case "PF_Bananas01(Clone)":
-                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Bananas").transform.position;
-                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Bananas").transform;
-                    break;
-
-                    case "PF_Bananas02(Clone)":
-                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Bananas").transform.position;
-                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Bananas").transform;
-                    break;
-
-                    case "PF_Bananas03(Clone)":
-                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Bananas").transform.position;
-                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Bananas").transform;
-                    break;
-
-                    case "PF_Bananas04(Clone)":
-                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Bananas").transform.position;
-                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Bananas").transform;
-                    break;
-
-                    case "PF_Bananas05(Clone)":
-                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Bananas").transform.position;
-                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Bananas").transform;
-                    break;
-
-                    case "PF_Bananas06(Clone)":
-                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Bananas").transform.position;
-                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Bananas").transform;
+                    case "PF_Banana(Clone)":
+                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Banana").transform.position;
+                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Banana").transform;
                     break;
 
                     case "PF_BananaSkin(Clone)":
-                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Skin").transform.position;
-                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Skin").transform;
+                        child.gameObject.transform.position = m_collectedTiles.transform.Find("BananaSkin").transform.position;
+                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("BananaSkin").transform;
+                    break;
+
+                    case "PF_Coin(Clone)":
+                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Coin").transform.position;
+                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Coin").transform;
                     break;
 
                     case "PF_Blank(Clone)":
@@ -216,6 +178,16 @@ public class LevelCreator : MonoBehaviour
                         child.gameObject.transform.parent = m_collectedTiles.transform.Find("Hurdle").transform;
                     break;
 
+                    case "PF_Portal(Clone)":
+                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Portal").transform.position;
+                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Portal").transform;
+                    break;
+
+                    case "PF_Super(Clone)":
+                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Super").transform.position;
+                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Super").transform;
+                    break;
+
                     default:
                         Destroy(child.gameObject);
                     break;
@@ -229,45 +201,63 @@ public class LevelCreator : MonoBehaviour
         }
     }
 
-    void RandomizeBananas()
+    void RandomizeMiscObject()
     {
-        if(m_bananasAdded)
+        if(m_miscObjAdded)
         {
             return;
         }
 
-        if(Random.Range(0 , 10) == 1)
+        if(Random.Range(0 , 2) == 1)
         {
-
-            GameObject bananas = m_collectedTiles.transform.Find("Bananas").transform.GetChild(0).gameObject;
-            bananas.transform.parent = m_gameLayer.transform;
-            bananas.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 2.3f)));
-            m_bananasAdded = true;
-        }
-    }
-
-    void RandomizeEnemy()
-    {
-        if(m_enemyAdded)
-        {
-            return;
+            GameObject banana = m_collectedTiles.transform.Find("Banana").transform.GetChild(0).gameObject;
+            banana.transform.parent = m_gameLayer.transform;
+            banana.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f, m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 4.3f)));
+            m_miscObjAdded = true;
         }
 
-        if(Random.Range(0 , 10) == 1)
+        else if(Random.Range(0 , 2) == 1)
+        {
+            GameObject bananaSkin = m_collectedTiles.transform.Find("BananaSkin").transform.GetChild(0).gameObject;
+            bananaSkin.transform.parent = m_gameLayer.transform;
+            bananaSkin.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 2f)));
+            m_miscObjAdded = true;
+        }
+
+        else if(Random.Range(0 , 2) == 1)
+        {
+            GameObject bananaSkin = m_collectedTiles.transform.Find("Coin").transform.GetChild(0).gameObject;
+            bananaSkin.transform.parent = m_gameLayer.transform;
+            bananaSkin.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 4.3f)));
+            m_miscObjAdded = true;
+        }
+
+        else if(Random.Range(0 , 2) == 1 && m_middleCounter > 2)
         {
 
             GameObject hurdle = m_collectedTiles.transform.Find("Hurdle").transform.GetChild(0).gameObject;
             hurdle.transform.parent = m_gameLayer.transform;
             hurdle.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 2.3f)));
-            m_enemyAdded = true;
+            m_miscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 10) == 1)
+        else if(Random.Range(0 , 2) == 1)
         {
-            GameObject skin = m_collectedTiles.transform.Find("Skin").transform.GetChild(0).gameObject;
-            skin.transform.parent = m_gameLayer.transform;
-            skin.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 2f)));
-            m_enemyAdded = true;
+
+            GameObject portal = m_collectedTiles.transform.Find("Portal").transform.GetChild(0).gameObject;
+            portal.transform.parent = m_gameLayer.transform;
+            portal.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 4.3f)));
+            m_miscObjAdded = true;
+        }
+
+        else if(Random.Range(0 , 2) == 1 && ScoreManager.m_supersCount > 0)
+        {
+
+            GameObject super = m_collectedTiles.transform.Find("Super").transform.GetChild(0).gameObject;
+            super.transform.parent = m_gameLayer.transform;
+            super.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 4.3f)));
+            m_miscObjAdded = true;
+            ScoreManager.m_supersCount--;
         }
     }
 
@@ -314,18 +304,17 @@ public class LevelCreator : MonoBehaviour
 			return;
 		}
 
-        m_enemyAdded = false;
+        m_miscObjAdded = false;
 
 		if(m_lastTile == "PF_Blank")
         {
 			ChangeHeight();
 			SetTile("PF_GroundLeft");
             m_middleCounter = Random.Range(1 , 8);
-            //RandomizeBananas();
 
             if(m_middleCounter > 4)
             {
-                RandomizeEnemy();
+                RandomizeMiscObject();
             }
 		}
         

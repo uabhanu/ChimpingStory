@@ -37,17 +37,17 @@ public class Portal : MonoBehaviour
             m_portalRenderer.enabled = true;
         }
 
-		if(m_positionOnScreen.x < 0)
-		{
-			Destroy(gameObject);
-		}
+		//if(m_positionOnScreen.x < 0)
+		//{
+		//	Destroy(gameObject);
+		//}
 	}
 
 	void OnTriggerEnter2D(Collider2D tri2D)
 	{
         if(tri2D.gameObject.tag.Equals("Player"))
 		{
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
 	}
 }
