@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum SwipeDirection
 {
@@ -11,7 +12,9 @@ public enum SwipeDirection
 
 public class SwipeManager : MonoBehaviour 
 {
-	float m_swipeResistanceX = 10f , m_swipeResistanceY = 10f;
+    float m_swipeResistanceX = 10f , m_swipeResistanceY = 10f;
+    int m_currentScene;
+    LandChimp m_landChimp;
     static SwipeManager instance;
     Vector3 m_touchPos;
 
@@ -20,7 +23,13 @@ public class SwipeManager : MonoBehaviour
 
     void Start()
     {
+        m_currentScene = SceneManager.GetActiveScene().buildIndex;
         instance = this;    
+
+        if(m_currentScene == 1)
+        {
+            m_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
+        }
     }
 
     void Update() 
@@ -30,15 +39,10 @@ public class SwipeManager : MonoBehaviour
 			return;
 		}
 
-        Swipes();
+        BhanuSwipes();
 	}
 
-    public bool IsSwiping(SwipeDirection dir)
-    {
-        return(SwDirection & dir) == dir;
-    }
-
-    void Swipes()
+    void BhanuSwipes()
     {
         SwDirection = SwipeDirection.NONE;
 
@@ -61,5 +65,10 @@ public class SwipeManager : MonoBehaviour
                 SwDirection |= (deltaSwipe.y < 0) ? SwipeDirection.UP : SwipeDirection.DOWN;
             }
         }
+    }
+
+    public bool IsSwiping(SwipeDirection dir)
+    {
+        return(SwDirection & dir) == dir;
     }
 }

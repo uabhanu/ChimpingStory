@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class LandChimp : MonoBehaviour
 {
     Animator m_chimpAnim;
-    bool m_isJumping , m_isSliding;
+    bool m_isJumping , m_isSliding , m_isUI;
 	BoxCollider2D m_blockerBottomCollider2D , m_chimpCollider2D;
     float m_defaultGravityScale , m_defaultXPos;
 	GameManager m_gameManager;
@@ -13,10 +14,9 @@ public class LandChimp : MonoBehaviour
     RockSpawner m_rockSpawner;
 	SoundManager m_soundManager;
 
-    [SerializeField] bool m_grounded;
-    [SerializeField] [Tooltip("Check this to test Swipes")] bool m_isTestingSwipe = false;
+    [SerializeField] bool m_isGrounded;
     [SerializeField] float m_jumpHeight;
-    [SerializeField] Transform m_raycastOrigin;
+    [SerializeField] Transform m_raycastBottom , m_raycastTop;
 
     [HideInInspector] public bool m_isSlipping , m_isSuper;
 
@@ -49,56 +49,37 @@ public class LandChimp : MonoBehaviour
             return;
         }
 
+        BhanuTaps();
+
         if(m_isSuper && transform.position.x < m_defaultXPos) //TODO this is temp fix and find better way if necessary
         {
             transform.position = new Vector2(m_defaultXPos , transform.position.y);
         }
 
-        BhanuInput();
         Grounded();
-
     }
 
-    void BhanuInput()
+    void BhanuTaps()
     {
-        if(!m_isTestingSwipe)
+        if(EventSystem.current.currentSelectedGameObject != null)
         {
-            #if UNITY_EDITOR || UNITY_STANDALONE
-                if(Input.GetMouseButtonDown(0)) //TODO This ia for testing only
-                {
-                    Jump();
-                }
-
-                if(Input.GetMouseButtonDown(1)) //TODO This ia for testing only
-                {
-                    Slide();
-                }
-            #endif
-
-            #if UNITY_ANDROID || UNITY_IPHONE
-                if(SwipeManager.Instance.IsSwiping(SwipeDirection.UP))
-                {
-                    Jump();
-                }
-
-                if(SwipeManager.Instance.IsSwiping(SwipeDirection.DOWN))
-                {
-                    Slide();
-                }
-            #endif
+            m_isUI = true;
         }
-        else
-        {
-            if(SwipeManager.Instance.IsSwiping(SwipeDirection.UP))
-            {
-                Jump();
-            }
 
-            if(SwipeManager.Instance.IsSwiping(SwipeDirection.DOWN))
-            {
-                Slide();
-            }
-        } 
+        else if(EventSystem.current.currentSelectedGameObject == null)
+        {
+            m_isUI = false;
+        }
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            Jump();   
+        }
+
+        if(Input.GetMouseButtonDown(1)) //TODO Double Tap instead of Right Click
+        {
+            Slide();
+        }
     }
 
     void CheatDeath()
@@ -111,20 +92,21 @@ public class LandChimp : MonoBehaviour
     {
         if(!m_isSuper)
         {
+            Debug.DrawLine(m_raycastTop.position , m_raycastBottom.position , Color.green);
             //Debug.DrawLine(new Vector2(transform.position.x , transform.position.y - 0.7f) , new Vector2(transform.position.x , transform.position.y - 0.95f) , Color.green);
-            RaycastHit2D hit2D = Physics2D.Raycast(m_raycastOrigin.position , -Vector2.down);
+            RaycastHit2D hit2D = Physics2D.Raycast(m_raycastTop.position , m_raycastBottom.position);
 
             if(hit2D)
             {
-                if(!hit2D.collider.isTrigger)
+                if(hit2D.collider.gameObject.GetComponent<Ground>()) //No Garbage but just like string comparison, m_isGrounded becoming false a little late for your liking
                 {
                     //Debug.Log("Grounded");
-                    m_grounded = true;
+                    m_isGrounded = true;
                 }
                 else
                 {
                     //Debug.Log("Not Grounded because fell in the hole");
-                    m_grounded = false;
+                    m_isGrounded = false;
                 }
             }
         }
@@ -137,11 +119,11 @@ public class LandChimp : MonoBehaviour
 	
 	public void Jump()
     {
-		if(m_grounded && !m_isJumping && !m_isSliding)
+        if(m_isGrounded && !m_isSliding && !m_isUI)
         {
             m_chimpAnim.SetBool("Jump" , true);
             m_chimpBody2D.velocity = new Vector2(m_chimpBody2D.velocity.x , m_jumpHeight);
-            m_chimpCollider2D.isTrigger = true;
+            //m_chimpCollider2D.isTrigger = true; //This is to avoid Raycast collision with itself
             SelfieAppear();
             m_isJumping = true;
             Invoke("JumpFinished" , 0.55f);
@@ -158,7 +140,7 @@ public class LandChimp : MonoBehaviour
     void JumpFinished()
     {
         m_chimpAnim.SetBool("Jump" , false);
-        m_chimpCollider2D.isTrigger = false;
+        //m_chimpCollider2D.isTrigger = false; //This is to set collider back to it's original state
         m_isJumping = false;      
         
         if(!m_isSuper)
@@ -237,7 +219,7 @@ public class LandChimp : MonoBehaviour
 
     public void Slide()
     {
-		if(m_grounded && !m_isJumping)
+		if(!m_isJumping)
 		{
 			m_chimpAnim.SetBool("Jog" , false);
 			m_chimpAnim.SetBool("Slide" , true);
@@ -284,7 +266,7 @@ public class LandChimp : MonoBehaviour
         m_chimpAnim.SetBool("Super" , true);
         m_chimpBody2D.gravityScale /= 2.5f;
 		SelfieAppear();
-        m_grounded = false;
+        m_isGrounded = false;
         m_levelCreator.m_gameSpeed = 6.0f;
         m_isSuper = true;
         m_rockSpawner.StartSpawnRoutine();
