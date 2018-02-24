@@ -112,14 +112,9 @@ public class LevelCreator : MonoBehaviour
 
     void GameSpeed()
     {
-        if(m_gameSpeed < 12f && !m_landChimp.m_isSuper)
+        if(!m_landChimp.m_isSlipping && !m_landChimp.m_isSuper)
         {
             m_gameSpeed += 0.5f;
-        }
-
-        if(m_gameSpeed > 12f)
-        {
-            m_gameSpeed = 12f;
         }
         
         Invoke("GameSpeed" , 5.8f);
@@ -207,7 +202,7 @@ public class LevelCreator : MonoBehaviour
             return;
         }
 
-        if(Random.Range(0 , 2) == Random.Range(0 , 2))
+        if(Random.Range(0 , 5) == 0)
         {
             GameObject banana = m_collectedTiles.transform.Find("Banana").transform.GetChild(0).gameObject;
             banana.transform.parent = m_gameLayer.transform;
@@ -215,7 +210,7 @@ public class LevelCreator : MonoBehaviour
             m_miscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 2) == Random.Range(0 , 2))
+        else if(Random.Range(0 , 5) == 1)
         {
             GameObject bananaSkin = m_collectedTiles.transform.Find("BananaSkin").transform.GetChild(0).gameObject;
             bananaSkin.transform.parent = m_gameLayer.transform;
@@ -223,7 +218,7 @@ public class LevelCreator : MonoBehaviour
             m_miscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 2) == Random.Range(0 , 2))
+        else if(Random.Range(0 , 5) == 2)
         {
             GameObject coin = m_collectedTiles.transform.Find("Coin").transform.GetChild(0).gameObject;
             coin.transform.parent = m_gameLayer.transform;
@@ -231,23 +226,23 @@ public class LevelCreator : MonoBehaviour
             m_miscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 2) == Random.Range(0 , 2) && m_middleCounter > 6.5f)
+        else if(Random.Range(0 , 5) == 3 && m_middleCounter > 6.5f)
         {
             GameObject hurdle = m_collectedTiles.transform.Find("Hurdle").transform.GetChild(0).gameObject;
             hurdle.transform.parent = m_gameLayer.transform;
-            hurdle.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 2.3f)));
+            hurdle.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 3.3f)));
             m_miscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 2) == Random.Range(0 , 2))
+        if(Random.Range(0 , 1) == 1)
         {
             GameObject portal = m_collectedTiles.transform.Find("Portal").transform.GetChild(0).gameObject;
             portal.transform.parent = m_gameLayer.transform;
-            portal.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 4.3f)));
+            portal.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 2.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 4.3f)));
             m_miscObjAdded = true;
         }
 
-        if(Random.Range(0 , 2) == Random.Range(0 , 2) && ScoreManager.m_supersCount > 0)
+        if(Random.Range(0 , 1) == 1 && ScoreManager.m_supersCount > 0)
         {
             GameObject super = m_collectedTiles.transform.Find("Super").transform.GetChild(0).gameObject;
             super.transform.parent = m_gameLayer.transform;

@@ -107,22 +107,26 @@ public class LandChimp : MonoBehaviour
                 else if(!hit2D.collider.gameObject.GetComponent<Ground>())
                 {
                     m_isGrounded = false;
+                    SlideFinished();
                 }
 
                 else
                 {
                     m_isGrounded = false;
+                    SlideFinished();
                 }
             }
 
             else if(!hit2D)
             {
                 m_isGrounded = false;
+                SlideFinished();
             }
 
             else
             {
                 m_isGrounded = false;
+                SlideFinished();
             }
         }
 
@@ -232,12 +236,12 @@ public class LandChimp : MonoBehaviour
 
     public void Slide()
     {
-		if(!m_isJumping)
+		if(m_isGrounded && !m_isJumping)
 		{
 			m_chimpAnim.SetBool("Jog" , false);
 			m_chimpAnim.SetBool("Slide" , true);
 			m_chimpBody2D.gravityScale = 0;
-			m_chimpCollider2D.enabled = false;
+			//m_chimpCollider2D.enabled = false;
 			SelfieAppear();
 			m_isSliding = true;
 			Invoke("SlideFinished" , 0.75f);
@@ -248,7 +252,7 @@ public class LandChimp : MonoBehaviour
     {
         m_chimpAnim.SetBool("Slide" , false);
         m_chimpBody2D.gravityScale = m_defaultGravityScale;
-        m_chimpCollider2D.enabled = true;
+        //m_chimpCollider2D.enabled = true;
 		m_isSliding = false;
         SelfieDisappear();
     }
@@ -256,12 +260,7 @@ public class LandChimp : MonoBehaviour
     void Slip()
     {
         m_chimpAnim.SetBool("Slip" , true);
-        
-        if(m_levelCreator.m_gameSpeed < 12f)
-        {
-            m_levelCreator.m_gameSpeed = 12f;
-        }
-        
+        m_levelCreator.m_gameSpeed *= 2;
         m_isSlipping = true;
         Invoke("SlipFinished" , 5.15f);
     }
@@ -269,7 +268,7 @@ public class LandChimp : MonoBehaviour
     void SlipFinished()
     {
 		m_chimpAnim.SetBool("Slip" , false);
-        m_levelCreator.m_gameSpeed = 6.0f;
+        m_levelCreator.m_gameSpeed /= 2;
         m_isSlipping = false;
     }
 
