@@ -2,17 +2,17 @@
 
 public class FallingLevelCoin : MonoBehaviour 
 {
+    FallingLevelClouds m_fallingLevelClouds;
     Rigidbody2D m_coinBody2D;
     SoundManager m_soundManager;
-    TopDownClouds m_topDownClouds;
 
     [SerializeField] Vector2[] m_randomPositions;
 
 	void Start() 
     {
         m_coinBody2D = GetComponent<Rigidbody2D>();
+        m_fallingLevelClouds = GameObject.Find("Clouds").GetComponent<FallingLevelClouds>();
         m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
-		m_topDownClouds = GameObject.Find("Clouds").GetComponent<TopDownClouds>();
         transform.position = m_randomPositions[Random.Range(0 , m_randomPositions.Length)];
 	}
 	
@@ -23,7 +23,7 @@ public class FallingLevelCoin : MonoBehaviour
             return;
         }
 
-        m_coinBody2D.velocity = new Vector2(m_coinBody2D.velocity.x , m_topDownClouds.m_moveUpSpeed);
+        m_coinBody2D.velocity = new Vector2(m_coinBody2D.velocity.x , m_fallingLevelClouds.m_moveUpSpeed);
 
         if(transform.position.y >= 5.68f)
         {
@@ -36,7 +36,7 @@ public class FallingLevelCoin : MonoBehaviour
         if(tri2D.gameObject.tag.Equals("Player"))
         {
             
-            ScoreManager.m_scoreValue += 15;
+            ScoreManager.m_scoreValue += 25;
             ScoreManager.m_scoreDisplay.text = ScoreManager.m_scoreValue.ToString();
             BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
             m_soundManager.m_soundsSource.clip = m_soundManager.m_coinCollected;

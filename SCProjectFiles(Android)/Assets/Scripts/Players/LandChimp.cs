@@ -50,13 +50,12 @@ public class LandChimp : MonoBehaviour
         }
 
         BhanuTaps();
+        Grounded();
 
         if(m_isSuper && transform.position.x < m_defaultXPos) //TODO this is temp fix and find better way if necessary
         {
             transform.position = new Vector2(m_defaultXPos , transform.position.y);
         }
-
-        Grounded();
     }
 
     void BhanuTaps()
@@ -71,7 +70,7 @@ public class LandChimp : MonoBehaviour
             m_isUI = false;
         }
 
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0) && m_isGrounded && !m_isJumping && !m_isSliding && !m_isUI)
         {
             Jump();   
         }
@@ -92,22 +91,35 @@ public class LandChimp : MonoBehaviour
     {
         if(!m_isSuper)
         {
-            Debug.DrawLine(m_raycastTop.position , m_raycastBottom.position , Color.green);
-            //Debug.DrawLine(new Vector2(transform.position.x , transform.position.y - 0.7f) , new Vector2(transform.position.x , transform.position.y - 0.95f) , Color.green);
+            Debug.DrawLine(m_raycastTop.position , m_raycastBottom.position , Color.red);
             RaycastHit2D hit2D = Physics2D.Raycast(m_raycastTop.position , m_raycastBottom.position);
 
             if(hit2D)
             {
                 if(hit2D.collider.gameObject.GetComponent<Ground>()) //No Garbage but just like string comparison, m_isGrounded becoming false a little late for your liking
                 {
-                    //Debug.Log("Grounded");
                     m_isGrounded = true;
                 }
-                else
+
+                else if(!hit2D.collider.gameObject.GetComponent<Ground>())
                 {
-                    //Debug.Log("Not Grounded because fell in the hole");
                     m_isGrounded = false;
                 }
+
+                else
+                {
+                    m_isGrounded = false;
+                }
+            }
+
+            else if(!hit2D)
+            {
+                m_isGrounded = false;
+            }
+
+            else
+            {
+                m_isGrounded = false;
             }
         }
 
@@ -119,18 +131,17 @@ public class LandChimp : MonoBehaviour
 	
 	public void Jump()
     {
-        if(m_isGrounded && !m_isSliding && !m_isUI)
+        if(m_isGrounded && !m_isJumping && !m_isSliding && !m_isUI) //This check exists in Update also for extra support as it's slow
         {
             m_chimpAnim.SetBool("Jump" , true);
             m_chimpBody2D.velocity = new Vector2(m_chimpBody2D.velocity.x , m_jumpHeight);
-            //m_chimpCollider2D.isTrigger = true; //This is to avoid Raycast collision with itself
             SelfieAppear();
             m_isJumping = true;
             Invoke("JumpFinished" , 0.55f);
-			m_soundManager.m_soundsSource.clip = m_soundManager.m_jump;
-			m_soundManager.m_soundsSource.Play();
+		    m_soundManager.m_soundsSource.clip = m_soundManager.m_jump;
+		    m_soundManager.m_soundsSource.Play();
         }
-
+        
         if(m_isSuper)
         {
             m_chimpBody2D.velocity = new Vector2(m_chimpBody2D.velocity.x , m_jumpHeight);
@@ -140,7 +151,6 @@ public class LandChimp : MonoBehaviour
     void JumpFinished()
     {
         m_chimpAnim.SetBool("Jump" , false);
-        //m_chimpCollider2D.isTrigger = false; //This is to set collider back to it's original state
         m_isJumping = false;      
         
         if(!m_isSuper)

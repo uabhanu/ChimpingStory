@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class TopDownClouds : MonoBehaviour 
+public class FallingLevelClouds : MonoBehaviour 
 {
 	GameManager m_gameManager;
 	Rigidbody2D m_cloudsBody2D;

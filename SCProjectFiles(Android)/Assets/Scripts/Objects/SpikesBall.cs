@@ -2,17 +2,17 @@
 
 public class SpikesBall : MonoBehaviour
 {
+    FallingLevelClouds m_fallingLevelClouds;
     Rigidbody2D m_spikesBallBody2D;
     SoundManager m_soundManager;
-    TopDownClouds m_topDownClouds;
 
     [SerializeField] Vector2[] m_randomPositions;
 
     void Start()
     {
+        m_fallingLevelClouds = GameObject.Find("Clouds").GetComponent<FallingLevelClouds>();
         m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         m_spikesBallBody2D = GetComponent<Rigidbody2D>();
-        m_topDownClouds = GameObject.Find("Clouds").GetComponent<TopDownClouds>();
         transform.position = m_randomPositions[Random.Range(0 , m_randomPositions.Length)];
     }
 
@@ -23,7 +23,7 @@ public class SpikesBall : MonoBehaviour
             return;
         }
 
-        m_spikesBallBody2D.velocity = new Vector2(m_spikesBallBody2D.velocity.x , m_topDownClouds.m_moveUpSpeed);
+        m_spikesBallBody2D.velocity = new Vector2(m_spikesBallBody2D.velocity.x , m_fallingLevelClouds.m_moveUpSpeed);
 
         if(transform.position.y >= 5.68f)
         {

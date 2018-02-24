@@ -5,7 +5,7 @@ public class FallingLevelSuper : MonoBehaviour
     GameManager m_gameManager;
     Rigidbody2D m_superBody2D;
 	SoundManager m_soundManager;
-    TopDownClouds m_topDownClouds;
+    FallingLevelClouds m_topDownClouds;
 	Vector3 m_positionOnScreen;
 
     [SerializeField] Vector2[] m_randomPositions;
@@ -15,7 +15,7 @@ public class FallingLevelSuper : MonoBehaviour
         m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         m_superBody2D = GetComponent<Rigidbody2D>();
-        m_topDownClouds = GameObject.Find("Clouds").GetComponent<TopDownClouds>();
+        m_topDownClouds = GameObject.Find("Clouds").GetComponent<FallingLevelClouds>();
         transform.position = m_randomPositions[Random.Range(0 , m_randomPositions.Length)];
 	}
 

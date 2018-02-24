@@ -112,7 +112,7 @@ public class WaterChimp : MonoBehaviour
     {
         if(tri2D.tag == "Coin")
         {
-            ScoreManager.m_scoreValue += 5;
+            ScoreManager.m_scoreValue += 25;
             ScoreManager.m_scoreDisplay.text = ScoreManager.m_scoreValue.ToString();
             BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
             tri2D.GetComponent<Renderer>().enabled = false;
