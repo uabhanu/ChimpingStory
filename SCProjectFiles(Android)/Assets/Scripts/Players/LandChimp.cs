@@ -70,9 +70,12 @@ public class LandChimp : MonoBehaviour
             m_isUI = false;
         }
 
-        if(Input.GetMouseButtonDown(0) && m_isGrounded && !m_isJumping && !m_isSliding && !m_isUI)
+        if(Input.GetMouseButtonDown(0))
         {
-            Jump();   
+            if((m_isGrounded && !m_isJumping && !m_isSliding && !m_isUI) || m_isSuper)
+            {
+                Jump();
+            }   
         }
 
         if(Input.GetMouseButtonDown(1)) //TODO Double Tap instead of Right Click

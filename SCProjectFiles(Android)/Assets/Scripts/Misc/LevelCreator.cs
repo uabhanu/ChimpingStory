@@ -207,7 +207,7 @@ public class LevelCreator : MonoBehaviour
             return;
         }
 
-        if(Random.Range(0 , 2) == 0)
+        if(Random.Range(0 , 2) == Random.Range(0 , 2))
         {
             GameObject banana = m_collectedTiles.transform.Find("Banana").transform.GetChild(0).gameObject;
             banana.transform.parent = m_gameLayer.transform;
@@ -215,7 +215,15 @@ public class LevelCreator : MonoBehaviour
             m_miscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 6) == 4)
+        else if(Random.Range(0 , 2) == Random.Range(0 , 2))
+        {
+            GameObject bananaSkin = m_collectedTiles.transform.Find("BananaSkin").transform.GetChild(0).gameObject;
+            bananaSkin.transform.parent = m_gameLayer.transform;
+            bananaSkin.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 2f)));
+            m_miscObjAdded = true;
+        }
+
+        else if(Random.Range(0 , 2) == Random.Range(0 , 2))
         {
             GameObject coin = m_collectedTiles.transform.Find("Coin").transform.GetChild(0).gameObject;
             coin.transform.parent = m_gameLayer.transform;
@@ -223,7 +231,15 @@ public class LevelCreator : MonoBehaviour
             m_miscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 4) == 3)
+        else if(Random.Range(0 , 2) == Random.Range(0 , 2) && m_middleCounter > 6.5f)
+        {
+            GameObject hurdle = m_collectedTiles.transform.Find("Hurdle").transform.GetChild(0).gameObject;
+            hurdle.transform.parent = m_gameLayer.transform;
+            hurdle.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 2.3f)));
+            m_miscObjAdded = true;
+        }
+
+        else if(Random.Range(0 , 2) == Random.Range(0 , 2))
         {
             GameObject portal = m_collectedTiles.transform.Find("Portal").transform.GetChild(0).gameObject;
             portal.transform.parent = m_gameLayer.transform;
@@ -231,27 +247,11 @@ public class LevelCreator : MonoBehaviour
             m_miscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 2) == 1 && ScoreManager.m_supersCount > 0)
+        if(Random.Range(0 , 2) == Random.Range(0 , 2) && ScoreManager.m_supersCount > 0)
         {
             GameObject super = m_collectedTiles.transform.Find("Super").transform.GetChild(0).gameObject;
             super.transform.parent = m_gameLayer.transform;
-            super.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 4.3f)));
-            m_miscObjAdded = true;
-        }
-
-        if(Random.Range(0 , 10) == 7)
-        {
-            GameObject bananaSkin = m_collectedTiles.transform.Find("BananaSkin").transform.GetChild(0).gameObject;
-            bananaSkin.transform.parent = m_gameLayer.transform;
-            bananaSkin.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 4.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 2f)));
-            m_miscObjAdded = true;
-        }
-
-        else if(Random.Range(0 , 4) == 2 && m_middleCounter > 6.5f)
-        {
-            GameObject hurdle = m_collectedTiles.transform.Find("Hurdle").transform.GetChild(0).gameObject;
-            hurdle.transform.parent = m_gameLayer.transform;
-            hurdle.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 4.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 2.3f)));
+            super.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 5.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 4.3f)));
             m_miscObjAdded = true;
         }        
     }
