@@ -18,7 +18,7 @@ public class LandChimp : MonoBehaviour
     [SerializeField] float m_jumpHeight;
     [SerializeField] Transform m_raycastBottom , m_raycastTop;
 
-    [HideInInspector] public bool m_isSlipping , m_isSuper;
+    public bool m_isSlipping , m_isSuper;
 
 	void Reset()
 	{
@@ -48,7 +48,7 @@ public class LandChimp : MonoBehaviour
             return;
         }
 
-        BhanuTaps();
+        BhanuInput();
         Grounded();
 
         if(m_isSuper && transform.position.x < m_defaultXPos) //TODO this is temp fix and find better way if necessary
@@ -57,18 +57,8 @@ public class LandChimp : MonoBehaviour
         }
     }
 
-    void BhanuTaps()
+    void BhanuInput()
     {
-        if(EventSystem.current.currentSelectedGameObject != null)
-        {
-            m_isUI = true;
-        }
-
-        else if(EventSystem.current.currentSelectedGameObject == null)
-        {
-            m_isUI = false;
-        }
-
         if(m_isTestingUnityEditor)
         {
             #if UNITY_EDITOR || UNITY_STANDALONE
@@ -90,19 +80,14 @@ public class LandChimp : MonoBehaviour
             #endif
         }
         
-        for(int i = 0; i < Input.touchCount; ++i)
+        if(SwipeManager.Instance.IsSwiping(SwipeDirection.UP))
         {
-            if(Input.GetTouch(i).phase == TouchPhase.Began) 
-            {
-                if(Input.GetTouch(i).tapCount == 1)
-                {
-                    Debug.Log("Single tap..");
-                }
-                if(Input.GetTouch(i).tapCount == 2)
-                {
-                    Debug.Log("Double tap..");
-                }
-            }
+            Jump();
+        }
+
+        if(SwipeManager.Instance.IsSwiping(SwipeDirection.DOWN))
+        {
+            Slide();
         }
     }
 
@@ -292,19 +277,25 @@ public class LandChimp : MonoBehaviour
     void SlipFinished()
     {
 		m_chimpAnim.SetBool("Slip" , false);
-        m_levelCreator.m_gameSpeed /= 2;
+
+        if(!m_isSuper)
+        {
+            m_levelCreator.m_gameSpeed /= 2;
+        }
+        
         m_isSlipping = false;
     }
 
 	void Super()
 	{
+        m_isGrounded = false;
+        m_isSuper = true;
         m_blockerBottomCollider2D.enabled = true;
         m_chimpAnim.SetBool("Super" , true);
         m_chimpBody2D.gravityScale /= 2.5f;
 		SelfieAppear();
-        m_isGrounded = false;
         m_levelCreator.m_gameSpeed = 6.0f;
-        m_isSuper = true;
+        SlipFinished();
         m_rockSpawner.StartSpawnRoutine();
 		Invoke("SuperFinished" , 30.25f);
 	}
@@ -316,5 +307,18 @@ public class LandChimp : MonoBehaviour
         m_chimpBody2D.gravityScale = m_defaultGravityScale;
         m_isSuper = false;	
         LevelCreator.m_middleCounter = 0;
+    }
+
+    void UICheck()
+    {
+        if(EventSystem.current.currentSelectedGameObject != null)
+        {
+            m_isUI = true;
+        }
+
+        else if(EventSystem.current.currentSelectedGameObject == null)
+        {
+            m_isUI = false;
+        }
     }
 }
