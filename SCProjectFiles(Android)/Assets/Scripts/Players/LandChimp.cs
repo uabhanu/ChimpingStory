@@ -5,17 +5,17 @@ using UnityEngine.SceneManagement;
 public class LandChimp : MonoBehaviour
 {
     Animator m_chimpAnim;
-    bool m_isJumping , m_isSliding , m_isUI;
+    bool m_isGrounded , m_isJumping , m_isSliding , m_isUI;
 	BoxCollider2D m_blockerBottomCollider2D;
-    float m_defaultGravityScale , m_defaultXPos , m_tapDelay = 0.2f;
+    float m_defaultGravityScale , m_defaultXPos;
 	GameManager m_gameManager;
 	LevelCreator m_levelCreator;
     Rigidbody2D m_chimpBody2D;
     RockSpawner m_rockSpawner;
 	SoundManager m_soundManager;
 
-    [SerializeField] bool m_isGrounded;
-    [SerializeField] float m_jumpHeight , m_touchDelay = 0.1f;
+    [SerializeField] bool m_isTestingUnityEditor;
+    [SerializeField] float m_jumpHeight;
     [SerializeField] Transform m_raycastBottom , m_raycastTop;
 
     [HideInInspector] public bool m_isSlipping , m_isSuper;
@@ -69,25 +69,38 @@ public class LandChimp : MonoBehaviour
             m_isUI = false;
         }
 
-        //if(Input.GetMouseButtonDown(0))
-        //{
-        //    if((m_isGrounded && !m_isJumping && !m_isSliding && !m_isUI) || m_isSuper)
-        //    {
-        //        Jump();
-        //    }
-        //}
-
-        if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        if(m_isTestingUnityEditor)
         {
-            if(Input.GetTouch(0).tapCount >= 1)
+            #if UNITY_EDITOR || UNITY_STANDALONE
+            if(Input.GetMouseButtonDown(0))
             {
-                if(Time.time > m_tapDelay + 0.3f)
+                if((m_isGrounded && !m_isJumping && !m_isSliding && !m_isUI) || m_isSuper)
                 {
-                    Debug.Log("Single Tap");
+                    Jump();
                 }
-                else
+            }
+
+            if(Input.GetMouseButtonDown(1))
+            {
+                if((m_isGrounded && !m_isJumping && !m_isSliding && !m_isUI) || m_isSuper)
                 {
-                    Debug.Log("Double Tap");
+                    Slide();
+                }
+            }
+            #endif
+        }
+        
+        for(int i = 0; i < Input.touchCount; ++i)
+        {
+            if(Input.GetTouch(i).phase == TouchPhase.Began) 
+            {
+                if(Input.GetTouch(i).tapCount == 1)
+                {
+                    Debug.Log("Single tap..");
+                }
+                if(Input.GetTouch(i).tapCount == 2)
+                {
+                    Debug.Log("Double tap..");
                 }
             }
         }
