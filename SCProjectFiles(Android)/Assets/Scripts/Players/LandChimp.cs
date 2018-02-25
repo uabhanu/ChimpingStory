@@ -6,8 +6,8 @@ public class LandChimp : MonoBehaviour
 {
     Animator m_chimpAnim;
     bool m_isJumping , m_isSliding , m_isUI;
-	BoxCollider2D m_blockerBottomCollider2D , m_chimpCollider2D;
-    float m_defaultGravityScale , m_defaultXPos;
+	BoxCollider2D m_blockerBottomCollider2D;
+    float m_defaultGravityScale , m_defaultXPos , m_tapDelay = 0.2f;
 	GameManager m_gameManager;
 	LevelCreator m_levelCreator;
     Rigidbody2D m_chimpBody2D;
@@ -15,7 +15,7 @@ public class LandChimp : MonoBehaviour
 	SoundManager m_soundManager;
 
     [SerializeField] bool m_isGrounded;
-    [SerializeField] float m_jumpHeight;
+    [SerializeField] float m_jumpHeight , m_touchDelay = 0.1f;
     [SerializeField] Transform m_raycastBottom , m_raycastTop;
 
     [HideInInspector] public bool m_isSlipping , m_isSuper;
@@ -32,7 +32,6 @@ public class LandChimp : MonoBehaviour
         m_blockerBottomCollider2D = GameObject.Find("BlockerBottom").GetComponent<BoxCollider2D>();
         m_chimpAnim = GetComponent<Animator>();
         m_chimpBody2D = GetComponent<Rigidbody2D>();
-        m_chimpCollider2D = GetComponent<BoxCollider2D>();
         m_defaultGravityScale = m_chimpBody2D.gravityScale;
         m_defaultXPos = transform.position.x;
 		m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -70,17 +69,27 @@ public class LandChimp : MonoBehaviour
             m_isUI = false;
         }
 
-        if(Input.GetMouseButtonDown(0))
-        {
-            if((m_isGrounded && !m_isJumping && !m_isSliding && !m_isUI) || m_isSuper)
-            {
-                Jump();
-            }   
-        }
+        //if(Input.GetMouseButtonDown(0))
+        //{
+        //    if((m_isGrounded && !m_isJumping && !m_isSliding && !m_isUI) || m_isSuper)
+        //    {
+        //        Jump();
+        //    }
+        //}
 
-        if(Input.GetMouseButtonDown(1)) //TODO Double Tap instead of Right Click
+        if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
-            Slide();
+            if(Input.GetTouch(0).tapCount >= 1)
+            {
+                if(Time.time > m_tapDelay + 0.3f)
+                {
+                    Debug.Log("Single Tap");
+                }
+                else
+                {
+                    Debug.Log("Double Tap");
+                }
+            }
         }
     }
 
@@ -241,7 +250,6 @@ public class LandChimp : MonoBehaviour
 			m_chimpAnim.SetBool("Jog" , false);
 			m_chimpAnim.SetBool("Slide" , true);
 			m_chimpBody2D.gravityScale = 0;
-			//m_chimpCollider2D.enabled = false;
 			SelfieAppear();
 			m_isSliding = true;
 			Invoke("SlideFinished" , 0.75f);
@@ -252,9 +260,12 @@ public class LandChimp : MonoBehaviour
     {
         m_chimpAnim.SetBool("Slide" , false);
         m_chimpBody2D.gravityScale = m_defaultGravityScale;
-        //m_chimpCollider2D.enabled = true;
 		m_isSliding = false;
-        SelfieDisappear();
+
+        if(!m_isJumping)
+        {
+            SelfieDisappear();
+        }
     }
 
     void Slip()

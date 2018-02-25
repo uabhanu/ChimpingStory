@@ -132,7 +132,6 @@ public class GameManager : MonoBehaviour
 
     public void ExitToMainMenu()
 	{
-		MusicManager.m_musicSource.Play();
         SceneManager.LoadScene("MainMenu");
     }
 
@@ -142,6 +141,11 @@ public class GameManager : MonoBehaviour
 
         if(m_currentScene == 0)
         {
+            if(MusicManager.m_musicSource != null)
+            {
+                MusicManager.m_musicSource.Play();
+            }
+            
             m_playButtonImage = GameObject.Find("PlayButton").GetComponent<Image>();
             m_quit = GameObject.Find("QuitText").GetComponent<Text>();
             m_quitButtonImage = GameObject.Find("QuitButton").GetComponent<Image>();
