@@ -41,7 +41,12 @@ public class FallingLevelSuper : MonoBehaviour
             ScoreManager.m_supersCount++;
             BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
 			m_soundManager.m_soundsSource.clip = m_soundManager.m_superCollected;
-			m_soundManager.m_soundsSource.Play();
+
+			if(m_soundManager.m_soundsSource.enabled)
+            {
+                m_soundManager.m_soundsSource.Play();
+            }
+
             m_gameManager.BackToLandWithSuperMenu();
         }
 	}

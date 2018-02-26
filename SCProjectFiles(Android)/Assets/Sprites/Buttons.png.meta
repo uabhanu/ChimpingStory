@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 0b4cbc8402501464caded0f7edab3779
-timeCreated: 1513544488
+timeCreated: 1519672235
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -29,6 +29,125 @@ TextureImporter:
     21300044: Camera
     21300046: Buttons_23
     21300048: Buttons_24
+    21300050: ChimpionshipBelt
+    21300052: Buttons_1
+    21300054: Buttons_2
+    21300056: Buttons_3
+    21300058: Buttons_4
+    21300060: Buttons_5
+    21300062: Buttons_6
+    21300064: Buttons_7
+    21300066: Buttons_8
+    21300068: Buttons_9
+    21300070: Buttons_10
+    21300072: Buttons_11
+    21300074: Buttons_12
+    21300076: Buttons_13
+    21300078: Buttons_14
+    21300080: Buttons_19
+    21300082: Buttons_20
+    21300084: Buttons_21
+    21300086: Buttons_22
+    21300088: Buttons_25
+    21300090: Buttons_26
+    21300092: Buttons_27
+    21300094: Buttons_28
+    21300096: Buttons_29
+    21300098: Buttons_30
+    21300100: Buttons_31
+    21300102: Buttons_32
+    21300104: Buttons_33
+    21300106: Buttons_34
+    21300108: Buttons_36
+    21300110: Unmute
+    21300112: Cart
+    21300114: Buttons_41
+    21300116: Buttons_42
+    21300118: Buttons_43
+    21300120: Buttons_44
+    21300122: Buttons_45
+    21300124: Buttons_46
+    21300126: Buttons_47
+    21300128: Buttons_48
+    21300130: Buttons_49
+    21300132: Buttons_50
+    21300134: Buttons_51
+    21300136: Buttons_52
+    21300138: Buttons_53
+    21300140: Buttons_56
+    21300142: Buttons_57
+    21300144: Buttons_61
+    21300146: Buttons_62
+    21300148: Buttons_63
+    21300150: Buttons_64
+    21300152: Buttons_65
+    21300154: Buttons_66
+    21300156: Buttons_67
+    21300158: Buttons_68
+    21300160: Buttons_69
+    21300162: Buttons_70
+    21300164: Buttons_71
+    21300166: Buttons_72
+    21300168: Buttons_73
+    21300170: Buttons_74
+    21300172: Buttons_75
+    21300174: Buttons_76
+    21300176: Buttons_77
+    21300178: Buttons_78
+    21300180: Ok
+    21300182: Buttons_81
+    21300184: Buttons_82
+    21300186: Buttons_83
+    21300188: Exit
+    21300190: Buttons_85
+    21300192: Buttons_86
+    21300194: Buttons_87
+    21300196: Buttons_88
+    21300198: Buttons_89
+    21300200: Buttons_90
+    21300202: Buttons_91
+    21300204: Buttons_92
+    21300206: Buttons_93
+    21300208: Buttons_94
+    21300210: Buttons_95
+    21300212: Buttons_96
+    21300214: Buttons_98
+    21300216: Selfie
+    21300218: Mail
+    21300220: Buttons_101
+    21300222: Trophy
+    21300224: Buttons_103
+    21300226: Buttons_104
+    21300228: Buttons_105
+    21300230: Buttons_106
+    21300232: Buttons_107
+    21300234: Buttons_108
+    21300236: Buttons_109
+    21300238: Buttons_110
+    21300240: Buttons_111
+    21300242: Buttons_112
+    21300244: Buttons_113
+    21300246: Buttons_114
+    21300248: Buttons_115
+    21300250: Buttons_116
+    21300252: Buttons_117
+    21300254: Buttons_118
+    21300256: Buttons_119
+    21300258: Buttons_120
+    21300260: Buttons_121
+    21300262: Buttons_122
+    21300264: Buttons_123
+    21300266: Buttons_124
+    21300268: Buttons_125
+    21300270: Buttons_126
+    21300272: Buttons_127
+    21300274: Buttons_128
+    21300276: Buttons_129
+    21300278: Buttons_130
+    21300280: Buttons_131
+    21300282: Buttons_132
+    21300284: Buttons_133
+    21300286: ChimpionshipBeltGrey
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -138,12 +257,12 @@ TextureImporter:
       name: Play
       rect:
         serializedVersion: 2
-        x: 64
-        y: 932
-        width: 187
-        height: 187
+        x: 58
+        y: 1105
+        width: 199
+        height: 203
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -152,26 +271,12 @@ TextureImporter:
       name: Quit
       rect:
         serializedVersion: 2
-        x: 280
-        y: 932
-        width: 187
-        height: 187
+        x: 274
+        y: 1105
+        width: 202
+        height: 203
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Options
-      rect:
-        serializedVersion: 2
-        x: 492
-        y: 932
-        width: 187
-        height: 187
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -180,12 +285,12 @@ TextureImporter:
       name: Pause
       rect:
         serializedVersion: 2
-        x: 702
-        y: 932
-        width: 187
-        height: 187
+        x: 696
+        y: 1105
+        width: 199
+        height: 203
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -194,12 +299,12 @@ TextureImporter:
       name: Help
       rect:
         serializedVersion: 2
-        x: 916
-        y: 932
-        width: 187
-        height: 187
+        x: 909
+        y: 1105
+        width: 200
+        height: 203
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -208,12 +313,12 @@ TextureImporter:
       name: Settings
       rect:
         serializedVersion: 2
-        x: 64
-        y: 718
-        width: 187
-        height: 187
+        x: 58
+        y: 889
+        width: 199
+        height: 203
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -222,40 +327,40 @@ TextureImporter:
       name: Restart
       rect:
         serializedVersion: 2
-        x: 280
-        y: 718
-        width: 187
-        height: 187
+        x: 274
+        y: 889
+        width: 199
+        height: 203
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Mute
+      name: Unmute
       rect:
         serializedVersion: 2
-        x: 492
-        y: 718
-        width: 187
-        height: 187
+        x: 485
+        y: 889
+        width: 199
+        height: 203
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Store
+      name: Cart
       rect:
         serializedVersion: 2
-        x: 702
-        y: 718
-        width: 187
-        height: 187
+        x: 696
+        y: 889
+        width: 199
+        height: 203
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -264,12 +369,12 @@ TextureImporter:
       name: Lock
       rect:
         serializedVersion: 2
-        x: 916
-        y: 718
-        width: 187
-        height: 187
+        x: 909
+        y: 889
+        width: 200
+        height: 203
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -278,12 +383,12 @@ TextureImporter:
       name: ArrowLeft
       rect:
         serializedVersion: 2
-        x: 64
-        y: 503
-        width: 187
-        height: 187
+        x: 58
+        y: 676
+        width: 199
+        height: 205
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -292,12 +397,12 @@ TextureImporter:
       name: ArrowRight
       rect:
         serializedVersion: 2
-        x: 280
-        y: 503
-        width: 187
-        height: 187
+        x: 266
+        y: 672
+        width: 207
+        height: 207
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -306,12 +411,12 @@ TextureImporter:
       name: ArrowUp
       rect:
         serializedVersion: 2
-        x: 492
-        y: 503
-        width: 187
-        height: 187
+        x: 485
+        y: 676
+        width: 199
+        height: 203
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -320,12 +425,12 @@ TextureImporter:
       name: ArrowDown
       rect:
         serializedVersion: 2
-        x: 702
-        y: 503
-        width: 187
-        height: 187
+        x: 696
+        y: 676
+        width: 199
+        height: 205
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -334,12 +439,12 @@ TextureImporter:
       name: Dollar
       rect:
         serializedVersion: 2
-        x: 916
-        y: 503
-        width: 187
-        height: 187
+        x: 906
+        y: 676
+        width: 203
+        height: 205
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -348,68 +453,68 @@ TextureImporter:
       name: Cancel
       rect:
         serializedVersion: 2
-        x: 64
-        y: 288
-        width: 187
-        height: 187
+        x: 58
+        y: 460
+        width: 199
+        height: 203
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Accept
+      name: Ok
       rect:
         serializedVersion: 2
-        x: 280
-        y: 288
-        width: 187
-        height: 187
+        x: 274
+        y: 460
+        width: 200
+        height: 203
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Star
+      name: Buttons_81
       rect:
         serializedVersion: 2
-        x: 492
-        y: 288
-        width: 187
-        height: 187
+        x: 472
+        y: 453
+        width: 212
+        height: 211
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Info
+      name: Buttons_83
       rect:
         serializedVersion: 2
-        x: 702
-        y: 288
-        width: 187
-        height: 187
+        x: 696
+        y: 460
+        width: 199
+        height: 203
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Home
+      name: Exit
       rect:
         serializedVersion: 2
-        x: 916
-        y: 288
-        width: 187
-        height: 187
+        x: 909
+        y: 460
+        width: 205
+        height: 203
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -418,68 +523,110 @@ TextureImporter:
       name: Music
       rect:
         serializedVersion: 2
-        x: 64
-        y: 76
-        width: 187
-        height: 187
+        x: 58
+        y: 249
+        width: 199
+        height: 203
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Picture
+      name: Buttons_98
       rect:
         serializedVersion: 2
-        x: 280
-        y: 76
-        width: 187
-        height: 187
+        x: 274
+        y: 249
+        width: 200
+        height: 203
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Camera
+      name: Selfie
       rect:
         serializedVersion: 2
-        x: 492
-        y: 76
-        width: 187
-        height: 187
+        x: 485
+        y: 249
+        width: 199
+        height: 203
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Buttons_23
+      name: Mail
       rect:
         serializedVersion: 2
         x: 696
-        y: 0
-        width: 232
-        height: 232
+        y: 249
+        width: 199
+        height: 203
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Buttons_24
+      name: Trophy
       rect:
         serializedVersion: 2
-        x: 928
-        y: 0
-        width: 232
-        height: 232
+        x: 909
+        y: 249
+        width: 205
+        height: 203
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Mute
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 2
+        width: 187
+        height: 187
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ChimpionshipBelt
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 0
+        width: 187
+        height: 187
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ChimpionshipBeltGrey
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 0
+        width: 187
+        height: 187
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

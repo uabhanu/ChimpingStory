@@ -118,7 +118,11 @@ public class WaterChimp : MonoBehaviour
             tri2D.GetComponent<Renderer>().enabled = false;
             tri2D.GetComponent<Collider2D>().enabled = false;
 			m_soundManager.m_soundsSource.clip = m_soundManager.m_coinCollected;
-			m_soundManager.m_soundsSource.Play();
+			
+            if(m_soundManager.m_soundsSource.enabled)
+            {
+                m_soundManager.m_soundsSource.Play();
+            }
         }
         
         else if(tri2D.tag == "Obstacle")
@@ -129,7 +133,11 @@ public class WaterChimp : MonoBehaviour
             tri2D.GetComponent<Renderer>().enabled = false;
             tri2D.GetComponent<Collider2D>().enabled = false;
             m_soundManager.m_soundsSource.clip = m_soundManager.m_spikesBallDeath;
-			m_soundManager.m_soundsSource.Play();
+			
+            if(m_soundManager.m_soundsSource.enabled)
+            {
+                m_soundManager.m_soundsSource.Play();
+            }
 
             if(tri2D.name == "Torpedo")
                 tri2D.transform.Find("TorpedoFire").gameObject.SetActive(false);
@@ -157,7 +165,12 @@ public class WaterChimp : MonoBehaviour
 			ScoreManager.m_supersCount++;
 			BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
 			m_soundManager.m_soundsSource.clip = m_soundManager.m_superCollected;
-			m_soundManager.m_soundsSource.Play();
+			
+            if(m_soundManager.m_soundsSource.enabled)
+            {
+                m_soundManager.m_soundsSource.Play();
+            }
+
             m_gameManager.BackToLandWithSuperMenu();
         }
     }

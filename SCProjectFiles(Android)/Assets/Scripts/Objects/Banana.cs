@@ -56,7 +56,12 @@ public class Banana : MonoBehaviour
             ScoreManager.m_scoreDisplay.text = ScoreManager.m_scoreValue.ToString();
             BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
 			m_soundManager.m_soundsSource.clip = m_soundManager.m_bananaCollected;
-			m_soundManager.m_soundsSource.Play();
+
+			if(m_soundManager.m_soundsSource.enabled)
+            {
+                m_soundManager.m_soundsSource.Play();
+            }
+
             m_bananaCollider2D.enabled = false;
 			m_bananaRenderer.enabled = false;
         }

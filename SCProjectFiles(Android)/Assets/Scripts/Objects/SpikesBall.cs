@@ -36,7 +36,12 @@ public class SpikesBall : MonoBehaviour
         if(tri2D.gameObject.tag.Equals("Player"))
         {
             m_soundManager.m_soundsSource.clip = m_soundManager.m_spikesBallDeath;
-            m_soundManager.m_soundsSource.Play();
+            
+            if(m_soundManager.m_soundsSource.enabled)
+            {
+                m_soundManager.m_soundsSource.Play();
+            }
+
             transform.position = m_randomPositions[Random.Range(0 , m_randomPositions.Length)];
         }
     }

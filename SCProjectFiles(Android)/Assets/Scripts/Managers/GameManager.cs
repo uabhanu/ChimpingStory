@@ -6,9 +6,11 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour 
 {
 	AudioSource m_musicSource;
-	Image m_adsAcceptButtonImage , m_adsCancelButtonImage , m_adsMenuImage , m_backToLandLoseMenuImage , m_backToLandWinMenuImage , m_backToLandWithSuperMenuImage , m_continueButtonImage;
-    Image m_exitButtonImage , m_pauseButtonImage , m_pauseMenuImage , m_playButtonImage , m_quitButtonImage , m_quitAcceptButtonImage , m_quitCancelButtonImage;
-    Image m_quitMenuImage , m_restartButtonImage , m_restartAcceptButtonImage , m_restartCancelButtonImage , m_restartMenuImage , m_resumeButtonImage;
+    bool m_playerMutedSounds;
+	Image m_adsAcceptButtonImage , m_adsCancelButtonImage , m_adsMenuImage , m_backToLandLoseMenuImage , m_backToLandWinMenuImage , m_backToLandWithSuperMenuImage , m_chimpionshipBeltImage;
+    Image m_continueButtonImage , m_exitButtonImage , m_muteButtonImage , m_pauseButtonImage , m_pauseMenuImage , m_playButtonImage , m_quitButtonImage , m_quitAcceptButtonImage;
+    Image m_quitCancelButtonImage , m_quitMenuImage , m_restartButtonImage , m_restartAcceptButtonImage , m_restartCancelButtonImage , m_restartMenuImage , m_resumeButtonImage;
+    Image m_unmuteButtonImage;
     LandChimp m_landChimp;
 	SoundManager m_soundManager;
 	Text m_ads , m_backToLandLose , m_backToLandWin , m_backToLandWithSuper , m_highScoreTextDisplay , m_highScoreValueDisplay , m_quit , m_restart;
@@ -21,6 +23,11 @@ public class GameManager : MonoBehaviour
     void Start()
 	{
 		GetBhanuObjects();
+
+        if(MusicManager.m_musicSource != null && !MusicManager.m_musicSource.isPlaying)
+        {
+            MusicManager.m_musicSource.Play();
+        }
     }
 	
     public void Ads()
@@ -29,8 +36,11 @@ public class GameManager : MonoBehaviour
         m_adsAcceptButtonImage.enabled = true;
         m_adsCancelButtonImage.enabled = true;
         m_ads.enabled = true;
+        m_chimpionshipBeltImage.enabled = false;
+        m_muteButtonImage.enabled = false;
         m_pauseButtonImage.enabled = false;
 		m_selfieButtonImage.enabled = false;
+        m_unmuteButtonImage.enabled = false;
 		Time.timeScale = 0;
     }
 
@@ -89,10 +99,13 @@ public class GameManager : MonoBehaviour
     {
         m_backToLandLoseMenuImage.enabled = true;
         m_backToLandLose.enabled = true;
+        m_chimpionshipBeltImage.enabled = false;
 		m_continueButtonImage.enabled = true;
 		m_highScoreTextDisplay.enabled = false;
 		m_highScoreValueDisplay.enabled = false;
+        m_muteButtonImage.enabled = false;
         m_pauseButtonImage.enabled = false;
+        m_unmuteButtonImage.enabled = false;
         Time.timeScale = 0;
     }
 
@@ -100,10 +113,13 @@ public class GameManager : MonoBehaviour
     {
         m_backToLandWinMenuImage.enabled = true;
         m_backToLandWin.enabled = true;
+        m_chimpionshipBeltImage.enabled = false;
 		m_continueButtonImage.enabled = true;
 		m_highScoreTextDisplay.enabled = false;
 		m_highScoreValueDisplay.enabled = false;
+        m_muteButtonImage.enabled = false;
         m_pauseButtonImage.enabled = false;
+        m_unmuteButtonImage.enabled = false;
         Time.timeScale = 0;
     }
 
@@ -112,9 +128,12 @@ public class GameManager : MonoBehaviour
         m_backToLandWithSuperMenuImage.enabled = true;
         m_backToLandWithSuper.enabled = true;
         m_continueButtonImage.enabled = true;
+        m_chimpionshipBeltImage.enabled = false;
 		m_highScoreTextDisplay.enabled = false;
 		m_highScoreValueDisplay.enabled = false;
+        m_muteButtonImage.enabled = false;
         m_pauseButtonImage.enabled = false;
+        m_unmuteButtonImage.enabled = false;
         Time.timeScale = 0;
     }
 
@@ -160,10 +179,12 @@ public class GameManager : MonoBehaviour
             m_adsAcceptButtonImage = GameObject.Find("AdsAcceptButton").GetComponent<Image>();
             m_adsCancelButtonImage = GameObject.Find("AdsCancelButton").GetComponent<Image>();
             m_adsMenuImage = GameObject.Find("AdsMenu").GetComponent<Image>();
+            m_chimpionshipBeltImage = GameObject.Find("ChimpionshipBelt").GetComponent<Image>();
             m_exitButtonImage = GameObject.Find("ExitButton").GetComponent<Image>();
 			m_landChimp = FindObjectOfType<LandChimp>();
 			m_highScoreTextDisplay = GameObject.Find("HighScoreTextDisplay").GetComponent<Text>();
 			m_highScoreValueDisplay = GameObject.Find("HighScoreValueDisplay").GetComponent<Text>();
+            m_muteButtonImage = GameObject.Find("MuteButton").GetComponent<Image>();
 			m_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
 			m_pauseMenuImage = GameObject.Find("PauseMenu").GetComponent<Image>();
             m_restart = GameObject.Find("RestartText").GetComponent<Text>();
@@ -175,6 +196,7 @@ public class GameManager : MonoBehaviour
 			m_selfieButtonImage = GameObject.Find("SelfieButton").GetComponent<Image>();
 			m_selfiePanelImage = GameObject.Find("SelfiePanel").GetComponent<Image>();
             m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+            m_unmuteButtonImage = GameObject.Find("UnmuteButton").GetComponent<Image>();
         }
 
 		else
@@ -185,24 +207,61 @@ public class GameManager : MonoBehaviour
 			m_backToLandWin = GameObject.Find("BackToLandWin").GetComponent<Text>();
             m_backToLandWithSuperMenuImage = GameObject.Find("BackToLandWithSuperMenu").GetComponent<Image>();
 			m_backToLandWithSuper = GameObject.Find("BackToLandWithSuper").GetComponent<Text>();
+            m_chimpionshipBeltImage = GameObject.Find("ChimpionshipBelt").GetComponent<Image>();
 			m_continueButtonImage = GameObject.Find("ContinueButton").GetComponent<Image>();
 			m_highScoreTextDisplay = GameObject.Find("HighScoreTextDisplay").GetComponent<Text>();
 			m_highScoreValueDisplay = GameObject.Find("HighScoreValueDisplay").GetComponent<Text>();
+            m_muteButtonImage = GameObject.Find("MuteButton").GetComponent<Image>();
 			m_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
 			m_pauseMenuImage = GameObject.Find("PauseMenu").GetComponent<Image>();
 			m_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
             m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+            m_unmuteButtonImage = GameObject.Find("UnmuteButton").GetComponent<Image>();
 		}
 
 		Time.timeScale = 1;
+    }
+
+    public void MuteUnmute()
+    {
+        if(MusicManager.m_musicSource != null)
+        {
+            if(m_muteButtonImage.enabled)
+            {
+                m_muteButtonImage.enabled = false;
+                MusicManager.m_musicSource.Pause();
+                m_playerMutedSounds = true;
+                m_unmuteButtonImage.enabled = true;
+                m_soundManager.m_soundsSource.enabled = false;
+            }
+
+            else if(!m_muteButtonImage.enabled)
+            {
+                m_muteButtonImage.enabled = true;
+                MusicManager.m_musicSource.Play();
+                m_playerMutedSounds = false;
+                m_unmuteButtonImage.enabled = false;
+                m_soundManager.m_soundsSource.enabled = true;
+            }
+        }
     }
 
     public void Pause()
 	{
         if(MusicManager.m_musicSource != null)
         {
-            MusicManager.m_musicSource.Pause();
+            if(MusicManager.m_musicSource.isPlaying)
+            {
+                MusicManager.m_musicSource.Pause();
+                m_muteButtonImage.enabled = false;
+            }
+            else
+            {
+                m_unmuteButtonImage.enabled = false;
+            }
         }
+
+        m_chimpionshipBeltImage.enabled = false;
         
         if(m_exitButtonImage != null)
         {
@@ -305,8 +364,18 @@ public class GameManager : MonoBehaviour
 	{
         if(MusicManager.m_musicSource != null)
         {
-            MusicManager.m_musicSource.Play();
+            if(!MusicManager.m_musicSource.isPlaying && !m_playerMutedSounds)
+            {
+                MusicManager.m_musicSource.Play();
+                m_muteButtonImage.enabled = true;
+            }
+            else
+            {
+                m_unmuteButtonImage.enabled = true;
+            }
         }
+
+        m_chimpionshipBeltImage.enabled = true;
 
         if(m_exitButtonImage != null)
         {
@@ -315,7 +384,6 @@ public class GameManager : MonoBehaviour
 
 		m_highScoreTextDisplay.enabled = true;
 		m_highScoreValueDisplay.enabled = true;
-
 		m_pauseButtonImage.enabled = true;
 		m_pauseMenuImage.enabled = false;
 

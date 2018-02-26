@@ -6,8 +6,7 @@ public class LandChimp : MonoBehaviour
 {
     Animator m_chimpAnim;
     bool m_isGrounded , m_isJumping , m_isSliding , m_isUI;
-	BoxCollider2D m_blockerBottomCollider2D;
-    float m_defaultGravityScale , m_defaultXPos;
+    float m_yPosInSuperMode;
 	GameManager m_gameManager;
 	LevelCreator m_levelCreator;
     Rigidbody2D m_chimpBody2D;
@@ -29,11 +28,8 @@ public class LandChimp : MonoBehaviour
 
 	void Start()
     {
-        m_blockerBottomCollider2D = GameObject.Find("BlockerBottom").GetComponent<BoxCollider2D>();
         m_chimpAnim = GetComponent<Animator>();
         m_chimpBody2D = GetComponent<Rigidbody2D>();
-        m_defaultGravityScale = m_chimpBody2D.gravityScale;
-        m_defaultXPos = transform.position.x;
 		m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 		m_levelCreator = GameObject.Find("LevelCreator").GetComponent<LevelCreator>();
         LevelCreator.m_middleCounter = 0;
@@ -50,11 +46,6 @@ public class LandChimp : MonoBehaviour
 
         BhanuInput();
         Grounded();
-
-        if(m_isSuper && transform.position.x < m_defaultXPos) //TODO this is temp fix and find better way if necessary
-        {
-            transform.position = new Vector2(m_defaultXPos , transform.position.y);
-        }
     }
 
     void BhanuInput()
@@ -101,7 +92,7 @@ public class LandChimp : MonoBehaviour
     {
         if(!m_isSuper)
         {
-            Debug.DrawLine(m_raycastTop.position , m_raycastBottom.position , Color.red);
+            //Debug.DrawLine(m_raycastTop.position , m_raycastBottom.position , Color.red);
             RaycastHit2D hit2D = Physics2D.Raycast(m_raycastTop.position , m_raycastBottom.position);
 
             if(hit2D)
@@ -140,6 +131,7 @@ public class LandChimp : MonoBehaviour
         else if(m_isSuper)
         {
             LevelCreator.m_middleCounter = 0.5f;
+            transform.position = new Vector2(-5.17f , Mathf.Clamp(transform.position.y , -0.98f , 3.25f));
         }
     }
 	
@@ -153,7 +145,11 @@ public class LandChimp : MonoBehaviour
             m_isJumping = true;
             Invoke("JumpFinished" , 0.55f);
 		    m_soundManager.m_soundsSource.clip = m_soundManager.m_jump;
-		    m_soundManager.m_soundsSource.Play();
+
+            if(m_soundManager.m_soundsSource.enabled)
+            {
+                m_soundManager.m_soundsSource.Play();
+            }
         }
         
         if(m_isSuper)
@@ -183,14 +179,24 @@ public class LandChimp : MonoBehaviour
         if(tri2D.gameObject.tag.Equals("Fall"))
         {
 			m_soundManager.m_soundsSource.clip = m_soundManager.m_fallDeath;
-			m_soundManager.m_soundsSource.Play();
+
+			if(m_soundManager.m_soundsSource.enabled)
+            {
+                m_soundManager.m_soundsSource.Play();
+            }
+
             CheatDeath();
         }
 
         if(tri2D.gameObject.tag.Equals("Hurdle"))
         {
 			m_soundManager.m_soundsSource.clip = m_soundManager.m_hurdleDeath;
-			m_soundManager.m_soundsSource.Play();
+
+			if(m_soundManager.m_soundsSource.enabled)
+            {
+                m_soundManager.m_soundsSource.Play();
+            }
+
             CheatDeath();
         }
 
@@ -247,7 +253,6 @@ public class LandChimp : MonoBehaviour
 		{
 			m_chimpAnim.SetBool("Jog" , false);
 			m_chimpAnim.SetBool("Slide" , true);
-			m_chimpBody2D.gravityScale = 0;
 			SelfieAppear();
 			m_isSliding = true;
 			Invoke("SlideFinished" , 0.75f);
@@ -257,7 +262,6 @@ public class LandChimp : MonoBehaviour
     void SlideFinished()
     {
         m_chimpAnim.SetBool("Slide" , false);
-        m_chimpBody2D.gravityScale = m_defaultGravityScale;
 		m_isSliding = false;
 
         if(!m_isJumping)
@@ -290,9 +294,8 @@ public class LandChimp : MonoBehaviour
 	{
         m_isGrounded = false;
         m_isSuper = true;
-        m_blockerBottomCollider2D.enabled = true;
         m_chimpAnim.SetBool("Super" , true);
-        m_chimpBody2D.gravityScale /= 2.5f;
+        m_jumpHeight *= 1.5f;
 		SelfieAppear();
         m_levelCreator.m_gameSpeed = 6.0f;
         SlipFinished();
@@ -302,9 +305,8 @@ public class LandChimp : MonoBehaviour
 
     void SuperFinished()
     {
-        m_blockerBottomCollider2D.enabled = false;
         m_chimpAnim.SetBool("Super" , false);
-        m_chimpBody2D.gravityScale = m_defaultGravityScale;
+        m_jumpHeight /= 1.5f;
         m_isSuper = false;	
         LevelCreator.m_middleCounter = 0;
     }

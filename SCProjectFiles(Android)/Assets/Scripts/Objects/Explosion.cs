@@ -28,7 +28,12 @@ public class Explosion : MonoBehaviour
 		}
 
         m_explosionSystem.Play();
-		m_soundManager.m_soundsSource.Play();
+
+		if(m_soundManager.m_soundsSource.enabled)
+        {
+            m_soundManager.m_soundsSource.Play();
+        }
+
         Destroy(gameObject , m_destroyAfter);
     }
 }
