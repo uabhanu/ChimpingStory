@@ -6,11 +6,11 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour 
 {
 	AudioSource m_musicSource;
-    bool m_playerMutedSounds;
 	Image m_adsAcceptButtonImage , m_adsCancelButtonImage , m_adsMenuImage , m_backToLandLoseMenuImage , m_backToLandWinMenuImage , m_backToLandWithSuperMenuImage , m_chimpionshipBeltImage;
     Image m_continueButtonImage , m_exitButtonImage , m_muteButtonImage , m_pauseButtonImage , m_pauseMenuImage , m_playButtonImage , m_quitButtonImage , m_quitAcceptButtonImage;
     Image m_quitCancelButtonImage , m_quitMenuImage , m_restartButtonImage , m_restartAcceptButtonImage , m_restartCancelButtonImage , m_restartMenuImage , m_resumeButtonImage;
     Image m_unmuteButtonImage;
+    int m_playerMutedSounds;
     LandChimp m_landChimp;
 	SoundManager m_soundManager;
 	Text m_ads , m_backToLandLose , m_backToLandWin , m_backToLandWithSuper , m_highScoreTextDisplay , m_highScoreValueDisplay , m_quit , m_restart;
@@ -23,11 +23,6 @@ public class GameManager : MonoBehaviour
     void Start()
 	{
 		GetBhanuObjects();
-
-        if(MusicManager.m_musicSource != null && !MusicManager.m_musicSource.isPlaying)
-        {
-            MusicManager.m_musicSource.Play();
-        }
     }
 	
     public void Ads()
@@ -157,14 +152,10 @@ public class GameManager : MonoBehaviour
     void GetBhanuObjects()
     {
         m_currentScene = SceneManager.GetActiveScene().buildIndex;
+        m_playerMutedSounds = BhanuPrefs.GetSoundsStatus();
 
         if(m_currentScene == 0)
         {
-            if(MusicManager.m_musicSource != null)
-            {
-                MusicManager.m_musicSource.Play();
-            }
-            
             m_playButtonImage = GameObject.Find("PlayButton").GetComponent<Image>();
             m_quit = GameObject.Find("QuitText").GetComponent<Text>();
             m_quitButtonImage = GameObject.Find("QuitButton").GetComponent<Image>();
@@ -197,6 +188,35 @@ public class GameManager : MonoBehaviour
 			m_selfiePanelImage = GameObject.Find("SelfiePanel").GetComponent<Image>();
             m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
             m_unmuteButtonImage = GameObject.Find("UnmuteButton").GetComponent<Image>();
+
+            if(MusicManager.m_musicSource != null)
+            {
+                if(!MusicManager.m_musicSource.isPlaying && m_playerMutedSounds == 0)
+                {
+                    MusicManager.m_musicSource.Play();
+                    m_muteButtonImage.enabled = true;
+                    m_soundManager.m_soundsSource.enabled = true;
+                }
+
+                else if(MusicManager.m_musicSource.isPlaying && m_playerMutedSounds == 0)
+                {
+                    m_muteButtonImage.enabled = true;
+                    m_soundManager.m_soundsSource.enabled = true;
+                }
+
+                else if(MusicManager.m_musicSource.isPlaying && m_playerMutedSounds == 1)
+                {
+                    MusicManager.m_musicSource.Pause();
+                    m_soundManager.m_soundsSource.enabled = false;
+                    m_unmuteButtonImage.enabled = true;
+                }
+
+                else
+                {
+                    m_soundManager.m_soundsSource.enabled = false;
+                    m_unmuteButtonImage.enabled = true;
+                }
+            }
         }
 
 		else
@@ -217,9 +237,38 @@ public class GameManager : MonoBehaviour
 			m_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
             m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
             m_unmuteButtonImage = GameObject.Find("UnmuteButton").GetComponent<Image>();
+
+            if(MusicManager.m_musicSource != null)
+            {
+                if(!MusicManager.m_musicSource.isPlaying && m_playerMutedSounds == 0)
+                {
+                    MusicManager.m_musicSource.Play();
+                    m_muteButtonImage.enabled = true;
+                    m_soundManager.m_soundsSource.enabled = true;
+                }
+
+                else if(MusicManager.m_musicSource.isPlaying && m_playerMutedSounds == 0)
+                {
+                    m_muteButtonImage.enabled = true;
+                    m_soundManager.m_soundsSource.enabled = true;
+                }
+
+                else if(MusicManager.m_musicSource.isPlaying && m_playerMutedSounds == 1)
+                {
+                    MusicManager.m_musicSource.Pause();
+                    m_soundManager.m_soundsSource.enabled = false;
+                    m_unmuteButtonImage.enabled = true;
+                }
+
+                else
+                {
+                    m_soundManager.m_soundsSource.enabled = false;
+                    m_unmuteButtonImage.enabled = true;
+                }
+            }
 		}
 
-		Time.timeScale = 1;
+        Time.timeScale = 1;
     }
 
     public void MuteUnmute()
@@ -230,7 +279,8 @@ public class GameManager : MonoBehaviour
             {
                 m_muteButtonImage.enabled = false;
                 MusicManager.m_musicSource.Pause();
-                m_playerMutedSounds = true;
+                m_playerMutedSounds = 1;
+                BhanuPrefs.SetSoundsStatus(m_playerMutedSounds);
                 m_unmuteButtonImage.enabled = true;
                 m_soundManager.m_soundsSource.enabled = false;
             }
@@ -239,7 +289,8 @@ public class GameManager : MonoBehaviour
             {
                 m_muteButtonImage.enabled = true;
                 MusicManager.m_musicSource.Play();
-                m_playerMutedSounds = false;
+                m_playerMutedSounds = 0;
+                BhanuPrefs.SetSoundsStatus(m_playerMutedSounds);
                 m_unmuteButtonImage.enabled = false;
                 m_soundManager.m_soundsSource.enabled = true;
             }
@@ -364,12 +415,13 @@ public class GameManager : MonoBehaviour
 	{
         if(MusicManager.m_musicSource != null)
         {
-            if(!MusicManager.m_musicSource.isPlaying && !m_playerMutedSounds)
+            if(m_playerMutedSounds == 0)
             {
                 MusicManager.m_musicSource.Play();
                 m_muteButtonImage.enabled = true;
             }
-            else
+
+            else if(m_playerMutedSounds == 1)
             {
                 m_unmuteButtonImage.enabled = true;
             }
@@ -400,7 +452,12 @@ public class GameManager : MonoBehaviour
 	public void SelfieClicked()
 	{
 		m_soundManager.m_soundsSource.clip = m_soundManager.m_selfie;
-		m_soundManager.m_soundsSource.Play();
+		
+        if(m_soundManager.m_soundsSource.enabled)
+        {
+            m_soundManager.m_soundsSource.Play();
+        }
+
 		m_selfieButtonImage.enabled = false;
 
 		if(m_selfieFlashEnabled)
