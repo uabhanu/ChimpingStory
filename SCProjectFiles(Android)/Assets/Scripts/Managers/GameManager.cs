@@ -60,14 +60,13 @@ public class GameManager : MonoBehaviour
 
     void AdResult(ShowResult result)
     {
-		Time.timeScale = 1;
-
         if(result == ShowResult.Finished)
         {
             //Debug.Log("Video completed - Offer a reward to the player");
             ScoreManager.m_scoreValue *= 0.25f;
 		    ScoreManager.m_scoreValue = Mathf.Round(ScoreManager.m_scoreValue);
             BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
+            Time.timeScale = 1;
             SceneManager.LoadScene(m_currentScene);
         }
 
@@ -88,7 +87,6 @@ public class GameManager : MonoBehaviour
     {
         ShowOptions options = new ShowOptions();
         options.resultCallback = AdResult;
-
         Advertisement.Show("rewardedVideo" , options);
     }
 
@@ -305,11 +303,13 @@ public class GameManager : MonoBehaviour
 
     public void GoToLandLevel()
     {
+        Screen.orientation = ScreenOrientation.Landscape;
         SceneManager.LoadScene("LandRunner");
     }
 
     public void GoToWaterLevel()
     {
+        Screen.orientation = ScreenOrientation.Landscape;
         SceneManager.LoadScene("WaterSwimmer");
     }
 
