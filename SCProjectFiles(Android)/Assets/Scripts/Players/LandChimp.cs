@@ -13,7 +13,6 @@ public class LandChimp : MonoBehaviour
     RockSpawner m_rockSpawner;
 	SoundManager m_soundManager;
 
-    [SerializeField] bool m_isTestingUnityEditor;
     [SerializeField] float m_jumpHeight;
     [SerializeField] Transform m_raycastBottom , m_raycastTop;
 
@@ -50,7 +49,7 @@ public class LandChimp : MonoBehaviour
 
     void BhanuInput()
     {
-        if(m_isTestingUnityEditor)
+        if(GameManager.m_isTestingUnityEditor)
         {
             #if UNITY_EDITOR || UNITY_STANDALONE
             if(Input.GetMouseButtonDown(0))

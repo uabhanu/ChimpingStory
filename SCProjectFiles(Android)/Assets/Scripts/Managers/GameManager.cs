@@ -15,8 +15,11 @@ public class GameManager : MonoBehaviour
 	SoundManager m_soundManager;
 	Text m_ads , m_backToLandLose , m_backToLandWin , m_backToLandWithSuper , m_highScoreTextDisplay , m_highScoreValueDisplay , m_quit , m_restart;
 
-	[SerializeField] bool m_selfieFlashEnabled;
+	[SerializeField] bool m_isMemoryLeakTestingMode , m_selfieFlashEnabled;
+    [SerializeField] Image m_fallingLevelImage , m_landLevelImage , m_waterLevelImage;
+    [SerializeField] Text m_memoryLeakTest;
 
+    public static bool m_isTestingUnityEditor;
     public static Image m_selfieButtonImage , m_selfiePanelImage;
     public static int m_currentScene;
 
@@ -154,6 +157,30 @@ public class GameManager : MonoBehaviour
         m_currentScene = SceneManager.GetActiveScene().buildIndex;
         m_playerMutedSounds = BhanuPrefs.GetSoundsStatus();
 
+        if(m_isMemoryLeakTestingMode)
+        {
+            if(m_currentScene == 1)
+            {
+                m_fallingLevelImage.enabled = true;
+                m_memoryLeakTest.enabled = true;
+                m_waterLevelImage.enabled = true;
+            }
+
+            if(m_currentScene == 2)
+            {
+                m_fallingLevelImage.enabled = true;
+                m_landLevelImage.enabled = true;
+                m_memoryLeakTest.enabled = true;
+            }
+
+            if(m_currentScene == 3)
+            {
+                m_landLevelImage.enabled = true;
+                m_memoryLeakTest.enabled = true;
+                m_waterLevelImage.enabled = true;
+            }
+        }
+
         if(m_currentScene == 0)
         {
             m_playButtonImage = GameObject.Find("PlayButton").GetComponent<Image>();
@@ -269,6 +296,21 @@ public class GameManager : MonoBehaviour
 		}
 
         Time.timeScale = 1;
+    }
+
+    public void GoToFallingLevel()
+    {
+        SceneManager.LoadScene("FallingDown");
+    }
+
+    public void GoToLandLevel()
+    {
+        SceneManager.LoadScene("LandRunner");
+    }
+
+    public void GoToWaterLevel()
+    {
+        SceneManager.LoadScene("WaterSwimmer");
     }
 
     public void MuteUnmute()
