@@ -12,6 +12,16 @@ public class MusicManager : MonoBehaviour
 	void Start() 
 	{
 		m_musicSource = GetComponent<AudioSource>();
-        m_musicSource.Play();
+        Invoke("CheckIfMusicShouldPlay" , 0.1f);
 	}
+
+    void CheckIfMusicShouldPlay()
+    {
+        if(GameManager.m_playerMutedSounds == 0 && !m_musicSource.isPlaying)
+        {
+            m_musicSource.Play();
+        }
+
+        Invoke("CheckIfMusicShouldPlay" , 0.1f);
+    }
 }

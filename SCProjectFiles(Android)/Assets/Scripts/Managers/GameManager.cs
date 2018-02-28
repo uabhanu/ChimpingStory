@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour
     Image m_continueButtonImage , m_exitButtonImage , m_muteButtonImage , m_pauseButtonImage , m_pauseMenuImage , m_playButtonImage , m_quitButtonImage , m_quitAcceptButtonImage;
     Image m_quitCancelButtonImage , m_quitMenuImage , m_restartButtonImage , m_restartAcceptButtonImage , m_restartCancelButtonImage , m_restartMenuImage , m_resumeButtonImage;
     Image m_unmuteButtonImage;
-    int m_playerMutedSounds;
     LandChimp m_landChimp;
 	SoundManager m_soundManager;
 	Text m_ads , m_backToLandLose , m_backToLandWin , m_backToLandWithSuper , m_highScoreTextDisplay , m_highScoreValueDisplay , m_quit , m_restart;
@@ -21,7 +20,7 @@ public class GameManager : MonoBehaviour
 
     public static bool m_isTestingUnityEditor;
     public static Image m_selfieButtonImage , m_selfiePanelImage;
-    public static int m_currentScene;
+    public static int m_currentScene , m_playerMutedSounds;
 
     void Start()
 	{
@@ -300,6 +299,7 @@ public class GameManager : MonoBehaviour
 
     public void GoToFallingLevel()
     {
+        Screen.orientation = ScreenOrientation.Portrait;
         SceneManager.LoadScene("FallingDown");
     }
 
