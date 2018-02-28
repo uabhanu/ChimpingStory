@@ -114,7 +114,7 @@ public class LevelCreator : MonoBehaviour
     {
         if(!m_landChimp.m_isSlipping && !m_landChimp.m_isSuper)
         {
-            m_gameSpeed += 0.5f;
+            m_gameSpeed += m_gameSpeed / 4;
         }
 
         ScoreManager.m_scoreValue += 5;
@@ -126,7 +126,8 @@ public class LevelCreator : MonoBehaviour
 
     void LevelGeneration()
     {
-        m_gameLayer.transform.position = new Vector2(m_gameLayer.transform.position.x - m_gameSpeed * Time.deltaTime , 0);
+        //m_gameLayer.transform.position = new Vector2(m_gameLayer.transform.position.x - m_gameSpeed * Time.deltaTime , 0);
+        m_gameLayer.transform.Translate(Vector2.left * m_gameSpeed);
 
         for(int i = 0; i < m_gameLayer.transform.childCount; i++)
         {
@@ -230,7 +231,7 @@ public class LevelCreator : MonoBehaviour
             m_miscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 6) == 3/* && m_middleCounter > 6.5f*/)
+        else if(Random.Range(0 , 6) == 3 && m_middleCounter > 6.5f)
         {
             GameObject hurdle = m_collectedTiles.transform.Find("Hurdle").transform.GetChild(0).gameObject;
             hurdle.transform.parent = m_gameLayer.transform;

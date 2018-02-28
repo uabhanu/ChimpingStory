@@ -2,12 +2,12 @@
 
 public class Mountains : MonoBehaviour 
 {
-	LevelCreator m_levelCreationScript;
+	LevelCreator m_levelCreator;
 	Rigidbody2D m_mountainsBody2D;
 
 	void Start() 
 	{
-		m_levelCreationScript = FindObjectOfType<LevelCreator>();
+		m_levelCreator = FindObjectOfType<LevelCreator>();
 		m_mountainsBody2D = GetComponent<Rigidbody2D>();
 	}
 
@@ -18,7 +18,8 @@ public class Mountains : MonoBehaviour
 			return;
 		}
 
-		m_mountainsBody2D.velocity = new Vector2(-m_levelCreationScript.m_gameSpeed / 4 , m_mountainsBody2D.velocity.y);
+		//m_mountainsBody2D.velocity = new Vector2(-m_levelCreationScript.m_gameSpeed / 4 , m_mountainsBody2D.velocity.y);
+        transform.Translate(Vector2.left * (m_levelCreator.m_gameSpeed / 8));
 
 		if(transform.position.x <= -43.2f)
 		{

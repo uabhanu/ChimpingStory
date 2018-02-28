@@ -18,7 +18,8 @@ public class Clouds : MonoBehaviour
 			return;
 		}
 			
-		m_cloudsBody2D.velocity = new Vector2(-m_levelCreator.m_gameSpeed / 8 , m_cloudsBody2D.velocity.y);
+		//m_cloudsBody2D.velocity = new Vector2(-m_levelCreator.m_gameSpeed / 8 , m_cloudsBody2D.velocity.y);
+        transform.Translate(Vector2.left * (m_levelCreator.m_gameSpeed / 16));
 
 		if(transform.position.x <= -43.2f)
 		{

@@ -6,7 +6,7 @@ public class LandChimp : MonoBehaviour
 {
     Animator m_chimpAnim;
     bool m_isGrounded , m_isJumping , m_isSliding , m_isUI;
-    float m_yPosInSuperMode;
+    float m_defaultGameSpeed , m_yPosInSuperMode;
 	GameManager m_gameManager;
 	LevelCreator m_levelCreator;
     Rigidbody2D m_chimpBody2D;
@@ -31,6 +31,7 @@ public class LandChimp : MonoBehaviour
         m_chimpBody2D = GetComponent<Rigidbody2D>();
 		m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 		m_levelCreator = GameObject.Find("LevelCreator").GetComponent<LevelCreator>();
+        m_defaultGameSpeed = m_levelCreator.m_gameSpeed;
         LevelCreator.m_middleCounter = 0;
         m_rockSpawner = GameObject.Find("RockSpawner").GetComponent<RockSpawner>();
 		m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
@@ -296,7 +297,7 @@ public class LandChimp : MonoBehaviour
         m_chimpAnim.SetBool("Super" , true);
         m_jumpHeight *= 1.5f;
 		SelfieAppear();
-        m_levelCreator.m_gameSpeed = 6.0f;
+        m_levelCreator.m_gameSpeed = m_defaultGameSpeed;
         SlipFinished();
         m_rockSpawner.StartSpawnRoutine();
 		Invoke("SuperFinished" , 30.25f);
