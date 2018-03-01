@@ -92,7 +92,7 @@ public class MovingLayer : MonoBehaviour
         }
     }
     //Spawns a new layer element with a delay
-    IEnumerator SpawnDelayedElement(float time) //TODO use More Effective Coroutines from Asset Store
+    IEnumerator SpawnDelayedElement(float time) //TODO use More Effective Coroutines from Asset Store if necessary
     {
         //Declare starting variables
         float i = 0.0f;
@@ -112,7 +112,7 @@ public class MovingLayer : MonoBehaviour
         //Invoke("Generator" , delayBeforeFirst);
     }
     //Spawn new layer elements at the given rate
-    IEnumerator Generator() //TODO use More Effective Coroutines from Asset Store
+    IEnumerator Generator() //TODO use More Effective Coroutines from Asset Store if necessary
     {
         //Spawn a new element
         SpawnElement(false);

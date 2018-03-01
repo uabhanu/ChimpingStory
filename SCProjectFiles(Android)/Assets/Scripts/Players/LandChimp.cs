@@ -46,6 +46,7 @@ public class LandChimp : MonoBehaviour
 
         BhanuInput();
         Grounded();
+        UICheck();
     }
 
     void BhanuInput()
@@ -88,7 +89,7 @@ public class LandChimp : MonoBehaviour
         StopAllCoroutines();
     }
 
-    void Grounded() //TODO find out why this is causing 0.6kb GC Alloc
+    void Grounded() //TODO find out why this is causing 0.6kb GC Alloc if necessary
     {
         if(!m_isSuper)
         {
@@ -158,7 +159,7 @@ public class LandChimp : MonoBehaviour
         }
     }
 
-    void JumpFinished() //TODO find out why this is causing 0.6kb GC Alloc
+    void JumpFinished() //TODO find out why this is causing 0.6kb GC Alloc if necessary
     {
         m_chimpAnim.SetBool("Jump" , false);
         m_isJumping = false;      
@@ -249,7 +250,7 @@ public class LandChimp : MonoBehaviour
 
     public void Slide()
     {
-		if(m_isGrounded && !m_isJumping)
+		if(m_isGrounded && !m_isJumping && !m_isUI)
 		{
 			m_chimpAnim.SetBool("Jog" , false);
 			m_chimpAnim.SetBool("Slide" , true);
