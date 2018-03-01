@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 0b4cbc8402501464caded0f7edab3779
-timeCreated: 1519672235
+timeCreated: 1519929978
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -148,6 +148,7 @@ TextureImporter:
     21300282: Buttons_132
     21300284: Buttons_133
     21300286: ChimpionshipBeltGrey
+    21300288: Facebook
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -621,9 +622,23 @@ TextureImporter:
       name: ChimpionshipBeltGrey
       rect:
         serializedVersion: 2
-        x: 472
+        x: 493
         y: 0
-        width: 187
+        width: 186
+        height: 187
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Facebook
+      rect:
+        serializedVersion: 2
+        x: 708
+        y: 0
+        width: 186
         height: 187
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
