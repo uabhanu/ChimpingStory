@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
 	AudioSource m_musicSource;
 	Image m_adsAcceptButtonImage , m_adsCancelButtonImage , m_adsMenuImage , m_backToLandLoseMenuImage , m_backToLandWinMenuImage , m_backToLandWithSuperMenuImage , m_chimpionshipBeltImage;
-    Image m_continueButtonImage , m_exitButtonImage , m_muteButtonImage , m_pauseButtonImage , m_pauseMenuImage , m_playButtonImage , m_quitButtonImage , m_quitAcceptButtonImage;
+    Image m_continueButtonImage , m_exitButtonImage , m_facebookButtonImage , m_muteButtonImage , m_pauseButtonImage , m_pauseMenuImage , m_playButtonImage , m_quitButtonImage , m_quitAcceptButtonImage;
     Image m_quitCancelButtonImage , m_quitMenuImage , m_restartButtonImage , m_restartAcceptButtonImage , m_restartCancelButtonImage , m_restartMenuImage , m_resumeButtonImage;
     Image m_unmuteButtonImage;
     LandChimp m_landChimp;
@@ -180,6 +180,7 @@ public class GameManager : MonoBehaviour
 
         if(m_currentScene == 0)
         {
+            m_facebookButtonImage = GameObject.Find("FacebookButton").GetComponent<Image>();
             m_playButtonImage = GameObject.Find("PlayButton").GetComponent<Image>();
             m_quit = GameObject.Find("QuitText").GetComponent<Text>();
             m_quitButtonImage = GameObject.Find("QuitButton").GetComponent<Image>();
@@ -388,7 +389,8 @@ public class GameManager : MonoBehaviour
 
 	public void Quit()
 	{
-		m_playButtonImage.enabled = false;
+		m_facebookButtonImage.enabled = false;
+        m_playButtonImage.enabled = false;
 		m_quitButtonImage.enabled = false;
 
 		m_quitMenuImage.enabled = true;
@@ -405,6 +407,7 @@ public class GameManager : MonoBehaviour
 
 	public void QuitCancel()
 	{
+        m_facebookButtonImage.enabled = true;
 		m_playButtonImage.enabled = true;
 		m_quitButtonImage.enabled = true;
 
