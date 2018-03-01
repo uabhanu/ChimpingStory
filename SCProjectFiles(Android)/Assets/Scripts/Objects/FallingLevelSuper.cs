@@ -2,10 +2,9 @@
 
 public class FallingLevelSuper : MonoBehaviour 
 {
+    FallingLevelClouds m_fallingLevelClouds;
     GameManager m_gameManager;
-    Rigidbody2D m_superBody2D;
 	SoundManager m_soundManager;
-    FallingLevelClouds m_topDownClouds;
 	Vector3 m_positionOnScreen;
 
     [SerializeField] Vector2[] m_randomPositions;
@@ -14,8 +13,7 @@ public class FallingLevelSuper : MonoBehaviour
 	{
         m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
-        m_superBody2D = GetComponent<Rigidbody2D>();
-        m_topDownClouds = GameObject.Find("Clouds").GetComponent<FallingLevelClouds>();
+        m_fallingLevelClouds = GameObject.Find("Clouds").GetComponent<FallingLevelClouds>();
         transform.position = m_randomPositions[Random.Range(0 , m_randomPositions.Length)];
 	}
 
@@ -26,7 +24,7 @@ public class FallingLevelSuper : MonoBehaviour
             return;
         }
 
-        m_superBody2D.velocity = new Vector2(m_superBody2D.velocity.x , m_topDownClouds.m_moveUpSpeed);
+        transform.Translate(Vector2.up * m_fallingLevelClouds.m_moveUpSpeed);
 
         if(transform.position.y >= 5.68f)
         {

@@ -114,7 +114,7 @@ public class LevelCreator : MonoBehaviour
     {
         if(!m_landChimp.m_isSlipping && !m_landChimp.m_isSuper)
         {
-            m_gameSpeed += m_gameSpeed / 4;
+            m_gameSpeed += m_gameSpeed / 16;
         }
 
         ScoreManager.m_scoreValue += 5;
@@ -126,7 +126,6 @@ public class LevelCreator : MonoBehaviour
 
     void LevelGeneration()
     {
-        //m_gameLayer.transform.position = new Vector2(m_gameLayer.transform.position.x - m_gameSpeed * Time.deltaTime , 0);
         m_gameLayer.transform.Translate(Vector2.left * m_gameSpeed);
 
         for(int i = 0; i < m_gameLayer.transform.childCount; i++)

@@ -3,14 +3,12 @@
 public class FallingLevelCoin : MonoBehaviour 
 {
     FallingLevelClouds m_fallingLevelClouds;
-    Rigidbody2D m_coinBody2D;
     SoundManager m_soundManager;
 
     [SerializeField] Vector2[] m_randomPositions;
 
 	void Start() 
     {
-        m_coinBody2D = GetComponent<Rigidbody2D>();
         m_fallingLevelClouds = GameObject.Find("Clouds").GetComponent<FallingLevelClouds>();
         m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         transform.position = m_randomPositions[Random.Range(0 , m_randomPositions.Length)];
@@ -23,7 +21,7 @@ public class FallingLevelCoin : MonoBehaviour
             return;
         }
 
-        m_coinBody2D.velocity = new Vector2(m_coinBody2D.velocity.x , m_fallingLevelClouds.m_moveUpSpeed);
+        transform.Translate(Vector2.up * m_fallingLevelClouds.m_moveUpSpeed);
 
         if(transform.position.y >= 5.68f)
         {

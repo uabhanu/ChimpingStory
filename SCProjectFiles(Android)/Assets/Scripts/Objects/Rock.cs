@@ -7,7 +7,6 @@ public class Rock : MonoBehaviour
 	Collider2D m_rockCollider2D;
     GameObject m_explosionPrefab , m_explosionSystemObj;
     LevelCreator m_levelCreator;
-	Rigidbody2D m_rockBody2D;
 	SpriteRenderer m_rockRenderer;
 	Vector3 m_positionOnScreen;
 
@@ -20,7 +19,6 @@ public class Rock : MonoBehaviour
         m_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
 		m_levelCreator = GameObject.Find("LevelCreator").GetComponent<LevelCreator>();
 		m_mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
-		m_rockBody2D = GetComponent<Rigidbody2D>();
 		m_rockCollider2D = GetComponent<Collider2D>();
 		m_rockRenderer = GetComponent<SpriteRenderer>();
         transform.position = m_randomPositions[Random.Range(0 , m_randomPositions.Length)];
@@ -33,7 +31,7 @@ public class Rock : MonoBehaviour
             return;
         }
 
-		m_rockBody2D.velocity = new Vector2(-m_levelCreator.m_gameSpeed , m_rockBody2D.velocity.y);
+        transform.Translate(Vector2.left * (m_levelCreator.m_gameSpeed / 2));
 		m_positionOnScreen = m_mainCamera.WorldToScreenPoint(transform.position);
 
 		if(m_positionOnScreen.x < 0)
