@@ -27,7 +27,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
 	{
-		GetBhanuObjects();
+		BhanuFacebook();
+        GetBhanuObjects();
     }
 	
     public void Ads()
