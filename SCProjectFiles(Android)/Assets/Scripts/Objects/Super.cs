@@ -36,7 +36,7 @@ public class Super : MonoBehaviour
             m_superRenderer.enabled = false;
         }
 
-		if(m_positionOnScreen.x >= 972)
+		if(!m_landChimp.m_isSuper && m_positionOnScreen.x >= 972)
         {
             m_superCollider2D.enabled = true;
             m_superRenderer.enabled = true;
