@@ -19,7 +19,7 @@ public class FallingLevelClouds : MonoBehaviour
 			return;
 		}
 
-		transform.Translate(Vector2.up * m_moveUpSpeed);
+		transform.Translate(Vector2.up * m_moveUpSpeed * Time.deltaTime);
 
 		if(transform.position.y >= 19.75f)
 		{

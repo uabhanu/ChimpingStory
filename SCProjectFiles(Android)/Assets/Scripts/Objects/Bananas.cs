@@ -21,7 +21,7 @@ public class Bananas : MonoBehaviour
             return;
         }
 
-        transform.Translate(Vector2.up * m_fallingLevelClouds.m_moveUpSpeed);
+        transform.Translate(Vector2.up * m_fallingLevelClouds.m_moveUpSpeed * Time.deltaTime);
 
         if(transform.position.y >= 5.68f)
         {
@@ -33,7 +33,6 @@ public class Bananas : MonoBehaviour
     {
         if(tri2D.gameObject.tag.Equals("Player"))
         {
-            
             ScoreManager.m_scoreValue += 30;
             ScoreManager.m_scoreDisplay.text = ScoreManager.m_scoreValue.ToString();
             BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);

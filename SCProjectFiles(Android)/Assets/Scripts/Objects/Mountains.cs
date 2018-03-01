@@ -16,7 +16,7 @@ public class Mountains : MonoBehaviour
 			return;
 		}
 
-        transform.Translate(Vector2.left * (m_levelCreator.m_gameSpeed / 8));
+        transform.Translate(Vector2.left * (m_levelCreator.m_gameSpeed / 4) * Time.deltaTime);
 
 		if(transform.position.x <= -43.2f)
 		{

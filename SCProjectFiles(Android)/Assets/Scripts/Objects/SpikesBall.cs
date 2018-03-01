@@ -21,7 +21,7 @@ public class SpikesBall : MonoBehaviour
             return;
         }
 
-        transform.Translate(Vector2.up * m_fallingLevelClouds.m_moveUpSpeed);
+        transform.Translate(Vector2.up * m_fallingLevelClouds.m_moveUpSpeed * Time.deltaTime);
 
         if(transform.position.y >= 5.68f)
         {

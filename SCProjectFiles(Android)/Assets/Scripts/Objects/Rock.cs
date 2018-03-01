@@ -31,7 +31,7 @@ public class Rock : MonoBehaviour
             return;
         }
 
-        transform.Translate(Vector2.left * (m_levelCreator.m_gameSpeed / 2));
+        transform.Translate(Vector2.left * (m_levelCreator.m_gameSpeed * 1.5f) * Time.deltaTime);
 		m_positionOnScreen = m_mainCamera.WorldToScreenPoint(transform.position);
 
 		if(m_positionOnScreen.x < 0)
