@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Facebook.Unity;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Advertisements;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -14,9 +16,10 @@ public class GameManager : MonoBehaviour
 	SoundManager m_soundManager;
 	Text m_ads , m_backToLandLose , m_backToLandWin , m_backToLandWithSuper , m_highScoreTextDisplay , m_highScoreValueDisplay , m_quit , m_restart;
 
-	[SerializeField] bool m_isMemoryLeakTestingMode , m_selfieFlashEnabled;
-    [SerializeField] Image m_fallingLevelImage , m_landLevelImage , m_waterLevelImage;
-    [SerializeField] Text m_memoryLeakTest;
+	[SerializeField] bool m_isLoggedIn , m_isMemoryLeakTestingMode , m_selfieFlashEnabled;
+    [SerializeField] GameObject m_loggedInObj , m_loggedOutObj , m_noInternetObj;
+    [SerializeField] Image m_fallingLevelImage , m_landLevelImage , m_profilePicImage , m_shareButtonImage , m_waterLevelImage;
+    [SerializeField] Text m_memoryLeakTest , m_noInternetText , m_username;
 
     public static bool m_isTestingUnityEditor;
     public static Image m_selfieButtonImage , m_selfiePanelImage;
@@ -130,6 +133,27 @@ public class GameManager : MonoBehaviour
         m_pauseButtonImage.enabled = false;
         m_unmuteButtonImage.enabled = false;
         Time.timeScale = 0;
+    }
+
+    public void BhanuFacebook()
+    {
+        if(!FB.IsInitialized) 
+		{
+			FB.Init(FBSetInit , FBOnHideUnity);	
+		}
+
+		if(m_currentScene == 0)
+		{
+			if(FB.IsLoggedIn)
+			{
+				FBLoggedIn();
+			}
+
+			else if(!FB.IsLoggedIn)
+			{
+				FBLoggedOut();
+			}
+		}
     }
 
     public void Continue()
@@ -295,6 +319,166 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 1;
     }
+
+    void FBAuthCallBack(IResult authResult)
+	{
+		if(authResult.Error != null) 
+		{
+			Debug.LogError("Sir Bhanu, there is an issue : " + authResult.Error);	
+			m_noInternetObj.SetActive(true);
+		} 
+
+		else if(authResult.Error == null)
+		{
+			if(FB.IsLoggedIn) 
+			{
+				Debug.Log("Player Logged in"); //If you get 400 error, it means the user token of https://developers.facebook.com/tools/accesstoken/?app_id=142429536402184 you noted down is incorrect which is easy to resolve so not to worry
+				//FB.API("/me?fields=first_name" , HttpMethod.GET , UsernameDisplay);
+				//FB.API("/me/picture?type=square&height=480&width=480" , HttpMethod.GET , ProfilePicDisplay);
+				FBLoggedIn();
+			} 
+			else 
+			{
+				//Debug.LogError("Sir Bhanu, Player hasn't logged in on Facebook");
+				FBLoggedOut();
+			}
+		}
+	}
+
+    void FBInviteRewardUser(IResult inviteResult)
+	{
+		if(inviteResult.Cancelled || !string.IsNullOrEmpty (inviteResult.Error)) 
+		{
+			Debug.LogError("Sir Bhanu, there is an " + inviteResult.Error);
+		} 
+
+		else if(!string.IsNullOrEmpty(inviteResult.RawResult)) 
+		{
+			Debug.Log(inviteResult.RawResult);
+		} 
+
+		else 
+		{
+			Debug.Log("Share Succeeded");
+			//You can Reward/Thank Player here
+		}
+	}
+
+    void FBLoggedIn()
+	{
+		m_isLoggedIn = true;
+
+		FB.API("/me?fields=first_name" , HttpMethod.GET , FBUsernameDisplay);
+		FB.API("/me/picture?type=square&height=480&width=480" , HttpMethod.GET , FBProfilePicDisplay);
+
+		if(m_currentScene == 0)
+		{
+			m_loggedInObj.SetActive(true);
+			m_loggedOutObj.SetActive(false);
+		}
+	}
+
+	void FBLoggedOut()
+	{
+		m_isLoggedIn = false;
+
+		if(m_currentScene == 0)
+		{
+			m_loggedInObj.SetActive(false);
+			m_loggedOutObj.SetActive(true);
+		}
+	}
+
+	public void FBLogin()
+	{
+		List<string> permissions = new List<string>();
+		permissions.Add("public_profile");
+		FB.LogInWithReadPermissions(permissions , FBAuthCallBack);
+	}
+
+	public void FBLogOut()
+	{
+		Debug.Log("Facebook Logout");
+		FB.LogOut(); //Not Working
+	}
+
+	void FBOnHideUnity(bool isGameShown)
+	{
+		if(!isGameShown) 
+		{
+			Time.timeScale = 0;
+		} 
+		else 
+		{
+			Time.timeScale = 1;	
+		}
+	}
+
+	void FBProfilePicDisplay(IGraphResult graphicResult)
+	{
+		if(graphicResult.Texture != null && m_currentScene == 0)
+		{
+			m_profilePicImage.sprite = Sprite.Create(graphicResult.Texture , new Rect(0 , 0 , 480 , 480) , new Vector2());
+		}
+	}
+
+	void FBSetInit()
+	{
+		if(FB.IsLoggedIn) 
+		{
+			Debug.Log("Player Logged in"); //If you get 400 error, it means the user token of https://developers.facebook.com/tools/accesstoken/?app_id=142429536402184 you noted down is incorrect which is easy to resolve so not to worry
+			//FB.API("/me?fields=first_name" , HttpMethod.GET , UsernameDisplay);
+			//FB.API("/me/picture?type=square&height=480&width=480" , HttpMethod.GET , ProfilePicDisplay);
+			FBLoggedIn();
+		} 
+		else 
+		{
+			//Debug.LogError("Sir Bhanu, Player hasn't logged in on Facebook");
+			FBLoggedOut();
+		}
+	}
+
+	public void FBShare()
+	{
+		Screen.orientation = ScreenOrientation.Portrait;
+
+		FB.ShareLink
+		(
+			contentTitle: "Fourth Lion Studios Message",
+			contentURL: new System.Uri("https://play.google.com/store/apps/details?id=com.FLSs.PA"),
+			contentDescription: "We really hope you love the game",
+			callback: FBShareRewardUser
+		);
+	}
+
+	void FBShareRewardUser(IShareResult shareResult)
+	{
+		if(shareResult.Cancelled || !string.IsNullOrEmpty (shareResult.Error)) 
+		{
+			Debug.LogError("Sir Bhanu, there is an " + shareResult.Error);
+		} 
+
+		else if(!string.IsNullOrEmpty(shareResult.PostId)) 
+		{
+			Debug.Log(shareResult.PostId);
+		} 
+
+		else 
+		{
+			Debug.Log("Share Succeeded");	
+			Screen.orientation = ScreenOrientation.Landscape;
+			//You can Reward/Thank Player here
+		}
+	}
+
+	void FBUsernameDisplay(IResult result)
+	{
+		if(result.Error == null && m_currentScene == 0)
+		{
+			//Debug.Log(result.ResultDictionary["first_name"]);
+			m_username.text =  "Hi " + result.ResultDictionary["first_name"];
+		}
+	}
 
     public void GoToFallingLevel()
     {
