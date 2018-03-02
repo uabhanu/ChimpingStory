@@ -276,7 +276,7 @@ public class LandChimp : MonoBehaviour
         m_chimpAnim.SetBool("Slip" , true);
         m_levelCreator.m_gameSpeed *= 2;
         m_isSlipping = true;
-        Invoke("SlipFinished" , 5.15f);
+        Invoke("SlipFinished" , 15f);
     }
 
     void SlipFinished()

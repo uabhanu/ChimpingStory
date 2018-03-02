@@ -115,9 +115,14 @@ public class LevelCreator : MonoBehaviour
         if(!m_landChimp.m_isSlipping && !m_landChimp.m_isSuper)
         {
             m_gameSpeed += 0.5f;
+            ScoreManager.m_scoreValue += 5;
         }
 
-        ScoreManager.m_scoreValue += 5;
+        if(m_landChimp.m_isSlipping)
+        {
+            ScoreManager.m_scoreValue += 25;
+        }
+
         ScoreManager.m_scoreDisplay.text = ScoreManager.m_scoreValue.ToString();
         BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
         

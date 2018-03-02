@@ -33,7 +33,7 @@ public class LandLevelCoin : MonoBehaviour
             m_coinRenderer.enabled = false;
         }
 
-        if(m_positionOnScreen.x >= 972)
+        if(!m_landChimp.m_isSuper && m_positionOnScreen.x >= 972)
         {
             m_coinCollider2D.enabled = true;
             m_coinRenderer.enabled = true;

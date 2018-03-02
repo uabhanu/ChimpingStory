@@ -9,8 +9,8 @@ public class GameManager : MonoBehaviour
 {
 	AudioSource m_musicSource;
 	Image m_adsAcceptButtonImage , m_adsCancelButtonImage , m_adsMenuImage , m_backToLandLoseMenuImage , m_backToLandWinMenuImage , m_backToLandWithSuperMenuImage , m_chimpionshipBeltImage , m_continueButtonImage;
-    Image m_exitButtonImage , m_facebookButtonImage , m_muteButtonImage , m_pauseButtonImage , m_pauseMenuImage , m_playButtonImage , m_quitButtonImage , m_quitAcceptButtonImage , m_quitCancelButtonImage;
-    Image m_quitMenuImage , m_restartButtonImage , m_restartAcceptButtonImage , m_restartCancelButtonImage , m_restartMenuImage , m_resumeButtonImage , m_unmuteButtonImage;
+    Image m_exitButtonImage , m_muteButtonImage , m_pauseButtonImage , m_pauseMenuImage , m_playButtonImage , m_quitButtonImage , m_quitAcceptButtonImage , m_quitCancelButtonImage , m_quitMenuImage;
+    Image m_restartButtonImage , m_restartAcceptButtonImage , m_restartCancelButtonImage , m_restartMenuImage , m_resumeButtonImage , m_unmuteButtonImage;
     LandChimp m_landChimp;
 	SoundManager m_soundManager;
 	Text m_adsText , m_backToLandLoseText , m_backToLandWinText , m_backToLandWithSuperText , m_highScoreDisplayText , m_highScoreValueText , m_inviteSuccessText , m_noInternetText , m_quitText , m_restartText;
@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
 	[SerializeField] bool m_isLoggedIn , m_isMemoryLeakTestingMode , m_selfieFlashEnabled;
     [SerializeField] GameObject m_loggedInObj , m_loggedOutObj;
-    [SerializeField] Image m_fallingLevelImage , m_fbLogOutButtonImage , m_landLevelImage , m_profilePicImage , m_shareButtonImage , m_waterLevelImage;
+    [SerializeField] Image m_facebookButtonImage , m_fallingLevelImage , m_fbLogOutButtonImage , m_landLevelImage , m_profilePicImage , m_shareButtonImage , m_waterLevelImage;
     [SerializeField] Text m_memoryLeakTestText , m_usernameText;
 
     public static bool m_isTestingUnityEditor;
@@ -142,6 +142,13 @@ public class GameManager : MonoBehaviour
 		{
 			FB.Init(FBSetInit , FBOnHideUnity);	
 		}
+
+        if(FB.IsLoggedIn && m_loggedInObj != null && m_loggedOutObj != null)
+        {
+            m_loggedInObj.SetActive(true);
+            FBLoggedIn();
+            m_loggedOutObj.SetActive(false);
+        }
     }
 
     public void Continue()
@@ -216,15 +223,30 @@ public class GameManager : MonoBehaviour
 		FB.API("/me?fields=first_name" , HttpMethod.GET , FBUsernameDisplay);
 		FB.API("/me/picture?type=square&height=480&width=480" , HttpMethod.GET , FBProfilePicDisplay);
 
-		m_loggedInObj.SetActive(true);
-		m_loggedOutObj.SetActive(false);		
+		if(m_loggedInObj != null && m_loggedOutObj != null)
+        {
+            m_loggedInObj.SetActive(true);
+		    m_loggedOutObj.SetActive(false);		
+        }
+        else
+        {
+            Debug.LogError("Sir Bhanu, Logged In & Out Objs are not assigned probably because you didn't start the game from Main Menu :)");
+        }
 	}
 
 	void FBLoggedOut()
 	{
 		m_isLoggedIn = false;
-		m_loggedInObj.SetActive(false);
-		m_loggedOutObj.SetActive(true);
+
+		if(m_loggedInObj != null && m_loggedOutObj != null)
+        {
+            m_loggedInObj.SetActive(false);
+		    m_loggedOutObj.SetActive(true);		
+        }
+        else
+        {
+            Debug.LogError("Sir Bhanu, Logged In & Out Objs are not assigned probably because you didn't start the game from Main Menu :)");
+        }
 	}
 
 	public void FBLogin()
@@ -352,7 +374,6 @@ public class GameManager : MonoBehaviour
 
         if(m_currentScene == 0)
         {
-            m_facebookButtonImage = GameObject.Find("FacebookButton").GetComponent<Image>();
             m_inviteSuccessText = GameObject.Find("InviteSuccessDisplay").GetComponent<Text>();
             m_noInternetText = GameObject.Find("NoInternetDisplay").GetComponent<Text>();
             m_playButtonImage = GameObject.Find("PlayButton").GetComponent<Image>();
