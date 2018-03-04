@@ -25,7 +25,7 @@ public class Hurdle : MonoBehaviour
 
         m_positionOnScreen = m_mainCamera.WorldToScreenPoint(transform.position);
 
-        if(m_landChimp.m_isSlipping || m_landChimp.m_isSuper)
+        if(/*m_landChimp.m_isSlipping || */m_landChimp.m_isSuper) //TODO Uncomment if the game is too hard to play
         {
             m_hurdleCollider2D.enabled = false;
             m_hurdleRenderer.enabled = false;

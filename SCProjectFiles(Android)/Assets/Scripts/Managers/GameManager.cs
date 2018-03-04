@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     Text m_shareSuccessText;
 
 	[SerializeField] bool m_isLoggedIn , m_isMemoryLeakTestingMode , m_selfieFlashEnabled;
-    [SerializeField] GameObject m_loggedInObj , m_loggedOutObj;
+    [SerializeField] GameObject m_loggedInObj , m_loggedOutObj , m_scoresMenuObj;
     [SerializeField] Image m_facebookButtonImage , m_fallingLevelImage , m_fbLogOutButtonImage , m_landLevelImage , m_profilePicImage , m_shareButtonImage , m_waterLevelImage;
     [SerializeField] Text m_memoryLeakTestText , m_usernameText;
 
@@ -56,10 +56,7 @@ public class GameManager : MonoBehaviour
 
     public void AdsCancel()
     {
-        BhanuPrefs.DeleteAll();
-		ScoreManager.m_supersCount = ScoreManager.m_defaultSupersCount;
-		BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
-        SceneManager.LoadScene(m_currentScene);
+        m_scoresMenuObj.SetActive(true);
     }
 
     void AdResult(ShowResult result)
@@ -208,12 +205,11 @@ public class GameManager : MonoBehaviour
 
 		else 
 		{
-            //TODO Reward not yet decided
-   //         ScoreManager.m_supersCount++;
-   //         BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
-			//m_inviteSuccessText.enabled = true;
-   //         Invoke("FBTextsDisappear" , 1.1f);
-		}
+            ScoreManager.m_supersCount++;
+            BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
+            m_inviteSuccessText.enabled = true;
+            Invoke("FBTextsDisappear", 1.1f);
+        }
 	}
 
     void FBLoggedIn()
@@ -319,13 +315,12 @@ public class GameManager : MonoBehaviour
 
 		else 
 		{
-            //TODO Reward not yet decided
 			Screen.orientation = ScreenOrientation.Landscape;
-            //ScoreManager.m_supersCount++;
-            //BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
-            //m_shareSuccessText.enabled = true;
-            //Invoke("FBTextsDisappear" , 1.1f);
-		}
+            ScoreManager.m_supersCount++;
+            BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
+            m_shareSuccessText.enabled = true;
+            Invoke("FBTextsDisappear", 1.1f);
+        }
 	}
 
     void FBTextsDisappear()
@@ -536,6 +531,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void OK()
+    {
+        BhanuPrefs.DeleteAll();
+		ScoreManager.m_supersCount = ScoreManager.m_defaultSupersCount;
+		BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
+        SceneManager.LoadScene(m_currentScene);
+    }
+
     public void Pause()
 	{
         if(MusicManager.m_musicSource != null)
@@ -714,10 +717,16 @@ public class GameManager : MonoBehaviour
 			Invoke("EndFlash" , 0.25f);
 		}
 
-		if(m_landChimp.m_isSuper) 
+		if(m_landChimp.m_isSlipping)
+        {
+            ScoreManager.m_scoreValue += 60;
+        }
+
+        else if(m_landChimp.m_isSuper) 
 		{
 			ScoreManager.m_scoreValue += 200;
 		} 
+
 		else 
 		{
 			ScoreManager.m_scoreValue += 20;
