@@ -15,9 +15,9 @@ public class GameManager : MonoBehaviour
 	SoundManager m_soundManager;
 	Text m_adsText , m_backToLandLoseText , m_backToLandWinText , m_backToLandWithSuperText , m_highScoreDisplayText , m_highScoreValueText , m_noInternetText , m_quitText , m_restartText;
 
-	[SerializeField] bool m_isLoggedIn , m_isMemoryLeakTestingMode , m_selfieFlashEnabled;
-    [SerializeField] GameObject m_fbInviteSuccessMenuObj , m_fbShareMenuObj , m_fbShareSuccessMenuObj , m_loggedInObj , m_loggedOutObj;
-    [SerializeField] Image m_facebookButtonImage , m_fallingLevelImage , m_fbLogOutButtonImage , m_landLevelImage , m_profilePicImage , m_shareButtonImage , m_waterLevelImage;
+	[SerializeField] bool m_isFBShareTestMode , m_isLoggedIn , m_isMemoryLeakTestingMode , m_selfieFlashEnabled;
+    [SerializeField] GameObject m_fbInviteSuccessMenuObj , m_fbShareMenuObj , m_fbShareSuccessMenuObj , m_fbShareTestMenuObj , m_loggedInObj , m_loggedOutObj;
+    [SerializeField] Image m_facebookButtonImage , m_fallingLevelImage , m_fbInviteButtonImage , m_landLevelImage , m_profilePicImage , m_shareButtonImage , m_waterLevelImage;
     [SerializeField] Text m_memoryLeakTestText , m_usernameText;
 
     public static bool m_isTestingUnityEditor;
@@ -190,27 +190,44 @@ public class GameManager : MonoBehaviour
 
     public void FBInvite()
     {
-        //TODO Invite logic here
+        Screen.orientation = ScreenOrientation.Portrait;
+
+        FB.Mobile.AppInvite
+        (
+			new System.Uri("http://uabhanu.wixsite.com/portfolio"), //TODO Game URL here when Live
+            new System.Uri("http://uabhanu.wixsite.com/portfolio"), //TODO Game URL here when Live
+            callback: FBInviteCallback
+        );
     }
 
-    public void FBInviteRewardUser(IResult inviteResult)
+    public void FBInviteCallback(IResult inviteResult)
 	{
-		if(inviteResult.Cancelled || !string.IsNullOrEmpty (inviteResult.Error)) 
+		if(inviteResult.Cancelled) 
 		{
-			Debug.LogError("Sir Bhanu, there is an " + inviteResult.Error);
-		} 
+			Debug.LogWarning("Sir Bhanu, You have cancelled the invite");
+            Screen.orientation = ScreenOrientation.Landscape;
+		}
+        
+        else if(!string.IsNullOrEmpty (inviteResult.Error))
+        {
+            Debug.LogError("Sir Bhanu, There is a problem : " + inviteResult.Error);
+            Screen.orientation = ScreenOrientation.Landscape;
+        }
 
 		else if(!string.IsNullOrEmpty(inviteResult.RawResult)) 
 		{
-			Debug.Log(inviteResult.RawResult);
-		} 
+            Debug.LogWarning("Sir Bhanu, Your invitation : " + inviteResult.RawResult);
 
-		else 
-		{
-            ScoreManager.m_supersCount++;
-            BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
+            Screen.orientation = ScreenOrientation.Landscape;
+
+            if(!m_isFBShareTestMode)
+            {
+                ScoreManager.m_supersCount++;
+                BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
+            }
+            
             m_fbInviteSuccessMenuObj.SetActive(true);
-        }
+		} 
 	}
 
     void FBLoggedIn()
@@ -296,29 +313,36 @@ public class GameManager : MonoBehaviour
 		FB.ShareLink
 		(
 			contentTitle: "Fourth Lion Studios Message",
-			//contentURL: new System.Uri("https://play.google.com/store/apps/details?id=com.FLSs.PA"),
-			contentDescription: "We really hope you love the game",
-			callback: FBShareRewardUser
+			contentURL: new System.Uri("http://uabhanu.wixsite.com/portfolio"), //TODO Game URL here when Live
+			contentDescription: "We really hope you love the game", 
+            callback: FBShareCallback
 		);
 	}
 
-	void FBShareRewardUser(IShareResult shareResult)
+	void FBShareCallback(IShareResult shareResult)
 	{
 		if(shareResult.Cancelled || !string.IsNullOrEmpty (shareResult.Error)) 
 		{
 			Debug.LogError("Sir Bhanu, there is an " + shareResult.Error);
+            Screen.orientation = ScreenOrientation.Landscape;
 		} 
 
 		else if(!string.IsNullOrEmpty(shareResult.PostId)) 
 		{
 			Debug.Log(shareResult.PostId);
+            Screen.orientation = ScreenOrientation.Landscape;
 		} 
 
 		else 
 		{
 			Screen.orientation = ScreenOrientation.Landscape;
-            ScoreManager.m_supersCount++;
-            BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
+
+            if(!m_isFBShareTestMode)
+            {
+                ScoreManager.m_supersCount++;
+                BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
+            }
+
             m_fbShareSuccessMenuObj.SetActive(true);
         }
 	}
@@ -335,6 +359,12 @@ public class GameManager : MonoBehaviour
     void GetBhanuObjects()
     {
         m_currentScene = SceneManager.GetActiveScene().buildIndex;
+
+        if(m_isFBShareTestMode)
+        {
+            m_fbShareTestMenuObj.SetActive(true);
+        }
+
         m_playerMutedSounds = BhanuPrefs.GetSoundsStatus();
 
         if(m_isMemoryLeakTestingMode)
@@ -577,8 +607,8 @@ public class GameManager : MonoBehaviour
 
 	public void Quit()
 	{
-		m_fbLogOutButtonImage.enabled = false;
         m_facebookButtonImage.enabled = false;
+        m_fbInviteButtonImage.enabled = false;
         m_noInternetText.enabled = false;
         m_playButtonImage.enabled = false;
         m_profilePicImage.enabled = false;
@@ -599,8 +629,8 @@ public class GameManager : MonoBehaviour
 
 	public void QuitCancel()
 	{
-        m_fbLogOutButtonImage.enabled = true;
         m_facebookButtonImage.enabled = true;
+        m_fbInviteButtonImage.enabled = true;
 		m_playButtonImage.enabled = true;
         m_profilePicImage.enabled = true;
 		m_quitButtonImage.enabled = true;
