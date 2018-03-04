@@ -13,11 +13,10 @@ public class GameManager : MonoBehaviour
     Image m_restartButtonImage , m_restartAcceptButtonImage , m_restartCancelButtonImage , m_restartMenuImage , m_resumeButtonImage , m_unmuteButtonImage;
     LandChimp m_landChimp;
 	SoundManager m_soundManager;
-	Text m_adsText , m_backToLandLoseText , m_backToLandWinText , m_backToLandWithSuperText , m_highScoreDisplayText , m_highScoreValueText , m_inviteSuccessText , m_noInternetText , m_quitText , m_restartText;
-    Text m_shareSuccessText;
+	Text m_adsText , m_backToLandLoseText , m_backToLandWinText , m_backToLandWithSuperText , m_highScoreDisplayText , m_highScoreValueText , m_noInternetText , m_quitText , m_restartText;
 
 	[SerializeField] bool m_isLoggedIn , m_isMemoryLeakTestingMode , m_selfieFlashEnabled;
-    [SerializeField] GameObject m_loggedInObj , m_loggedOutObj , m_scoresMenuObj;
+    [SerializeField] GameObject m_fbInviteSuccessMenuObj , m_fbShareMenuObj , m_fbShareSuccessMenuObj , m_loggedInObj , m_loggedOutObj;
     [SerializeField] Image m_facebookButtonImage , m_fallingLevelImage , m_fbLogOutButtonImage , m_landLevelImage , m_profilePicImage , m_shareButtonImage , m_waterLevelImage;
     [SerializeField] Text m_memoryLeakTestText , m_usernameText;
 
@@ -56,7 +55,10 @@ public class GameManager : MonoBehaviour
 
     public void AdsCancel()
     {
-        m_scoresMenuObj.SetActive(true);
+        BhanuPrefs.DeleteAll();
+		ScoreManager.m_supersCount = ScoreManager.m_defaultSupersCount;
+		BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
+        SceneManager.LoadScene(m_currentScene);
     }
 
     void AdResult(ShowResult result)
@@ -207,8 +209,7 @@ public class GameManager : MonoBehaviour
 		{
             ScoreManager.m_supersCount++;
             BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
-            m_inviteSuccessText.enabled = true;
-            Invoke("FBTextsDisappear", 1.1f);
+            m_fbInviteSuccessMenuObj.SetActive(true);
         }
 	}
 
@@ -318,16 +319,9 @@ public class GameManager : MonoBehaviour
 			Screen.orientation = ScreenOrientation.Landscape;
             ScoreManager.m_supersCount++;
             BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
-            m_shareSuccessText.enabled = true;
-            Invoke("FBTextsDisappear", 1.1f);
+            m_fbShareSuccessMenuObj.SetActive(true);
         }
 	}
-
-    void FBTextsDisappear()
-    {
-        m_inviteSuccessText.enabled = false;
-        m_shareSuccessText.enabled = false;
-    }
 
 	void FBUsernameDisplay(IResult result)
 	{
@@ -369,7 +363,6 @@ public class GameManager : MonoBehaviour
 
         if(m_currentScene == 0)
         {
-            m_inviteSuccessText = GameObject.Find("InviteSuccessDisplay").GetComponent<Text>();
             m_noInternetText = GameObject.Find("NoInternetDisplay").GetComponent<Text>();
             m_playButtonImage = GameObject.Find("PlayButton").GetComponent<Image>();
             m_quitText = GameObject.Find("QuitText").GetComponent<Text>();
@@ -377,7 +370,6 @@ public class GameManager : MonoBehaviour
             m_quitAcceptButtonImage = GameObject.Find("QuitAcceptButton").GetComponent<Image>();
             m_quitCancelButtonImage = GameObject.Find("QuitCancelButton").GetComponent<Image>();
             m_quitMenuImage = GameObject.Find("QuitMenu").GetComponent<Image>();
-            //m_shareSuccessText = GameObject.Find("ShareSuccessDisplay").GetComponent<Text>(); //TODO No object in the scene yet so this will be null
         }
 
         else if(m_currentScene == 1)
@@ -533,9 +525,6 @@ public class GameManager : MonoBehaviour
 
     public void OK()
     {
-        BhanuPrefs.DeleteAll();
-		ScoreManager.m_supersCount = ScoreManager.m_defaultSupersCount;
-		BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
         SceneManager.LoadScene(m_currentScene);
     }
 

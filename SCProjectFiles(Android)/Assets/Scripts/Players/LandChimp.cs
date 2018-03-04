@@ -13,19 +13,20 @@ public class LandChimp : MonoBehaviour
     RockSpawner m_rockSpawner;
 	SoundManager m_soundManager;
 
-    [SerializeField] float m_jumpHeight , m_slipMultiplier , m_slipTime;
+    [SerializeField] float m_jumpHeight , m_lowSlipMultiplier , m_highSlipMultiplier , m_slipTime;
     [SerializeField] Transform m_raycastBottom , m_raycastTop;
 
     public bool m_isSlipping , m_isSuper;
 
 	void Reset()
 	{
+        m_highSlipMultiplier = 1.75f;
+        m_lowSlipMultiplier = 1.54f;
         m_isSlipping = false;
 		m_isSuper = false;
         m_jumpHeight = 15.5f;
         m_raycastBottom = GameObject.Find("RaycastBottom").transform;
         m_raycastTop = GameObject.Find("RaycastTop").transform;
-        m_slipMultiplier = 1.75f;
         m_slipTime = 30f;
 	}
 
@@ -278,7 +279,16 @@ public class LandChimp : MonoBehaviour
     void Slip()
     {
         m_chimpAnim.SetBool("Slip" , true);
-        m_levelCreator.m_gameSpeed *= m_slipMultiplier;
+
+        if(m_levelCreator.m_gameSpeed <= 8)
+        {
+            m_levelCreator.m_gameSpeed *= m_highSlipMultiplier;
+        }
+        else
+        {
+            m_levelCreator.m_gameSpeed *= m_lowSlipMultiplier;
+        }
+        
         m_isSlipping = true;
         Invoke("SlipFinished" , m_slipTime);
     }
@@ -289,7 +299,7 @@ public class LandChimp : MonoBehaviour
 
         if(!m_isSuper)
         {
-            m_levelCreator.m_gameSpeed /= m_slipMultiplier;
+            m_levelCreator.m_gameSpeed /= m_highSlipMultiplier;
         }
         
         m_isSlipping = false;

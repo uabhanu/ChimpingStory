@@ -32,11 +32,13 @@ public class Banana : MonoBehaviour
             m_bananaCollider2D.enabled = false;
             m_bananaRenderer.enabled = false;
         }
-
-        if(!m_landChimp.m_isSuper && m_positionOnScreen.x >= 972)
+        else
         {
-            m_bananaCollider2D.enabled = true;
-            m_bananaRenderer.enabled = true;
+            if(m_positionOnScreen.x >= 972)
+            {
+                m_bananaCollider2D.enabled = true;
+                m_bananaRenderer.enabled = true;
+            }
         }
 	}
 

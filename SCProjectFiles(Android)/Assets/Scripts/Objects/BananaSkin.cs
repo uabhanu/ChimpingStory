@@ -27,16 +27,18 @@ public class BananaSkin : MonoBehaviour
 
         m_positionOnScreen = m_mainCamera.WorldToScreenPoint(transform.position);
 
-        if(m_landChimp.m_isSlipping || m_landChimp.m_isSuper || m_levelCreator.m_gameSpeed <= 7)
+        if(m_landChimp.m_isSlipping || m_landChimp.m_isSuper || m_levelCreator.m_gameSpeed > 8)
         {
             m_skinCollider2D.enabled = false;
             m_skinRenderer.enabled = false;
         }
-
-        else if(m_landChimp.m_isSlipping && m_landChimp.m_isSuper && m_positionOnScreen.x >= 972)
+        else
         {
-            m_skinCollider2D.enabled = true;
-            m_skinRenderer.enabled = true;
+            if(m_positionOnScreen.x >= 972)
+            {
+                m_skinCollider2D.enabled = true;
+                m_skinRenderer.enabled = true;
+            }
         }
     }
 }
