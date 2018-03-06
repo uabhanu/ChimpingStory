@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     Image m_restartButtonImage , m_restartAcceptButtonImage , m_restartCancelButtonImage , m_restartMenuImage , m_resumeButtonImage , m_unmuteButtonImage;
     LandChimp m_landChimp;
 	SoundManager m_soundManager;
+    string m_applinkURL;
 	Text m_adsText , m_backToLandLoseText , m_backToLandWinText , m_backToLandWithSuperText , m_highScoreDisplayText , m_highScoreValueText , m_noInternetText , m_quitText , m_restartText;
 
 	[SerializeField] bool m_isFBShareTestMode , m_isLoggedIn , m_isMemoryLeakTestingMode , m_selfieFlashEnabled;
@@ -167,6 +168,19 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
+    void FBAppLinkURL(IAppLinkResult applinkResult) //Not sure how to use this yet so not using for now
+    {
+        if(!string.IsNullOrEmpty(applinkResult.Url))
+        {
+            m_applinkURL = "" + applinkResult.Url + "";
+            Debug.Log(m_applinkURL);
+        }
+        else
+        {
+            m_applinkURL = "http://uabhanu.wixsite.com/portfolio";
+        }
+    }
+    
     void FBAuthCallBack(IResult authResult)
 	{
 		if(authResult.Error != null) 
@@ -188,13 +202,59 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-    public void FBInvite()
+    public void FBChallengePlayers()
+    {
+        FB.AppRequest
+        (
+            "Come and try to be the Chimpion :) ",
+            null,
+            new List<object>{"app_users"},
+            null,
+            null,
+            null,
+            null,
+            FBChallengePlayersCallback
+        );
+
+        Screen.orientation = ScreenOrientation.Portrait;
+    }
+
+    void FBChallengePlayersCallback(IAppRequestResult appRequestResult)
+    {
+        if(appRequestResult.Cancelled) 
+		{
+			//Debug.LogWarning("Sir Bhanu, You have cancelled the invite");
+            Screen.orientation = ScreenOrientation.Landscape;
+		}
+        
+        else if(!string.IsNullOrEmpty(appRequestResult.Error))
+        {
+            //Debug.LogError("Sir Bhanu, There is a problem : " + appRequestResult.Error);
+            Screen.orientation = ScreenOrientation.Landscape;
+        }
+
+		else if(!string.IsNullOrEmpty(appRequestResult.RawResult)) 
+		{
+            //Debug.LogWarning("Sir Bhanu, Your invitation : " + appRequestResult.RawResult);
+
+            Screen.orientation = ScreenOrientation.Landscape;
+
+            if(!m_isFBShareTestMode)
+            {
+                ScoreManager.m_supersCount++;
+                BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
+            }
+            
+            m_fbInviteSuccessMenuObj.SetActive(true);
+		}
+    }
+
+    public void FBInvite() //TODO When you figure out how to make this work, make Invite Button of LoggedinObj in the scene, Active
     {
         Screen.orientation = ScreenOrientation.Portrait;
 
         FB.Mobile.AppInvite
         (
-			new System.Uri("http://uabhanu.wixsite.com/portfolio"), //TODO Game URL here when Live
             new System.Uri("http://uabhanu.wixsite.com/portfolio"), //TODO Game URL here when Live
             callback: FBInviteCallback
         );
@@ -204,19 +264,19 @@ public class GameManager : MonoBehaviour
 	{
 		if(inviteResult.Cancelled) 
 		{
-			Debug.LogWarning("Sir Bhanu, You have cancelled the invite");
+			//Debug.LogWarning("Sir Bhanu, You have cancelled the invite");
             Screen.orientation = ScreenOrientation.Landscape;
 		}
         
-        else if(!string.IsNullOrEmpty (inviteResult.Error))
+        else if(!string.IsNullOrEmpty(inviteResult.Error))
         {
-            Debug.LogError("Sir Bhanu, There is a problem : " + inviteResult.Error);
+            //Debug.LogError("Sir Bhanu, There is a problem : " + inviteResult.Error);
             Screen.orientation = ScreenOrientation.Landscape;
         }
 
 		else if(!string.IsNullOrEmpty(inviteResult.RawResult)) 
 		{
-            Debug.LogWarning("Sir Bhanu, Your invitation : " + inviteResult.RawResult);
+            //Debug.LogWarning("Sir Bhanu, Your invitation : " + inviteResult.RawResult);
 
             Screen.orientation = ScreenOrientation.Landscape;
 
@@ -323,13 +383,12 @@ public class GameManager : MonoBehaviour
 	{
 		if(shareResult.Cancelled || !string.IsNullOrEmpty (shareResult.Error)) 
 		{
-			Debug.LogError("Sir Bhanu, there is an " + shareResult.Error);
+			//Debug.LogError("Sir Bhanu, there is an " + shareResult.Error);
             Screen.orientation = ScreenOrientation.Landscape;
 		} 
 
 		else if(!string.IsNullOrEmpty(shareResult.PostId)) 
 		{
-			Debug.Log(shareResult.PostId);
             Screen.orientation = ScreenOrientation.Landscape;
 		} 
 
