@@ -356,8 +356,7 @@ public class GameManager : MonoBehaviour
             _noInternetText.enabled = false;
 		    List<string> permissions = new List<string>();
 		    permissions.Add("public_profile");
-            permissions.Add("publish_actions");
-            Debug.Log("Permissions for Bhanu : " + permissions.GetType());
+            permissions.Add("publish_actions"); //TODO This may not be needed, test by removing this after Facebook Approval
             FB.LogInWithPublishPermissions(permissions , FBAuthCallBack);
         }
 	}
@@ -446,12 +445,11 @@ public class GameManager : MonoBehaviour
 		} 
 	}
 
-	void FBUsernameDisplay(IResult result)
+	void FBUsernameDisplay(IResult usernameResult)
 	{
-		if(result.Error == null && m_currentScene == 0)
+		if(usernameResult.Error == null && m_currentScene == 0)
 		{
-			//Debug.Log(result.ResultDictionary["first_name"]);
-			_usernameText.text =  "Hi " + result.ResultDictionary["first_name"];
+			_usernameText.text =  "Hi " + usernameResult.ResultDictionary["first_name"];
 		}
 	}
 
