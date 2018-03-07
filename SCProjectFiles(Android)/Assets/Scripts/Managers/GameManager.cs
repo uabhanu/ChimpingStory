@@ -8,10 +8,12 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour 
 {
 	AudioSource m_musicSource;
+    Dictionary<string , string> m_profile = null;
 	Image m_adsAcceptButtonImage , m_adsCancelButtonImage , m_adsMenuImage , m_backToLandLoseMenuImage , m_backToLandWinMenuImage , m_backToLandWithSuperMenuImage , m_chimpionshipBeltImage , m_continueButtonImage;
     Image m_exitButtonImage , m_muteButtonImage , m_pauseButtonImage , m_pauseMenuImage , m_playButtonImage , m_quitButtonImage , m_quitAcceptButtonImage , m_quitCancelButtonImage , m_quitMenuImage;
     Image m_restartButtonImage , m_restartAcceptButtonImage , m_restartCancelButtonImage , m_restartMenuImage , m_resumeButtonImage , m_unmuteButtonImage;
     LandChimp m_landChimp;
+    List<object> m_highScoresList = null;
 	SoundManager m_soundManager;
     string m_applinkURL;
 	Text m_adsText , m_backToLandLoseText , m_backToLandWinText , m_backToLandWithSuperText , m_highScoreDisplayText , m_highScoreValueText , m_noInternetText , m_quitText , m_restartText;
@@ -249,6 +251,21 @@ public class GameManager : MonoBehaviour
 		}
     }
 
+    void FBHighScoreGet()
+    {
+        FB.API("/USER_ID/scores" , HttpMethod.GET , FBHighScoreGetCallback);
+    }
+
+    void FBHighScoreGetCallback(IGraphResult getScoreResult)
+    {
+        Debug.Log(getScoreResult.RawResult);
+    }
+
+    void FBHighScoreSet()
+    {
+        FB.API("/USER_ID/scores" , HttpMethod.POST);
+    }
+
     public void FBInvite() //TODO When you figure out how to make this work, make Invite Button of LoggedinObj in the scene, Active
     {
         Screen.orientation = ScreenOrientation.Portrait;
@@ -350,7 +367,7 @@ public class GameManager : MonoBehaviour
 	{
 		if(graphicResult.Texture != null && m_currentScene == 0)
 		{
-			m_profilePicImage.sprite = Sprite.Create(graphicResult.Texture , new Rect(0 , 0 , 480 , 480) , new Vector2());
+			m_profilePicImage.sprite = Sprite.Create(graphicResult.Texture , new Rect(0 , 0 , 480 , 480) , new Vector2()); //TODO this may be because of your profile pic, so do nothing until confirmed
 		}
 	}
 
@@ -368,7 +385,9 @@ public class GameManager : MonoBehaviour
 
 	public void FBShare()
 	{
-		Screen.orientation = ScreenOrientation.Portrait;
+		FBHighScoreSet();
+        FBHighScoreGet();
+        Screen.orientation = ScreenOrientation.Portrait;
 
 		FB.ShareLink
 		(
