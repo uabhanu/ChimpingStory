@@ -1,4 +1,5 @@
 ﻿using Facebook.Unity;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Advertisements;
@@ -7,21 +8,22 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour 
 {
-	AudioSource m_musicSource;
-    Dictionary<string , string> m_profile = null;
-	Image m_adsAcceptButtonImage , m_adsCancelButtonImage , m_adsMenuImage , m_backToLandLoseMenuImage , m_backToLandWinMenuImage , m_backToLandWithSuperMenuImage , m_chimpionshipBeltImage , m_continueButtonImage;
-    Image m_exitButtonImage , m_muteButtonImage , m_pauseButtonImage , m_pauseMenuImage , m_playButtonImage , m_quitButtonImage , m_quitAcceptButtonImage , m_quitCancelButtonImage , m_quitMenuImage;
-    Image m_restartButtonImage , m_restartAcceptButtonImage , m_restartCancelButtonImage , m_restartMenuImage , m_resumeButtonImage , m_unmuteButtonImage;
-    LandChimp m_landChimp;
-    List<object> m_highScoresList = null;
-	SoundManager m_soundManager;
-    string m_applinkURL;
-	Text m_adsText , m_backToLandLoseText , m_backToLandWinText , m_backToLandWithSuperText , m_highScoreDisplayText , m_highScoreValueText , m_noInternetText , m_quitText , m_restartText;
+	AudioSource _musicSource;
+    bool _profilePicEnabled = false;
+    Dictionary<string , string> _scores = null;
+	Image _adsAcceptButtonImage , _adsCancelButtonImage , _adsMenuImage , _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _chimpionshipBeltImage , _continueButtonImage;
+    Image _exitButtonImage , _muteButtonImage , _pauseButtonImage , _pauseMenuImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage;
+    Image _restartButtonImage , _restartAcceptButtonImage , _restartCancelButtonImage , _restartMenuImage , _resumeButtonImage , _unmuteButtonImage;
+    LandChimp _landChimp;
+    List<object> _highScoresList = null;
+	SoundManager _soundManager;
+    string _applinkURL;
+	Text _adsText , _backToLandLoseText , _backToLandWinText , _backToLandWithSuperText , _highScoreDisplayText , _highScoreValueText , _noInternetText , _quitText , _restartText;
 
-	[SerializeField] bool m_isFBShareTestMode , m_isLoggedIn , m_isMemoryLeakTestingMode , m_selfieFlashEnabled;
-    [SerializeField] GameObject m_fbInviteSuccessMenuObj , m_fbShareMenuObj , m_fbShareSuccessMenuObj , m_fbShareTestMenuObj , m_loggedInObj , m_loggedOutObj;
-    [SerializeField] Image m_facebookButtonImage , m_fallingLevelImage , m_fbInviteButtonImage , m_landLevelImage , m_profilePicImage , m_shareButtonImage , m_waterLevelImage;
-    [SerializeField] Text m_memoryLeakTestText , m_usernameText;
+	[SerializeField] bool _isFBShareTestMode , _isLoggedIn , _isMemoryLeakTestingMode , _selfieFlashEnabled;
+    [SerializeField] GameObject _fbInviteSuccessMenuObj , _fbShareMenuObj , _fbShareSuccessMenuObj , _fbShareTestMenuObj , _loggedInObj , _loggedOutObj;
+    [SerializeField] Image _facebookButtonImage , _fallingLevelImage , _fbInviteButtonImage , _landLevelImage , _profilePicImage , _shareButtonImage , _waterLevelImage;
+    [SerializeField] Text _memoryLeakTestText , _usernameText;
 
     public static bool m_isTestingUnityEditor;
     public static Image m_selfieButtonImage , m_selfiePanelImage;
@@ -35,24 +37,24 @@ public class GameManager : MonoBehaviour
 	
     public void Ads()
     {
-        m_adsMenuImage.enabled = true;
-        m_adsAcceptButtonImage.enabled = true;
-        m_adsCancelButtonImage.enabled = true;
-        m_adsText.enabled = true;
-        m_chimpionshipBeltImage.enabled = false;
-        m_muteButtonImage.enabled = false;
-        m_pauseButtonImage.enabled = false;
+        _adsMenuImage.enabled = true;
+        _adsAcceptButtonImage.enabled = true;
+        _adsCancelButtonImage.enabled = true;
+        _adsText.enabled = true;
+        _chimpionshipBeltImage.enabled = false;
+        _muteButtonImage.enabled = false;
+        _pauseButtonImage.enabled = false;
 		m_selfieButtonImage.enabled = false;
-        m_unmuteButtonImage.enabled = false;
+        _unmuteButtonImage.enabled = false;
 		Time.timeScale = 0;
     }
 
     public void AdsAccept()
     {
-        m_adsMenuImage.enabled = false;
-        m_adsAcceptButtonImage.enabled = false;
-        m_adsCancelButtonImage.enabled = false;
-        m_adsText.enabled = false;
+        _adsMenuImage.enabled = false;
+        _adsAcceptButtonImage.enabled = false;
+        _adsCancelButtonImage.enabled = false;
+        _adsText.enabled = false;
         AdsShow();
     }
 
@@ -98,43 +100,43 @@ public class GameManager : MonoBehaviour
 
     public void BackToLandLoseMenu()
     {
-        m_backToLandLoseMenuImage.enabled = true;
-        m_backToLandLoseText.enabled = true;
-        m_chimpionshipBeltImage.enabled = false;
-		m_continueButtonImage.enabled = true;
-		m_highScoreDisplayText.enabled = false;
-		m_highScoreValueText.enabled = false;
-        m_muteButtonImage.enabled = false;
-        m_pauseButtonImage.enabled = false;
-        m_unmuteButtonImage.enabled = false;
+        _backToLandLoseMenuImage.enabled = true;
+        _backToLandLoseText.enabled = true;
+        _chimpionshipBeltImage.enabled = false;
+		_continueButtonImage.enabled = true;
+		_highScoreDisplayText.enabled = false;
+		_highScoreValueText.enabled = false;
+        _muteButtonImage.enabled = false;
+        _pauseButtonImage.enabled = false;
+        _unmuteButtonImage.enabled = false;
         Time.timeScale = 0;
     }
 
     public void BackToLandWinMenu()
     {
-        m_backToLandWinMenuImage.enabled = true;
-        m_backToLandWinText.enabled = true;
-        m_chimpionshipBeltImage.enabled = false;
-		m_continueButtonImage.enabled = true;
-		m_highScoreDisplayText.enabled = false;
-		m_highScoreValueText.enabled = false;
-        m_muteButtonImage.enabled = false;
-        m_pauseButtonImage.enabled = false;
-        m_unmuteButtonImage.enabled = false;
+        _backToLandWinMenuImage.enabled = true;
+        _backToLandWinText.enabled = true;
+        _chimpionshipBeltImage.enabled = false;
+		_continueButtonImage.enabled = true;
+		_highScoreDisplayText.enabled = false;
+		_highScoreValueText.enabled = false;
+        _muteButtonImage.enabled = false;
+        _pauseButtonImage.enabled = false;
+        _unmuteButtonImage.enabled = false;
         Time.timeScale = 0;
     }
 
     public void BackToLandWithSuperMenu()
     {
-        m_backToLandWithSuperMenuImage.enabled = true;
-        m_backToLandWithSuperText.enabled = true;
-        m_continueButtonImage.enabled = true;
-        m_chimpionshipBeltImage.enabled = false;
-		m_highScoreDisplayText.enabled = false;
-		m_highScoreValueText.enabled = false;
-        m_muteButtonImage.enabled = false;
-        m_pauseButtonImage.enabled = false;
-        m_unmuteButtonImage.enabled = false;
+        _backToLandWithSuperMenuImage.enabled = true;
+        _backToLandWithSuperText.enabled = true;
+        _continueButtonImage.enabled = true;
+        _chimpionshipBeltImage.enabled = false;
+		_highScoreDisplayText.enabled = false;
+		_highScoreValueText.enabled = false;
+        _muteButtonImage.enabled = false;
+        _pauseButtonImage.enabled = false;
+        _unmuteButtonImage.enabled = false;
         Time.timeScale = 0;
     }
 
@@ -145,11 +147,11 @@ public class GameManager : MonoBehaviour
 			FB.Init(FBSetInit , FBOnHideUnity);	
 		}
 
-        if(FB.IsLoggedIn && m_loggedInObj != null && m_loggedOutObj != null)
+        if(FB.IsLoggedIn && _loggedInObj != null && _loggedOutObj != null)
         {
-            m_loggedInObj.SetActive(true);
+            _loggedInObj.SetActive(true);
             FBLoggedIn();
-            m_loggedOutObj.SetActive(false);
+            _loggedOutObj.SetActive(false);
         }
     }
 
@@ -174,12 +176,12 @@ public class GameManager : MonoBehaviour
     {
         if(!string.IsNullOrEmpty(applinkResult.Url))
         {
-            m_applinkURL = "" + applinkResult.Url + "";
-            Debug.Log(m_applinkURL);
+            _applinkURL = "" + applinkResult.Url + "";
+            Debug.Log(_applinkURL);
         }
         else
         {
-            m_applinkURL = "http://uabhanu.wixsite.com/portfolio";
+            _applinkURL = "http://uabhanu.wixsite.com/portfolio";
         }
     }
     
@@ -188,7 +190,7 @@ public class GameManager : MonoBehaviour
 		if(authResult.Error != null) 
 		{
 			Debug.LogError("Sir Bhanu, there is an issue : " + authResult.Error);	
-			m_noInternetText.enabled = true;
+			_noInternetText.enabled = true;
 		} 
 
 		else if(authResult.Error == null)
@@ -241,13 +243,13 @@ public class GameManager : MonoBehaviour
 
             Screen.orientation = ScreenOrientation.Landscape;
 
-            if(!m_isFBShareTestMode)
+            if(!_isFBShareTestMode)
             {
                 ScoreManager.m_supersCount++;
                 BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
             }
             
-            m_fbInviteSuccessMenuObj.SetActive(true);
+            _fbInviteSuccessMenuObj.SetActive(true);
 		}
     }
 
@@ -263,7 +265,14 @@ public class GameManager : MonoBehaviour
 
     void FBHighScoreSet()
     {
-        FB.API("/USER_ID/scores" , HttpMethod.POST);
+        float highScore = BhanuPrefs.GetHighScore();
+        _scores = new Dictionary<string , string>(){ {"scores" , highScore.ToString() } };
+        FB.API("/me/scores" , HttpMethod.POST , FBHighScoreSetCallback , _scores);
+    }
+
+    void FBHighScoreSetCallback(IGraphResult setScoreResult)
+    {
+        Debug.Log(setScoreResult.RawResult);
     }
 
     public void FBInvite() //TODO When you figure out how to make this work, make Invite Button of LoggedinObj in the scene, Active
@@ -297,27 +306,27 @@ public class GameManager : MonoBehaviour
 
             Screen.orientation = ScreenOrientation.Landscape;
 
-            if(!m_isFBShareTestMode)
+            if(!_isFBShareTestMode)
             {
                 ScoreManager.m_supersCount++;
                 BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
             }
             
-            m_fbInviteSuccessMenuObj.SetActive(true);
+            _fbInviteSuccessMenuObj.SetActive(true);
 		} 
 	}
 
     void FBLoggedIn()
 	{
-		m_isLoggedIn = true;
+		_isLoggedIn = true;
 
 		FB.API("/me?fields=first_name" , HttpMethod.GET , FBUsernameDisplay);
 		FB.API("/me/picture?type=square&height=480&width=480" , HttpMethod.GET , FBProfilePicDisplay);
 
-		if(m_loggedInObj != null && m_loggedOutObj != null)
+		if(_loggedInObj != null && _loggedOutObj != null)
         {
-            m_loggedInObj.SetActive(true);
-		    m_loggedOutObj.SetActive(false);		
+            _loggedInObj.SetActive(true);
+		    _loggedOutObj.SetActive(false);		
         }
         else
         {
@@ -327,12 +336,12 @@ public class GameManager : MonoBehaviour
 
 	void FBLoggedOut()
 	{
-		m_isLoggedIn = false;
+		_isLoggedIn = false;
 
-		if(m_loggedInObj != null && m_loggedOutObj != null)
+		if(_loggedInObj != null && _loggedOutObj != null)
         {
-            m_loggedInObj.SetActive(false);
-		    m_loggedOutObj.SetActive(true);		
+            _loggedInObj.SetActive(false);
+		    _loggedOutObj.SetActive(true);		
         }
         else
         {
@@ -344,7 +353,7 @@ public class GameManager : MonoBehaviour
 	{
         if(FB.IsInitialized)
         {
-            m_noInternetText.enabled = false;
+            _noInternetText.enabled = false;
 		    List<string> permissions = new List<string>();
 		    permissions.Add("public_profile");
 		    FB.LogInWithReadPermissions(permissions , FBAuthCallBack);
@@ -365,10 +374,19 @@ public class GameManager : MonoBehaviour
 
 	void FBProfilePicDisplay(IGraphResult graphicResult)
 	{
-		if(graphicResult.Texture != null && m_currentScene == 0)
-		{
-			m_profilePicImage.sprite = Sprite.Create(graphicResult.Texture , new Rect(0 , 0 , 480 , 480) , new Vector2()); //TODO this may be because of your profile pic, so do nothing until confirmed
-		}
+        try
+        {
+            if(graphicResult.Texture != null && graphicResult.Error == null)
+		    {
+			    _profilePicImage.sprite = Sprite.Create(graphicResult.Texture , new Rect(0 , 0 , graphicResult.Texture.width , graphicResult.Texture.height) , new Vector2());
+                _profilePicEnabled = true; //This is used to check if sprite created properly and display only if it is, or else, _profilePicImage won't be enabled
+                _profilePicImage.enabled = true;
+		    }
+        }
+        catch(Exception e)
+        {
+            Debug.Log(e);
+        }
 	}
 
 	void FBSetInit()
@@ -385,8 +403,8 @@ public class GameManager : MonoBehaviour
 
 	public void FBShare()
 	{
-		FBHighScoreSet();
-        FBHighScoreGet();
+		//FBHighScoreSet();
+        //FBHighScoreGet();
         Screen.orientation = ScreenOrientation.Portrait;
 
 		FB.ShareLink
@@ -400,29 +418,30 @@ public class GameManager : MonoBehaviour
 
 	void FBShareCallback(IShareResult shareResult)
 	{
-		if(shareResult.Cancelled || !string.IsNullOrEmpty (shareResult.Error)) 
+		if(shareResult.Cancelled) 
 		{
-			//Debug.LogError("Sir Bhanu, there is an " + shareResult.Error);
+			Debug.LogWarning("Sir Bhanu, you have cancelled the Share :)" );
             Screen.orientation = ScreenOrientation.Landscape;
 		} 
 
-		else if(!string.IsNullOrEmpty(shareResult.PostId)) 
-		{
-            Screen.orientation = ScreenOrientation.Landscape;
-		} 
+        else if(!string.IsNullOrEmpty(shareResult.Error))
+        {
+            Debug.LogError("Sir Bhanu, You have pressed error button");
+        }
 
-		else 
+		else
 		{
+            Debug.LogWarning("Sir Bhanu, Your Share is a success :)");
 			Screen.orientation = ScreenOrientation.Landscape;
 
-            if(!m_isFBShareTestMode)
+            if(!_isFBShareTestMode)
             {
                 ScoreManager.m_supersCount++;
                 BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
             }
 
-            m_fbShareSuccessMenuObj.SetActive(true);
-        }
+            _fbShareSuccessMenuObj.SetActive(true);
+		} 
 	}
 
 	void FBUsernameDisplay(IResult result)
@@ -430,7 +449,7 @@ public class GameManager : MonoBehaviour
 		if(result.Error == null && m_currentScene == 0)
 		{
 			//Debug.Log(result.ResultDictionary["first_name"]);
-			m_usernameText.text =  "Hi " + result.ResultDictionary["first_name"];
+			_usernameText.text =  "Hi " + result.ResultDictionary["first_name"];
 		}
 	}
 
@@ -438,148 +457,148 @@ public class GameManager : MonoBehaviour
     {
         m_currentScene = SceneManager.GetActiveScene().buildIndex;
 
-        if(m_isFBShareTestMode)
+        if(_isFBShareTestMode)
         {
-            m_fbShareTestMenuObj.SetActive(true);
+            _fbShareTestMenuObj.SetActive(true);
         }
 
         m_playerMutedSounds = BhanuPrefs.GetSoundsStatus();
 
-        if(m_isMemoryLeakTestingMode)
+        if(_isMemoryLeakTestingMode)
         {
             if(m_currentScene == 1)
             {
-                m_fallingLevelImage.enabled = true;
-                m_memoryLeakTestText.enabled = true;
-                m_waterLevelImage.enabled = true;
+                _fallingLevelImage.enabled = true;
+                _memoryLeakTestText.enabled = true;
+                _waterLevelImage.enabled = true;
             }
 
             if(m_currentScene == 2)
             {
-                m_fallingLevelImage.enabled = true;
-                m_landLevelImage.enabled = true;
-                m_memoryLeakTestText.enabled = true;
+                _fallingLevelImage.enabled = true;
+                _landLevelImage.enabled = true;
+                _memoryLeakTestText.enabled = true;
             }
 
             if(m_currentScene == 3)
             {
-                m_landLevelImage.enabled = true;
-                m_memoryLeakTestText.enabled = true;
-                m_waterLevelImage.enabled = true;
+                _landLevelImage.enabled = true;
+                _memoryLeakTestText.enabled = true;
+                _waterLevelImage.enabled = true;
             }
         }
 
         if(m_currentScene == 0)
         {
-            m_noInternetText = GameObject.Find("NoInternetDisplay").GetComponent<Text>();
-            m_playButtonImage = GameObject.Find("PlayButton").GetComponent<Image>();
-            m_quitText = GameObject.Find("QuitText").GetComponent<Text>();
-            m_quitButtonImage = GameObject.Find("QuitButton").GetComponent<Image>();
-            m_quitAcceptButtonImage = GameObject.Find("QuitAcceptButton").GetComponent<Image>();
-            m_quitCancelButtonImage = GameObject.Find("QuitCancelButton").GetComponent<Image>();
-            m_quitMenuImage = GameObject.Find("QuitMenu").GetComponent<Image>();
+            _noInternetText = GameObject.Find("NoInternetDisplay").GetComponent<Text>();
+            _playButtonImage = GameObject.Find("PlayButton").GetComponent<Image>();
+            _quitText = GameObject.Find("QuitText").GetComponent<Text>();
+            _quitButtonImage = GameObject.Find("QuitButton").GetComponent<Image>();
+            _quitAcceptButtonImage = GameObject.Find("QuitAcceptButton").GetComponent<Image>();
+            _quitCancelButtonImage = GameObject.Find("QuitCancelButton").GetComponent<Image>();
+            _quitMenuImage = GameObject.Find("QuitMenu").GetComponent<Image>();
         }
 
         else if(m_currentScene == 1)
         {
-            m_adsText = GameObject.Find("AdsText").GetComponent<Text>();
-            m_adsAcceptButtonImage = GameObject.Find("AdsAcceptButton").GetComponent<Image>();
-            m_adsCancelButtonImage = GameObject.Find("AdsCancelButton").GetComponent<Image>();
-            m_adsMenuImage = GameObject.Find("AdsMenu").GetComponent<Image>();
-            m_chimpionshipBeltImage = GameObject.Find("ChimpionshipBelt").GetComponent<Image>();
-            m_exitButtonImage = GameObject.Find("ExitButton").GetComponent<Image>();
-			m_landChimp = FindObjectOfType<LandChimp>();
-			m_highScoreDisplayText = GameObject.Find("HighScoreTextDisplay").GetComponent<Text>();
-			m_highScoreValueText = GameObject.Find("HighScoreValueDisplay").GetComponent<Text>();
-            m_muteButtonImage = GameObject.Find("MuteButton").GetComponent<Image>();
-			m_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
-			m_pauseMenuImage = GameObject.Find("PauseMenu").GetComponent<Image>();
-            m_restartText = GameObject.Find("RestartText").GetComponent<Text>();
-			m_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
-            m_restartButtonImage = GameObject.Find("RestartButton").GetComponent<Image>();
-            m_restartAcceptButtonImage = GameObject.Find("RestartAcceptButton").GetComponent<Image>();
-            m_restartCancelButtonImage = GameObject.Find("RestartCancelButton").GetComponent<Image>();
-            m_restartMenuImage = GameObject.Find("RestartMenu").GetComponent<Image>();
+            _adsText = GameObject.Find("AdsText").GetComponent<Text>();
+            _adsAcceptButtonImage = GameObject.Find("AdsAcceptButton").GetComponent<Image>();
+            _adsCancelButtonImage = GameObject.Find("AdsCancelButton").GetComponent<Image>();
+            _adsMenuImage = GameObject.Find("AdsMenu").GetComponent<Image>();
+            _chimpionshipBeltImage = GameObject.Find("ChimpionshipBelt").GetComponent<Image>();
+            _exitButtonImage = GameObject.Find("ExitButton").GetComponent<Image>();
+			_landChimp = FindObjectOfType<LandChimp>();
+			_highScoreDisplayText = GameObject.Find("HighScoreTextDisplay").GetComponent<Text>();
+			_highScoreValueText = GameObject.Find("HighScoreValueDisplay").GetComponent<Text>();
+            _muteButtonImage = GameObject.Find("MuteButton").GetComponent<Image>();
+			_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
+			_pauseMenuImage = GameObject.Find("PauseMenu").GetComponent<Image>();
+            _restartText = GameObject.Find("RestartText").GetComponent<Text>();
+			_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
+            _restartButtonImage = GameObject.Find("RestartButton").GetComponent<Image>();
+            _restartAcceptButtonImage = GameObject.Find("RestartAcceptButton").GetComponent<Image>();
+            _restartCancelButtonImage = GameObject.Find("RestartCancelButton").GetComponent<Image>();
+            _restartMenuImage = GameObject.Find("RestartMenu").GetComponent<Image>();
 			m_selfieButtonImage = GameObject.Find("SelfieButton").GetComponent<Image>();
 			m_selfiePanelImage = GameObject.Find("SelfiePanel").GetComponent<Image>();
-            m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
-            m_unmuteButtonImage = GameObject.Find("UnmuteButton").GetComponent<Image>();
+            _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+            _unmuteButtonImage = GameObject.Find("UnmuteButton").GetComponent<Image>();
 
             if(MusicManager.m_musicSource != null)
             {
                 if(!MusicManager.m_musicSource.isPlaying && m_playerMutedSounds == 0)
                 {
                     MusicManager.m_musicSource.Play();
-                    m_muteButtonImage.enabled = true;
-                    m_soundManager.m_soundsSource.enabled = true;
+                    _muteButtonImage.enabled = true;
+                    _soundManager.m_soundsSource.enabled = true;
                 }
 
                 else if(MusicManager.m_musicSource.isPlaying && m_playerMutedSounds == 0)
                 {
-                    m_muteButtonImage.enabled = true;
-                    m_soundManager.m_soundsSource.enabled = true;
+                    _muteButtonImage.enabled = true;
+                    _soundManager.m_soundsSource.enabled = true;
                 }
 
                 else if(MusicManager.m_musicSource.isPlaying && m_playerMutedSounds == 1)
                 {
                     MusicManager.m_musicSource.Pause();
-                    m_soundManager.m_soundsSource.enabled = false;
-                    m_unmuteButtonImage.enabled = true;
+                    _soundManager.m_soundsSource.enabled = false;
+                    _unmuteButtonImage.enabled = true;
                 }
 
                 else
                 {
-                    m_soundManager.m_soundsSource.enabled = false;
-                    m_unmuteButtonImage.enabled = true;
+                    _soundManager.m_soundsSource.enabled = false;
+                    _unmuteButtonImage.enabled = true;
                 }
             }
         }
 
 		else
 		{
-			m_backToLandLoseMenuImage = GameObject.Find("BackToLandLoseMenu").GetComponent<Image>();
-			m_backToLandLoseText = GameObject.Find("BackToLandLose").GetComponent<Text>();
-			m_backToLandWinMenuImage = GameObject.Find("BackToLandWinMenu").GetComponent<Image>();
-			m_backToLandWinText = GameObject.Find("BackToLandWin").GetComponent<Text>();
-            m_backToLandWithSuperMenuImage = GameObject.Find("BackToLandWithSuperMenu").GetComponent<Image>();
-			m_backToLandWithSuperText = GameObject.Find("BackToLandWithSuper").GetComponent<Text>();
-            m_chimpionshipBeltImage = GameObject.Find("ChimpionshipBelt").GetComponent<Image>();
-			m_continueButtonImage = GameObject.Find("ContinueButton").GetComponent<Image>();
-			m_highScoreDisplayText = GameObject.Find("HighScoreTextDisplay").GetComponent<Text>();
-			m_highScoreValueText = GameObject.Find("HighScoreValueDisplay").GetComponent<Text>();
-            m_muteButtonImage = GameObject.Find("MuteButton").GetComponent<Image>();
-			m_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
-			m_pauseMenuImage = GameObject.Find("PauseMenu").GetComponent<Image>();
-			m_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
-            m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
-            m_unmuteButtonImage = GameObject.Find("UnmuteButton").GetComponent<Image>();
+			_backToLandLoseMenuImage = GameObject.Find("BackToLandLoseMenu").GetComponent<Image>();
+			_backToLandLoseText = GameObject.Find("BackToLandLose").GetComponent<Text>();
+			_backToLandWinMenuImage = GameObject.Find("BackToLandWinMenu").GetComponent<Image>();
+			_backToLandWinText = GameObject.Find("BackToLandWin").GetComponent<Text>();
+            _backToLandWithSuperMenuImage = GameObject.Find("BackToLandWithSuperMenu").GetComponent<Image>();
+			_backToLandWithSuperText = GameObject.Find("BackToLandWithSuper").GetComponent<Text>();
+            _chimpionshipBeltImage = GameObject.Find("ChimpionshipBelt").GetComponent<Image>();
+			_continueButtonImage = GameObject.Find("ContinueButton").GetComponent<Image>();
+			_highScoreDisplayText = GameObject.Find("HighScoreTextDisplay").GetComponent<Text>();
+			_highScoreValueText = GameObject.Find("HighScoreValueDisplay").GetComponent<Text>();
+            _muteButtonImage = GameObject.Find("MuteButton").GetComponent<Image>();
+			_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
+			_pauseMenuImage = GameObject.Find("PauseMenu").GetComponent<Image>();
+			_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
+            _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+            _unmuteButtonImage = GameObject.Find("UnmuteButton").GetComponent<Image>();
 
             if(MusicManager.m_musicSource != null)
             {
                 if(!MusicManager.m_musicSource.isPlaying && m_playerMutedSounds == 0)
                 {
                     MusicManager.m_musicSource.Play();
-                    m_muteButtonImage.enabled = true;
-                    m_soundManager.m_soundsSource.enabled = true;
+                    _muteButtonImage.enabled = true;
+                    _soundManager.m_soundsSource.enabled = true;
                 }
 
                 else if(MusicManager.m_musicSource.isPlaying && m_playerMutedSounds == 0)
                 {
-                    m_muteButtonImage.enabled = true;
-                    m_soundManager.m_soundsSource.enabled = true;
+                    _muteButtonImage.enabled = true;
+                    _soundManager.m_soundsSource.enabled = true;
                 }
 
                 else if(MusicManager.m_musicSource.isPlaying && m_playerMutedSounds == 1)
                 {
                     MusicManager.m_musicSource.Pause();
-                    m_soundManager.m_soundsSource.enabled = false;
-                    m_unmuteButtonImage.enabled = true;
+                    _soundManager.m_soundsSource.enabled = false;
+                    _unmuteButtonImage.enabled = true;
                 }
 
                 else
                 {
-                    m_soundManager.m_soundsSource.enabled = false;
-                    m_unmuteButtonImage.enabled = true;
+                    _soundManager.m_soundsSource.enabled = false;
+                    _unmuteButtonImage.enabled = true;
                 }
             }
 		}
@@ -609,24 +628,24 @@ public class GameManager : MonoBehaviour
     {
         if(MusicManager.m_musicSource != null)
         {
-            if(m_muteButtonImage.enabled)
+            if(_muteButtonImage.enabled)
             {
-                m_muteButtonImage.enabled = false;
+                _muteButtonImage.enabled = false;
                 MusicManager.m_musicSource.Pause();
                 m_playerMutedSounds = 1;
                 BhanuPrefs.SetSoundsStatus(m_playerMutedSounds);
-                m_unmuteButtonImage.enabled = true;
-                m_soundManager.m_soundsSource.enabled = false;
+                _unmuteButtonImage.enabled = true;
+                _soundManager.m_soundsSource.enabled = false;
             }
 
-            else if(!m_muteButtonImage.enabled)
+            else if(!_muteButtonImage.enabled)
             {
-                m_muteButtonImage.enabled = true;
+                _muteButtonImage.enabled = true;
                 MusicManager.m_musicSource.Play();
                 m_playerMutedSounds = 0;
                 BhanuPrefs.SetSoundsStatus(m_playerMutedSounds);
-                m_unmuteButtonImage.enabled = false;
-                m_soundManager.m_soundsSource.enabled = true;
+                _unmuteButtonImage.enabled = false;
+                _soundManager.m_soundsSource.enabled = true;
             }
         }
     }
@@ -643,32 +662,32 @@ public class GameManager : MonoBehaviour
             if(MusicManager.m_musicSource.isPlaying)
             {
                 MusicManager.m_musicSource.Pause();
-                m_muteButtonImage.enabled = false;
+                _muteButtonImage.enabled = false;
             }
             else
             {
-                m_unmuteButtonImage.enabled = false;
+                _unmuteButtonImage.enabled = false;
             }
         }
 
-        m_chimpionshipBeltImage.enabled = false;
+        _chimpionshipBeltImage.enabled = false;
         
-        if(m_exitButtonImage != null)
+        if(_exitButtonImage != null)
         {
-            m_exitButtonImage.enabled = true;
+            _exitButtonImage.enabled = true;
         }
 
-		m_highScoreDisplayText.enabled = false;
-		m_highScoreValueText.enabled = false;
+		_highScoreDisplayText.enabled = false;
+		_highScoreValueText.enabled = false;
         
-        if(m_restartButtonImage != null)
+        if(_restartButtonImage != null)
         {
-            m_restartButtonImage.enabled = true;
+            _restartButtonImage.enabled = true;
         }
         
-		m_pauseButtonImage.enabled = false;
-		m_pauseMenuImage.enabled = true;
-		m_resumeButtonImage.enabled = true;
+		_pauseButtonImage.enabled = false;
+		_pauseMenuImage.enabled = true;
+		_resumeButtonImage.enabled = true;
 
 		if(m_selfiePanelImage != null)
 		{
@@ -685,18 +704,18 @@ public class GameManager : MonoBehaviour
 
 	public void Quit()
 	{
-        m_facebookButtonImage.enabled = false;
-        m_fbInviteButtonImage.enabled = false;
-        m_noInternetText.enabled = false;
-        m_playButtonImage.enabled = false;
-        m_profilePicImage.enabled = false;
-		m_quitButtonImage.enabled = false;
-        m_usernameText.enabled = false;
+        _facebookButtonImage.enabled = false;
+        _fbInviteButtonImage.enabled = false;
+        _noInternetText.enabled = false;
+        _playButtonImage.enabled = false;
+        _profilePicImage.enabled = false;
+		_quitButtonImage.enabled = false;
+        _usernameText.enabled = false;
 
-		m_quitMenuImage.enabled = true;
-		m_quitAcceptButtonImage.enabled = true;
-		m_quitCancelButtonImage.enabled = true;
-		m_quitText.enabled = true;
+		_quitMenuImage.enabled = true;
+		_quitAcceptButtonImage.enabled = true;
+		_quitCancelButtonImage.enabled = true;
+		_quitText.enabled = true;
 	}
 
 	public void QuitAccept()
@@ -707,30 +726,35 @@ public class GameManager : MonoBehaviour
 
 	public void QuitCancel()
 	{
-        m_facebookButtonImage.enabled = true;
-        m_fbInviteButtonImage.enabled = true;
-		m_playButtonImage.enabled = true;
-        m_profilePicImage.enabled = true;
-		m_quitButtonImage.enabled = true;
-        m_usernameText.enabled = true;
+        _facebookButtonImage.enabled = true;
+        _fbInviteButtonImage.enabled = true;
+		_playButtonImage.enabled = true;
 
-		m_quitMenuImage.enabled = false;
-		m_quitAcceptButtonImage.enabled = false;
-		m_quitCancelButtonImage.enabled = false;
-		m_quitText.enabled = false;
+        if(_profilePicEnabled)
+        {
+            _profilePicImage.enabled = true;
+        }
+        
+		_quitButtonImage.enabled = true;
+        _usernameText.enabled = true;
+
+		_quitMenuImage.enabled = false;
+		_quitAcceptButtonImage.enabled = false;
+		_quitCancelButtonImage.enabled = false;
+		_quitText.enabled = false;
 	}
 
 	public void Restart()
 	{
-		m_exitButtonImage.enabled = false;
-		m_pauseMenuImage.enabled = false;
-		m_restartButtonImage.enabled = false;
-		m_resumeButtonImage.enabled = false;
+		_exitButtonImage.enabled = false;
+		_pauseMenuImage.enabled = false;
+		_restartButtonImage.enabled = false;
+		_resumeButtonImage.enabled = false;
 
-		m_restartMenuImage.enabled = true;
-		m_restartAcceptButtonImage.enabled = true;
-		m_restartCancelButtonImage.enabled = true;
-		m_restartText.enabled = true;
+		_restartMenuImage.enabled = true;
+		_restartAcceptButtonImage.enabled = true;
+		_restartCancelButtonImage.enabled = true;
+		_restartText.enabled = true;
 	}
 
 	public void RestartAccept()
@@ -748,15 +772,15 @@ public class GameManager : MonoBehaviour
 
     public void RestartCancel()
 	{
-		m_exitButtonImage.enabled = true;
-		m_pauseMenuImage.enabled = true;
-		m_restartButtonImage.enabled = true;
-		m_resumeButtonImage.enabled = true;
+		_exitButtonImage.enabled = true;
+		_pauseMenuImage.enabled = true;
+		_restartButtonImage.enabled = true;
+		_resumeButtonImage.enabled = true;
 
-		m_restartMenuImage.enabled = false;
-		m_restartAcceptButtonImage.enabled = false;
-		m_restartCancelButtonImage.enabled = false;
-		m_restartText.enabled = false;
+		_restartMenuImage.enabled = false;
+		_restartAcceptButtonImage.enabled = false;
+		_restartCancelButtonImage.enabled = false;
+		_restartText.enabled = false;
 	}
 
 	public void Resume()
@@ -766,60 +790,60 @@ public class GameManager : MonoBehaviour
             if(m_playerMutedSounds == 0)
             {
                 MusicManager.m_musicSource.Play();
-                m_muteButtonImage.enabled = true;
+                _muteButtonImage.enabled = true;
             }
 
             else if(m_playerMutedSounds == 1)
             {
-                m_unmuteButtonImage.enabled = true;
+                _unmuteButtonImage.enabled = true;
             }
         }
 
-        m_chimpionshipBeltImage.enabled = true;
+        _chimpionshipBeltImage.enabled = true;
 
-        if(m_exitButtonImage != null)
+        if(_exitButtonImage != null)
         {
-            m_exitButtonImage.enabled = false;
+            _exitButtonImage.enabled = false;
         }
 
-		m_highScoreDisplayText.enabled = true;
-		m_highScoreValueText.enabled = true;
-		m_pauseButtonImage.enabled = true;
-		m_pauseMenuImage.enabled = false;
+		_highScoreDisplayText.enabled = true;
+		_highScoreValueText.enabled = true;
+		_pauseButtonImage.enabled = true;
+		_pauseMenuImage.enabled = false;
 
-        if(m_restartButtonImage != null)
+        if(_restartButtonImage != null)
         {
-            m_restartButtonImage.enabled = false;
+            _restartButtonImage.enabled = false;
         }
 
-        m_resumeButtonImage.enabled = false;
+        _resumeButtonImage.enabled = false;
 
 		Time.timeScale = 1;
 	}
 
 	public void SelfieClicked()
 	{
-		m_soundManager.m_soundsSource.clip = m_soundManager.m_selfie;
+		_soundManager.m_soundsSource.clip = _soundManager.m_selfie;
 		
-        if(m_soundManager.m_soundsSource.enabled)
+        if(_soundManager.m_soundsSource.enabled)
         {
-            m_soundManager.m_soundsSource.Play();
+            _soundManager.m_soundsSource.Play();
         }
 
 		m_selfieButtonImage.enabled = false;
 
-		if(m_selfieFlashEnabled)
+		if(_selfieFlashEnabled)
 		{
 			m_selfiePanelImage.enabled = true;
 			Invoke("EndFlash" , 0.25f);
 		}
 
-		if(m_landChimp.m_isSlipping)
+		if(_landChimp.m_isSlipping)
         {
             ScoreManager.m_scoreValue += 60;
         }
 
-        else if(m_landChimp.m_isSuper) 
+        else if(_landChimp.m_isSuper) 
 		{
 			ScoreManager.m_scoreValue += 200;
 		} 

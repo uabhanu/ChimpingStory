@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 0b4cbc8402501464caded0f7edab3779
-timeCreated: 1520179337
+timeCreated: 1520420391
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -344,10 +344,10 @@ TextureImporter:
       name: Unmute
       rect:
         serializedVersion: 2
-        x: 481
-        y: 1089
-        width: 199
-        height: 203
+        x: 490
+        y: 1090
+        width: 192
+        height: 192
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -596,10 +596,10 @@ TextureImporter:
       name: Mute
       rect:
         serializedVersion: 2
-        x: 76
-        y: 199
-        width: 187
-        height: 187
+        x: 68
+        y: 189
+        width: 192
+        height: 192
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -638,10 +638,10 @@ TextureImporter:
       name: FBLogIn
       rect:
         serializedVersion: 2
-        x: 708
-        y: 195
-        width: 186
-        height: 187
+        x: 706
+        y: 187
+        width: 191
+        height: 191
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -668,7 +668,7 @@ TextureImporter:
         serializedVersion: 2
         x: 71
         y: 0
-        width: 186
+        width: 191
         height: 187
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
