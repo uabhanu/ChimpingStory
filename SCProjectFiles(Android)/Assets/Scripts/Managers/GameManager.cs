@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] bool _isFBShareTestMode , _isLoggedIn , _isMemoryLeakTestingMode , _selfieFlashEnabled;
     [SerializeField] GameObject _fbInviteSuccessMenuObj , _fbShareMenuObj , _fbShareSuccessMenuObj , _fbShareTestMenuObj , _loggedInObj , _loggedOutObj;
     [SerializeField] Image _facebookButtonImage , _fallingLevelImage , _fbInviteButtonImage , _landLevelImage , _profilePicImage , _shareButtonImage , _waterLevelImage;
-    [SerializeField] Text _memoryLeakTestText , _usernameText;
+    [SerializeField] Text _fbScoreText , _memoryLeakTestText , _usernameText;
 
     public static bool m_isTestingUnityEditor;
     public static Image m_selfieButtonImage , m_selfiePanelImage;
@@ -255,7 +255,7 @@ public class GameManager : MonoBehaviour
 
     void FBHighScoreGet()
     {
-        FB.API("/USER_ID/scores" , HttpMethod.GET , FBHighScoreGetCallback);
+       FB.API("/me/scores" , HttpMethod.GET , FBHighScoreGetCallback);
     }
 
     void FBHighScoreGetCallback(IGraphResult getScoreResult)
@@ -266,7 +266,7 @@ public class GameManager : MonoBehaviour
     void FBHighScoreSet()
     {
         float highScore = BhanuPrefs.GetHighScore();
-        _scores = new Dictionary<string , string>(){ {"scores" , highScore.ToString() } };
+        _scores = new Dictionary<string , string>(){ {"score" , highScore.ToString()} }; //TODO this will work only after Facebook approval which is Pending, continue after your app is approved
         FB.API("/me/scores" , HttpMethod.POST , FBHighScoreSetCallback , _scores);
     }
 
@@ -356,7 +356,9 @@ public class GameManager : MonoBehaviour
             _noInternetText.enabled = false;
 		    List<string> permissions = new List<string>();
 		    permissions.Add("public_profile");
-		    FB.LogInWithReadPermissions(permissions , FBAuthCallBack);
+            permissions.Add("publish_actions");
+            Debug.Log("Permissions for Bhanu : " + permissions.GetType());
+            FB.LogInWithPublishPermissions(permissions , FBAuthCallBack);
         }
 	}
 
@@ -403,8 +405,8 @@ public class GameManager : MonoBehaviour
 
 	public void FBShare()
 	{
-		//FBHighScoreSet();
-        //FBHighScoreGet();
+		FBHighScoreSet();
+        FBHighScoreGet();
         Screen.orientation = ScreenOrientation.Portrait;
 
 		FB.ShareLink
