@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
 	{
-        BhanuFacebookInit();
+        FBLogInCheck();
         GetBhanuObjects();
     }
 	
@@ -138,21 +138,6 @@ public class GameManager : MonoBehaviour
         _pauseButtonImage.enabled = false;
         _unmuteButtonImage.enabled = false;
         Time.timeScale = 0;
-    }
-
-    public void BhanuFacebookInit()
-    {
-        if(!FB.IsInitialized) 
-		{
-			FB.Init(FBSetInit , FBOnHideUnity);	
-		}
-
-        if(FB.IsLoggedIn && _loggedInObj != null && _loggedOutObj != null)
-        {
-            _loggedInObj.SetActive(true);
-            FBLoggedIn();
-            _loggedOutObj.SetActive(false);
-        }
     }
 
     public void Continue()
@@ -275,6 +260,14 @@ public class GameManager : MonoBehaviour
         Debug.Log(setScoreResult.RawResult);
     }
 
+    void FBInit()
+    {
+        if(!FB.IsInitialized) 
+		{
+			FB.Init(FBSetInit , FBOnHideUnity);	
+		}
+    }
+
     public void FBInvite() //TODO When you figure out how to make this work, make Invite Button of LoggedinObj in the scene, Active
     {
         Screen.orientation = ScreenOrientation.Portrait;
@@ -349,17 +342,32 @@ public class GameManager : MonoBehaviour
         }
 	}
 
-	public void FBLogin()
-	{
+    void FBLogIn()
+    {
         if(FB.IsInitialized)
         {
             _noInternetText.enabled = false;
 		    List<string> permissions = new List<string>();
 		    permissions.Add("public_profile");
-            permissions.Add("publish_actions"); //TODO This may not be needed, test by removing this after Facebook Approval
-            FB.LogInWithPublishPermissions(permissions , FBAuthCallBack);
+            FB.LogInWithReadPermissions(permissions , FBAuthCallBack); //TODO If you use the line below, delete this one
+            FB.LogInWithPublishPermissions(permissions , FBAuthCallBack); //TODO You may need to use this when your app is authorized by Facebook and this crashes the app otherwise, so use above line for testing
+            FBLoggedIn();
         }
+    }
+
+	public void FBLoginButton()
+	{
+        FBInit();
+        Invoke("FBLogIn" , 0.2f);
 	}
+
+    void FBLogInCheck()
+    {
+        if(FB.IsLoggedIn && _loggedInObj != null && _loggedOutObj != null)
+        {
+            FBLoggedIn();
+        }
+    }
 
 	void FBOnHideUnity(bool isGameShown)
 	{
