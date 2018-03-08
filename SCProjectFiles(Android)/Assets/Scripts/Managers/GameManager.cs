@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     string _applinkURL;
 	Text _adsText , _backToLandLoseText , _backToLandWinText , _backToLandWithSuperText , _highScoreDisplayText , _highScoreValueText , _noInternetText , _quitText , _restartText;
 
-	[SerializeField] bool _isFBShareTestMode , _isLoggedIn , _isMemoryLeakTestingMode , _selfieFlashEnabled;
+	[SerializeField] bool _isFBShareTestMode , _isMemoryLeakTestingMode , _selfieFlashEnabled;
     [SerializeField] GameObject _fbInviteSuccessMenuObj , _fbShareMenuObj , _fbShareSuccessMenuObj , _fbShareTestMenuObj , _loggedInObj , _loggedOutObj;
     [SerializeField] Image _facebookButtonImage , _fallingLevelImage , _fbInviteButtonImage , _landLevelImage , _profilePicImage , _shareButtonImage , _waterLevelImage;
     [SerializeField] Text _fbScoreText , _memoryLeakTestText , _usernameText;
@@ -31,7 +31,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
 	{
-        FBLogInCheck();
+        FBInit();
+        Invoke("FBLogInCheck" , 0.2f);
         GetBhanuObjects();
     }
 	
@@ -172,22 +173,22 @@ public class GameManager : MonoBehaviour
     
     void FBAuthCallBack(IResult authResult)
 	{
-		if(authResult.Error != null) 
+        if(authResult.Cancelled) 
 		{
-			Debug.LogError("Sir Bhanu, there is an issue : " + authResult.Error);	
-			_noInternetText.enabled = true;
-		} 
+			Debug.LogWarning("Sir Bhanu, You have cancelled the LogIn");
+            FBLoggedOut();
+		}
+        
+        else if(!string.IsNullOrEmpty(authResult.Error))
+        {
+            Debug.LogWarning("Sir Bhanu, You have pressed Error Button");
+            FBLoggedOut();
+        }
 
-		else if(authResult.Error == null)
+		else if(!string.IsNullOrEmpty(authResult.RawResult)) 
 		{
-			if(FB.IsLoggedIn) 
-			{
-				FBLoggedIn();
-			} 
-			else 
-			{
-				FBLoggedOut();
-			}
+            Debug.LogWarning("Sir Bhanu, Your LogIn : " + authResult.RawResult);
+            FBLoggedIn();
 		}
 	}
 
@@ -311,12 +312,10 @@ public class GameManager : MonoBehaviour
 
     void FBLoggedIn()
 	{
-		_isLoggedIn = true;
+        FB.API("/me?fields=first_name", HttpMethod.GET, FBUsernameDisplay);
+        FB.API("/me/picture?type=square&height=480&width=480", HttpMethod.GET, FBProfilePicDisplay);
 
-		FB.API("/me?fields=first_name" , HttpMethod.GET , FBUsernameDisplay);
-		FB.API("/me/picture?type=square&height=480&width=480" , HttpMethod.GET , FBProfilePicDisplay);
-
-		if(_loggedInObj != null && _loggedOutObj != null)
+        if(_loggedInObj != null && _loggedOutObj != null)
         {
             _loggedInObj.SetActive(true);
 		    _loggedOutObj.SetActive(false);		
@@ -325,12 +324,12 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogError("Sir Bhanu, Logged In & Out Objs are not assigned probably because you didn't start the game from Main Menu :)");
         }
+
+        Screen.orientation = ScreenOrientation.Landscape;
 	}
 
 	void FBLoggedOut()
 	{
-		_isLoggedIn = false;
-
 		if(_loggedInObj != null && _loggedOutObj != null)
         {
             _loggedInObj.SetActive(false);
@@ -340,6 +339,8 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogError("Sir Bhanu, Logged In & Out Objs are not assigned probably because you didn't start the game from Main Menu :)");
         }
+
+        Screen.orientation = ScreenOrientation.Landscape;
 	}
 
     void FBLogIn()
@@ -350,22 +351,27 @@ public class GameManager : MonoBehaviour
 		    List<string> permissions = new List<string>();
 		    permissions.Add("public_profile");
             FB.LogInWithReadPermissions(permissions , FBAuthCallBack); //TODO If you use the line below, delete this one
-            FB.LogInWithPublishPermissions(permissions , FBAuthCallBack); //TODO You may need to use this when your app is authorized by Facebook and this crashes the app otherwise, so use above line for testing
-            FBLoggedIn();
+            //FB.LogInWithPublishPermissions(permissions , FBAuthCallBack); //TODO You may need to use this when your app is authorized by Facebook and this crashes the app otherwise, so use above line for testing
         }
     }
 
 	public void FBLoginButton()
 	{
-        FBInit();
-        Invoke("FBLogIn" , 0.2f);
+        Screen.orientation = ScreenOrientation.Portrait;
+        FBLogIn();
+        Invoke("FBLoggedIn" , 0.4f);
 	}
 
     void FBLogInCheck()
     {
-        if(FB.IsLoggedIn && _loggedInObj != null && _loggedOutObj != null)
+        if(FB.IsLoggedIn)
         {
             FBLoggedIn();
+        }
+        else
+        {
+            FBLoggedOut();
+            Invoke("FBLogInCheck" , 0.2f);
         }
     }
 
@@ -459,6 +465,10 @@ public class GameManager : MonoBehaviour
 		{
 			_usernameText.text =  "Hi " + usernameResult.ResultDictionary["first_name"];
 		}
+        else
+        {
+            FBLoggedOut();
+        }
 	}
 
     void GetBhanuObjects()
