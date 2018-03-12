@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 {
 	AudioSource _musicSource;
     bool _profilePicEnabled = false;
+    Dictionary<string , object> _highScoresData;
     Dictionary<string , string> _scores = null;
 	Image _adsAcceptButtonImage , _adsCancelButtonImage , _adsMenuImage , _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _chimpionshipBeltImage , _continueButtonImage;
     Image _exitButtonImage , _muteButtonImage , _pauseButtonImage , _pauseMenuImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage;
@@ -247,8 +248,10 @@ public class GameManager : MonoBehaviour
 
     void FBHighScoreGetCallback(IGraphResult getScoreResult)
     {
-        IDictionary<string , object> highScoresList = getScoreResult.ResultDictionary;
-        _fbScoreText.text = getScoreResult.RawResult; //TODO Figure out a way to get only score value and omit the rest
+        _highScoresList = getScoreResult.ResultDictionary["data"] as List<object>;
+        _highScoresData = _highScoresList[0] as Dictionary<string , object>;
+        long highScore = (long)_highScoresData["score"];
+        _fbScoreText.text = "Score : " + highScore.ToString();
     }
 
     void FBHighScoreSet()
@@ -262,7 +265,7 @@ public class GameManager : MonoBehaviour
 
     void FBHighScoreSetCallback(IGraphResult setScoreResult)
     {
-        _fbScoreText.text = setScoreResult.RawResult; //TODO This is failing with extended permissions requirement error code 200
+        //_fbScoreText.text = setScoreResult.RawResult; //TODO This is failing with extended permissions requirement error code 200
     }
 
     void FBInit()
