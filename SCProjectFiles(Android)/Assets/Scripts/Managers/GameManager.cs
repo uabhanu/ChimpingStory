@@ -25,14 +25,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] Image _facebookButtonImage , _fallingLevelImage , _fbInviteButtonImage , _landLevelImage , _profilePicImage , _shareButtonImage , _waterLevelImage;
     [SerializeField] Text _fbScoreText , _memoryLeakTestText , _usernameText;
 
-    public static bool _isMemoryLeakTestingMode , m_isTestingUnityEditor;
+    public static bool m_isMemoryLeakTestingMode , m_isTestingUnityEditor;
     public static Image m_selfieButtonImage , m_selfiePanelImage;
     public static int m_currentScene , m_playerMutedSounds;
 
     void Start()
 	{
         FBInit();
-        _isMemoryLeakTestingMode = true; //TODO Remove this for Live Version
+        m_isMemoryLeakTestingMode = true; //TODO Remove this for Live Version
         Invoke("FBLogInCheck" , 0.2f);
         GetBhanuObjects();
     }
@@ -242,24 +242,27 @@ public class GameManager : MonoBehaviour
 
     void FBHighScoreGet()
     {
-       FB.API("/me/scores" , HttpMethod.GET , FBHighScoreGetCallback);
+       FB.API("/app/scores?fields=score,user.limit(30)" , HttpMethod.GET , FBHighScoreGetCallback);
     }
 
     void FBHighScoreGetCallback(IGraphResult getScoreResult)
     {
-        Debug.Log(getScoreResult.RawResult);
+        IDictionary<string , object> highScoresList = getScoreResult.ResultDictionary;
+        _fbScoreText.text = getScoreResult.RawResult; //TODO Figure out a way to get only score value and omit the rest
     }
 
     void FBHighScoreSet()
     {
         float highScore = BhanuPrefs.GetHighScore();
-        _scores = new Dictionary<string , string>(){ {"score" , highScore.ToString()} }; //TODO this will work only after Facebook approval which is Pending, continue after your app is approved
+        //_fbScoreText.text = "Score : " + highScore.ToString();
+        _scores = new Dictionary<string , string>(){ {"score" , highScore.ToString()} };
+        //_fbScoreText.text = "Score : " + _scores;
         FB.API("/me/scores" , HttpMethod.POST , FBHighScoreSetCallback , _scores);
     }
 
     void FBHighScoreSetCallback(IGraphResult setScoreResult)
     {
-        Debug.Log(setScoreResult.RawResult);
+        _fbScoreText.text = setScoreResult.RawResult; //TODO This is failing with extended permissions requirement error code 200
     }
 
     void FBInit()
@@ -483,7 +486,7 @@ public class GameManager : MonoBehaviour
 
         m_playerMutedSounds = BhanuPrefs.GetSoundsStatus();
 
-        if(_isMemoryLeakTestingMode)
+        if(m_isMemoryLeakTestingMode)
         {
             if(m_currentScene == 1)
             {
