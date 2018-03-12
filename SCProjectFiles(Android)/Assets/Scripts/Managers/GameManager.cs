@@ -20,18 +20,19 @@ public class GameManager : MonoBehaviour
     string _applinkURL;
 	Text _adsText , _backToLandLoseText , _backToLandWinText , _backToLandWithSuperText , _highScoreDisplayText , _highScoreValueText , _noInternetText , _quitText , _restartText;
 
-	[SerializeField] bool _isFBShareTestMode , _isMemoryLeakTestingMode , _selfieFlashEnabled;
+	[SerializeField] bool _isFBShareTestMode , _selfieFlashEnabled;
     [SerializeField] GameObject _fbInviteSuccessMenuObj , _fbShareMenuObj , _fbShareSuccessMenuObj , _fbShareTestMenuObj , _loggedInObj , _loggedOutObj;
     [SerializeField] Image _facebookButtonImage , _fallingLevelImage , _fbInviteButtonImage , _landLevelImage , _profilePicImage , _shareButtonImage , _waterLevelImage;
     [SerializeField] Text _fbScoreText , _memoryLeakTestText , _usernameText;
 
-    public static bool m_isTestingUnityEditor;
+    public static bool _isMemoryLeakTestingMode , m_isTestingUnityEditor;
     public static Image m_selfieButtonImage , m_selfiePanelImage;
     public static int m_currentScene , m_playerMutedSounds;
 
     void Start()
 	{
         FBInit();
+        _isMemoryLeakTestingMode = true; //TODO Remove this for Live Version
         Invoke("FBLogInCheck" , 0.2f);
         GetBhanuObjects();
     }
@@ -337,7 +338,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Sir Bhanu, Logged In & Out Objs are not assigned probably because you didn't start the game from Main Menu :)");
+            Debug.LogError("Sir Bhanu, Logged In & Out Objs are not assigned this is not Main Menu :)");
         }
 
         Screen.orientation = ScreenOrientation.Landscape;

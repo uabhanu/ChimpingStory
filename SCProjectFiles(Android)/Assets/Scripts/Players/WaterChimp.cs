@@ -17,8 +17,8 @@ public class WaterChimp : MonoBehaviour
 
 	[SerializeField] Sprite[] m_chimpSprites;		
 
-    public LevelManager levelManager;                                   //A link to the Level Manager
-    public SpriteRenderer subRenderer;									//A link to the sub material
+    public LevelManager levelManager;   
+    public SpriteRenderer chimpRenderer;
     public Transform shield;                                            //The shield sprite
     public float minDepth;                                              //Minimum depth
     public float maxDepth;						                        //Maximum depth
@@ -70,7 +70,7 @@ public class WaterChimp : MonoBehaviour
 
         rotationDiv = maxVerticalSpeed / maxRotation;
 
-		subRenderer.sprite = m_chimpSprites[currentSkinID * 2 + 1];
+		chimpRenderer.sprite = m_chimpSprites[currentSkinID * 2 + 1];
 
         Invoke("BackToLandWin" , 30f);
     }
@@ -148,7 +148,7 @@ public class WaterChimp : MonoBehaviour
                 playerVulnerability = PlayerVulnerability.Disabled;
                 playerStatus = PlayerStatus.DROWN;
 
-				subRenderer.sprite = m_chimpSprites[currentSkinID * 2];
+				chimpRenderer.sprite = m_chimpSprites[currentSkinID * 2];
                 bubbles.Stop();
             }
             
@@ -182,7 +182,7 @@ public class WaterChimp : MonoBehaviour
         playerVulnerability = PlayerVulnerability.Enabled;
         powerupUsage = PowerupUsage.Enabled;
 
-		subRenderer.sprite = m_chimpSprites[currentSkinID * 2 + 1];
+		chimpRenderer.sprite = m_chimpSprites[currentSkinID * 2 + 1];
         bubbles.Play();
 	}
     
@@ -205,7 +205,7 @@ public class WaterChimp : MonoBehaviour
 		currentSkinID = id;
 
 		if (playerStatus != PlayerStatus.Crashed)
-			subRenderer.sprite = m_chimpSprites[currentSkinID * 2 + 1];
+			chimpRenderer.sprite = m_chimpSprites[currentSkinID * 2 + 1];
 	}
     
 	public void Reset()
@@ -217,7 +217,7 @@ public class WaterChimp : MonoBehaviour
 
         newRotation = new Vector3(0, 0, 0);
 
-		subRenderer.sprite = m_chimpSprites[currentSkinID * 2 + 1];
+		chimpRenderer.sprite = m_chimpSprites[currentSkinID * 2 + 1];
 
         bubbles.Stop();
         bubbles.Clear();

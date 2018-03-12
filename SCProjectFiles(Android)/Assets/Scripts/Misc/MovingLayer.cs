@@ -49,10 +49,10 @@ public class MovingLayer : MonoBehaviour
             foreach(Transform item in activeElements)
             {
                 //Move the item to the left
-                item.transform.position -= Vector3.right * startingSpeed * speedMultiplier * Time.deltaTime;
+                item.transform.position += Vector3.right * startingSpeed * speedMultiplier * Time.deltaTime;
 
                 //If the item has reached the reset position
-                if(item.transform.position.x < resetAt)
+                if(item.transform.position.x > resetAt)
                     removeLast = true;
             }
 
