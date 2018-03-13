@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
         Invoke("FBLogInCheck" , 0.2f);
         GetBhanuObjects();
     }
-	
+
     public void Ads()
     {
         _adsMenuImage.enabled = true;
@@ -172,27 +172,6 @@ public class GameManager : MonoBehaviour
             _applinkURL = "http://uabhanu.wixsite.com/portfolio";
         }
     }
-    
-    void FBAuthCallBack(IResult authResult)
-	{
-        if(authResult.Cancelled) 
-		{
-			Debug.LogWarning("Sir Bhanu, You have cancelled the LogIn");
-            FBLoggedOut();
-		}
-        
-        else if(!string.IsNullOrEmpty(authResult.Error))
-        {
-            Debug.LogWarning("Sir Bhanu, You have pressed Error Button");
-            FBLoggedOut();
-        }
-
-		else if(!string.IsNullOrEmpty(authResult.RawResult)) 
-		{
-            Debug.LogWarning("Sir Bhanu, Your LogIn : " + authResult.RawResult);
-            FBLoggedIn();
-		}
-	}
 
     public void FBChallengePlayers()
     {
@@ -251,7 +230,7 @@ public class GameManager : MonoBehaviour
         _highScoresList = getScoreResult.ResultDictionary["data"] as List<object>;
         _highScoresData = _highScoresList[0] as Dictionary<string , object>;
         long highScore = (long)_highScoresData["score"];
-        _fbScoreText.text = "Score : " + highScore.ToString();
+        //_fbScoreText.text = "Score : " + highScore.ToString();
     }
 
     void FBHighScoreSet()
@@ -265,14 +244,17 @@ public class GameManager : MonoBehaviour
 
     void FBHighScoreSetCallback(IGraphResult setScoreResult)
     {
-        //_fbScoreText.text = setScoreResult.RawResult; //TODO This is failing with extended permissions requirement error code 200
+        Debug.Log(setScoreResult.RawResult); //Interestingly, this is not working
+        _fbScoreText.text = setScoreResult.RawResult; //TODO This is failing with extended permissions requirement error code 200
     }
 
     void FBInit()
     {
         if(!FB.IsInitialized) 
 		{
-			FB.Init(FBSetInit , FBOnHideUnity);	
+            HideUnityDelegate FBOnHideUnity = null;
+            InitDelegate FBSetInit = null;
+            FB.Init(FBSetInit , FBOnHideUnity);	
 		}
     }
 
@@ -282,7 +264,7 @@ public class GameManager : MonoBehaviour
 
         FB.Mobile.AppInvite
         (
-            new System.Uri("http://uabhanu.wixsite.com/portfolio"), //TODO Game URL here when Live
+            new Uri("http://uabhanu.wixsite.com/portfolio"), //TODO Game URL here when Live
             callback: FBInviteCallback
         );
     }
@@ -319,8 +301,10 @@ public class GameManager : MonoBehaviour
 
     void FBLoggedIn()
 	{
-        FB.API("/me?fields=first_name", HttpMethod.GET, FBUsernameDisplay);
-        FB.API("/me/picture?type=square&height=480&width=480", HttpMethod.GET, FBProfilePicDisplay);
+        FacebookDelegate<IGraphResult> FBUsernameDisplay = null;
+        FB.API("/me?fields=first_name" , HttpMethod.GET , FBUsernameDisplay);
+        FacebookDelegate<IGraphResult> FBProfilePicDisplay = null;
+        FB.API("/me/picture?type=square&height=480&width=480" , HttpMethod.GET , FBProfilePicDisplay);
 
         if(_loggedInObj != null && _loggedOutObj != null)
         {
@@ -356,13 +340,34 @@ public class GameManager : MonoBehaviour
         {
             _noInternetText.enabled = false;
 		    List<string> permissions = new List<string>();
-		    permissions.Add("public_profile");
-            FB.LogInWithReadPermissions(permissions , FBAuthCallBack); //TODO If you use the line below, delete this one
-            //FB.LogInWithPublishPermissions(permissions , FBAuthCallBack); //TODO You may need to use this when your app is authorized by Facebook and this crashes the app otherwise, so use above line for testing
+		    permissions.Add("publish_actions");
+            FB.LogInWithReadPermissions(permissions , FBLogInCallBack); //TODO If you use the line below, delete this one
+                                                                        //FB.LogInWithPublishPermissions(permissions , FBAuthCallBack); //TODO You may need to use this when your app is authorized by Facebook and this crashes the app otherwise, so use above line for testing
         }
     }
 
-	public void FBLoginButton()
+    void FBLogInCallBack(IResult logInResult)
+	{
+        if(logInResult.Cancelled) 
+		{
+			Debug.LogWarning("Sir Bhanu, You have cancelled the LogIn");
+            FBLoggedOut();
+		}
+        
+        else if(!string.IsNullOrEmpty(logInResult.Error))
+        {
+            Debug.LogWarning("Sir Bhanu, You have pressed Error Button");
+            FBLoggedOut();
+        }
+
+		else if(!string.IsNullOrEmpty(logInResult.RawResult)) 
+		{
+            Debug.LogWarning("Sir Bhanu, Your LogIn : " + logInResult.RawResult);
+            FBLoggedIn();
+		}
+	}
+
+	void FBLoginButton()
 	{
         Screen.orientation = ScreenOrientation.Portrait;
         FBLogIn();
@@ -423,16 +428,17 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	public void FBShare()
+	void FBShare()
 	{
-		FBHighScoreSet();
-        FBHighScoreGet();
+        FBHighScoreSet();
+        FBHighScoreGet(); //TODO This is ok for now for testing but should happen only once upon game installation
+        
         Screen.orientation = ScreenOrientation.Portrait;
 
 		FB.ShareLink
 		(
 			contentTitle: "Fourth Lion Studios Message",
-			contentURL: new System.Uri("http://uabhanu.wixsite.com/portfolio"), //TODO Game URL here when Live
+			contentURL: new Uri("http://uabhanu.wixsite.com/portfolio"), //TODO Game URL here when Live
 			contentDescription: "We really hope you love the game", 
             callback: FBShareCallback
 		);
@@ -631,25 +637,25 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public void GoToFallingLevel()
+    void GoToFallingLevel()
     {
         Screen.orientation = ScreenOrientation.Portrait;
         SceneManager.LoadScene("FallingDown");
     }
 
-    public void GoToLandLevel()
+    void GoToLandLevel()
     {
         Screen.orientation = ScreenOrientation.Landscape;
         SceneManager.LoadScene("LandRunner");
     }
 
-    public void GoToWaterLevel()
+    void GoToWaterLevel()
     {
         Screen.orientation = ScreenOrientation.Landscape;
         SceneManager.LoadScene("WaterSwimmer");
     }
 
-    public void MuteUnmute()
+    void MuteUnmute()
     {
         if(MusicManager.m_musicSource != null)
         {
@@ -675,12 +681,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void OK()
+    void OK()
     {
-        SceneManager.LoadScene(m_currentScene);
+        _fbShareSuccessMenuObj.SetActive(false);
     }
 
-    public void Pause()
+    void Pause()
 	{
         if(MusicManager.m_musicSource != null)
         {
@@ -722,12 +728,12 @@ public class GameManager : MonoBehaviour
 		Time.timeScale = 0;
 	}
 
-	public void Play()
+	void Play()
 	{
 		SceneManager.LoadScene("LandRunner");
 	}
 
-	public void Quit()
+	void Quit()
 	{
         _facebookButtonImage.enabled = false;
         _fbInviteButtonImage.enabled = false;
@@ -743,13 +749,13 @@ public class GameManager : MonoBehaviour
 		_quitText.enabled = true;
 	}
 
-	public void QuitAccept()
+	void QuitAccept()
 	{
 		Debug.Log("Quit Game");
 		Application.Quit();
 	}
 
-	public void QuitCancel()
+	void QuitCancel()
 	{
         _facebookButtonImage.enabled = true;
         _fbInviteButtonImage.enabled = true;
@@ -769,7 +775,7 @@ public class GameManager : MonoBehaviour
 		_quitText.enabled = false;
 	}
 
-	public void Restart()
+	void Restart()
 	{
 		_exitButtonImage.enabled = false;
 		_pauseMenuImage.enabled = false;
@@ -782,7 +788,7 @@ public class GameManager : MonoBehaviour
 		_restartText.enabled = true;
 	}
 
-	public void RestartAccept()
+	void RestartAccept()
 	{
         if(MusicManager.m_musicSource != null)
         {
@@ -795,7 +801,7 @@ public class GameManager : MonoBehaviour
 		SceneManager.LoadScene(m_currentScene);
 	}
 
-    public void RestartCancel()
+    void RestartCancel()
 	{
 		_exitButtonImage.enabled = true;
 		_pauseMenuImage.enabled = true;
@@ -808,7 +814,7 @@ public class GameManager : MonoBehaviour
 		_restartText.enabled = false;
 	}
 
-	public void Resume()
+	void Resume()
 	{
         if(MusicManager.m_musicSource != null)
         {
@@ -846,7 +852,7 @@ public class GameManager : MonoBehaviour
 		Time.timeScale = 1;
 	}
 
-	public void SelfieClicked()
+	void SelfieClicked()
 	{
 		_soundManager.m_soundsSource.clip = _soundManager.m_selfie;
 		
