@@ -260,7 +260,7 @@ public class GameManager : MonoBehaviour
 
     public void FBInvite() //TODO When you figure out how to make this work, make Invite Button of LoggedinObj in the scene, Active
     {
-        Screen.orientation = ScreenOrientation.Portrait;
+        Screen.orientation = ScreenOrientation.Portrait; //TODO Do this if player has the relevant permission
 
         FB.Mobile.AppInvite
         (
@@ -338,10 +338,10 @@ public class GameManager : MonoBehaviour
         {
             _noInternetText.enabled = false;
 		    List<string> permissions = new List<string>();
-		    //permissions.Add("public_profile");
-            permissions.Add("publish_actions");
-            FB.LogInWithReadPermissions(permissions , FBLogInCallBack); //TODO Test the one below after testing this one on mobile
-            //FB.LogInWithPublishPermissions(permissions , FBLogInCallBack); //TODO You may need to use this before 1st time Share request
+		    //permissions.Add("public_profile"); //TODO This may not be needed because this is one of the default permissions allowed
+            //permissions.Add("publish_actions"); TODO This will work only after Facebook approval
+            FB.LogInWithReadPermissions(permissions , FBLogInCallBack);
+            //FB.LogInWithPublishPermissions(permissions , FBLogInCallBack); //TODO Use this when player tries to publish something
         }
     }
 
@@ -434,7 +434,7 @@ public class GameManager : MonoBehaviour
         
         Screen.orientation = ScreenOrientation.Portrait;
 
-		FB.ShareLink
+		FB.ShareLink //TODO Do this if player has the relevant permission
 		(
 			contentTitle: "Fourth Lion Studios Message",
 			contentURL: new Uri("http://uabhanu.wixsite.com/portfolio"), //TODO Game URL here when Live
