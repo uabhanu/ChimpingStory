@@ -301,9 +301,7 @@ public class GameManager : MonoBehaviour
 
     void FBLoggedIn()
 	{
-        FacebookDelegate<IGraphResult> FBUsernameDisplay = null;
         FB.API("/me?fields=first_name" , HttpMethod.GET , FBUsernameDisplay);
-        FacebookDelegate<IGraphResult> FBProfilePicDisplay = null;
         FB.API("/me/picture?type=square&height=480&width=480" , HttpMethod.GET , FBProfilePicDisplay);
 
         if(_loggedInObj != null && _loggedOutObj != null)
@@ -340,9 +338,10 @@ public class GameManager : MonoBehaviour
         {
             _noInternetText.enabled = false;
 		    List<string> permissions = new List<string>();
-		    permissions.Add("publish_actions");
-            FB.LogInWithReadPermissions(permissions , FBLogInCallBack); //TODO If you use the line below, delete this one
-                                                                        //FB.LogInWithPublishPermissions(permissions , FBAuthCallBack); //TODO You may need to use this when your app is authorized by Facebook and this crashes the app otherwise, so use above line for testing
+		    //permissions.Add("public_profile");
+            permissions.Add("publish_actions");
+            FB.LogInWithReadPermissions(permissions , FBLogInCallBack); //TODO Test the one below after testing this one on mobile
+            //FB.LogInWithPublishPermissions(permissions , FBLogInCallBack); //TODO You may need to use this before 1st time Share request
         }
     }
 
@@ -371,7 +370,7 @@ public class GameManager : MonoBehaviour
 	{
         Screen.orientation = ScreenOrientation.Portrait;
         FBLogIn();
-        Invoke("FBLoggedIn" , 0.4f);
+        Invoke("FBLoggedIn" , 0.2f);
 	}
 
     void FBLogInCheck()
