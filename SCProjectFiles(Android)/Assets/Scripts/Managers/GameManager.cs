@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     bool _profilePicEnabled = false;
     Dictionary<string , object> _highScoresData;
     Dictionary<string , string> _scores = null;
+    float _highScore;
 	Image _adsAcceptButtonImage , _adsCancelButtonImage , _adsMenuImage , _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _chimpionshipBeltImage , _continueButtonImage;
     Image _exitButtonImage , _muteButtonImage , _pauseButtonImage , _pauseMenuImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage;
     Image _restartButtonImage , _restartAcceptButtonImage , _restartCancelButtonImage , _restartMenuImage , _resumeButtonImage , _unmuteButtonImage;
@@ -220,32 +221,33 @@ public class GameManager : MonoBehaviour
 		}
     }
 
-    void FBHighScoreGet()
+    void FBHighScoreGet() //TODO This bit may not be needed at all so remove for Live Version, Ok for testing
     {
        FB.API("/app/scores?fields=score,user.limit(30)" , HttpMethod.GET , FBHighScoreGetCallback);
+       //FB.API("/322050344866666/scores" , HttpMethod.GET , FBHighScoreGetCallback);
     }
 
-    void FBHighScoreGetCallback(IGraphResult getScoreResult)
+    void FBHighScoreGetCallback(IGraphResult getScoreResult) //TODO This bit may not be needed at all so remove for Live Version, Ok for testing
     {
         _highScoresList = getScoreResult.ResultDictionary["data"] as List<object>;
         _highScoresData = _highScoresList[0] as Dictionary<string , object>;
         long highScore = (long)_highScoresData["score"];
-        //_fbScoreText.text = "Score : " + highScore.ToString();
+        _fbScoreText.text = "Score : " + highScore.ToString();
     }
 
     void FBHighScoreSet()
     {
-        float highScore = BhanuPrefs.GetHighScore();
-        //_fbScoreText.text = "Score : " + highScore.ToString();
-        _scores = new Dictionary<string , string>(){ {"score" , highScore.ToString()} };
-        //_fbScoreText.text = "Score : " + _scores;
-        FB.API("/me/scores" , HttpMethod.POST , FBHighScoreSetCallback , _scores);
+        //if user has publish_actions permissions
+            _highScore = BhanuPrefs.GetHighScore();
+        //
+        _scores = new Dictionary<string , string>(){ {"score" , _highScore.ToString()} };
+        FB.API("/me/scores" , HttpMethod.POST , FBHighScoreSetCallback , _scores); //TODO Just tested with Test User and this works just fine, only thing left is get permission for publish_actions
+        Invoke("FBHighScoreGet" , 0.3f); //TODO This is only for testing
     }
 
     void FBHighScoreSetCallback(IGraphResult setScoreResult)
     {
-        Debug.Log(setScoreResult.RawResult); //Interestingly, this is not working
-        _fbScoreText.text = setScoreResult.RawResult; //TODO This is failing with extended permissions requirement error code 200
+        //Debug.Log(setScoreResult.RawResult);
     }
 
     void FBInit()
@@ -430,7 +432,6 @@ public class GameManager : MonoBehaviour
 	void FBShare()
 	{
         FBHighScoreSet();
-        FBHighScoreGet(); //TODO This is ok for now for testing but should happen only once upon game installation
         
         Screen.orientation = ScreenOrientation.Portrait;
 
