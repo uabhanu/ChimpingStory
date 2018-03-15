@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 0b4cbc8402501464caded0f7edab3779
-timeCreated: 1520420391
+timeCreated: 1521139193
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -149,8 +149,9 @@ TextureImporter:
     21300284: Buttons_133
     21300286: ChimpionshipBeltGrey
     21300288: FBLogIn
-    21300290: FBInvite
+    21300290: GPRate
     21300292: FBShare
+    21300294: GPGLogIn
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -649,7 +650,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: FBInvite
+      name: GPRate
       rect:
         serializedVersion: 2
         x: 930
@@ -667,6 +668,20 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 71
+        y: 0
+        width: 191
+        height: 187
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: GPGLogIn
+      rect:
+        serializedVersion: 2
+        x: 283
         y: 0
         width: 191
         height: 187

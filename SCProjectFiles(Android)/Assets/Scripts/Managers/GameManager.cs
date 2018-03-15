@@ -1,4 +1,5 @@
 ﻿using Facebook.Unity;
+using GooglePlayServices;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -53,7 +54,7 @@ public class GameManager : MonoBehaviour
 		Time.timeScale = 0;
     }
 
-    public void AdsAccept()
+    public void AdsAcceptButton()
     {
         _adsMenuImage.enabled = false;
         _adsAcceptButtonImage.enabled = false;
@@ -62,7 +63,7 @@ public class GameManager : MonoBehaviour
         AdsShow();
     }
 
-    public void AdsCancel()
+    public void AdsCancelButton()
     {
         BhanuPrefs.DeleteAll();
 		ScoreManager.m_supersCount = ScoreManager.m_defaultSupersCount;
@@ -147,7 +148,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
     }
 
-    public void Continue()
+    public void ContinueButton()
     {
 		BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
 		Screen.orientation = ScreenOrientation.Landscape;
@@ -159,7 +160,7 @@ public class GameManager : MonoBehaviour
 		m_selfiePanelImage.enabled = false;
 	}
 
-    public void ExitToMainMenu()
+    public void ExitButton()
 	{
         SceneManager.LoadScene("MainMenu");
     }
@@ -280,6 +281,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void FBLoginButton()
+	{
+        Screen.orientation = ScreenOrientation.Portrait;
+        FBLogIn();
+        Invoke("FBLoggedIn" , 0.2f);
+	}
+
     void FBLogInCallBack(IResult logInResult)
 	{
         if(logInResult.Cancelled) 
@@ -299,13 +307,6 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("Sir Bhanu, Your LogIn : " + logInResult.RawResult);
             FBLoggedIn();
 		}
-	}
-
-	void FBLoginButton()
-	{
-        Screen.orientation = ScreenOrientation.Portrait;
-        FBLogIn();
-        Invoke("FBLoggedIn" , 0.2f);
 	}
 
     void FBLogInCheck()
@@ -362,7 +363,7 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	void FBShare()
+	public void FBShareButton()
 	{
         Screen.orientation = ScreenOrientation.Portrait;
 
@@ -573,30 +574,35 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    void GoToFallingLevel()
+    public void GoToFallingLevelButton()
     {
         Screen.orientation = ScreenOrientation.Portrait;
         SceneManager.LoadScene("FallingDown");
     }
 
-    void GoToLandLevel()
+    public void GoToLandLevelButton()
     {
         Screen.orientation = ScreenOrientation.Landscape;
         SceneManager.LoadScene("LandRunner");
     }
 
-    void GoToWaterLevel()
+    public void GoToWaterLevelButton()
     {
         Screen.orientation = ScreenOrientation.Landscape;
         SceneManager.LoadScene("WaterSwimmer");
     }
 
-    public void GPRate()
+    public void GPLogInButton()
+    {
+
+    }
+
+    public void GPRateButton()
     {
         Application.OpenURL("http://uabhanu.wixsite.com/portfolio"); //TODO Game Play Store URL here after it's live
     }
 
-    void MuteUnmute()
+    public void MuteUnmuteButton()
     {
         if(MusicManager.m_musicSource != null)
         {
@@ -622,17 +628,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void OKInvite()
+    public void OKInviteButton()
     {
         _fbInviteSuccessMenuObj.SetActive(false);
     }
 
-    public void OKShare()
+    public void OKShareButton()
     {
         _fbShareSuccessMenuObj.SetActive(false);
     }
 
-    void Pause()
+    public void PauseButton()
 	{
         if(MusicManager.m_musicSource != null)
         {
@@ -674,12 +680,12 @@ public class GameManager : MonoBehaviour
 		Time.timeScale = 0;
 	}
 
-	void Play()
+	public void PlayButton()
 	{
 		SceneManager.LoadScene("LandRunner");
 	}
 
-	void Quit()
+	public void QuitButton()
 	{
         _facebookButtonImage.enabled = false;
         _fbInviteButtonImage.enabled = false;
@@ -695,13 +701,13 @@ public class GameManager : MonoBehaviour
 		_quitText.enabled = true;
 	}
 
-	void QuitAccept()
+	public void QuitAcceptButton()
 	{
 		Debug.Log("Quit Game");
 		Application.Quit();
 	}
 
-	void QuitCancel()
+	public void QuitCancelButton()
 	{
         _facebookButtonImage.enabled = true;
         _fbInviteButtonImage.enabled = true;
@@ -721,7 +727,7 @@ public class GameManager : MonoBehaviour
 		_quitText.enabled = false;
 	}
 
-	void Restart()
+	public void RestartButton()
 	{
 		_exitButtonImage.enabled = false;
 		_pauseMenuImage.enabled = false;
@@ -734,7 +740,7 @@ public class GameManager : MonoBehaviour
 		_restartText.enabled = true;
 	}
 
-	void RestartAccept()
+	public void RestartAcceptButton()
 	{
         if(MusicManager.m_musicSource != null)
         {
@@ -747,7 +753,7 @@ public class GameManager : MonoBehaviour
 		SceneManager.LoadScene(m_currentScene);
 	}
 
-    void RestartCancel()
+    public void RestartCancelButton()
 	{
 		_exitButtonImage.enabled = true;
 		_pauseMenuImage.enabled = true;
@@ -760,7 +766,7 @@ public class GameManager : MonoBehaviour
 		_restartText.enabled = false;
 	}
 
-	void Resume()
+	public void ResumeButton()
 	{
         if(MusicManager.m_musicSource != null)
         {
@@ -798,7 +804,7 @@ public class GameManager : MonoBehaviour
 		Time.timeScale = 1;
 	}
 
-	void SelfieClicked()
+	public void SelfieButton()
 	{
 		_soundManager.m_soundsSource.clip = _soundManager.m_selfie;
 		
