@@ -22,10 +22,10 @@ public class GameManager : MonoBehaviour
     string _applinkURL;
 	Text _adsText , _backToLandLoseText , _backToLandWinText , _backToLandWithSuperText , _highScoreDisplayText , _highScoreValueText , _noInternetText , _quitText , _restartText;
 
-	[SerializeField] bool _isFBShareTestMode , _selfieFlashEnabled;
+	[SerializeField] bool _isFBInviteTestMode , _isFBShareTestMode , _selfieFlashEnabled;
     [SerializeField] GameObject _fbInviteSuccessMenuObj , _fbShareMenuObj , _fbShareSuccessMenuObj , _fbShareTestMenuObj , _loggedInObj , _loggedOutObj;
     [SerializeField] Image _facebookButtonImage , _fallingLevelImage , _fbInviteButtonImage , _landLevelImage , _profilePicImage , _shareButtonImage , _waterLevelImage;
-    [SerializeField] Text _fbScoreText , _memoryLeakTestText , _usernameText;
+    [SerializeField] Text _fbInviteTestText , _fbScoreText , _memoryLeakTestText , _usernameText;
 
     public static bool m_isMemoryLeakTestingMode , m_isTestingUnityEditor;
     public static Image m_selfieButtonImage , m_selfiePanelImage;
@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
     void Start()
 	{
         FBInit();
-        m_isMemoryLeakTestingMode = true; //TODO Remove this for Live Version
+        //m_isMemoryLeakTestingMode = true; //TODO Remove this for Live Version
         Invoke("FBLogInCheck" , 0.2f);
         GetBhanuObjects();
     }
@@ -221,35 +221,6 @@ public class GameManager : MonoBehaviour
 		}
     }
 
-    void FBHighScoreGet() //TODO This bit may not be needed at all so remove for Live Version, Ok for testing
-    {
-       FB.API("/app/scores?fields=score,user.limit(30)" , HttpMethod.GET , FBHighScoreGetCallback);
-       //FB.API("/322050344866666/scores" , HttpMethod.GET , FBHighScoreGetCallback);
-    }
-
-    void FBHighScoreGetCallback(IGraphResult getScoreResult) //TODO This bit may not be needed at all so remove for Live Version, Ok for testing
-    {
-        _highScoresList = getScoreResult.ResultDictionary["data"] as List<object>;
-        _highScoresData = _highScoresList[0] as Dictionary<string , object>;
-        long highScore = (long)_highScoresData["score"];
-        _fbScoreText.text = "Score : " + highScore.ToString();
-    }
-
-    void FBHighScoreSet()
-    {
-        //if user has publish_actions permissions
-            _highScore = BhanuPrefs.GetHighScore();
-        //
-        _scores = new Dictionary<string , string>(){ {"score" , _highScore.ToString()} };
-        FB.API("/me/scores" , HttpMethod.POST , FBHighScoreSetCallback , _scores); //TODO Just tested with Test User and this works just fine, only thing left is get permission for publish_actions
-        Invoke("FBHighScoreGet" , 0.3f); //TODO This is only for testing
-    }
-
-    void FBHighScoreSetCallback(IGraphResult setScoreResult)
-    {
-        //Debug.Log(setScoreResult.RawResult);
-    }
-
     void FBInit()
     {
         if(!FB.IsInitialized) 
@@ -260,7 +231,8 @@ public class GameManager : MonoBehaviour
 		}
     }
 
-    public void FBInvite() //TODO When you figure out how to make this work, make Invite Button of LoggedinObj in the scene, Active
+    //TODO When you figure out how to make this work, make Invite Button of LoggedinObj in the scene, Active
+    public void FBInvite() //TODO Do this if player has the relevant permission
     {
         Screen.orientation = ScreenOrientation.Portrait; //TODO Do this if player has the relevant permission
 
@@ -276,19 +248,21 @@ public class GameManager : MonoBehaviour
 		if(inviteResult.Cancelled) 
 		{
 			//Debug.LogWarning("Sir Bhanu, You have cancelled the invite");
+            _fbInviteTestText.text = inviteResult.RawResult;
             Screen.orientation = ScreenOrientation.Landscape;
 		}
         
         else if(!string.IsNullOrEmpty(inviteResult.Error))
         {
             //Debug.LogError("Sir Bhanu, There is a problem : " + inviteResult.Error);
+            _fbInviteTestText.text = inviteResult.RawResult;
             Screen.orientation = ScreenOrientation.Landscape;
         }
 
 		else if(!string.IsNullOrEmpty(inviteResult.RawResult)) 
 		{
             //Debug.LogWarning("Sir Bhanu, Your invitation : " + inviteResult.RawResult);
-
+            _fbInviteTestText.text = inviteResult.RawResult;
             Screen.orientation = ScreenOrientation.Landscape;
 
             if(!_isFBShareTestMode)
@@ -431,8 +405,6 @@ public class GameManager : MonoBehaviour
 
 	void FBShare()
 	{
-        FBHighScoreSet();
-        
         Screen.orientation = ScreenOrientation.Portrait;
 
 		FB.ShareLink //TODO Do this if player has the relevant permission
@@ -487,6 +459,11 @@ public class GameManager : MonoBehaviour
     void GetBhanuObjects()
     {
         m_currentScene = SceneManager.GetActiveScene().buildIndex;
+
+        if(_isFBInviteTestMode)
+        {
+            _fbInviteTestText.enabled = true;
+        }
 
         if(_isFBShareTestMode)
         {
@@ -681,7 +658,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void OK()
+    public void OKInvite()
+    {
+        _fbInviteSuccessMenuObj.SetActive(false);
+    }
+
+    public void OKShare()
     {
         _fbShareSuccessMenuObj.SetActive(false);
     }
