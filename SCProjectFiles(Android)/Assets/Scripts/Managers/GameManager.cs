@@ -113,6 +113,7 @@ public class GameManager : MonoBehaviour
         _muteButtonImage.enabled = false;
         _pauseButtonImage.enabled = false;
         _unmuteButtonImage.enabled = false;
+        Screen.orientation = ScreenOrientation.Landscape;
         Time.timeScale = 0;
     }
 
@@ -127,6 +128,7 @@ public class GameManager : MonoBehaviour
         _muteButtonImage.enabled = false;
         _pauseButtonImage.enabled = false;
         _unmuteButtonImage.enabled = false;
+        Screen.orientation = ScreenOrientation.Landscape;
         Time.timeScale = 0;
     }
 
@@ -141,6 +143,7 @@ public class GameManager : MonoBehaviour
         _muteButtonImage.enabled = false;
         _pauseButtonImage.enabled = false;
         _unmuteButtonImage.enabled = false;
+        Screen.orientation = ScreenOrientation.Landscape;
         Time.timeScale = 0;
     }
 

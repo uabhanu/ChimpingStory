@@ -17,6 +17,8 @@ public class FallingChimp : MonoBehaviour
         {
             return;
         }
+
+        Screen.orientation = ScreenOrientation.Portrait;
 	
         if(SwipeManager.Instance.IsSwiping(SwipeDirection.LEFT))
         {
