@@ -1,5 +1,4 @@
 ﻿using Facebook.Unity;
-using GooglePlayServices;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,10 +22,10 @@ public class GameManager : MonoBehaviour
     string _applinkURL;
 	Text _adsText , _backToLandLoseText , _backToLandWinText , _backToLandWithSuperText , _highScoreDisplayText , _highScoreValueText , _noInternetText , _quitText , _restartText;
 
-	[SerializeField] bool _isFBInviteTestMode , _isFBShareTestMode , _selfieFlashEnabled;
-    [SerializeField] GameObject _fbInviteSuccessMenuObj , _fbShareMenuObj , _fbShareSuccessMenuObj , _fbShareTestMenuObj , _loggedInObj , _loggedOutObj;
-    [SerializeField] Image _facebookButtonImage , _fallingLevelImage , _fbInviteButtonImage , _landLevelImage , _profilePicImage , _shareButtonImage , _waterLevelImage;
-    [SerializeField] Text _fbInviteTestText , _fbScoreText , _memoryLeakTestText , _usernameText;
+	[SerializeField] bool /*_isFBInviteTestMode , */_isFBShareTestMode , _selfieFlashEnabled;
+    [SerializeField] GameObject /*_fbChallengeInviteSuccessMenuObj , */_fbShareMenuObj , _fbShareSuccessMenuObj , _fbShareTestMenuObj , _fbLoggedInObj , _fbLoggedOutObj , _gpLoggedInObj , _gpLoggedOutObj;
+    [SerializeField] Image _facebookButtonImage , _fallingLevelImage , /*_fbChallengeInviteButtonImage , */_gpLogInButtonImage , _gpRateButtonImage , _landLevelImage , _profilePicImage , _shareButtonImage , _waterLevelImage;
+    [SerializeField] Text /*_fbChallengeInviteTestText , */_fbScoreText , _memoryLeakTestText , _usernameText;
 
     public static bool m_isMemoryLeakTestingMode , m_isTestingUnityEditor;
     public static Image m_selfieButtonImage , m_selfiePanelImage;
@@ -221,7 +220,7 @@ public class GameManager : MonoBehaviour
                 BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
             }
             
-            _fbInviteSuccessMenuObj.SetActive(true);
+            //_fbChallengeInviteSuccessMenuObj.SetActive(true);
 		}
     }
 
@@ -240,14 +239,14 @@ public class GameManager : MonoBehaviour
         FB.API("/me?fields=first_name" , HttpMethod.GET , FBUsernameDisplay);
         FB.API("/me/picture?type=square&height=480&width=480" , HttpMethod.GET , FBProfilePicDisplay);
 
-        if(_loggedInObj != null && _loggedOutObj != null)
+        if(_fbLoggedInObj != null && _fbLoggedOutObj != null)
         {
-            _loggedInObj.SetActive(true);
-		    _loggedOutObj.SetActive(false);		
+            _fbLoggedInObj.SetActive(true);
+		    _fbLoggedOutObj.SetActive(false);		
         }
         else
         {
-            Debug.LogError("Sir Bhanu, Logged In & Out Objs are not assigned probably because you didn't start the game from Main Menu :)");
+            Debug.LogError("Sir Bhanu, FB Logged In & Out Objs are not assigned probably because you didn't start the game from Main Menu :)");
         }
 
         Screen.orientation = ScreenOrientation.Landscape;
@@ -255,14 +254,14 @@ public class GameManager : MonoBehaviour
 
 	void FBLoggedOut()
 	{
-		if(_loggedInObj != null && _loggedOutObj != null)
+		if(_fbLoggedInObj != null && _fbLoggedOutObj != null)
         {
-            _loggedInObj.SetActive(false);
-		    _loggedOutObj.SetActive(true);		
+            _fbLoggedInObj.SetActive(false);
+		    _fbLoggedOutObj.SetActive(true);		
         }
         else
         {
-            Debug.LogError("Sir Bhanu, Logged In & Out Objs are not assigned this is not Main Menu :)");
+            Debug.LogError("Sir Bhanu, FB Logged In & Out Objs are not assigned this is not Main Menu :)");
         }
 
         Screen.orientation = ScreenOrientation.Landscape;
@@ -420,10 +419,10 @@ public class GameManager : MonoBehaviour
     {
         m_currentScene = SceneManager.GetActiveScene().buildIndex;
 
-        if(_isFBInviteTestMode)
-        {
-            _fbInviteTestText.enabled = true;
-        }
+        //if(_isFBInviteTestMode)
+        //{
+        //    _fbChallengeInviteTestText.enabled = true;
+        //}
 
         if(_isFBShareTestMode)
         {
@@ -630,7 +629,7 @@ public class GameManager : MonoBehaviour
 
     public void OKInviteButton()
     {
-        _fbInviteSuccessMenuObj.SetActive(false);
+        //_fbChallengeInviteSuccessMenuObj.SetActive(false);
     }
 
     public void OKShareButton()
@@ -688,7 +687,13 @@ public class GameManager : MonoBehaviour
 	public void QuitButton()
 	{
         _facebookButtonImage.enabled = false;
-        _fbInviteButtonImage.enabled = false;
+        _gpLogInButtonImage.enabled = false;
+
+        if(_gpRateButtonImage != null)
+        {
+            _gpRateButtonImage.enabled = false;
+        }
+        
         _noInternetText.enabled = false;
         _playButtonImage.enabled = false;
         _profilePicImage.enabled = false;
@@ -710,7 +715,13 @@ public class GameManager : MonoBehaviour
 	public void QuitCancelButton()
 	{
         _facebookButtonImage.enabled = true;
-        _fbInviteButtonImage.enabled = true;
+        _gpLogInButtonImage.enabled = true;
+
+        if(_gpRateButtonImage != null)
+        {
+            _gpRateButtonImage.enabled = true;
+        }
+
 		_playButtonImage.enabled = true;
 
         if(_profilePicEnabled)
