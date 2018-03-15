@@ -231,50 +231,6 @@ public class GameManager : MonoBehaviour
 		}
     }
 
-    //TODO When you figure out how to make this work, make Invite Button of LoggedinObj in the scene, Active
-    public void FBInvite() //TODO Do this if player has the relevant permission
-    {
-        Screen.orientation = ScreenOrientation.Portrait; //TODO Do this if player has the relevant permission
-
-        FB.Mobile.AppInvite
-        (
-            new Uri("http://uabhanu.wixsite.com/portfolio"), //TODO Game URL here when Live
-            callback: FBInviteCallback
-        );
-    }
-
-    public void FBInviteCallback(IResult inviteResult)
-	{
-		if(inviteResult.Cancelled) 
-		{
-			//Debug.LogWarning("Sir Bhanu, You have cancelled the invite");
-            _fbInviteTestText.text = inviteResult.RawResult;
-            Screen.orientation = ScreenOrientation.Landscape;
-		}
-        
-        else if(!string.IsNullOrEmpty(inviteResult.Error))
-        {
-            //Debug.LogError("Sir Bhanu, There is a problem : " + inviteResult.Error);
-            _fbInviteTestText.text = inviteResult.RawResult;
-            Screen.orientation = ScreenOrientation.Landscape;
-        }
-
-		else if(!string.IsNullOrEmpty(inviteResult.RawResult)) 
-		{
-            //Debug.LogWarning("Sir Bhanu, Your invitation : " + inviteResult.RawResult);
-            _fbInviteTestText.text = inviteResult.RawResult;
-            Screen.orientation = ScreenOrientation.Landscape;
-
-            if(!_isFBShareTestMode)
-            {
-                ScoreManager.m_supersCount++;
-                BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
-            }
-            
-            _fbInviteSuccessMenuObj.SetActive(true);
-		} 
-	}
-
     void FBLoggedIn()
 	{
         FB.API("/me?fields=first_name" , HttpMethod.GET , FBUsernameDisplay);
@@ -630,6 +586,11 @@ public class GameManager : MonoBehaviour
     {
         Screen.orientation = ScreenOrientation.Landscape;
         SceneManager.LoadScene("WaterSwimmer");
+    }
+
+    public void GPRate()
+    {
+        Application.OpenURL("http://uabhanu.wixsite.com/portfolio"); //TODO Game Play Store URL here after it's live
     }
 
     void MuteUnmute()
