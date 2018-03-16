@@ -1,4 +1,6 @@
 ﻿using Facebook.Unity;
+using GooglePlayGames;
+using GooglePlayGames.BasicApi;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,22 +12,22 @@ public class GameManager : MonoBehaviour
 {
 	AudioSource _musicSource;
     bool _profilePicEnabled = false;
-    Dictionary<string , object> _highScoresData;
-    Dictionary<string , string> _scores = null;
-    float _highScore;
+    //Dictionary<string , object> _highScoresData;
+    //Dictionary<string , string> _scores = null;
+    //float _highScore;
 	Image _adsAcceptButtonImage , _adsCancelButtonImage , _adsMenuImage , _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _chimpionshipBeltImage , _continueButtonImage;
     Image _exitButtonImage , _muteButtonImage , _pauseButtonImage , _pauseMenuImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage;
     Image _restartButtonImage , _restartAcceptButtonImage , _restartCancelButtonImage , _restartMenuImage , _resumeButtonImage , _unmuteButtonImage;
     LandChimp _landChimp;
-    List<object> _highScoresList = null;
+    //List<object> _highScoresList = null;
 	SoundManager _soundManager;
     string _applinkURL;
 	Text _adsText , _backToLandLoseText , _backToLandWinText , _backToLandWithSuperText , _highScoreDisplayText , _highScoreValueText , _noInternetText , _quitText , _restartText;
 
 	[SerializeField] bool /*_isFBInviteTestMode , */_isFBShareTestMode , _selfieFlashEnabled;
-    [SerializeField] GameObject /*_fbChallengeInviteSuccessMenuObj , */_fbShareMenuObj , _fbShareSuccessMenuObj , _fbShareTestMenuObj , _fbLoggedInObj , _fbLoggedOutObj , _gpLoggedInObj , _gpLoggedOutObj;
-    [SerializeField] Image _facebookButtonImage , _fallingLevelImage , /*_fbChallengeInviteButtonImage , */_gpLogInButtonImage , _gpRateButtonImage , _landLevelImage , _profilePicImage , _shareButtonImage , _waterLevelImage;
-    [SerializeField] Text /*_fbChallengeInviteTestText , */_fbScoreText , _memoryLeakTestText , _usernameText;
+    [SerializeField] GameObject /*_fbChallengeInviteSuccessMenuObj , */_fbShareMenuObj , _fbShareSuccessMenuObj , _fbShareTestMenuObj , _fbLoggedInObj , _fbLoggedOutObj , _gpgsLoggedInObj , _gpgsLoggedOutObj;
+    [SerializeField] Image _facebookButtonImage , _fallingLevelImage , /*_fbChallengeInviteButtonImage , */_gpgsLogInButtonImage , _landLevelImage , _profilePicImage , _rateButtonImage , _shareButtonImage , _waterLevelImage;
+    [SerializeField] Text /*_fbChallengeInviteTestText, _fbScoreText, */_memoryLeakTestText , _usernameText;
 
     public static bool m_isMemoryLeakTestingMode , m_isTestingUnityEditor;
     public static Image m_selfieButtonImage , m_selfiePanelImage;
@@ -36,6 +38,7 @@ public class GameManager : MonoBehaviour
         FBInit();
         //m_isMemoryLeakTestingMode = true; //TODO Remove this for Live Version
         Invoke("FBLogInCheck" , 0.2f);
+        Invoke("GPGsLogInCheck" , 0.2f);
         GetBhanuObjects();
     }
 
@@ -591,9 +594,60 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("WaterSwimmer");
     }
 
-    public void GPLogInButton()
+    void GPGsLoggedIn()
     {
+        _gpgsLoggedInObj.SetActive(true);
+        _gpgsLoggedOutObj.SetActive(false);
+    }
 
+    void GPGsLoggedOut()
+    {
+        _gpgsLoggedInObj.SetActive(false);
+        _gpgsLoggedOutObj.SetActive(true);
+    }
+
+    void GPGsLogIn() 
+    {
+        if(!PlayGamesPlatform.Instance.localUser.authenticated) 
+        {
+            Debug.Log("Sir Bhanu, Log In Success :) ");
+            PlayGamesPlatform.Instance.Authenticate(GPGsLogInCallback , false);
+        } 
+        else 
+        {
+            Debug.Log("Sir Bhanu, Log In Failed :( ");
+            PlayGamesPlatform.Instance.SignOut();
+        }
+    }
+
+    public void GPGsLogInButton()
+    {
+        GPGsLogIn();
+    }
+
+    void GPGsLogInCallback(bool success) 
+    {
+        if(success) 
+        {
+            GPGsLoggedIn();
+        } 
+        else 
+        {
+            GPGsLoggedOut();
+        }
+    }
+
+    void GPGsLogInCheck()
+    {
+        if(PlayGamesPlatform.Instance.localUser.authenticated)
+        {
+            GPGsLoggedIn();
+        }
+        else
+        {
+            GPGsLoggedOut();
+            Invoke("GPGsLogInCheck" , 0.2f);
+        }
     }
 
     public void GPRateButton()
@@ -687,11 +741,11 @@ public class GameManager : MonoBehaviour
 	public void QuitButton()
 	{
         _facebookButtonImage.enabled = false;
-        _gpLogInButtonImage.enabled = false;
+        _gpgsLogInButtonImage.enabled = false;
 
-        if(_gpRateButtonImage != null)
+        if(_rateButtonImage != null)
         {
-            _gpRateButtonImage.enabled = false;
+            _rateButtonImage.enabled = false;
         }
         
         _noInternetText.enabled = false;
@@ -715,11 +769,11 @@ public class GameManager : MonoBehaviour
 	public void QuitCancelButton()
 	{
         _facebookButtonImage.enabled = true;
-        _gpLogInButtonImage.enabled = true;
+        _gpgsLogInButtonImage.enabled = true;
 
-        if(_gpRateButtonImage != null)
+        if(_rateButtonImage != null)
         {
-            _gpRateButtonImage.enabled = true;
+            _rateButtonImage.enabled = true;
         }
 
 		_playButtonImage.enabled = true;
