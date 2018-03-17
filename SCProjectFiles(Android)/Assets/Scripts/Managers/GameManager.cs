@@ -24,10 +24,10 @@ public class GameManager : MonoBehaviour
     string _applinkURL;
 	Text _adsText , _backToLandLoseText , _backToLandWinText , _backToLandWithSuperText , _highScoreDisplayText , _highScoreValueText , _noInternetText , _quitText , _restartText;
 
-	[SerializeField] bool /*_isFBInviteTestMode , */_isFBShareTestMode , _selfieFlashEnabled;
+	[SerializeField] bool /*_isFBInviteTestMode , */_isFBShareTestMode , _isGPGsLogInTestMode , _selfieFlashEnabled;
     [SerializeField] GameObject /*_fbChallengeInviteSuccessMenuObj , */_fbShareMenuObj , _fbShareSuccessMenuObj , _fbShareTestMenuObj , _fbLoggedInObj , _fbLoggedOutObj , _gpgsLoggedInObj , _gpgsLoggedOutObj;
     [SerializeField] Image _facebookButtonImage , _fallingLevelImage , /*_fbChallengeInviteButtonImage , */_gpgsLogInButtonImage , _landLevelImage , _profilePicImage , _rateButtonImage , _shareButtonImage , _waterLevelImage;
-    [SerializeField] Text /*_fbChallengeInviteTestText, _fbScoreText, */_memoryLeakTestText , _usernameText;
+    [SerializeField] Text /*_fbChallengeInviteTestText, _fbScoreText, */_gpgsLogInTestText , _memoryLeakTestText , _usernameText;
 
     public static bool m_isMemoryLeakTestingMode , m_isTestingUnityEditor;
     public static Image m_selfieButtonImage , m_selfiePanelImage;
@@ -432,7 +432,10 @@ public class GameManager : MonoBehaviour
             _fbShareTestMenuObj.SetActive(true);
         }
 
-        m_playerMutedSounds = BhanuPrefs.GetSoundsStatus();
+        if(_isGPGsLogInTestMode)
+        {
+            _gpgsLogInTestText.enabled = true;
+        }
 
         if(m_isMemoryLeakTestingMode)
         {
@@ -458,9 +461,11 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        m_playerMutedSounds = BhanuPrefs.GetSoundsStatus();
+
         if(m_currentScene == 0)
         {
-            _noInternetText = GameObject.Find("NoInternetDisplay").GetComponent<Text>();
+            _noInternetText = GameObject.Find("NoInternetText").GetComponent<Text>();
             _playButtonImage = GameObject.Find("PlayButton").GetComponent<Image>();
             _quitText = GameObject.Find("QuitText").GetComponent<Text>();
             _quitButtonImage = GameObject.Find("QuitButton").GetComponent<Image>();
@@ -610,12 +615,10 @@ public class GameManager : MonoBehaviour
     {
         if(!PlayGamesPlatform.Instance.localUser.authenticated) 
         {
-            Debug.Log("Sir Bhanu, Log In Success :) ");
             PlayGamesPlatform.Instance.Authenticate(GPGsLogInCallback , false);
         } 
         else 
         {
-            Debug.Log("Sir Bhanu, Log In Failed :( ");
             PlayGamesPlatform.Instance.SignOut();
         }
     }
@@ -629,10 +632,14 @@ public class GameManager : MonoBehaviour
     {
         if(success) 
         {
+            Debug.Log("Sir Bhanu, Log In Success :) ");
+            _gpgsLogInTestText.text = "Log In Success :)";
             GPGsLoggedIn();
         } 
         else 
         {
+            Debug.Log("Sir Bhanu, Log In Failed :( ");
+            _gpgsLogInTestText.text = "Log In Failed :(";
             GPGsLoggedOut();
         }
     }
@@ -741,7 +748,9 @@ public class GameManager : MonoBehaviour
 	public void QuitButton()
 	{
         _facebookButtonImage.enabled = false;
+        _fbShareTestMenuObj.SetActive(false);
         _gpgsLogInButtonImage.enabled = false;
+        _gpgsLogInTestText.enabled = false;
 
         if(_rateButtonImage != null)
         {
@@ -769,7 +778,18 @@ public class GameManager : MonoBehaviour
 	public void QuitCancelButton()
 	{
         _facebookButtonImage.enabled = true;
+
+        if(_isFBShareTestMode)
+        {
+            _fbShareTestMenuObj.SetActive(true);
+        }
+        
         _gpgsLogInButtonImage.enabled = true;
+
+        if(_isGPGsLogInTestMode)
+        {
+            _gpgsLogInTestText.enabled = true;
+        }
 
         if(_rateButtonImage != null)
         {
