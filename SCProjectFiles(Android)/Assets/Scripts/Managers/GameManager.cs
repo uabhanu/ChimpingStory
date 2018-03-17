@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
     void Start()
 	{
         FBInit();
+        GPGsInit();
         //m_isMemoryLeakTestingMode = true; //TODO Remove this for Live Version
         Invoke("FBLogInCheck" , 0.2f);
         Invoke("GPGsLogInCheck" , 0.2f);
@@ -249,7 +250,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Sir Bhanu, FB Logged In & Out Objs are not assigned probably because you didn't start the game from Main Menu :)");
+            Debug.LogError("Sir Bhanu, FB Logged In & Out Objs no longer exist but you can ignore them :)");
         }
 
         Screen.orientation = ScreenOrientation.Landscape;
@@ -264,7 +265,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Sir Bhanu, FB Logged In & Out Objs are not assigned this is not Main Menu :)");
+            Debug.LogError("Sir Bhanu, FB Logged In & Out Objs no longer exist but you can ignore them :)");
         }
 
         Screen.orientation = ScreenOrientation.Landscape;
@@ -403,6 +404,10 @@ public class GameManager : MonoBehaviour
             }
 
             _fbShareSuccessMenuObj.SetActive(true);
+            _gpgsLogInButtonImage.enabled = false;
+            _gpgsLogInTestText.enabled = false;
+            _rateButtonImage.enabled = false;
+
 		} 
 	}
 
@@ -599,16 +604,48 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("WaterSwimmer");
     }
 
+    void GPGsInit()
+    {
+        PlayGamesClientConfiguration clientConfig = new PlayGamesClientConfiguration.Builder().Build();
+        //PlayGamesPlatform.DebugLogEnabled = true; //Remove this when not needed anymore
+        PlayGamesPlatform.InitializeInstance(clientConfig);
+        PlayGamesPlatform.Activate();
+    }
+
     void GPGsLoggedIn()
     {
-        _gpgsLoggedInObj.SetActive(true);
-        _gpgsLoggedOutObj.SetActive(false);
+        if(_gpgsLoggedInObj != null && _gpgsLoggedOutObj != null)
+        {
+            _gpgsLoggedInObj.SetActive(true);
+            _gpgsLoggedOutObj.SetActive(false);
+        }
+        else
+        {
+            Debug.LogError("Sir Bhanu, GPGs Logged In & Logged Out Objs no longer exist but you can ignore them :) ");
+        }
+
+        if(_isGPGsLogInTestMode)
+        {
+            _gpgsLogInTestText.text = "Log In Success :)";
+        }
     }
 
     void GPGsLoggedOut()
     {
-        _gpgsLoggedInObj.SetActive(false);
-        _gpgsLoggedOutObj.SetActive(true);
+        if(_gpgsLoggedInObj != null && _gpgsLoggedOutObj != null)
+        {
+            _gpgsLoggedInObj.SetActive(false);
+            _gpgsLoggedOutObj.SetActive(true);
+        }
+        else
+        {
+            Debug.LogError("Sir Bhanu, GPGs Logged In & Logged Out Objs no longer exist but you can ignore them :) ");
+        }
+
+        if(_isGPGsLogInTestMode)
+        {
+            _gpgsLogInTestText.text = "Log In Failed :(";
+        }
     }
 
     void GPGsLogIn() 
@@ -632,14 +669,10 @@ public class GameManager : MonoBehaviour
     {
         if(success) 
         {
-            Debug.Log("Sir Bhanu, Log In Success :) ");
-            _gpgsLogInTestText.text = "Log In Success :)";
             GPGsLoggedIn();
         } 
         else 
         {
-            Debug.Log("Sir Bhanu, Log In Failed :( ");
-            _gpgsLogInTestText.text = "Log In Failed :(";
             GPGsLoggedOut();
         }
     }
@@ -696,6 +729,14 @@ public class GameManager : MonoBehaviour
     public void OKShareButton()
     {
         _fbShareSuccessMenuObj.SetActive(false);
+        _gpgsLogInButtonImage.enabled = true;
+        
+        if(_isGPGsLogInTestMode)
+        {
+            _gpgsLogInTestText.enabled = true;
+        }
+        
+        _rateButtonImage.enabled = true;
     }
 
     public void PauseButton()
