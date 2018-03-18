@@ -6,12 +6,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Advertisements;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour 
 {
 	AudioSource _musicSource;
-    bool _profilePicEnabled = false;
+    bool _gpgsLogInButtonTapped , _profilePicEnabled = false;
     //Dictionary<string , object> _highScoresData;
     //Dictionary<string , string> _scores = null;
     //float _highScore;
@@ -19,7 +20,6 @@ public class GameManager : MonoBehaviour
     Image _exitButtonImage , _muteButtonImage , _pauseButtonImage , _pauseMenuImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage;
     Image _restartButtonImage , _restartAcceptButtonImage , _restartCancelButtonImage , _restartMenuImage , _resumeButtonImage , _unmuteButtonImage;
     LandChimp _landChimp;
-    //List<object> _highScoresList = null;
 	SoundManager _soundManager;
     string _applinkURL;
 	Text _adsText , _backToLandLoseText , _backToLandWinText , _backToLandWithSuperText , _highScoreDisplayText , _highScoreValueText , _noInternetText , _quitText , _restartText;
@@ -277,10 +277,7 @@ public class GameManager : MonoBehaviour
         {
             _noInternetText.enabled = false;
 		    List<string> permissions = new List<string>();
-		    //permissions.Add("public_profile"); //TODO This may not be needed because this is one of the default permissions allowed
-            //permissions.Add("publish_actions"); TODO This will work only after Facebook approval
             FB.LogInWithReadPermissions(permissions , FBLogInCallBack);
-            //FB.LogInWithPublishPermissions(permissions , FBLogInCallBack); //TODO Use this when player tries to publish something
         }
     }
 
@@ -370,7 +367,7 @@ public class GameManager : MonoBehaviour
 	{
         Screen.orientation = ScreenOrientation.Portrait;
 
-		FB.ShareLink //TODO Do this if player has the relevant permission
+        FB.ShareLink //TODO Do this if player has the relevant permission
 		(
 			contentTitle: "Fourth Lion Studios Message",
 			contentURL: new Uri("http://uabhanu.wixsite.com/portfolio"), //TODO Game URL here when Live
@@ -606,8 +603,8 @@ public class GameManager : MonoBehaviour
 
     void GPGsInit()
     {
+        _gpgsLogInButtonTapped = false;
         PlayGamesClientConfiguration clientConfig = new PlayGamesClientConfiguration.Builder().Build();
-        //PlayGamesPlatform.DebugLogEnabled = true; //Remove this when not needed anymore
         PlayGamesPlatform.InitializeInstance(clientConfig);
         PlayGamesPlatform.Activate();
     }
@@ -642,9 +639,10 @@ public class GameManager : MonoBehaviour
             Debug.LogError("Sir Bhanu, GPGs Logged In & Logged Out Objs no longer exist but you can ignore them :) ");
         }
 
-        if(_isGPGsLogInTestMode)
+        if(_gpgsLogInButtonTapped && _isGPGsLogInTestMode)
         {
             _gpgsLogInTestText.text = "Log In Failed :(";
+            _gpgsLogInButtonTapped = false;
         }
     }
 
@@ -652,29 +650,26 @@ public class GameManager : MonoBehaviour
     {
         if(!PlayGamesPlatform.Instance.localUser.authenticated) 
         {
-            PlayGamesPlatform.Instance.Authenticate(GPGsLogInCallback , false);
+            PlayGamesPlatform.Instance.Authenticate(GPGsLogInCallback);
         } 
-        else 
-        {
-            PlayGamesPlatform.Instance.SignOut();
-        }
     }
 
     public void GPGsLogInButton()
     {
+        _gpgsLogInButtonTapped = true;
         GPGsLogIn();
     }
 
     void GPGsLogInCallback(bool success) 
-    {
-        if(success) 
+    {  
+        if(success)
         {
             GPGsLoggedIn();
-        } 
-        else 
+        }
+        else
         {
             GPGsLoggedOut();
-        }
+        } 
     }
 
     void GPGsLogInCheck()
