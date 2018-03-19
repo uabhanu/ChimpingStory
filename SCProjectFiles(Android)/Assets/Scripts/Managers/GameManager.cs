@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     void Start()
 	{
         //FBInit();
-        //GPGsInit();
+        GPGsInit();
         //m_isMemoryLeakTestingMode = true; //TODO Remove this for Live Version
         Invoke("FBLogInCheck" , 0.2f);
         Invoke("GPGsLogInCheck" , 0.2f);
@@ -648,10 +648,10 @@ public class GameManager : MonoBehaviour
 
     void GPGsLogIn() 
     {
-        //if(!PlayGamesPlatform.Instance.localUser.authenticated) 
+        //if(!PlayGamesPlatform.Instance.localUser.authenticated)
         //{
         //    PlayGamesPlatform.Instance.Authenticate(GPGsLogInCallback);
-        //} 
+        //}
     }
 
     public void GPGsLogInButton()
