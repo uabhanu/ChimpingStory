@@ -1,12 +1,12 @@
-﻿using Facebook.Unity;
-using GooglePlayGames;
-using GooglePlayGames.BasicApi;
+﻿//using Facebook.Unity;
+//using GooglePlayGames;
+//using GooglePlayGames.BasicApi;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Advertisements;
 using UnityEngine.SceneManagement;
-using UnityEngine.SocialPlatforms;
+//using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour 
@@ -35,8 +35,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
 	{
-        FBInit();
-        GPGsInit();
+        //FBInit();
+        //GPGsInit();
         //m_isMemoryLeakTestingMode = true; //TODO Remove this for Live Version
         Invoke("FBLogInCheck" , 0.2f);
         Invoke("GPGsLogInCheck" , 0.2f);
@@ -168,93 +168,93 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    void FBAppLinkURL(IAppLinkResult applinkResult) //Not sure how to use this yet so not using for now
-    {
-        if(!string.IsNullOrEmpty(applinkResult.Url))
-        {
-            _applinkURL = "" + applinkResult.Url + "";
-            Debug.Log(_applinkURL);
-        }
-        else
-        {
-            _applinkURL = "http://uabhanu.wixsite.com/portfolio";
-        }
-    }
+    //void FBAppLinkURL(IAppLinkResult applinkResult) //Not sure how to use this yet so not using for now
+    //{
+    //    if(!string.IsNullOrEmpty(applinkResult.Url))
+    //    {
+    //        _applinkURL = "" + applinkResult.Url + "";
+    //        Debug.Log(_applinkURL);
+    //    }
+    //    else
+    //    {
+    //        _applinkURL = "http://uabhanu.wixsite.com/portfolio";
+    //    }
+    //}
 
-    public void FBChallengePlayers()
-    {
-        FB.AppRequest
-        (
-            "Come and try to be the Chimpion :) ",
-            null,
-            new List<object>{"app_users"},
-            null,
-            null,
-            null,
-            null,
-            FBChallengePlayersCallback
-        );
+  //  public void FBChallengePlayers()
+  //  {
+  //      FB.AppRequest
+  //      (
+  //          "Come and try to be the Chimpion :) ",
+  //          null,
+  //          new List<object>{"app_users"},
+  //          null,
+  //          null,
+  //          null,
+  //          null,
+  //          FBChallengePlayersCallback
+  //      );
 
-        Screen.orientation = ScreenOrientation.Portrait;
-    }
+  //      Screen.orientation = ScreenOrientation.Portrait;
+  //  }
 
-    void FBChallengePlayersCallback(IAppRequestResult appRequestResult)
-    {
-        if(appRequestResult.Cancelled) 
-		{
-			//Debug.LogWarning("Sir Bhanu, You have cancelled the invite");
-            Screen.orientation = ScreenOrientation.Landscape;
-		}
+  //  void FBChallengePlayersCallback(IAppRequestResult appRequestResult)
+  //  {
+  //      if(appRequestResult.Cancelled) 
+		//{
+		//	//Debug.LogWarning("Sir Bhanu, You have cancelled the invite");
+  //          Screen.orientation = ScreenOrientation.Landscape;
+		//}
         
-        else if(!string.IsNullOrEmpty(appRequestResult.Error))
-        {
-            //Debug.LogError("Sir Bhanu, There is a problem : " + appRequestResult.Error);
-            Screen.orientation = ScreenOrientation.Landscape;
-        }
+  //      else if(!string.IsNullOrEmpty(appRequestResult.Error))
+  //      {
+  //          //Debug.LogError("Sir Bhanu, There is a problem : " + appRequestResult.Error);
+  //          Screen.orientation = ScreenOrientation.Landscape;
+  //      }
 
-		else if(!string.IsNullOrEmpty(appRequestResult.RawResult)) 
-		{
-            //Debug.LogWarning("Sir Bhanu, Your invitation : " + appRequestResult.RawResult);
+		//else if(!string.IsNullOrEmpty(appRequestResult.RawResult)) 
+		//{
+  //          //Debug.LogWarning("Sir Bhanu, Your invitation : " + appRequestResult.RawResult);
 
-            Screen.orientation = ScreenOrientation.Landscape;
+  //          Screen.orientation = ScreenOrientation.Landscape;
 
-            if(!_isFBShareTestMode)
-            {
-                ScoreManager.m_supersCount++;
-                BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
-            }
+  //          if(!_isFBShareTestMode)
+  //          {
+  //              ScoreManager.m_supersCount++;
+  //              BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
+  //          }
             
-            //_fbChallengeInviteSuccessMenuObj.SetActive(true);
-		}
-    }
+  //          //_fbChallengeInviteSuccessMenuObj.SetActive(true);
+		//}
+  //  }
 
-    void FBInit()
-    {
-        if(!FB.IsInitialized) 
-		{
-            HideUnityDelegate FBOnHideUnity = null;
-            InitDelegate FBSetInit = null;
-            FB.Init(FBSetInit , FBOnHideUnity);	
-		}
-    }
+ //   void FBInit()
+ //   {
+ //       if(!FB.IsInitialized) 
+	//	{
+ //           HideUnityDelegate FBOnHideUnity = null;
+ //           InitDelegate FBSetInit = null;
+ //           FB.Init(FBSetInit , FBOnHideUnity);	
+	//	}
+ //   }
 
-    void FBLoggedIn()
-	{
-        FB.API("/me?fields=first_name" , HttpMethod.GET , FBUsernameDisplay);
-        FB.API("/me/picture?type=square&height=480&width=480" , HttpMethod.GET , FBProfilePicDisplay);
+ //   void FBLoggedIn()
+	//{
+ //       FB.API("/me?fields=first_name" , HttpMethod.GET , FBUsernameDisplay);
+ //       FB.API("/me/picture?type=square&height=480&width=480" , HttpMethod.GET , FBProfilePicDisplay);
 
-        if(_fbLoggedInObj != null && _fbLoggedOutObj != null)
-        {
-            _fbLoggedInObj.SetActive(true);
-		    _fbLoggedOutObj.SetActive(false);		
-        }
-        else
-        {
-            Debug.LogError("Sir Bhanu, FB Logged In & Out Objs no longer exist but you can ignore them :)");
-        }
+ //       if(_fbLoggedInObj != null && _fbLoggedOutObj != null)
+ //       {
+ //           _fbLoggedInObj.SetActive(true);
+	//	    _fbLoggedOutObj.SetActive(false);		
+ //       }
+ //       else
+ //       {
+ //           Debug.LogError("Sir Bhanu, FB Logged In & Out Objs no longer exist but you can ignore them :)");
+ //       }
 
-        Screen.orientation = ScreenOrientation.Landscape;
-	}
+ //       Screen.orientation = ScreenOrientation.Landscape;
+	//}
 
 	void FBLoggedOut()
 	{
@@ -271,56 +271,56 @@ public class GameManager : MonoBehaviour
         Screen.orientation = ScreenOrientation.Landscape;
 	}
 
-    void FBLogIn()
-    {
-        if(FB.IsInitialized)
-        {
-            _noInternetText.enabled = false;
-		    List<string> permissions = new List<string>();
-            FB.LogInWithReadPermissions(permissions , FBLogInCallBack);
-        }
-    }
+    //void FBLogIn()
+    //{
+    //    if(FB.IsInitialized)
+    //    {
+    //        _noInternetText.enabled = false;
+		  //  List<string> permissions = new List<string>();
+    //        FB.LogInWithReadPermissions(permissions , FBLogInCallBack);
+    //    }
+    //}
 
-    void FBLoginButton()
-	{
-        Screen.orientation = ScreenOrientation.Portrait;
-        FBLogIn();
-        Invoke("FBLoggedIn" , 0.2f);
-	}
+ //   void FBLoginButton()
+	//{
+ //       Screen.orientation = ScreenOrientation.Portrait;
+ //       FBLogIn();
+ //       Invoke("FBLoggedIn" , 0.2f);
+	//}
 
-    void FBLogInCallBack(IResult logInResult)
-	{
-        if(logInResult.Cancelled) 
-		{
-			Debug.LogWarning("Sir Bhanu, You have cancelled the LogIn");
-            FBLoggedOut();
-		}
+ //   void FBLogInCallBack(IResult logInResult)
+	//{
+ //       if(logInResult.Cancelled) 
+	//	{
+	//		Debug.LogWarning("Sir Bhanu, You have cancelled the LogIn");
+ //           FBLoggedOut();
+	//	}
         
-        else if(!string.IsNullOrEmpty(logInResult.Error))
-        {
-            Debug.LogWarning("Sir Bhanu, You have pressed Error Button");
-            FBLoggedOut();
-        }
+ //       else if(!string.IsNullOrEmpty(logInResult.Error))
+ //       {
+ //           Debug.LogWarning("Sir Bhanu, You have pressed Error Button");
+ //           FBLoggedOut();
+ //       }
 
-		else if(!string.IsNullOrEmpty(logInResult.RawResult)) 
-		{
-            Debug.LogWarning("Sir Bhanu, Your LogIn : " + logInResult.RawResult);
-            FBLoggedIn();
-		}
-	}
+	//	else if(!string.IsNullOrEmpty(logInResult.RawResult)) 
+	//	{
+ //           Debug.LogWarning("Sir Bhanu, Your LogIn : " + logInResult.RawResult);
+ //           FBLoggedIn();
+	//	}
+	//}
 
-    void FBLogInCheck()
-    {
-        if(FB.IsLoggedIn)
-        {
-            FBLoggedIn();
-        }
-        else
-        {
-            FBLoggedOut();
-            Invoke("FBLogInCheck" , 0.2f);
-        }
-    }
+ //   void FBLogInCheck()
+ //   {
+ //       if(FB.IsLoggedIn)
+ //       {
+ //           FBLoggedIn();
+ //       }
+ //       else
+ //       {
+ //           FBLoggedOut();
+ //           Invoke("FBLogInCheck" , 0.2f);
+ //       }
+ //   }
 
 	void FBOnHideUnity(bool isGameShown)
 	{
@@ -334,91 +334,91 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	void FBProfilePicDisplay(IGraphResult graphicResult)
-	{
-        try
-        {
-            if(graphicResult.Texture != null && graphicResult.Error == null)
-		    {
-			    _profilePicImage.sprite = Sprite.Create(graphicResult.Texture , new Rect(0 , 0 , graphicResult.Texture.width , graphicResult.Texture.height) , new Vector2());
-                _profilePicEnabled = true; //This is used to check if sprite created properly and display only if it is, or else, _profilePicImage won't be enabled
-                _profilePicImage.enabled = true;
-		    }
-        }
-        catch(Exception e)
-        {
-            Debug.Log(e);
-        }
-	}
+	//void FBProfilePicDisplay(IGraphResult graphicResult)
+	//{
+ //       try
+ //       {
+ //           if(graphicResult.Texture != null && graphicResult.Error == null)
+	//	    {
+	//		    _profilePicImage.sprite = Sprite.Create(graphicResult.Texture , new Rect(0 , 0 , graphicResult.Texture.width , graphicResult.Texture.height) , new Vector2());
+ //               _profilePicEnabled = true; //This is used to check if sprite created properly and display only if it is, or else, _profilePicImage won't be enabled
+ //               _profilePicImage.enabled = true;
+	//	    }
+ //       }
+ //       catch(Exception e)
+ //       {
+ //           Debug.Log(e);
+ //       }
+	//}
 
-	void FBSetInit()
-	{
-		if(FB.IsLoggedIn) 
-		{
-			FBLoggedIn();
-		} 
-		else 
-		{
-			FBLoggedOut();
-		}
-	}
+	//void FBSetInit()
+	//{
+	//	if(FB.IsLoggedIn) 
+	//	{
+	//		FBLoggedIn();
+	//	} 
+	//	else 
+	//	{
+	//		FBLoggedOut();
+	//	}
+	//}
 
-	public void FBShareButton()
-	{
-        Screen.orientation = ScreenOrientation.Portrait;
+	//public void FBShareButton()
+	//{
+ //       Screen.orientation = ScreenOrientation.Portrait;
 
-        FB.ShareLink //TODO Do this if player has the relevant permission
-		(
-			contentTitle: "Fourth Lion Studios Message",
-			contentURL: new Uri("http://uabhanu.wixsite.com/portfolio"), //TODO Game URL here when Live
-			contentDescription: "We really hope you love the game", 
-            callback: FBShareCallback
-		);
-	}
+ //       FB.ShareLink //TODO Do this if player has the relevant permission
+	//	(
+	//		contentTitle: "Fourth Lion Studios Message",
+	//		contentURL: new Uri("http://uabhanu.wixsite.com/portfolio"), //TODO Game URL here when Live
+	//		contentDescription: "We really hope you love the game", 
+ //           callback: FBShareCallback
+	//	);
+	//}
 
-	void FBShareCallback(IShareResult shareResult)
-	{
-		if(shareResult.Cancelled) 
-		{
-			Debug.LogWarning("Sir Bhanu, you have cancelled the Share :)" );
-            Screen.orientation = ScreenOrientation.Landscape;
-		} 
+	//void FBShareCallback(IShareResult shareResult)
+	//{
+	//	if(shareResult.Cancelled) 
+	//	{
+	//		Debug.LogWarning("Sir Bhanu, you have cancelled the Share :)" );
+ //           Screen.orientation = ScreenOrientation.Landscape;
+	//	} 
 
-        else if(!string.IsNullOrEmpty(shareResult.Error))
-        {
-            Debug.LogError("Sir Bhanu, You have pressed error button");
-        }
+ //       else if(!string.IsNullOrEmpty(shareResult.Error))
+ //       {
+ //           Debug.LogError("Sir Bhanu, You have pressed error button");
+ //       }
 
-		else
-		{
-            Debug.LogWarning("Sir Bhanu, Your Share is a success :)");
-			Screen.orientation = ScreenOrientation.Landscape;
+	//	else
+	//	{
+ //           Debug.LogWarning("Sir Bhanu, Your Share is a success :)");
+	//		Screen.orientation = ScreenOrientation.Landscape;
 
-            if(!_isFBShareTestMode)
-            {
-                ScoreManager.m_supersCount++;
-                BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
-            }
+ //           if(!_isFBShareTestMode)
+ //           {
+ //               ScoreManager.m_supersCount++;
+ //               BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
+ //           }
 
-            _fbShareSuccessMenuObj.SetActive(true);
-            _gpgsLogInButtonImage.enabled = false;
-            _gpgsLogInTestText.enabled = false;
-            _rateButtonImage.enabled = false;
+ //           _fbShareSuccessMenuObj.SetActive(true);
+ //           _gpgsLogInButtonImage.enabled = false;
+ //           _gpgsLogInTestText.enabled = false;
+ //           _rateButtonImage.enabled = false;
 
-		} 
-	}
+	//	} 
+	//}
 
-	void FBUsernameDisplay(IResult usernameResult)
-	{
-		if(usernameResult.Error == null && m_currentScene == 0)
-		{
-			_usernameText.text =  "Hi " + usernameResult.ResultDictionary["first_name"];
-		}
-        else
-        {
-            FBLoggedOut();
-        }
-	}
+	//void FBUsernameDisplay(IResult usernameResult)
+	//{
+	//	if(usernameResult.Error == null && m_currentScene == 0)
+	//	{
+	//		_usernameText.text =  "Hi " + usernameResult.ResultDictionary["first_name"];
+	//	}
+ //       else
+ //       {
+ //           FBLoggedOut();
+ //       }
+	//}
 
     void GetBhanuObjects()
     {
@@ -604,9 +604,9 @@ public class GameManager : MonoBehaviour
     void GPGsInit()
     {
         _gpgsLogInButtonTapped = false;
-        PlayGamesClientConfiguration clientConfig = new PlayGamesClientConfiguration.Builder().Build();
-        PlayGamesPlatform.InitializeInstance(clientConfig);
-        PlayGamesPlatform.Activate();
+        //PlayGamesClientConfiguration clientConfig = new PlayGamesClientConfiguration.Builder().Build();
+        //PlayGamesPlatform.InitializeInstance(clientConfig);
+        //PlayGamesPlatform.Activate();
     }
 
     void GPGsLoggedIn()
@@ -648,10 +648,10 @@ public class GameManager : MonoBehaviour
 
     void GPGsLogIn() 
     {
-        if(!PlayGamesPlatform.Instance.localUser.authenticated) 
-        {
-            PlayGamesPlatform.Instance.Authenticate(GPGsLogInCallback);
-        } 
+        //if(!PlayGamesPlatform.Instance.localUser.authenticated) 
+        //{
+        //    PlayGamesPlatform.Instance.Authenticate(GPGsLogInCallback);
+        //} 
     }
 
     public void GPGsLogInButton()
@@ -674,15 +674,15 @@ public class GameManager : MonoBehaviour
 
     void GPGsLogInCheck()
     {
-        if(PlayGamesPlatform.Instance.localUser.authenticated)
-        {
-            GPGsLoggedIn();
-        }
-        else
-        {
-            GPGsLoggedOut();
-            Invoke("GPGsLogInCheck" , 0.2f);
-        }
+        //if(PlayGamesPlatform.Instance.localUser.authenticated)
+        //{
+        //    GPGsLoggedIn();
+        //}
+        //else
+        //{
+        //    GPGsLoggedOut();
+        //    Invoke("GPGsLogInCheck" , 0.2f);
+        //}
     }
 
     public void GPRateButton()
