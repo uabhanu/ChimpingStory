@@ -1,6 +1,6 @@
 ﻿using Facebook.Unity;
-//using GooglePlayGames;
-//using GooglePlayGames.BasicApi;
+using GooglePlayGames;
+using GooglePlayGames.BasicApi;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -604,9 +604,9 @@ public class GameManager : MonoBehaviour
     void GPGsInit()
     {
         _gpgsLogInButtonTapped = false;
-        //PlayGamesClientConfiguration clientConfig = new PlayGamesClientConfiguration.Builder().Build();
-        //PlayGamesPlatform.InitializeInstance(clientConfig);
-        //PlayGamesPlatform.Activate();
+        PlayGamesClientConfiguration clientConfig = new PlayGamesClientConfiguration.Builder().Build();
+        PlayGamesPlatform.InitializeInstance(clientConfig);
+        PlayGamesPlatform.Activate();
     }
 
     void GPGsLoggedIn()
@@ -648,10 +648,10 @@ public class GameManager : MonoBehaviour
 
     void GPGsLogIn() 
     {
-        //if(!PlayGamesPlatform.Instance.localUser.authenticated)
-        //{
-        //    PlayGamesPlatform.Instance.Authenticate(GPGsLogInCallback);
-        //}
+        if(!PlayGamesPlatform.Instance.localUser.authenticated)
+        {
+            PlayGamesPlatform.Instance.Authenticate(GPGsLogInCallback);
+        }
     }
 
     public void GPGsLogInButton()
@@ -674,15 +674,15 @@ public class GameManager : MonoBehaviour
 
     void GPGsLogInCheck()
     {
-        //if(PlayGamesPlatform.Instance.localUser.authenticated)
-        //{
-        //    GPGsLoggedIn();
-        //}
-        //else
-        //{
-        //    GPGsLoggedOut();
-        //    Invoke("GPGsLogInCheck" , 0.2f);
-        //}
+        if(PlayGamesPlatform.Instance.localUser.authenticated)
+        {
+            GPGsLoggedIn();
+        }
+        else
+        {
+            GPGsLoggedOut();
+            Invoke("GPGsLogInCheck" , 0.2f);
+        }
     }
 
     public void GPRateButton()
