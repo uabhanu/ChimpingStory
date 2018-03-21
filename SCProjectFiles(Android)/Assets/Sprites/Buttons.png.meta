@@ -152,6 +152,8 @@ TextureImporter:
     21300290: GPRate
     21300292: FBShare
     21300294: GPGLogIn
+    21300296: LeaderboardGreen
+    21300298: LeaderboardGrey
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -682,6 +684,34 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 283
+        y: 0
+        width: 191
+        height: 187
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: LeaderboardGreen
+      rect:
+        serializedVersion: 2
+        x: 498
+        y: 0
+        width: 191
+        height: 187
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: LeaderboardGrey
+      rect:
+        serializedVersion: 2
+        x: 713
         y: 0
         width: 191
         height: 187

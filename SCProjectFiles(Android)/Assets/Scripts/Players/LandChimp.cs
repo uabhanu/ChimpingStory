@@ -4,42 +4,42 @@ using UnityEngine.SceneManagement;
 
 public class LandChimp : MonoBehaviour
 {
-    Animator m_chimpAnim;
-    bool m_isGrounded , m_isJumping , m_isSliding , m_isUI;
-    float m_defaultGameSpeed , m_yPosInSuperMode;
-	GameManager m_gameManager;
-	LevelCreator m_levelCreator;
-    Rigidbody2D m_chimpBody2D;
-    RockSpawner m_rockSpawner;
-	SoundManager m_soundManager;
+    Animator _chimpAnim;
+    bool _gpgsLeaderboardAvailable = false , _isGrounded , _isJumping , _isSliding , _isUI;
+    float _defaultGameSpeed , _yPosInSuperMode;
+	GameManager _gameManager;
+	LevelCreator _levelCreator;
+    Rigidbody2D _chimpBody2D;
+    RockSpawner _rockSpawner;
+	SoundManager _soundManager;
 
-    [SerializeField] float m_jumpHeight , m_lowSlipMultiplier , m_highSlipMultiplier , m_slipTime;
-    [SerializeField] Transform m_raycastBottom , m_raycastTop;
+    [SerializeField] float _jumpHeight , _lowSlipMultiplier , _highSlipMultiplier , _slipTime;
+    [SerializeField] Transform _raycastBottom , _raycastTop;
 
     public bool m_isSlipping , m_isSuper;
 
 	void Reset()
 	{
-        m_highSlipMultiplier = 1.75f;
-        m_lowSlipMultiplier = 1.54f;
+        _highSlipMultiplier = 1.75f;
+        _lowSlipMultiplier = 1.54f;
         m_isSlipping = false;
 		m_isSuper = false;
-        m_jumpHeight = 15.5f;
-        m_raycastBottom = GameObject.Find("RaycastBottom").transform;
-        m_raycastTop = GameObject.Find("RaycastTop").transform;
-        m_slipTime = 30f;
+        _jumpHeight = 15.5f;
+        _raycastBottom = GameObject.Find("RaycastBottom").transform;
+        _raycastTop = GameObject.Find("RaycastTop").transform;
+        _slipTime = 30f;
 	}
 
 	void Start()
     {
-        m_chimpAnim = GetComponent<Animator>();
-        m_chimpBody2D = GetComponent<Rigidbody2D>();
-		m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-		m_levelCreator = GameObject.Find("LevelCreator").GetComponent<LevelCreator>();
-        m_defaultGameSpeed = m_levelCreator.m_gameSpeed;
+        _chimpAnim = GetComponent<Animator>();
+        _chimpBody2D = GetComponent<Rigidbody2D>();
+		_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+		_levelCreator = GameObject.Find("LevelCreator").GetComponent<LevelCreator>();
+        _defaultGameSpeed = _levelCreator.m_gameSpeed;
         LevelCreator.m_middleCounter = 0;
-        m_rockSpawner = GameObject.Find("RockSpawner").GetComponent<RockSpawner>();
-		m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        _rockSpawner = GameObject.Find("RockSpawner").GetComponent<RockSpawner>();
+		_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
     void Update()
@@ -61,7 +61,7 @@ public class LandChimp : MonoBehaviour
             #if UNITY_EDITOR || UNITY_STANDALONE
             if(Input.GetMouseButtonDown(0))
             {
-                if((m_isGrounded && !m_isJumping && !m_isSliding && !m_isUI) || m_isSuper)
+                if((_isGrounded && !_isJumping && !_isSliding && !_isUI) || m_isSuper)
                 {
                     Jump();
                 }
@@ -69,7 +69,7 @@ public class LandChimp : MonoBehaviour
 
             if(Input.GetMouseButtonDown(1))
             {
-                if((m_isGrounded && !m_isJumping && !m_isSliding && !m_isUI) || m_isSuper)
+                if((_isGrounded && !_isJumping && !_isSliding && !_isUI) || m_isSuper)
                 {
                     Slide();
                 }
@@ -90,7 +90,7 @@ public class LandChimp : MonoBehaviour
 
     void CheatDeath()
     {
-        m_gameManager.Ads();
+        _gameManager.Ads();
         StopAllCoroutines();
     }
 
@@ -99,37 +99,37 @@ public class LandChimp : MonoBehaviour
         if(!m_isSuper)
         {
             //Debug.DrawLine(m_raycastTop.position , m_raycastBottom.position , Color.red);
-            RaycastHit2D hit2D = Physics2D.Raycast(m_raycastTop.position , m_raycastBottom.position);
+            RaycastHit2D hit2D = Physics2D.Raycast(_raycastTop.position , _raycastBottom.position);
 
             if(hit2D)
             {
                 if(hit2D.collider.gameObject.GetComponent<Ground>()) //No Garbage but just like string comparison, m_isGrounded becoming false a little late for your liking
                 {
-                    m_isGrounded = true;
+                    _isGrounded = true;
                 }
 
                 else if(!hit2D.collider.gameObject.GetComponent<Ground>())
                 {
-                    m_isGrounded = false;
+                    _isGrounded = false;
                     SlideFinished();
                 }
 
                 else
                 {
-                    m_isGrounded = false;
+                    _isGrounded = false;
                     SlideFinished();
                 }
             }
 
             else if(!hit2D)
             {
-                m_isGrounded = false;
+                _isGrounded = false;
                 SlideFinished();
             }
 
             else
             {
-                m_isGrounded = false;
+                _isGrounded = false;
                 SlideFinished();
             }
         }
@@ -143,31 +143,31 @@ public class LandChimp : MonoBehaviour
 	
 	public void Jump()
     {
-        if(m_isGrounded && !m_isJumping && !m_isSliding && !m_isUI) //This check exists in Update also for extra support as it's slow
+        if(_isGrounded && !_isJumping && !_isSliding && !_isUI) //This check exists in Update also for extra support as it's slow
         {
-            m_chimpAnim.SetBool("Jump" , true);
-            m_chimpBody2D.velocity = new Vector2(m_chimpBody2D.velocity.x , m_jumpHeight);
+            _chimpAnim.SetBool("Jump" , true);
+            _chimpBody2D.velocity = new Vector2(_chimpBody2D.velocity.x , _jumpHeight);
             SelfieAppear();
-            m_isJumping = true;
+            _isJumping = true;
             Invoke("JumpFinished" , 0.55f);
-		    m_soundManager.m_soundsSource.clip = m_soundManager.m_jump;
+		    _soundManager.m_soundsSource.clip = _soundManager.m_jump;
 
-            if(m_soundManager.m_soundsSource.enabled)
+            if(_soundManager.m_soundsSource.enabled)
             {
-                m_soundManager.m_soundsSource.Play();
+                _soundManager.m_soundsSource.Play();
             }
         }
         
         if(m_isSuper)
         {
-            m_chimpBody2D.velocity = new Vector2(m_chimpBody2D.velocity.x , m_jumpHeight);
+            _chimpBody2D.velocity = new Vector2(_chimpBody2D.velocity.x , _jumpHeight);
         }
     }
 
     void JumpFinished() //TODO find out why this is causing 0.6kb GC Alloc if necessary
     {
-        m_chimpAnim.SetBool("Jump" , false);
-        m_isJumping = false;      
+        _chimpAnim.SetBool("Jump" , false);
+        _isJumping = false;      
         
         if(!m_isSuper)
         {
@@ -184,11 +184,11 @@ public class LandChimp : MonoBehaviour
     {
         if(tri2D.gameObject.tag.Equals("Fall"))
         {
-			m_soundManager.m_soundsSource.clip = m_soundManager.m_fallDeath;
+			_soundManager.m_soundsSource.clip = _soundManager.m_fallDeath;
 
-			if(m_soundManager.m_soundsSource.enabled)
+			if(_soundManager.m_soundsSource.enabled)
             {
-                m_soundManager.m_soundsSource.Play();
+                _soundManager.m_soundsSource.Play();
             }
 
             CheatDeath();
@@ -196,11 +196,11 @@ public class LandChimp : MonoBehaviour
 
         if(tri2D.gameObject.tag.Equals("Hurdle"))
         {
-			m_soundManager.m_soundsSource.clip = m_soundManager.m_hurdleDeath;
+			_soundManager.m_soundsSource.clip = _soundManager.m_hurdleDeath;
 
-			if(m_soundManager.m_soundsSource.enabled)
+			if(_soundManager.m_soundsSource.enabled)
             {
-                m_soundManager.m_soundsSource.Play();
+                _soundManager.m_soundsSource.Play();
             }
 
             CheatDeath();
@@ -255,22 +255,22 @@ public class LandChimp : MonoBehaviour
 
     public void Slide()
     {
-		if(m_isGrounded && !m_isJumping && !m_isUI)
+		if(_isGrounded && !_isJumping && !_isUI)
 		{
-			m_chimpAnim.SetBool("Jog" , false);
-			m_chimpAnim.SetBool("Slide" , true);
+			_chimpAnim.SetBool("Jog" , false);
+			_chimpAnim.SetBool("Slide" , true);
 			SelfieAppear();
-			m_isSliding = true;
+			_isSliding = true;
 			Invoke("SlideFinished" , 0.75f);
 		}
     }
 
     void SlideFinished()
     {
-        m_chimpAnim.SetBool("Slide" , false);
-		m_isSliding = false;
+        _chimpAnim.SetBool("Slide" , false);
+		_isSliding = false;
 
-        if(!m_isJumping)
+        if(!_isJumping)
         {
             SelfieDisappear();
         }
@@ -278,28 +278,28 @@ public class LandChimp : MonoBehaviour
 
     void Slip()
     {
-        m_chimpAnim.SetBool("Slip" , true);
+        _chimpAnim.SetBool("Slip" , true);
 
-        if(m_levelCreator.m_gameSpeed <= 8)
+        if(_levelCreator.m_gameSpeed <= 8)
         {
-            m_levelCreator.m_gameSpeed *= m_highSlipMultiplier;
+            _levelCreator.m_gameSpeed *= _highSlipMultiplier;
         }
         else
         {
-            m_levelCreator.m_gameSpeed *= m_lowSlipMultiplier;
+            _levelCreator.m_gameSpeed *= _lowSlipMultiplier;
         }
         
         m_isSlipping = true;
-        Invoke("SlipFinished" , m_slipTime);
+        Invoke("SlipFinished" , _slipTime);
     }
 
     void SlipFinished()
     {
-		m_chimpAnim.SetBool("Slip" , false);
+		_chimpAnim.SetBool("Slip" , false);
 
         if(!m_isSuper)
         {
-            m_levelCreator.m_gameSpeed /= m_highSlipMultiplier;
+            _levelCreator.m_gameSpeed /= _highSlipMultiplier;
         }
         
         m_isSlipping = false;
@@ -307,21 +307,21 @@ public class LandChimp : MonoBehaviour
 
 	void Super()
 	{
-        m_isGrounded = false;
+        _isGrounded = false;
         m_isSuper = true;
-        m_chimpAnim.SetBool("Super" , true);
-        m_jumpHeight *= 1.5f;
+        _chimpAnim.SetBool("Super" , true);
+        _jumpHeight *= 1.5f;
 		SelfieAppear();
-        m_levelCreator.m_gameSpeed = m_defaultGameSpeed;
+        _levelCreator.m_gameSpeed = _defaultGameSpeed;
         SlipFinished();
-        m_rockSpawner.StartSpawnRoutine();
+        _rockSpawner.StartSpawnRoutine();
 		Invoke("SuperFinished" , 30.25f);
 	}
 
     void SuperFinished()
     {
-        m_chimpAnim.SetBool("Super" , false);
-        m_jumpHeight /= 1.5f;
+        _chimpAnim.SetBool("Super" , false);
+        _jumpHeight /= 1.5f;
         m_isSuper = false;	
         LevelCreator.m_middleCounter = 0;
     }
@@ -330,12 +330,12 @@ public class LandChimp : MonoBehaviour
     {
         if(EventSystem.current.currentSelectedGameObject != null)
         {
-            m_isUI = true;
+            _isUI = true;
         }
 
         else if(EventSystem.current.currentSelectedGameObject == null)
         {
-            m_isUI = false;
+            _isUI = false;
         }
     }
 }
