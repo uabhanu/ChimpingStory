@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Advertisements;
 using UnityEngine.SceneManagement;
-//using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour 
@@ -16,18 +15,18 @@ public class GameManager : MonoBehaviour
     //Dictionary<string , object> _highScoresData;
     //Dictionary<string , string> _scores = null;
     //float _highScore;
-	Image _adsAcceptButtonImage , _adsCancelButtonImage , _adsMenuImage , _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _chimpionshipBeltImage , _continueButtonImage , _exitButtonImage , _gpgsLBConfirmMenuImage , _gpgsLBOKButtonImage;
-    Image _gpgsLBUpdateAcceptButtonImage , _gpgsLBUpdateCancelButtonImage , _muteButtonImage , _pauseButtonImage , _pauseMenuImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage , _restartButtonImage;
+	Image _adsAcceptButtonImage , _adsCancelButtonImage , _adsMenuImage , _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _chimpionshipBeltImage , _continueButtonImage , _exitButtonImage , _gpgsLeaderboardConfirmMenuImage , _gpgsLeaderboardOKButtonImage;
+    Image _gpgsLeaderboardUpdateAcceptButtonImage , _gpgsLeaderboardUpdateCancelButtonImage , _muteButtonImage , _pauseButtonImage , _pauseMenuImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage , _restartButtonImage;
     Image _restartAcceptButtonImage , _restartCancelButtonImage , _restartMenuImage , _resumeButtonImage , _unmuteButtonImage;
     LandChimp _landChimp;
 	SoundManager _soundManager;
     string _applinkURL , _leaderboardID = "CgkInMKFu8wYEAIQAQ";
-	Text _adsText , _backToLandLoseText , _backToLandWinText , _backToLandWithSuperText , _gpgsLBUpdateText , _highScoreDisplayText , _highScoreValueText , _noInternetText , _quitText , _restartText;
+	Text _adsText , _backToLandLoseText , _backToLandWinText , _backToLandWithSuperText , _gpgsLeaderboardUpdateText , _highScoreDisplayText , _highScoreValueText , _noInternetText , _quitText , _restartText;
 
-	[SerializeField] bool /*_isFBInviteTestMode , */_isFBShareTestMode , _isGPGsLogInTestMode , _selfieFlashEnabled;
-    [SerializeField] GameObject /*_fbChallengeInviteSuccessMenuObj , */_fbShareMenuObj , _fbShareSuccessMenuObj , _fbShareTestMenuObj , _fbLoggedInObj , _fbLoggedOutObj , _gpgsLoggedInObj , _gpgsLoggedOutObj;
+	[SerializeField] bool /*_isFBInviteTestMode , */_isFBShareTestMode , _isGPGsLeaderboardTestMode , _isGPGsLogInTestMode , _selfieFlashEnabled;
+    [SerializeField] GameObject /*_fbChallengeInviteSuccessMenuObj , */_fbShareMenuObj , _fbShareSuccessMenuObj , _fbShareTestMenuObj , _fbLoggedInObj , _fbLoggedOutObj , _gpgsLeaderboardTestMenuObj , _gpgsLoggedInObj , _gpgsLoggedOutObj;
     [SerializeField] Image _facebookButtonImage , _fallingLevelImage , /*_fbChallengeInviteButtonImage , */_gpgsLogInButtonImage , _landLevelImage , _leaderboardButtonImage , _profilePicImage , _rateButtonImage , _shareButtonImage , _waterLevelImage;
-    [SerializeField] Text /*_fbChallengeInviteTestText, _fbScoreText, */_gpgsLogInTestText , _leaderboardLogInCheckText , _memoryLeakTestText , _usernameText;
+    [SerializeField] Text /*_fbChallengeInviteTestText, _fbScoreText, */_gpgsLogInTestText , _gpgsLeaderboardLogInCheckText , _gpgsLeaderboardTestText , _memoryLeakTestText , _usernameText;
 
     public static bool m_isMemoryLeakTestingMode , m_isTestingUnityEditor;
     public static Image m_selfieButtonImage , m_selfiePanelImage;
@@ -50,6 +49,12 @@ public class GameManager : MonoBehaviour
         _adsCancelButtonImage.enabled = true;
         _adsText.enabled = true;
         _chimpionshipBeltImage.enabled = false;
+        
+        if(_isGPGsLeaderboardTestMode)
+        {
+            _gpgsLeaderboardTestMenuObj.SetActive(false);
+        }
+
         _muteButtonImage.enabled = false;
         _pauseButtonImage.enabled = false;
 		m_selfieButtonImage.enabled = false;
@@ -63,6 +68,12 @@ public class GameManager : MonoBehaviour
         _adsAcceptButtonImage.enabled = false;
         _adsCancelButtonImage.enabled = false;
         _adsText.enabled = false;
+        
+        if(_isGPGsLeaderboardTestMode)
+        {
+            _gpgsLeaderboardTestMenuObj.SetActive(false);
+        }
+
         AdsShow();
     }
 
@@ -434,6 +445,11 @@ public class GameManager : MonoBehaviour
             _fbShareTestMenuObj.SetActive(true);
         }
 
+        if(_isGPGsLeaderboardTestMode)
+        {
+            _gpgsLeaderboardTestMenuObj.SetActive(true);
+        }
+
         if(_isGPGsLogInTestMode)
         {
             _gpgsLogInTestText.enabled = true;
@@ -484,11 +500,11 @@ public class GameManager : MonoBehaviour
             _adsMenuImage = GameObject.Find("AdsMenu").GetComponent<Image>();
             _chimpionshipBeltImage = GameObject.Find("ChimpionshipBelt").GetComponent<Image>();
             _exitButtonImage = GameObject.Find("ExitButton").GetComponent<Image>();
-            _gpgsLBConfirmMenuImage = GameObject.Find("LBConfirmMenu").GetComponent<Image>();
-            _gpgsLBOKButtonImage = GameObject.Find("LBOKButton").GetComponent<Image>();
-            _gpgsLBUpdateAcceptButtonImage = GameObject.Find("LBUpdateAcceptButton").GetComponent<Image>();
-            _gpgsLBUpdateCancelButtonImage = GameObject.Find("LBUpdateCancelButton").GetComponent<Image>();
-            _gpgsLBUpdateText = GameObject.Find("LBUpdateText").GetComponent<Text>();
+            _gpgsLeaderboardConfirmMenuImage = GameObject.Find("GPGsLeaderboardConfirmMenu").GetComponent<Image>();
+            _gpgsLeaderboardOKButtonImage = GameObject.Find("OKButton").GetComponent<Image>();
+            _gpgsLeaderboardUpdateAcceptButtonImage = GameObject.Find("UpdateAcceptButton").GetComponent<Image>();
+            _gpgsLeaderboardUpdateCancelButtonImage = GameObject.Find("UpdateCancelButton").GetComponent<Image>();
+            _gpgsLeaderboardUpdateText = GameObject.Find("UpdateText").GetComponent<Text>();
             _highScoreDisplayText = GameObject.Find("HighScoreTextDisplay").GetComponent<Text>();
 			_highScoreValueText = GameObject.Find("HighScoreValueDisplay").GetComponent<Text>();
             _landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
@@ -609,19 +625,19 @@ public class GameManager : MonoBehaviour
     void GPGsInit()
     {
         _gpgsLogInButtonTapped = false;
-        PlayGamesClientConfiguration clientConfig = new PlayGamesClientConfiguration.Builder().Build();
+        PlayGamesClientConfiguration clientConfig = new PlayGamesClientConfiguration.Builder().EnableSavedGames().Build();
         PlayGamesPlatform.InitializeInstance(clientConfig);
         PlayGamesPlatform.Activate();
     }
 
     public void GPGsLeaderboardButton()
     {
-        if(!_adsMenuImage.enabled && !_leaderboardLogInCheckText.enabled)
+        if(!_adsMenuImage.enabled && !_gpgsLeaderboardLogInCheckText.enabled)
         {
-            _gpgsLBUpdateAcceptButtonImage.enabled = true;
-            _gpgsLBUpdateCancelButtonImage.enabled = true;
-            _gpgsLBConfirmMenuImage.enabled = true;
-            _gpgsLBUpdateText.enabled = true;
+            _gpgsLeaderboardUpdateAcceptButtonImage.enabled = true;
+            _gpgsLeaderboardUpdateCancelButtonImage.enabled = true;
+            _gpgsLeaderboardConfirmMenuImage.enabled = true;
+            _gpgsLeaderboardUpdateText.enabled = true;
             _pauseButtonImage.enabled = false;
             Time.timeScale = 0;
         }
@@ -629,37 +645,83 @@ public class GameManager : MonoBehaviour
 
     public void GPGsLeaderboardConfirmOKButton()
     {
-        _gpgsLBUpdateAcceptButtonImage.enabled = true;
-        _gpgsLBUpdateCancelButtonImage.enabled = true;
-        _gpgsLBUpdateText.enabled = true;
-        _gpgsLBOKButtonImage.enabled = false;
-        _leaderboardLogInCheckText.enabled = false;
+        _gpgsLeaderboardUpdateAcceptButtonImage.enabled = true;
+        _gpgsLeaderboardUpdateCancelButtonImage.enabled = true;
+        _gpgsLeaderboardUpdateText.enabled = true;
+        _gpgsLeaderboardOKButtonImage.enabled = false;
+        _gpgsLeaderboardLogInCheckText.enabled = false;
+    }
+
+    public void GPGsLeaderboardScoreGet()
+    {
+        if(_isGPGsLeaderboardTestMode)
+        {
+            _gpgsLeaderboardTestText.text = ScoreManager.m_myScores;
+        }
+    }
+
+    public void GPGsLeaderboardScoreSet()
+    {
+        if(_isGPGsLeaderboardTestMode)
+        {
+            PlayGamesPlatform.Instance.ReportScore((long)ScoreManager.m_scoreValue , _leaderboardID , (bool success) =>
+            {
+                _gpgsLeaderboardTestText.text = "Score Update : " + success;
+            });
+        }
+    }
+
+    public void GPGsLeaderboardTestMenuAppear()
+    {
+        if(_isGPGsLeaderboardTestMode)
+        {
+            _gpgsLeaderboardTestMenuObj.SetActive(true);   
+        }
+    }
+
+    public void GPGsLeaderboardTestMenuDisappear()
+    {
+        if(_isGPGsLeaderboardTestMode)
+        {
+            _gpgsLeaderboardTestMenuObj.SetActive(false);
+        }
     }
 
     public void GPGsLeaderboardUpdateAcceptButton()
     {
         if(PlayGamesPlatform.Instance.localUser.authenticated) 
         {
+            PlayGamesPlatform.Instance.ReportScore((long)ScoreManager.m_scoreValue , _leaderboardID , (bool success) =>
+            {
+                Debug.Log("Score Update : " + success);
+                _gpgsLeaderboardLogInCheckText.text = "Score Update : " + success;
+            });
+
             PlayGamesPlatform.Instance.ShowLeaderboardUI();
         }
         else 
         {
           //Debug.LogError("Sir Bhanu, Please make sure you are logged in first :) ");
-          _gpgsLBUpdateAcceptButtonImage.enabled = false;
-          _gpgsLBUpdateCancelButtonImage.enabled = false;
-          _gpgsLBUpdateText.enabled = false;
-          _gpgsLBOKButtonImage.enabled = true;
-          _leaderboardLogInCheckText.enabled = true;
+          _gpgsLeaderboardUpdateAcceptButtonImage.enabled = false;
+          _gpgsLeaderboardUpdateCancelButtonImage.enabled = false;
+          _gpgsLeaderboardUpdateText.enabled = false;
+          _gpgsLeaderboardOKButtonImage.enabled = true;
+          _gpgsLeaderboardLogInCheckText.enabled = true;
         }
     }
 
     public void GPGsLeaderboardUpdateCancelButton()
     {
-        _gpgsLBUpdateAcceptButtonImage.enabled = false;
-        _gpgsLBUpdateCancelButtonImage.enabled = false;
-        _gpgsLBConfirmMenuImage.enabled = false;
-        _gpgsLBUpdateText.enabled = false;
-        _leaderboardLogInCheckText.enabled = false;
+        if(PlayGamesPlatform.Instance.localUser.authenticated) 
+        {
+            PlayGamesPlatform.Instance.ShowLeaderboardUI();
+        }
+
+        _gpgsLeaderboardUpdateAcceptButtonImage.enabled = false;
+        _gpgsLeaderboardUpdateCancelButtonImage.enabled = false;
+        _gpgsLeaderboardConfirmMenuImage.enabled = false;
+        _gpgsLeaderboardUpdateText.enabled = false;
+        _gpgsLeaderboardLogInCheckText.enabled = false;
         _pauseButtonImage.enabled = true;
         Time.timeScale = 1;
     }

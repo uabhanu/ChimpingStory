@@ -246,11 +246,13 @@ public class LandChimp : MonoBehaviour
     void SelfieAppear()
     {
         GameManager.m_selfieButtonImage.enabled = true;
+        _gameManager.GPGsLeaderboardTestMenuDisappear();
     }
 
     void SelfieDisappear()
     {
         GameManager.m_selfieButtonImage.enabled = false;
+        _gameManager.GPGsLeaderboardTestMenuAppear();
     }
 
     public void Slide()
