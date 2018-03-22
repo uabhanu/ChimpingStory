@@ -25,8 +25,8 @@ public class GameManager : MonoBehaviour
 
 	[SerializeField] bool /*_isFBInviteTestMode , */_isFBShareTestMode , _isGPGsLeaderboardTestMode , _isGPGsLogInTestMode , _selfieFlashEnabled;
     [SerializeField] GameObject /*_fbChallengeInviteSuccessMenuObj , */_fbShareMenuObj , _fbShareSuccessMenuObj , _fbShareTestMenuObj , _fbLoggedInObj , _fbLoggedOutObj , _gpgsLeaderboardTestMenuObj , _gpgsLoggedInObj , _gpgsLoggedOutObj;
-    [SerializeField] Image _facebookButtonImage , _fallingLevelImage , /*_fbChallengeInviteButtonImage , */_gpgsLogInButtonImage , _landLevelImage , _leaderboardButtonImage , _profilePicImage , _gpRateButtonImage , _shareButtonImage , _waterLevelImage;
-    [SerializeField] Text /*_fbChallengeInviteTestText, _fbScoreText, */_gpgsLogInTestText , _gpgsLeaderboardLogInCheckText , _gpgsLeaderboardTestText , _gpgsLeaderboardUpdateSuccessText , _memoryLeakTestText , _usernameText;
+    [SerializeField] Image _facebookButtonImage , _fallingLevelImage , /*_fbChallengeInviteButtonImage , */_gpgsLogInButtonImage , _landLevelImage , _leaderboardButtonImage , _fbProfilePicImage , _gpProfilePicImage , _gpRateButtonImage , _shareButtonImage , _waterLevelImage;
+    [SerializeField] Text /*_fbChallengeInviteTestText, _fbScoreText, */_gpgsLogInTestText , _gpgsLeaderboardLogInCheckText , _gpgsLeaderboardTestText , _gpgsLeaderboardUpdateSuccessText , _memoryLeakTestText , _fbUsernameText , _gpUsernameText;
 
     public static bool m_isMemoryLeakTestingMode , m_isTestingUnityEditor;
     public static Button m_gpgsLeaderboardButton;
@@ -352,9 +352,9 @@ public class GameManager : MonoBehaviour
         {
             if(graphicResult.Texture != null && graphicResult.Error == null)
             {
-                _profilePicImage.sprite = Sprite.Create(graphicResult.Texture , new Rect(0 , 0 , graphicResult.Texture.width , graphicResult.Texture.height) , new Vector2());
+                _fbProfilePicImage.sprite = Sprite.Create(graphicResult.Texture , new Rect(0 , 0 , graphicResult.Texture.width , graphicResult.Texture.height) , new Vector2());
                 _profilePicEnabled = true; //This is used to check if sprite created properly and display only if it is, or else, _profilePicImage won't be enabled
-                _profilePicImage.enabled = true;
+                _fbProfilePicImage.enabled = true;
             }
         }
         catch(Exception e)
@@ -423,7 +423,7 @@ public class GameManager : MonoBehaviour
     {
         if(usernameResult.Error == null && m_currentScene == 0)
         {
-            _usernameText.text = "Hi " + usernameResult.ResultDictionary["first_name"];
+            _fbUsernameText.text = "Hi " + usernameResult.ResultDictionary["first_name"];
         }
         else
         {
@@ -716,6 +716,9 @@ public class GameManager : MonoBehaviour
                 _gpgsLeaderboardConfirmMenuImage.enabled = true;
                 _gpgsLeaderboardSuccessOKButtonImage.enabled = true;
                 _gpgsLeaderboardUpdateSuccessText.enabled = true;
+                _gpgsLeaderboardUpdateAcceptButtonImage.enabled = false;
+                _gpgsLeaderboardUpdateCancelButtonImage.enabled = false;
+                _gpgsLeaderboardUpdateText.enabled = false;
             });
         }
         else
@@ -759,6 +762,8 @@ public class GameManager : MonoBehaviour
         {
             _gpgsLoggedInObj.SetActive(true);
             _gpgsLoggedOutObj.SetActive(false);
+            //_gpProfilePicImage = Social.localUser.image;
+            _gpUsernameText.text = Social.localUser.userName;
         }
         else
         {
@@ -947,9 +952,9 @@ public class GameManager : MonoBehaviour
         
         _noInternetText.enabled = false;
         _playButtonImage.enabled = false;
-        _profilePicImage.enabled = false;
+        _fbProfilePicImage.enabled = false;
 		_quitButtonImage.enabled = false;
-        _usernameText.enabled = false;
+        _fbUsernameText.enabled = false;
 
 		_quitMenuImage.enabled = true;
 		_quitAcceptButtonImage.enabled = true;
@@ -988,11 +993,11 @@ public class GameManager : MonoBehaviour
 
         if(_profilePicEnabled)
         {
-            _profilePicImage.enabled = true;
+            _fbProfilePicImage.enabled = true;
         }
         
 		_quitButtonImage.enabled = true;
-        _usernameText.enabled = true;
+        _fbUsernameText.enabled = true;
 
 		_quitMenuImage.enabled = false;
 		_quitAcceptButtonImage.enabled = false;
