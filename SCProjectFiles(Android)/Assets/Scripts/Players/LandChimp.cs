@@ -330,6 +330,16 @@ public class LandChimp : MonoBehaviour
 
     void UICheck()
     {
+        if(ScoreManager.m_myScores == null && ScoreManager.m_scoreValue < 10000f)
+        {
+            GameManager.m_gpgsLeaderboardButton.interactable = false;
+        }
+
+        if(ScoreManager.m_scoreValue >= 10000f)
+        {
+            GameManager.m_gpgsLeaderboardButton.interactable = true;
+        }
+
         if(EventSystem.current.currentSelectedGameObject != null)
         {
             _isUI = true;
