@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     //Dictionary<string , object> _highScoresData;
     //Dictionary<string , string> _scores = null;
     //float _highScore;
-	Image _adsAcceptButtonImage , _adsCancelButtonImage , _adsMenuImage , _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _chimpionshipBeltImage , _continueButtonImage , _exitButtonImage , _gpgsLeaderboardConfirmMenuImage , _gpgsLeaderboardOKButtonImage;
+	Image _adsAcceptButtonImage , _adsCancelButtonImage , _adsMenuImage , _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _chimpionshipBeltImage , _continueButtonImage , _exitButtonImage , _gpgsLeaderboardConfirmMenuImage , _gpgsLeaderboardOKButtonImage , _gpgsLeaderboardSuccessOKButtonImage;
     Image _gpgsLeaderboardUpdateAcceptButtonImage , _gpgsLeaderboardUpdateCancelButtonImage , _muteButtonImage , _pauseButtonImage , _pauseMenuImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage , _restartButtonImage;
     Image _restartAcceptButtonImage , _restartCancelButtonImage , _restartMenuImage , _resumeButtonImage , _unmuteButtonImage;
     LandChimp _landChimp;
@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] bool /*_isFBInviteTestMode , */_isFBShareTestMode , _isGPGsLeaderboardTestMode , _isGPGsLogInTestMode , _selfieFlashEnabled;
     [SerializeField] GameObject /*_fbChallengeInviteSuccessMenuObj , */_fbShareMenuObj , _fbShareSuccessMenuObj , _fbShareTestMenuObj , _fbLoggedInObj , _fbLoggedOutObj , _gpgsLeaderboardTestMenuObj , _gpgsLoggedInObj , _gpgsLoggedOutObj;
     [SerializeField] Image _facebookButtonImage , _fallingLevelImage , /*_fbChallengeInviteButtonImage , */_gpgsLogInButtonImage , _landLevelImage , _leaderboardButtonImage , _profilePicImage , _rateButtonImage , _shareButtonImage , _waterLevelImage;
-    [SerializeField] Text /*_fbChallengeInviteTestText, _fbScoreText, */_gpgsLogInTestText , _gpgsLeaderboardLogInCheckText , _gpgsLeaderboardTestText , _memoryLeakTestText , _usernameText;
+    [SerializeField] Text /*_fbChallengeInviteTestText, _fbScoreText, */_gpgsLogInTestText , _gpgsLeaderboardLogInCheckText , _gpgsLeaderboardTestText , _gpgsLeaderboardUpdateSuccessText , _memoryLeakTestText , _usernameText;
 
     public static bool m_isMemoryLeakTestingMode , m_isTestingUnityEditor;
     public static Image m_selfieButtonImage , m_selfiePanelImage;
@@ -502,6 +502,7 @@ public class GameManager : MonoBehaviour
             _exitButtonImage = GameObject.Find("ExitButton").GetComponent<Image>();
             _gpgsLeaderboardConfirmMenuImage = GameObject.Find("GPGsLeaderboardConfirmMenu").GetComponent<Image>();
             _gpgsLeaderboardOKButtonImage = GameObject.Find("OKButton").GetComponent<Image>();
+            _gpgsLeaderboardSuccessOKButtonImage = GameObject.Find("SuccessOKButton").GetComponent<Image>();
             _gpgsLeaderboardUpdateAcceptButtonImage = GameObject.Find("UpdateAcceptButton").GetComponent<Image>();
             _gpgsLeaderboardUpdateCancelButtonImage = GameObject.Find("UpdateCancelButton").GetComponent<Image>();
             _gpgsLeaderboardUpdateText = GameObject.Find("UpdateText").GetComponent<Text>();
@@ -638,18 +639,23 @@ public class GameManager : MonoBehaviour
             _gpgsLeaderboardUpdateCancelButtonImage.enabled = true;
             _gpgsLeaderboardConfirmMenuImage.enabled = true;
             _gpgsLeaderboardUpdateText.enabled = true;
+            
+            if(_isGPGsLeaderboardTestMode)
+            {
+                _gpgsLeaderboardTestMenuObj.SetActive(false);
+            }
+
             _pauseButtonImage.enabled = false;
             Time.timeScale = 0;
         }
     }
 
-    public void GPGsLeaderboardConfirmOKButton()
+    public void GPGsLeaderboardOKButton()
     {
-        _gpgsLeaderboardUpdateAcceptButtonImage.enabled = true;
-        _gpgsLeaderboardUpdateCancelButtonImage.enabled = true;
-        _gpgsLeaderboardUpdateText.enabled = true;
-        _gpgsLeaderboardOKButtonImage.enabled = false;
+        _gpgsLeaderboardConfirmMenuImage.enabled = false;
         _gpgsLeaderboardLogInCheckText.enabled = false;
+        _gpgsLeaderboardOKButtonImage.enabled = false;
+        Time.timeScale = 1;
     }
 
     public void GPGsLeaderboardScoreGet()
@@ -669,6 +675,14 @@ public class GameManager : MonoBehaviour
                 _gpgsLeaderboardTestText.text = "Score Update : " + success;
             });
         }
+    }
+
+    public void GPGsLeaderboardSuccessOKButton()
+    {
+        _gpgsLeaderboardConfirmMenuImage.enabled = false;
+        _gpgsLeaderboardSuccessOKButtonImage.enabled = false;
+        _gpgsLeaderboardUpdateSuccessText.enabled = false;
+        Time.timeScale = 1;
     }
 
     public void GPGsLeaderboardTestMenuAppear()
@@ -693,8 +707,21 @@ public class GameManager : MonoBehaviour
         {
             PlayGamesPlatform.Instance.ReportScore((long)ScoreManager.m_scoreValue , _leaderboardID , (bool success) =>
             {
-                Debug.Log("Score Update : " + success);
-                _gpgsLeaderboardLogInCheckText.text = "Score Update : " + success;
+                if(success)
+                {
+                    _gpgsLeaderboardLogInCheckText.text = "Score Update : " + success;
+                    _gpgsLeaderboardConfirmMenuImage.enabled = true;
+                    _gpgsLeaderboardSuccessOKButtonImage.enabled = true;
+                    _gpgsLeaderboardUpdateSuccessText.enabled = true;
+                }
+                else
+                {
+                    Debug.LogError("Sir Bhanu, You may want to check if you are logged in :)");
+                    _gpgsLeaderboardConfirmMenuImage.enabled = true;
+                    _gpgsLeaderboardSuccessOKButtonImage.enabled = true;
+                    _gpgsLeaderboardUpdateSuccessText.text = "Leaderboard could not be updated, please try again later :)";
+                    _gpgsLeaderboardUpdateSuccessText.enabled = true;
+                }
             });
 
             PlayGamesPlatform.Instance.ShowLeaderboardUI();
@@ -707,6 +734,7 @@ public class GameManager : MonoBehaviour
           _gpgsLeaderboardUpdateText.enabled = false;
           _gpgsLeaderboardOKButtonImage.enabled = true;
           _gpgsLeaderboardLogInCheckText.enabled = true;
+            //Time.timeScale = 1;
         }
     }
 
@@ -722,6 +750,12 @@ public class GameManager : MonoBehaviour
         _gpgsLeaderboardConfirmMenuImage.enabled = false;
         _gpgsLeaderboardUpdateText.enabled = false;
         _gpgsLeaderboardLogInCheckText.enabled = false;
+        
+        if(_isGPGsLeaderboardTestMode)
+        {
+            _gpgsLeaderboardTestMenuObj.SetActive(true);
+        }
+
         _pauseButtonImage.enabled = true;
         Time.timeScale = 1;
     }
@@ -871,6 +905,11 @@ public class GameManager : MonoBehaviour
         if(_exitButtonImage != null)
         {
             _exitButtonImage.enabled = true;
+        }
+
+        if(_isGPGsLeaderboardTestMode)
+        {
+            _gpgsLeaderboardTestMenuObj.SetActive(false);
         }
 
 		_highScoreDisplayText.enabled = false;
@@ -1026,6 +1065,11 @@ public class GameManager : MonoBehaviour
         if(_exitButtonImage != null)
         {
             _exitButtonImage.enabled = false;
+        }
+
+        if(_isGPGsLeaderboardTestMode)
+        {
+            _gpgsLeaderboardTestMenuObj.SetActive(true);
         }
 
 		_highScoreDisplayText.enabled = true;
