@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     Image _gpgsLeaderboardUpdateAcceptButtonImage , _gpgsLeaderboardUpdateCancelButtonImage , _muteButtonImage , _pauseButtonImage , _pauseMenuImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage , _restartButtonImage;
     Image _restartAcceptButtonImage , _restartCancelButtonImage , _restartMenuImage , _resumeButtonImage , _unmuteButtonImage;
     LandChimp _landChimp;
+    PlayGamesUserProfile _playerProfile;
 	SoundManager _soundManager;
     string _applinkURL , _leaderboardID = "CgkInMKFu8wYEAIQAQ";
 	Text _adsText , _backToLandLoseText , _backToLandWinText , _backToLandWithSuperText , _gpgsLeaderboardUpdateText , _highScoreDisplayText , _highScoreValueText , _noInternetText , _quitText , _restartText;
@@ -129,7 +130,6 @@ public class GameManager : MonoBehaviour
         _muteButtonImage.enabled = false;
         _pauseButtonImage.enabled = false;
         _unmuteButtonImage.enabled = false;
-        Screen.orientation = ScreenOrientation.Landscape;
         Time.timeScale = 0;
     }
 
@@ -144,7 +144,6 @@ public class GameManager : MonoBehaviour
         _muteButtonImage.enabled = false;
         _pauseButtonImage.enabled = false;
         _unmuteButtonImage.enabled = false;
-        Screen.orientation = ScreenOrientation.Landscape;
         Time.timeScale = 0;
     }
 
@@ -159,14 +158,12 @@ public class GameManager : MonoBehaviour
         _muteButtonImage.enabled = false;
         _pauseButtonImage.enabled = false;
         _unmuteButtonImage.enabled = false;
-        Screen.orientation = ScreenOrientation.Landscape;
         Time.timeScale = 0;
     }
 
     public void ContinueButton()
     {
 		BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
-		Screen.orientation = ScreenOrientation.Landscape;
         SceneManager.LoadScene("LandRunner");
     }
 
@@ -206,8 +203,6 @@ public class GameManager : MonoBehaviour
             null ,
             FBChallengePlayersCallback
         );
-
-        Screen.orientation = ScreenOrientation.Portrait;
     }
 
     void FBChallengePlayersCallback(IAppRequestResult appRequestResult)
@@ -215,20 +210,16 @@ public class GameManager : MonoBehaviour
         if(appRequestResult.Cancelled)
         {
             //Debug.LogWarning("Sir Bhanu, You have cancelled the invite");
-            Screen.orientation = ScreenOrientation.Landscape;
         }
 
         else if(!string.IsNullOrEmpty(appRequestResult.Error))
         {
             //Debug.LogError("Sir Bhanu, There is a problem : " + appRequestResult.Error);
-            Screen.orientation = ScreenOrientation.Landscape;
         }
 
         else if(!string.IsNullOrEmpty(appRequestResult.RawResult))
         {
             //Debug.LogWarning("Sir Bhanu, Your invitation : " + appRequestResult.RawResult);
-
-            Screen.orientation = ScreenOrientation.Landscape;
 
             if(!_isFBShareTestMode)
             {
@@ -264,8 +255,6 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogError("Sir Bhanu, FB Logged In & Out Objs no longer exist but you can ignore them :)");
         }
-
-        Screen.orientation = ScreenOrientation.Landscape;
     }
 
     void FBLoggedOut()
@@ -279,8 +268,6 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogError("Sir Bhanu, FB Logged In & Out Objs no longer exist but you can ignore them :)");
         }
-
-        Screen.orientation = ScreenOrientation.Landscape;
 	}
 
     void FBLogIn()
@@ -295,7 +282,6 @@ public class GameManager : MonoBehaviour
 
     void FBLoginButton()
     {
-        Screen.orientation = ScreenOrientation.Portrait;
         FBLogIn();
         Invoke("FBLoggedIn" , 0.2f);
     }
@@ -377,8 +363,6 @@ public class GameManager : MonoBehaviour
 
     public void FBShareButton()
     {
-        Screen.orientation = ScreenOrientation.Portrait;
-
         FB.ShareLink //TODO Do this if player has the relevant permission
         (
             contentTitle: "Fourth Lion Studios Message" ,
@@ -393,7 +377,6 @@ public class GameManager : MonoBehaviour
         if(shareResult.Cancelled)
         {
             Debug.LogWarning("Sir Bhanu, you have cancelled the Share :)");
-            Screen.orientation = ScreenOrientation.Landscape;
         }
 
         else if(!string.IsNullOrEmpty(shareResult.Error))
@@ -404,7 +387,6 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.LogWarning("Sir Bhanu, Your Share is a success :)");
-            Screen.orientation = ScreenOrientation.Landscape;
 
             if(!_isFBShareTestMode)
             {
@@ -571,6 +553,11 @@ public class GameManager : MonoBehaviour
         if(_isGPGsLeaderboardTestMode)
         {
             _gpgsLeaderboardTestMenuObj.SetActive(true);
+            ScoreManager.m_minHighScore = 5f;
+        }
+        else
+        {
+            ScoreManager.m_minHighScore = 10000f;
         }
 
         if(_isGPGsLogInTestMode)
@@ -612,19 +599,16 @@ public class GameManager : MonoBehaviour
 
     public void GoToFallingLevelButton()
     {
-        Screen.orientation = ScreenOrientation.Portrait;
         SceneManager.LoadScene("FallingDown");
     }
 
     public void GoToLandLevelButton()
     {
-        Screen.orientation = ScreenOrientation.Landscape;
         SceneManager.LoadScene("LandRunner");
     }
 
     public void GoToWaterLevelButton()
     {
-        Screen.orientation = ScreenOrientation.Landscape;
         SceneManager.LoadScene("WaterSwimmer");
     }
 
@@ -762,7 +746,8 @@ public class GameManager : MonoBehaviour
         {
             _gpgsLoggedInObj.SetActive(true);
             _gpgsLoggedOutObj.SetActive(false);
-            //_gpProfilePicImage = Social.localUser.image;
+            _gpProfilePicImage = (Image)_playerProfile.LoadImage();
+            _gpProfilePicImage.enabled = true;
             _gpUsernameText.text = Social.localUser.userName;
         }
         else
@@ -900,7 +885,10 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        _chimpionshipBeltImage.enabled = false;
+        if(_chimpionshipBeltImage != null)
+        {
+            _chimpionshipBeltImage.enabled = false;
+        }
         
         if(_exitButtonImage != null)
         {
@@ -914,7 +902,11 @@ public class GameManager : MonoBehaviour
 
 		_highScoreDisplayText.enabled = false;
 		_highScoreValueText.enabled = false;
-        _leaderboardButtonImage.enabled = false;
+
+        if(_leaderboardButtonImage != null)
+        {
+            _leaderboardButtonImage.enabled = false;
+        }
         
         if(_restartButtonImage != null)
         {
@@ -1060,7 +1052,10 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        _chimpionshipBeltImage.enabled = true;
+        if(_chimpionshipBeltImage != null)
+        {
+            _chimpionshipBeltImage.enabled = true;
+        }
 
         if(_exitButtonImage != null)
         {
@@ -1074,7 +1069,12 @@ public class GameManager : MonoBehaviour
 
 		_highScoreDisplayText.enabled = true;
 		_highScoreValueText.enabled = true;
-        _leaderboardButtonImage.enabled = true;
+
+        if(_leaderboardButtonImage != null)
+        {
+            _leaderboardButtonImage.enabled = true;
+        }
+        
 		_pauseButtonImage.enabled = true;
 		_pauseMenuImage.enabled = false;
 

@@ -4,7 +4,7 @@ public class FallingChimp : MonoBehaviour
 {
 	GameManager m_gameManager;
 
-    public static float m_moveAmount = 1.50f;
+    public static float m_moveAmount = 4f;
 
 	void Start() 
 	{
@@ -18,8 +18,6 @@ public class FallingChimp : MonoBehaviour
             return;
         }
 
-        Screen.orientation = ScreenOrientation.Portrait;
-	
         if(SwipeManager.Instance.IsSwiping(SwipeDirection.LEFT))
         {
             Move(-m_moveAmount);
@@ -38,7 +36,7 @@ public class FallingChimp : MonoBehaviour
 
     public void Move(float amount)
 	{
-		float xPos = Mathf.Clamp(transform.position.x + amount , -1.95f , 2.12f);
+		float xPos = Mathf.Clamp(transform.position.x + amount , -8f , 8f);
 		float yPos = transform.position.y;
 		float zPos = transform.position.z;
 		transform.position = new Vector3(xPos , yPos , zPos);

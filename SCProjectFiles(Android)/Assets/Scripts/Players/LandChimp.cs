@@ -221,12 +221,10 @@ public class LandChimp : MonoBehaviour
 				break;
 
 				case 2:
-					Screen.orientation = ScreenOrientation.Portrait;
 					SceneManager.LoadScene("FallingDown");
 				break;
 
 				case 3:
-					Screen.orientation = ScreenOrientation.Portrait;
 					SceneManager.LoadScene("FallingDown");
 				break;
 			}
