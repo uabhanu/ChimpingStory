@@ -244,13 +244,13 @@ public class LandChimp : MonoBehaviour
     void SelfieAppear()
     {
         GameManager.m_selfieButtonImage.enabled = true;
-        _gameManager.GPGsLeaderboardTestMenuDisappear();
+        SocialmediaManager.GooglePlayGamesLeaderboardTestMenuDisappear();
     }
 
     void SelfieDisappear()
     {
         GameManager.m_selfieButtonImage.enabled = false;
-        _gameManager.GPGsLeaderboardTestMenuAppear();
+        SocialmediaManager.GooglePlayGamesLeaderboardTestMenuAppear();
     }
 
     public void Slide()
@@ -330,12 +330,12 @@ public class LandChimp : MonoBehaviour
     {
         if(ScoreManager.m_myScores == null && ScoreManager.m_scoreValue < ScoreManager.m_minHighScore)
         {
-            GameManager.m_gpgsLeaderboardButton.interactable = false;
+            SocialmediaManager.m_googlePlayGamesLeaderboardButton.interactable = false;
         }
 
         if(ScoreManager.m_scoreValue >= ScoreManager.m_minHighScore)
         {
-            GameManager.m_gpgsLeaderboardButton.interactable = true;
+            SocialmediaManager.m_googlePlayGamesLeaderboardButton.interactable = true;
         }
 
         if(EventSystem.current.currentSelectedGameObject != null)
