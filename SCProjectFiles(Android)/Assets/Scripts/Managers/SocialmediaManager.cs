@@ -32,7 +32,7 @@ public class SocialmediaManager : MonoBehaviour
     void Start()
 	{
         _currentScene = SceneManager.GetActiveScene().buildIndex;
-        m_isGooglePlayGamesLeaderboardTestMode = true; //TODO Remove this after testing is finished
+        //m_isGooglePlayGamesLeaderboardTestMode = true; //TODO Remove this after testing is finished
 
         if(_currentScene == 0)
         {
@@ -470,10 +470,13 @@ public class SocialmediaManager : MonoBehaviour
             _googlePlayGamesLoggedInObj.SetActive(true);
             _googlePlayGamesLoggedOutObj.SetActive(false);
             m_googlePlayRateButtonImage.enabled = true;
-            _googlePlayProfilePicImage = (Image)_playerProfile.LoadImage();
-            _googlePlayProfilePicImage.enabled = true;
+            _googlePlayProfilePicImage.sprite = Sprite.Create(Social.localUser.image , new Rect(0 , 0 , 50 , 50) , new Vector2(0 , 0));
 
-            if(_googlePlayProfilePicImage == null)
+            if(_googlePlayProfilePicImage != null)
+            {
+                _googlePlayProfilePicImage.enabled = true;
+            }
+            else
             {
                 m_noProfilePicText.enabled = true;
             }
