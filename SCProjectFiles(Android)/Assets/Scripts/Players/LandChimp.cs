@@ -91,7 +91,6 @@ public class LandChimp : MonoBehaviour
     void CheatDeath()
     {
         _gameManager.Ads();
-        StopAllCoroutines();
     }
 
     void Grounded() //TODO find out why this is causing 0.6kb GC Alloc if necessary
