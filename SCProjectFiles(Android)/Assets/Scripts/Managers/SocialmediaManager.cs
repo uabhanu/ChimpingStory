@@ -27,7 +27,7 @@ public class SocialmediaManager : MonoBehaviour
     public static Button m_googlePlayGamesLeaderboardButton;
     public static GameObject m_facebookShareSuccessMenuObj , m_facebookShareTestMenuObj;
     public static Image m_facebookButtonImage , m_facebookProfilePicImage , m_googlePlayGamesLeaderboardButtonImage , m_googlePlayGamesLeaderboardTestGetButtonImage , m_googlePlayGamesLeaderboardTestMenuImage , m_googlePlayGamesLeaderboardTestSetButtonImage , m_googlePlayGamesLogInButtonImage , m_googlePlayRateButtonImage;
-    public static Text m_facebookUsernameText , m_googlePlayGamesLeaderboardTestText , m_googlePlayGamesLogInTestText , m_noInternetText;
+    public static Text m_facebookUsernameText , m_googlePlayGamesLeaderboardTestText , m_googlePlayGamesLogInTestText , m_noInternetText , m_noProfilePicText , m_noUsernameText;
 
     void Start()
 	{
@@ -44,6 +44,8 @@ public class SocialmediaManager : MonoBehaviour
             m_googlePlayGamesLogInButtonImage = GameObject.Find("GPGsLogInButton").GetComponent<Image>();
             m_googlePlayRateButtonImage = GameObject.Find("RateButton").GetComponent<Image>();
             m_noInternetText = GameObject.Find("NoInternetText").GetComponent<Text>();
+            m_noProfilePicText = GameObject.Find("NoProfilePicText").GetComponent<Text>();
+            m_noUsernameText = GameObject.Find("NoUsernameText").GetComponent<Text>();
             FacebookInit();
             GooglePlayGamesInit();
             Invoke("FacebookLogInCheck" , 0.2f);
@@ -470,7 +472,18 @@ public class SocialmediaManager : MonoBehaviour
             m_googlePlayRateButtonImage.enabled = true;
             _googlePlayProfilePicImage = (Image)_playerProfile.LoadImage();
             _googlePlayProfilePicImage.enabled = true;
+
+            if(_googlePlayProfilePicImage == null)
+            {
+                m_noProfilePicText.enabled = true;
+            }
+
             _googlePlayUsernameText.text = Social.localUser.userName;
+
+            if(_googlePlayUsernameText.text == null)
+            {
+                m_noUsernameText.enabled = true;
+            }
         }
         else
         {
