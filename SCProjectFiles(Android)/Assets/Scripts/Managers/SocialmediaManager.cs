@@ -25,8 +25,8 @@ public class SocialmediaManager : MonoBehaviour
 
     public static bool m_facebookProfilePicEnabled = false , m_isFacebookShareTestMode = false , m_isGooglePlayGamesLeaderboardTestMode = false , m_isGooglePlayGamesLogInTestMode = false;
     public static Button m_googlePlayGamesLeaderboardButton;
-    public static GameObject m_facebookShareSuccessMenuObj , m_facebookShareTestMenuObj;
-    public static Image m_facebookButtonImage , m_facebookProfilePicImage , m_googlePlayGamesLeaderboardButtonImage , m_googlePlayGamesLeaderboardTestGetButtonImage , m_googlePlayGamesLeaderboardTestMenuImage;
+    public static GameObject m_facebookShareSuccessMenuObj , m_facebookShareTestMenuObj , m_googlePlayGamesLeaderboardButtonObj;
+    public static Image m_facebookButtonImage , m_facebookProfilePicImage , m_googlePlayGamesLeaderboardTestGetButtonImage , m_googlePlayGamesLeaderboardTestMenuImage;
     public static Image m_googlePlayGamesLeaderboardTestSetButtonImage , m_googlePlayGamesLogInButtonImage , m_googlePlayRateButtonImage , m_googlePlayGamesProfilePicImage;
     public static Text m_facebookUsernameText , m_googlePlayGamesLeaderboardTestText , m_googlePlayGamesLogInTestText , m_googlePlayGamesUsernameText , m_noInternetText , m_noProfilePicText , m_noUsernameText;
 
@@ -34,7 +34,7 @@ public class SocialmediaManager : MonoBehaviour
 	{
         _currentScene = SceneManager.GetActiveScene().buildIndex;
         _googlePlayGamesLogInComplete = false;
-        //m_isGooglePlayGamesLeaderboardTestMode = true; //TODO Remove this after testing is finished
+        m_isGooglePlayGamesLeaderboardTestMode = true; //TODO Remove this after testing is finished
 
         if(_currentScene == 0)
         {
@@ -59,7 +59,7 @@ public class SocialmediaManager : MonoBehaviour
         else if(_currentScene == 1)
         {
             m_googlePlayGamesLeaderboardButton = GameObject.Find("GPGsLeaderboardButton").GetComponent<Button>();
-            m_googlePlayGamesLeaderboardButtonImage = GameObject.Find("GPGsLeaderboardButton").GetComponent<Image>();
+            m_googlePlayGamesLeaderboardButtonObj = GameObject.Find("GPGsLeaderboardButton");
             _googlePlayGamesLeaderboardConfirmMenuImage = GameObject.Find("GPGsLeaderboardConfirmMenu").GetComponent<Image>();
             _googlePlayGamesLeaderboardOKButtonImage = GameObject.Find("OKButton").GetComponent<Image>();
             _googlePlayGamesLeaderboardSuccessOKButtonImage = GameObject.Find("SuccessOKButton").GetComponent<Image>();
