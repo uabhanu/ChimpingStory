@@ -5,11 +5,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
 
 public class SocialmediaManager : MonoBehaviour 
 {
-    bool _googlePlayGamesLogInButtonTapped , _googlePlayGamesLogInComplete;
+    bool _googlePlayGamesLogInButtonTapped;
     //Dictionary<string , object> _highScoresData;
     //Dictionary<string , string> _scores = null;
     //float _highScore;
@@ -19,13 +20,12 @@ public class SocialmediaManager : MonoBehaviour
     string _applinkURL , _leaderboardID = "CgkInMKFu8wYEAIQAQ";
 	Text _googlePlayGamesLeaderboardUpdateText;
 
-    [SerializeField] GameObject /*_fbChallengeInviteSuccessMenuObj , */_facebookShareMenuObj , _facebookLoggedInObj , _facebookLoggedOutObj , _googlePlayGamesLoggedInObj , _googlePlayGamesLoggedOutObj;
     [SerializeField] Image _facebookShareButtonImage /*, _fbChallengeInviteButtonImage , */;
     [SerializeField] Text /*_fbChallengeInviteTestText, _fbScoreText, */_googlePlayGamesLeaderboardLogInCheckText , _googlePlayGamesLeaderboardTestText , _googlePlayGamesLeaderboardUpdateSuccessText;
 
-    public static bool m_facebookProfilePicEnabled = false , m_isFacebookShareTestMode = false , m_isGooglePlayGamesLeaderboardTestMode = false , m_isGooglePlayGamesLogInTestMode = false;
+    public static bool m_facebookProfilePicExists = false, m_isFacebookShareTestMode = false , m_isGooglePlayGamesLeaderboardTestMode = false , m_isGooglePlayGamesLogInTestMode = false , m_googlePlayGamesProfilePicExists = false , m_googlePlayGamesUsernameTextExists = false;
     public static Button m_googlePlayGamesLeaderboardButton;
-    public static GameObject m_facebookShareSuccessMenuObj , m_facebookShareTestMenuObj , m_googlePlayGamesLeaderboardButtonObj;
+    public static GameObject m_facebookShareMenuObj , m_facebookShareSuccessMenuObj , m_facebookShareTestMenuObj , m_googlePlayGamesLeaderboardButtonObj;
     public static Image m_facebookButtonImage , m_facebookProfilePicImage , m_googlePlayGamesLeaderboardTestGetButtonImage , m_googlePlayGamesLeaderboardTestMenuImage;
     public static Image m_googlePlayGamesLeaderboardTestSetButtonImage , m_googlePlayGamesLogInButtonImage , m_googlePlayRateButtonImage , m_googlePlayGamesProfilePicImage;
     public static Text m_facebookUsernameText , m_googlePlayGamesLeaderboardTestText , m_googlePlayGamesLogInTestText , m_googlePlayGamesUsernameText , m_noInternetText , m_noProfilePicText , m_noUsernameText;
@@ -33,7 +33,6 @@ public class SocialmediaManager : MonoBehaviour
     void Start()
 	{
         _currentScene = SceneManager.GetActiveScene().buildIndex;
-        _googlePlayGamesLogInComplete = false;
         m_isGooglePlayGamesLeaderboardTestMode = true; //TODO Remove this after testing is finished
 
         if(_currentScene == 0)
@@ -147,30 +146,20 @@ public class SocialmediaManager : MonoBehaviour
         FB.API("/me?fields=first_name" , HttpMethod.GET , FacebookUsernameDisplay);
         FB.API("/me/picture?type=square&height=480&width=480" , HttpMethod.GET , FacebookProfilePicDisplay);
 
-        if(_facebookLoggedInObj != null && _facebookLoggedOutObj != null)
+        m_facebookButtonImage.enabled = false;
+
+        if(m_facebookProfilePicExists)
         {
-            _facebookLoggedInObj.SetActive(true);
             m_facebookProfilePicImage.enabled = true;
-            m_facebookUsernameText.enabled = true;
-            _facebookLoggedOutObj.SetActive(false);
         }
-        else
-        {
-            Debug.LogError("Sir Bhanu, FB Logged In & Out Objs no longer exist but you can ignore them :)");
-        }
+
+        m_facebookUsernameText.enabled = true;
     }
 
     void FacebookLoggedOut()
 	{
-		if(_facebookLoggedInObj != null && _facebookLoggedOutObj != null)
-        {
-            _facebookLoggedInObj.SetActive(false);
-		    _facebookLoggedOutObj.SetActive(true);		
-        }
-        else
-        {
-            Debug.LogError("Sir Bhanu, Facebook Logged In & Out Objs no longer exist but you can ignore them :)");
-        }
+        m_facebookProfilePicImage.enabled = false;
+        m_facebookUsernameText.enabled = false;
 	}
 
     void FacebookLogIn()
@@ -221,6 +210,11 @@ public class SocialmediaManager : MonoBehaviour
 
     void FacebookLogInCheck()
     {
+        if(!m_facebookProfilePicExists)
+        {
+            Invoke("FacebookLogInCheck" , 0.2f);
+        }
+
         if(FB.IsLoggedIn)
         {
             FacebookLoggedIn();
@@ -228,7 +222,6 @@ public class SocialmediaManager : MonoBehaviour
         else
         {
             FacebookLoggedOut();
-            Invoke("FacebookLogInCheck" , 0.2f);
         }
     }
 
@@ -251,8 +244,11 @@ public class SocialmediaManager : MonoBehaviour
             if(graphicResult.Texture != null && graphicResult.Error == null)
             {
                 m_facebookProfilePicImage.sprite = Sprite.Create(graphicResult.Texture , new Rect(0 , 0 , graphicResult.Texture.width , graphicResult.Texture.height) , new Vector2());
-                m_facebookProfilePicEnabled = true; //This is used to check if sprite created properly and display only if it is, or else, _profilePicImage won't be enabled
-                m_facebookProfilePicImage.enabled = true;
+
+                if(m_facebookProfilePicImage.sprite != null)
+                {
+                    m_facebookProfilePicExists = true; //This is used to check if sprite created properly and display only if it is, or else, _profilePicImage won't be enabled
+                }
             }
         }
         catch(Exception e)
@@ -338,13 +334,14 @@ public class SocialmediaManager : MonoBehaviour
 
     void FacebookUsernameDisplay(IResult usernameResult)
     {
-        if(usernameResult.Error == null && GameManager.m_currentScene == 0)
+        if(usernameResult.Error == null)
         {
             m_facebookUsernameText.text = "Hi " + usernameResult.ResultDictionary["first_name"];
         }
-        else
+        
+        if(m_facebookUsernameText.text != null)
         {
-            FacebookLoggedOut();
+            m_facebookUsernameText.enabled = true;
         }
     }
 
@@ -386,9 +383,24 @@ public class SocialmediaManager : MonoBehaviour
 
     public void GooglePlayGamesLeaderboardScoreGet()
     {
-        if(m_isGooglePlayGamesLeaderboardTestMode)
+        if(PlayGamesPlatform.Instance.localUser.authenticated)
         {
-            _googlePlayGamesLeaderboardTestText.text = ScoreManager.m_myScores;
+            PlayGamesPlatform.Instance.LoadScores(_leaderboardID , scores =>
+            {
+                if(scores.Length > 0)
+                {
+                    foreach(IScore score in scores)
+                    {
+                        ScoreManager.m_myScores += "\t" + score.userID + "" + score.formattedValue + "" + score.date + "\n";
+                        _googlePlayGamesLeaderboardTestText.text = ScoreManager.m_myScores;
+                    }
+                }
+            });
+        }
+        else
+        {
+            _googlePlayGamesLeaderboardTestText.fontSize = 25;
+            _googlePlayGamesLeaderboardTestText.text = "Unable to retrieve Score from Leaderboard, You may have to Log In First";
         }
     }
 
@@ -413,7 +425,7 @@ public class SocialmediaManager : MonoBehaviour
 
     public static void GooglePlayGamesLeaderboardTestMenuAppear()
     {
-        if(m_isGooglePlayGamesLeaderboardTestMode)
+        if(GameManager.m_currentScene >= 1 && m_isGooglePlayGamesLeaderboardTestMode)
         {
             m_googlePlayGamesLeaderboardTestMenuImage.enabled = true;
             m_googlePlayGamesLeaderboardTestGetButtonImage.enabled = true;
@@ -482,42 +494,30 @@ public class SocialmediaManager : MonoBehaviour
 
     void GooglePlayGamesLoggedIn()
     {
-        if(_googlePlayGamesLoggedInObj != null && _googlePlayGamesLoggedOutObj != null)
+        m_googlePlayGamesLogInButtonImage.enabled = false;
+        m_googlePlayRateButtonImage.enabled = true;
+        
+        if(m_googlePlayGamesProfilePicExists)
         {
-            _googlePlayGamesLoggedInObj.SetActive(true);
-            _googlePlayGamesLoggedOutObj.SetActive(false);
-            m_googlePlayRateButtonImage.enabled = true;
-            m_googlePlayGamesProfilePicImage.sprite = Sprite.Create(Social.localUser.image , new Rect(0 , 0 , 50 , 50) , new Vector2(0 , 0)); //TODO Pivot value may be adjusted
-
-            if(m_googlePlayGamesProfilePicImage.sprite != null)
-            {
-                _googlePlayGamesLogInComplete = true;
-                m_googlePlayGamesProfilePicImage.enabled = true;
-                m_noProfilePicText.enabled = false;
-            }
-            else
-            {
-                _googlePlayGamesLogInComplete = false;
-                m_noProfilePicText.enabled = true;
-            }
-
-            m_googlePlayGamesUsernameText.text = Social.localUser.userName;
-
-            if(m_googlePlayGamesUsernameText.text == null)
-            {
-                m_googlePlayGamesUsernameText.enabled = false;
-                m_noUsernameText.enabled = true;
-            }
-            else
-            {
-                m_googlePlayGamesUsernameText.enabled = true;
-                m_noUsernameText.enabled = false;
-            }
+            m_googlePlayGamesProfilePicImage.enabled = true;
+            m_noProfilePicText.enabled = false;
         }
-        else
+        //else
+        //{
+        //    m_googlePlayGamesProfilePicImage.enabled = false;
+        //    m_noProfilePicText.enabled = true;
+        //}
+
+        if(m_googlePlayGamesUsernameTextExists)
         {
-            Debug.LogError("Sir Bhanu, GPGs Logged In & Logged Out Objs no longer exist but you can ignore them :) ");
+            m_googlePlayGamesUsernameText.enabled = true;
+            m_noUsernameText.enabled = false;
         }
+        //else
+        //{
+        //    m_googlePlayGamesUsernameText.enabled = false;
+        //    m_noUsernameText.enabled = true;
+        //}
 
         if(m_isGooglePlayGamesLogInTestMode)
         {
@@ -527,15 +527,9 @@ public class SocialmediaManager : MonoBehaviour
 
     void GooglePlayGamesLoggedOut()
     {
-        if(_googlePlayGamesLoggedInObj != null && _googlePlayGamesLoggedOutObj != null)
-        {
-            _googlePlayGamesLoggedInObj.SetActive(false);
-            _googlePlayGamesLoggedOutObj.SetActive(true);
-        }
-        else
-        {
-            Debug.LogError("Sir Bhanu, GPGs Logged In & Logged Out Objs no longer exist but you can ignore them :) ");
-        }
+        m_googlePlayGamesProfilePicImage.enabled = false;
+        m_googlePlayGamesUsernameText.enabled = false;
+        m_googlePlayRateButtonImage.enabled = false;
 
         if(_googlePlayGamesLogInButtonTapped && m_isGooglePlayGamesLogInTestMode)
         {
@@ -574,23 +568,31 @@ public class SocialmediaManager : MonoBehaviour
 
     void GooglePlayGamesLogInCheck()
     {
+        if(!m_googlePlayGamesProfilePicExists || !m_googlePlayGamesUsernameTextExists)
+        {
+            Invoke("GooglePlayGamesLogInCheck" , 0.2f);
+        }
+
         if(PlayGamesPlatform.Instance.localUser.authenticated)
         {
-            GooglePlayGamesLoggedIn();
+            m_googlePlayGamesProfilePicImage.sprite = Sprite.Create(Social.localUser.image , new Rect(0 , 0 , 50 , 50) , new Vector2(0 , 0)); //TODO Pivot value may be adjusted
+            m_googlePlayGamesUsernameText.text = Social.localUser.userName;
 
-            if(!_googlePlayGamesLogInComplete)
+            if(m_googlePlayGamesProfilePicImage.sprite != null)
             {
-                Invoke("GooglePlayGamesLogInCheck" , 0.2f);
+                m_googlePlayGamesProfilePicExists = true;
             }
+
+            if(m_googlePlayGamesUsernameText.text != null)
+            {
+                m_googlePlayGamesUsernameTextExists = true;
+            }
+
+            GooglePlayGamesLoggedIn();
         }
         else
         {
             GooglePlayGamesLoggedOut();
-            
-            if(!_googlePlayGamesLogInComplete)
-            {
-                Invoke("GooglePlayGamesLogInCheck" , 0.2f);
-            }
         }
     }
 
