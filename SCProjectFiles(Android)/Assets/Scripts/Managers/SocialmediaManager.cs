@@ -391,7 +391,8 @@ public class SocialmediaManager : MonoBehaviour
                 {
                     foreach(IScore score in scores)
                     {
-                        ScoreManager.m_myScores += "\t" + score.userID + "" + score.formattedValue + "" + score.date + "\n";
+                        //ScoreManager.m_myScores += "\t" + score.userID + "" + score.formattedValue + "" + score.date + "\n";
+                        ScoreManager.m_myScores = score.formattedValue;
                         _googlePlayGamesLeaderboardTestText.text = ScoreManager.m_myScores;
                     }
                 }
@@ -502,22 +503,12 @@ public class SocialmediaManager : MonoBehaviour
             m_googlePlayGamesProfilePicImage.enabled = true;
             m_noProfilePicText.enabled = false;
         }
-        //else
-        //{
-        //    m_googlePlayGamesProfilePicImage.enabled = false;
-        //    m_noProfilePicText.enabled = true;
-        //}
 
         if(m_googlePlayGamesUsernameTextExists)
         {
             m_googlePlayGamesUsernameText.enabled = true;
             m_noUsernameText.enabled = false;
         }
-        //else
-        //{
-        //    m_googlePlayGamesUsernameText.enabled = false;
-        //    m_noUsernameText.enabled = true;
-        //}
 
         if(m_isGooglePlayGamesLogInTestMode)
         {
