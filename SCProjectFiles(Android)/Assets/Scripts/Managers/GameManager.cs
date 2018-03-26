@@ -453,6 +453,16 @@ public class GameManager : MonoBehaviour
         {
             SocialmediaManager.m_googlePlayGamesLogInTestText.enabled = false;
         }
+
+        if(SocialmediaManager.m_googlePlayGamesProfilePicImage != null)
+        {
+            SocialmediaManager.m_googlePlayGamesProfilePicImage.enabled = false;
+        }
+
+        if(SocialmediaManager.m_googlePlayGamesUsernameText != null)
+        {
+            SocialmediaManager.m_googlePlayGamesUsernameText.enabled = false;
+        }
         
         if(SocialmediaManager.m_googlePlayRateButtonImage != null)
         {
@@ -510,6 +520,16 @@ public class GameManager : MonoBehaviour
         if(SocialmediaManager.m_isGooglePlayGamesLogInTestMode && SocialmediaManager.m_googlePlayGamesLogInTestText != null)
         {
             SocialmediaManager.m_googlePlayGamesLogInTestText.enabled = true;
+        }
+
+        if(SocialmediaManager.m_googlePlayGamesProfilePicImage != null)
+        {
+            SocialmediaManager.m_googlePlayGamesProfilePicImage.enabled = true;
+        }
+
+        if(SocialmediaManager.m_googlePlayGamesUsernameText != null)
+        {
+            SocialmediaManager.m_googlePlayGamesUsernameText.enabled = true;
         }
 
         if(SocialmediaManager.m_googlePlayRateButtonImage != null)

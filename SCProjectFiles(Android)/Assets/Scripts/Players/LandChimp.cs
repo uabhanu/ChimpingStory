@@ -93,7 +93,7 @@ public class LandChimp : MonoBehaviour
         _gameManager.Ads();
     }
 
-    void Grounded() //TODO find out why this is causing 0.6kb GC Alloc if necessary
+    void Grounded()
     {
         if(!m_isSuper)
         {
@@ -163,7 +163,7 @@ public class LandChimp : MonoBehaviour
         }
     }
 
-    void JumpFinished() //TODO find out why this is causing 0.6kb GC Alloc if necessary
+    void JumpFinished()
     {
         _chimpAnim.SetBool("Jump" , false);
         _isJumping = false;      

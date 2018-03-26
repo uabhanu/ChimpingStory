@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class SocialmediaManager : MonoBehaviour 
 {
-    bool _googlePlayGamesLogInButtonTapped;
+    bool _googlePlayGamesLogInButtonTapped , _googlePlayGamesLogInComplete;
     //Dictionary<string , object> _highScoresData;
     //Dictionary<string , string> _scores = null;
     //float _highScore;
@@ -20,18 +20,20 @@ public class SocialmediaManager : MonoBehaviour
 	Text _googlePlayGamesLeaderboardUpdateText;
 
     [SerializeField] GameObject /*_fbChallengeInviteSuccessMenuObj , */_facebookShareMenuObj , _facebookLoggedInObj , _facebookLoggedOutObj , _googlePlayGamesLoggedInObj , _googlePlayGamesLoggedOutObj;
-    [SerializeField] Image _facebookShareButtonImage , /*_fbChallengeInviteButtonImage , */ _googlePlayProfilePicImage;
-    [SerializeField] Text /*_fbChallengeInviteTestText, _fbScoreText, */_googlePlayGamesLeaderboardLogInCheckText , _googlePlayGamesLeaderboardTestText , _googlePlayGamesLeaderboardUpdateSuccessText , _googlePlayUsernameText;
+    [SerializeField] Image _facebookShareButtonImage /*, _fbChallengeInviteButtonImage , */;
+    [SerializeField] Text /*_fbChallengeInviteTestText, _fbScoreText, */_googlePlayGamesLeaderboardLogInCheckText , _googlePlayGamesLeaderboardTestText , _googlePlayGamesLeaderboardUpdateSuccessText;
 
     public static bool m_facebookProfilePicEnabled = false , m_isFacebookShareTestMode = false , m_isGooglePlayGamesLeaderboardTestMode = false , m_isGooglePlayGamesLogInTestMode = false;
     public static Button m_googlePlayGamesLeaderboardButton;
     public static GameObject m_facebookShareSuccessMenuObj , m_facebookShareTestMenuObj;
-    public static Image m_facebookButtonImage , m_facebookProfilePicImage , m_googlePlayGamesLeaderboardButtonImage , m_googlePlayGamesLeaderboardTestGetButtonImage , m_googlePlayGamesLeaderboardTestMenuImage , m_googlePlayGamesLeaderboardTestSetButtonImage , m_googlePlayGamesLogInButtonImage , m_googlePlayRateButtonImage;
-    public static Text m_facebookUsernameText , m_googlePlayGamesLeaderboardTestText , m_googlePlayGamesLogInTestText , m_noInternetText , m_noProfilePicText , m_noUsernameText;
+    public static Image m_facebookButtonImage , m_facebookProfilePicImage , m_googlePlayGamesLeaderboardButtonImage , m_googlePlayGamesLeaderboardTestGetButtonImage , m_googlePlayGamesLeaderboardTestMenuImage;
+    public static Image m_googlePlayGamesLeaderboardTestSetButtonImage , m_googlePlayGamesLogInButtonImage , m_googlePlayRateButtonImage , m_googlePlayGamesProfilePicImage;
+    public static Text m_facebookUsernameText , m_googlePlayGamesLeaderboardTestText , m_googlePlayGamesLogInTestText , m_googlePlayGamesUsernameText , m_noInternetText , m_noProfilePicText , m_noUsernameText;
 
     void Start()
 	{
         _currentScene = SceneManager.GetActiveScene().buildIndex;
+        _googlePlayGamesLogInComplete = false;
         //m_isGooglePlayGamesLeaderboardTestMode = true; //TODO Remove this after testing is finished
 
         if(_currentScene == 0)
@@ -42,7 +44,9 @@ public class SocialmediaManager : MonoBehaviour
             m_facebookShareTestMenuObj = GameObject.Find("FBShareTestMenu");
             m_facebookUsernameText = GameObject.Find("FacebookUsernameText").GetComponent<Text>();
             m_googlePlayGamesLogInButtonImage = GameObject.Find("GPGsLogInButton").GetComponent<Image>();
-            m_googlePlayRateButtonImage = GameObject.Find("RateButton").GetComponent<Image>();
+            m_googlePlayGamesProfilePicImage = GameObject.Find("GPGsProfilePicImage").GetComponent<Image>();
+            m_googlePlayGamesUsernameText = GameObject.Find("GPGsUsernameText").GetComponent<Text>();
+            m_googlePlayRateButtonImage = GameObject.Find("GPGsRateButton").GetComponent<Image>();
             m_noInternetText = GameObject.Find("NoInternetText").GetComponent<Text>();
             m_noProfilePicText = GameObject.Find("NoProfilePicText").GetComponent<Text>();
             m_noUsernameText = GameObject.Find("NoUsernameText").GetComponent<Text>();
@@ -189,14 +193,23 @@ public class SocialmediaManager : MonoBehaviour
     {
         if(logInResult.Cancelled)
         {
-            Debug.LogWarning("Sir Bhanu, You have cancelled the LogIn");
+            Debug.LogWarning("Sir Bhanu, You have cancelled the LogIn" + logInResult.RawResult);
             FacebookLoggedOut();
         }
 
         else if(!string.IsNullOrEmpty(logInResult.Error))
         {
-            Debug.LogWarning("Sir Bhanu, You have pressed Error Button");
-            FacebookLoggedOut();
+            if(logInResult.RawResult.Contains("Error button pressed"))
+            {
+                Debug.LogWarning("Sir Bhanu, You have pressed Error Button" + logInResult.RawResult);
+                FacebookLoggedOut();
+            }
+            else
+            {
+                Debug.LogWarning("Sir Bhanu, Please check your internet connection" + logInResult.RawResult);
+                m_noInternetText.enabled = true;
+                FacebookLoggedOut();
+            }
         }
 
         else if(!string.IsNullOrEmpty(logInResult.RawResult))
@@ -262,7 +275,7 @@ public class SocialmediaManager : MonoBehaviour
 
     public void FacebookShareButton()
     {
-        FB.ShareLink //TODO Do this if player has the relevant permission
+        FB.ShareLink
         (
             contentTitle: "Fourth Lion Studios Message" ,
             contentURL: new Uri("http://uabhanu.wixsite.com/portfolio") , //TODO Game URL here when Live
@@ -338,6 +351,7 @@ public class SocialmediaManager : MonoBehaviour
     void GooglePlayGamesInit()
     {
         _googlePlayGamesLogInButtonTapped = false;
+        m_noInternetText.enabled = false;
         PlayGamesClientConfiguration clientConfig = new PlayGamesClientConfiguration.Builder().EnableSavedGames().Build();
         PlayGamesPlatform.InitializeInstance(clientConfig);
         PlayGamesPlatform.Activate();
@@ -399,10 +413,13 @@ public class SocialmediaManager : MonoBehaviour
 
     public static void GooglePlayGamesLeaderboardTestMenuAppear()
     {
-        m_googlePlayGamesLeaderboardTestMenuImage.enabled = true;
-        m_googlePlayGamesLeaderboardTestGetButtonImage.enabled = true;
-        m_googlePlayGamesLeaderboardTestSetButtonImage.enabled = true;
-        m_googlePlayGamesLeaderboardTestText.enabled = true;
+        if(m_isGooglePlayGamesLeaderboardTestMode)
+        {
+            m_googlePlayGamesLeaderboardTestMenuImage.enabled = true;
+            m_googlePlayGamesLeaderboardTestGetButtonImage.enabled = true;
+            m_googlePlayGamesLeaderboardTestSetButtonImage.enabled = true;
+            m_googlePlayGamesLeaderboardTestText.enabled = true;
+        }
     }
 
     public static void GooglePlayGamesLeaderboardTestMenuDisappear()
@@ -470,22 +487,31 @@ public class SocialmediaManager : MonoBehaviour
             _googlePlayGamesLoggedInObj.SetActive(true);
             _googlePlayGamesLoggedOutObj.SetActive(false);
             m_googlePlayRateButtonImage.enabled = true;
-            _googlePlayProfilePicImage.sprite = Sprite.Create(Social.localUser.image , new Rect(0 , 0 , 50 , 50) , new Vector2(0 , 0));
+            m_googlePlayGamesProfilePicImage.sprite = Sprite.Create(Social.localUser.image , new Rect(0 , 0 , 50 , 50) , new Vector2(0 , 0)); //TODO Pivot value may be adjusted
 
-            if(_googlePlayProfilePicImage != null)
+            if(m_googlePlayGamesProfilePicImage.sprite != null)
             {
-                _googlePlayProfilePicImage.enabled = true;
+                _googlePlayGamesLogInComplete = true;
+                m_googlePlayGamesProfilePicImage.enabled = true;
+                m_noProfilePicText.enabled = false;
             }
             else
             {
+                _googlePlayGamesLogInComplete = false;
                 m_noProfilePicText.enabled = true;
             }
 
-            _googlePlayUsernameText.text = Social.localUser.userName;
+            m_googlePlayGamesUsernameText.text = Social.localUser.userName;
 
-            if(_googlePlayUsernameText.text == null)
+            if(m_googlePlayGamesUsernameText.text == null)
             {
+                m_googlePlayGamesUsernameText.enabled = false;
                 m_noUsernameText.enabled = true;
+            }
+            else
+            {
+                m_googlePlayGamesUsernameText.enabled = true;
+                m_noUsernameText.enabled = false;
             }
         }
         else
@@ -543,7 +569,7 @@ public class SocialmediaManager : MonoBehaviour
         {
             GooglePlayGamesLoggedOut();
             m_noInternetText.enabled = true;
-        } 
+        }
     }
 
     void GooglePlayGamesLogInCheck()
@@ -551,11 +577,20 @@ public class SocialmediaManager : MonoBehaviour
         if(PlayGamesPlatform.Instance.localUser.authenticated)
         {
             GooglePlayGamesLoggedIn();
+
+            if(!_googlePlayGamesLogInComplete)
+            {
+                Invoke("GooglePlayGamesLogInCheck" , 0.2f);
+            }
         }
         else
         {
             GooglePlayGamesLoggedOut();
-            Invoke("GooglePlayGamesLogInCheck" , 0.2f);
+            
+            if(!_googlePlayGamesLogInComplete)
+            {
+                Invoke("GooglePlayGamesLogInCheck" , 0.2f);
+            }
         }
     }
 

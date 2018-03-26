@@ -7,7 +7,7 @@ public class ScoreManager : MonoBehaviour
 {
     string _leaderboardID = "CgkInMKFu8wYEAIQAQ";
 
-    public static float m__leaderboardHighScore , m_minHighScore , m_scoreValue; //TODO Change Min High Score to 10000 after testing finished
+    public static float m__leaderboardHighScore , m_minHighScore , m_scoreValue;
 	public static int m_defaultSupersCount = 1 , m_supersCount;
     public static string m_myScores = "Leaderboard:\n";
     public static Text m_scoreDisplay;
