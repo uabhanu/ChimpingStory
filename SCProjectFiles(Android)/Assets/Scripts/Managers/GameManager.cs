@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour 
 {
 	AudioSource _musicSource;
+    bool _isChimpion;
 	Image _adsAcceptButtonImage , _adsCancelButtonImage , _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _chimpionshipBeltImage , _continueButtonImage , _exitButtonImage;
     Image _muteButtonImage , _pauseMenuImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage , _restartButtonImage , _restartAcceptButtonImage;
     Image _restartCancelButtonImage , _restartMenuImage , _resumeButtonImage , _unmuteButtonImage;
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour
 
 	[SerializeField] bool _selfieFlashEnabled;
     [SerializeField] Image _fallingLevelImage , _landLevelImage , _waterLevelImage;
+    [SerializeField] Sprite[] _chimpionshipBeltSprites;
     [SerializeField] Text _memoryLeakTestText;
 
     public static bool m_isMemoryLeakTestingMode , m_isTestingUnityEditor;
@@ -144,6 +146,20 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
     }
 
+    void ChimpionshipBelt()
+    {
+        if(_isChimpion)
+        {
+            _chimpionshipBeltImage.sprite = _chimpionshipBeltSprites[1];
+        }
+        else
+        {
+            _chimpionshipBeltImage.sprite = _chimpionshipBeltSprites[0];
+        }
+
+        Invoke("ChimpionshipBelt" , 0.3f);
+    }
+
     public void ContinueButton()
     {
 		BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
@@ -181,7 +197,6 @@ public class GameManager : MonoBehaviour
             _adsAcceptButtonImage = GameObject.Find("AdsAcceptButton").GetComponent<Image>();
             _adsCancelButtonImage = GameObject.Find("AdsCancelButton").GetComponent<Image>();
             _adsMenuImage = GameObject.Find("AdsMenu").GetComponent<Image>();
-            _chimpionshipBeltImage = GameObject.Find("ChimpionshipBelt").GetComponent<Image>();
             _exitButtonImage = GameObject.Find("ExitButton").GetComponent<Image>();
             _highScoreDisplayText = GameObject.Find("HighScoreTextDisplay").GetComponent<Text>();
 			_highScoreValueText = GameObject.Find("HighScoreValueDisplay").GetComponent<Text>();
@@ -238,7 +253,6 @@ public class GameManager : MonoBehaviour
 			_backToLandWinText = GameObject.Find("BackToLandWin").GetComponent<Text>();
             _backToLandWithSuperMenuImage = GameObject.Find("BackToLandWithSuperMenu").GetComponent<Image>();
 			_backToLandWithSuperText = GameObject.Find("BackToLandWithSuper").GetComponent<Text>();
-            _chimpionshipBeltImage = GameObject.Find("ChimpionshipBelt").GetComponent<Image>();
 			_continueButtonImage = GameObject.Find("ContinueButton").GetComponent<Image>();
 			_highScoreDisplayText = GameObject.Find("HighScoreTextDisplay").GetComponent<Text>();
 			_highScoreValueText = GameObject.Find("HighScoreValueDisplay").GetComponent<Text>();
@@ -302,6 +316,12 @@ public class GameManager : MonoBehaviour
         if(SocialmediaManager.m_isGooglePlayGamesLogInTestMode && SocialmediaManager.m_googlePlayGamesLogInTestText != null)
         {
             SocialmediaManager.m_googlePlayGamesLogInTestText.enabled = true;
+        }
+
+        if(m_currentScene > 0)
+        {
+            _chimpionshipBeltImage = GameObject.Find("ChimpionshipBelt").GetComponent<Image>();
+            Invoke("ChimpionshipBelt" , 0.3f);
         }
 
         if(m_isMemoryLeakTestingMode)

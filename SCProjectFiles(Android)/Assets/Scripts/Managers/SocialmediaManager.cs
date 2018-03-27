@@ -16,6 +16,7 @@ public class SocialmediaManager : MonoBehaviour
     //float _highScore;
 	Image _googlePlayGamesLeaderboardConfirmMenuImage , _googlePlayGamesLeaderboardOKButtonImage , _googlePlayGamesLeaderboardSuccessOKButtonImage , _googlePlayGamesLeaderboardUpdateAcceptButtonImage , _googlePlayGamesLeaderboardUpdateCancelButtonImage;
     int _currentScene;
+    PlayGamesLeaderboard _gpgsLeaderboard;
     PlayGamesUserProfile _playerProfile;
     string _applinkURL , _leaderboardID = "CgkInMKFu8wYEAIQAQ";
 	Text _googlePlayGamesLeaderboardUpdateText;
@@ -183,6 +184,7 @@ public class SocialmediaManager : MonoBehaviour
         if(logInResult.Cancelled)
         {
             Debug.LogWarning("Sir Bhanu, You have cancelled the LogIn" + logInResult.RawResult);
+            m_facebookButtonImage.enabled = true;
             FacebookLoggedOut();
         }
 
@@ -191,11 +193,13 @@ public class SocialmediaManager : MonoBehaviour
             if(logInResult.RawResult.Contains("Error button pressed"))
             {
                 Debug.LogWarning("Sir Bhanu, You have pressed Error Button" + logInResult.RawResult);
+                m_facebookButtonImage.enabled = true;
                 FacebookLoggedOut();
             }
             else
             {
                 Debug.LogWarning("Sir Bhanu, Please check your internet connection" + logInResult.RawResult);
+                m_facebookButtonImage.enabled = true;
                 m_noInternetText.enabled = true;
                 FacebookLoggedOut();
             }
@@ -348,7 +352,6 @@ public class SocialmediaManager : MonoBehaviour
     void GooglePlayGamesInit()
     {
         _googlePlayGamesLogInButtonTapped = false;
-        m_noInternetText.enabled = false;
         PlayGamesClientConfiguration clientConfig = new PlayGamesClientConfiguration.Builder().EnableSavedGames().Build();
         PlayGamesPlatform.InitializeInstance(clientConfig);
         PlayGamesPlatform.Activate();
@@ -385,23 +388,25 @@ public class SocialmediaManager : MonoBehaviour
     {
         if(PlayGamesPlatform.Instance.localUser.authenticated)
         {
-            PlayGamesPlatform.Instance.LoadScores(_leaderboardID , scores =>
+            _gpgsLeaderboard = new PlayGamesLeaderboard(_leaderboardID);
+
+            _gpgsLeaderboard.LoadScores(success =>
             {
-                if(scores.Length > 0)
+                if(success)
                 {
-                    foreach(IScore score in scores)
-                    {
-                        //ScoreManager.m_myScores += "\t" + score.userID + "" + score.formattedValue + "" + score.date + "\n";
-                        ScoreManager.m_myScores = score.formattedValue;
-                        _googlePlayGamesLeaderboardTestText.text = ScoreManager.m_myScores;
-                    }
+                    ScoreManager.m_scoreFromLeaderboard = _gpgsLeaderboard.scores[0].value.ToString(); //TODO Working great but you need to take in if this score is highest in value only
+                    _googlePlayGamesLeaderboardTestText.text = "High Score : " + ScoreManager.m_scoreFromLeaderboard;
+                }
+                else
+                {
+                    _googlePlayGamesLeaderboardTestText.text = "Something went wrong :(";
                 }
             });
         }
         else
         {
             _googlePlayGamesLeaderboardTestText.fontSize = 25;
-            _googlePlayGamesLeaderboardTestText.text = "Unable to retrieve Score from Leaderboard, You may have to Log In First";
+            _googlePlayGamesLeaderboardTestText.text = "Please Log In First :)";
         }
     }
 

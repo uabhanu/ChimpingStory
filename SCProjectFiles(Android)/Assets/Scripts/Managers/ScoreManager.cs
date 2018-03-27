@@ -7,7 +7,7 @@ public class ScoreManager : MonoBehaviour
 
     public static float m__leaderboardHighScore , m_minHighScore , m_scoreValue;
 	public static int m_defaultSupersCount = 1 , m_supersCount;
-    public static string m_myScores = "Leaderboard:\n";
+    public static string m_scoreFromLeaderboard;
     public static Text m_scoreDisplay;
 
 	void Start()

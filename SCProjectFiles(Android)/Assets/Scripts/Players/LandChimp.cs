@@ -327,7 +327,7 @@ public class LandChimp : MonoBehaviour
 
     void UICheck()
     {
-        if(ScoreManager.m_myScores == null && ScoreManager.m_scoreValue < ScoreManager.m_minHighScore)
+        if(ScoreManager.m_scoreFromLeaderboard == null && ScoreManager.m_scoreValue < ScoreManager.m_minHighScore)
         {
             SocialmediaManager.m_googlePlayGamesLeaderboardButton.interactable = false;
         }
