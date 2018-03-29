@@ -293,10 +293,10 @@ public class GameManager : MonoBehaviour
             }
 		}
 
-        if(SocialmediaManager.m_isFacebookShareTestMode && SocialmediaManager.m_facebookShareTestMenuObj != null)
-        {
-            SocialmediaManager.m_facebookShareTestMenuObj.SetActive(true);
-        }
+        //if(SocialmediaManager.m_isFacebookShareTestMode && SocialmediaManager.m_facebookShareTestMenuObj != null)
+        //{
+        //    SocialmediaManager.m_facebookShareTestMenuObj.SetActive(true);
+        //}
 
         if(SocialmediaManager.m_isGooglePlayGamesLeaderboardTestMode)
         {
@@ -454,14 +454,14 @@ public class GameManager : MonoBehaviour
 
 	public void QuitButton()
 	{
-        SocialmediaManager.m_facebookButtonImage.enabled = false;
-        SocialmediaManager.m_facebookProfilePicImage.enabled = false;
-        SocialmediaManager.m_facebookUsernameText.enabled = false;
+        //SocialmediaManager.m_facebookButtonImage.enabled = false;
+        //SocialmediaManager.m_facebookProfilePicImage.enabled = false;
+        //SocialmediaManager.m_facebookUsernameText.enabled = false;
         
-        if(SocialmediaManager.m_facebookShareTestMenuObj != null)
-        {
-            SocialmediaManager.m_facebookShareTestMenuObj.SetActive(false);
-        }
+        //if(SocialmediaManager.m_facebookShareTestMenuObj != null)
+        //{
+        //    SocialmediaManager.m_facebookShareTestMenuObj.SetActive(false);
+        //}
 
         SocialmediaManager.m_googlePlayGamesLogInButtonImage.enabled = false;
         SocialmediaManager.m_googlePlayGamesProfilePicImage.enabled = false;
@@ -494,20 +494,20 @@ public class GameManager : MonoBehaviour
 
 	public void QuitCancelButton()
 	{
-        if(SocialmediaManager.m_facebookProfilePicExists)
-        {
-            SocialmediaManager.m_facebookProfilePicImage.enabled = true;
-            SocialmediaManager.m_facebookUsernameText.enabled = true;
-        }
-        else
-        {
-            SocialmediaManager.m_facebookButtonImage.enabled = true;
-        }
+        //if(SocialmediaManager.m_facebookProfilePicExists)
+        //{
+        //    SocialmediaManager.m_facebookProfilePicImage.enabled = true;
+        //    SocialmediaManager.m_facebookUsernameText.enabled = true;
+        //}
+        //else
+        //{
+        //    SocialmediaManager.m_facebookButtonImage.enabled = true;
+        //}
         
-        if(SocialmediaManager.m_isFacebookShareTestMode && SocialmediaManager.m_facebookShareTestMenuObj != null)
-        {
-            SocialmediaManager.m_facebookShareTestMenuObj.SetActive(true);
-        }
+        //if(SocialmediaManager.m_isFacebookShareTestMode && SocialmediaManager.m_facebookShareTestMenuObj != null)
+        //{
+        //    SocialmediaManager.m_facebookShareTestMenuObj.SetActive(true);
+        //}
 
         if(SocialmediaManager.m_googlePlayGamesProfilePicExists || SocialmediaManager.m_googlePlayGamesUsernameTextExists)
         {
