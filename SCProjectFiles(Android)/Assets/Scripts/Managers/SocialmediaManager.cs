@@ -1,11 +1,11 @@
 ﻿//using Facebook.Unity;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
-using System;
-using System.Collections.Generic;
+//using System;
+//using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.SocialPlatforms;
+//using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
 
 public class SocialmediaManager : MonoBehaviour 
@@ -30,6 +30,8 @@ public class SocialmediaManager : MonoBehaviour
     public static Image /*m_facebookButtonImage , m_facebookProfilePicImage , */m_googlePlayGamesLeaderboardTestGetButtonImage , m_googlePlayGamesLeaderboardTestMenuImage;
     public static Image m_googlePlayGamesLeaderboardTestSetButtonImage , m_googlePlayGamesLogInButtonImage , m_googlePlayRateButtonImage , m_googlePlayGamesProfilePicImage;
     public static Text /*m_facebookUsernameText , */m_googlePlayGamesLeaderboardTestText , m_googlePlayGamesLogInTestText , m_googlePlayGamesUsernameText , m_noInternetText, m_noProfilePicText, m_noUsernameText;
+
+    public int m_playerRank = 0;
 
     void Start()
 	{
@@ -384,6 +386,52 @@ public class SocialmediaManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
+    public int GooglePlayGamesLeaderboardPlayerRank()
+    {
+        int playerRank = 0;
+
+        if(PlayGamesPlatform.Instance.localUser.authenticated)
+        {
+            _gpgsLeaderboard = new PlayGamesLeaderboard(_leaderboardID);
+
+            _gpgsLeaderboard.LoadScores(success =>
+            {
+                if(success)
+                {
+                    if(_gpgsLeaderboard.scores.Rank == 1)
+                    {
+                        if(m_isGooglePlayGamesLeaderboardTestMode)
+                        {
+                            _googlePlayGamesLeaderboardTestText.text = "You are the new Chimpion :)";
+                        }
+                        
+                        playerRank = 1;
+                    }
+                    else
+                    {
+                        if(m_isGooglePlayGamesLeaderboardTestMode)
+                        {
+                            _googlePlayGamesLeaderboardTestText.text = "You are not the Chimpion :(";
+                        }
+                        
+                        playerRank = 0;
+                    }
+                }
+                else
+                {
+                    _googlePlayGamesLeaderboardTestText.text = "Something went wrong :(";
+                }
+            });
+        }
+        else
+        {
+            _googlePlayGamesLeaderboardTestText.fontSize = 25;
+            _googlePlayGamesLeaderboardTestText.text = "Please Log In First :)";
+        }
+
+        return playerRank;
+    }
+
     public void GooglePlayGamesLeaderboardScoreGet()
     {
         if(PlayGamesPlatform.Instance.localUser.authenticated)
@@ -394,8 +442,9 @@ public class SocialmediaManager : MonoBehaviour
             {
                 if(success)
                 {
-                    ScoreManager.m_scoreFromLeaderboard = _gpgsLeaderboard.scores[0].value.ToString(); //TODO Working great but you need to take in if this score is highest in value only
+                    ScoreManager.m_scoreFromLeaderboard = _gpgsLeaderboard.localUserScore.ToString();
                     _googlePlayGamesLeaderboardTestText.text = "High Score : " + ScoreManager.m_scoreFromLeaderboard;
+                        
                 }
                 else
                 {
@@ -564,15 +613,12 @@ public class SocialmediaManager : MonoBehaviour
 
     void GooglePlayGamesLogInCheck()
     {
-        if(!m_googlePlayGamesProfilePicExists || !m_googlePlayGamesUsernameTextExists)
-        {
-            Invoke("GooglePlayGamesLogInCheck" , 0.2f);
-        }
-
         if(PlayGamesPlatform.Instance.localUser.authenticated)
         {
-            m_googlePlayGamesProfilePicImage.sprite = Sprite.Create(Social.localUser.image , new Rect(0 , 0 , 50 , 50) , new Vector2(0 , 0)); //TODO Pivot value may be adjusted
-            m_googlePlayGamesUsernameText.text = Social.localUser.userName;
+            //m_googlePlayGamesProfilePicImage.sprite = Sprite.Create(Social.localUser.image , new Rect(0 , 0 , 50 , 50) , new Vector2(0 , 0)); //TODO Pivot value may be adjusted
+            m_googlePlayGamesProfilePicImage.sprite = Sprite.Create(PlayGamesPlatform.Instance.localUser.image , new Rect(0 , 0 , 50 , 50) , new Vector2(0 , 0)); //TODO Pivot value may be adjusted
+            //m_googlePlayGamesUsernameText.text = Social.localUser.userName;
+            m_googlePlayGamesUsernameText.text = PlayGamesPlatform.Instance.localUser.userName;
 
             if(m_googlePlayGamesProfilePicImage.sprite != null)
             {
@@ -589,6 +635,11 @@ public class SocialmediaManager : MonoBehaviour
         else
         {
             GooglePlayGamesLoggedOut();
+        }
+
+        if(!m_googlePlayGamesProfilePicExists || !m_googlePlayGamesUsernameTextExists)
+        {
+            Invoke("GooglePlayGamesLogInCheck" , 0.2f);
         }
     }
 

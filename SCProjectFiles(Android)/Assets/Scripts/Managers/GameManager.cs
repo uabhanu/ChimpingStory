@@ -6,11 +6,11 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour 
 {
 	AudioSource _musicSource;
-    bool _isChimpion;
 	Image _adsAcceptButtonImage , _adsCancelButtonImage , _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _chimpionshipBeltImage , _continueButtonImage , _exitButtonImage;
     Image _muteButtonImage , _pauseMenuImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage , _restartButtonImage , _restartAcceptButtonImage;
     Image _restartCancelButtonImage , _restartMenuImage , _resumeButtonImage , _unmuteButtonImage;
     LandChimp _landChimp;
+    SocialmediaManager _socialmediaManager;
 	SoundManager _soundManager;
 	Text _adsText , _backToLandLoseText , _backToLandWinText , _backToLandWithSuperText , _highScoreDisplayText , _highScoreValueText , _quitText , _restartText;
 
@@ -148,7 +148,9 @@ public class GameManager : MonoBehaviour
 
     void ChimpionshipBelt()
     {
-        if(_isChimpion)
+        _socialmediaManager.m_playerRank = _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
+
+        if(IsChimpion())
         {
             _chimpionshipBeltImage.sprite = _chimpionshipBeltSprites[1];
         }
@@ -180,6 +182,7 @@ public class GameManager : MonoBehaviour
     {
         m_currentScene = SceneManager.GetActiveScene().buildIndex;
         m_playerMutedSounds = BhanuPrefs.GetSoundsStatus();
+        _socialmediaManager = GameObject.Find("SocialmediaManager").GetComponent<SocialmediaManager>();
 
         if(m_currentScene == 0)
         {
@@ -364,6 +367,18 @@ public class GameManager : MonoBehaviour
     public void GoToWaterLevelButton()
     {
         SceneManager.LoadScene("WaterSwimmer");
+    }
+
+    bool IsChimpion()
+    {
+        if(_socialmediaManager.m_playerRank == 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public void MuteUnmuteButton()

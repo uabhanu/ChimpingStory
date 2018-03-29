@@ -139,7 +139,7 @@ public class LandChimp : MonoBehaviour
             transform.position = new Vector2(-5.17f , Mathf.Clamp(transform.position.y , -0.98f , 3.25f));
         }
     }
-	
+
 	public void Jump()
     {
         if(_isGrounded && !_isJumping && !_isSliding && !_isUI) //This check exists in Update also for extra support as it's slow
@@ -327,16 +327,6 @@ public class LandChimp : MonoBehaviour
 
     void UICheck()
     {
-        if(ScoreManager.m_scoreFromLeaderboard == null && ScoreManager.m_scoreValue < ScoreManager.m_minHighScore)
-        {
-            SocialmediaManager.m_googlePlayGamesLeaderboardButton.interactable = false;
-        }
-
-        if(ScoreManager.m_scoreValue >= ScoreManager.m_minHighScore)
-        {
-            SocialmediaManager.m_googlePlayGamesLeaderboardButton.interactable = true;
-        }
-
         if(EventSystem.current.currentSelectedGameObject != null)
         {
             _isUI = true;
@@ -345,6 +335,16 @@ public class LandChimp : MonoBehaviour
         else if(EventSystem.current.currentSelectedGameObject == null)
         {
             _isUI = false;
+        }
+
+        if(ScoreManager.m_scoreFromLeaderboard == null && ScoreManager.m_scoreValue < ScoreManager.m_minHighScore)
+        {
+            SocialmediaManager.m_googlePlayGamesLeaderboardButton.interactable = false;
+        }
+
+        if(ScoreManager.m_scoreValue >= ScoreManager.m_minHighScore)
+        {
+            SocialmediaManager.m_googlePlayGamesLeaderboardButton.interactable = true;
         }
     }
 }
