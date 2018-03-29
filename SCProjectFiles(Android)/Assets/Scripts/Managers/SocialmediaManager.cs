@@ -24,7 +24,7 @@ public class SocialmediaManager : MonoBehaviour
     //[SerializeField] Image _facebookShareButtonImage, _fbChallengeInviteButtonImage;
     [SerializeField] Text /*_fbChallengeInviteTestText, _fbScoreText, */_googlePlayGamesLeaderboardLogInCheckText , _googlePlayGamesLeaderboardTestText , _googlePlayGamesLeaderboardUpdateSuccessText;
 
-    public static bool /*m_facebookProfilePicExists = false, m_isFacebookShareTestMode = false , */m_isGooglePlayGamesLeaderboardTestMode = false , m_isGooglePlayGamesLogInTestMode = false , m_googlePlayGamesProfilePicExists = false , m_googlePlayGamesUsernameTextExists = false;
+    public static bool /*m_facebookProfilePicExists = false, m_isFacebookShareTestMode = false , */m_isGooglePlayGamesLeaderboardTestMode , m_isGooglePlayGamesLogInTestMode , m_googlePlayGamesLoggedIn;
     public static Button m_googlePlayGamesLeaderboardButton;
     public static GameObject /*m_facebookShareMenuObj , m_facebookShareSuccessMenuObj , m_facebookShareTestMenuObj , */m_googlePlayGamesLeaderboardButtonObj;
     public static Image /*m_facebookButtonImage , m_facebookProfilePicImage , */m_googlePlayGamesLeaderboardTestGetButtonImage , m_googlePlayGamesLeaderboardTestMenuImage;
@@ -72,6 +72,7 @@ public class SocialmediaManager : MonoBehaviour
             _googlePlayGamesLeaderboardUpdateAcceptButtonImage = GameObject.Find("UpdateAcceptButton").GetComponent<Image>();
             _googlePlayGamesLeaderboardUpdateCancelButtonImage = GameObject.Find("UpdateCancelButton").GetComponent<Image>();
             _googlePlayGamesLeaderboardUpdateText = GameObject.Find("UpdateText").GetComponent<Text>();
+            Invoke("GooglePlayGamesLeaderboardPlayerRank" , 1.5f);
         }
     }
 
@@ -386,10 +387,8 @@ public class SocialmediaManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public int GooglePlayGamesLeaderboardPlayerRank()
+    public void GooglePlayGamesLeaderboardPlayerRank()
     {
-        int playerRank = 0;
-
         if(PlayGamesPlatform.Instance.localUser.authenticated)
         {
             _gpgsLeaderboard = new PlayGamesLeaderboard(_leaderboardID);
@@ -400,21 +399,11 @@ public class SocialmediaManager : MonoBehaviour
                 {
                     if(_gpgsLeaderboard.scores.Rank == 1)
                     {
-                        if(m_isGooglePlayGamesLeaderboardTestMode)
-                        {
-                            _googlePlayGamesLeaderboardTestText.text = "You are the new Chimpion :)";
-                        }
-                        
-                        playerRank = 1;
+                        m_playerRank = 1;
                     }
                     else
                     {
-                        if(m_isGooglePlayGamesLeaderboardTestMode)
-                        {
-                            _googlePlayGamesLeaderboardTestText.text = "You are not the Chimpion :(";
-                        }
-                        
-                        playerRank = 0;
+                        m_playerRank = 0;
                     }
                 }
                 else
@@ -429,7 +418,7 @@ public class SocialmediaManager : MonoBehaviour
             _googlePlayGamesLeaderboardTestText.text = "Please Log In First :)";
         }
 
-        return playerRank;
+        Invoke("GooglePlayGamesLeaderboardPlayerRank" , 1.5f);
     }
 
     public void GooglePlayGamesLeaderboardScoreGet()
@@ -442,7 +431,7 @@ public class SocialmediaManager : MonoBehaviour
             {
                 if(success)
                 {
-                    ScoreManager.m_scoreFromLeaderboard = _gpgsLeaderboard.localUserScore.ToString();
+                    ScoreManager.m_scoreFromLeaderboard = _gpgsLeaderboard.localUserScore.formattedValue; //TODO Not sure what this is retrieving but not needed for now as Belt Logic is perfect
                     _googlePlayGamesLeaderboardTestText.text = "High Score : " + ScoreManager.m_scoreFromLeaderboard;
                         
                 }
@@ -547,21 +536,14 @@ public class SocialmediaManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    void GooglePlayGamesLoggedIn()
+    public void GooglePlayGamesLoggedIn()
     {
-        m_googlePlayGamesLogInButtonImage.enabled = false;
-        m_googlePlayRateButtonImage.enabled = true;
-        
-        if(m_googlePlayGamesProfilePicExists)
+        if(!GameManager.m_quitButtonTapped)
         {
+            m_googlePlayGamesLogInButtonImage.enabled = false;
+            m_googlePlayRateButtonImage.enabled = true;
             m_googlePlayGamesProfilePicImage.enabled = true;
-            m_noProfilePicText.enabled = false;
-        }
-
-        if(m_googlePlayGamesUsernameTextExists)
-        {
             m_googlePlayGamesUsernameText.enabled = true;
-            m_noUsernameText.enabled = false;
         }
 
         if(m_isGooglePlayGamesLogInTestMode)
@@ -570,11 +552,15 @@ public class SocialmediaManager : MonoBehaviour
         }
     }
 
-    void GooglePlayGamesLoggedOut()
+    public void GooglePlayGamesLoggedOut()
     {
-        m_googlePlayGamesProfilePicImage.enabled = false;
-        m_googlePlayGamesUsernameText.enabled = false;
-        m_googlePlayRateButtonImage.enabled = false;
+        if(!GameManager.m_quitButtonTapped)
+        {
+            m_googlePlayGamesLogInButtonImage.enabled = true;
+            m_googlePlayRateButtonImage.enabled = false;
+            m_googlePlayGamesProfilePicImage.enabled = false;
+            m_googlePlayGamesUsernameText.enabled = false;
+        }
 
         if(_googlePlayGamesLogInButtonTapped && m_isGooglePlayGamesLogInTestMode)
         {
@@ -602,45 +588,35 @@ public class SocialmediaManager : MonoBehaviour
         if(success)
         {
             GooglePlayGamesLoggedIn();
+            m_googlePlayGamesLoggedIn = true;
             m_noInternetText.enabled = false;
         }
         else
         {
             GooglePlayGamesLoggedOut();
+            m_googlePlayGamesLoggedIn = false;
             m_noInternetText.enabled = true;
         }
     }
 
     void GooglePlayGamesLogInCheck()
     {
-        if(PlayGamesPlatform.Instance.localUser.authenticated)
+        if(m_googlePlayGamesLoggedIn)
         {
-            //m_googlePlayGamesProfilePicImage.sprite = Sprite.Create(Social.localUser.image , new Rect(0 , 0 , 50 , 50) , new Vector2(0 , 0)); //TODO Pivot value may be adjusted
-            m_googlePlayGamesProfilePicImage.sprite = Sprite.Create(PlayGamesPlatform.Instance.localUser.image , new Rect(0 , 0 , 50 , 50) , new Vector2(0 , 0)); //TODO Pivot value may be adjusted
-            //m_googlePlayGamesUsernameText.text = Social.localUser.userName;
+            m_googlePlayGamesProfilePicImage.sprite = Sprite.Create(PlayGamesPlatform.Instance.localUser.image , new Rect(0 , 0 , 50 , 50) , new Vector2(0 , 0)); //TODO Pivot value may be adjusted so pic looks perfect in center
             m_googlePlayGamesUsernameText.text = PlayGamesPlatform.Instance.localUser.userName;
 
-            if(m_googlePlayGamesProfilePicImage.sprite != null)
+            if(m_googlePlayGamesProfilePicImage.sprite != null && m_googlePlayGamesUsernameText.text != null)
             {
-                m_googlePlayGamesProfilePicExists = true;
+                GooglePlayGamesLoggedIn();
             }
-
-            if(m_googlePlayGamesUsernameText.text != null)
-            {
-                m_googlePlayGamesUsernameTextExists = true;
-            }
-
-            GooglePlayGamesLoggedIn();
         }
         else
         {
             GooglePlayGamesLoggedOut();
         }
 
-        if(!m_googlePlayGamesProfilePicExists || !m_googlePlayGamesUsernameTextExists)
-        {
-            Invoke("GooglePlayGamesLogInCheck" , 0.2f);
-        }
+        Invoke("GooglePlayGamesLogInCheck" , 0.2f);        
     }
 
     public void GooglePlayRateButton()

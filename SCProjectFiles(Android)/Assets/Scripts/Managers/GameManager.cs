@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Sprite[] _chimpionshipBeltSprites;
     [SerializeField] Text _memoryLeakTestText;
 
-    public static bool m_isMemoryLeakTestingMode , m_isTestingUnityEditor;
+    public static bool m_isMemoryLeakTestingMode , m_isTestingUnityEditor , m_quitButtonTapped;
     public static Image _adsMenuImage , _pauseButtonImage , m_selfieButtonImage , m_selfiePanelImage;
     public static int m_currentScene , m_playerMutedSounds;
 
@@ -148,8 +148,6 @@ public class GameManager : MonoBehaviour
 
     void ChimpionshipBelt()
     {
-        _socialmediaManager.m_playerRank = _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-
         if(IsChimpion())
         {
             _chimpionshipBeltImage.sprite = _chimpionshipBeltSprites[1];
@@ -159,7 +157,7 @@ public class GameManager : MonoBehaviour
             _chimpionshipBeltImage.sprite = _chimpionshipBeltSprites[0];
         }
 
-        Invoke("ChimpionshipBelt" , 0.3f);
+        Invoke("ChimpionshipBelt" , 1.5f);
     }
 
     public void ContinueButton()
@@ -324,7 +322,7 @@ public class GameManager : MonoBehaviour
         if(m_currentScene > 0)
         {
             _chimpionshipBeltImage = GameObject.Find("ChimpionshipBelt").GetComponent<Image>();
-            Invoke("ChimpionshipBelt" , 0.3f);
+            Invoke("ChimpionshipBelt" , 1.5f);
         }
 
         if(m_isMemoryLeakTestingMode)
@@ -478,6 +476,8 @@ public class GameManager : MonoBehaviour
         //    SocialmediaManager.m_facebookShareTestMenuObj.SetActive(false);
         //}
 
+        m_quitButtonTapped = true;
+
         SocialmediaManager.m_googlePlayGamesLogInButtonImage.enabled = false;
         SocialmediaManager.m_googlePlayGamesProfilePicImage.enabled = false;
         SocialmediaManager.m_googlePlayRateButtonImage.enabled = false;
@@ -524,15 +524,15 @@ public class GameManager : MonoBehaviour
         //    SocialmediaManager.m_facebookShareTestMenuObj.SetActive(true);
         //}
 
-        if(SocialmediaManager.m_googlePlayGamesProfilePicExists || SocialmediaManager.m_googlePlayGamesUsernameTextExists)
+        m_quitButtonTapped = false;
+
+        if(SocialmediaManager.m_googlePlayGamesLoggedIn)
         {
-            SocialmediaManager.m_googlePlayGamesProfilePicImage.enabled = true;
-            SocialmediaManager.m_googlePlayGamesUsernameText.enabled = true;
-            SocialmediaManager.m_googlePlayRateButtonImage.enabled = true;
+            _socialmediaManager.GooglePlayGamesLoggedIn();
         }
         else
         {
-            SocialmediaManager.m_googlePlayGamesLogInButtonImage.enabled = true;
+            _socialmediaManager.GooglePlayGamesLoggedOut();
         }
         
         if(SocialmediaManager.m_isGooglePlayGamesLogInTestMode && SocialmediaManager.m_googlePlayGamesLogInTestText != null)
