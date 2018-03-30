@@ -5,7 +5,7 @@ using GooglePlayGames.BasicApi;
 //using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-//using UnityEngine.SocialPlatforms;
+using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
 
 public class SocialmediaManager : MonoBehaviour 
@@ -14,8 +14,11 @@ public class SocialmediaManager : MonoBehaviour
     //Dictionary<string , object> _highScoresData;
     //Dictionary<string , string> _scores = null;
     //float _highScore;
+    const float _rankInvokeTime = 0.5f;
 	Image _googlePlayGamesLeaderboardConfirmMenuImage , _googlePlayGamesLeaderboardOKButtonImage , _googlePlayGamesLeaderboardSuccessOKButtonImage , _googlePlayGamesLeaderboardUpdateAcceptButtonImage , _googlePlayGamesLeaderboardUpdateCancelButtonImage;
     int _currentScene;
+    IScore _highScore;
+    LeaderboardScoreData _scoreData;
     PlayGamesLeaderboard _gpgsLeaderboard;
     PlayGamesUserProfile _playerProfile;
     string /*_applinkURL , */_leaderboardID = "CgkInMKFu8wYEAIQAQ";
@@ -31,12 +34,12 @@ public class SocialmediaManager : MonoBehaviour
     public static Image m_googlePlayGamesLeaderboardTestSetButtonImage , m_googlePlayGamesLogInButtonImage , m_googlePlayRateButtonImage , m_googlePlayGamesProfilePicImage;
     public static Text /*m_facebookUsernameText , */m_googlePlayGamesLeaderboardTestText , m_googlePlayGamesLogInTestText , m_googlePlayGamesUsernameText , m_noInternetText, m_noProfilePicText, m_noUsernameText;
 
-    public int m_playerRank = 0;
+    public int m_playerRank;
 
     void Start()
 	{
         _currentScene = SceneManager.GetActiveScene().buildIndex;
-        m_isGooglePlayGamesLeaderboardTestMode = true; //TODO Remove this after testing is finished
+        //m_isGooglePlayGamesLeaderboardTestMode = true; //TODO Remove this after testing is finished
 
         if(_currentScene == 0)
         {
@@ -72,7 +75,7 @@ public class SocialmediaManager : MonoBehaviour
             _googlePlayGamesLeaderboardUpdateAcceptButtonImage = GameObject.Find("UpdateAcceptButton").GetComponent<Image>();
             _googlePlayGamesLeaderboardUpdateCancelButtonImage = GameObject.Find("UpdateCancelButton").GetComponent<Image>();
             _googlePlayGamesLeaderboardUpdateText = GameObject.Find("UpdateText").GetComponent<Text>();
-            Invoke("GooglePlayGamesLeaderboardPlayerRank" , 1.5f);
+            Invoke("GooglePlayGamesLeaderboardPlayerRank" , _rankInvokeTime);
         }
     }
 
@@ -389,36 +392,18 @@ public class SocialmediaManager : MonoBehaviour
 
     public void GooglePlayGamesLeaderboardPlayerRank()
     {
-        if(PlayGamesPlatform.Instance.localUser.authenticated)
+        if(m_googlePlayGamesLoggedIn)
         {
             _gpgsLeaderboard = new PlayGamesLeaderboard(_leaderboardID);
 
-            _gpgsLeaderboard.LoadScores(success =>
+            PlayGamesPlatform.Instance.LoadScores(_leaderboardID , LeaderboardStart.TopScores , 20 , LeaderboardCollection.Public , LeaderboardTimeSpan.AllTime , (_scoreData) =>
             {
-                if(success)
-                {
-                    if(_gpgsLeaderboard.scores.Rank == 1)
-                    {
-                        m_playerRank = 1;
-                    }
-                    else
-                    {
-                        m_playerRank = 0;
-                    }
-                }
-                else
-                {
-                    _googlePlayGamesLeaderboardTestText.text = "Something went wrong :(";
-                }
+                _highScore = _scoreData.PlayerScore;
+                _googlePlayGamesLeaderboardTestText.text = "High Score : " + _highScore.formattedValue;   
             });
-        }
-        else
-        {
-            _googlePlayGamesLeaderboardTestText.fontSize = 25;
-            _googlePlayGamesLeaderboardTestText.text = "Please Log In First :)";
-        }
 
-        Invoke("GooglePlayGamesLeaderboardPlayerRank" , 1.5f);
+            Invoke("GooglePlayGamesLeaderboardPlayerRank" , _rankInvokeTime);
+        }
     }
 
     public void GooglePlayGamesLeaderboardScoreGet()
@@ -431,8 +416,7 @@ public class SocialmediaManager : MonoBehaviour
             {
                 if(success)
                 {
-                    ScoreManager.m_scoreFromLeaderboard = _gpgsLeaderboard.localUserScore.formattedValue; //TODO Not sure what this is retrieving but not needed for now as Belt Logic is perfect
-                    _googlePlayGamesLeaderboardTestText.text = "High Score : " + ScoreManager.m_scoreFromLeaderboard;
+                    
                         
                 }
                 else
@@ -588,15 +572,15 @@ public class SocialmediaManager : MonoBehaviour
         if(success)
         {
             GooglePlayGamesLoggedIn();
-            m_googlePlayGamesLoggedIn = true;
             m_noInternetText.enabled = false;
         }
         else
         {
             GooglePlayGamesLoggedOut();
-            m_googlePlayGamesLoggedIn = false;
             m_noInternetText.enabled = true;
         }
+
+        m_googlePlayGamesLoggedIn = success;
     }
 
     void GooglePlayGamesLogInCheck()

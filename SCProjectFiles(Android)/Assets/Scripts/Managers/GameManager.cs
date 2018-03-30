@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour 
 {
 	AudioSource _musicSource;
+    const float _chimpionshipBeltInvokeTime = 0.5f;
 	Image _adsAcceptButtonImage , _adsCancelButtonImage , _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _chimpionshipBeltImage , _continueButtonImage , _exitButtonImage;
     Image _muteButtonImage , _pauseMenuImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage , _restartButtonImage , _restartAcceptButtonImage;
     Image _restartCancelButtonImage , _restartMenuImage , _resumeButtonImage , _unmuteButtonImage;
@@ -157,7 +158,7 @@ public class GameManager : MonoBehaviour
             _chimpionshipBeltImage.sprite = _chimpionshipBeltSprites[0];
         }
 
-        Invoke("ChimpionshipBelt" , 1.5f);
+        Invoke("ChimpionshipBelt" , _chimpionshipBeltInvokeTime);
     }
 
     public void ContinueButton()
@@ -180,7 +181,6 @@ public class GameManager : MonoBehaviour
     {
         m_currentScene = SceneManager.GetActiveScene().buildIndex;
         m_playerMutedSounds = BhanuPrefs.GetSoundsStatus();
-        _socialmediaManager = GameObject.Find("SocialmediaManager").GetComponent<SocialmediaManager>();
 
         if(m_currentScene == 0)
         {
@@ -199,8 +199,6 @@ public class GameManager : MonoBehaviour
             _adsCancelButtonImage = GameObject.Find("AdsCancelButton").GetComponent<Image>();
             _adsMenuImage = GameObject.Find("AdsMenu").GetComponent<Image>();
             _exitButtonImage = GameObject.Find("ExitButton").GetComponent<Image>();
-            _highScoreDisplayText = GameObject.Find("HighScoreTextDisplay").GetComponent<Text>();
-			_highScoreValueText = GameObject.Find("HighScoreValueDisplay").GetComponent<Text>();
             _landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
             _muteButtonImage = GameObject.Find("MuteButton").GetComponent<Image>();
 			_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
@@ -213,6 +211,7 @@ public class GameManager : MonoBehaviour
             _restartMenuImage = GameObject.Find("RestartMenu").GetComponent<Image>();
 			m_selfieButtonImage = GameObject.Find("SelfieButton").GetComponent<Image>();
 			m_selfiePanelImage = GameObject.Find("SelfiePanel").GetComponent<Image>();
+            _socialmediaManager = GameObject.Find("SocialmediaManager").GetComponent<SocialmediaManager>();
             _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
             _unmuteButtonImage = GameObject.Find("UnmuteButton").GetComponent<Image>();
 
@@ -306,10 +305,10 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            ScoreManager.m_minHighScore = 10000f;
+            ScoreManager.m_minHighScore = 5000f;
         }
 
-        if(ScoreManager.m_scoreValue >= 10000f && SocialmediaManager.m_googlePlayGamesLeaderboardButton != null)
+        if(ScoreManager.m_scoreValue >= ScoreManager.m_minHighScore && SocialmediaManager.m_googlePlayGamesLeaderboardButton != null)
         {
             SocialmediaManager.m_googlePlayGamesLeaderboardButton.interactable = true;
         }
@@ -322,7 +321,9 @@ public class GameManager : MonoBehaviour
         if(m_currentScene > 0)
         {
             _chimpionshipBeltImage = GameObject.Find("ChimpionshipBelt").GetComponent<Image>();
-            Invoke("ChimpionshipBelt" , 1.5f);
+            _highScoreDisplayText = GameObject.Find("HighScoreTextDisplay").GetComponent<Text>();
+			_highScoreValueText = GameObject.Find("HighScoreValueDisplay").GetComponent<Text>();
+            Invoke("ChimpionshipBelt" , _chimpionshipBeltInvokeTime);
         }
 
         if(m_isMemoryLeakTestingMode)
