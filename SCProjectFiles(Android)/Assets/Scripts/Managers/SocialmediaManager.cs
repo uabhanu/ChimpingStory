@@ -14,11 +14,10 @@ public class SocialmediaManager : MonoBehaviour
     //Dictionary<string , object> _highScoresData;
     //Dictionary<string , string> _scores = null;
     //float _highScore;
-    const float _rankInvokeTime = 0.5f;
+    GameManager _gameManager;
 	Image _googlePlayGamesLeaderboardConfirmMenuImage , _googlePlayGamesLeaderboardOKButtonImage , _googlePlayGamesLeaderboardSuccessOKButtonImage , _googlePlayGamesLeaderboardUpdateAcceptButtonImage , _googlePlayGamesLeaderboardUpdateCancelButtonImage;
     int _currentScene;
     IScore _highScore;
-    LeaderboardScoreData _scoreData;
     PlayGamesLeaderboard _gpgsLeaderboard;
     PlayGamesUserProfile _playerProfile;
     string /*_applinkURL , */_leaderboardID = "CgkInMKFu8wYEAIQAQ";
@@ -39,6 +38,7 @@ public class SocialmediaManager : MonoBehaviour
     void Start()
 	{
         _currentScene = SceneManager.GetActiveScene().buildIndex;
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         //m_isGooglePlayGamesLeaderboardTestMode = true; //TODO Remove this after testing is finished
 
         if(_currentScene == 0)
@@ -75,7 +75,6 @@ public class SocialmediaManager : MonoBehaviour
             _googlePlayGamesLeaderboardUpdateAcceptButtonImage = GameObject.Find("UpdateAcceptButton").GetComponent<Image>();
             _googlePlayGamesLeaderboardUpdateCancelButtonImage = GameObject.Find("UpdateCancelButton").GetComponent<Image>();
             _googlePlayGamesLeaderboardUpdateText = GameObject.Find("UpdateText").GetComponent<Text>();
-            Invoke("GooglePlayGamesLeaderboardPlayerRank" , _rankInvokeTime);
         }
     }
 
@@ -384,50 +383,36 @@ public class SocialmediaManager : MonoBehaviour
 
     public void GooglePlayGamesLeaderboardOKButton()
     {
+        GooglePlayGamesLeaderboardPlayerRank();
+        _gameManager.ChimpionshipBelt();
         _googlePlayGamesLeaderboardConfirmMenuImage.enabled = false;
         _googlePlayGamesLeaderboardLogInCheckText.enabled = false;
         _googlePlayGamesLeaderboardOKButtonImage.enabled = false;
         Time.timeScale = 1;
     }
 
-    public void GooglePlayGamesLeaderboardPlayerRank()
+    void GooglePlayGamesLeaderboardPlayerRank()
     {
         if(m_googlePlayGamesLoggedIn)
         {
-            _gpgsLeaderboard = new PlayGamesLeaderboard(_leaderboardID);
-
-            PlayGamesPlatform.Instance.LoadScores(_leaderboardID , LeaderboardStart.TopScores , 20 , LeaderboardCollection.Public , LeaderboardTimeSpan.AllTime , (_scoreData) =>
+            PlayGamesPlatform.Instance.LoadScores(_leaderboardID , LeaderboardStart.TopScores , 20 , LeaderboardCollection.Public , LeaderboardTimeSpan.AllTime , (data) =>
             {
-                _highScore = _scoreData.PlayerScore;
-                _googlePlayGamesLeaderboardTestText.text = "High Score : " + _highScore.formattedValue;   
+                m_playerRank = data.PlayerScore.rank; //This is the rank of the player in the leaderboard
             });
-
-            Invoke("GooglePlayGamesLeaderboardPlayerRank" , _rankInvokeTime);
         }
     }
 
     public void GooglePlayGamesLeaderboardScoreGet()
     {
-        if(PlayGamesPlatform.Instance.localUser.authenticated)
+        if(m_googlePlayGamesLoggedIn)
         {
-            _gpgsLeaderboard = new PlayGamesLeaderboard(_leaderboardID);
-
-            _gpgsLeaderboard.LoadScores(success =>
+            PlayGamesPlatform.Instance.LoadScores(_leaderboardID , LeaderboardStart.TopScores , 20 , LeaderboardCollection.Public , LeaderboardTimeSpan.AllTime , (data) =>
             {
-                if(success)
-                {
-                    
-                        
-                }
-                else
-                {
-                    _googlePlayGamesLeaderboardTestText.text = "Something went wrong :(";
-                }
+                _highScore = data.PlayerScore; //This retrieves the player high score 
             });
         }
         else
         {
-            _googlePlayGamesLeaderboardTestText.fontSize = 25;
             _googlePlayGamesLeaderboardTestText.text = "Please Log In First :)";
         }
     }
@@ -472,6 +457,9 @@ public class SocialmediaManager : MonoBehaviour
 
     public void GooglePlayGamesLeaderboardUpdateAcceptButton()
     {
+        GooglePlayGamesLeaderboardPlayerRank();
+        _gameManager.ChimpionshipBelt();
+
         if(PlayGamesPlatform.Instance.localUser.authenticated) 
         {
             PlayGamesPlatform.Instance.ReportScore((long)ScoreManager.m_scoreValue , _leaderboardID , (bool success) =>
@@ -500,6 +488,9 @@ public class SocialmediaManager : MonoBehaviour
 
     public void GooglePlayGamesLeaderboardUpdateCancelButton()
     {
+        GooglePlayGamesLeaderboardPlayerRank();
+        _gameManager.ChimpionshipBelt();
+
         if(PlayGamesPlatform.Instance.localUser.authenticated) 
         {
             PlayGamesPlatform.Instance.ShowLeaderboardUI();

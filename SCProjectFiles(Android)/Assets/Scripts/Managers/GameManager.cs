@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour 
 {
 	AudioSource _musicSource;
-    const float _chimpionshipBeltInvokeTime = 0.5f;
 	Image _adsAcceptButtonImage , _adsCancelButtonImage , _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _chimpionshipBeltImage , _continueButtonImage , _exitButtonImage;
     Image _muteButtonImage , _pauseMenuImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage , _restartButtonImage , _restartAcceptButtonImage;
     Image _restartCancelButtonImage , _restartMenuImage , _resumeButtonImage , _unmuteButtonImage;
@@ -147,7 +146,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
     }
 
-    void ChimpionshipBelt()
+    public void ChimpionshipBelt()
     {
         if(IsChimpion())
         {
@@ -157,8 +156,6 @@ public class GameManager : MonoBehaviour
         {
             _chimpionshipBeltImage.sprite = _chimpionshipBeltSprites[0];
         }
-
-        Invoke("ChimpionshipBelt" , _chimpionshipBeltInvokeTime);
     }
 
     public void ContinueButton()
@@ -323,7 +320,6 @@ public class GameManager : MonoBehaviour
             _chimpionshipBeltImage = GameObject.Find("ChimpionshipBelt").GetComponent<Image>();
             _highScoreDisplayText = GameObject.Find("HighScoreTextDisplay").GetComponent<Text>();
 			_highScoreValueText = GameObject.Find("HighScoreValueDisplay").GetComponent<Text>();
-            Invoke("ChimpionshipBelt" , _chimpionshipBeltInvokeTime);
         }
 
         if(m_isMemoryLeakTestingMode)
