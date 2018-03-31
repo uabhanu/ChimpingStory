@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Text _memoryLeakTestText;
 
     public static bool m_isMemoryLeakTestingMode , m_isTestingUnityEditor , m_quitButtonTapped;
-    public static Image _adsMenuImage , _pauseButtonImage , m_selfieButtonImage , m_selfiePanelImage;
+    public static Image m_adsMenuImage , m_pauseButtonImage , m_selfieButtonImage , m_selfiePanelImage;
     public static int m_currentScene , m_playerMutedSounds;
 
     void Start()
@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
 
     public void Ads()
     {
-        _adsMenuImage.enabled = true;
+        m_adsMenuImage.enabled = true;
         _adsAcceptButtonImage.enabled = true;
         _adsCancelButtonImage.enabled = true;
         _adsText.enabled = true;
@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
         }
 
         _muteButtonImage.enabled = false;
-        _pauseButtonImage.enabled = false;
+        m_pauseButtonImage.enabled = false;
 		m_selfieButtonImage.enabled = false;
         _unmuteButtonImage.enabled = false;
 		Time.timeScale = 0;
@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
 
     public void AdsAcceptButton()
     {
-        _adsMenuImage.enabled = false;
+        m_adsMenuImage.enabled = false;
         _adsAcceptButtonImage.enabled = false;
         _adsCancelButtonImage.enabled = false;
         _adsText.enabled = false;
@@ -113,7 +113,7 @@ public class GameManager : MonoBehaviour
 		_highScoreDisplayText.enabled = false;
 		_highScoreValueText.enabled = false;
         _muteButtonImage.enabled = false;
-        _pauseButtonImage.enabled = false;
+        m_pauseButtonImage.enabled = false;
         _unmuteButtonImage.enabled = false;
         Time.timeScale = 0;
     }
@@ -127,7 +127,7 @@ public class GameManager : MonoBehaviour
 		_highScoreDisplayText.enabled = false;
 		_highScoreValueText.enabled = false;
         _muteButtonImage.enabled = false;
-        _pauseButtonImage.enabled = false;
+        m_pauseButtonImage.enabled = false;
         _unmuteButtonImage.enabled = false;
         Time.timeScale = 0;
     }
@@ -141,14 +141,14 @@ public class GameManager : MonoBehaviour
 		_highScoreDisplayText.enabled = false;
 		_highScoreValueText.enabled = false;
         _muteButtonImage.enabled = false;
-        _pauseButtonImage.enabled = false;
+        m_pauseButtonImage.enabled = false;
         _unmuteButtonImage.enabled = false;
         Time.timeScale = 0;
     }
 
     public void ChimpionshipBelt()
     {
-        if(IsChimpion())
+        if(LandChimp.IsChimpion())
         {
             _chimpionshipBeltImage.sprite = _chimpionshipBeltSprites[1];
         }
@@ -187,6 +187,7 @@ public class GameManager : MonoBehaviour
             _quitAcceptButtonImage = GameObject.Find("QuitAcceptButton").GetComponent<Image>();
             _quitCancelButtonImage = GameObject.Find("QuitCancelButton").GetComponent<Image>();
             _quitMenuImage = GameObject.Find("QuitMenu").GetComponent<Image>();
+            _socialmediaManager = GameObject.Find("SocialmediaManager").GetComponent<SocialmediaManager>();
         }
 
         else if(m_currentScene == 1)
@@ -194,11 +195,11 @@ public class GameManager : MonoBehaviour
             _adsText = GameObject.Find("AdsText").GetComponent<Text>();
             _adsAcceptButtonImage = GameObject.Find("AdsAcceptButton").GetComponent<Image>();
             _adsCancelButtonImage = GameObject.Find("AdsCancelButton").GetComponent<Image>();
-            _adsMenuImage = GameObject.Find("AdsMenu").GetComponent<Image>();
+            m_adsMenuImage = GameObject.Find("AdsMenu").GetComponent<Image>();
             _exitButtonImage = GameObject.Find("ExitButton").GetComponent<Image>();
             _landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
             _muteButtonImage = GameObject.Find("MuteButton").GetComponent<Image>();
-			_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
+			m_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
 			_pauseMenuImage = GameObject.Find("PauseMenu").GetComponent<Image>();
             _restartText = GameObject.Find("RestartText").GetComponent<Text>();
 			_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
@@ -208,7 +209,6 @@ public class GameManager : MonoBehaviour
             _restartMenuImage = GameObject.Find("RestartMenu").GetComponent<Image>();
 			m_selfieButtonImage = GameObject.Find("SelfieButton").GetComponent<Image>();
 			m_selfiePanelImage = GameObject.Find("SelfiePanel").GetComponent<Image>();
-            _socialmediaManager = GameObject.Find("SocialmediaManager").GetComponent<SocialmediaManager>();
             _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
             _unmuteButtonImage = GameObject.Find("UnmuteButton").GetComponent<Image>();
 
@@ -254,7 +254,7 @@ public class GameManager : MonoBehaviour
 			_highScoreDisplayText = GameObject.Find("HighScoreTextDisplay").GetComponent<Text>();
 			_highScoreValueText = GameObject.Find("HighScoreValueDisplay").GetComponent<Text>();
             _muteButtonImage = GameObject.Find("MuteButton").GetComponent<Image>();
-			_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
+			m_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
 			_pauseMenuImage = GameObject.Find("PauseMenu").GetComponent<Image>();
 			_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
             _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
@@ -364,18 +364,6 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("WaterSwimmer");
     }
 
-    bool IsChimpion()
-    {
-        if(_socialmediaManager.m_playerRank == 1)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
     public void MuteUnmuteButton()
     {
         if(MusicManager.m_musicSource != null)
@@ -445,7 +433,7 @@ public class GameManager : MonoBehaviour
             _restartButtonImage.enabled = true;
         }
         
-		_pauseButtonImage.enabled = false;
+		m_pauseButtonImage.enabled = false;
 		_pauseMenuImage.enabled = true;
 		_resumeButtonImage.enabled = true;
 
@@ -623,7 +611,7 @@ public class GameManager : MonoBehaviour
             SocialmediaManager.m_googlePlayGamesLeaderboardButtonObj.SetActive(true);
         }
         
-		_pauseButtonImage.enabled = true;
+		m_pauseButtonImage.enabled = true;
 		_pauseMenuImage.enabled = false;
 
         if(_restartButtonImage != null)

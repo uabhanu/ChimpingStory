@@ -140,6 +140,18 @@ public class LandChimp : MonoBehaviour
         }
     }
 
+    public static bool IsChimpion()
+    {
+        if(SocialmediaManager.m_playerRank == 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 	public void Jump()
     {
         if(_isGrounded && !_isJumping && !_isSliding && !_isUI) //This check exists in Update also for extra support as it's slow

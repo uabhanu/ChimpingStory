@@ -18,8 +18,6 @@ public class SocialmediaManager : MonoBehaviour
 	Image _googlePlayGamesLeaderboardConfirmMenuImage , _googlePlayGamesLeaderboardOKButtonImage , _googlePlayGamesLeaderboardSuccessOKButtonImage , _googlePlayGamesLeaderboardUpdateAcceptButtonImage , _googlePlayGamesLeaderboardUpdateCancelButtonImage;
     int _currentScene;
     IScore _highScore;
-    PlayGamesLeaderboard _gpgsLeaderboard;
-    PlayGamesUserProfile _playerProfile;
     string /*_applinkURL , */_leaderboardID = "CgkInMKFu8wYEAIQAQ";
 	Text _googlePlayGamesLeaderboardUpdateText;
 
@@ -33,7 +31,7 @@ public class SocialmediaManager : MonoBehaviour
     public static Image m_googlePlayGamesLeaderboardTestSetButtonImage , m_googlePlayGamesLogInButtonImage , m_googlePlayRateButtonImage , m_googlePlayGamesProfilePicImage;
     public static Text /*m_facebookUsernameText , */m_googlePlayGamesLeaderboardTestText , m_googlePlayGamesLogInTestText , m_googlePlayGamesUsernameText , m_noInternetText, m_noProfilePicText, m_noUsernameText;
 
-    public int m_playerRank;
+    public static int m_playerRank;
 
     void Start()
 	{
@@ -364,7 +362,10 @@ public class SocialmediaManager : MonoBehaviour
 
     public void GooglePlayGamesLeaderboardButton()
     {
-        if(!GameManager._adsMenuImage.enabled && !_googlePlayGamesLeaderboardLogInCheckText.enabled)
+        GooglePlayGamesLeaderboardPlayerRank();
+        _gameManager.ChimpionshipBelt();
+
+        if(!GameManager.m_adsMenuImage.enabled && !_googlePlayGamesLeaderboardLogInCheckText.enabled)
         {
             _googlePlayGamesLeaderboardUpdateAcceptButtonImage.enabled = true;
             _googlePlayGamesLeaderboardUpdateCancelButtonImage.enabled = true;
@@ -376,7 +377,7 @@ public class SocialmediaManager : MonoBehaviour
                 GooglePlayGamesLeaderboardTestMenuDisappear();
             }
 
-            GameManager._pauseButtonImage.enabled = false;
+            GameManager.m_pauseButtonImage.enabled = false;
             Time.timeScale = 0;
         }
     }
@@ -385,6 +386,7 @@ public class SocialmediaManager : MonoBehaviour
     {
         GooglePlayGamesLeaderboardPlayerRank();
         _gameManager.ChimpionshipBelt();
+        GameManager.m_pauseButtonImage.enabled = true;
         _googlePlayGamesLeaderboardConfirmMenuImage.enabled = false;
         _googlePlayGamesLeaderboardLogInCheckText.enabled = false;
         _googlePlayGamesLeaderboardOKButtonImage.enabled = false;
@@ -430,6 +432,9 @@ public class SocialmediaManager : MonoBehaviour
 
     public void GooglePlayGamesLeaderboardSuccessOKButton()
     {
+        GooglePlayGamesLeaderboardPlayerRank();
+        _gameManager.ChimpionshipBelt();
+        GameManager.m_pauseButtonImage.enabled = true;
         _googlePlayGamesLeaderboardConfirmMenuImage.enabled = false;
         _googlePlayGamesLeaderboardSuccessOKButtonImage.enabled = false;
         _googlePlayGamesLeaderboardUpdateSuccessText.enabled = false;
@@ -507,7 +512,7 @@ public class SocialmediaManager : MonoBehaviour
             GooglePlayGamesLeaderboardTestMenuAppear();
         }
 
-        GameManager._pauseButtonImage.enabled = true;
+        GameManager.m_pauseButtonImage.enabled = true;
         Time.timeScale = 1;
     }
 
