@@ -15,9 +15,9 @@ public class GameManager : MonoBehaviour
 	Text _adsText , _backToLandLoseText , _backToLandWinText , _backToLandWithSuperText , _highScoreDisplayText , _highScoreValueText , _quitText , _restartText;
 
 	[SerializeField] bool _selfieFlashEnabled;
-    [SerializeField] Image _fallingLevelImage , _landLevelImage , _waterLevelImage;
+    [SerializeField] Image _chimpionshipBeltMenuImage , _chimpionshipOKButtonImage , _fallingLevelImage , _landLevelImage , _waterLevelImage;
     [SerializeField] Sprite[] _chimpionshipBeltSprites;
-    [SerializeField] Text _memoryLeakTestText;
+    [SerializeField] Text _chimpionshipBeltText , _memoryLeakTestText;
 
     public static bool m_isMemoryLeakTestingMode , m_isTestingUnityEditor , m_quitButtonTapped;
     public static Image m_adsMenuImage , m_pauseButtonImage , m_selfieButtonImage , m_selfiePanelImage;
@@ -157,7 +157,7 @@ public class GameManager : MonoBehaviour
 
     public void ChimpionshipBelt()
     {
-        _chimpionshipBeltImage = GameObject.Find("ChimpionshipBelt").GetComponent<Image>();
+        _chimpionshipBeltImage = GameObject.Find("ChimpionshipBeltButton").GetComponent<Image>();
         
         if(LandChimp.IsChimpion())
         {
@@ -167,6 +167,30 @@ public class GameManager : MonoBehaviour
         {
             _chimpionshipBeltImage.sprite = _chimpionshipBeltSprites[0];
         }   
+    }
+
+    public void ChimpionBeltButton()
+    {
+        _chimpionshipBeltImage.enabled = false;
+        _chimpionshipBeltMenuImage.enabled = true;
+        _chimpionshipBeltText.enabled = true;
+        _chimpionshipOKButtonImage.enabled = true;
+        SocialmediaManager.m_googlePlayGamesLeaderboardButtonObj.SetActive(false);
+        _highScoreDisplayText.enabled = false;
+        _highScoreValueText.enabled = false;
+        Time.timeScale = 0;
+    }
+
+    public void ChimpionshipBeltOKButton()
+    {
+        _chimpionshipBeltImage.enabled = true;
+        _chimpionshipBeltMenuImage.enabled = false;
+        _chimpionshipBeltText.enabled = false;
+        _chimpionshipOKButtonImage.enabled = false;
+        SocialmediaManager.m_googlePlayGamesLeaderboardButtonObj.SetActive(true);
+        _highScoreDisplayText.enabled = true;
+        _highScoreValueText.enabled = true;
+        Time.timeScale = 1;
     }
 
     public void ContinueButton()

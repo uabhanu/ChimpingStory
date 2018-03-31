@@ -219,26 +219,7 @@ public class LandChimp : MonoBehaviour
 
 		if(tri2D.gameObject.tag.Equals("Portal"))
 		{
-            int levelToLoadAtRandom = Random.Range(0 , 4);
-
-			switch(levelToLoadAtRandom)
-			{
-				case 0:
-                    SceneManager.LoadScene("WaterSwimmer");
-				break;
-
-				case 1:
-					SceneManager.LoadScene("WaterSwimmer");
-				break;
-
-				case 2:
-					SceneManager.LoadScene("FallingDown");
-				break;
-
-				case 3:
-					SceneManager.LoadScene("FallingDown");
-				break;
-			}
+            SceneManager.LoadScene("WaterSwimmer");
 		}
 
         if(tri2D.gameObject.tag.Equals("Skin"))

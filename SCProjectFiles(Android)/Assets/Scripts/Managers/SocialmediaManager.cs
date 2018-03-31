@@ -18,7 +18,7 @@ public class SocialmediaManager : MonoBehaviour
 	Image _googlePlayGamesLeaderboardConfirmMenuImage , _googlePlayGamesLeaderboardOKButtonImage , _googlePlayGamesLeaderboardSuccessOKButtonImage , _googlePlayGamesLeaderboardUpdateAcceptButtonImage , _googlePlayGamesLeaderboardUpdateCancelButtonImage;
     int _currentScene;
     IScore _highScore;
-    string /*_applinkURL , */_leaderboardID = "CgkInMKFu8wYEAIQAg";
+    string /*_applinkURL , */_leaderboardID = "CgkInMKFu8wYEAIQAw";
 	Text _googlePlayGamesLeaderboardUpdateText;
 
     //[SerializeField] Image _facebookShareButtonImage, _fbChallengeInviteButtonImage;
