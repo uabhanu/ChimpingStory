@@ -12,7 +12,7 @@ public enum SwipeDirection
 
 public class SwipeManager : MonoBehaviour 
 {
-    float m_swipeResistanceX = 10f , m_swipeResistanceY = 10f;
+    float m_swipeResistanceX = 5f , m_swipeResistanceY = 5f;
     int m_currentScene;
     LandChimp m_landChimp;
     static SwipeManager instance;

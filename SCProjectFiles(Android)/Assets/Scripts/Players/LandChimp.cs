@@ -348,5 +348,10 @@ public class LandChimp : MonoBehaviour
         {
             _isUI = false;
         }
+
+        if(ScoreManager.m_scoreValue >= ScoreManager.m_minHighScore || SocialmediaManager.m_scoresExist)
+        {
+            SocialmediaManager.m_googlePlayGamesLeaderboardButton.interactable = true;
+        }
     }
 }

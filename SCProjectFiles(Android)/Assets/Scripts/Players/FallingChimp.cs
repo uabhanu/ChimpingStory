@@ -18,6 +18,11 @@ public class FallingChimp : MonoBehaviour
             return;
         }
 
+        if(ScoreManager.m_scoreValue >= ScoreManager.m_minHighScore || SocialmediaManager.m_scoresExist)
+        {
+            SocialmediaManager.m_googlePlayGamesLeaderboardButton.interactable = true;
+        }
+
         if(SwipeManager.Instance.IsSwiping(SwipeDirection.LEFT))
         {
             Move(-m_moveAmount);

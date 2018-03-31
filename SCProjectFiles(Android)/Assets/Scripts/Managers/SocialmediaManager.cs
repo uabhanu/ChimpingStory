@@ -31,6 +31,7 @@ public class SocialmediaManager : MonoBehaviour
     public static Image m_googlePlayGamesLeaderboardTestSetButtonImage , m_googlePlayGamesLogInButtonImage , m_googlePlayRateButtonImage , m_googlePlayGamesProfilePicImage;
     public static Text /*m_facebookUsernameText , */m_googlePlayGamesLeaderboardTestText , m_googlePlayGamesLogInTestText , m_googlePlayGamesUsernameText , m_noInternetText, m_noProfilePicText, m_noUsernameText;
 
+    public static bool m_scoresExist;
     public static int m_playerRank;
 
     void Start()
@@ -58,11 +59,10 @@ public class SocialmediaManager : MonoBehaviour
             //Invoke("FacebookLogInCheck" , 0.2f);
             Invoke("GooglePlayGamesLogInCheck" , 0.2f);
         }
-
-        else if(_currentScene == 1)
+        else
         {
-            m_googlePlayGamesLeaderboardButton = GameObject.Find("GPGsLeaderboardButton").GetComponent<Button>();
             m_googlePlayGamesLeaderboardButtonObj = GameObject.Find("GPGsLeaderboardButton");
+            m_googlePlayGamesLeaderboardButton = GameObject.Find("GPGsLeaderboardButton").GetComponent<Button>();
             _googlePlayGamesLeaderboardConfirmMenuImage = GameObject.Find("GPGsLeaderboardConfirmMenu").GetComponent<Image>();
             _googlePlayGamesLeaderboardOKButtonImage = GameObject.Find("OKButton").GetComponent<Image>();
             _googlePlayGamesLeaderboardSuccessOKButtonImage = GameObject.Find("SuccessOKButton").GetComponent<Image>();
@@ -74,6 +74,9 @@ public class SocialmediaManager : MonoBehaviour
             _googlePlayGamesLeaderboardUpdateCancelButtonImage = GameObject.Find("UpdateCancelButton").GetComponent<Image>();
             _googlePlayGamesLeaderboardUpdateText = GameObject.Find("UpdateText").GetComponent<Text>();
         }
+
+        GooglePlayGamesLeaderboardPlayerRank();
+        _gameManager.ChimpionshipBelt();
     }
 
  //   void FacebookAppLinkURL(IAppLinkResult applinkResult) //Not sure how to use this yet so not using for now
@@ -365,20 +368,41 @@ public class SocialmediaManager : MonoBehaviour
         GooglePlayGamesLeaderboardPlayerRank();
         _gameManager.ChimpionshipBelt();
 
-        if(!GameManager.m_adsMenuImage.enabled && !_googlePlayGamesLeaderboardLogInCheckText.enabled)
+        if(GameManager.m_currentScene == 1)
         {
-            _googlePlayGamesLeaderboardUpdateAcceptButtonImage.enabled = true;
-            _googlePlayGamesLeaderboardUpdateCancelButtonImage.enabled = true;
-            _googlePlayGamesLeaderboardConfirmMenuImage.enabled = true;
-            _googlePlayGamesLeaderboardUpdateText.enabled = true;
-            
-            if(m_isGooglePlayGamesLeaderboardTestMode)
+            if(!GameManager.m_adsMenuImage.enabled && !_googlePlayGamesLeaderboardLogInCheckText.enabled)
             {
-                GooglePlayGamesLeaderboardTestMenuDisappear();
-            }
+                _googlePlayGamesLeaderboardUpdateAcceptButtonImage.enabled = true;
+                _googlePlayGamesLeaderboardUpdateCancelButtonImage.enabled = true;
+                _googlePlayGamesLeaderboardConfirmMenuImage.enabled = true;
+                _googlePlayGamesLeaderboardUpdateText.enabled = true;
+            
+                if(m_isGooglePlayGamesLeaderboardTestMode)
+                {
+                    GooglePlayGamesLeaderboardTestMenuDisappear();
+                }
 
-            GameManager.m_pauseButtonImage.enabled = false;
-            Time.timeScale = 0;
+                GameManager.m_pauseButtonImage.enabled = false;
+                Time.timeScale = 0;
+            }
+        }
+        else
+        {
+            if(!_googlePlayGamesLeaderboardLogInCheckText.enabled)
+            {
+                _googlePlayGamesLeaderboardUpdateAcceptButtonImage.enabled = true;
+                _googlePlayGamesLeaderboardUpdateCancelButtonImage.enabled = true;
+                _googlePlayGamesLeaderboardConfirmMenuImage.enabled = true;
+                _googlePlayGamesLeaderboardUpdateText.enabled = true;
+            
+                if(m_isGooglePlayGamesLeaderboardTestMode)
+                {
+                    GooglePlayGamesLeaderboardTestMenuDisappear();
+                }
+
+                GameManager.m_pauseButtonImage.enabled = false;
+                Time.timeScale = 0;
+            }
         }
     }
 
@@ -393,13 +417,18 @@ public class SocialmediaManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    void GooglePlayGamesLeaderboardPlayerRank()
+    public void GooglePlayGamesLeaderboardPlayerRank()
     {
         if(m_googlePlayGamesLoggedIn)
         {
             PlayGamesPlatform.Instance.LoadScores(_leaderboardID , LeaderboardStart.TopScores , 20 , LeaderboardCollection.Public , LeaderboardTimeSpan.AllTime , (data) =>
             {
                 m_playerRank = data.PlayerScore.rank; //This is the rank of the player in the leaderboard
+
+                if(data.Scores.Length > 0)
+                {
+                    m_scoresExist = true;
+                }
             });
         }
     }

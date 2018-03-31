@@ -77,6 +77,11 @@ public class WaterChimp : MonoBehaviour
     
     void Update()
     {
+        if(ScoreManager.m_scoreValue >= ScoreManager.m_minHighScore || SocialmediaManager.m_scoresExist)
+        {
+            SocialmediaManager.m_googlePlayGamesLeaderboardButton.interactable = true;
+        }
+
         if(playerState == PlayerState.Enabled)
         {
             if(playerStatus == PlayerStatus.MovingDown || playerStatus == PlayerStatus.MovinUp)
