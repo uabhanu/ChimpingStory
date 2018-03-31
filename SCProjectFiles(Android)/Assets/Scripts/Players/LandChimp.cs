@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class LandChimp : MonoBehaviour
 {
     Animator _chimpAnim;
-    bool _gpgsLeaderboardAvailable = false , _isGrounded , _isJumping , _isSliding , _isUI;
+    bool _isGrounded , _isJumping , _isSliding , _isUI;
     float _defaultGameSpeed , _yPosInSuperMode;
 	GameManager _gameManager;
 	LevelCreator _levelCreator;
@@ -349,7 +349,9 @@ public class LandChimp : MonoBehaviour
             _isUI = false;
         }
 
-        if(ScoreManager.m_scoreValue >= ScoreManager.m_minHighScore || SocialmediaManager.m_scoresExist)
+        _gameManager.ChimpionshipBelt();
+
+        if(SocialmediaManager.m_isGooglePlayGamesLoggedIn && (ScoreManager.m_scoreValue >= ScoreManager.m_minHighScore || SocialmediaManager.m_scoresExist))
         {
             SocialmediaManager.m_googlePlayGamesLeaderboardButton.interactable = true;
         }

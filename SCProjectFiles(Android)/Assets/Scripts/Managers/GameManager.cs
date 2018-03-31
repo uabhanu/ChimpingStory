@@ -52,13 +52,6 @@ public class GameManager : MonoBehaviour
     public void AdsAcceptButton()
     {
         _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-        ChimpionshipBelt();
-        
-        if(ScoreManager.m_scoreValue >= ScoreManager.m_minHighScore && SocialmediaManager.m_googlePlayGamesLeaderboardButton != null)
-        {
-            SocialmediaManager.m_googlePlayGamesLeaderboardButton.interactable = true;
-        }
-
         m_adsMenuImage.enabled = false;
         _adsAcceptButtonImage.enabled = false;
         _adsCancelButtonImage.enabled = false;
@@ -75,13 +68,6 @@ public class GameManager : MonoBehaviour
     public void AdsCancelButton()
     {
         _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-        ChimpionshipBelt();
-        
-        if(ScoreManager.m_scoreValue >= ScoreManager.m_minHighScore && SocialmediaManager.m_googlePlayGamesLeaderboardButton != null)
-        {
-            SocialmediaManager.m_googlePlayGamesLeaderboardButton.interactable = true;
-        }
-
         BhanuPrefs.DeleteAll();
 		ScoreManager.m_supersCount = ScoreManager.m_defaultSupersCount;
 		BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
@@ -94,13 +80,6 @@ public class GameManager : MonoBehaviour
         {
             //Debug.Log("Video completed - Offer a reward to the player");
             _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-            ChimpionshipBelt();
-        
-            if(ScoreManager.m_scoreValue >= ScoreManager.m_minHighScore && SocialmediaManager.m_googlePlayGamesLeaderboardButton != null)
-            {
-                SocialmediaManager.m_googlePlayGamesLeaderboardButton.interactable = true;
-            }
-
             ScoreManager.m_scoreValue *= 0.25f;
 		    ScoreManager.m_scoreValue = Mathf.Round(ScoreManager.m_scoreValue);
             BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
@@ -112,12 +91,6 @@ public class GameManager : MonoBehaviour
         {
             //Debug.LogWarning("Video was skipped - Do NOT reward the player");
             _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-            ChimpionshipBelt();
-        
-            if(ScoreManager.m_scoreValue >= ScoreManager.m_minHighScore && SocialmediaManager.m_googlePlayGamesLeaderboardButton != null)
-            {
-                SocialmediaManager.m_googlePlayGamesLeaderboardButton.interactable = true;
-            }
             BhanuPrefs.DeleteAll();
         }
 
@@ -125,12 +98,6 @@ public class GameManager : MonoBehaviour
         {
             //Debug.LogError("Video failed to show");
             _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-            ChimpionshipBelt();
-        
-            if(ScoreManager.m_scoreValue >= ScoreManager.m_minHighScore && SocialmediaManager.m_googlePlayGamesLeaderboardButton != null)
-            {
-                SocialmediaManager.m_googlePlayGamesLeaderboardButton.interactable = true;
-            }
             BhanuPrefs.DeleteAll();
         }
     }
@@ -138,13 +105,6 @@ public class GameManager : MonoBehaviour
     void AdsShow()
     {
         _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-        ChimpionshipBelt();
-        
-        if(ScoreManager.m_scoreValue >= ScoreManager.m_minHighScore && SocialmediaManager.m_googlePlayGamesLeaderboardButton != null)
-        {
-            SocialmediaManager.m_googlePlayGamesLeaderboardButton.interactable = true;
-        }
-
         ShowOptions options = new ShowOptions();
         options.resultCallback = AdResult;
         Advertisement.Show("rewardedVideo" , options);
@@ -160,6 +120,7 @@ public class GameManager : MonoBehaviour
 		_highScoreValueText.enabled = false;
         _muteButtonImage.enabled = false;
         m_pauseButtonImage.enabled = false;
+        SocialmediaManager.m_googlePlayGamesLeaderboardButtonObj.SetActive(false);
         _unmuteButtonImage.enabled = false;
         Time.timeScale = 0;
     }
@@ -174,6 +135,7 @@ public class GameManager : MonoBehaviour
 		_highScoreValueText.enabled = false;
         _muteButtonImage.enabled = false;
         m_pauseButtonImage.enabled = false;
+        SocialmediaManager.m_googlePlayGamesLeaderboardButtonObj.SetActive(false);
         _unmuteButtonImage.enabled = false;
         Time.timeScale = 0;
     }
@@ -188,35 +150,28 @@ public class GameManager : MonoBehaviour
 		_highScoreValueText.enabled = false;
         _muteButtonImage.enabled = false;
         m_pauseButtonImage.enabled = false;
+        SocialmediaManager.m_googlePlayGamesLeaderboardButtonObj.SetActive(false);
         _unmuteButtonImage.enabled = false;
         Time.timeScale = 0;
     }
 
     public void ChimpionshipBelt()
     {
-        if(m_currentScene > 0)
+        _chimpionshipBeltImage = GameObject.Find("ChimpionshipBelt").GetComponent<Image>();
+        
+        if(LandChimp.IsChimpion())
         {
-            if(LandChimp.IsChimpion())
-            {
-                _chimpionshipBeltImage.sprite = _chimpionshipBeltSprites[1];
-            }
-            else
-            {
-                _chimpionshipBeltImage.sprite = _chimpionshipBeltSprites[0];
-            }
+            _chimpionshipBeltImage.sprite = _chimpionshipBeltSprites[1];
         }
+        else
+        {
+            _chimpionshipBeltImage.sprite = _chimpionshipBeltSprites[0];
+        }   
     }
 
     public void ContinueButton()
     {
         _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-        ChimpionshipBelt();
-        
-        if(ScoreManager.m_scoreValue >= ScoreManager.m_minHighScore && SocialmediaManager.m_googlePlayGamesLeaderboardButton != null)
-        {
-            SocialmediaManager.m_googlePlayGamesLeaderboardButton.interactable = true;
-        }
-
 		BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
         SceneManager.LoadScene("LandRunner");
     }
@@ -369,7 +324,6 @@ public class GameManager : MonoBehaviour
 
         if(m_currentScene > 0)
         {
-            _chimpionshipBeltImage = GameObject.Find("ChimpionshipBelt").GetComponent<Image>();
             _highScoreDisplayText = GameObject.Find("HighScoreTextDisplay").GetComponent<Text>();
 			_highScoreValueText = GameObject.Find("HighScoreValueDisplay").GetComponent<Text>();
         }
@@ -399,7 +353,6 @@ public class GameManager : MonoBehaviour
         }
 
         _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-        ChimpionshipBelt();
         Time.timeScale = 1;
     }
 
@@ -421,7 +374,6 @@ public class GameManager : MonoBehaviour
     public void MuteUnmuteButton()
     {
         _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-        ChimpionshipBelt();
 
         if(MusicManager.m_musicSource != null)
         {
@@ -450,7 +402,6 @@ public class GameManager : MonoBehaviour
     public void PauseButton()
 	{
         _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-        ChimpionshipBelt();
 
         if(MusicManager.m_musicSource != null)
         {
@@ -571,7 +522,7 @@ public class GameManager : MonoBehaviour
 
         m_quitButtonTapped = false;
 
-        if(SocialmediaManager.m_googlePlayGamesLoggedIn)
+        if(SocialmediaManager.m_isGooglePlayGamesLoggedIn)
         {
             _socialmediaManager.GooglePlayGamesLoggedIn();
         }
@@ -596,7 +547,6 @@ public class GameManager : MonoBehaviour
 	public void RestartButton()
 	{
         _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-        ChimpionshipBelt();
 
 		_exitButtonImage.enabled = false;
 		_pauseMenuImage.enabled = false;
@@ -612,7 +562,6 @@ public class GameManager : MonoBehaviour
 	public void RestartAcceptButton()
 	{
         _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-        ChimpionshipBelt();
 
         if(MusicManager.m_musicSource != null)
         {
@@ -628,7 +577,6 @@ public class GameManager : MonoBehaviour
     public void RestartCancelButton()
 	{
         _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-        ChimpionshipBelt();
 
 		_exitButtonImage.enabled = true;
 		_pauseMenuImage.enabled = true;
@@ -644,7 +592,6 @@ public class GameManager : MonoBehaviour
 	public void ResumeButton()
 	{
         _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-        ChimpionshipBelt();
 
         if(MusicManager.m_musicSource != null)
         {

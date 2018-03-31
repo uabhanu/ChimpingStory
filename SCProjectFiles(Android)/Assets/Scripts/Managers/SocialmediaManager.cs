@@ -18,13 +18,13 @@ public class SocialmediaManager : MonoBehaviour
 	Image _googlePlayGamesLeaderboardConfirmMenuImage , _googlePlayGamesLeaderboardOKButtonImage , _googlePlayGamesLeaderboardSuccessOKButtonImage , _googlePlayGamesLeaderboardUpdateAcceptButtonImage , _googlePlayGamesLeaderboardUpdateCancelButtonImage;
     int _currentScene;
     IScore _highScore;
-    string /*_applinkURL , */_leaderboardID = "CgkInMKFu8wYEAIQAQ";
+    string /*_applinkURL , */_leaderboardID = "CgkInMKFu8wYEAIQAg";
 	Text _googlePlayGamesLeaderboardUpdateText;
 
     //[SerializeField] Image _facebookShareButtonImage, _fbChallengeInviteButtonImage;
-    [SerializeField] Text /*_fbChallengeInviteTestText, _fbScoreText, */_googlePlayGamesLeaderboardLogInCheckText , _googlePlayGamesLeaderboardTestText , _googlePlayGamesLeaderboardUpdateSuccessText;
+    [SerializeField] Text /*_fbChallengeInviteTestText, _fbScoreText, */_googlePlayGamesLeaderboardLogInCheckText , _googlePlayGamesLeaderboardTestText , _googlePlayGamesLeaderboardUpdateFailedText , _googlePlayGamesLeaderboardUpdateSuccessText;
 
-    public static bool /*m_facebookProfilePicExists = false, m_isFacebookShareTestMode = false , */m_isGooglePlayGamesLeaderboardTestMode , m_isGooglePlayGamesLogInTestMode , m_googlePlayGamesLoggedIn;
+    public static bool /*m_facebookProfilePicExists = false, m_isFacebookShareTestMode = false , */m_isGooglePlayGamesLeaderboardTestMode , m_isGooglePlayGamesLogInTestMode , m_isGooglePlayGamesLoggedIn;
     public static Button m_googlePlayGamesLeaderboardButton;
     public static GameObject /*m_facebookShareMenuObj , m_facebookShareSuccessMenuObj , m_facebookShareTestMenuObj , */m_googlePlayGamesLeaderboardButtonObj;
     public static Image /*m_facebookButtonImage , m_facebookProfilePicImage , */m_googlePlayGamesLeaderboardTestGetButtonImage , m_googlePlayGamesLeaderboardTestMenuImage;
@@ -38,6 +38,8 @@ public class SocialmediaManager : MonoBehaviour
 	{
         _currentScene = SceneManager.GetActiveScene().buildIndex;
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        
+        GooglePlayGamesLeaderboardPlayerRank();
         //m_isGooglePlayGamesLeaderboardTestMode = true; //TODO Remove this after testing is finished
 
         if(_currentScene == 0)
@@ -74,9 +76,6 @@ public class SocialmediaManager : MonoBehaviour
             _googlePlayGamesLeaderboardUpdateCancelButtonImage = GameObject.Find("UpdateCancelButton").GetComponent<Image>();
             _googlePlayGamesLeaderboardUpdateText = GameObject.Find("UpdateText").GetComponent<Text>();
         }
-
-        GooglePlayGamesLeaderboardPlayerRank();
-        _gameManager.ChimpionshipBelt();
     }
 
  //   void FacebookAppLinkURL(IAppLinkResult applinkResult) //Not sure how to use this yet so not using for now
@@ -366,7 +365,6 @@ public class SocialmediaManager : MonoBehaviour
     public void GooglePlayGamesLeaderboardButton()
     {
         GooglePlayGamesLeaderboardPlayerRank();
-        _gameManager.ChimpionshipBelt();
 
         if(GameManager.m_currentScene == 1)
         {
@@ -409,7 +407,6 @@ public class SocialmediaManager : MonoBehaviour
     public void GooglePlayGamesLeaderboardOKButton()
     {
         GooglePlayGamesLeaderboardPlayerRank();
-        _gameManager.ChimpionshipBelt();
         GameManager.m_pauseButtonImage.enabled = true;
         _googlePlayGamesLeaderboardConfirmMenuImage.enabled = false;
         _googlePlayGamesLeaderboardLogInCheckText.enabled = false;
@@ -419,7 +416,7 @@ public class SocialmediaManager : MonoBehaviour
 
     public void GooglePlayGamesLeaderboardPlayerRank()
     {
-        if(m_googlePlayGamesLoggedIn)
+        if(m_isGooglePlayGamesLoggedIn)
         {
             PlayGamesPlatform.Instance.LoadScores(_leaderboardID , LeaderboardStart.TopScores , 20 , LeaderboardCollection.Public , LeaderboardTimeSpan.AllTime , (data) =>
             {
@@ -435,7 +432,7 @@ public class SocialmediaManager : MonoBehaviour
 
     public void GooglePlayGamesLeaderboardScoreGet()
     {
-        if(m_googlePlayGamesLoggedIn)
+        if(m_isGooglePlayGamesLoggedIn)
         {
             PlayGamesPlatform.Instance.LoadScores(_leaderboardID , LeaderboardStart.TopScores , 20 , LeaderboardCollection.Public , LeaderboardTimeSpan.AllTime , (data) =>
             {
@@ -462,7 +459,6 @@ public class SocialmediaManager : MonoBehaviour
     public void GooglePlayGamesLeaderboardSuccessOKButton()
     {
         GooglePlayGamesLeaderboardPlayerRank();
-        _gameManager.ChimpionshipBelt();
         GameManager.m_pauseButtonImage.enabled = true;
         _googlePlayGamesLeaderboardConfirmMenuImage.enabled = false;
         _googlePlayGamesLeaderboardSuccessOKButtonImage.enabled = false;
@@ -492,16 +488,25 @@ public class SocialmediaManager : MonoBehaviour
     public void GooglePlayGamesLeaderboardUpdateAcceptButton()
     {
         GooglePlayGamesLeaderboardPlayerRank();
-        _gameManager.ChimpionshipBelt();
+        GooglePlayGamesLeaderboardScoreGet();
 
-        if(PlayGamesPlatform.Instance.localUser.authenticated) 
+        if(m_isGooglePlayGamesLoggedIn) 
         {
             PlayGamesPlatform.Instance.ReportScore((long)ScoreManager.m_scoreValue , _leaderboardID , (bool success) =>
             {
                 _googlePlayGamesLeaderboardLogInCheckText.text = "Score Update : " + success;
                 _googlePlayGamesLeaderboardConfirmMenuImage.enabled = true;
                 _googlePlayGamesLeaderboardSuccessOKButtonImage.enabled = true;
-                _googlePlayGamesLeaderboardUpdateSuccessText.enabled = true;
+
+                if(ScoreManager.m_scoreValue > _highScore.value)
+                {
+                    _googlePlayGamesLeaderboardUpdateSuccessText.enabled = true;
+                }
+                else
+                {
+                    _googlePlayGamesLeaderboardUpdateFailedText.enabled = true;
+                }
+
                 _googlePlayGamesLeaderboardUpdateAcceptButtonImage.enabled = false;
                 _googlePlayGamesLeaderboardUpdateCancelButtonImage.enabled = false;
                 _googlePlayGamesLeaderboardUpdateText.enabled = false;
@@ -523,7 +528,6 @@ public class SocialmediaManager : MonoBehaviour
     public void GooglePlayGamesLeaderboardUpdateCancelButton()
     {
         GooglePlayGamesLeaderboardPlayerRank();
-        _gameManager.ChimpionshipBelt();
 
         if(PlayGamesPlatform.Instance.localUser.authenticated) 
         {
@@ -605,12 +609,12 @@ public class SocialmediaManager : MonoBehaviour
             m_noInternetText.enabled = true;
         }
 
-        m_googlePlayGamesLoggedIn = success;
+        m_isGooglePlayGamesLoggedIn = success;
     }
 
     void GooglePlayGamesLogInCheck()
     {
-        if(m_googlePlayGamesLoggedIn)
+        if(m_isGooglePlayGamesLoggedIn)
         {
             m_googlePlayGamesProfilePicImage.sprite = Sprite.Create(PlayGamesPlatform.Instance.localUser.image , new Rect(0 , 0 , 50 , 50) , new Vector2(0 , 0)); //TODO Pivot value may be adjusted so pic looks perfect in center
             m_googlePlayGamesUsernameText.text = PlayGamesPlatform.Instance.localUser.userName;
