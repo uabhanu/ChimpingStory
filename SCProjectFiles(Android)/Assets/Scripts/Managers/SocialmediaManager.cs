@@ -59,7 +59,7 @@ public class SocialmediaManager : MonoBehaviour
             //FacebookInit();
             GooglePlayGamesInit();
             //Invoke("FacebookLogInCheck" , 0.2f);
-            Invoke("GooglePlayGamesLogInCheck" , 0.2f);
+            GooglePlayGamesLogInCheck();
         }
         else
         {
@@ -546,7 +546,7 @@ public class SocialmediaManager : MonoBehaviour
 
     public void GooglePlayGamesLoggedIn()
     {
-        if(!GameManager.m_quitButtonTapped)
+        if(!GameManager.m_isQuitButtonTapped)
         {
             m_googlePlayGamesLogInButtonImage.enabled = false;
             m_googlePlayRateButtonImage.enabled = true;
@@ -562,7 +562,7 @@ public class SocialmediaManager : MonoBehaviour
 
     public void GooglePlayGamesLoggedOut()
     {
-        if(!GameManager.m_quitButtonTapped)
+        if(!GameManager.m_isQuitButtonTapped)
         {
             m_googlePlayGamesLogInButtonImage.enabled = true;
             m_googlePlayRateButtonImage.enabled = false;
@@ -613,18 +613,13 @@ public class SocialmediaManager : MonoBehaviour
         {
             m_googlePlayGamesProfilePicImage.sprite = Sprite.Create(PlayGamesPlatform.Instance.localUser.image , new Rect(0 , 0 , 50 , 50) , new Vector2(0 , 0)); //TODO Pivot value may be adjusted so pic looks perfect in center
             m_googlePlayGamesUsernameText.text = PlayGamesPlatform.Instance.localUser.userName;
-
-            if(m_googlePlayGamesProfilePicImage.sprite != null && m_googlePlayGamesUsernameText.text != null)
-            {
-                GooglePlayGamesLoggedIn();
-            }
+            GooglePlayGamesLoggedIn();
         }
         else
         {
             GooglePlayGamesLoggedOut();
-        }
-
-        Invoke("GooglePlayGamesLogInCheck" , 0.2f);        
+            Invoke("GooglePlayGamesLogInCheck" , 0.2f);      
+        }  
     }
 
     public void GooglePlayRateButton()

@@ -14,12 +14,12 @@ public class GameManager : MonoBehaviour
 	SoundManager _soundManager;
 	Text _adsText , _backToLandLoseText , _backToLandWinText , _backToLandWithSuperText , _highScoreDisplayText , _highScoreValueText , _quitText , _restartText;
 
-	[SerializeField] bool _selfieFlashEnabled;
+	[SerializeField] bool _isSelfieFlashEnabled , _isVersionCodeDisplayEnabled;
     [SerializeField] Image _chimpionshipBeltMenuImage , _chimpionshipOKButtonImage , _fallingLevelImage , _landLevelImage , _waterLevelImage;
     [SerializeField] Sprite[] _chimpionshipBeltSprites;
-    [SerializeField] Text _chimpionshipBeltText , _memoryLeakTestText;
+    [SerializeField] Text _chimpionshipBeltText , _memoryLeakTestText , _versionCodeText;
 
-    public static bool m_isMemoryLeakTestingMode , m_isTestingUnityEditor , m_quitButtonTapped;
+    public static bool m_isMemoryLeakTestingMode , m_isTestingUnityEditor , m_isQuitButtonTapped;
     public static Image m_adsMenuImage , m_pauseButtonImage , m_selfieButtonImage , m_selfiePanelImage;
     public static int m_currentScene , m_playerMutedSounds;
 
@@ -224,6 +224,11 @@ public class GameManager : MonoBehaviour
             _quitAcceptButtonImage = GameObject.Find("QuitAcceptButton").GetComponent<Image>();
             _quitCancelButtonImage = GameObject.Find("QuitCancelButton").GetComponent<Image>();
             _quitMenuImage = GameObject.Find("QuitMenu").GetComponent<Image>();
+
+            if(_isVersionCodeDisplayEnabled)
+            {
+                _versionCodeText.enabled = true;
+            }
         }
 
         else if(m_currentScene == 1)
@@ -496,7 +501,7 @@ public class GameManager : MonoBehaviour
         //    SocialmediaManager.m_facebookShareTestMenuObj.SetActive(false);
         //}
 
-        m_quitButtonTapped = true;
+        m_isQuitButtonTapped = true;
 
         SocialmediaManager.m_googlePlayGamesLogInButtonImage.enabled = false;
         SocialmediaManager.m_googlePlayGamesProfilePicImage.enabled = false;
@@ -544,7 +549,7 @@ public class GameManager : MonoBehaviour
         //    SocialmediaManager.m_facebookShareTestMenuObj.SetActive(true);
         //}
 
-        m_quitButtonTapped = false;
+        m_isQuitButtonTapped = false;
 
         if(SocialmediaManager.m_isGooglePlayGamesLoggedIn)
         {
@@ -678,7 +683,7 @@ public class GameManager : MonoBehaviour
 
 		m_selfieButtonImage.enabled = false;
 
-		if(_selfieFlashEnabled)
+		if(_isSelfieFlashEnabled)
 		{
 			m_selfiePanelImage.enabled = true;
 			Invoke("EndFlash" , 0.25f);
