@@ -506,6 +506,8 @@ public class SocialmediaManager : MonoBehaviour
                 _googlePlayGamesLeaderboardUpdateRequestedText.enabled = true;
                 _googlePlayGamesLeaderboardUpdateText.enabled = false;
             });
+
+            PlayGamesPlatform.Instance.ShowLeaderboardUI();
         }
         else
         {
@@ -516,8 +518,6 @@ public class SocialmediaManager : MonoBehaviour
             _googlePlayGamesLeaderboardOKButtonImage.enabled = true;
             _googlePlayGamesLeaderboardLogInCheckText.enabled = true;
         }
-
-        PlayGamesPlatform.Instance.ShowLeaderboardUI();
     }
 
     public void GooglePlayGamesLeaderboardUpdateCancelButton()
@@ -550,8 +550,21 @@ public class SocialmediaManager : MonoBehaviour
         {
             m_googlePlayGamesLogInButtonImage.enabled = false;
             m_googlePlayRateButtonImage.enabled = true;
-            m_googlePlayGamesProfilePicImage.enabled = true;
-            m_googlePlayGamesUsernameText.enabled = true;
+
+            if(m_googlePlayGamesProfilePicImage.sprite != null)
+            {
+                m_googlePlayGamesProfilePicImage.enabled = true;
+                m_googlePlayGamesUsernameText.enabled = true;
+                m_noProfilePicText.enabled = false;
+                m_noUsernameText.enabled = false;
+            }
+            else
+            {
+                m_googlePlayGamesProfilePicImage.enabled = false;
+                m_googlePlayGamesUsernameText.enabled = false;
+                m_noProfilePicText.enabled = true;
+                m_noUsernameText.enabled = true;
+            }
         }
 
         if(m_isGooglePlayGamesLogInTestMode)
@@ -617,8 +630,7 @@ public class SocialmediaManager : MonoBehaviour
         }
         else
         {
-            GooglePlayGamesLoggedOut();
-            Invoke("GooglePlayGamesLogInCheck" , 0.2f);      
+            GooglePlayGamesLoggedOut();  
         }  
     }
 

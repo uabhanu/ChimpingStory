@@ -332,9 +332,17 @@ public class LandChimp : MonoBehaviour
 
         _gameManager.ChimpionshipBelt();
 
-        if(SocialmediaManager.m_isGooglePlayGamesLoggedIn && (ScoreManager.m_scoreValue >= ScoreManager.m_minHighScore || SocialmediaManager.m_scoresExist))
+        if(SocialmediaManager.m_isGooglePlayGamesLoggedIn)
         {
-            SocialmediaManager.m_googlePlayGamesLeaderboardButton.interactable = true;
+            if(ScoreManager.m_scoreValue >= ScoreManager.m_minHighScore)
+            {
+                SocialmediaManager.m_googlePlayGamesLeaderboardButton.interactable = true;
+            }
+            
+            if(SocialmediaManager.m_scoresExist)
+            {
+                SocialmediaManager.m_googlePlayGamesLeaderboardButton.interactable = true;
+            }
         }
     }
 }
