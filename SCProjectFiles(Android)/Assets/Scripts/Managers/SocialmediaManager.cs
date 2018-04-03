@@ -59,7 +59,7 @@ public class SocialmediaManager : MonoBehaviour
             //FacebookInit();
             GooglePlayGamesInit();
             //Invoke("FacebookLogInCheck" , 0.2f);
-            GooglePlayGamesLogInCheck();
+            Invoke("GooglePlayGamesLogInCheck" , 0.2f);
         }
         else
         {
@@ -550,21 +550,8 @@ public class SocialmediaManager : MonoBehaviour
         {
             m_googlePlayGamesLogInButtonImage.enabled = false;
             m_googlePlayRateButtonImage.enabled = true;
-
-            if(m_googlePlayGamesProfilePicImage.sprite != null)
-            {
-                m_googlePlayGamesProfilePicImage.enabled = true;
-                m_googlePlayGamesUsernameText.enabled = true;
-                m_noProfilePicText.enabled = false;
-                m_noUsernameText.enabled = false;
-            }
-            else
-            {
-                m_googlePlayGamesProfilePicImage.enabled = false;
-                m_googlePlayGamesUsernameText.enabled = false;
-                m_noProfilePicText.enabled = true;
-                m_noUsernameText.enabled = true;
-            }
+            m_googlePlayGamesProfilePicImage.enabled = true;
+            m_googlePlayGamesUsernameText.enabled = true;
         }
 
         if(m_isGooglePlayGamesLogInTestMode)
@@ -626,12 +613,18 @@ public class SocialmediaManager : MonoBehaviour
         {
             m_googlePlayGamesProfilePicImage.sprite = Sprite.Create(PlayGamesPlatform.Instance.localUser.image , new Rect(0 , 0 , 50 , 50) , new Vector2(0 , 0)); //TODO Pivot value may be adjusted so pic looks perfect in center
             m_googlePlayGamesUsernameText.text = PlayGamesPlatform.Instance.localUser.userName;
-            GooglePlayGamesLoggedIn();
+
+            if(m_googlePlayGamesProfilePicImage.sprite != null && m_googlePlayGamesUsernameText.text != null)
+            {
+                GooglePlayGamesLoggedIn();
+            }
         }
         else
         {
-            GooglePlayGamesLoggedOut();  
-        }  
+            GooglePlayGamesLoggedOut();
+        }
+
+        Invoke("GooglePlayGamesLogInCheck" , 0.2f);        
     }
 
     public void GooglePlayRateButton()
