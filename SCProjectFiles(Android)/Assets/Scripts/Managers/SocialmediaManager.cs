@@ -611,7 +611,7 @@ public class SocialmediaManager : MonoBehaviour
     {
         if(m_isGooglePlayGamesLoggedIn)
         {
-            m_googlePlayGamesProfilePicImage.sprite = Sprite.Create(PlayGamesPlatform.Instance.localUser.image , new Rect(25 , 25 , 50 , 50) , new Vector2(0 , 0)); //TODO Pivot value may be adjusted so pic looks perfect in center
+            m_googlePlayGamesProfilePicImage.sprite = Sprite.Create(PlayGamesPlatform.Instance.localUser.image , new Rect(25 , 25 , 50 , 50) , new Vector2(0 , 0));
             m_googlePlayGamesUsernameText.text = PlayGamesPlatform.Instance.localUser.userName;
             GooglePlayGamesLoggedIn();
         }
