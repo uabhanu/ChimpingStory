@@ -510,6 +510,7 @@ public class GameManager : MonoBehaviour
 
         SocialmediaManager.m_googlePlayGamesLogInButtonImage.enabled = false;
         SocialmediaManager.m_googlePlayGamesProfilePicImage.enabled = false;
+        SocialmediaManager.m_googlePlayGamesProfilePicMaskImage.enabled = false;
         SocialmediaManager.m_googlePlayRateButtonImage.enabled = false;
         SocialmediaManager.m_googlePlayGamesUsernameText.enabled = false;
         
@@ -649,6 +650,12 @@ public class GameManager : MonoBehaviour
         if(_exitButtonImage != null)
         {
             _exitButtonImage.enabled = false;
+        }
+
+        if(SocialmediaManager.m_isGooglePlayGamesLoggedIn)
+        {
+            SocialmediaManager.m_googlePlayGamesProfilePicImage.enabled = true;
+            SocialmediaManager.m_googlePlayGamesProfilePicMaskImage.enabled = true;
         }
 
         if(SocialmediaManager.m_isGooglePlayGamesLeaderboardTestMode)

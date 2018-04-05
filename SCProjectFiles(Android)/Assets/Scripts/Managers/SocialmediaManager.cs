@@ -28,7 +28,7 @@ public class SocialmediaManager : MonoBehaviour
     public static Button m_googlePlayGamesAchievementsButton , m_googlePlayGamesLeaderboardButton;
     public static GameObject /*m_facebookShareMenuObj , m_facebookShareSuccessMenuObj , m_facebookShareTestMenuObj , */m_googlePlayGamesAchievementsButtonObj , m_googlePlayGamesLeaderboardButtonObj;
     public static Image /*m_facebookButtonImage , m_facebookProfilePicImage , */m_googlePlayGamesAchievementsButtonImage , m_googlePlayGamesLeaderboardTestGetButtonImage , m_googlePlayGamesLeaderboardTestMenuImage;
-    public static Image m_googlePlayGamesLeaderboardTestSetButtonImage , m_googlePlayGamesLogInButtonImage , m_googlePlayRateButtonImage , m_googlePlayGamesProfilePicImage;
+    public static Image m_googlePlayGamesLeaderboardTestSetButtonImage , m_googlePlayGamesLogInButtonImage , m_googlePlayGamesProfilePicImage , m_googlePlayGamesProfilePicMaskImage , m_googlePlayRateButtonImage;
     public static int m_playerRank;
     public static Text /*m_facebookUsernameText , */m_googlePlayGamesLeaderboardTestText , m_googlePlayGamesLogInTestText , m_googlePlayGamesUsernameText , m_noInternetText, m_noProfilePicText, m_noUsernameText;
 
@@ -55,6 +55,7 @@ public class SocialmediaManager : MonoBehaviour
             //m_facebookUsernameText = GameObject.Find("FacebookUsernameText").GetComponent<Text>();
             m_googlePlayGamesLogInButtonImage = GameObject.Find("GPGsLogInButton").GetComponent<Image>();
             m_googlePlayGamesProfilePicImage = GameObject.Find("GPGsProfilePicImage").GetComponent<Image>();
+            m_googlePlayGamesProfilePicMaskImage = GameObject.Find("GPGsProfilePicMask").GetComponent<Image>();
             m_googlePlayGamesUsernameText = GameObject.Find("GPGsUsernameText").GetComponent<Text>();
             m_googlePlayRateButtonImage = GameObject.Find("GPGsRateButton").GetComponent<Image>();
             m_noInternetText = GameObject.Find("NoInternetText").GetComponent<Text>();
@@ -541,7 +542,7 @@ public class SocialmediaManager : MonoBehaviour
     {
         GooglePlayGamesLeaderboardPlayerRank();
 
-        if(PlayGamesPlatform.Instance.localUser.authenticated) 
+        if(PlayGamesPlatform.Instance.localUser.authenticated)
         {
             PlayGamesPlatform.Instance.ShowLeaderboardUI();
         }
@@ -568,6 +569,7 @@ public class SocialmediaManager : MonoBehaviour
             m_googlePlayGamesLogInButtonImage.enabled = false;
             m_googlePlayRateButtonImage.enabled = true;
             m_googlePlayGamesProfilePicImage.enabled = true;
+            m_googlePlayGamesProfilePicMaskImage.enabled = true;
             m_googlePlayGamesUsernameText.enabled = true;
         }
 
@@ -584,6 +586,7 @@ public class SocialmediaManager : MonoBehaviour
             m_googlePlayGamesLogInButtonImage.enabled = true;
             m_googlePlayRateButtonImage.enabled = false;
             m_googlePlayGamesProfilePicImage.enabled = false;
+            m_googlePlayGamesProfilePicMaskImage.enabled = false;
             m_googlePlayGamesUsernameText.enabled = false;
         }
 
@@ -628,7 +631,7 @@ public class SocialmediaManager : MonoBehaviour
     {
         if(m_isGooglePlayGamesLoggedIn)
         {
-            m_googlePlayGamesProfilePicImage.sprite = Sprite.Create(PlayGamesPlatform.Instance.localUser.image , new Rect(25 , 25 , 50 , 50) , new Vector2(0 , 0));
+            m_googlePlayGamesProfilePicImage.sprite = Sprite.Create(PlayGamesPlatform.Instance.localUser.image , new Rect(12 , 12 , 75 , 75) , new Vector2(0 , 0));
             m_googlePlayGamesUsernameText.text = PlayGamesPlatform.Instance.localUser.userName;
             GooglePlayGamesLoggedIn();
         }
