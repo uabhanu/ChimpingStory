@@ -506,6 +506,11 @@ public class GameManager : MonoBehaviour
         //    SocialmediaManager.m_facebookShareTestMenuObj.SetActive(false);
         //}
 
+        if(MusicManager.m_musicSource.isPlaying)
+        {
+            MusicManager.m_musicSource.Pause();
+        }
+
         m_isQuitButtonTapped = true;
 
         SocialmediaManager.m_googlePlayGamesLogInButtonImage.enabled = false;
@@ -554,6 +559,17 @@ public class GameManager : MonoBehaviour
         //{
         //    SocialmediaManager.m_facebookShareTestMenuObj.SetActive(true);
         //}
+        
+        if(!MusicManager.m_musicSource.isPlaying)
+        {
+            MusicManager.m_musicSource.Play();
+        }
+
+        if(SocialmediaManager.m_isGooglePlayGamesLoggedIn)
+        {
+            SocialmediaManager.m_googlePlayGamesProfilePicImage.enabled = true;
+            SocialmediaManager.m_googlePlayGamesProfilePicMaskImage.enabled = true;
+        }
 
         m_isQuitButtonTapped = false;
 
@@ -650,12 +666,6 @@ public class GameManager : MonoBehaviour
         if(_exitButtonImage != null)
         {
             _exitButtonImage.enabled = false;
-        }
-
-        if(SocialmediaManager.m_isGooglePlayGamesLoggedIn)
-        {
-            SocialmediaManager.m_googlePlayGamesProfilePicImage.enabled = true;
-            SocialmediaManager.m_googlePlayGamesProfilePicMaskImage.enabled = true;
         }
 
         if(SocialmediaManager.m_isGooglePlayGamesLeaderboardTestMode)
