@@ -2,20 +2,23 @@
 
 public class Banana : MonoBehaviour
 {
-    BoxCollider2D m_bananaCollider2D;
-    Camera m_mainCamera;
-	LandChimp m_landChimp;
-	SoundManager m_soundManager;
-	SpriteRenderer m_bananaRenderer;
-    Vector3 m_positionOnScreen;
+    BoxCollider2D _bananaCollider2D;
+    Camera _mainCamera;
+    int _bananasCollected;
+	LandChimp _landChimp;
+    SocialmediaManager _socialmediaManager;
+	SoundManager _soundManager;
+	SpriteRenderer _bananaRenderer;
+    Vector3 _positionOnScreen;
 
     void Start()
     {
-		m_bananaCollider2D = GetComponent<BoxCollider2D>();
-		m_bananaRenderer = GetComponent<SpriteRenderer>();
-		m_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
-        m_mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
-        m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+		_bananaCollider2D = GetComponent<BoxCollider2D>();
+		_bananaRenderer = GetComponent<SpriteRenderer>();
+		_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
+        _mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        _socialmediaManager = GameObject.Find("SocialmediaManager").GetComponent<SocialmediaManager>();
+        _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
     void Update() 
@@ -25,19 +28,19 @@ public class Banana : MonoBehaviour
 			return;
 		}
 
-        m_positionOnScreen = m_mainCamera.WorldToScreenPoint(transform.position);
+        _positionOnScreen = _mainCamera.WorldToScreenPoint(transform.position);
 
-        if(m_landChimp.m_isSuper)
+        if(_landChimp.m_isSuper)
         {
-            m_bananaCollider2D.enabled = false;
-            m_bananaRenderer.enabled = false;
+            _bananaCollider2D.enabled = false;
+            _bananaRenderer.enabled = false;
         }
         else
         {
-            if(m_positionOnScreen.x >= 972)
+            if(_positionOnScreen.x >= 972)
             {
-                m_bananaCollider2D.enabled = true;
-                m_bananaRenderer.enabled = true;
+                _bananaCollider2D.enabled = true;
+                _bananaRenderer.enabled = true;
             }
         }
 	}
@@ -46,7 +49,12 @@ public class Banana : MonoBehaviour
     {
         if(tri2D.gameObject.tag.Equals("Player"))
         {
-            if(m_landChimp.m_isSlipping)
+            _bananasCollected++;
+            _socialmediaManager.GooglePlayGamesIncrementalAchievements(_socialmediaManager.m_achievements[0] , 3);
+            ScoreManager.m_bananasCollected++;
+            BhanuPrefs.SetBananasCollected(ScoreManager.m_bananasCollected);
+
+            if(_landChimp.m_isSlipping)
             {
                 ScoreManager.m_scoreValue += 75;
             }
@@ -57,15 +65,15 @@ public class Banana : MonoBehaviour
 
             ScoreManager.m_scoreDisplay.text = ScoreManager.m_scoreValue.ToString();
             BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
-			m_soundManager.m_soundsSource.clip = m_soundManager.m_bananaCollected;
+			_soundManager.m_soundsSource.clip = _soundManager.m_bananaCollected;
 
-			if(m_soundManager.m_soundsSource.enabled)
+			if(_soundManager.m_soundsSource.enabled)
             {
-                m_soundManager.m_soundsSource.Play();
+                _soundManager.m_soundsSource.Play();
             }
 
-            m_bananaCollider2D.enabled = false;
-			m_bananaRenderer.enabled = false;
+            _bananaCollider2D.enabled = false;
+			_bananaRenderer.enabled = false;
         }
     }
 }

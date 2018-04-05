@@ -154,6 +154,8 @@ TextureImporter:
     21300294: GPGLogIn
     21300296: LeaderboardGreen
     21300298: LeaderboardGrey
+    21300300: Achievements
+    21300302: AchievementsGrey
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -264,7 +266,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 58
-        y: 1302
+        y: 1500
         width: 199
         height: 203
       alignment: 0
@@ -277,8 +279,8 @@ TextureImporter:
       name: Quit
       rect:
         serializedVersion: 2
-        x: 270
-        y: 1307
+        x: 280
+        y: 1482
         width: 202
         height: 203
       alignment: 0
@@ -292,7 +294,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 698
-        y: 1300
+        y: 1491
         width: 199
         height: 203
       alignment: 0
@@ -305,8 +307,8 @@ TextureImporter:
       name: Help
       rect:
         serializedVersion: 2
-        x: 909
-        y: 1300
+        x: 916
+        y: 1491
         width: 200
         height: 203
       alignment: 0
@@ -319,8 +321,8 @@ TextureImporter:
       name: Settings
       rect:
         serializedVersion: 2
-        x: 56
-        y: 1086
+        x: 63
+        y: 1271
         width: 199
         height: 203
       alignment: 0
@@ -333,8 +335,8 @@ TextureImporter:
       name: Restart
       rect:
         serializedVersion: 2
-        x: 278
-        y: 1091
+        x: 275
+        y: 1279
         width: 199
         height: 203
       alignment: 0
@@ -347,8 +349,8 @@ TextureImporter:
       name: Unmute
       rect:
         serializedVersion: 2
-        x: 490
-        y: 1090
+        x: 487
+        y: 1285
         width: 192
         height: 192
       alignment: 0
@@ -362,7 +364,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 696
-        y: 1093
+        y: 1275
         width: 199
         height: 203
       alignment: 0
@@ -375,8 +377,8 @@ TextureImporter:
       name: Lock
       rect:
         serializedVersion: 2
-        x: 907
-        y: 1089
+        x: 910
+        y: 1280
         width: 200
         height: 203
       alignment: 0
@@ -389,8 +391,8 @@ TextureImporter:
       name: ArrowLeft
       rect:
         serializedVersion: 2
-        x: 58
-        y: 875
+        x: 61
+        y: 1073
         width: 199
         height: 205
       alignment: 0
@@ -403,8 +405,8 @@ TextureImporter:
       name: ArrowRight
       rect:
         serializedVersion: 2
-        x: 270
-        y: 872
+        x: 263
+        y: 1053
         width: 207
         height: 207
       alignment: 0
@@ -417,8 +419,8 @@ TextureImporter:
       name: ArrowUp
       rect:
         serializedVersion: 2
-        x: 481
-        y: 876
+        x: 484
+        y: 1071
         width: 199
         height: 203
       alignment: 0
@@ -432,7 +434,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 696
-        y: 875
+        y: 1073
         width: 199
         height: 205
       alignment: 0
@@ -445,8 +447,8 @@ TextureImporter:
       name: Dollar
       rect:
         serializedVersion: 2
-        x: 902
-        y: 876
+        x: 912
+        y: 1064
         width: 203
         height: 205
       alignment: 0
@@ -459,8 +461,8 @@ TextureImporter:
       name: Cancel
       rect:
         serializedVersion: 2
-        x: 58
-        y: 659
+        x: 55
+        y: 850
         width: 199
         height: 203
       alignment: 0
@@ -473,8 +475,8 @@ TextureImporter:
       name: Ok
       rect:
         serializedVersion: 2
-        x: 276
-        y: 657
+        x: 273
+        y: 848
         width: 200
         height: 203
       alignment: 0
@@ -487,8 +489,8 @@ TextureImporter:
       name: Buttons_81
       rect:
         serializedVersion: 2
-        x: 478
-        y: 655
+        x: 471
+        y: 850
         width: 212
         height: 211
       alignment: 0
@@ -501,8 +503,8 @@ TextureImporter:
       name: Buttons_83
       rect:
         serializedVersion: 2
-        x: 686
-        y: 653
+        x: 696
+        y: 844
         width: 199
         height: 203
       alignment: 0
@@ -516,7 +518,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 905
-        y: 660
+        y: 845
         width: 205
         height: 203
       alignment: 0
@@ -529,8 +531,8 @@ TextureImporter:
       name: Music
       rect:
         serializedVersion: 2
-        x: 54
-        y: 440
+        x: 61
+        y: 638
         width: 199
         height: 203
       alignment: 0
@@ -543,8 +545,8 @@ TextureImporter:
       name: Buttons_98
       rect:
         serializedVersion: 2
-        x: 270
-        y: 453
+        x: 277
+        y: 634
         width: 200
         height: 203
       alignment: 0
@@ -557,8 +559,8 @@ TextureImporter:
       name: Selfie
       rect:
         serializedVersion: 2
-        x: 483
-        y: 449
+        x: 490
+        y: 640
         width: 199
         height: 203
       alignment: 0
@@ -571,8 +573,8 @@ TextureImporter:
       name: Mail
       rect:
         serializedVersion: 2
-        x: 694
-        y: 446
+        x: 697
+        y: 641
         width: 199
         height: 203
       alignment: 0
@@ -585,8 +587,8 @@ TextureImporter:
       name: Trophy
       rect:
         serializedVersion: 2
-        x: 907
-        y: 448
+        x: 910
+        y: 633
         width: 205
         height: 203
       alignment: 0
@@ -600,7 +602,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 68
-        y: 189
+        y: 384
         width: 192
         height: 192
       alignment: 0
@@ -613,8 +615,8 @@ TextureImporter:
       name: ChimpionshipBelt
       rect:
         serializedVersion: 2
-        x: 285
-        y: 189
+        x: 288
+        y: 384
         width: 187
         height: 187
       alignment: 0
@@ -628,7 +630,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 491
-        y: 189
+        y: 387
         width: 186
         height: 187
       alignment: 0
@@ -641,8 +643,8 @@ TextureImporter:
       name: FBLogIn
       rect:
         serializedVersion: 2
-        x: 706
-        y: 187
+        x: 709
+        y: 378
         width: 191
         height: 191
       alignment: 0
@@ -655,8 +657,8 @@ TextureImporter:
       name: GPRate
       rect:
         serializedVersion: 2
-        x: 930
-        y: 195
+        x: 927
+        y: 383
         width: 186
         height: 187
       alignment: 0
@@ -670,7 +672,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 71
-        y: 0
+        y: 191
         width: 191
         height: 187
       alignment: 0
@@ -683,8 +685,8 @@ TextureImporter:
       name: GPGLogIn
       rect:
         serializedVersion: 2
-        x: 283
-        y: 0
+        x: 280
+        y: 198
         width: 191
         height: 187
       alignment: 0
@@ -697,8 +699,8 @@ TextureImporter:
       name: LeaderboardGreen
       rect:
         serializedVersion: 2
-        x: 498
-        y: 0
+        x: 495
+        y: 188
         width: 191
         height: 187
       alignment: 0
@@ -711,7 +713,35 @@ TextureImporter:
       name: LeaderboardGrey
       rect:
         serializedVersion: 2
-        x: 713
+        x: 716
+        y: 195
+        width: 191
+        height: 187
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Achievements
+      rect:
+        serializedVersion: 2
+        x: 934
+        y: 188
+        width: 191
+        height: 187
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: AchievementsGrey
+      rect:
+        serializedVersion: 2
+        x: 75
         y: 0
         width: 191
         height: 187

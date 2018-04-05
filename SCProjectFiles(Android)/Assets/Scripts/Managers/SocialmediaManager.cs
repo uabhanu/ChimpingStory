@@ -18,24 +18,28 @@ public class SocialmediaManager : MonoBehaviour
 	Image _googlePlayGamesLeaderboardConfirmMenuImage , _googlePlayGamesLeaderboardOKButtonImage , _googlePlayGamesLeaderboardSuccessOrFailedOKButtonImage , _googlePlayGamesLeaderboardUpdateAcceptButtonImage , _googlePlayGamesLeaderboardUpdateCancelButtonImage;
     int _currentScene;
     IScore _highScore;
-    string /*_applinkURL , */_leaderboardID = "CgkInMKFu8wYEAIQAw";
+    string /*_applinkURL , */_leaderboard = "leaderboard_chimpionship_board";
 	Text _googlePlayGamesLeaderboardUpdateText;
 
     //[SerializeField] Image _facebookShareButtonImage, _fbChallengeInviteButtonImage;
     [SerializeField] Text /*_fbChallengeInviteTestText, _fbScoreText, */_googlePlayGamesLeaderboardLogInCheckText , _googlePlayGamesLeaderboardTestText , _googlePlayGamesLeaderboardUpdateRequestedText;
 
-    public static bool /*m_facebookProfilePicExists = false, m_isFacebookShareTestMode = false , */m_isGooglePlayGamesLeaderboardTestMode , m_isGooglePlayGamesLogInTestMode , m_isGooglePlayGamesLoggedIn;
-    public static Button m_googlePlayGamesLeaderboardButton;
-    public static GameObject /*m_facebookShareMenuObj , m_facebookShareSuccessMenuObj , m_facebookShareTestMenuObj , */m_googlePlayGamesLeaderboardButtonObj;
-    public static Image /*m_facebookButtonImage , m_facebookProfilePicImage , */m_googlePlayGamesLeaderboardTestGetButtonImage , m_googlePlayGamesLeaderboardTestMenuImage;
+    public static bool /*m_facebookProfilePicExists = false, m_isFacebookShareTestMode = false , */m_isGooglePlayGamesLeaderboardTestMode , m_isGooglePlayGamesLogInTestMode , m_isGooglePlayGamesLoggedIn , m_scoresExist;
+    public static Button m_googlePlayGamesAchievementsButton , m_googlePlayGamesLeaderboardButton;
+    public static GameObject /*m_facebookShareMenuObj , m_facebookShareSuccessMenuObj , m_facebookShareTestMenuObj , */m_googlePlayGamesAchievementsButtonObj , m_googlePlayGamesLeaderboardButtonObj;
+    public static Image /*m_facebookButtonImage , m_facebookProfilePicImage , */m_googlePlayGamesAchievementsButtonImage , m_googlePlayGamesLeaderboardTestGetButtonImage , m_googlePlayGamesLeaderboardTestMenuImage;
     public static Image m_googlePlayGamesLeaderboardTestSetButtonImage , m_googlePlayGamesLogInButtonImage , m_googlePlayRateButtonImage , m_googlePlayGamesProfilePicImage;
+    public static int m_playerRank;
     public static Text /*m_facebookUsernameText , */m_googlePlayGamesLeaderboardTestText , m_googlePlayGamesLogInTestText , m_googlePlayGamesUsernameText , m_noInternetText, m_noProfilePicText, m_noUsernameText;
 
-    public static bool m_scoresExist;
-    public static int m_playerRank;
+    public string[] m_achievements;
 
     void Start()
 	{
+       /****************************************************
+        * _achievements[0] = achievement_collect_3_bananas *
+        * _achievements[1] = achievement_collect_6_bananas *
+        ****************************************************/
         _currentScene = SceneManager.GetActiveScene().buildIndex;
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         
@@ -63,8 +67,11 @@ public class SocialmediaManager : MonoBehaviour
         }
         else
         {
+            m_googlePlayGamesAchievementsButtonObj = GameObject.Find("GPGsAchievementsButton");
+            m_googlePlayGamesAchievementsButton = m_googlePlayGamesAchievementsButtonObj.GetComponent<Button>();
+            m_googlePlayGamesAchievementsButtonImage = m_googlePlayGamesAchievementsButtonObj.GetComponent<Image>();
             m_googlePlayGamesLeaderboardButtonObj = GameObject.Find("GPGsLeaderboardButton");
-            m_googlePlayGamesLeaderboardButton = GameObject.Find("GPGsLeaderboardButton").GetComponent<Button>();
+            m_googlePlayGamesLeaderboardButton = m_googlePlayGamesLeaderboardButtonObj.GetComponent<Button>();
             _googlePlayGamesLeaderboardConfirmMenuImage = GameObject.Find("GPGsLeaderboardConfirmMenu").GetComponent<Image>();
             _googlePlayGamesLeaderboardOKButtonImage = GameObject.Find("OKButton").GetComponent<Image>();
             _googlePlayGamesLeaderboardSuccessOrFailedOKButtonImage = GameObject.Find("SuccessOrFailedOKButton").GetComponent<Image>();
@@ -354,6 +361,16 @@ public class SocialmediaManager : MonoBehaviour
  //       }
  //   }
 
+    public void GooglePlayGamesAchievementsUI()
+    {
+        PlayGamesPlatform.Instance.ShowAchievementsUI();
+    }
+
+    public void GooglePlayGamesIncrementalAchievements(string achievement , int steps)
+    {
+        PlayGamesPlatform.Instance.IncrementAchievement(achievement , steps , (bool success) => {});
+    }
+
     void GooglePlayGamesInit()
     {
         _googlePlayGamesLogInButtonTapped = false;
@@ -418,7 +435,7 @@ public class SocialmediaManager : MonoBehaviour
     {
         if(m_isGooglePlayGamesLoggedIn)
         {
-            PlayGamesPlatform.Instance.LoadScores(_leaderboardID , LeaderboardStart.TopScores , 20 , LeaderboardCollection.Public , LeaderboardTimeSpan.AllTime , (data) =>
+            PlayGamesPlatform.Instance.LoadScores(_leaderboard , LeaderboardStart.TopScores , 20 , LeaderboardCollection.Public , LeaderboardTimeSpan.AllTime , (data) =>
             {
                 m_playerRank = data.PlayerScore.rank; //This is the rank of the player in the leaderboard
 
@@ -434,7 +451,7 @@ public class SocialmediaManager : MonoBehaviour
     {
         if(m_isGooglePlayGamesLoggedIn)
         {
-            PlayGamesPlatform.Instance.LoadScores(_leaderboardID , LeaderboardStart.TopScores , 20 , LeaderboardCollection.Public , LeaderboardTimeSpan.AllTime , (data) =>
+            PlayGamesPlatform.Instance.LoadScores(_leaderboard , LeaderboardStart.TopScores , 20 , LeaderboardCollection.Public , LeaderboardTimeSpan.AllTime , (data) =>
             {
                 _highScore = data.PlayerScore; //This retrieves the player high score 
             });
@@ -449,7 +466,7 @@ public class SocialmediaManager : MonoBehaviour
     {
         if(m_isGooglePlayGamesLeaderboardTestMode)
         {
-            PlayGamesPlatform.Instance.ReportScore((long)ScoreManager.m_scoreValue , _leaderboardID , (bool success) =>
+            PlayGamesPlatform.Instance.ReportScore((long)ScoreManager.m_scoreValue , _leaderboard , (bool success) =>
             {
                 _googlePlayGamesLeaderboardTestText.text = "Score Update : " + success;
             });
@@ -492,7 +509,7 @@ public class SocialmediaManager : MonoBehaviour
 
         if(m_isGooglePlayGamesLoggedIn) 
         {
-            PlayGamesPlatform.Instance.ReportScore((long)ScoreManager.m_scoreValue , _leaderboardID , (bool success) =>
+            PlayGamesPlatform.Instance.ReportScore((long)ScoreManager.m_scoreValue , _leaderboard , (bool success) =>
             {
                 if(m_isGooglePlayGamesLeaderboardTestMode)
                 {

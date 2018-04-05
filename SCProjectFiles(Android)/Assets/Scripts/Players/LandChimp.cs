@@ -14,6 +14,7 @@ public class LandChimp : MonoBehaviour
 	SoundManager _soundManager;
 
     [SerializeField] float _jumpHeight , _lowSlipMultiplier , _highSlipMultiplier , _slipTime;
+    [SerializeField] Sprite[] _gpgsAchievementsButtonSprites;
     [SerializeField] Transform _raycastBottom , _raycastTop;
 
     public bool m_isSlipping , m_isSuper;
@@ -334,6 +335,9 @@ public class LandChimp : MonoBehaviour
 
         if(SocialmediaManager.m_isGooglePlayGamesLoggedIn)
         {
+            SocialmediaManager.m_googlePlayGamesAchievementsButton.interactable = true;
+            SocialmediaManager.m_googlePlayGamesAchievementsButtonImage.sprite = _gpgsAchievementsButtonSprites[1];
+
             if(ScoreManager.m_scoreValue >= ScoreManager.m_minHighScore)
             {
                 SocialmediaManager.m_googlePlayGamesLeaderboardButton.interactable = true;

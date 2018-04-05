@@ -2,6 +2,7 @@
 
 public class BhanuPrefs : MonoBehaviour
 {
+    const string BANANAS_COLLECTED_KEY = "BananasCollected";
     const string GAME_TIME_KEY = "GameTime";
     const string HIGH_SCORE_KEY = "HighScore";
     const string SOUNDS_STATUS_KEY = "SoundsStatus";
@@ -10,6 +11,16 @@ public class BhanuPrefs : MonoBehaviour
     public static void DeleteAll()
     {
         PlayerPrefs.DeleteAll();
+    }
+
+    public static int GetBananasCollected()
+    {
+        if(PlayerPrefs.HasKey(BANANAS_COLLECTED_KEY))
+        {
+            return PlayerPrefs.GetInt(BANANAS_COLLECTED_KEY);
+        }
+
+        return 0;
     }
 		
     public static float GetHighScore()
@@ -40,6 +51,11 @@ public class BhanuPrefs : MonoBehaviour
         }
 
         return 0;
+    }
+
+    public static void SetBananasCollected(int bananas)
+    {
+        PlayerPrefs.SetInt(BANANAS_COLLECTED_KEY , bananas);
     }
 	
     public static void SetHighScore(float score)

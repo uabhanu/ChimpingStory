@@ -463,6 +463,11 @@ public class GameManager : MonoBehaviour
 		_highScoreDisplayText.enabled = false;
 		_highScoreValueText.enabled = false;
 
+        if(SocialmediaManager.m_googlePlayGamesAchievementsButtonObj != null)
+        {
+            SocialmediaManager.m_googlePlayGamesAchievementsButtonImage.enabled = true;
+        }
+
         if(SocialmediaManager.m_googlePlayGamesLeaderboardButtonObj != null)
         {
             SocialmediaManager.m_googlePlayGamesLeaderboardButtonObj.SetActive(false);
@@ -653,6 +658,11 @@ public class GameManager : MonoBehaviour
 
 		_highScoreDisplayText.enabled = true;
 		_highScoreValueText.enabled = true;
+
+        if(SocialmediaManager.m_googlePlayGamesAchievementsButtonObj != null)
+        {
+            SocialmediaManager.m_googlePlayGamesAchievementsButtonImage.enabled = false;
+        }
 
         if(SocialmediaManager.m_googlePlayGamesLeaderboardButtonObj != null)
         {
