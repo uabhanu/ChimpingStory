@@ -11,10 +11,10 @@ public class LandChimp : MonoBehaviour
 	LevelCreator _levelCreator;
     Rigidbody2D _chimpBody2D;
     RockSpawner _rockSpawner;
+    SocialmediaManager _socialmediaManager;
 	SoundManager _soundManager;
 
     [SerializeField] float _jumpHeight , _lowSlipMultiplier , _highSlipMultiplier , _slipTime;
-    [SerializeField] Sprite[] _gpgsAchievementsButtonSprites;
     [SerializeField] Transform _raycastBottom , _raycastTop;
 
     public bool m_isSlipping , m_isSuper;
@@ -40,6 +40,7 @@ public class LandChimp : MonoBehaviour
         _defaultGameSpeed = _levelCreator.m_gameSpeed;
         LevelCreator.m_middleCounter = 0;
         _rockSpawner = GameObject.Find("RockSpawner").GetComponent<RockSpawner>();
+        _socialmediaManager = GameObject.Find("SocialmediaManager").GetComponent<SocialmediaManager>();
 		_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
@@ -333,19 +334,22 @@ public class LandChimp : MonoBehaviour
 
         _gameManager.ChimpionshipBelt();
 
-        if(SocialmediaManager.m_isGooglePlayGamesLoggedIn)
+        if(SocialmediaManager.b_googlePlayGamesLoggedIn)
         {
-            SocialmediaManager.m_googlePlayGamesAchievementsButton.interactable = true;
-            SocialmediaManager.m_googlePlayGamesAchievementsButtonImage.sprite = _gpgsAchievementsButtonSprites[1];
+            SocialmediaManager.b_googlePlayGamesAchievementsButtonAvailable = true;
+            SocialmediaManager.b_googlePlayGamesLeaderboardButtonAvailable = true;
+            SocialmediaManager.m_googlePlayGamesAchievementsButtonImage.sprite = _socialmediaManager.m_googlePlayGamessAchievementsButtonSprites[1];
 
             if(ScoreManager.m_scoreValue >= ScoreManager.m_minHighScore)
             {
-                SocialmediaManager.m_googlePlayGamesLeaderboardButton.interactable = true;
+                SocialmediaManager.b_googlePlayGamesLeaderboardAvailable = true;
+                SocialmediaManager.m_googlePlayGamesLeaderboardButtonImage.sprite = _socialmediaManager.m_googlePlayGamesLeaderboardButtonSprites[1];
             }
             
-            if(SocialmediaManager.m_scoresExist)
+            if(SocialmediaManager.b_scoresExist)
             {
-                SocialmediaManager.m_googlePlayGamesLeaderboardButton.interactable = true;
+                SocialmediaManager.b_googlePlayGamesLeaderboardAvailable = true;
+                SocialmediaManager.m_googlePlayGamesLeaderboardButtonImage.sprite = _socialmediaManager.m_googlePlayGamesLeaderboardButtonSprites[1];
             }
         }
     }
