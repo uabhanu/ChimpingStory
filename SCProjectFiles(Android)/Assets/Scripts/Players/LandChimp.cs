@@ -41,6 +41,7 @@ public class LandChimp : MonoBehaviour
         LevelCreator.m_middleCounter = 0;
         _rockSpawner = GameObject.Find("RockSpawner").GetComponent<RockSpawner>();
         _socialmediaManager = GameObject.Find("SocialmediaManager").GetComponent<SocialmediaManager>();
+        _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
 		_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
@@ -339,17 +340,15 @@ public class LandChimp : MonoBehaviour
             
             SocialmediaManager.b_googlePlayGamesAchievementsButtonAvailable = true;
             SocialmediaManager.b_googlePlayGamesLeaderboardButtonAvailable = true;
-            SocialmediaManager.m_googlePlayGamesAchievementsButtonImage.sprite = _socialmediaManager.m_googlePlayGamessAchievementsButtonSprites[1];
 
-            if(ScoreManager.m_scoreValue >= ScoreManager.m_minHighScore || SocialmediaManager.b_scoresExist)
+            if(ScoreManager.m_scoreValue >= ScoreManager.m_minHighScore)
             {
                 SocialmediaManager.b_googlePlayGamesLeaderboardAvailable = true;
-                SocialmediaManager.m_googlePlayGamesLeaderboardButtonImage.sprite = _socialmediaManager.m_googlePlayGamesLeaderboardButtonSprites[1];
             }
-            else
+
+            if(SocialmediaManager.b_scoresExist)
             {
-                SocialmediaManager.b_googlePlayGamesLeaderboardAvailable = false;
-                SocialmediaManager.m_googlePlayGamesLeaderboardButtonImage.sprite = _socialmediaManager.m_googlePlayGamesLeaderboardButtonSprites[0];
+                SocialmediaManager.b_googlePlayGamesLeaderboardAvailable = true;
             }
         }
         else
@@ -357,7 +356,25 @@ public class LandChimp : MonoBehaviour
             SocialmediaManager.b_googlePlayGamesAchievementsButtonAvailable = false;
             SocialmediaManager.b_googlePlayGamesLeaderboardAvailable = false;
             SocialmediaManager.b_googlePlayGamesLeaderboardButtonAvailable = false;
+        }
+
+        if(SocialmediaManager.b_googlePlayGamesAchievementsButtonAvailable)
+        {
+            SocialmediaManager.m_googlePlayGamesAchievementsButtonImage.sprite = _socialmediaManager.m_googlePlayGamessAchievementsButtonSprites[1];
+        }
+
+        if(!SocialmediaManager.b_googlePlayGamesAchievementsButtonAvailable)
+        {
             SocialmediaManager.m_googlePlayGamesAchievementsButtonImage.sprite = _socialmediaManager.m_googlePlayGamessAchievementsButtonSprites[0];
+        }
+
+        if(SocialmediaManager.b_googlePlayGamesLeaderboardAvailable)
+        {
+            SocialmediaManager.m_googlePlayGamesLeaderboardButtonImage.sprite = _socialmediaManager.m_googlePlayGamesLeaderboardButtonSprites[1];
+        }
+
+        if(!SocialmediaManager.b_googlePlayGamesLeaderboardAvailable)
+        {
             SocialmediaManager.m_googlePlayGamesLeaderboardButtonImage.sprite = _socialmediaManager.m_googlePlayGamesLeaderboardButtonSprites[0];
         }
     }
