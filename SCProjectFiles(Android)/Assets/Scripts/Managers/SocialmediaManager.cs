@@ -402,24 +402,36 @@ public class SocialmediaManager : MonoBehaviour
 
         if(b_googlePlayGamesLeaderboardButtonAvailable && b_googlePlayGamesLeaderboardAvailable)
         {
-            if(GameManager.m_currentScene == 1)
+            if(!GameManager.m_adsMenuImage.enabled && !_googlePlayGamesLeaderboardLogInCheckText.enabled)
             {
-                if(!GameManager.m_adsMenuImage.enabled && !_googlePlayGamesLeaderboardLogInCheckText.enabled)
-                {
-                    _googlePlayGamesLeaderboardUpdateAcceptButtonImage.enabled = true;
-                    _googlePlayGamesLeaderboardUpdateCancelButtonImage.enabled = true;
-                    _googlePlayGamesMenuImage.enabled = true;
-                    _googlePlayGamesLeaderboardUpdateText.enabled = true;
-            
-                    if(b_isGooglePlayGamesLeaderboardTestMode)
-                    {
-                        GooglePlayGamesLeaderboardTestMenuDisappear();
-                    }
+                GameManager.m_chimpionshipBeltImage.enabled = false;
+                GameManager.m_highScoreDisplayText.enabled = false;
+                GameManager.m_highScoreValueText.enabled = false;
 
-                    GameManager.m_pauseButtonImage.enabled = false;
-                    Time.timeScale = 0;
+                if(GameManager.m_playerMutedSounds == 0)
+                {
+                    GameManager.m_muteButtonImage.enabled = false;
                 }
+                else
+                {
+                    GameManager.m_unmuteButtonImage.enabled = false;
+                }
+
+                GameManager.m_pauseButtonImage.enabled = false;
+                _googlePlayGamesLeaderboardUpdateAcceptButtonImage.enabled = true;
+                m_googlePlayGamesLeaderboardButtonImage.enabled = false;
+                _googlePlayGamesLeaderboardUpdateCancelButtonImage.enabled = true;
+                _googlePlayGamesMenuImage.enabled = true;
+                _googlePlayGamesLeaderboardUpdateText.enabled = true;
+            
+                if(b_isGooglePlayGamesLeaderboardTestMode)
+                {
+                    GooglePlayGamesLeaderboardTestMenuDisappear();
+                }
+
+                Time.timeScale = 0;
             }
+            
             else
             {
                 if(!_googlePlayGamesLeaderboardLogInCheckText.enabled)
@@ -442,7 +454,7 @@ public class SocialmediaManager : MonoBehaviour
         
         else if(b_googlePlayGamesLeaderboardButtonAvailable && !b_googlePlayGamesLeaderboardAvailable)
         {
-            if(GameManager.m_muteButtonImage.enabled)
+            if(GameManager.m_playerMutedSounds == 0)
             {
                 GameManager.m_muteButtonImage.enabled = false;
             }
@@ -465,7 +477,7 @@ public class SocialmediaManager : MonoBehaviour
 
         else
         {
-            if(GameManager.m_muteButtonImage.enabled)
+            if(GameManager.m_playerMutedSounds == 0)
             {
                 GameManager.m_muteButtonImage.enabled = false;
             }
@@ -541,13 +553,31 @@ public class SocialmediaManager : MonoBehaviour
         }
     }
 
-    public void GooglePlayGamesLeaderboardSuccessOKButton()
+    public void GooglePlayGamesLeaderboardSuccessOrFailureOKButton()
     {
         GooglePlayGamesLeaderboardPlayerRank();
+        GameManager.m_chimpionshipBeltImage.enabled = true;
+        GameManager.m_highScoreDisplayText.enabled = true;
+        GameManager.m_highScoreValueText.enabled = true;
+
+        if(GameManager.m_playerMutedSounds == 0)
+        {
+            GameManager.m_muteButtonImage.enabled = true;
+        }
+        else
+        {
+            GameManager.m_unmuteButtonImage.enabled = true;
+        }
+
         GameManager.m_pauseButtonImage.enabled = true;
-        _googlePlayGamesMenuImage.enabled = false;
+        m_googlePlayGamesLeaderboardButtonImage.enabled = true;
         _googlePlayGamesLeaderboardSuccessOrFailedOKButtonImage.enabled = false;
+        _googlePlayGamesLeaderboardUpdateAcceptButtonImage.enabled = false;
+        _googlePlayGamesLeaderboardUpdateCancelButtonImage.enabled = false;
         _googlePlayGamesLeaderboardUpdateRequestedText.enabled = false;
+        _googlePlayGamesMenuImage.enabled = false;
+        _googlePlayGamesLeaderboardUpdateText.enabled = false;
+        _googlePlayGamesLeaderboardLogInCheckText.enabled = false;
         Time.timeScale = 1;
     }
 
@@ -614,18 +644,31 @@ public class SocialmediaManager : MonoBehaviour
             PlayGamesPlatform.Instance.ShowLeaderboardUI();
         }
 
-        _googlePlayGamesLeaderboardUpdateAcceptButtonImage.enabled = false;
-        _googlePlayGamesLeaderboardUpdateCancelButtonImage.enabled = false;
-        _googlePlayGamesMenuImage.enabled = false;
-        _googlePlayGamesLeaderboardUpdateText.enabled = false;
-        _googlePlayGamesLeaderboardLogInCheckText.enabled = false;
-        
         if(b_isGooglePlayGamesLeaderboardTestMode)
         {
             GooglePlayGamesLeaderboardTestMenuAppear();
         }
 
+        GameManager.m_chimpionshipBeltImage.enabled = true;
+        GameManager.m_highScoreDisplayText.enabled = true;
+        GameManager.m_highScoreValueText.enabled = true;
+
+        if(GameManager.m_playerMutedSounds == 0)
+        {
+            GameManager.m_muteButtonImage.enabled = true;
+        }
+        else
+        {
+            GameManager.m_unmuteButtonImage.enabled = true;
+        }
+
         GameManager.m_pauseButtonImage.enabled = true;
+        m_googlePlayGamesLeaderboardButtonImage.enabled = true;
+        _googlePlayGamesLeaderboardUpdateAcceptButtonImage.enabled = false;
+        _googlePlayGamesLeaderboardUpdateCancelButtonImage.enabled = false;
+        _googlePlayGamesMenuImage.enabled = false;
+        _googlePlayGamesLeaderboardUpdateText.enabled = false;
+        _googlePlayGamesLeaderboardLogInCheckText.enabled = false;
         Time.timeScale = 1;
     }
 

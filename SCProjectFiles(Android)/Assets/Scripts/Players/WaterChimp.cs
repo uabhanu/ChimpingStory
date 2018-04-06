@@ -13,6 +13,7 @@ public class WaterChimp : MonoBehaviour
     GameManager m_gameManager;
     GameObject m_explosionPrefab , m_explosionSystemObj;
     LevelGenerator m_levelGenerator;
+    SocialmediaManager _socialmediaManager;
 	SoundManager m_soundManager;
 
 	[SerializeField] Sprite[] m_chimpSprites;		
@@ -58,6 +59,7 @@ public class WaterChimp : MonoBehaviour
 		m_animator = GetComponent<Animator>();
         m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         m_levelGenerator = GameObject.Find("LevelGenerator").GetComponent<LevelGenerator>();
+        _socialmediaManager = GameObject.Find("SocialmediaManager").GetComponent<SocialmediaManager>();
         m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 
         newRotation = new Vector3();
@@ -81,15 +83,28 @@ public class WaterChimp : MonoBehaviour
 
         if(SocialmediaManager.b_googlePlayGamesLoggedIn)
         {
-            if(ScoreManager.m_scoreValue >= ScoreManager.m_minHighScore)
+            SocialmediaManager.b_googlePlayGamesAchievementsButtonAvailable = true;
+            SocialmediaManager.b_googlePlayGamesLeaderboardButtonAvailable = true;
+            SocialmediaManager.m_googlePlayGamesAchievementsButtonImage.sprite = _socialmediaManager.m_googlePlayGamessAchievementsButtonSprites[1];
+
+            if(ScoreManager.m_scoreValue >= ScoreManager.m_minHighScore || SocialmediaManager.b_scoresExist)
             {
-                SocialmediaManager.m_googlePlayGamesLeaderboardButton.interactable = true;
+                SocialmediaManager.b_googlePlayGamesLeaderboardAvailable = true;
+                SocialmediaManager.m_googlePlayGamesLeaderboardButtonImage.sprite = _socialmediaManager.m_googlePlayGamesLeaderboardButtonSprites[1];
             }
-            
-            if(SocialmediaManager.b_scoresExist)
+            else
             {
-                SocialmediaManager.m_googlePlayGamesLeaderboardButton.interactable = true;
+                SocialmediaManager.b_googlePlayGamesLeaderboardAvailable = false;
+                SocialmediaManager.m_googlePlayGamesLeaderboardButtonImage.sprite = _socialmediaManager.m_googlePlayGamesLeaderboardButtonSprites[0];
             }
+        }
+        else
+        {
+            SocialmediaManager.b_googlePlayGamesAchievementsButtonAvailable = false;
+            SocialmediaManager.b_googlePlayGamesLeaderboardAvailable = false;
+            SocialmediaManager.b_googlePlayGamesLeaderboardButtonAvailable = false;
+            SocialmediaManager.m_googlePlayGamesAchievementsButtonImage.sprite = _socialmediaManager.m_googlePlayGamessAchievementsButtonSprites[0];
+            SocialmediaManager.m_googlePlayGamesLeaderboardButtonImage.sprite = _socialmediaManager.m_googlePlayGamesLeaderboardButtonSprites[0];
         }
 
         if(playerState == PlayerState.Enabled)

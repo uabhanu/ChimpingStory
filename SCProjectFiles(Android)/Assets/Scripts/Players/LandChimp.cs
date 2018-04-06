@@ -336,21 +336,29 @@ public class LandChimp : MonoBehaviour
 
         if(SocialmediaManager.b_googlePlayGamesLoggedIn)
         {
+            
             SocialmediaManager.b_googlePlayGamesAchievementsButtonAvailable = true;
             SocialmediaManager.b_googlePlayGamesLeaderboardButtonAvailable = true;
             SocialmediaManager.m_googlePlayGamesAchievementsButtonImage.sprite = _socialmediaManager.m_googlePlayGamessAchievementsButtonSprites[1];
 
-            if(ScoreManager.m_scoreValue >= ScoreManager.m_minHighScore)
+            if(ScoreManager.m_scoreValue >= ScoreManager.m_minHighScore || SocialmediaManager.b_scoresExist)
             {
                 SocialmediaManager.b_googlePlayGamesLeaderboardAvailable = true;
                 SocialmediaManager.m_googlePlayGamesLeaderboardButtonImage.sprite = _socialmediaManager.m_googlePlayGamesLeaderboardButtonSprites[1];
             }
-            
-            if(SocialmediaManager.b_scoresExist)
+            else
             {
-                SocialmediaManager.b_googlePlayGamesLeaderboardAvailable = true;
-                SocialmediaManager.m_googlePlayGamesLeaderboardButtonImage.sprite = _socialmediaManager.m_googlePlayGamesLeaderboardButtonSprites[1];
+                SocialmediaManager.b_googlePlayGamesLeaderboardAvailable = false;
+                SocialmediaManager.m_googlePlayGamesLeaderboardButtonImage.sprite = _socialmediaManager.m_googlePlayGamesLeaderboardButtonSprites[0];
             }
+        }
+        else
+        {
+            SocialmediaManager.b_googlePlayGamesAchievementsButtonAvailable = false;
+            SocialmediaManager.b_googlePlayGamesLeaderboardAvailable = false;
+            SocialmediaManager.b_googlePlayGamesLeaderboardButtonAvailable = false;
+            SocialmediaManager.m_googlePlayGamesAchievementsButtonImage.sprite = _socialmediaManager.m_googlePlayGamessAchievementsButtonSprites[0];
+            SocialmediaManager.m_googlePlayGamesLeaderboardButtonImage.sprite = _socialmediaManager.m_googlePlayGamesLeaderboardButtonSprites[0];
         }
     }
 }
