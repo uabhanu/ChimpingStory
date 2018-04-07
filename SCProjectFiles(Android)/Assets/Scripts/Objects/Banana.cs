@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using GooglePlayGames;
+using GooglePlayGames.BasicApi;
+using UnityEngine;
 
 public class Banana : MonoBehaviour
 {
+    Achievement _collect3BananasAchievement , _collect6BananasAchievement;
     BoxCollider2D _bananaCollider2D;
     Camera _mainCamera;
-    int _bananasCollected;
 	LandChimp _landChimp;
     SocialmediaManager _socialmediaManager;
 	SoundManager _soundManager;
@@ -17,6 +19,8 @@ public class Banana : MonoBehaviour
     {
 		_bananaCollider2D = GetComponent<BoxCollider2D>();
 		_bananaRenderer = GetComponent<SpriteRenderer>();
+        _collect3BananasAchievement = PlayGamesPlatform.Instance.GetAchievement(m_bananaCollectionAchievements[0]);
+        _collect6BananasAchievement = PlayGamesPlatform.Instance.GetAchievement(m_bananaCollectionAchievements[1]);
 		_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
         _mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         _socialmediaManager = GameObject.Find("SocialmediaManager").GetComponent<SocialmediaManager>();
@@ -51,10 +55,12 @@ public class Banana : MonoBehaviour
     {
         if(tri2D.gameObject.tag.Equals("Player"))
         {
-            _bananasCollected++;
-            _socialmediaManager.GooglePlayGamesIncrementalAchievements(m_bananaCollectionAchievements[0] , 3); //TODO Google Play Console has 3 Steps, not sure what to put here yet so leaving at 5
-            ScoreManager.m_bananasCollected++;
-            BhanuPrefs.SetBananasCollected(ScoreManager.m_bananasCollected);
+            _socialmediaManager.GooglePlayGamesIncrementalAchievements(m_bananaCollectionAchievements[0] , 1);
+
+            if(_collect3BananasAchievement.IsUnlocked && !_collect6BananasAchievement.IsRevealed)
+            {
+                _collect6BananasAchievement.IsRevealed = true;
+            }
 
             if(_landChimp.m_isSlipping)
             {

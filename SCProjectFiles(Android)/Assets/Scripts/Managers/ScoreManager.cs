@@ -7,13 +7,12 @@ public class ScoreManager : MonoBehaviour
 
     public static bool m_isTestingMode;
     public static float m_minHighScore , m_scoreValue;
-	public static int m_bananasCollected , m_defaultSupersCount = 1 , m_supersCount;
+	public static int m_defaultSupersCount = 1 , m_supersCount;
     public static Text m_scoreDisplay;
 
 	void Start()
 	{
         //m_isTestingMode = true; //TODO Remove this after testing finished
-        m_bananasCollected = BhanuPrefs.GetBananasCollected();
         m_scoreDisplay = GameObject.Find("HighScoreValueDisplay").GetComponent<Text>();
 
         if(m_isTestingMode)
