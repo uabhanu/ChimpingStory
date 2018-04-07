@@ -86,21 +86,10 @@ public class WaterChimp : MonoBehaviour
         {
             SocialmediaManager.b_googlePlayGamesAchievementsButtonAvailable = true;
             SocialmediaManager.b_googlePlayGamesLeaderboardButtonAvailable = true;
-
-            if(ScoreManager.m_scoreValue >= ScoreManager.m_minHighScore)
-            {
-                SocialmediaManager.b_googlePlayGamesLeaderboardAvailable = true;
-            }
-
-            if(SocialmediaManager.b_scoresExist)
-            {
-                SocialmediaManager.b_googlePlayGamesLeaderboardAvailable = true;
-            }
         }
         else
         {
             SocialmediaManager.b_googlePlayGamesAchievementsButtonAvailable = false;
-            SocialmediaManager.b_googlePlayGamesLeaderboardAvailable = false;
             SocialmediaManager.b_googlePlayGamesLeaderboardButtonAvailable = false;
         }
 
@@ -114,12 +103,12 @@ public class WaterChimp : MonoBehaviour
             SocialmediaManager.m_googlePlayGamesAchievementsButtonImage.sprite = _socialmediaManager.m_googlePlayGamessAchievementsButtonSprites[0];
         }
 
-        if(SocialmediaManager.b_googlePlayGamesLeaderboardAvailable)
+        if(SocialmediaManager.b_googlePlayGamesLeaderboardButtonAvailable)
         {
             SocialmediaManager.m_googlePlayGamesLeaderboardButtonImage.sprite = _socialmediaManager.m_googlePlayGamesLeaderboardButtonSprites[1];
         }
 
-        if(!SocialmediaManager.b_googlePlayGamesLeaderboardAvailable)
+        if(!SocialmediaManager.b_googlePlayGamesLeaderboardButtonAvailable)
         {
             SocialmediaManager.m_googlePlayGamesLeaderboardButtonImage.sprite = _socialmediaManager.m_googlePlayGamesLeaderboardButtonSprites[0];
         }

@@ -50,7 +50,7 @@ public class Banana : MonoBehaviour
         if(tri2D.gameObject.tag.Equals("Player"))
         {
             _bananasCollected++;
-            _socialmediaManager.GooglePlayGamesIncrementalAchievements(_socialmediaManager.m_achievements[0] , 5);
+            //_socialmediaManager.GooglePlayGamesIncrementalAchievements(_socialmediaManager.m_achievements[0] , 5); //TODO Google Play Console has 3 Steps, not sure what to put here yet so leaving at 5
             ScoreManager.m_bananasCollected++;
             BhanuPrefs.SetBananasCollected(ScoreManager.m_bananasCollected);
 

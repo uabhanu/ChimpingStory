@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
         
         if(SocialmediaManager.b_isGooglePlayGamesLeaderboardTestMode)
         {
-            SocialmediaManager.GooglePlayGamesLeaderboardTestMenuDisappear();
+            _socialmediaManager.GooglePlayGamesLeaderboardTestMenuDisappear();
         }
 
         m_highScoreDisplayText.enabled = false;
@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
         
         if(SocialmediaManager.b_isGooglePlayGamesLogInTestMode)
         {
-            SocialmediaManager.GooglePlayGamesLeaderboardTestMenuDisappear();
+            _socialmediaManager.GooglePlayGamesLeaderboardTestMenuDisappear();
         }
 
         AdsShow();
@@ -345,7 +345,7 @@ public class GameManager : MonoBehaviour
 
         if(SocialmediaManager.b_isGooglePlayGamesLeaderboardTestMode)
         {
-            SocialmediaManager.GooglePlayGamesLeaderboardTestMenuAppear();
+            _socialmediaManager.GooglePlayGamesLeaderboardTestMenuAppear();
             ScoreManager.m_minHighScore = 5f;
         }
         else
@@ -464,7 +464,7 @@ public class GameManager : MonoBehaviour
 
         if(SocialmediaManager.b_isGooglePlayGamesLeaderboardTestMode)
         {
-            SocialmediaManager.GooglePlayGamesLeaderboardTestMenuDisappear();
+            _socialmediaManager.GooglePlayGamesLeaderboardTestMenuDisappear();
         }
 
 		m_highScoreDisplayText.enabled = false;
@@ -677,7 +677,7 @@ public class GameManager : MonoBehaviour
 
         if(SocialmediaManager.b_isGooglePlayGamesLeaderboardTestMode)
         {
-            SocialmediaManager.GooglePlayGamesLeaderboardTestMenuAppear();
+            _socialmediaManager.GooglePlayGamesLeaderboardTestMenuAppear();
         }
 
 		m_highScoreDisplayText.enabled = true;

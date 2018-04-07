@@ -12,13 +12,13 @@ public class ScoreManager : MonoBehaviour
 
 	void Start()
 	{
-        m_isTestingMode = true; //TODO Remove this after testing finished
+        //m_isTestingMode = true; //TODO Remove this after testing finished
         m_bananasCollected = BhanuPrefs.GetBananasCollected();
         m_scoreDisplay = GameObject.Find("HighScoreValueDisplay").GetComponent<Text>();
 
         if(m_isTestingMode)
         {
-            m_scoreValue = 4990f;
+            m_scoreValue = 4995f;
         }
         else
         {

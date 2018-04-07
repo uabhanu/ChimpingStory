@@ -20,19 +20,6 @@ public class FallingChimp : MonoBehaviour
 
         m_gameManager.ChimpionshipBelt();
 
-        if(SocialmediaManager.b_googlePlayGamesLoggedIn)
-        {
-            if(ScoreManager.m_scoreValue >= ScoreManager.m_minHighScore)
-            {
-                SocialmediaManager.m_googlePlayGamesLeaderboardButton.interactable = true;
-            }
-            
-            if(SocialmediaManager.b_scoresExist)
-            {
-                SocialmediaManager.m_googlePlayGamesLeaderboardButton.interactable = true;
-            }
-        }
-
         if(SwipeManager.Instance.IsSwiping(SwipeDirection.LEFT))
         {
             Move(-m_moveAmount);
