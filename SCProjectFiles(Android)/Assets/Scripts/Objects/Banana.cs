@@ -57,9 +57,9 @@ public class Banana : MonoBehaviour
         {
             _socialmediaManager.GooglePlayGamesIncrementalAchievements(m_bananaCollectionAchievements[0] , 1);
 
-            if(_collect3BananasAchievement.IsUnlocked && !_collect6BananasAchievement.IsRevealed)
+            if(_collect3BananasAchievement.IsUnlocked)
             {
-                _collect6BananasAchievement.IsRevealed = true;
+                _socialmediaManager.GooglePlayGamesIncrementalAchievements(m_bananaCollectionAchievements[1] , 1);
             }
 
             if(_landChimp.m_isSlipping)
