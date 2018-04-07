@@ -34,7 +34,6 @@ public class SocialmediaManager : MonoBehaviour
     public static Text /*m_facebookUsernameText , */m_googlePlayGamesLogInTestText , m_googlePlayGamesUsernameText , m_noInternetText, m_noProfilePicText, m_noUsernameText;
 
     public Sprite[] m_googlePlayGamessAchievementsButtonSprites , m_googlePlayGamesLeaderboardButtonSprites;
-    public string[] m_achievements;
     public Text m_googlePlayGamesLeaderboardTestText;
 
     void Start()
