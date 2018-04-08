@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
         _adsText.enabled = true;
         m_chimpionshipBeltImage.enabled = false;
         
-        if(SocialmediaManager.b_isGooglePlayGamesLeaderboardTestMode)
+        if(SocialmediaManager.b_isGPGsLeaderboardTestMode)
         {
             _socialmediaManager.GooglePlayGamesLeaderboardTestMenuDisappear();
         }
@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
         m_muteButtonImage.enabled = false;
         m_pauseButtonImage.enabled = false;
 		m_selfieButtonImage.enabled = false;
-        SocialmediaManager.m_googlePlayGamesLeaderboardButtonImage.enabled = false;
+        SocialmediaManager.m_gpgsLeaderboardButtonImage.enabled = false;
         m_unmuteButtonImage.enabled = false;
 		Time.timeScale = 0;
     }
@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
         _adsCancelButtonImage.enabled = false;
         _adsText.enabled = false;
         
-        if(SocialmediaManager.b_isGooglePlayGamesLogInTestMode)
+        if(SocialmediaManager.b_isGPGsLogInTestMode)
         {
             _socialmediaManager.GooglePlayGamesLeaderboardTestMenuDisappear();
         }
@@ -125,7 +125,7 @@ public class GameManager : MonoBehaviour
 		m_highScoreValueText.enabled = false;
         m_muteButtonImage.enabled = false;
         m_pauseButtonImage.enabled = false;
-        SocialmediaManager.m_googlePlayGamesLeaderboardButtonObj.SetActive(false);
+        SocialmediaManager.m_gpgsLeaderboardButtonObj.SetActive(false);
         m_unmuteButtonImage.enabled = false;
         Time.timeScale = 0;
     }
@@ -140,7 +140,7 @@ public class GameManager : MonoBehaviour
 		m_highScoreValueText.enabled = false;
         m_muteButtonImage.enabled = false;
         m_pauseButtonImage.enabled = false;
-        SocialmediaManager.m_googlePlayGamesLeaderboardButtonObj.SetActive(false);
+        SocialmediaManager.m_gpgsLeaderboardButtonObj.SetActive(false);
         m_unmuteButtonImage.enabled = false;
         Time.timeScale = 0;
     }
@@ -155,7 +155,7 @@ public class GameManager : MonoBehaviour
 		m_highScoreValueText.enabled = false;
         m_muteButtonImage.enabled = false;
         m_pauseButtonImage.enabled = false;
-        SocialmediaManager.m_googlePlayGamesLeaderboardButtonObj.SetActive(false);
+        SocialmediaManager.m_gpgsLeaderboardButtonObj.SetActive(false);
         m_unmuteButtonImage.enabled = false;
         Time.timeScale = 0;
     }
@@ -180,7 +180,7 @@ public class GameManager : MonoBehaviour
         _chimpionshipBeltMenuImage.enabled = true;
         _chimpionshipBeltText.enabled = true;
         _chimpionshipOKButtonImage.enabled = true;
-        SocialmediaManager.m_googlePlayGamesLeaderboardButtonObj.SetActive(false);
+        SocialmediaManager.m_gpgsLeaderboardButtonObj.SetActive(false);
         m_highScoreDisplayText.enabled = false;
         m_highScoreValueText.enabled = false;
         Time.timeScale = 0;
@@ -192,7 +192,7 @@ public class GameManager : MonoBehaviour
         _chimpionshipBeltMenuImage.enabled = false;
         _chimpionshipBeltText.enabled = false;
         _chimpionshipOKButtonImage.enabled = false;
-        SocialmediaManager.m_googlePlayGamesLeaderboardButtonObj.SetActive(true);
+        SocialmediaManager.m_gpgsLeaderboardButtonObj.SetActive(true);
         m_highScoreDisplayText.enabled = true;
         m_highScoreValueText.enabled = true;
         Time.timeScale = 1;
@@ -343,7 +343,12 @@ public class GameManager : MonoBehaviour
         //    SocialmediaManager.m_facebookShareTestMenuObj.SetActive(true);
         //}
 
-        if(SocialmediaManager.b_isGooglePlayGamesLeaderboardTestMode)
+        if(SocialmediaManager.b_isGPGsAchievementsTestMode)
+        {
+            SocialmediaManager.m_gpgsAchievementsTestText.enabled = true;
+        }
+
+        if(SocialmediaManager.b_isGPGsLeaderboardTestMode)
         {
             _socialmediaManager.GooglePlayGamesLeaderboardTestMenuAppear();
             ScoreManager.m_minHighScore = 5f;
@@ -353,9 +358,9 @@ public class GameManager : MonoBehaviour
             ScoreManager.m_minHighScore = 5000f;
         }
 
-        if(SocialmediaManager.b_isGooglePlayGamesLogInTestMode && SocialmediaManager.m_googlePlayGamesLogInTestText != null)
+        if(SocialmediaManager.b_isGPGsLogInTestMode && SocialmediaManager.m_gpgsLogInTestText != null)
         {
-            SocialmediaManager.m_googlePlayGamesLogInTestText.enabled = true;
+            SocialmediaManager.m_gpgsLogInTestText.enabled = true;
         }
 
         if(m_currentScene > 0)
@@ -462,7 +467,7 @@ public class GameManager : MonoBehaviour
             _exitButtonImage.enabled = true;
         }
 
-        if(SocialmediaManager.b_isGooglePlayGamesLeaderboardTestMode)
+        if(SocialmediaManager.b_isGPGsLeaderboardTestMode)
         {
             _socialmediaManager.GooglePlayGamesLeaderboardTestMenuDisappear();
         }
@@ -470,14 +475,14 @@ public class GameManager : MonoBehaviour
 		m_highScoreDisplayText.enabled = false;
 		m_highScoreValueText.enabled = false;
 
-        if(SocialmediaManager.m_googlePlayGamesAchievementsButtonObj != null)
+        if(SocialmediaManager.m_gpgsAchievementsButtonObj != null)
         {
-            SocialmediaManager.m_googlePlayGamesAchievementsButtonImage.enabled = true;
+            SocialmediaManager.m_gpgsAchievementsButtonImage.enabled = true;
         }
 
-        if(SocialmediaManager.m_googlePlayGamesLeaderboardButtonObj != null)
+        if(SocialmediaManager.m_gpgsLeaderboardButtonObj != null)
         {
-            SocialmediaManager.m_googlePlayGamesLeaderboardButtonObj.SetActive(false);
+            SocialmediaManager.m_gpgsLeaderboardButtonObj.SetActive(false);
         }
         
         if(_restartButtonImage != null)
@@ -520,15 +525,15 @@ public class GameManager : MonoBehaviour
 
         m_isQuitButtonTapped = true;
 
-        SocialmediaManager.m_googlePlayGamesLogInButtonImage.enabled = false;
-        SocialmediaManager.m_googlePlayGamesProfilePicImage.enabled = false;
-        SocialmediaManager.m_googlePlayGamesProfilePicMaskImage.enabled = false;
-        SocialmediaManager.m_googlePlayRateButtonImage.enabled = false;
-        SocialmediaManager.m_googlePlayGamesUsernameText.enabled = false;
+        SocialmediaManager.m_gpgsLogInButtonImage.enabled = false;
+        SocialmediaManager.m_gpgsProfilePicImage.enabled = false;
+        SocialmediaManager.m_gpgsProfilePicMaskImage.enabled = false;
+        SocialmediaManager.m_gpgsRateButtonImage.enabled = false;
+        SocialmediaManager.m_gpgsUsernameText.enabled = false;
         
-        if(SocialmediaManager.m_googlePlayGamesLogInTestText != null)
+        if(SocialmediaManager.m_gpgsLogInTestText != null)
         {
-            SocialmediaManager.m_googlePlayGamesLogInTestText.enabled = false;
+            SocialmediaManager.m_gpgsLogInTestText.enabled = false;
         }
 
         if(SocialmediaManager.m_noInternetText != null)
@@ -572,15 +577,15 @@ public class GameManager : MonoBehaviour
             MusicManager.m_musicSource.Play();
         }
 
-        if(SocialmediaManager.b_googlePlayGamesLoggedIn)
+        if(SocialmediaManager.b_gpgsLoggedIn)
         {
-            SocialmediaManager.m_googlePlayGamesProfilePicImage.enabled = true;
-            SocialmediaManager.m_googlePlayGamesProfilePicMaskImage.enabled = true;
+            SocialmediaManager.m_gpgsProfilePicImage.enabled = true;
+            SocialmediaManager.m_gpgsProfilePicMaskImage.enabled = true;
         }
 
         m_isQuitButtonTapped = false;
 
-        if(SocialmediaManager.b_googlePlayGamesLoggedIn)
+        if(SocialmediaManager.b_gpgsLoggedIn)
         {
             _socialmediaManager.GooglePlayGamesLoggedIn();
         }
@@ -589,9 +594,9 @@ public class GameManager : MonoBehaviour
             _socialmediaManager.GooglePlayGamesLoggedOut();
         }
         
-        if(SocialmediaManager.b_isGooglePlayGamesLogInTestMode && SocialmediaManager.m_googlePlayGamesLogInTestText != null)
+        if(SocialmediaManager.b_isGPGsLogInTestMode && SocialmediaManager.m_gpgsLogInTestText != null)
         {
-            SocialmediaManager.m_googlePlayGamesLogInTestText.enabled = true;
+            SocialmediaManager.m_gpgsLogInTestText.enabled = true;
         }
 
 		_playButtonImage.enabled = true;
@@ -675,7 +680,7 @@ public class GameManager : MonoBehaviour
             _exitButtonImage.enabled = false;
         }
 
-        if(SocialmediaManager.b_isGooglePlayGamesLeaderboardTestMode)
+        if(SocialmediaManager.b_isGPGsLeaderboardTestMode)
         {
             _socialmediaManager.GooglePlayGamesLeaderboardTestMenuAppear();
         }
@@ -683,14 +688,14 @@ public class GameManager : MonoBehaviour
 		m_highScoreDisplayText.enabled = true;
 		m_highScoreValueText.enabled = true;
 
-        if(SocialmediaManager.m_googlePlayGamesAchievementsButtonObj != null)
+        if(SocialmediaManager.m_gpgsAchievementsButtonObj != null)
         {
-            SocialmediaManager.m_googlePlayGamesAchievementsButtonImage.enabled = false;
+            SocialmediaManager.m_gpgsAchievementsButtonImage.enabled = false;
         }
 
-        if(SocialmediaManager.m_googlePlayGamesLeaderboardButtonObj != null)
+        if(SocialmediaManager.m_gpgsLeaderboardButtonObj != null)
         {
-            SocialmediaManager.m_googlePlayGamesLeaderboardButtonObj.SetActive(true);
+            SocialmediaManager.m_gpgsLeaderboardButtonObj.SetActive(true);
         }
         
 		m_pauseButtonImage.enabled = true;

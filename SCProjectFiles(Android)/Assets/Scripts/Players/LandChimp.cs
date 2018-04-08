@@ -335,35 +335,35 @@ public class LandChimp : MonoBehaviour
 
         _gameManager.ChimpionshipBelt();
 
-        if(SocialmediaManager.b_googlePlayGamesLoggedIn)
+        if(SocialmediaManager.b_gpgsLoggedIn)
         {
-            SocialmediaManager.b_googlePlayGamesAchievementsButtonAvailable = true;
-            SocialmediaManager.b_googlePlayGamesLeaderboardButtonAvailable = true;
+            SocialmediaManager.b_gpgsAchievementsButtonAvailable = true;
+            SocialmediaManager.b_gpgsLeaderboardButtonAvailable = true;
         }
         else
         {
-            SocialmediaManager.b_googlePlayGamesAchievementsButtonAvailable = false;
-            SocialmediaManager.b_googlePlayGamesLeaderboardButtonAvailable = false;
+            SocialmediaManager.b_gpgsAchievementsButtonAvailable = false;
+            SocialmediaManager.b_gpgsLeaderboardButtonAvailable = false;
         }
 
-        if(SocialmediaManager.b_googlePlayGamesAchievementsButtonAvailable)
+        if(SocialmediaManager.b_gpgsAchievementsButtonAvailable)
         {
-            SocialmediaManager.m_googlePlayGamesAchievementsButtonImage.sprite = _socialmediaManager.m_googlePlayGamessAchievementsButtonSprites[1];
+            SocialmediaManager.m_gpgsAchievementsButtonImage.sprite = _socialmediaManager.m_gpgsAchievementsButtonSprites[1];
         }
 
-        if(!SocialmediaManager.b_googlePlayGamesAchievementsButtonAvailable)
+        if(!SocialmediaManager.b_gpgsAchievementsButtonAvailable)
         {
-            SocialmediaManager.m_googlePlayGamesAchievementsButtonImage.sprite = _socialmediaManager.m_googlePlayGamessAchievementsButtonSprites[0];
+            SocialmediaManager.m_gpgsAchievementsButtonImage.sprite = _socialmediaManager.m_gpgsAchievementsButtonSprites[0];
         }
 
-        if(SocialmediaManager.b_googlePlayGamesLeaderboardButtonAvailable)
+        if(SocialmediaManager.b_gpgsLeaderboardButtonAvailable)
         {
-            SocialmediaManager.m_googlePlayGamesLeaderboardButtonImage.sprite = _socialmediaManager.m_googlePlayGamesLeaderboardButtonSprites[1];
+            SocialmediaManager.m_gpgsLeaderboardButtonImage.sprite = _socialmediaManager.m_gpgsLeaderboardButtonSprites[1];
         }
 
-        if(!SocialmediaManager.b_googlePlayGamesLeaderboardButtonAvailable)
+        if(!SocialmediaManager.b_gpgsLeaderboardButtonAvailable)
         {
-            SocialmediaManager.m_googlePlayGamesLeaderboardButtonImage.sprite = _socialmediaManager.m_googlePlayGamesLeaderboardButtonSprites[0];
+            SocialmediaManager.m_gpgsLeaderboardButtonImage.sprite = _socialmediaManager.m_gpgsLeaderboardButtonSprites[0];
         }
     }
 }
