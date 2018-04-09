@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Sprite[] _chimpionshipBeltSprites;
     [SerializeField] Text _chimpionshipBeltText , _memoryLeakTestText , _versionCodeText;
 
-    public static bool m_isMemoryLeakTestingMode , m_isTestingUnityEditor , m_isQuitButtonTapped;
+    public static bool b_isMemoryLeakTestingMode , b_isTestingUnityEditor , b_quitButtonTapped;
     public static GameObject m_pauseMenuObj;
     public static Image m_adsMenuImage , m_chimpionshipBeltImage , m_muteButtonImage , m_pauseButtonImage , m_selfieButtonImage , m_selfiePanelImage , m_unmuteButtonImage;
     public static int m_currentScene , m_playerMutedSounds;
@@ -343,11 +343,6 @@ public class GameManager : MonoBehaviour
         //    SocialmediaManager.m_facebookShareTestMenuObj.SetActive(true);
         //}
 
-        if(SocialmediaManager.b_isGPGsAchievementsTestMode)
-        {
-            SocialmediaManager.m_gpgsAchievementsTestText.enabled = true;
-        }
-
         if(SocialmediaManager.b_isGPGsLeaderboardTestMode)
         {
             _socialmediaManager.GooglePlayGamesLeaderboardTestMenuAppear();
@@ -367,9 +362,14 @@ public class GameManager : MonoBehaviour
         {
             m_highScoreDisplayText = GameObject.Find("HighScoreTextDisplay").GetComponent<Text>();
 			m_highScoreValueText = GameObject.Find("HighScoreValueDisplay").GetComponent<Text>();
+
+            if(SocialmediaManager.b_isGPGsAchievementsTestMode)
+            {
+                SocialmediaManager.m_gpgsAchievementsTestText.enabled = true;
+            }
         }
 
-        if(m_isMemoryLeakTestingMode)
+        if(b_isMemoryLeakTestingMode)
         {
             if(m_currentScene == 1)
             {
@@ -517,14 +517,8 @@ public class GameManager : MonoBehaviour
         //{
         //    SocialmediaManager.m_facebookShareTestMenuObj.SetActive(false);
         //}
-
-        if(MusicManager.m_musicSource.isPlaying)
-        {
-            MusicManager.m_musicSource.Pause();
-        }
-
-        m_isQuitButtonTapped = true;
-
+        MusicManager.m_musicSource.Pause();
+        b_quitButtonTapped = true;
         SocialmediaManager.m_gpgsLogInButtonImage.enabled = false;
         SocialmediaManager.m_gpgsProfilePicImage.enabled = false;
         SocialmediaManager.m_gpgsProfilePicMaskImage.enabled = false;
@@ -566,13 +560,13 @@ public class GameManager : MonoBehaviour
         //{
         //    SocialmediaManager.m_facebookButtonImage.enabled = true;
         //}
-        
+
         //if(SocialmediaManager.m_isFacebookShareTestMode && SocialmediaManager.m_facebookShareTestMenuObj != null)
         //{
         //    SocialmediaManager.m_facebookShareTestMenuObj.SetActive(true);
         //}
-        
-        if(!MusicManager.m_musicSource.isPlaying)
+
+        if(m_playerMutedSounds == 0)
         {
             MusicManager.m_musicSource.Play();
         }
@@ -583,7 +577,7 @@ public class GameManager : MonoBehaviour
             SocialmediaManager.m_gpgsProfilePicMaskImage.enabled = true;
         }
 
-        m_isQuitButtonTapped = false;
+        b_quitButtonTapped = false;
 
         if(SocialmediaManager.b_gpgsLoggedIn)
         {

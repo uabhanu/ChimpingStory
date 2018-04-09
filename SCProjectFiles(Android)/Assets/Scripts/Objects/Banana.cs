@@ -20,7 +20,7 @@ public class Banana : MonoBehaviour
 		_bananaCollider2D = GetComponent<BoxCollider2D>();
 		_bananaRenderer = GetComponent<SpriteRenderer>();
         _collect3BananasAchievement = PlayGamesPlatform.Instance.GetAchievement("CgkInMKFu8wYEAIQBw");
-        _collect6BananasAchievement = PlayGamesPlatform.Instance.GetAchievement(m_bananaCollectionAchievements[1]);
+        _collect6BananasAchievement = PlayGamesPlatform.Instance.GetAchievement("CgkInMKFu8wYEAIQCA");
 		_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
         _mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         _socialmediaManager = GameObject.Find("SocialmediaManager").GetComponent<SocialmediaManager>();
@@ -51,29 +51,18 @@ public class Banana : MonoBehaviour
         }
 	}
 
-    bool IsAchievementUnlocked()
-    {
-        if(_collect3BananasAchievement.IsUnlocked) //Working
-        {
-            SocialmediaManager.m_gpgsAchievementsTestText.text = "Achievement Unlocked";
-            return true;
-        }
-        else
-        {
-            SocialmediaManager.m_gpgsAchievementsTestText.text = "Achievement not yet Unlocked";
-            return false;
-        }
-    }
-
     void OnTriggerEnter2D(Collider2D tri2D)
     {
         if(tri2D.gameObject.tag.Equals("Player"))
         {
-            IsAchievementUnlocked();
-
             if(!_collect3BananasAchievement.IsUnlocked)
             {
                 _socialmediaManager.GooglePlayGamesIncrementalAchievements(m_bananaCollectionAchievements[0] , 1);
+            }
+
+            if(_collect3BananasAchievement.IsUnlocked)
+            {
+                _socialmediaManager.GooglePlayGamesIncrementalAchievements(m_bananaCollectionAchievements[1] , 1);
             }
 
             if(_landChimp.m_isSlipping)

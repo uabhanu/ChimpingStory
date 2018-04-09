@@ -39,7 +39,7 @@ public class SocialmediaManager : MonoBehaviour
 	{
         _currentScene = SceneManager.GetActiveScene().buildIndex;
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        b_isGPGsAchievementsTestMode = true;
+        //b_isGPGsAchievementsTestMode = true;
         //b_isGooglePlayGamesLeaderboardTestMode = true; //TODO Remove this after testing is finished
 
         if(_currentScene == 0)
@@ -627,7 +627,7 @@ public class SocialmediaManager : MonoBehaviour
 
     public void GooglePlayGamesLoggedIn()
     {
-        if(!GameManager.m_isQuitButtonTapped)
+        if(!GameManager.b_quitButtonTapped)
         {
             m_gpgsLogInButtonImage.enabled = false;
             m_gpgsRateButtonImage.enabled = true;
@@ -644,7 +644,7 @@ public class SocialmediaManager : MonoBehaviour
 
     public void GooglePlayGamesLoggedOut()
     {
-        if(!GameManager.m_isQuitButtonTapped)
+        if(!GameManager.b_quitButtonTapped)
         {
             m_gpgsLogInButtonImage.enabled = true;
             m_gpgsRateButtonImage.enabled = false;
