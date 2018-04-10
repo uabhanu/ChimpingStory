@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Banana : MonoBehaviour
 {
-    Achievement _collect3BananasAchievement , _collect6BananasAchievement;
+    Achievement[] _bananaAchievements;
+    bool _bGotAllAchievements;
     BoxCollider2D _bananaCollider2D;
     Camera _mainCamera;
 	LandChimp _landChimp;
@@ -13,18 +14,18 @@ public class Banana : MonoBehaviour
 	SpriteRenderer _bananaRenderer;
     Vector3 _positionOnScreen;
 
-    [SerializeField] string[] m_bananaCollectionAchievements;
+    [SerializeField] string[] _bananaCollectionAchievements;
 
     void Start()
     {
 		_bananaCollider2D = GetComponent<BoxCollider2D>();
 		_bananaRenderer = GetComponent<SpriteRenderer>();
-        _collect3BananasAchievement = PlayGamesPlatform.Instance.GetAchievement("CgkInMKFu8wYEAIQBw");
-        _collect6BananasAchievement = PlayGamesPlatform.Instance.GetAchievement("CgkInMKFu8wYEAIQCA");
+        _bGotAllAchievements = false;
 		_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
         _mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         _socialmediaManager = GameObject.Find("SocialmediaManager").GetComponent<SocialmediaManager>();
         _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        Invoke("GetAchievements" , 0.5f);
     }
 
     void Update() 
@@ -51,22 +52,54 @@ public class Banana : MonoBehaviour
         }
 	}
 
+    void GetAchievements()
+    {
+        //TODO For some reason, these are null
+        _bananaAchievements[0] = PlayGamesPlatform.Instance.GetAchievement(_bananaCollectionAchievements[0]);
+        _bananaAchievements[1] = PlayGamesPlatform.Instance.GetAchievement(_bananaCollectionAchievements[1]);
+        _bananaAchievements[2] = PlayGamesPlatform.Instance.GetAchievement(_bananaCollectionAchievements[2]);
+        _bananaAchievements[3] = PlayGamesPlatform.Instance.GetAchievement(_bananaCollectionAchievements[3]);
+        _bananaAchievements[4] = PlayGamesPlatform.Instance.GetAchievement(_bananaCollectionAchievements[4]);
+
+        if(_bananaAchievements[0] != null && _bananaAchievements[1] != null && _bananaAchievements[2] != null && _bananaAchievements[3] != null && _bananaAchievements[4] != null)
+        {
+            _bGotAllAchievements = true;
+        }
+
+        if(!_bGotAllAchievements)
+        {
+            Invoke("GetAchievements" , 0.5f);
+        }
+    }
+
     void OnTriggerEnter2D(Collider2D tri2D)
     {
         if(tri2D.gameObject.tag.Equals("Player"))
         {
-            if(SocialmediaManager.b_gpgsLoggedIn)
-            {
-                if(!_collect3BananasAchievement.IsUnlocked)
+            //if(_bGotAllAchievements)
+            //{
+                _socialmediaManager.GooglePlayGamesIncrementalAchievements(_bananaCollectionAchievements[0] , 1);
+
+                if(_bananaAchievements[0].IsUnlocked)
                 {
-                    _socialmediaManager.GooglePlayGamesIncrementalAchievements(m_bananaCollectionAchievements[0] , 1);
+                    _socialmediaManager.GooglePlayGamesIncrementalAchievements(_bananaCollectionAchievements[1] , 1);
                 }
 
-                if(_collect3BananasAchievement.IsUnlocked)
+                if(_bananaAchievements[1].IsUnlocked)
                 {
-                    _socialmediaManager.GooglePlayGamesIncrementalAchievements(m_bananaCollectionAchievements[1] , 1);
+                    _socialmediaManager.GooglePlayGamesIncrementalAchievements(_bananaCollectionAchievements[2] , 1);
                 }
-            }
+
+                if(_bananaAchievements[2].IsUnlocked)
+                {
+                    _socialmediaManager.GooglePlayGamesIncrementalAchievements(_bananaCollectionAchievements[3] , 1);
+                }
+
+                if(_bananaAchievements[3].IsUnlocked)
+                {
+                    _socialmediaManager.GooglePlayGamesIncrementalAchievements(_bananaCollectionAchievements[4] , 1);
+                }
+            //}
 
             if(_landChimp.m_isSlipping)
             {
