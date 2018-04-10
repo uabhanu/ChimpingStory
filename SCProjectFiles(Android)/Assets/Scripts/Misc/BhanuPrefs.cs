@@ -6,9 +6,9 @@ public class BhanuPrefs : MonoBehaviour
     const string SOUNDS_STATUS_KEY = "SoundsStatus";
     const string SUPERS_KEY = "Supers";
 
-    public static void DeleteAll()
+    public static void DeleteScore()
     {
-        PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteKey(HIGH_SCORE_KEY);
     }
 		
     public static float GetHighScore()

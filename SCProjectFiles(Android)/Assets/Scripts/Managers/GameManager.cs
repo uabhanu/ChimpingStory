@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
     public void AdsCancelButton()
     {
         _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-        BhanuPrefs.DeleteAll();
+        BhanuPrefs.DeleteScore();
 		ScoreManager.m_supersCount = ScoreManager.m_defaultSupersCount;
 		BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
         SceneManager.LoadScene(m_currentScene);
@@ -96,14 +96,14 @@ public class GameManager : MonoBehaviour
         {
             //Debug.LogWarning("Video was skipped - Do NOT reward the player");
             _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-            BhanuPrefs.DeleteAll();
+            BhanuPrefs.DeleteScore();
         }
 
         else if(result == ShowResult.Failed)
         {
             //Debug.LogError("Video failed to show");
             _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-            BhanuPrefs.DeleteAll();
+            BhanuPrefs.DeleteScore();
         }
     }
 
@@ -625,7 +625,7 @@ public class GameManager : MonoBehaviour
             MusicManager.m_musicSource.Play();
         }
         
-        BhanuPrefs.DeleteAll();
+        BhanuPrefs.DeleteScore();
 		ScoreManager.m_supersCount = ScoreManager.m_defaultSupersCount;
 		BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
 		SceneManager.LoadScene(m_currentScene);

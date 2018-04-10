@@ -55,14 +55,17 @@ public class Banana : MonoBehaviour
     {
         if(tri2D.gameObject.tag.Equals("Player"))
         {
-            if(!_collect3BananasAchievement.IsUnlocked)
+            if(SocialmediaManager.b_gpgsLoggedIn)
             {
-                _socialmediaManager.GooglePlayGamesIncrementalAchievements(m_bananaCollectionAchievements[0] , 1);
-            }
+                if(!_collect3BananasAchievement.IsUnlocked)
+                {
+                    _socialmediaManager.GooglePlayGamesIncrementalAchievements(m_bananaCollectionAchievements[0] , 1);
+                }
 
-            if(_collect3BananasAchievement.IsUnlocked)
-            {
-                _socialmediaManager.GooglePlayGamesIncrementalAchievements(m_bananaCollectionAchievements[1] , 1);
+                if(_collect3BananasAchievement.IsUnlocked)
+                {
+                    _socialmediaManager.GooglePlayGamesIncrementalAchievements(m_bananaCollectionAchievements[1] , 1);
+                }
             }
 
             if(_landChimp.m_isSlipping)
