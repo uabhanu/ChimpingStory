@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Banana : MonoBehaviour
 {
-    Achievement[] _bananaAchievements;
+    //Achievement[] _bananaAchievements; //This is not working for some reason
+    Achievement _bananaAchievement01 , _bananaAchievement02 , _bananaAchievement03 , _bananaAchievement04 , _bananaAchievement05;
     bool _bGotAllAchievements;
     BoxCollider2D _bananaCollider2D;
     Camera _mainCamera;
@@ -54,14 +55,13 @@ public class Banana : MonoBehaviour
 
     void GetAchievements()
     {
-        //TODO For some reason, these are null
-        _bananaAchievements[0] = PlayGamesPlatform.Instance.GetAchievement(_bananaCollectionAchievements[0]);
-        _bananaAchievements[1] = PlayGamesPlatform.Instance.GetAchievement(_bananaCollectionAchievements[1]);
-        _bananaAchievements[2] = PlayGamesPlatform.Instance.GetAchievement(_bananaCollectionAchievements[2]);
-        _bananaAchievements[3] = PlayGamesPlatform.Instance.GetAchievement(_bananaCollectionAchievements[3]);
-        _bananaAchievements[4] = PlayGamesPlatform.Instance.GetAchievement(_bananaCollectionAchievements[4]);
+        _bananaAchievement01 = PlayGamesPlatform.Instance.GetAchievement(_bananaCollectionAchievements[0]);
+        _bananaAchievement02 = PlayGamesPlatform.Instance.GetAchievement(_bananaCollectionAchievements[1]);
+        _bananaAchievement03 = PlayGamesPlatform.Instance.GetAchievement(_bananaCollectionAchievements[2]);
+        _bananaAchievement04 = PlayGamesPlatform.Instance.GetAchievement(_bananaCollectionAchievements[3]);
+        _bananaAchievement05 = PlayGamesPlatform.Instance.GetAchievement(_bananaCollectionAchievements[4]);
 
-        if(_bananaAchievements[0] != null && _bananaAchievements[1] != null && _bananaAchievements[2] != null && _bananaAchievements[3] != null && _bananaAchievements[4] != null)
+        if(_bananaAchievement01 != null && _bananaAchievement02 != null && _bananaAchievement03 != null && _bananaAchievement04 != null && _bananaAchievement05 != null)
         {
             _bGotAllAchievements = true;
         }
@@ -76,30 +76,30 @@ public class Banana : MonoBehaviour
     {
         if(tri2D.gameObject.tag.Equals("Player"))
         {
-            //if(_bGotAllAchievements)
-            //{
+            if(_bGotAllAchievements)
+            {
                 _socialmediaManager.GooglePlayGamesIncrementalAchievements(_bananaCollectionAchievements[0] , 1);
 
-                if(_bananaAchievements[0].IsUnlocked)
+                if(_bananaAchievement01.IsUnlocked)
                 {
                     _socialmediaManager.GooglePlayGamesIncrementalAchievements(_bananaCollectionAchievements[1] , 1);
                 }
 
-                if(_bananaAchievements[1].IsUnlocked)
+                if(_bananaAchievement02.IsUnlocked)
                 {
                     _socialmediaManager.GooglePlayGamesIncrementalAchievements(_bananaCollectionAchievements[2] , 1);
                 }
 
-                if(_bananaAchievements[2].IsUnlocked)
+                if(_bananaAchievement03.IsUnlocked)
                 {
                     _socialmediaManager.GooglePlayGamesIncrementalAchievements(_bananaCollectionAchievements[3] , 1);
                 }
 
-                if(_bananaAchievements[3].IsUnlocked)
+                if(_bananaAchievement04.IsUnlocked)
                 {
                     _socialmediaManager.GooglePlayGamesIncrementalAchievements(_bananaCollectionAchievements[4] , 1);
                 }
-            //}
+            }
 
             if(_landChimp.m_isSlipping)
             {

@@ -39,7 +39,7 @@ public class SocialmediaManager : MonoBehaviour
 	{
         _currentScene = SceneManager.GetActiveScene().buildIndex;
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        //b_isGPGsAchievementsTestMode = true;
+        b_isGPGsAchievementsTestMode = true;
         //b_isGooglePlayGamesLeaderboardTestMode = true; //TODO Remove this after testing is finished
 
         if(_currentScene == 0)
