@@ -1,11 +1,14 @@
-﻿using UnityEngine;
+﻿using GooglePlayGames;
+using GooglePlayGames.BasicApi;
+using UnityEngine;
 using UnityEngine.Advertisements;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour 
 {
-	AudioSource _musicSource;
+	Achievement _selfieAchievement;
+    AudioSource _musicSource;
 	Image _adsAcceptButtonImage , _adsCancelButtonImage , _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _continueButtonImage , _exitButtonImage;
     Image _pauseMenuImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage , _restartButtonImage , _restartAcceptButtonImage;
     Image _restartCancelButtonImage , _restartMenuImage , _resumeButtonImage;
@@ -17,7 +20,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] bool _isSelfieFlashEnabled , _isVersionCodeDisplayEnabled;
     [SerializeField] Image _chimpionshipBeltMenuImage , _chimpionshipOKButtonImage , _fallingLevelImage , _landLevelImage , _waterLevelImage;
     [SerializeField] Sprite[] _chimpionshipBeltSprites;
-    [SerializeField] string _chimpionAchievementID;
+    [SerializeField] string _chimpionAchievementID , _selfieAchievementID , _selfieLegendAchievementID;
     [SerializeField] Text _chimpionshipBeltText , _memoryLeakTestText , _versionCodeText;
 
     public static bool b_isMemoryLeakTestingMode , b_isTestingUnityEditor , b_quitButtonTapped;
@@ -217,6 +220,16 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
+    void GetAchievement()
+    {
+        _selfieAchievement = PlayGamesPlatform.Instance.GetAchievement(_selfieAchievementID);
+
+        if(_selfieAchievement == null)
+        {
+            Invoke("GetAchievement" , 0.5f);
+        }
+    }
+
     void GetBhanuObjects()
     {
         m_currentScene = SceneManager.GetActiveScene().buildIndex;
@@ -396,6 +409,7 @@ public class GameManager : MonoBehaviour
         }
 
         _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
+        Invoke("GetAchievement" , 0.5f);
         Time.timeScale = 1;
     }
 
@@ -709,6 +723,12 @@ public class GameManager : MonoBehaviour
 
 	public void SelfieButton()
 	{
+        _socialmediaManager.GooglePlayGamesAchievements(_selfieAchievementID);
+
+        if(_selfieAchievement != null && _selfieAchievement.IsUnlocked)
+        {
+            _socialmediaManager.GooglePlayGamesIncrementalAchievements(_selfieLegendAchievementID , 1);
+        }
 		_soundManager.m_soundsSource.clip = _soundManager.m_selfie;
 		
         if(_soundManager.m_soundsSource.enabled)
