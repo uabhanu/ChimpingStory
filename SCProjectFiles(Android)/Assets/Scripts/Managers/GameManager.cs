@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] bool _isSelfieFlashEnabled , _isVersionCodeDisplayEnabled;
     [SerializeField] Image _chimpionshipBeltMenuImage , _chimpionshipOKButtonImage , _fallingLevelImage , _landLevelImage , _waterLevelImage;
     [SerializeField] Sprite[] _chimpionshipBeltSprites;
+    [SerializeField] string _chimpionAchievementID;
     [SerializeField] Text _chimpionshipBeltText , _memoryLeakTestText , _versionCodeText;
 
     public static bool b_isMemoryLeakTestingMode , b_isTestingUnityEditor , b_quitButtonTapped;
@@ -167,6 +168,7 @@ public class GameManager : MonoBehaviour
         if(LandChimp.IsChimpion())
         {
             m_chimpionshipBeltImage.sprite = _chimpionshipBeltSprites[1];
+            _socialmediaManager.GooglePlayGamesAchievements(_chimpionAchievementID);
         }
         else
         {

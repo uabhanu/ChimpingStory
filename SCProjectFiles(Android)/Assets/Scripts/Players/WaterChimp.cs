@@ -17,6 +17,7 @@ public class WaterChimp : MonoBehaviour
 	SoundManager m_soundManager;
 
 	[SerializeField] Sprite[] m_chimpSprites;		
+    [SerializeField] string _portalAchievementID;
 
     public LevelManager levelManager;   
     public SpriteRenderer chimpRenderer;
@@ -54,6 +55,8 @@ public class WaterChimp : MonoBehaviour
     //Used for initialization
     void Start()
     {
+        _socialmediaManager.GooglePlayGamesAchievements(_portalAchievementID);
+
         StopAllCoroutines();
 
 		m_animator = GetComponent<Animator>();

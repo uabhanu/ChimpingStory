@@ -39,7 +39,7 @@ public class SocialmediaManager : MonoBehaviour
 	{
         _currentScene = SceneManager.GetActiveScene().buildIndex;
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        b_isGPGsAchievementsTestMode = true;
+        //b_isGPGsAchievementsTestMode = true;
         //b_isGooglePlayGamesLeaderboardTestMode = true; //TODO Remove this after testing is finished
 
         if(_currentScene == 0)
@@ -362,6 +362,11 @@ public class SocialmediaManager : MonoBehaviour
     //   }
     #endregion
 
+    public void GooglePlayGamesAchievements(string achievementID)
+    {
+        PlayGamesPlatform.Instance.ReportProgress(achievementID , 100f , (bool success) => {} );
+    }
+
     public void GooglePlayGamesAchievementsButton()
     {
         _bGPGsAchievementsButtonTapped = true;
@@ -380,9 +385,9 @@ public class SocialmediaManager : MonoBehaviour
         }
     }
 
-    public void GooglePlayGamesIncrementalAchievements(string achievement , int steps)
+    public void GooglePlayGamesIncrementalAchievements(string achievementID , int steps)
     {
-        PlayGamesPlatform.Instance.IncrementAchievement(achievement , steps , (bool success) => {});
+        PlayGamesPlatform.Instance.IncrementAchievement(achievementID , steps , (bool success) => {} );
     }
 
     void GooglePlayGamesInit()

@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class LandChimp : MonoBehaviour
 {
     Animator _chimpAnim;
-    bool _isGrounded , _isJumping , _isSliding , _isUI;
+    bool _bIsGrounded , _bHighSlip , _bIsJumping , _bLowSlip , _bIsSliding , _bIsUI;
     float _defaultGameSpeed , _yPosInSuperMode;
 	GameManager _gameManager;
 	LevelCreator _levelCreator;
@@ -15,6 +15,7 @@ public class LandChimp : MonoBehaviour
 	SoundManager _soundManager;
 
     [SerializeField] float _jumpHeight , _lowSlipMultiplier , _highSlipMultiplier , _slipTime;
+    [SerializeField] string _holeAchievementID , _slipAchievementID , _superAchievementID;
     [SerializeField] Transform _raycastBottom , _raycastTop;
 
     public bool m_isSlipping , m_isSuper;
@@ -64,7 +65,7 @@ public class LandChimp : MonoBehaviour
             #if UNITY_EDITOR || UNITY_STANDALONE
             if(Input.GetMouseButtonDown(0))
             {
-                if((_isGrounded && !_isJumping && !_isSliding && !_isUI) || m_isSuper)
+                if((_bIsGrounded && !_bIsJumping && !_bIsSliding && !_bIsUI) || m_isSuper)
                 {
                     Jump();
                 }
@@ -72,7 +73,7 @@ public class LandChimp : MonoBehaviour
 
             if(Input.GetMouseButtonDown(1))
             {
-                if((_isGrounded && !_isJumping && !_isSliding && !_isUI) || m_isSuper)
+                if((_bIsGrounded && !_bIsJumping && !_bIsSliding && !_bIsUI) || m_isSuper)
                 {
                     Slide();
                 }
@@ -107,31 +108,31 @@ public class LandChimp : MonoBehaviour
             {
                 if(hit2D.collider.gameObject.GetComponent<Ground>()) //No Garbage but just like string comparison, m_isGrounded becoming false a little late for your liking
                 {
-                    _isGrounded = true;
+                    _bIsGrounded = true;
                 }
 
                 else if(!hit2D.collider.gameObject.GetComponent<Ground>())
                 {
-                    _isGrounded = false;
+                    _bIsGrounded = false;
                     SlideFinished();
                 }
 
                 else
                 {
-                    _isGrounded = false;
+                    _bIsGrounded = false;
                     SlideFinished();
                 }
             }
 
             else if(!hit2D)
             {
-                _isGrounded = false;
+                _bIsGrounded = false;
                 SlideFinished();
             }
 
             else
             {
-                _isGrounded = false;
+                _bIsGrounded = false;
                 SlideFinished();
             }
         }
@@ -157,12 +158,12 @@ public class LandChimp : MonoBehaviour
 
 	public void Jump()
     {
-        if(_isGrounded && !_isJumping && !_isSliding && !_isUI) //This check exists in Update also for extra support as it's slow
+        if(_bIsGrounded && !_bIsJumping && !_bIsSliding && !_bIsUI) //This check exists in Update also for extra support as it's slow
         {
             _chimpAnim.SetBool("Jump" , true);
             _chimpBody2D.velocity = new Vector2(_chimpBody2D.velocity.x , _jumpHeight);
             SelfieAppear();
-            _isJumping = true;
+            _bIsJumping = true;
             Invoke("JumpFinished" , 0.55f);
 		    _soundManager.m_soundsSource.clip = _soundManager.m_jump;
 
@@ -181,7 +182,7 @@ public class LandChimp : MonoBehaviour
     void JumpFinished()
     {
         _chimpAnim.SetBool("Jump" , false);
-        _isJumping = false;      
+        _bIsJumping = false;      
         
         if(!m_isSuper)
         {
@@ -198,6 +199,7 @@ public class LandChimp : MonoBehaviour
     {
         if(tri2D.gameObject.tag.Equals("Fall"))
         {
+            _socialmediaManager.GooglePlayGamesIncrementalAchievements(_holeAchievementID , 1);
 			_soundManager.m_soundsSource.clip = _soundManager.m_fallDeath;
 
 			if(_soundManager.m_soundsSource.enabled)
@@ -232,6 +234,7 @@ public class LandChimp : MonoBehaviour
 
 		if(tri2D.gameObject.tag.Equals("Super"))
 		{
+            _socialmediaManager.GooglePlayGamesAchievements(_superAchievementID);
 			Super();
 		}
     }
@@ -250,12 +253,12 @@ public class LandChimp : MonoBehaviour
 
     public void Slide()
     {
-		if(_isGrounded && !_isJumping && !_isUI)
+		if(_bIsGrounded && !_bIsJumping && !_bIsUI)
 		{
 			_chimpAnim.SetBool("Jog" , false);
 			_chimpAnim.SetBool("Slide" , true);
 			SelfieAppear();
-			_isSliding = true;
+			_bIsSliding = true;
 			Invoke("SlideFinished" , 0.75f);
 		}
     }
@@ -263,9 +266,9 @@ public class LandChimp : MonoBehaviour
     void SlideFinished()
     {
         _chimpAnim.SetBool("Slide" , false);
-		_isSliding = false;
+		_bIsSliding = false;
 
-        if(!_isJumping)
+        if(!_bIsJumping)
         {
             SelfieDisappear();
         }
@@ -277,10 +280,12 @@ public class LandChimp : MonoBehaviour
 
         if(_levelCreator.m_gameSpeed <= 8)
         {
+            _bHighSlip = true;
             _levelCreator.m_gameSpeed *= _highSlipMultiplier;
         }
         else
         {
+            _bLowSlip = true;
             _levelCreator.m_gameSpeed *= _lowSlipMultiplier;
         }
         
@@ -294,7 +299,21 @@ public class LandChimp : MonoBehaviour
 
         if(!m_isSuper)
         {
-            _levelCreator.m_gameSpeed /= _highSlipMultiplier;
+            if(_bHighSlip)
+            {
+                _levelCreator.m_gameSpeed /= _highSlipMultiplier;
+                _bHighSlip = false;
+                _bLowSlip = false;
+                _socialmediaManager.GooglePlayGamesAchievements(_slipAchievementID);
+            }
+            
+            else if(_bLowSlip)
+            {
+                _levelCreator.m_gameSpeed /= _lowSlipMultiplier;
+                _bHighSlip = false;
+                _bLowSlip = false;
+                _socialmediaManager.GooglePlayGamesAchievements(_slipAchievementID);
+            }
         }
         
         m_isSlipping = false;
@@ -302,7 +321,7 @@ public class LandChimp : MonoBehaviour
 
 	void Super()
 	{
-        _isGrounded = false;
+        _bIsGrounded = false;
         m_isSuper = true;
         _chimpAnim.SetBool("Super" , true);
         _jumpHeight *= 1.5f;
@@ -325,12 +344,12 @@ public class LandChimp : MonoBehaviour
     {
         if(EventSystem.current.currentSelectedGameObject != null)
         {
-            _isUI = true;
+            _bIsUI = true;
         }
 
         else if(EventSystem.current.currentSelectedGameObject == null)
         {
-            _isUI = false;
+            _bIsUI = false;
         }
 
         _gameManager.ChimpionshipBelt();
