@@ -55,14 +55,13 @@ public class WaterChimp : MonoBehaviour
     //Used for initialization
     void Start()
     {
-        _socialmediaManager.GooglePlayGamesAchievements(_portalAchievementID);
-
         StopAllCoroutines();
 
 		m_animator = GetComponent<Animator>();
         m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         m_levelGenerator = GameObject.Find("LevelGenerator").GetComponent<LevelGenerator>();
         _socialmediaManager = GameObject.Find("SocialmediaManager").GetComponent<SocialmediaManager>();
+        _socialmediaManager.GooglePlayGamesAchievements(_portalAchievementID);
         _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
         m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 
@@ -83,7 +82,7 @@ public class WaterChimp : MonoBehaviour
     
     void Update()
     {
-        m_gameManager.ChimpionshipBelt();
+        //m_gameManager.ChimpionshipBelt();
 
         if(SocialmediaManager.b_gpgsLoggedIn)
         {

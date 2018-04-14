@@ -40,7 +40,8 @@ public class SocialmediaManager : MonoBehaviour
         _currentScene = SceneManager.GetActiveScene().buildIndex;
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         //b_isGPGsAchievementsTestMode = true;
-        //b_isGooglePlayGamesLeaderboardTestMode = true; //TODO Remove this after testing is finished
+        //b_isGPGsLeaderboardTestMode = true; //TODO Remove this after testing is finished
+        //b_isGPGsLogInTestMode = true;
 
         if(_currentScene == 0)
         {
@@ -54,13 +55,21 @@ public class SocialmediaManager : MonoBehaviour
             //Invoke("FacebookLogInCheck" , 0.2f);
             #endregion
             m_gpgsLogInButtonImage = GameObject.Find("GPGsLogInButton").GetComponent<Image>();
+            m_gpgsLogInTestText = GameObject.Find("GPGsLogInTestText").GetComponent<Text>();
             m_gpgsProfilePicImage = GameObject.Find("GPGsProfilePicImage").GetComponent<Image>();
             m_gpgsProfilePicMaskImage = GameObject.Find("GPGsProfilePicMask").GetComponent<Image>();
-            m_gpgsUsernameText = GameObject.Find("GPGsUsernameText").GetComponent<Text>();
             m_gpgsRateButtonImage = GameObject.Find("GPGsRateButton").GetComponent<Image>();
+            m_gpgsUsernameText = GameObject.Find("GPGsUsernameText").GetComponent<Text>();
             m_noInternetText = GameObject.Find("NoInternetText").GetComponent<Text>();
+            m_noProfilePicText = GameObject.Find("NoProfilePicText").GetComponent<Text>();
+            m_noUsernameText = GameObject.Find("NoUsernameText").GetComponent<Text>();
             GooglePlayGamesInit();
             Invoke("GooglePlayGamesLogInCheck" , 0.2f);
+
+            if(b_isGPGsLogInTestMode)
+            {
+                m_gpgsLogInTestText.enabled = true;
+            }
         }
 
         if(_currentScene > 0)
@@ -402,26 +411,7 @@ public class SocialmediaManager : MonoBehaviour
     {
         GooglePlayGamesLeaderboardPlayerRank();
 
-        if(GameManager.m_firstTimeUIButtonsTutorial == 0)
-        {
-            GameManager.m_uiButtonsTutorialMenuObj.SetActive(false);
-
-            if(b_gpgsLeaderboardButtonAvailable)
-            {
-                _gpgsLeaderboardUpdateAcceptButtonImage.enabled = true;
-                _gpgsLeaderboardUpdateCancelButtonImage.enabled = true;
-                _gpgsLeaderboardLogInCheckText.enabled = false;
-                _gpgsMenuImage.enabled = true;
-                _gpgsLeaderboardUpdateText.enabled = true;
-            }
-            else
-            {
-                _gpgsMenuImage.enabled = true;
-                _gpgsLeaderboardNotLoggedInOKButtonImage.enabled = true;
-                _gpgsLeaderboardLogInCheckText.enabled = true;
-            }
-        }
-        else
+        if(GameManager.m_firstTimeUIButtonsTutorial == 1)
         {
             if(b_gpgsLeaderboardButtonAvailable)
             {
@@ -480,23 +470,12 @@ public class SocialmediaManager : MonoBehaviour
     public void GooglePlayGamesLeaderboardNotLoggedInOKButton()
     {
         GooglePlayGamesLeaderboardPlayerRank();
-        
-        if(GameManager.m_firstTimeUIButtonsTutorial == 0)
-        {
-            GameManager.m_uiButtonsTutorialMenuObj.SetActive(true);
-            _gpgsLeaderboardLogInCheckText.enabled = false;
-            _gpgsLeaderboardNotLoggedInOKButtonImage.enabled = false;
-            _gpgsMenuImage.enabled = false;
-        }
-        else
-        {
-            GameManager.m_pauseMenuObj.SetActive(true);
-            _gameManager.ResumeButton();
-            m_gpgsLeaderboardButtonImage.enabled = true;
-            _gpgsLeaderboardLogInCheckText.enabled = false;
-            _gpgsLeaderboardNotLoggedInOKButtonImage.enabled = false;
-            _gpgsMenuImage.enabled = false;
-        }
+        GameManager.m_pauseMenuObj.SetActive(true);
+        _gameManager.ResumeButton();
+        m_gpgsLeaderboardButtonImage.enabled = true;
+        _gpgsLeaderboardLogInCheckText.enabled = false;
+        _gpgsLeaderboardNotLoggedInOKButtonImage.enabled = false;
+        _gpgsMenuImage.enabled = false;
     }
 
     public void GooglePlayGamesLeaderboardPlayerRank()
@@ -544,11 +523,6 @@ public class SocialmediaManager : MonoBehaviour
     public void GooglePlayGamesLeaderboardSuccessOrFailureOKButton()
     {
         GooglePlayGamesLeaderboardPlayerRank();
-
-        if(GameManager.m_firstTimeUIButtonsTutorial == 0)
-        {
-            GameManager.m_uiButtonsTutorialMenuObj.SetActive(true);
-        }
 
         GameManager.m_chimpionshipBeltButtonImage.enabled = true;
         GameManager.m_highScoreDisplayText.enabled = true;
@@ -599,7 +573,6 @@ public class SocialmediaManager : MonoBehaviour
     public void GooglePlayGamesLeaderboardUpdateAcceptButton()
     {
         GooglePlayGamesLeaderboardPlayerRank();
-        GooglePlayGamesLeaderboardScoreGet();
 
         if(b_gpgsLoggedIn) 
         {
@@ -721,17 +694,19 @@ public class SocialmediaManager : MonoBehaviour
     {  
         if(success)
         {
-            GooglePlayGamesLoggedIn();
+            b_gpgsLoggedIn = success;
             GooglePlayGamesLeaderboardPlayerRank();
             m_noInternetText.enabled = false;
         }
         else
         {
-            GooglePlayGamesLoggedOut();
-            m_noInternetText.enabled = true;
-        }
+            b_gpgsLoggedIn = success;
 
-        b_gpgsLoggedIn = success;
+            if(!b_isGPGsLogInTestMode)
+            {
+                m_noInternetText.enabled = true;
+            }
+        }
     }
 
     void GooglePlayGamesLogInCheck()
