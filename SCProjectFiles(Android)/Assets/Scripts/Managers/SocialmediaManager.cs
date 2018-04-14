@@ -404,7 +404,7 @@ public class SocialmediaManager : MonoBehaviour
 
         if(b_gpgsLeaderboardButtonAvailable)
         {
-            GameManager.m_chimpionshipBeltImage.enabled = false;
+            GameManager.m_chimpionshipBeltButtonImage.enabled = false;
             GameManager.m_highScoreDisplayText.enabled = false;
             GameManager.m_highScoreValueText.enabled = false;
 
@@ -444,7 +444,7 @@ public class SocialmediaManager : MonoBehaviour
                 GameManager.m_unmuteButtonImage.enabled = false;
             }
 
-            GameManager.m_chimpionshipBeltImage.enabled = false;
+            GameManager.m_chimpionshipBeltButtonImage.enabled = false;
             GameManager.m_highScoreDisplayText.enabled = false;
             GameManager.m_highScoreValueText.enabled = false;
             GameManager.m_pauseButtonImage.enabled = false;
@@ -512,7 +512,7 @@ public class SocialmediaManager : MonoBehaviour
     public void GooglePlayGamesLeaderboardSuccessOrFailureOKButton()
     {
         GooglePlayGamesLeaderboardPlayerRank();
-        GameManager.m_chimpionshipBeltImage.enabled = true;
+        GameManager.m_chimpionshipBeltButtonImage.enabled = true;
         GameManager.m_highScoreDisplayText.enabled = true;
         GameManager.m_highScoreValueText.enabled = true;
 
@@ -607,7 +607,7 @@ public class SocialmediaManager : MonoBehaviour
             GooglePlayGamesLeaderboardTestMenuAppear();
         }
 
-        GameManager.m_chimpionshipBeltImage.enabled = true;
+        GameManager.m_chimpionshipBeltButtonImage.enabled = true;
         GameManager.m_highScoreDisplayText.enabled = true;
         GameManager.m_highScoreValueText.enabled = true;
 

@@ -32,6 +32,7 @@ TextureImporter:
     21300050: StarFish
     21300052: SwipeHand
     21300054: TreasureChest
+    21300056: ArrowLeft
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -142,7 +143,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 300
+        y: 400
         width: 100
         height: 100
       alignment: 0
@@ -156,7 +157,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 100
-        y: 300
+        y: 400
         width: 100
         height: 100
       alignment: 0
@@ -170,7 +171,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 200
-        y: 300
+        y: 400
         width: 100
         height: 100
       alignment: 0
@@ -184,7 +185,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 300
-        y: 300
+        y: 400
         width: 100
         height: 100
       alignment: 0
@@ -198,7 +199,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 400
-        y: 300
+        y: 400
         width: 100
         height: 100
       alignment: 0
@@ -211,8 +212,8 @@ TextureImporter:
       name: Plant01
       rect:
         serializedVersion: 2
-        x: 506
-        y: 300
+        x: 507
+        y: 400
         width: 94
         height: 100
       alignment: 0
@@ -226,7 +227,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 603
-        y: 300
+        y: 400
         width: 97
         height: 100
       alignment: 0
@@ -240,7 +241,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 200
+        y: 300
         width: 100
         height: 100
       alignment: 0
@@ -254,7 +255,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 100
-        y: 200
+        y: 300
         width: 100
         height: 100
       alignment: 0
@@ -268,7 +269,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 200
-        y: 200
+        y: 300
         width: 100
         height: 100
       alignment: 0
@@ -282,7 +283,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 300
-        y: 200
+        y: 300
         width: 100
         height: 100
       alignment: 0
@@ -296,7 +297,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 400
-        y: 200
+        y: 300
         width: 100
         height: 100
       alignment: 0
@@ -310,7 +311,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 500
-        y: 200
+        y: 300
         width: 100
         height: 100
       alignment: 0
@@ -324,7 +325,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 600
-        y: 200
+        y: 300
         width: 100
         height: 100
       alignment: 0
@@ -338,7 +339,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 100
+        y: 200
         width: 100
         height: 100
       alignment: 0
@@ -352,7 +353,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 100
-        y: 100
+        y: 200
         width: 100
         height: 100
       alignment: 0
@@ -366,7 +367,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 200
-        y: 100
+        y: 200
         width: 100
         height: 100
       alignment: 0
@@ -380,7 +381,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 300
-        y: 100
+        y: 200
         width: 100
         height: 100
       alignment: 0
@@ -394,7 +395,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 400
-        y: 100
+        y: 200
         width: 100
         height: 100
       alignment: 0
@@ -408,7 +409,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 500
-        y: 100
+        y: 200
         width: 100
         height: 100
       alignment: 0
@@ -422,7 +423,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 600
-        y: 100
+        y: 200
         width: 100
         height: 100
       alignment: 0
@@ -436,7 +437,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 100
         width: 100
         height: 100
       alignment: 0
@@ -450,7 +451,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 100
-        y: 0
+        y: 100
         width: 100
         height: 100
       alignment: 0
@@ -464,7 +465,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 200
-        y: 0
+        y: 100
         width: 100
         height: 100
       alignment: 0
@@ -478,7 +479,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 300
-        y: 0
+        y: 100
         width: 100
         height: 100
       alignment: 0
@@ -492,7 +493,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 400
-        y: 0
+        y: 100
         width: 100
         height: 100
       alignment: 0
@@ -506,7 +507,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 500
-        y: 0
+        y: 100
         width: 100
         height: 100
       alignment: 0
@@ -520,6 +521,20 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 600
+        y: 100
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ArrowLeft
+      rect:
+        serializedVersion: 2
+        x: 0
         y: 0
         width: 100
         height: 100

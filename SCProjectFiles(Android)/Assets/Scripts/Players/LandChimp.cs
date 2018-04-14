@@ -60,7 +60,7 @@ public class LandChimp : MonoBehaviour
 
     void BhanuInput()
     {
-        if(GameManager.b_isTestingUnityEditor)
+        if(GameManager.b_isUnityEditorTestingMode)
         {
             #if UNITY_EDITOR || UNITY_STANDALONE
             if(Input.GetMouseButtonDown(0))

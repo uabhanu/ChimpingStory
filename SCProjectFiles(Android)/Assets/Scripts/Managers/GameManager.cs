@@ -17,21 +17,23 @@ public class GameManager : MonoBehaviour
 	SoundManager _soundManager;
 	Text _adsText , _backToLandLoseText , _backToLandWinText , _backToLandWithSuperText , _quitText , _restartText;
 
-	[SerializeField] bool _isSelfieFlashEnabled , _isVersionCodeDisplayEnabled;
+	[SerializeField] bool _bSelfieFlashEnabled , _bVersionCodeDisplayEnabled;
     [SerializeField] Image _chimpionshipBeltMenuImage , _chimpionshipOKButtonImage , _fallingLevelImage , _landLevelImage , _waterLevelImage;
     [SerializeField] Sprite[] _chimpionshipBeltSprites;
     [SerializeField] string _chimpionAchievementID , _selfieAchievementID , _selfieLegendAchievementID;
     [SerializeField] Text _chimpionshipBeltText , _memoryLeakTestText , _versionCodeText;
 
-    public static bool b_isMemoryLeakTestingMode , b_isTestingUnityEditor , b_quitButtonTapped;
+    public static bool b_isFirstTimeUIButtonsTutorialTestingMode , b_isMemoryLeakTestingMode , b_isUnityEditorTestingMode, b_quitButtonTapped;
     public static GameObject m_pauseMenuObj;
-    public static Image m_adsMenuImage , m_chimpionshipBeltImage , m_muteButtonImage , m_pauseButtonImage , m_selfieButtonImage , m_selfiePanelImage , m_unmuteButtonImage;
-    public static int m_currentScene , m_playerMutedSounds;
-    public static Text m_highScoreDisplayText , m_highScoreValueText;
+    public static Image m_adsMenuImage , m_arrow01Image , m_arrow02Image , m_arrow03Image , m_arrow04Image , m_chimpionshipBeltButtonImage , m_muteButtonImage , m_nextButtonImage , m_pauseButtonImage;
+    public static Image m_selfieButtonImage , m_selfiePanelImage , m_uiButtonsTutorialMenuImage , m_unmuteButtonImage;
+    public static int m_currentScene , m_firstTimeUIButtonsTutorial , m_playerMutedSounds;
+    public static Text m_chimpionBeltButtonTutorialText , m_highScoreDisplayText , m_highScoreValueText , m_leaderboardButtonTutorialText , m_muteUnmuteButtonTutorialText , m_pauseButtonTutorialText;
 
     void Start()
 	{
-        //m_isMemoryLeakTestingMode = true; //TODO Remove this for Live Version
+        b_isFirstTimeUIButtonsTutorialTestingMode = true; //TODO Remove this for Live Version
+        //b_isMemoryLeakTestingMode = true; //TODO Remove this for Live Version
         GetBhanuObjects();
     }
 
@@ -41,7 +43,7 @@ public class GameManager : MonoBehaviour
         _adsAcceptButtonImage.enabled = true;
         _adsCancelButtonImage.enabled = true;
         _adsText.enabled = true;
-        m_chimpionshipBeltImage.enabled = false;
+        m_chimpionshipBeltButtonImage.enabled = false;
         
         if(SocialmediaManager.b_isGPGsLeaderboardTestMode)
         {
@@ -123,7 +125,7 @@ public class GameManager : MonoBehaviour
     {
         _backToLandLoseMenuImage.enabled = true;
         _backToLandLoseText.enabled = true;
-        m_chimpionshipBeltImage.enabled = false;
+        m_chimpionshipBeltButtonImage.enabled = false;
 		_continueButtonImage.enabled = true;
 		m_highScoreDisplayText.enabled = false;
 		m_highScoreValueText.enabled = false;
@@ -138,7 +140,7 @@ public class GameManager : MonoBehaviour
     {
         _backToLandWinMenuImage.enabled = true;
         _backToLandWinText.enabled = true;
-        m_chimpionshipBeltImage.enabled = false;
+        m_chimpionshipBeltButtonImage.enabled = false;
 		_continueButtonImage.enabled = true;
 		m_highScoreDisplayText.enabled = false;
 		m_highScoreValueText.enabled = false;
@@ -154,7 +156,7 @@ public class GameManager : MonoBehaviour
         _backToLandWithSuperMenuImage.enabled = true;
         _backToLandWithSuperText.enabled = true;
         _continueButtonImage.enabled = true;
-        m_chimpionshipBeltImage.enabled = false;
+        m_chimpionshipBeltButtonImage.enabled = false;
 		m_highScoreDisplayText.enabled = false;
 		m_highScoreValueText.enabled = false;
         m_muteButtonImage.enabled = false;
@@ -166,22 +168,22 @@ public class GameManager : MonoBehaviour
 
     public void ChimpionshipBelt()
     {
-        m_chimpionshipBeltImage = GameObject.Find("ChimpionshipBeltButton").GetComponent<Image>();
+        m_chimpionshipBeltButtonImage = GameObject.Find("ChimpionshipBeltButton").GetComponent<Image>();
         
         if(LandChimp.IsChimpion())
         {
-            m_chimpionshipBeltImage.sprite = _chimpionshipBeltSprites[1];
+            m_chimpionshipBeltButtonImage.sprite = _chimpionshipBeltSprites[1];
             _socialmediaManager.GooglePlayGamesAchievements(_chimpionAchievementID);
         }
         else
         {
-            m_chimpionshipBeltImage.sprite = _chimpionshipBeltSprites[0];
+            m_chimpionshipBeltButtonImage.sprite = _chimpionshipBeltSprites[0];
         }   
     }
 
     public void ChimpionBeltButton()
     {
-        m_chimpionshipBeltImage.enabled = false;
+        m_chimpionshipBeltButtonImage.enabled = false;
         _chimpionshipBeltMenuImage.enabled = true;
         _chimpionshipBeltText.enabled = true;
         _chimpionshipOKButtonImage.enabled = true;
@@ -193,7 +195,7 @@ public class GameManager : MonoBehaviour
 
     public void ChimpionshipBeltOKButton()
     {
-        m_chimpionshipBeltImage.enabled = true;
+        m_chimpionshipBeltButtonImage.enabled = true;
         _chimpionshipBeltMenuImage.enabled = false;
         _chimpionshipBeltText.enabled = false;
         _chimpionshipOKButtonImage.enabled = false;
@@ -245,7 +247,7 @@ public class GameManager : MonoBehaviour
             _quitCancelButtonImage = GameObject.Find("QuitCancelButton").GetComponent<Image>();
             _quitMenuImage = GameObject.Find("QuitMenu").GetComponent<Image>();
 
-            if(_isVersionCodeDisplayEnabled)
+            if(_bVersionCodeDisplayEnabled)
             {
                 _versionCodeText.enabled = true;
             }
@@ -257,10 +259,36 @@ public class GameManager : MonoBehaviour
             _adsAcceptButtonImage = GameObject.Find("AdsAcceptButton").GetComponent<Image>();
             _adsCancelButtonImage = GameObject.Find("AdsCancelButton").GetComponent<Image>();
             m_adsMenuImage = GameObject.Find("AdsMenu").GetComponent<Image>();
+            m_arrow01Image = GameObject.Find("Arrow01").GetComponent<Image>();
+            m_arrow02Image = GameObject.Find("Arrow02").GetComponent<Image>();
+            m_arrow03Image = GameObject.Find("Arrow03").GetComponent<Image>();
+            m_arrow04Image = GameObject.Find("Arrow04").GetComponent<Image>();
+            #region Better Code for getting Arrows
+            //for(int i = 0; i < m_arrowImages.Length; ++i)
+            //{
+            //    m_arrowImages[i] = GameObject.FindGameObjectWithTag("Arrow").GetComponent<Image>();
+            //}
+            #endregion
+            m_chimpionshipBeltButtonImage = GameObject.Find("ChimpionshipBeltButton").GetComponent<Image>();
+            m_chimpionBeltButtonTutorialText = GameObject.Find("ChimpionBeltButtonTutorialText").GetComponent<Text>();
             _exitButtonImage = GameObject.Find("ExitButton").GetComponent<Image>();
+
+            if(!b_isFirstTimeUIButtonsTutorialTestingMode)
+            {
+                m_firstTimeUIButtonsTutorial = BhanuPrefs.GetFirstTimeUIButtonsTutorialStatus();
+            }
+            else
+            {
+                m_firstTimeUIButtonsTutorial = 0;
+            }
+            
             _landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
+            m_leaderboardButtonTutorialText = GameObject.Find("LeaderboardButtonTutorialText").GetComponent<Text>();
             m_muteButtonImage = GameObject.Find("MuteButton").GetComponent<Image>();
+            m_muteUnmuteButtonTutorialText = GameObject.Find("MuteButtonTutorialText").GetComponent<Text>();
+            m_nextButtonImage = GameObject.Find("NextButton").GetComponent<Image>();
 			m_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
+            m_pauseButtonTutorialText = GameObject.Find("PauseButtonTutorialText").GetComponent<Text>();
             m_pauseMenuObj = GameObject.Find("PauseMenu");
 			_pauseMenuImage = m_pauseMenuObj.GetComponent<Image>();
             _restartText = GameObject.Find("RestartText").GetComponent<Text>();
@@ -272,7 +300,22 @@ public class GameManager : MonoBehaviour
 			m_selfieButtonImage = GameObject.Find("SelfieButton").GetComponent<Image>();
 			m_selfiePanelImage = GameObject.Find("SelfiePanel").GetComponent<Image>();
             _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+            m_uiButtonsTutorialMenuImage = GameObject.Find("UIButtonsTutorialMenu").GetComponent<Image>();
             m_unmuteButtonImage = GameObject.Find("UnmuteButton").GetComponent<Image>();
+
+            if(m_firstTimeUIButtonsTutorial == 0)
+            {
+                m_arrow01Image.enabled = true;
+                m_chimpionshipBeltButtonImage.enabled = false;
+                m_leaderboardButtonTutorialText.enabled = true;
+                m_muteButtonImage.enabled = false;
+                m_muteButtonImage.enabled = false;
+                m_pauseButtonImage.enabled = false;
+                m_nextButtonImage.enabled = true;
+                m_uiButtonsTutorialMenuImage.enabled = true;
+                m_unmuteButtonImage.enabled = false;
+                Time.timeScale = 0;
+            }
 
             if(MusicManager.m_musicSource != null)
             {
@@ -299,7 +342,11 @@ public class GameManager : MonoBehaviour
                 else
                 {
                     _soundManager.m_soundsSource.enabled = false;
-                    m_unmuteButtonImage.enabled = true;
+
+                    if(m_firstTimeUIButtonsTutorial == 1)
+                    {
+                        m_unmuteButtonImage.enabled = true;
+                    }
                 }
             }
         }
@@ -410,7 +457,6 @@ public class GameManager : MonoBehaviour
 
         _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
         Invoke("GetAchievement" , 0.5f);
-        Time.timeScale = 1;
     }
 
     public void GoToFallingLevelButton()
@@ -456,6 +502,66 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void NextButton()
+    {
+        if(m_arrow01Image.enabled)
+        {
+            m_arrow01Image.enabled = false;
+            m_arrow02Image.enabled = true;
+            m_leaderboardButtonTutorialText.enabled = false;
+            m_pauseButtonImage.enabled = true;
+            m_pauseButtonTutorialText.enabled = true;
+        }
+
+        else if(m_arrow02Image.enabled)
+        {
+            m_arrow02Image.enabled = false;
+            m_arrow03Image.enabled = true;
+
+            if(m_playerMutedSounds == 0)
+            {
+                m_muteButtonImage.enabled = true;
+            }
+            else
+            {
+                m_unmuteButtonImage.enabled = true;
+            }
+            
+            m_muteUnmuteButtonTutorialText.enabled = true;
+            m_pauseButtonTutorialText.enabled = false;
+        }
+
+        else if(m_arrow03Image.enabled)
+        {
+            m_arrow03Image.enabled = false;
+            m_arrow04Image.enabled = true;
+            m_chimpionshipBeltButtonImage.enabled = true;
+            m_chimpionBeltButtonTutorialText.enabled = true;
+            m_muteUnmuteButtonTutorialText.enabled = false;
+        }
+
+        else
+        {
+            m_arrow01Image.enabled = false;
+            m_arrow02Image.enabled = false;
+            m_arrow03Image.enabled = false;
+            m_arrow04Image.enabled = false;
+            m_chimpionBeltButtonTutorialText.enabled = false;
+            m_leaderboardButtonTutorialText.enabled = false;
+            m_muteUnmuteButtonTutorialText.enabled = false;
+            m_nextButtonImage.enabled = false;
+            m_pauseButtonTutorialText.enabled = false;
+            m_uiButtonsTutorialMenuImage.enabled = false;
+            Time.timeScale = 1;
+
+            if(!b_isFirstTimeUIButtonsTutorialTestingMode)
+            {
+                m_firstTimeUIButtonsTutorial = 1;
+                BhanuPrefs.SetFirstTimeUIButtonsTutorialStatus(m_firstTimeUIButtonsTutorial);
+            }
+        }
+    }
+
     public void PauseButton()
 	{
         _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
@@ -473,9 +579,9 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if(m_chimpionshipBeltImage != null)
+        if(m_chimpionshipBeltButtonImage != null)
         {
-            m_chimpionshipBeltImage.enabled = false;
+            m_chimpionshipBeltButtonImage.enabled = false;
         }
         
         if(_exitButtonImage != null)
@@ -680,9 +786,9 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if(m_chimpionshipBeltImage != null)
+        if(m_chimpionshipBeltButtonImage != null)
         {
-            m_chimpionshipBeltImage.enabled = true;
+            m_chimpionshipBeltButtonImage.enabled = true;
         }
 
         if(_exitButtonImage != null)
@@ -738,7 +844,7 @@ public class GameManager : MonoBehaviour
 
 		m_selfieButtonImage.enabled = false;
 
-		if(_isSelfieFlashEnabled)
+		if(_bSelfieFlashEnabled)
 		{
 			m_selfiePanelImage.enabled = true;
 			Invoke("EndFlash" , 0.25f);
