@@ -17,6 +17,10 @@ public class GameManager : MonoBehaviour
 	SoundManager _soundManager;
 	Text _adsText , _backToLandLoseText , _backToLandWinText , _backToLandWithSuperText , _quitText , _restartText;
 
+    static Animator _swipeHandAnim;
+    static Image _swipeHandImage , _swipeHandOKButtonImage , _swipeHandPanelImage;
+    static int _firstTimeJump = 0;
+
 	[SerializeField] bool _bSelfieFlashEnabled , _bVersionCodeDisplayEnabled;
     [SerializeField] Image _chimpionshipBeltMenuImage , _chimpionshipOKButtonImage , _landLevelButtonImage , _waterLevelButtonImage;
     [SerializeField] Sprite[] _chimpionshipBeltSprites;
@@ -318,6 +322,10 @@ public class GameManager : MonoBehaviour
 			m_selfieButtonImage = GameObject.Find("SelfieButton").GetComponent<Image>();
 			m_selfiePanelImage = GameObject.Find("SelfiePanel").GetComponent<Image>();
             _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+            _swipeHandAnim = GameObject.Find("SwipeHand").GetComponent<Animator>();
+            _swipeHandImage = GameObject.Find("SwipeHand").GetComponent<Image>();
+            _swipeHandOKButtonImage = GameObject.Find("SwipeHandOKButton").GetComponent<Image>();
+            _swipeHandPanelImage = GameObject.Find("SwipeHandPanel").GetComponent<Image>();
             m_uiButtonsTutorialMenuObj = GameObject.Find("UIButtonsTutorialMenu");
             m_uiButtonsTutorialMenuImage = m_uiButtonsTutorialMenuObj.GetComponent<Image>();
             m_unmuteButton = GameObject.Find("UnmuteButton").GetComponent<Button>();
@@ -484,6 +492,42 @@ public class GameManager : MonoBehaviour
     public void GoToWaterLevelButton()
     {
         SceneManager.LoadScene("WaterSwimmer");
+    }
+
+    public static void JumpTutorial()
+    {
+        if(_firstTimeJump == 0)
+        {
+            m_chimpionshipBeltButtonImage.enabled = false;
+            m_highScoreDisplayText.enabled = false;
+            m_highScoreValueText.enabled = false;
+            m_muteButtonImage.enabled = false;
+            m_pauseButtonImage.enabled = false;
+            SocialmediaManager.m_gpgsLeaderboardButtonImage.enabled = false;
+            _swipeHandAnim.enabled = true;
+            _swipeHandImage.enabled = true;
+            _swipeHandOKButtonImage.enabled = true;
+            _swipeHandPanelImage.enabled = true;
+            m_unmuteButtonImage.enabled = false;
+            _firstTimeJump++;
+            Time.timeScale = 0;
+        }
+    }
+
+    public void JumpTutorialFinished()
+    {
+        m_chimpionshipBeltButtonImage.enabled = true;
+        m_highScoreDisplayText.enabled = true;
+        m_highScoreValueText.enabled = true;
+        m_muteButtonImage.enabled = true;
+        m_pauseButtonImage.enabled = true;
+        SocialmediaManager.m_gpgsLeaderboardButtonImage.enabled = true;
+        _swipeHandAnim.enabled = false;
+        _swipeHandImage.enabled = false;
+        _swipeHandOKButtonImage.enabled = false;
+        _swipeHandPanelImage.enabled = false;
+        m_unmuteButtonImage.enabled = true;
+        Time.timeScale = 1;
     }
 
     public void MuteUnmuteButton()

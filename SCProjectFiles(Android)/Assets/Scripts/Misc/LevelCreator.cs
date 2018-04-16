@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 
 public class LevelCreator : MonoBehaviour
 {
-    bool m_miscObjAdded;
+    bool _bMiscObjAdded;
     LandChimp m_landChimp;
     const float m_tileWidth = 1.25f;
     float m_blankCounter = 0 , m_outofbounceX , m_startUpPosY;
@@ -206,7 +207,7 @@ public class LevelCreator : MonoBehaviour
 
     void RandomizeMiscObject()
     {
-        if(m_landChimp.m_isSuper || m_miscObjAdded)
+        if(m_landChimp.m_isSuper || _bMiscObjAdded)
         {
             return;
         }
@@ -216,7 +217,7 @@ public class LevelCreator : MonoBehaviour
             GameObject banana = m_collectedTiles.transform.Find("Banana").transform.GetChild(0).gameObject;
             banana.transform.parent = m_gameLayer.transform;
             banana.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f, m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 4.3f)));
-            m_miscObjAdded = true;
+            _bMiscObjAdded = true;
         }
 
         else if(Random.Range(0 , 6) == 1)
@@ -224,7 +225,7 @@ public class LevelCreator : MonoBehaviour
             GameObject bananaSkin = m_collectedTiles.transform.Find("BananaSkin").transform.GetChild(0).gameObject;
             bananaSkin.transform.parent = m_gameLayer.transform;
             bananaSkin.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 2f)));
-            m_miscObjAdded = true;
+            _bMiscObjAdded = true;
         }
 
         else if(Random.Range(0 , 6) == 2)
@@ -232,7 +233,7 @@ public class LevelCreator : MonoBehaviour
             GameObject coin = m_collectedTiles.transform.Find("Coin").transform.GetChild(0).gameObject;
             coin.transform.parent = m_gameLayer.transform;
             coin.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 4.3f)));
-            m_miscObjAdded = true;
+            _bMiscObjAdded = true;
         }
 
         else if(Random.Range(0 , 6) == 3 && m_middleCounter > 6.5f)
@@ -240,7 +241,7 @@ public class LevelCreator : MonoBehaviour
             GameObject hurdle = m_collectedTiles.transform.Find("Hurdle").transform.GetChild(0).gameObject;
             hurdle.transform.parent = m_gameLayer.transform;
             hurdle.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 3.3f)));
-            m_miscObjAdded = true;
+            _bMiscObjAdded = true;
         }
 
         else if(Random.Range(0 , 6) == 4)
@@ -248,7 +249,7 @@ public class LevelCreator : MonoBehaviour
             GameObject portal = m_collectedTiles.transform.Find("Portal").transform.GetChild(0).gameObject;
             portal.transform.parent = m_gameLayer.transform;
             portal.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 4.3f)));
-            m_miscObjAdded = true;
+            _bMiscObjAdded = true;
         }
 
         else if(Random.Range(0 , 6) == 5 && ScoreManager.m_supersCount > 0)
@@ -256,7 +257,7 @@ public class LevelCreator : MonoBehaviour
             GameObject super = m_collectedTiles.transform.Find("Super").transform.GetChild(0).gameObject;
             super.transform.parent = m_gameLayer.transform;
             super.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 4.3f)));
-            m_miscObjAdded = true;
+            _bMiscObjAdded = true;
         }        
     }
 
@@ -291,6 +292,7 @@ public class LevelCreator : MonoBehaviour
     {
 		if(m_blankCounter > 0)
         {
+            GameManager.JumpTutorial();
 			SetTile("PF_Blank");
 			m_blankCounter--;
             return;
@@ -303,7 +305,7 @@ public class LevelCreator : MonoBehaviour
 			return;
 		}
 
-        m_miscObjAdded = false;
+        _bMiscObjAdded = false;
 
 		if(m_lastTile == "PF_Blank")
         {
