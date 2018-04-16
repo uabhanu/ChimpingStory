@@ -292,7 +292,6 @@ public class LevelCreator : MonoBehaviour
     {
 		if(m_blankCounter > 0)
         {
-            GameManager.JumpTutorial();
 			SetTile("PF_Blank");
 			m_blankCounter--;
             return;

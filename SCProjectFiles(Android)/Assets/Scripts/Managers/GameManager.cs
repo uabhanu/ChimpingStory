@@ -302,6 +302,7 @@ public class GameManager : MonoBehaviour
             m_chimpionshipBeltButtonImage = GameObject.Find("PF_ChimpionshipBeltButton").GetComponent<Image>();
             m_chimpionshipBeltButtonTutorialText = GameObject.Find("ChimpionBeltButtonTutorialText").GetComponent<Text>();
             _exitButtonImage = GameObject.Find("ExitButton").GetComponent<Image>();
+            _firstTimeJump = BhanuPrefs.GetFirstTimeJumpTutorialStatus();
             _landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
             m_leaderboardButtonTutorialText = GameObject.Find("LeaderboardButtonTutorialText").GetComponent<Text>();
             m_muteButton = GameObject.Find("MuteButton").GetComponent<Button>();
@@ -510,6 +511,7 @@ public class GameManager : MonoBehaviour
             _swipeHandPanelImage.enabled = true;
             m_unmuteButtonImage.enabled = false;
             _firstTimeJump++;
+            BhanuPrefs.SetFirstTimeJumpTutorialStatus(_firstTimeJump);
             Time.timeScale = 0;
         }
     }
