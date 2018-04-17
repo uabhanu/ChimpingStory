@@ -8,7 +8,6 @@ public class LandChimp : MonoBehaviour
     bool _bIsGrounded , _bHighSlip , _bIsJumping , _bLowSlip , _bIsSliding , _bIsUI;
     float _defaultGameSpeed , _yPosInSuperMode;
 	GameManager _gameManager;
-	LevelCreator _levelCreator;
     Rigidbody2D _chimpBody2D;
     RockSpawner _rockSpawner;
     SocialmediaManager _socialmediaManager;
@@ -37,8 +36,7 @@ public class LandChimp : MonoBehaviour
         _chimpAnim = GetComponent<Animator>();
         _chimpBody2D = GetComponent<Rigidbody2D>();
 		_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-		_levelCreator = GameObject.Find("LevelCreator").GetComponent<LevelCreator>();
-        _defaultGameSpeed = _levelCreator.m_gameSpeed;
+        _defaultGameSpeed = LevelCreator.m_gameSpeed;
         LevelCreator.m_middleCounter = 0;
         _rockSpawner = GameObject.Find("RockSpawner").GetComponent<RockSpawner>();
         _socialmediaManager = GameObject.Find("SocialmediaManager").GetComponent<SocialmediaManager>();
@@ -278,15 +276,15 @@ public class LandChimp : MonoBehaviour
     {
         _chimpAnim.SetBool("Slip" , true);
 
-        if(_levelCreator.m_gameSpeed <= 8)
+        if(LevelCreator.m_gameSpeed <= 8)
         {
             _bHighSlip = true;
-            _levelCreator.m_gameSpeed *= _highSlipMultiplier;
+            LevelCreator.m_gameSpeed *= _highSlipMultiplier;
         }
         else
         {
             _bLowSlip = true;
-            _levelCreator.m_gameSpeed *= _lowSlipMultiplier;
+            LevelCreator.m_gameSpeed *= _lowSlipMultiplier;
         }
         
         m_isSlipping = true;
@@ -301,7 +299,7 @@ public class LandChimp : MonoBehaviour
         {
             if(_bHighSlip)
             {
-                _levelCreator.m_gameSpeed /= _highSlipMultiplier;
+                LevelCreator.m_gameSpeed /= _highSlipMultiplier;
                 _bHighSlip = false;
                 _bLowSlip = false;
                 _socialmediaManager.GooglePlayGamesAchievements(_slipAchievementID);
@@ -309,7 +307,7 @@ public class LandChimp : MonoBehaviour
             
             else if(_bLowSlip)
             {
-                _levelCreator.m_gameSpeed /= _lowSlipMultiplier;
+                LevelCreator.m_gameSpeed /= _lowSlipMultiplier;
                 _bHighSlip = false;
                 _bLowSlip = false;
                 _socialmediaManager.GooglePlayGamesAchievements(_slipAchievementID);
@@ -326,7 +324,7 @@ public class LandChimp : MonoBehaviour
         _chimpAnim.SetBool("Super" , true);
         _jumpHeight *= 1.5f;
 		SelfieAppear();
-        _levelCreator.m_gameSpeed = _defaultGameSpeed;
+        LevelCreator.m_gameSpeed = _defaultGameSpeed;
         SlipFinished();
         _rockSpawner.StartSpawnRoutine();
 		Invoke("SuperFinished" , 30.25f);

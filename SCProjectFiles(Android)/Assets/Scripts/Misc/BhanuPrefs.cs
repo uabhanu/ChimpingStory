@@ -3,6 +3,7 @@
 public class BhanuPrefs : MonoBehaviour
 {
     const string FIRST_TIME_JUMP_TUTORIAL_KEY = "FirstTimeJumpTutorial";
+    const string FIRST_TIME_SLIDE_TUTORIAL_KEY = "FirstTimeSlideTutorial";
     const string FIRST_TIME_UI_BUTTONS_TUTORIAL_KEY = "FirstTimeUIButtonsTutorial";
     const string HIGH_SCORE_KEY = "HighScore";
     const string SOUNDS_STATUS_KEY = "SoundsStatus";
@@ -23,6 +24,16 @@ public class BhanuPrefs : MonoBehaviour
         if(PlayerPrefs.HasKey(FIRST_TIME_JUMP_TUTORIAL_KEY))
         {
             return PlayerPrefs.GetInt(FIRST_TIME_JUMP_TUTORIAL_KEY);
+        }
+
+        return 0;
+    }
+
+    public static int GetFirstTimeSlideTutorialStatus()
+    {
+        if(PlayerPrefs.HasKey(FIRST_TIME_SLIDE_TUTORIAL_KEY))
+        {
+            return PlayerPrefs.GetInt(FIRST_TIME_SLIDE_TUTORIAL_KEY);
         }
 
         return 0;
@@ -71,6 +82,11 @@ public class BhanuPrefs : MonoBehaviour
     public static void SetFirstTimeJumpTutorialStatus(int status)
     {
         PlayerPrefs.SetInt(FIRST_TIME_JUMP_TUTORIAL_KEY , status);
+    }
+
+    public static void SetFirstTimeSlideTutorialStatus(int status)
+    {
+        PlayerPrefs.SetInt(FIRST_TIME_SLIDE_TUTORIAL_KEY , status);
     }
 
     public static void SetFirstTimeUIButtonsTutorialStatus(int status)

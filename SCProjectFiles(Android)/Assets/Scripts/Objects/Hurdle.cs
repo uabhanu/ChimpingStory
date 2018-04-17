@@ -2,18 +2,20 @@
 
 public class Hurdle : MonoBehaviour
 {
-    Camera m_mainCamera;
-    LandChimp m_landChimp;
-    Collider2D m_hurdleCollider2D;
-    SpriteRenderer m_hurdleRenderer;
-    [SerializeField] Vector3 m_positionOnScreen;
+    Camera _mainCamera;
+    LandChimp _landChimp;
+    Collider2D _hurdleCollider2D;
+    SpriteRenderer _hurdleRenderer;
+    Transform _gameLayer;
+    Vector3 _positionOnScreen;
 
     void Start()
     {
-        m_hurdleCollider2D = GetComponent<Collider2D>();
-        m_hurdleRenderer = GetComponent<SpriteRenderer>();
-        m_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
-        m_mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        _gameLayer = GameObject.Find("GameLayer").transform;
+        _hurdleCollider2D = GetComponent<Collider2D>();
+        _hurdleRenderer = GetComponent<SpriteRenderer>();
+        _landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
+        _mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
     }
 	
 	void Update()
@@ -23,19 +25,24 @@ public class Hurdle : MonoBehaviour
             return;
         }
 
-        m_positionOnScreen = m_mainCamera.WorldToScreenPoint(transform.position);
+        _positionOnScreen = _mainCamera.WorldToScreenPoint(transform.position);
 
-        if(m_landChimp.m_isSlipping || m_landChimp.m_isSuper)
+        if(_positionOnScreen.x < 700 && transform.IsChildOf(_gameLayer))
         {
-            m_hurdleCollider2D.enabled = false;
-            m_hurdleRenderer.enabled = false;
+            GameManager.FirstTimeSlideTutorial();
+        }
+
+        if(_landChimp.m_isSlipping || _landChimp.m_isSuper)
+        {
+            _hurdleCollider2D.enabled = false;
+            _hurdleRenderer.enabled = false;
         }
         else
         {
-            if(m_positionOnScreen.x >= 972)
+            if(_positionOnScreen.x >= 972)
             {
-                m_hurdleCollider2D.enabled = true;
-                m_hurdleRenderer.enabled = true;
+                _hurdleCollider2D.enabled = true;
+                _hurdleRenderer.enabled = true;
             }
         }
     }

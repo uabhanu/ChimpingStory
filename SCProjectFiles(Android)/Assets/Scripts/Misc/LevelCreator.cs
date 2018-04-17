@@ -12,14 +12,15 @@ public class LevelCreator : MonoBehaviour
 	int m_heightLevel = 0;
 	string m_lastTile = "PF_GroundRight";
 
-    public float m_gameSpeed;
     public GameObject m_tilePos;
-    public static float m_middleCounter = 0;
+
+    public static float m_gameSpeed , m_middleCounter = 0;
 
 	void Start() 
 	{
         m_collectedTiles = GameObject.Find("Tiles");
         m_gameLayer = GameObject.Find("GameLayer");
+        m_gameSpeed = 6f;
         m_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
 
 		for(int i = 0; i < 30; i++)
@@ -216,11 +217,11 @@ public class LevelCreator : MonoBehaviour
         {
             GameObject banana = m_collectedTiles.transform.Find("Banana").transform.GetChild(0).gameObject;
             banana.transform.parent = m_gameLayer.transform;
-            banana.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f, m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 4.3f)));
+            banana.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 4.3f)));
             _bMiscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 6) == 1)
+        else if(Random.Range(0 , 6) == 1 && m_gameSpeed < 8)
         {
             GameObject bananaSkin = m_collectedTiles.transform.Find("BananaSkin").transform.GetChild(0).gameObject;
             bananaSkin.transform.parent = m_gameLayer.transform;
@@ -258,7 +259,7 @@ public class LevelCreator : MonoBehaviour
             super.transform.parent = m_gameLayer.transform;
             super.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 4.3f)));
             _bMiscObjAdded = true;
-        }        
+        }
     }
 
     void SetTile(string type)

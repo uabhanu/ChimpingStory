@@ -4,7 +4,7 @@ public class Blank : MonoBehaviour
 {
     Camera _mainCamera;
     Transform _gameLayer;
-    [SerializeField] Vector3 _positionOnScreen;
+    Vector3 _positionOnScreen;
 
     void Start()
     {
@@ -21,9 +21,9 @@ public class Blank : MonoBehaviour
 
         _positionOnScreen = _mainCamera.WorldToScreenPoint(transform.position);
 
-        if(_positionOnScreen.x < 600 && transform.IsChildOf(_gameLayer))
+        if(_positionOnScreen.x < 700 && transform.IsChildOf(_gameLayer))
         {
-            GameManager.JumpTutorial();
+            GameManager.FirstTimeJumpTutorial();
         }
     }
 }
