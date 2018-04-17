@@ -356,8 +356,8 @@ public class GameManager : MonoBehaviour
             m_muteButtonImage = GameObject.Find("MuteButton").GetComponent<Image>();
             m_muteUnmuteButtonTutorialText = GameObject.Find("MuteButtonTutorialText").GetComponent<Text>();
             m_nextButtonImage = GameObject.Find("NextButton").GetComponent<Image>();
-            m_pauseButton = GameObject.Find("PauseButton").GetComponent<Button>();
-			m_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
+            m_pauseButton = GameObject.Find("PF_PauseButton").GetComponent<Button>();
+			m_pauseButtonImage = GameObject.Find("PF_PauseButton").GetComponent<Image>();
             m_pauseButtonTutorialText = GameObject.Find("PauseButtonTutorialText").GetComponent<Text>();
             m_pauseMenuObj = GameObject.Find("PauseMenu");
 			_pauseMenuImage = m_pauseMenuObj.GetComponent<Image>();
