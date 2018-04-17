@@ -288,6 +288,11 @@ public class GameManager : MonoBehaviour
     void GetBhanuObjects()
     {
         m_currentScene = SceneManager.GetActiveScene().buildIndex;
+        m_muteButton = GameObject.Find("MuteButton").GetComponent<Button>();
+        m_muteButtonImage = GameObject.Find("MuteButton").GetComponent<Image>();
+        _socialmediaManager = GameObject.Find("SocialmediaManager").GetComponent<SocialmediaManager>();
+        m_unmuteButton = GameObject.Find("UnmuteButton").GetComponent<Button>();
+        m_unmuteButtonImage = GameObject.Find("UnmuteButton").GetComponent<Image>();
 
         if(!b_isFirstTimeTutorialTestingMode)
         {
@@ -301,8 +306,6 @@ public class GameManager : MonoBehaviour
             m_firstTimeUIButtonsTutorial = 0;
             m_playerMutedSounds = 0;
         }
-        
-        _socialmediaManager = GameObject.Find("SocialmediaManager").GetComponent<SocialmediaManager>();
 
         if(m_currentScene == 0)
         {
@@ -315,10 +318,31 @@ public class GameManager : MonoBehaviour
 
             if(MusicManager.m_musicSource != null)
             {
-                if(m_playerMutedSounds == 0)
+                if(!MusicManager.m_musicSource.isPlaying && m_playerMutedSounds == 0)
                 {
                     MusicManager.m_musicSource.Play();
+                    m_muteButtonImage.enabled = true;
                 }
+
+                else if(MusicManager.m_musicSource.isPlaying && m_playerMutedSounds == 0)
+                {
+                    m_muteButtonImage.enabled = true;
+                }
+
+                else if(MusicManager.m_musicSource.isPlaying && m_playerMutedSounds == 1)
+                {
+                    MusicManager.m_musicSource.Pause();
+                    m_unmuteButtonImage.enabled = true;
+                }
+
+                else
+                {
+                    m_unmuteButtonImage.enabled = true;
+                }
+            }
+            else
+            {
+                Invoke("GetBhanuObjects" , 0.5f);
             }
 
             if(_bVersionCodeDisplayEnabled)
@@ -352,8 +376,6 @@ public class GameManager : MonoBehaviour
             _firstTimeSlide = BhanuPrefs.GetFirstTimeSlideTutorialStatus();
             _landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
             m_leaderboardButtonTutorialText = GameObject.Find("LeaderboardButtonTutorialText").GetComponent<Text>();
-            m_muteButton = GameObject.Find("MuteButton").GetComponent<Button>();
-            m_muteButtonImage = GameObject.Find("MuteButton").GetComponent<Image>();
             m_muteUnmuteButtonTutorialText = GameObject.Find("MuteButtonTutorialText").GetComponent<Text>();
             m_nextButtonImage = GameObject.Find("NextButton").GetComponent<Image>();
             m_pauseButton = GameObject.Find("PF_PauseButton").GetComponent<Button>();
@@ -378,8 +400,6 @@ public class GameManager : MonoBehaviour
             _swipeHandPanelImage = GameObject.Find("SwipeHandPanel").GetComponent<Image>();
             m_uiButtonsTutorialMenuObj = GameObject.Find("UIButtonsTutorialMenu");
             m_uiButtonsTutorialMenuImage = m_uiButtonsTutorialMenuObj.GetComponent<Image>();
-            m_unmuteButton = GameObject.Find("UnmuteButton").GetComponent<Button>();
-            m_unmuteButtonImage = GameObject.Find("UnmuteButton").GetComponent<Image>();
 
             if(m_firstTimeUIButtonsTutorial == 0)
             {
@@ -419,11 +439,7 @@ public class GameManager : MonoBehaviour
                 else
                 {
                     _soundManager.m_soundsSource.enabled = false;
-
-                    if(m_firstTimeUIButtonsTutorial == 1)
-                    {
-                        m_unmuteButtonImage.enabled = true;
-                    }
+                    m_unmuteButtonImage.enabled = true;
                 }
             }
         }
@@ -573,6 +589,30 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+
+        else if(m_currentScene == 0)
+        {
+            if(MusicManager.m_musicSource != null)
+            {
+                if(m_muteButtonImage.enabled)
+                {
+                    m_muteButtonImage.enabled = false;
+                    MusicManager.m_musicSource.Pause();
+                    m_playerMutedSounds = 1;
+                    BhanuPrefs.SetSoundsStatus(m_playerMutedSounds);
+                    m_unmuteButtonImage.enabled = true;
+                }
+
+                else if(!m_muteButtonImage.enabled)
+                {
+                    m_muteButtonImage.enabled = true;
+                    MusicManager.m_musicSource.Play();
+                    m_playerMutedSounds = 0;
+                    BhanuPrefs.SetSoundsStatus(m_playerMutedSounds);
+                    m_unmuteButtonImage.enabled = false;
+                }
+            }
+        }
     }
 
     public void NextButton()
@@ -715,6 +755,7 @@ public class GameManager : MonoBehaviour
         //    SocialmediaManager.m_facebookShareTestMenuObj.SetActive(false);
         //}
         MusicManager.m_musicSource.Pause();
+        m_muteButtonImage.enabled = false;
         b_quitButtonTapped = true;
         SocialmediaManager.m_gpgsLogInButtonImage.enabled = false;
         SocialmediaManager.m_gpgsProfilePicImage.enabled = false;
@@ -738,6 +779,7 @@ public class GameManager : MonoBehaviour
 		_quitAcceptButtonImage.enabled = true;
 		_quitCancelButtonImage.enabled = true;
 		_quitText.enabled = true;
+        m_unmuteButtonImage.enabled = false;
 	}
 
 	public void QuitAcceptButton()
@@ -766,6 +808,11 @@ public class GameManager : MonoBehaviour
         if(m_playerMutedSounds == 0)
         {
             MusicManager.m_musicSource.Play();
+            m_muteButtonImage.enabled = true;
+        }
+        else
+        {
+            m_unmuteButtonImage.enabled = true;
         }
 
         b_quitButtonTapped = false;

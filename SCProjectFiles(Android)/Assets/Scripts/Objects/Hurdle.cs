@@ -25,9 +25,9 @@ public class Hurdle : MonoBehaviour
             return;
         }
 
-        _positionOnScreen = _mainCamera.WorldToScreenPoint(transform.position);
+        _positionOnScreen = _mainCamera.ScreenToWorldPoint(transform.position);
 
-        if(_positionOnScreen.x < 700 && transform.IsChildOf(_gameLayer))
+        if(_positionOnScreen.x <= -8.81f && transform.IsChildOf(_gameLayer))
         {
             GameManager.FirstTimeSlideTutorial();
         }

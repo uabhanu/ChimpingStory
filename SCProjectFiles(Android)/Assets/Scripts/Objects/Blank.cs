@@ -9,7 +9,7 @@ public class Blank : MonoBehaviour
     void Start()
     {
         _gameLayer = GameObject.Find("GameLayer").transform;
-        _mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();    
+        _mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();  
     }
 
     void Update() 
@@ -19,9 +19,9 @@ public class Blank : MonoBehaviour
 			return;
 		}
 
-        _positionOnScreen = _mainCamera.WorldToScreenPoint(transform.position);
+        _positionOnScreen = _mainCamera.ScreenToWorldPoint(transform.position);
 
-        if(_positionOnScreen.x < 700 && transform.IsChildOf(_gameLayer))
+        if(_positionOnScreen.x <= -8.81f && transform.IsChildOf(_gameLayer))
         {
             GameManager.FirstTimeJumpTutorial();
         }
