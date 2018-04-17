@@ -442,7 +442,7 @@ public class GameManager : MonoBehaviour
 			m_highScoreDisplayText = GameObject.Find("HighScoreTextDisplay").GetComponent<Text>();
 			m_highScoreValueText = GameObject.Find("HighScoreValueDisplay").GetComponent<Text>();
             m_muteButtonImage = GameObject.Find("MuteButton").GetComponent<Image>();
-			m_pauseButtonImage = GameObject.Find("PauseButton").GetComponent<Image>();
+			m_pauseButtonImage = GameObject.Find("PF_PauseButton").GetComponent<Image>();
 			m_pauseMenuObj = GameObject.Find("PauseMenu");
 			_pauseMenuImage = m_pauseMenuObj.GetComponent<Image>();
 			_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();

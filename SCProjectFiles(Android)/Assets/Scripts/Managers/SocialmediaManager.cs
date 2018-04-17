@@ -83,13 +83,13 @@ public class SocialmediaManager : MonoBehaviour
             m_gpgsLeaderboardButtonImage = m_gpgsLeaderboardButtonObj.GetComponent<Image>();
             _gpgsLeaderboardNotLoggedInOKButtonImage = GameObject.Find("NotLoggedInOKButton").GetComponent<Image>();
             _gpgsLeaderboardSuccessOrFailedOKButtonImage = GameObject.Find("SuccessOrFailedOKButton").GetComponent<Image>();
-            m_gpgsLeaderboardTestMenuImage = GameObject.Find("GPGsLeaderboardTestMenu").GetComponent<Image>();
+            m_gpgsLeaderboardTestMenuImage = GameObject.Find("PF_GPGsLeaderboardTestMenu").GetComponent<Image>();
             m_gpgsLeaderboardTestGetButtonImage = GameObject.Find("TestGetButton").GetComponent<Image>();
             m_gpgsLeaderboardTestSetButtonImage = GameObject.Find("TestSetButton").GetComponent<Image>();
             _gpgsLeaderboardUpdateAcceptButtonImage = GameObject.Find("UpdateAcceptButton").GetComponent<Image>();
             _gpgsLeaderboardUpdateCancelButtonImage = GameObject.Find("UpdateCancelButton").GetComponent<Image>();
             _gpgsLeaderboardUpdateText = GameObject.Find("UpdateText").GetComponent<Text>();
-            _gpgsMenuImage = GameObject.Find("GPGsMenu").GetComponent<Image>();
+            _gpgsMenuImage = GameObject.Find("PF_GPGsMenu").GetComponent<Image>();
         }
     }
 
