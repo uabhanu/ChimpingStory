@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour 
 {
-	Achievement _selfieAchievement;
+	Achievement _selfieAchievement , _undisputedChimpionAchievement;
     AudioSource _musicSource;
 	Image _adsAcceptButtonImage , _adsCancelButtonImage , _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _continueButtonImage , _exitButtonImage;
     Image _pauseMenuImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage , _restartButtonImage , _restartAcceptButtonImage;
@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] bool _bSelfieFlashEnabled , _bVersionCodeDisplayEnabled;
     [SerializeField] Image _chimpionshipBeltMenuImage , _chimpionshipOKButtonImage , _landLevelButtonImage , _waterLevelButtonImage;
     [SerializeField] Sprite[] _chimpionshipBeltSprites;
-    [SerializeField] string _chimpionAchievementID , _selfieAchievementID , _selfieLegendAchievementID;
+    [SerializeField] string _chimpionAchievementID , _selfieAchievementID , _selfieLegendAchievementID , _undisputedChimpionAchievementID;
     [SerializeField] Text _chimpionshipBeltText , _memoryLeakTestText , _versionCodeText;
 
     public static bool b_isFirstTimeTutorialTestingMode , b_isMemoryLeakTestingMode , b_isUnityEditorTestingMode, b_quitButtonTapped;
@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
 	{
-       //b_isFirstTimeTutorialTestingMode = true; //TODO Remove this for Live Version
+       b_isFirstTimeTutorialTestingMode = true; //TODO Remove this for Live Version
         //b_isMemoryLeakTestingMode = true; //TODO Remove this for Live Version
         GetBhanuObjects();
     }
@@ -277,11 +277,48 @@ public class GameManager : MonoBehaviour
 
     void GetAchievement()
     {
-        _selfieAchievement = PlayGamesPlatform.Instance.GetAchievement(_selfieAchievementID);
-
-        if(_selfieAchievement == null)
+        if(SocialmediaManager.b_gpgsLoggedIn)
         {
+            _selfieAchievement = PlayGamesPlatform.Instance.GetAchievement(_selfieAchievementID);
+            _undisputedChimpionAchievement = PlayGamesPlatform.Instance.GetAchievement(_undisputedChimpionAchievementID);
+        }
+
+        if(_selfieAchievement == null && _undisputedChimpionAchievement == null)
+        {
+            if(m_currentScene > 0)
+            {
+                SocialmediaManager.m_gpgsAchievementsTestText.text = "No Achievement Exists";
+            }
+
             Invoke("GetAchievement" , 0.5f);
+        }
+
+        else if(_selfieAchievement != null && _undisputedChimpionAchievement == null)
+        {
+            if(m_currentScene > 0)
+            {
+                SocialmediaManager.m_gpgsAchievementsTestText.text = "Selfie Achievement Exists but not Undisputed Chimpion";
+            }
+
+            Invoke("GetAchievement" , 0.5f);
+        }
+
+        else if(_selfieAchievement == null && _undisputedChimpionAchievement != null)
+        {
+            if(m_currentScene > 0)
+            {
+                SocialmediaManager.m_gpgsAchievementsTestText.text = "Selfie Achievement Doesn't Exist but Undisputed Chimpion Does";
+            }
+
+            Invoke("GetAchievement" , 0.5f);
+        }
+
+        else
+        {
+            if(m_currentScene > 0)
+            {
+                SocialmediaManager.m_gpgsAchievementsTestText.text = "Both Selfie & Undisputed Chimpion Achievement Exist";
+            }
         }
     }
 
@@ -309,6 +346,11 @@ public class GameManager : MonoBehaviour
             _firstTimeSlide = 0;
             m_firstTimeUIButtonsTutorial = 0;
             m_playerMutedSounds = 0;
+
+            if(m_currentScene > 0)
+            {
+                SocialmediaManager.m_gpgsAchievementsTestText.enabled = true;
+            }
         }
 
         if(m_currentScene == 0)
