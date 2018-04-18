@@ -17,7 +17,7 @@ public class WaterChimp : MonoBehaviour
 	SoundManager m_soundManager;
 
 	[SerializeField] Sprite[] m_chimpSprites;		
-    [SerializeField] string _portalAchievementID;
+    [SerializeField] string _portalAchievementID , _replenishAchievementID;
 
     public LevelManager levelManager;   
     public SpriteRenderer chimpRenderer;
@@ -198,6 +198,7 @@ public class WaterChimp : MonoBehaviour
         
         else if(tri2D.tag == "Super")
         {
+            _socialmediaManager.GooglePlayGamesAchievements(_replenishAchievementID);
             tri2D.GetComponent<Renderer>().enabled = false;
             tri2D.GetComponent<Collider2D>().enabled = false;
 			ScoreManager.m_supersCount++;

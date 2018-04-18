@@ -296,6 +296,8 @@ public class GameManager : MonoBehaviour
 
         if(!b_isFirstTimeTutorialTestingMode)
         {
+            _firstTimeJump = BhanuPrefs.GetFirstTimeJumpTutorialStatus();
+            _firstTimeSlide = BhanuPrefs.GetFirstTimeSlideTutorialStatus();
             m_firstTimeUIButtonsTutorial = BhanuPrefs.GetFirstTimeUIButtonsTutorialStatus();
             m_playerMutedSounds = BhanuPrefs.GetSoundsStatus();
             Time.timeScale = 1;
@@ -303,6 +305,8 @@ public class GameManager : MonoBehaviour
         else
         {
             BhanuPrefs.DeleteAll();
+            _firstTimeJump = 0;
+            _firstTimeSlide = 0;
             m_firstTimeUIButtonsTutorial = 0;
             m_playerMutedSounds = 0;
         }
@@ -372,8 +376,6 @@ public class GameManager : MonoBehaviour
             m_chimpionshipBeltButtonTutorialText = GameObject.Find("ChimpionBeltButtonTutorialText").GetComponent<Text>();
             _defaultGameSpeed = LevelCreator.m_gameSpeed;
             _exitButtonImage = GameObject.Find("ExitButton").GetComponent<Image>();
-            _firstTimeJump = BhanuPrefs.GetFirstTimeJumpTutorialStatus();
-            _firstTimeSlide = BhanuPrefs.GetFirstTimeSlideTutorialStatus();
             _landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
             m_leaderboardButtonTutorialText = GameObject.Find("LeaderboardButtonTutorialText").GetComponent<Text>();
             m_muteUnmuteButtonTutorialText = GameObject.Find("MuteButtonTutorialText").GetComponent<Text>();
