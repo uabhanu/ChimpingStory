@@ -285,41 +285,26 @@ public class GameManager : MonoBehaviour
 
         if(_selfieAchievement == null && _undisputedChimpionAchievement == null)
         {
-            if(m_currentScene > 0)
-            {
-                SocialmediaManager.m_gpgsAchievementsTestText.text = "No Achievement Exists";
-            }
-
             Invoke("GetAchievement" , 0.5f);
         }
 
         else if(_selfieAchievement != null && _undisputedChimpionAchievement == null)
         {
-            if(m_currentScene > 0)
-            {
-                SocialmediaManager.m_gpgsAchievementsTestText.text = "Selfie Achievement Exists but not Undisputed Chimpion";
-            }
-
             Invoke("GetAchievement" , 0.5f);
         }
 
         else if(_selfieAchievement == null && _undisputedChimpionAchievement != null)
         {
-            if(m_currentScene > 0)
-            {
-                SocialmediaManager.m_gpgsAchievementsTestText.text = "Selfie Achievement Doesn't Exist but Undisputed Chimpion Does";
-            }
-
             Invoke("GetAchievement" , 0.5f);
         }
 
-        else
-        {
-            if(m_currentScene > 0)
-            {
-                SocialmediaManager.m_gpgsAchievementsTestText.text = "Both Selfie & Undisputed Chimpion Achievement Exist";
-            }
-        }
+        //else
+        //{
+        //    if(m_currentScene > 0)
+        //    {
+        //        SocialmediaManager.m_gpgsAchievementsTestText.text = "Both Selfie & Undisputed Chimpion Achievement Exist";
+        //    }
+        //}
     }
 
     void GetBhanuObjects()

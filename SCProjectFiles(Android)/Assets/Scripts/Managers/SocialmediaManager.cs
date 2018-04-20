@@ -37,13 +37,13 @@ public class SocialmediaManager : MonoBehaviour
 
     void Start()
 	{
+        b_isGPGsAchievementsTestMode = true;
+        //b_isGPGsLeaderboardTestMode = true; //TODO Remove this after testing is finished
+        //b_isGPGsLogInTestMode = true;
         _currentScene = SceneManager.GetActiveScene().buildIndex;
         Firebase.Messaging.FirebaseMessaging.MessageReceived += FirebaseOnMessageReceived;
         Firebase.Messaging.FirebaseMessaging.TokenReceived += FirebaseOnTokenReceived;
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        //b_isGPGsAchievementsTestMode = true;
-        //b_isGPGsLeaderboardTestMode = true; //TODO Remove this after testing is finished
-        //b_isGPGsLogInTestMode = true;
 
         if(_currentScene == 0)
         {
@@ -375,12 +375,12 @@ public class SocialmediaManager : MonoBehaviour
 
     void FirebaseOnMessageReceived(object sender , Firebase.Messaging.MessageReceivedEventArgs e)
     {
-        Debug.Log("Received new message from : " + e.Message.From);
+        m_gpgsAchievementsTestText.text = "Received new message from : " + e.Message.From;
     }
 
     void FirebaseOnTokenReceived(object sender, Firebase.Messaging.TokenReceivedEventArgs token) 
     {
-        Debug.Log("Received Registration Token : " + token.Token);
+        m_gpgsAchievementsTestText.text = "Received Registration Token : " + token.Token;
     }
 
     public void GooglePlayGamesAchievements(string achievementID)
