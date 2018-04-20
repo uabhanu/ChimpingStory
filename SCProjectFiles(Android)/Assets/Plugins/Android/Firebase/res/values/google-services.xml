@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources tools:keep="@string/firebase_database_url,@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id,@string/default_web_client_id" xmlns:tools="http://schemas.android.com/tools">
+  <string name="firebase_database_url" translatable="false">https://selfie-chimp-29157890.firebaseio.com</string>
+  <string name="gcm_defaultSenderId" translatable="false">845158637852</string>
+  <string name="google_storage_bucket" translatable="false">selfie-chimp-29157890.appspot.com</string>
+  <string name="project_id" translatable="false">selfie-chimp-29157890</string>
+  <string name="google_api_key" translatable="false">AIzaSyBmF7V6HPi7zNO2xP54MMNewdY0YNZ6ftE</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBmF7V6HPi7zNO2xP54MMNewdY0YNZ6ftE</string>
+  <string name="google_app_id" translatable="false">1:845158637852:android:1daf46df5e50cd2c</string>
+  <string name="default_web_client_id" translatable="false">845158637852-p87fagjhf15nfsjdag8dc5gvm3s4csir.apps.googleusercontent.com</string>
+</resources>

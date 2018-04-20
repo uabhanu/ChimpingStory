@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "845158637852",
+    "firebase_url": "https://selfie-chimp-29157890.firebaseio.com",
+    "project_id": "selfie-chimp-29157890",
+    "storage_bucket": "selfie-chimp-29157890.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:845158637852:android:1daf46df5e50cd2c",
+        "android_client_info": {
+          "package_name": "com.FLSs.SC"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "845158637852-p87fagjhf15nfsjdag8dc5gvm3s4csir.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "845158637852-4cmig1ebb6l92t5q1npn86pj0jtnpk72.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.FLSs.SC",
+            "certificate_hash": "5919bb37b070dde62a7e62f9f3f26426e444793a"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmF7V6HPi7zNO2xP54MMNewdY0YNZ6ftE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "845158637852-p87fagjhf15nfsjdag8dc5gvm3s4csir.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
