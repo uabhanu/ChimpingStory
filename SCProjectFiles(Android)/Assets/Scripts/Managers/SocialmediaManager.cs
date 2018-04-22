@@ -37,7 +37,7 @@ public class SocialmediaManager : MonoBehaviour
 
     void Start()
 	{
-        b_isGPGsAchievementsTestMode = true;
+        //b_isGPGsAchievementsTestMode = true;
         //b_isGPGsLeaderboardTestMode = true; //TODO Remove this after testing is finished
         //b_isGPGsLogInTestMode = true;
         _currentScene = SceneManager.GetActiveScene().buildIndex;
