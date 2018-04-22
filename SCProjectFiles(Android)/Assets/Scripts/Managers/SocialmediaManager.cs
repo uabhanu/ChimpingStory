@@ -734,6 +734,19 @@ public class SocialmediaManager : MonoBehaviour
 
     void OneSignalHandleNotificationOpened(OSNotificationOpenedResult notificationResult)
     {
+        
+    }
 
+    void OneSignalHandleNotificationReceived(OSNotificationOpenedResult notificationResult)
+    {
+        OneSignal.PromptForPushNotificationsWithUserResponse(OneSignalPushNotificationsUserResponse);
+    }
+
+    void OneSignalPushNotificationsUserResponse(bool accepted)
+    {
+        if(accepted)
+        {
+            OneSignal.RegisterForPushNotifications();
+        }
     }
 }
