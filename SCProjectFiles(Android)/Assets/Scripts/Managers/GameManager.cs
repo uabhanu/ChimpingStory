@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
 	{
-       b_isFirstTimeTutorialTestingMode = true; //TODO Remove this for Live Version
+       //b_isFirstTimeTutorialTestingMode = true; //TODO Remove this for Live Version
         //b_isMemoryLeakTestingMode = true; //TODO Remove this for Live Version
         GetBhanuObjects();
     }
@@ -334,6 +334,7 @@ public class GameManager : MonoBehaviour
 
             if(m_currentScene > 0)
             {
+                SocialmediaManager.m_gpgsAchievementsTestText.text = "First Time Play Tutorial";
                 SocialmediaManager.m_gpgsAchievementsTestText.enabled = true;
             }
         }
