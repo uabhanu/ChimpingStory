@@ -41,9 +41,9 @@ public class SocialmediaManager : MonoBehaviour
         //b_isGPGsLeaderboardTestMode = true; //TODO Remove this after testing is finished
         //b_isGPGsLogInTestMode = true;
         _currentScene = SceneManager.GetActiveScene().buildIndex;
-        Firebase.Messaging.FirebaseMessaging.MessageReceived += FirebaseOnMessageReceived;
-        Firebase.Messaging.FirebaseMessaging.TokenReceived += FirebaseOnTokenReceived;
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        OneSignal.StartInit("48e311d3-611f-4dc8-9a48-590f7b15a4e8").HandleNotificationOpened(OneSignalHandleNotificationOpened).EndInit();
+        OneSignal.inFocusDisplayType = OneSignal.OSInFocusDisplayOption.Notification;
 
         if(_currentScene == 0)
         {
@@ -372,16 +372,6 @@ public class SocialmediaManager : MonoBehaviour
     //       }
     //   }
     #endregion
-
-    void FirebaseOnMessageReceived(object sender , Firebase.Messaging.MessageReceivedEventArgs e)
-    {
-        m_gpgsAchievementsTestText.text = "Received new message from : " + e.Message.From;
-    }
-
-    void FirebaseOnTokenReceived(object sender, Firebase.Messaging.TokenReceivedEventArgs token) 
-    {
-        m_gpgsAchievementsTestText.text = "Received Registration Token : " + token.Token;
-    }
 
     public void GooglePlayGamesAchievements(string achievementID)
     {
@@ -740,5 +730,10 @@ public class SocialmediaManager : MonoBehaviour
     public void GooglePlayRateButton()
     {
         Application.OpenURL("http://uabhanu.wixsite.com/portfolio"); //TODO Game Play Store URL here after it's live
+    }
+
+    void OneSignalHandleNotificationOpened(OSNotificationOpenedResult notificationResult)
+    {
+
     }
 }
