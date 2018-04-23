@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 public class SocialmediaManager : MonoBehaviour 
 {
-    bool _bGPGsAchievementsButtonTapped , _bGPGsLogInButtonTapped , _bPushNotificationsPermissionGranted;
+    bool _bGPGsAchievementsButtonTapped , _bGPGsLogInButtonTapped;
     //Dictionary<string , object> _highScoresData;
     //Dictionary<string , string> _scores = null;
     //float _highScore;
@@ -45,7 +45,7 @@ public class SocialmediaManager : MonoBehaviour
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         OneSignal.StartInit("48e311d3-611f-4dc8-9a48-590f7b15a4e8").HandleNotificationOpened(OneSignalHandleNotificationOpened).EndInit();
         OneSignal.inFocusDisplayType = OneSignal.OSInFocusDisplayOption.Notification;
-        OneSignal.PromptForPushNotificationsWithUserResponse(OneSignalPushNotificationsUserResponse);
+        OneSignal.permissionObserver += OneSignalPermissionObserver;
 
         if(_currentScene == 0)
         {
@@ -745,13 +745,34 @@ public class SocialmediaManager : MonoBehaviour
         m_oneSignalText.text = "Notification Opened :)"; //Working Great!!
     }
 
-    void OneSignalPushNotificationsUserResponse(bool accepted)
+    public static void OneSignalPermissionObserver(OSPermissionStateChanges stateChange)
     {
-        if(accepted)
+        if(stateChange.from.status == OSNotificationPermission.NotDetermined)
         {
-            OneSignal.RegisterForPushNotifications();
+          if(GameManager.m_currentScene == 0)
+          {
+              m_oneSignalText.text = "No Permission Info :(";
+          }
         }
 
-        _bPushNotificationsPermissionGranted = accepted;
+        else if(stateChange.to.status == OSNotificationPermission.Authorized)
+        {
+            if(GameManager.m_currentScene == 0)
+            {
+                m_oneSignalText.text = "Thanks for accepting notifications :)";
+            }
+
+            OneSignal.RegisterForPushNotifications();
+        }
+             
+        else if(stateChange.to.status == OSNotificationPermission.Denied)
+        {
+            if(GameManager.m_currentScene == 0)
+            {
+                m_oneSignalText.text = "Notifications not accepted. You can turn them on later under your device settings :)";
+            }
+
+            OneSignal.ClearOneSignalNotifications();
+        }
     }
 }

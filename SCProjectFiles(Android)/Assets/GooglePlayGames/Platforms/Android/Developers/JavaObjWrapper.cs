@@ -100,8 +100,6 @@ namespace Google.Developers
                 throw new Exception("Java object already set");
             }
 
-            // TODO: use a specific signature. This could be problematic when
-            // using arguments that are subclasses of the declared parameter types.
             IntPtr method = AndroidJNIHelper.GetConstructorID(RawClass, args);
             jvalue[] jArgs = ConstructArgArray(args);
 
@@ -184,7 +182,6 @@ namespace Google.Developers
             if (typeof(T).IsArray)
             {
                 // make an array
-                //TODO: handle arrays of objects
                 return AndroidJNIHelper.ConvertFromJNIArray<T>(val);
             }
             Debug.Log("Trying cast....");

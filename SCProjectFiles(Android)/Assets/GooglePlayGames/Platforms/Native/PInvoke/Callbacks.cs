@@ -117,7 +117,6 @@ namespace GooglePlayGames.Native.PInvoke
             }
         }
 
-        // TODO(hsakai): Better way of handling this.
         internal static T IntPtrToPermanentCallback<T>(IntPtr handle) where T : class
         {
             return IntPtrToCallback<T>(handle, false);

@@ -187,8 +187,6 @@ namespace GooglePlayGames.Native.PInvoke
 
             if (pointer.Equals(IntPtr.Zero))
             {
-                // TODO(hsakai): For now, explode noisily. In the actual plugin, this probably
-                // should result in something besides an exception.
                 throw new System.InvalidOperationException("There was an error creating a " +
                     "GameServices object. Check for log errors from GamesNativeSDK");
             }

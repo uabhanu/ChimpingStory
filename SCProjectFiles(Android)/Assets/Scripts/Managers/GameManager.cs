@@ -313,6 +313,7 @@ public class GameManager : MonoBehaviour
         m_currentScene = SceneManager.GetActiveScene().buildIndex;
         m_muteButton = GameObject.Find("MuteButton").GetComponent<Button>();
         m_muteButtonImage = GameObject.Find("MuteButton").GetComponent<Image>();
+        OneSignal.permissionObserver += SocialmediaManager.OneSignalPermissionObserver;
         _socialmediaManager = GameObject.Find("SocialmediaManager").GetComponent<SocialmediaManager>();
         m_unmuteButton = GameObject.Find("UnmuteButton").GetComponent<Button>();
         m_unmuteButtonImage = GameObject.Find("UnmuteButton").GetComponent<Image>();
@@ -712,6 +713,7 @@ public class GameManager : MonoBehaviour
 
     public void PauseButton()
 	{
+        OneSignal.permissionObserver += SocialmediaManager.OneSignalPermissionObserver;
         _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
 
         if(m_firstTimeUIButtonsTutorial == 1)
@@ -788,6 +790,7 @@ public class GameManager : MonoBehaviour
         MusicManager.m_musicSource.Pause();
         m_muteButtonImage.enabled = false;
         b_quitButtonTapped = true;
+        OneSignal.permissionObserver += SocialmediaManager.OneSignalPermissionObserver;
         SocialmediaManager.m_gpgsLogInButtonImage.enabled = false;
         SocialmediaManager.m_gpgsProfilePicImage.enabled = false;
         SocialmediaManager.m_gpgsProfilePicMaskImage.enabled = false;
@@ -835,6 +838,8 @@ public class GameManager : MonoBehaviour
         //{
         //    SocialmediaManager.m_facebookShareTestMenuObj.SetActive(true);
         //}
+
+        OneSignal.permissionObserver += SocialmediaManager.OneSignalPermissionObserver;
 
         if(m_playerMutedSounds == 0)
         {
@@ -917,9 +922,9 @@ public class GameManager : MonoBehaviour
 
 	public void ResumeButton()
 	{
+        OneSignal.permissionObserver += SocialmediaManager.OneSignalPermissionObserver;
         _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
 
-        
         if(MusicManager.m_musicSource != null)
         {
             if(m_playerMutedSounds == 0 && !MusicManager.m_musicSource.isPlaying)
