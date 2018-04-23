@@ -178,6 +178,7 @@ public class GameManager : MonoBehaviour
         {
             m_chimpionshipBeltButtonImage.sprite = _chimpionshipBeltSprites[1];
             _socialmediaManager.GooglePlayGamesAchievements(_chimpionAchievementID);
+            //OneSignal.PostNotification();
         }
         else
         {

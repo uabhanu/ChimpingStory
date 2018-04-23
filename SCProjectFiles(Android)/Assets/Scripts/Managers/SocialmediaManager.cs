@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 public class SocialmediaManager : MonoBehaviour 
 {
-    bool _bGPGsAchievementsButtonTapped , _bGPGsLogInButtonTapped;
+    bool _bGPGsAchievementsButtonTapped , _bGPGsLogInButtonTapped , _bPushNotificationsPermissionGranted;
     //Dictionary<string , object> _highScoresData;
     //Dictionary<string , string> _scores = null;
     //float _highScore;
@@ -25,13 +25,13 @@ public class SocialmediaManager : MonoBehaviour
     [SerializeField] Text /*_fbChallengeInviteTestText, _fbScoreText, */_gpgsLeaderboardLogInCheckText , _gpgsLeaderboardTestText , _gpgsLeaderboardUpdateRequestedText;
 
     public static bool /*m_facebookProfilePicExists = false, m_isFacebookShareTestMode = false , */b_gpgsAchievementsButtonAvailable , b_gpgsLeaderboardButtonAvailable , b_isGPGsLeaderboardTestMode;
-    public static bool b_isGPGsAchievementsTestMode , b_isGPGsLogInTestMode , b_gpgsLoggedIn;
+    public static bool b_isGPGsAchievementsTestMode , b_isGPGsLogInTestMode , b_gpgsLoggedIn , b_isOneSignalTestMode;
     public static Button m_gpgsAchievementsButton , m_gpgsLeaderboardButton;
     public static GameObject /*m_facebookShareMenuObj , m_facebookShareSuccessMenuObj , m_facebookShareTestMenuObj , */m_gpgsAchievementsButtonObj , m_gpgsLeaderboardButtonObj;
     public static Image /*m_facebookButtonImage , m_facebookProfilePicImage , */m_gpgsAchievementsButtonImage , m_gpgsLeaderboardButtonImage , m_gpgsLeaderboardTestGetButtonImage , m_gpgsLeaderboardTestMenuImage;
     public static Image m_gpgsLeaderboardTestSetButtonImage , m_gpgsLogInButtonImage , m_gpgsProfilePicImage , m_gpgsProfilePicMaskImage , m_gpgsRateButtonImage;
     public static int m_playerRank;
-    public static Text /*m_facebookUsernameText , */m_gpgsAchievementsTestText , m_gpgsLogInTestText , m_gpgsUsernameText , m_noInternetText, m_noProfilePicText, m_noUsernameText;
+    public static Text /*m_facebookUsernameText , */m_gpgsAchievementsTestText , m_gpgsLogInTestText , m_gpgsUsernameText , m_noInternetText, m_noProfilePicText, m_noUsernameText , m_oneSignalText;
 
     public Sprite[] m_gpgsAchievementsButtonSprites , m_gpgsLeaderboardButtonSprites;
 
@@ -40,10 +40,12 @@ public class SocialmediaManager : MonoBehaviour
         //b_isGPGsAchievementsTestMode = true;
         //b_isGPGsLeaderboardTestMode = true; //TODO Remove this after testing is finished
         //b_isGPGsLogInTestMode = true;
+        b_isOneSignalTestMode = true;
         _currentScene = SceneManager.GetActiveScene().buildIndex;
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         OneSignal.StartInit("48e311d3-611f-4dc8-9a48-590f7b15a4e8").HandleNotificationOpened(OneSignalHandleNotificationOpened).EndInit();
         OneSignal.inFocusDisplayType = OneSignal.OSInFocusDisplayOption.Notification;
+        OneSignal.PromptForPushNotificationsWithUserResponse(OneSignalPushNotificationsUserResponse);
 
         if(_currentScene == 0)
         {
@@ -65,12 +67,18 @@ public class SocialmediaManager : MonoBehaviour
             m_noInternetText = GameObject.Find("NoInternetText").GetComponent<Text>();
             m_noProfilePicText = GameObject.Find("NoProfilePicText").GetComponent<Text>();
             m_noUsernameText = GameObject.Find("NoUsernameText").GetComponent<Text>();
+            m_oneSignalText = GameObject.Find("OneSignalText").GetComponent<Text>();
             GooglePlayGamesInit();
             Invoke("GooglePlayGamesLogInCheck" , 0.2f);
 
             if(b_isGPGsLogInTestMode)
             {
                 m_gpgsLogInTestText.enabled = true;
+            }
+
+            if(b_isOneSignalTestMode)
+            {
+                m_oneSignalText.enabled = true;
             }
         }
 
@@ -734,12 +742,7 @@ public class SocialmediaManager : MonoBehaviour
 
     void OneSignalHandleNotificationOpened(OSNotificationOpenedResult notificationResult)
     {
-        
-    }
-
-    void OneSignalHandleNotificationReceived(OSNotificationOpenedResult notificationResult)
-    {
-        OneSignal.PromptForPushNotificationsWithUserResponse(OneSignalPushNotificationsUserResponse);
+        m_oneSignalText.text = "Notification Opened :)"; //Working Great!!
     }
 
     void OneSignalPushNotificationsUserResponse(bool accepted)
@@ -748,5 +751,7 @@ public class SocialmediaManager : MonoBehaviour
         {
             OneSignal.RegisterForPushNotifications();
         }
+
+        _bPushNotificationsPermissionGranted = accepted;
     }
 }
