@@ -1,7 +1,5 @@
 ﻿using GooglePlayGames;
 using GooglePlayGames.BasicApi;
-using OneSignalPush.MiniJSON;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms;
@@ -502,5 +500,10 @@ public class SocialmediaManager : MonoBehaviour
                 m_oneSignalText.text = "Notifications not accepted. You can turn them on later under your device settings :)";
             }
         }
+    }
+
+    public static void OneSignalSetTag(string key , string value)
+    {
+        OneSignal.SendTag(key , value);
     }
 }

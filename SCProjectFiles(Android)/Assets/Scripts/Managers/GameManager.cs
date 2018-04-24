@@ -178,7 +178,7 @@ public class GameManager : MonoBehaviour
         {
             m_chimpionshipBeltButtonImage.sprite = _chimpionshipBeltSprites[1];
             _socialmediaManager.GooglePlayGamesAchievements(_chimpionAchievementID);
-            //TODO Set User Segment as Chimpionship Hall of Fame
+            SocialmediaManager.OneSignalSetTag("ChimpionClub" , "Member");
         }
     }
 
