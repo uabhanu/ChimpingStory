@@ -1,5 +1,7 @@
 ﻿using GooglePlayGames;
 using GooglePlayGames.BasicApi;
+using OneSignalPush.MiniJSON;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms;
@@ -15,8 +17,8 @@ public class SocialmediaManager : MonoBehaviour
     string _leaderboard = "CgkInMKFu8wYEAIQAw"; //String name doesn't work so use this unique key, same for achievements
 	Text _gpgsLeaderboardUpdateText;
 
-    [SerializeField] Image _oneSignalMenuImage , _oneSignalPushAcceptButtonImage , _oneSignalPushCancelButtonImage;
-    [SerializeField] Text _gpgsLeaderboardLogInCheckText , _gpgsLeaderboardTestText , _gpgsLeaderboardUpdateRequestedText , _oneSignalPushText;
+    //[SerializeField] Image _oneSignalMenuImage , _oneSignalPushAcceptButtonImage , _oneSignalPushCancelButtonImage;
+    [SerializeField] Text _gpgsLeaderboardLogInCheckText , _gpgsLeaderboardTestText , _gpgsLeaderboardUpdateRequestedText/* , _oneSignalPushText*/;
 
     public static bool b_gpgsAchievementsButtonAvailable , b_gpgsLeaderboardButtonAvailable , b_isGPGsLeaderboardTestMode;
     public static bool b_isGPGsAchievementsTestMode , b_isGPGsLogInTestMode , b_gpgsLoggedIn , b_isOneSignalTestMode;
@@ -34,7 +36,7 @@ public class SocialmediaManager : MonoBehaviour
         //b_isGPGsAchievementsTestMode = true;
         //b_isGPGsLeaderboardTestMode = true; //TODO Remove this after testing is finished
         //b_isGPGsLogInTestMode = true;
-        b_isOneSignalTestMode = true;
+        //b_isOneSignalTestMode = true;
         _currentScene = SceneManager.GetActiveScene().buildIndex;
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         OneSignal.StartInit("48e311d3-611f-4dc8-9a48-590f7b15a4e8").HandleNotificationOpened(OneSignalHandleNotificationOpened).EndInit();
@@ -126,6 +128,7 @@ public class SocialmediaManager : MonoBehaviour
 
     public void GooglePlayGamesLeaderboardButton()
     {
+        _gameManager.ChimpionshipBelt();
         GooglePlayGamesLeaderboardPlayerRank();
 
         if(GameManager.m_firstTimeUIButtonsTutorial == 1)
@@ -447,31 +450,31 @@ public class SocialmediaManager : MonoBehaviour
         Application.OpenURL("http://uabhanu.wixsite.com/portfolio"); //TODO Game Play Store URL here after it's live
     }
 
-    public void OneSignalPushAcceptButton()
-    {
-        _oneSignalMenuImage.enabled = false;
-        _oneSignalPushAcceptButtonImage.enabled = false;
-        _oneSignalPushCancelButtonImage.enabled = false;
-        _oneSignalPushText.enabled = false;
-        //TODO Turn Notifications On
-    }
+    //public void OneSignalPushAcceptButton()
+    //{
+    //    _oneSignalMenuImage.enabled = false;
+    //    _oneSignalPushAcceptButtonImage.enabled = false;
+    //    _oneSignalPushCancelButtonImage.enabled = false;
+    //    _oneSignalPushText.enabled = false;
+    //    //TODO Turn Notifications On
+    //}
 
-    public void OneSignalPushCancelButton()
-    {
-        _oneSignalMenuImage.enabled = false;
-        _oneSignalPushAcceptButtonImage.enabled = false;
-        _oneSignalPushCancelButtonImage.enabled = false;
-        _oneSignalPushText.enabled = false;
-        //TODO Turn Notifications Off
-    }
+    //public void OneSignalPushCancelButton()
+    //{
+    //    _oneSignalMenuImage.enabled = false;
+    //    _oneSignalPushAcceptButtonImage.enabled = false;
+    //    _oneSignalPushCancelButtonImage.enabled = false;
+    //    _oneSignalPushText.enabled = false;
+    //    //TODO Turn Notifications Off
+    //}
 
     void OneSignalHandleNotificationOpened(OSNotificationOpenedResult notificationResult)
     {
         //m_oneSignalText.text = "Notification Opened :)"; //Working Great!!
-        _oneSignalMenuImage.enabled = true;
-        _oneSignalPushAcceptButtonImage.enabled = true;
-        _oneSignalPushCancelButtonImage.enabled = true;
-        _oneSignalPushText.enabled = true;
+        //_oneSignalMenuImage.enabled = true;
+        //_oneSignalPushAcceptButtonImage.enabled = true;
+        //_oneSignalPushCancelButtonImage.enabled = true;
+        //_oneSignalPushText.enabled = true;
     }
 
     public static void OneSignalPermissionObserver(OSPermissionStateChanges stateChange)

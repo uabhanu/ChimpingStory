@@ -142,18 +142,6 @@ public class LandChimp : MonoBehaviour
         }
     }
 
-    public static bool IsChimpion()
-    {
-        if(SocialmediaManager.m_playerRank == 1)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
 	public void Jump()
     {
         if(_bIsGrounded && !_bIsJumping && !_bIsSliding && !_bIsUI) //This check exists in Update also for extra support as it's slow
@@ -349,8 +337,6 @@ public class LandChimp : MonoBehaviour
         {
             _bIsUI = false;
         }
-
-        _gameManager.ChimpionshipBelt();
 
         if(SocialmediaManager.b_gpgsLoggedIn)
         {

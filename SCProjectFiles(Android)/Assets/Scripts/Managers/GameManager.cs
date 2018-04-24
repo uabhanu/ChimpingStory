@@ -174,16 +174,12 @@ public class GameManager : MonoBehaviour
 
     public void ChimpionshipBelt()
     {
-        if(LandChimp.IsChimpion())
+        if(IsChimpion())
         {
             m_chimpionshipBeltButtonImage.sprite = _chimpionshipBeltSprites[1];
             _socialmediaManager.GooglePlayGamesAchievements(_chimpionAchievementID);
-            //OneSignal.PostNotification();
+            //TODO Set User Segment as Chimpionship Hall of Fame
         }
-        else
-        {
-            m_chimpionshipBeltButtonImage.sprite = _chimpionshipBeltSprites[0];
-        }   
     }
 
     public void ChimpionshipBeltButton()
@@ -549,6 +545,7 @@ public class GameManager : MonoBehaviour
 
         if(m_currentScene > 0)
         {
+            ChimpionshipBelt();
             m_highScoreDisplayText = GameObject.Find("HighScoreTextDisplay").GetComponent<Text>();
 			m_highScoreValueText = GameObject.Find("HighScoreValueDisplay").GetComponent<Text>();
 
@@ -590,6 +587,18 @@ public class GameManager : MonoBehaviour
     public void GoToWaterLevelButton()
     {
         SceneManager.LoadScene("WaterSwimmer");
+    }
+
+    bool IsChimpion()
+    {
+        if(SocialmediaManager.m_playerRank == 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public void MuteUnmuteButton()

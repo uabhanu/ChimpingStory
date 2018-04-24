@@ -82,8 +82,6 @@ public class WaterChimp : MonoBehaviour
     
     void Update()
     {
-        //m_gameManager.ChimpionshipBelt();
-
         if(SocialmediaManager.b_gpgsLoggedIn)
         {
             SocialmediaManager.b_gpgsAchievementsButtonAvailable = true;
