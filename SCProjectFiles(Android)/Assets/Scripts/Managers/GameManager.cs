@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 	Image _adsAcceptButtonImage , _adsCancelButtonImage , _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _continueButtonImage , _exitButtonImage;
     Image _pauseMenuImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage , _restartButtonImage , _restartAcceptButtonImage;
     Image _restartCancelButtonImage , _restartMenuImage , _resumeButtonImage;
+    int _currentChimpion , _numberofTimesChimpion;
     LandChimp _landChimp;
     SocialmediaManager _socialmediaManager;
 	SoundManager _soundManager;
@@ -177,8 +178,27 @@ public class GameManager : MonoBehaviour
         if(IsChimpion())
         {
             m_chimpionshipBeltButtonImage.sprite = _chimpionshipBeltSprites[1];
+            
+            if(_currentChimpion == 0)
+            {
+                _numberofTimesChimpion++;
+                BhanuPrefs.SetNumberOfTimesChimpion(_numberofTimesChimpion);
+            }
+
+            _currentChimpion = 1;
+            BhanuPrefs.SetCurrentChimpionshipStatus(_currentChimpion);
+            
             _socialmediaManager.GooglePlayGamesAchievements(_chimpionAchievementID);
-            SocialmediaManager.OneSignalSetTag("ChimpionClub" , "Member");
+            SocialmediaManager.OneSignalTagSet("Current Chimpion" , "Yes");
+            SocialmediaManager.OneSignalTagSet("NumberOfTimesChimpion" , _numberofTimesChimpion.ToString());
+        }
+        else
+        {
+            _currentChimpion = 0;
+            BhanuPrefs.SetCurrentChimpionshipStatus(_currentChimpion);
+            //OneSignal.DeleteTag("ChimpionClub"); //TODO Once game is live, remove this line forever
+            //OneSignal.DeleteTag("NumberOfTimesChimpion"); //TODO Once game is live, remove this line forever
+            SocialmediaManager.OneSignalTagSet("Current Chimpion" , "No");
         }
     }
 
@@ -324,11 +344,12 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            BhanuPrefs.DeleteAll();
+            BhanuPrefs.DeleteAll(); //TODO Once game is live, remove this line forever
             _firstTimeJump = 0;
             _firstTimeSlide = 0;
             m_firstTimeUIButtonsTutorial = 0;
             m_playerMutedSounds = 0;
+            OneSignal.DeleteTag("ChimpionClub"); //TODO Once game is live, remove this line forever
 
             if(m_currentScene > 0)
             {
@@ -545,9 +566,11 @@ public class GameManager : MonoBehaviour
 
         if(m_currentScene > 0)
         {
-            ChimpionshipBelt();
+            _currentChimpion = BhanuPrefs.GetCurrentChimpionshipStatus();
             m_highScoreDisplayText = GameObject.Find("HighScoreTextDisplay").GetComponent<Text>();
 			m_highScoreValueText = GameObject.Find("HighScoreValueDisplay").GetComponent<Text>();
+            _numberofTimesChimpion = BhanuPrefs.GetNumberOfTimesChimpion();
+            ChimpionshipBelt();
 
             if(SocialmediaManager.b_isGPGsAchievementsTestMode)
             {
