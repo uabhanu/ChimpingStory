@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 	Image _adsAcceptButtonImage , _adsCancelButtonImage , _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _continueButtonImage , _exitButtonImage;
     Image _pauseMenuImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage , _restartButtonImage , _restartAcceptButtonImage;
     Image _restartCancelButtonImage , _restartMenuImage , _resumeButtonImage;
-    int _currentChimpion , _numberofTimesChimpion;
+    int _currentChimpion , _chimpionshipsCount;
     LandChimp _landChimp;
     SocialmediaManager _socialmediaManager;
 	SoundManager _soundManager;
@@ -175,30 +175,34 @@ public class GameManager : MonoBehaviour
 
     public void ChimpionshipBelt()
     {
-        if(IsChimpion())
+        if(SocialmediaManager.b_gpgsLoggedIn)
         {
-            m_chimpionshipBeltButtonImage.sprite = _chimpionshipBeltSprites[1];
-            
-            if(_currentChimpion == 0)
+            if(IsChimpion())
             {
-                _numberofTimesChimpion++;
-                BhanuPrefs.SetNumberOfTimesChimpion(_numberofTimesChimpion);
-            }
-
-            _currentChimpion = 1;
-            BhanuPrefs.SetCurrentChimpionshipStatus(_currentChimpion);
+                m_chimpionshipBeltButtonImage.sprite = _chimpionshipBeltSprites[1];
             
-            _socialmediaManager.GooglePlayGamesAchievements(_chimpionAchievementID);
-            SocialmediaManager.OneSignalTagSet("Current Chimpion" , "Yes");
-            SocialmediaManager.OneSignalTagSet("NumberOfTimesChimpion" , _numberofTimesChimpion.ToString());
+                if(_currentChimpion == 0)
+                {
+                    _chimpionshipsCount++;
+                    BhanuPrefs.SetNumberOfTimesChimpion(_chimpionshipsCount);
+                    _currentChimpion = 1;
+                    BhanuPrefs.SetCurrentChimpionshipStatus(_currentChimpion);
+                }
+            
+                _socialmediaManager.GooglePlayGamesAchievements(_chimpionAchievementID);
+                SocialmediaManager.OneSignalTagSet("Current Chimpion " , "Yes");
+                SocialmediaManager.OneSignalTagSet("Chimpionships Won " , _chimpionshipsCount.ToString());
+            }
+            else
+            {
+                _currentChimpion = 0;
+                BhanuPrefs.SetCurrentChimpionshipStatus(_currentChimpion);
+                SocialmediaManager.OneSignalTagSet("Current Chimpion " , "No");
+            }
         }
         else
         {
-            _currentChimpion = 0;
-            BhanuPrefs.SetCurrentChimpionshipStatus(_currentChimpion);
-            //OneSignal.DeleteTag("ChimpionClub"); //TODO Once game is live, remove this line forever
-            //OneSignal.DeleteTag("NumberOfTimesChimpion"); //TODO Once game is live, remove this line forever
-            SocialmediaManager.OneSignalTagSet("Current Chimpion" , "No");
+            SocialmediaManager.OneSignalTagSet("Current Chimpion " , "Status Unknown because GPGs Not Logged In");
         }
     }
 
@@ -349,7 +353,6 @@ public class GameManager : MonoBehaviour
             _firstTimeSlide = 0;
             m_firstTimeUIButtonsTutorial = 0;
             m_playerMutedSounds = 0;
-            OneSignal.DeleteTag("ChimpionClub"); //TODO Once game is live, remove this line forever
 
             if(m_currentScene > 0)
             {
@@ -569,8 +572,9 @@ public class GameManager : MonoBehaviour
             _currentChimpion = BhanuPrefs.GetCurrentChimpionshipStatus();
             m_highScoreDisplayText = GameObject.Find("HighScoreTextDisplay").GetComponent<Text>();
 			m_highScoreValueText = GameObject.Find("HighScoreValueDisplay").GetComponent<Text>();
-            _numberofTimesChimpion = BhanuPrefs.GetNumberOfTimesChimpion();
-            ChimpionshipBelt();
+            _chimpionshipsCount = BhanuPrefs.GetNumberOfTimesChimpion();
+            
+            Invoke("ChimpionshipBelt" , 0.9f);
 
             if(SocialmediaManager.b_isGPGsAchievementsTestMode)
             {
@@ -745,7 +749,6 @@ public class GameManager : MonoBehaviour
 
     public void PauseButton()
 	{
-        OneSignal.permissionObserver += SocialmediaManager.OneSignalPermissionObserver;
         _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
 
         if(m_firstTimeUIButtonsTutorial == 1)
@@ -822,7 +825,6 @@ public class GameManager : MonoBehaviour
         MusicManager.m_musicSource.Pause();
         m_muteButtonImage.enabled = false;
         b_quitButtonTapped = true;
-        OneSignal.permissionObserver += SocialmediaManager.OneSignalPermissionObserver;
         SocialmediaManager.m_gpgsLogInButtonImage.enabled = false;
         SocialmediaManager.m_gpgsProfilePicImage.enabled = false;
         SocialmediaManager.m_gpgsProfilePicMaskImage.enabled = false;
@@ -954,7 +956,6 @@ public class GameManager : MonoBehaviour
 
 	public void ResumeButton()
 	{
-        OneSignal.permissionObserver += SocialmediaManager.OneSignalPermissionObserver;
         _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
 
         if(MusicManager.m_musicSource != null)

@@ -1,6 +1,5 @@
 ﻿using GooglePlayGames;
 using GooglePlayGames.BasicApi;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms;
@@ -503,7 +502,7 @@ public class SocialmediaManager : MonoBehaviour
         }
     }
 
-    public static void OneSignalTagDelete(string key , string value)
+    public static void OneSignalTagDelete(string key)
     {
         OneSignal.DeleteTag(key);
     }
