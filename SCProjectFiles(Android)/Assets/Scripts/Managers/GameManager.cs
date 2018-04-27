@@ -10,13 +10,12 @@ public class GameManager : MonoBehaviour
 	Achievement _selfieAchievement , _undisputedChimpionAchievement;
     AudioSource _musicSource;
 	Image _adsAcceptButtonImage , _adsCancelButtonImage , _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _continueButtonImage , _exitButtonImage;
-    Image _pauseMenuImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage , _restartButtonImage , _restartAcceptButtonImage;
-    Image _restartCancelButtonImage , _restartMenuImage , _resumeButtonImage;
-    int _currentChimpion , _chimpionshipsCount;
+    Image _pauseMenuImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage , _resumeButtonImage;
+    int _chimpionshipsCount , _currentChimpion;
     LandChimp _landChimp;
     SocialmediaManager _socialmediaManager;
 	SoundManager _soundManager;
-	Text _adsText , _backToLandLoseText , _backToLandWinText , _backToLandWithSuperText , _quitText , _restartText;
+	Text _adsText , _backToLandLoseText , _backToLandWinText , _backToLandWithSuperText , _quitText;
 
     static Animator _swipeDownHandAnimator , _swipeUpHandAnimator;
     static float _defaultGameSpeed;
@@ -184,25 +183,27 @@ public class GameManager : MonoBehaviour
                 if(_currentChimpion == 0)
                 {
                     _chimpionshipsCount++;
-                    BhanuPrefs.SetNumberOfTimesChimpion(_chimpionshipsCount);
+                    BhanuPrefs.SetChimpionshipsCount(_chimpionshipsCount);
+                    SocialmediaManager.OneSignalTagSend("Current Chimpion " , "Yes");
                     _currentChimpion = 1;
                     BhanuPrefs.SetCurrentChimpionshipStatus(_currentChimpion);
                 }
             
                 _socialmediaManager.GooglePlayGamesAchievements(_chimpionAchievementID);
-                SocialmediaManager.OneSignalTagSet("Current Chimpion " , "Yes");
-                SocialmediaManager.OneSignalTagSet("Chimpionships Won " , _chimpionshipsCount.ToString());
             }
             else
             {
+                SocialmediaManager.OneSignalTagSend("Current Chimpion " , "No");
                 _currentChimpion = 0;
                 BhanuPrefs.SetCurrentChimpionshipStatus(_currentChimpion);
-                SocialmediaManager.OneSignalTagSet("Current Chimpion " , "No");
             }
+
+            SocialmediaManager.OneSignalTagSend("Chimpionships Won " , _chimpionshipsCount.ToString());
         }
         else
         {
-            SocialmediaManager.OneSignalTagSet("Current Chimpion " , "Status Unknown because GPGs Not Logged In");
+            SocialmediaManager.OneSignalTagSend("Current Chimpion " , "Status Unknown because GPGs Not Logged In");
+            SocialmediaManager.OneSignalTagSend("Chimpionships Won " , _chimpionshipsCount.ToString());
         }
     }
 
@@ -340,6 +341,7 @@ public class GameManager : MonoBehaviour
 
         if(!b_isFirstTimeTutorialTestingMode)
         {
+            _chimpionshipsCount = BhanuPrefs.GetChimpionshipsCount();
             _firstTimeJump = BhanuPrefs.GetFirstTimeJumpTutorialStatus();
             _firstTimeSlide = BhanuPrefs.GetFirstTimeSlideTutorialStatus();
             m_firstTimeUIButtonsTutorial = BhanuPrefs.GetFirstTimeUIButtonsTutorialStatus();
@@ -349,6 +351,7 @@ public class GameManager : MonoBehaviour
         else
         {
             BhanuPrefs.DeleteAll(); //TODO Once game is live, remove this line forever
+            _chimpionshipsCount = 0;
             _firstTimeJump = 0;
             _firstTimeSlide = 0;
             m_firstTimeUIButtonsTutorial = 0;
@@ -435,12 +438,7 @@ public class GameManager : MonoBehaviour
             m_pauseButtonTutorialText = GameObject.Find("PauseButtonTutorialText").GetComponent<Text>();
             m_pauseMenuObj = GameObject.Find("PauseMenu");
 			_pauseMenuImage = m_pauseMenuObj.GetComponent<Image>();
-            _restartText = GameObject.Find("RestartText").GetComponent<Text>();
 			_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
-            _restartButtonImage = GameObject.Find("RestartButton").GetComponent<Image>();
-            _restartAcceptButtonImage = GameObject.Find("RestartAcceptButton").GetComponent<Image>();
-            _restartCancelButtonImage = GameObject.Find("RestartCancelButton").GetComponent<Image>();
-            _restartMenuImage = GameObject.Find("RestartMenu").GetComponent<Image>();
 			m_selfieButtonImage = GameObject.Find("SelfieButton").GetComponent<Image>();
 			m_selfiePanelImage = GameObject.Find("SelfiePanel").GetComponent<Image>();
             _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
@@ -572,7 +570,7 @@ public class GameManager : MonoBehaviour
             _currentChimpion = BhanuPrefs.GetCurrentChimpionshipStatus();
             m_highScoreDisplayText = GameObject.Find("HighScoreTextDisplay").GetComponent<Text>();
 			m_highScoreValueText = GameObject.Find("HighScoreValueDisplay").GetComponent<Text>();
-            _chimpionshipsCount = BhanuPrefs.GetNumberOfTimesChimpion();
+            _chimpionshipsCount = BhanuPrefs.GetChimpionshipsCount();
             
             Invoke("ChimpionshipBelt" , 0.9f);
 
@@ -789,11 +787,6 @@ public class GameManager : MonoBehaviour
                 SocialmediaManager.m_gpgsLeaderboardButtonObj.SetActive(false);
             }
         
-            if(_restartButtonImage != null)
-            {
-                _restartButtonImage.enabled = true;
-            }
-        
 		    m_pauseButtonImage.enabled = false;
 		    _pauseMenuImage.enabled = true;
 		    _resumeButtonImage.enabled = true;
@@ -909,51 +902,6 @@ public class GameManager : MonoBehaviour
 		_quitText.enabled = false;
 	}
 
-	public void RestartButton()
-	{
-        _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-
-		_exitButtonImage.enabled = false;
-		_pauseMenuImage.enabled = false;
-		_restartButtonImage.enabled = false;
-		_resumeButtonImage.enabled = false;
-
-		_restartMenuImage.enabled = true;
-		_restartAcceptButtonImage.enabled = true;
-		_restartCancelButtonImage.enabled = true;
-		_restartText.enabled = true;
-	}
-
-	public void RestartAcceptButton()
-	{
-        _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-
-        if(MusicManager.m_musicSource != null)
-        {
-            MusicManager.m_musicSource.Play();
-        }
-        
-        BhanuPrefs.DeleteScore();
-		ScoreManager.m_supersCount = ScoreManager.m_defaultSupersCount;
-		BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
-		SceneManager.LoadScene(m_currentScene);
-	}
-
-    public void RestartCancelButton()
-	{
-        _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-
-		_exitButtonImage.enabled = true;
-		_pauseMenuImage.enabled = true;
-		_restartButtonImage.enabled = true;
-		_resumeButtonImage.enabled = true;
-
-		_restartMenuImage.enabled = false;
-		_restartAcceptButtonImage.enabled = false;
-		_restartCancelButtonImage.enabled = false;
-		_restartText.enabled = false;
-	}
-
 	public void ResumeButton()
 	{
         _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
@@ -1002,12 +950,6 @@ public class GameManager : MonoBehaviour
         
 		m_pauseButtonImage.enabled = true;
 		_pauseMenuImage.enabled = false;
-
-        if(_restartButtonImage != null)
-        {
-            _restartButtonImage.enabled = false;
-        }
-
         _resumeButtonImage.enabled = false;
 
 		Time.timeScale = 1;

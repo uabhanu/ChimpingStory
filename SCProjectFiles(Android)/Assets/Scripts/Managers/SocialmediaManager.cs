@@ -507,7 +507,7 @@ public class SocialmediaManager : MonoBehaviour
         OneSignal.DeleteTag(key);
     }
 
-    public static void OneSignalTagSet(string key , string value)
+    public static void OneSignalTagSend(string key , string value)
     {
         OneSignal.SendTag(key , value);
     }

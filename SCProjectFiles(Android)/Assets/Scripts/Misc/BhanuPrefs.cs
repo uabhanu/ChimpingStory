@@ -2,12 +2,12 @@
 
 public class BhanuPrefs : MonoBehaviour
 {
+    const string CHIMPIONSHIPS_COUNT_KEY = "NumberOfTimesChimpion";
     const string CURRENT_CHIMPIONSHIP_STATUS_KEY = "CurrentChimpionshipStatus";
     const string FIRST_TIME_JUMP_TUTORIAL_KEY = "FirstTimeJumpTutorial";
     const string FIRST_TIME_SLIDE_TUTORIAL_KEY = "FirstTimeSlideTutorial";
     const string FIRST_TIME_UI_BUTTONS_TUTORIAL_KEY = "FirstTimeUIButtonsTutorial";
     const string HIGH_SCORE_KEY = "HighScore";
-    const string NUMBER_OF_TIMES_CHIMPION_KEY = "NumberOfTimesChimpion";
     const string SOUNDS_STATUS_KEY = "SoundsStatus";
     const string SUPERS_KEY = "Supers";
 
@@ -19,6 +19,16 @@ public class BhanuPrefs : MonoBehaviour
     public static void DeleteScore()
     {
         PlayerPrefs.DeleteKey(HIGH_SCORE_KEY);
+    }
+
+    public static int GetChimpionshipsCount()
+    {
+        if(PlayerPrefs.HasKey(CHIMPIONSHIPS_COUNT_KEY))
+        {
+            return PlayerPrefs.GetInt(CHIMPIONSHIPS_COUNT_KEY);
+        }
+
+        return 0;
     }
 
     public static int GetCurrentChimpionshipStatus()
@@ -71,16 +81,6 @@ public class BhanuPrefs : MonoBehaviour
         return 0;
     }
 
-    public static int GetNumberOfTimesChimpion()
-    {
-        if(PlayerPrefs.HasKey(NUMBER_OF_TIMES_CHIMPION_KEY))
-        {
-            return PlayerPrefs.GetInt(NUMBER_OF_TIMES_CHIMPION_KEY);
-        }
-
-        return 0;
-    }
-
     public static int GetSoundsStatus()
     {
         if(PlayerPrefs.HasKey(SOUNDS_STATUS_KEY))
@@ -99,6 +99,11 @@ public class BhanuPrefs : MonoBehaviour
         }
 
         return 0;
+    }
+
+    public static void SetChimpionshipsCount(int chimpionshipsCount)
+    {
+        PlayerPrefs.SetInt(CHIMPIONSHIPS_COUNT_KEY , chimpionshipsCount);
     }
 
     public static void SetCurrentChimpionshipStatus(int status)
@@ -124,11 +129,6 @@ public class BhanuPrefs : MonoBehaviour
     public static void SetHighScore(float score)
     {
         PlayerPrefs.SetFloat(HIGH_SCORE_KEY , score);
-    }
-
-    public static void SetNumberOfTimesChimpion(int number)
-    {
-        PlayerPrefs.SetInt(NUMBER_OF_TIMES_CHIMPION_KEY , number);
     }
 
     public static void SetSoundsStatus(int mute)
