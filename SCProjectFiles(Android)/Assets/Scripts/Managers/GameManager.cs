@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
             _socialmediaManager.GooglePlayGamesLeaderboardTestMenuDisappear();
         }
 
-        m_highScoreValueText.enabled = false;
+        m_highScoreLabelText.enabled = false;
         m_highScoreValueText.enabled = false;
         m_muteButtonImage.enabled = false;
         m_pauseButtonImage.enabled = false;
@@ -135,7 +135,7 @@ public class GameManager : MonoBehaviour
         _backToLandLoseText.enabled = true;
         m_chimpionshipBeltButtonImage.enabled = false;
 		_continueButtonImage.enabled = true;
-		m_highScoreValueText.enabled = false;
+		m_highScoreLabelText.enabled = false;
 		m_highScoreValueText.enabled = false;
         m_muteButtonImage.enabled = false;
         m_pauseButtonImage.enabled = false;
@@ -150,7 +150,7 @@ public class GameManager : MonoBehaviour
         _backToLandWinText.enabled = true;
         m_chimpionshipBeltButtonImage.enabled = false;
 		_continueButtonImage.enabled = true;
-		m_highScoreValueText.enabled = false;
+		m_highScoreLabelText.enabled = false;
 		m_highScoreValueText.enabled = false;
         m_muteButtonImage.enabled = false;
         m_pauseButtonImage.enabled = false;
@@ -165,7 +165,7 @@ public class GameManager : MonoBehaviour
         _backToLandWithSuperText.enabled = true;
         _continueButtonImage.enabled = true;
         m_chimpionshipBeltButtonImage.enabled = false;
-		m_highScoreValueText.enabled = false;
+		m_highScoreLabelText.enabled = false;
 		m_highScoreValueText.enabled = false;
         m_muteButtonImage.enabled = false;
         m_pauseButtonImage.enabled = false;
@@ -219,7 +219,7 @@ public class GameManager : MonoBehaviour
             _chimpionshipOKButtonImage.enabled = true;
             m_pauseButtonImage.enabled = false;
             SocialmediaManager.m_gpgsLeaderboardButtonObj.SetActive(false);
-            m_highScoreValueText.enabled = false;
+            m_highScoreLabelText.enabled = false;
             m_highScoreValueText.enabled = false;
             Time.timeScale = 0;
         }
@@ -233,7 +233,7 @@ public class GameManager : MonoBehaviour
         _chimpionshipOKButtonImage.enabled = false;
         m_pauseButtonImage.enabled = true;
         SocialmediaManager.m_gpgsLeaderboardButtonObj.SetActive(true);
-        m_highScoreValueText.enabled = true;
+        m_highScoreLabelText.enabled = true;
         m_highScoreValueText.enabled = true;
         Time.timeScale = 1;
     }
@@ -517,7 +517,7 @@ public class GameManager : MonoBehaviour
             _firstTimePlayTutorialMenuImage = GameObject.Find("FirstTimePlayTutorialMenu").GetComponent<Image>();
             _firstTimePlayTutorialOKButtonImage = GameObject.Find("FirstTimePlayTutorialOKButton").GetComponent<Image>();
             _firstTimePlayTutorialText = GameObject.Find("FirstTimePlayTutorialText").GetComponent<Text>();
-			m_highScoreValueText = GameObject.Find("HighScoreLabelText").GetComponent<Text>();
+			m_highScoreLabelText = GameObject.Find("HighScoreLabelText").GetComponent<Text>();
 			m_highScoreValueText = GameObject.Find("HighScoreValueText").GetComponent<Text>();
             m_muteButtonImage = GameObject.Find("MuteButton").GetComponent<Image>();
 			m_pauseButtonImage = GameObject.Find("PF_PauseButton").GetComponent<Image>();
@@ -593,7 +593,7 @@ public class GameManager : MonoBehaviour
         if(m_currentScene > 0)
         {
             _currentChimpion = BhanuPrefs.GetCurrentChimpionshipStatus();
-            m_highScoreValueText = GameObject.Find("HighScoreLabelText").GetComponent<Text>();
+            m_highScoreLabelText = GameObject.Find("HighScoreLabelText").GetComponent<Text>();
 			m_highScoreValueText = GameObject.Find("HighScoreValueText").GetComponent<Text>();
             _chimpionshipsCount = BhanuPrefs.GetChimpionshipsCount();
             
@@ -799,7 +799,7 @@ public class GameManager : MonoBehaviour
                 _socialmediaManager.GooglePlayGamesLeaderboardTestMenuDisappear();
             }
 
-		    m_highScoreValueText.enabled = false;
+		    m_highScoreLabelText.enabled = false;
 		    m_highScoreValueText.enabled = false;
 
             if(SocialmediaManager.m_gpgsAchievementsButtonObj != null)
@@ -960,7 +960,7 @@ public class GameManager : MonoBehaviour
             _socialmediaManager.GooglePlayGamesLeaderboardTestMenuAppear();
         }
 
-		m_highScoreValueText.enabled = true;
+		m_highScoreLabelText.enabled = true;
 		m_highScoreValueText.enabled = true;
 
         if(SocialmediaManager.m_gpgsAchievementsButtonObj != null)
@@ -1025,7 +1025,7 @@ public class GameManager : MonoBehaviour
     public void SwipeHandOKButton()
     {
         m_chimpionshipBeltButtonImage.enabled = true;
-        m_highScoreValueText.enabled = true;
+        m_highScoreLabelText.enabled = true;
         m_highScoreValueText.enabled = true;
         LevelCreator.m_gameSpeed = _defaultGameSpeed;
 

@@ -129,6 +129,11 @@ public class LevelCreator : MonoBehaviour
         _gameManager.m_highScoreValueText.text = ScoreManager.m_scoreValue.ToString();
         BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
         
+        if(ScoreManager.m_scoreValue >= 5000)
+        {
+            SocialmediaManager.GooglePlayGamesLeaderboardUpdate();
+        }
+        
         Invoke("GameSpeed" , 5.8f);
     }
 

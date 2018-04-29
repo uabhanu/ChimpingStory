@@ -9,14 +9,15 @@ public class SocialmediaManager : MonoBehaviour
 {
     bool _bGPGsAchievementsButtonTapped , _bGPGsLogInButtonTapped;
     GameManager _gameManager;
-	Image _gpgsMenuImage , _gpgsLeaderboardNotLoggedInOKButtonImage , _gpgsLeaderboardSuccessOrFailedOKButtonImage , _gpgsLeaderboardUpdateAcceptButtonImage , _gpgsLeaderboardUpdateCancelButtonImage;
+	Image _gpgsMenuImage , _gpgsLeaderboardNotLoggedInOKButtonImage;
     int _currentScene;
     IScore _highScore;
-    string _leaderboard = "CgkInMKFu8wYEAIQAw"; //String name doesn't work so use this unique key, same for achievements
-	Text _gpgsLeaderboardUpdateText;
+
+    static string _leaderboardID = "CgkInMKFu8wYEAIQAw"; //String name doesn't work so use this unique key, same for achievements
+    static Text _gpgsLeaderboardLogInCheckText;
 
     //[SerializeField] Image _oneSignalMenuImage , _oneSignalPushAcceptButtonImage , _oneSignalPushCancelButtonImage;
-    [SerializeField] Text _gpgsLeaderboardLogInCheckText , _gpgsLeaderboardTestText , _gpgsLeaderboardUpdateRequestedText/* , _oneSignalPushText*/;
+    [SerializeField] Text _gpgsLeaderboardTestText/* , _oneSignalPushText*/;
 
     public static bool b_gpgsAchievementsButtonAvailable , b_gpgsLeaderboardButtonAvailable , b_isGPGsLeaderboardTestMode;
     public static bool b_isGPGsAchievementsTestMode , b_isGPGsLogInTestMode , b_gpgsLoggedIn , b_isOneSignalTestMode;
@@ -77,13 +78,10 @@ public class SocialmediaManager : MonoBehaviour
             m_gpgsLeaderboardButton = m_gpgsLeaderboardButtonObj.GetComponent<Button>();
             m_gpgsLeaderboardButtonImage = m_gpgsLeaderboardButtonObj.GetComponent<Image>();
             _gpgsLeaderboardNotLoggedInOKButtonImage = GameObject.Find("NotLoggedInOKButton").GetComponent<Image>();
-            _gpgsLeaderboardSuccessOrFailedOKButtonImage = GameObject.Find("SuccessOrFailedOKButton").GetComponent<Image>();
             m_gpgsLeaderboardTestMenuImage = GameObject.Find("PF_GPGsLeaderboardTestMenu").GetComponent<Image>();
             m_gpgsLeaderboardTestGetButtonImage = GameObject.Find("TestGetButton").GetComponent<Image>();
             m_gpgsLeaderboardTestSetButtonImage = GameObject.Find("TestSetButton").GetComponent<Image>();
-            _gpgsLeaderboardUpdateAcceptButtonImage = GameObject.Find("UpdateAcceptButton").GetComponent<Image>();
-            _gpgsLeaderboardUpdateCancelButtonImage = GameObject.Find("UpdateCancelButton").GetComponent<Image>();
-            _gpgsLeaderboardUpdateText = GameObject.Find("UpdateText").GetComponent<Text>();
+            _gpgsLeaderboardLogInCheckText = GameObject.Find("LogInCheckText").GetComponent<Text>();
             _gpgsMenuImage = GameObject.Find("PF_GPGsMenu").GetComponent<Image>();
         }
     }
@@ -128,38 +126,18 @@ public class SocialmediaManager : MonoBehaviour
     {
         _gameManager.ChimpionshipBelt();
         GooglePlayGamesLeaderboardPlayerRank();
+        GooglePlayGamesLeaderboardUpdate();
 
         if(GameManager.m_firstTimeUIButtonsTutorial == 1)
         {
             if(b_gpgsLeaderboardButtonAvailable)
             {
-                GameManager.m_chimpionshipBeltButtonImage.enabled = false;
-                _gameManager.m_highScoreValueText.enabled = false;
-                _gameManager.m_highScoreValueText.enabled = false;
-
-                if(GameManager.m_playerMutedSounds == 0)
-                {
-                    GameManager.m_muteButtonImage.enabled = false;
-                }
-                else
-                {
-                    GameManager.m_unmuteButtonImage.enabled = false;
-                }
-
-                GameManager.m_pauseButtonImage.enabled = false;
-                _gpgsLeaderboardUpdateAcceptButtonImage.enabled = true;
-                m_gpgsLeaderboardButtonImage.enabled = false;
-                _gpgsLeaderboardUpdateCancelButtonImage.enabled = true;
-                _gpgsLeaderboardLogInCheckText.enabled = false;
-                _gpgsMenuImage.enabled = true;
-                _gpgsLeaderboardUpdateText.enabled = true;
+                PlayGamesPlatform.Instance.ShowLeaderboardUI();
 
                 if(b_isGPGsLeaderboardTestMode)
                 {
                     GooglePlayGamesLeaderboardTestMenuDisappear();
                 }
-
-                Time.timeScale = 0;
             }
             else
             {
@@ -173,7 +151,7 @@ public class SocialmediaManager : MonoBehaviour
                 }
 
                 GameManager.m_chimpionshipBeltButtonImage.enabled = false;
-                _gameManager.m_highScoreValueText.enabled = false;
+                _gameManager.m_highScoreLabelText.enabled = false;
                 _gameManager.m_highScoreValueText.enabled = false;
                 GameManager.m_pauseButtonImage.enabled = false;
                 m_gpgsLeaderboardButtonImage.enabled = false;
@@ -200,7 +178,7 @@ public class SocialmediaManager : MonoBehaviour
     {
         if(b_gpgsLoggedIn)
         {
-            PlayGamesPlatform.Instance.LoadScores(_leaderboard , LeaderboardStart.TopScores , 20 , LeaderboardCollection.Public , LeaderboardTimeSpan.AllTime , (data) =>
+            PlayGamesPlatform.Instance.LoadScores(_leaderboardID , LeaderboardStart.TopScores , 20 , LeaderboardCollection.Public , LeaderboardTimeSpan.AllTime , (data) =>
             {
                 m_playerRank = data.PlayerScore.rank; //This is the rank of the player in the leaderboard
             });
@@ -216,7 +194,7 @@ public class SocialmediaManager : MonoBehaviour
     {
         if(b_gpgsLoggedIn)
         {
-            PlayGamesPlatform.Instance.LoadScores(_leaderboard , LeaderboardStart.TopScores , 20 , LeaderboardCollection.Public , LeaderboardTimeSpan.AllTime , (data) =>
+            PlayGamesPlatform.Instance.LoadScores(_leaderboardID , LeaderboardStart.TopScores , 20 , LeaderboardCollection.Public , LeaderboardTimeSpan.AllTime , (data) =>
             {
                 _highScore = data.PlayerScore; //This retrieves the player high score 
             });
@@ -231,40 +209,11 @@ public class SocialmediaManager : MonoBehaviour
     {
         if(b_isGPGsLeaderboardTestMode)
         {
-            PlayGamesPlatform.Instance.ReportScore((long)ScoreManager.m_scoreValue , _leaderboard , (bool success) =>
+            PlayGamesPlatform.Instance.ReportScore((long)ScoreManager.m_scoreValue , _leaderboardID , (bool success) =>
             {
                 _gpgsLeaderboardTestText.text = "Score Update : " + success;
             });
         }
-    }
-
-    public void GooglePlayGamesLeaderboardSuccessOrFailureOKButton()
-    {
-        GooglePlayGamesLeaderboardPlayerRank();
-
-        GameManager.m_chimpionshipBeltButtonImage.enabled = true;
-        _gameManager.m_highScoreValueText.enabled = true;
-        _gameManager.m_highScoreValueText.enabled = true;
-
-        if(GameManager.m_playerMutedSounds == 0)
-        {
-            GameManager.m_muteButtonImage.enabled = true;
-        }
-        else
-        {
-            GameManager.m_unmuteButtonImage.enabled = true;
-        }
-
-        GameManager.m_pauseButtonImage.enabled = true;
-        m_gpgsLeaderboardButtonImage.enabled = true;
-        _gpgsLeaderboardSuccessOrFailedOKButtonImage.enabled = false;
-        _gpgsLeaderboardUpdateAcceptButtonImage.enabled = false;
-        _gpgsLeaderboardUpdateCancelButtonImage.enabled = false;
-        _gpgsLeaderboardUpdateRequestedText.enabled = false;
-        _gpgsMenuImage.enabled = false;
-        _gpgsLeaderboardUpdateText.enabled = false;
-        _gpgsLeaderboardLogInCheckText.enabled = false;
-        Time.timeScale = 1;
     }
 
     public void GooglePlayGamesLeaderboardTestMenuAppear()
@@ -288,75 +237,18 @@ public class SocialmediaManager : MonoBehaviour
         
     }
 
-    public void GooglePlayGamesLeaderboardUpdateAcceptButton()
+    public static void GooglePlayGamesLeaderboardUpdate()
     {
-        GooglePlayGamesLeaderboardPlayerRank();
-
         if(b_gpgsLoggedIn) 
         {
-            PlayGamesPlatform.Instance.ReportScore((long)ScoreManager.m_scoreValue , _leaderboard , (bool success) =>
+            PlayGamesPlatform.Instance.ReportScore((long)ScoreManager.m_scoreValue , _leaderboardID , (bool success) =>
             {
                 if(b_isGPGsLeaderboardTestMode)
                 {
                     _gpgsLeaderboardLogInCheckText.text = "Score Update : " + success;
                 }
-
-                _gpgsMenuImage.enabled = true;
-                _gpgsLeaderboardSuccessOrFailedOKButtonImage.enabled = true;
-                _gpgsLeaderboardUpdateAcceptButtonImage.enabled = false;
-                _gpgsLeaderboardUpdateCancelButtonImage.enabled = false;
-                _gpgsLeaderboardUpdateRequestedText.enabled = true;
-                _gpgsLeaderboardUpdateText.enabled = false;
             });
-
-            PlayGamesPlatform.Instance.ShowLeaderboardUI();
         }
-        else
-        {
-            Debug.LogError("Sir Bhanu, Please make sure you are logged in first :) ");
-            _gpgsLeaderboardUpdateAcceptButtonImage.enabled = false;
-            _gpgsLeaderboardUpdateCancelButtonImage.enabled = false;
-            _gpgsLeaderboardUpdateText.enabled = false;
-            _gpgsLeaderboardNotLoggedInOKButtonImage.enabled = true;
-            _gpgsLeaderboardLogInCheckText.enabled = true;
-        }
-    }
-
-    public void GooglePlayGamesLeaderboardUpdateCancelButton()
-    {
-        GooglePlayGamesLeaderboardPlayerRank();
-
-        if(PlayGamesPlatform.Instance.localUser.authenticated)
-        {
-            PlayGamesPlatform.Instance.ShowLeaderboardUI();
-        }
-
-        if(b_isGPGsLeaderboardTestMode)
-        {
-            GooglePlayGamesLeaderboardTestMenuAppear();
-        }
-
-        GameManager.m_chimpionshipBeltButtonImage.enabled = true;
-        _gameManager.m_highScoreValueText.enabled = true;
-        _gameManager.m_highScoreValueText.enabled = true;
-
-        if(GameManager.m_playerMutedSounds == 0)
-        {
-            GameManager.m_muteButtonImage.enabled = true;
-        }
-        else
-        {
-            GameManager.m_unmuteButtonImage.enabled = true;
-        }
-
-        GameManager.m_pauseButtonImage.enabled = true;
-        m_gpgsLeaderboardButtonImage.enabled = true;
-        _gpgsLeaderboardUpdateAcceptButtonImage.enabled = false;
-        _gpgsLeaderboardUpdateCancelButtonImage.enabled = false;
-        _gpgsMenuImage.enabled = false;
-        _gpgsLeaderboardUpdateText.enabled = false;
-        _gpgsLeaderboardLogInCheckText.enabled = false;
-        Time.timeScale = 1;
     }
 
     public void GooglePlayGamesLoggedIn()
