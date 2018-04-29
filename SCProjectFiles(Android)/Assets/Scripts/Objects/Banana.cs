@@ -9,6 +9,7 @@ public class Banana : MonoBehaviour
     bool _bGotAllAchievements;
     BoxCollider2D _bananaCollider2D;
     Camera _mainCamera;
+    GameManager _gameManager;
 	LandChimp _landChimp;
     SocialmediaManager _socialmediaManager;
 	SoundManager _soundManager;
@@ -22,6 +23,7 @@ public class Banana : MonoBehaviour
 		_bananaCollider2D = GetComponent<BoxCollider2D>();
 		_bananaRenderer = GetComponent<SpriteRenderer>();
         _bGotAllAchievements = false;
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 		_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
         _mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         _socialmediaManager = GameObject.Find("SocialmediaManager").GetComponent<SocialmediaManager>();
@@ -110,7 +112,7 @@ public class Banana : MonoBehaviour
                 ScoreManager.m_scoreValue += 25;
             }
 
-            ScoreManager.m_scoreDisplay.text = ScoreManager.m_scoreValue.ToString();
+            _gameManager.m_highScoreValueText.text = ScoreManager.m_scoreValue.ToString();
             BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
 			_soundManager.m_soundsSource.clip = _soundManager.m_bananaCollected;
 

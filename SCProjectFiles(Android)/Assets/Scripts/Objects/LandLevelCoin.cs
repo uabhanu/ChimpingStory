@@ -4,6 +4,7 @@ public class LandLevelCoin : MonoBehaviour
 {
     CircleCollider2D m_coinCollider2D;
     Camera m_mainCamera;
+    GameManager _gameManager;
 	LandChimp m_landChimp;
 	SoundManager m_soundManager;
 	SpriteRenderer m_coinRenderer;
@@ -13,6 +14,7 @@ public class LandLevelCoin : MonoBehaviour
     {
 		m_coinCollider2D = GetComponent<CircleCollider2D>();
 		m_coinRenderer = GetComponent<SpriteRenderer>();
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 		m_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
         m_mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
@@ -53,7 +55,7 @@ public class LandLevelCoin : MonoBehaviour
                 ScoreManager.m_scoreValue += 25;
             }
 
-            ScoreManager.m_scoreDisplay.text = ScoreManager.m_scoreValue.ToString();
+            _gameManager.m_highScoreValueText.text = ScoreManager.m_scoreValue.ToString();
             BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
 			m_soundManager.m_soundsSource.clip = m_soundManager.m_coinCollected;
 			

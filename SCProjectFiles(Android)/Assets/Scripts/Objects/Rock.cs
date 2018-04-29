@@ -3,6 +3,7 @@
 public class Rock : MonoBehaviour 
 {
     Camera m_mainCamera;
+    GameManager _gameManager;
 	LandChimp m_landChimp;
 	Collider2D m_rockCollider2D;
     GameObject m_explosionPrefab , m_explosionSystemObj;
@@ -15,6 +16,7 @@ public class Rock : MonoBehaviour
 	{
         m_explosionPrefab = Resources.Load("PF_Explosion") as GameObject;
         m_explosionSystemObj = GameObject.FindGameObjectWithTag("Explosion");
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         m_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
 		m_mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
 		m_rockCollider2D = GetComponent<Collider2D>();
@@ -55,7 +57,7 @@ public class Rock : MonoBehaviour
 	void SpawnExplosion()
 	{
 		ScoreManager.m_scoreValue += 100;
-        ScoreManager.m_scoreDisplay.text = ScoreManager.m_scoreValue.ToString();
+        _gameManager.m_highScoreValueText.text = ScoreManager.m_scoreValue.ToString();
 		BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
 
 		if(m_explosionSystemObj == null)

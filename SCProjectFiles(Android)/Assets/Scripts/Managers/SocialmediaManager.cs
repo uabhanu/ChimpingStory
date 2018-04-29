@@ -134,8 +134,8 @@ public class SocialmediaManager : MonoBehaviour
             if(b_gpgsLeaderboardButtonAvailable)
             {
                 GameManager.m_chimpionshipBeltButtonImage.enabled = false;
-                GameManager.m_highScoreDisplayText.enabled = false;
-                GameManager.m_highScoreValueText.enabled = false;
+                _gameManager.m_highScoreValueText.enabled = false;
+                _gameManager.m_highScoreValueText.enabled = false;
 
                 if(GameManager.m_playerMutedSounds == 0)
                 {
@@ -173,8 +173,8 @@ public class SocialmediaManager : MonoBehaviour
                 }
 
                 GameManager.m_chimpionshipBeltButtonImage.enabled = false;
-                GameManager.m_highScoreDisplayText.enabled = false;
-                GameManager.m_highScoreValueText.enabled = false;
+                _gameManager.m_highScoreValueText.enabled = false;
+                _gameManager.m_highScoreValueText.enabled = false;
                 GameManager.m_pauseButtonImage.enabled = false;
                 m_gpgsLeaderboardButtonImage.enabled = false;
                 _gpgsMenuImage.enabled = true;
@@ -243,8 +243,8 @@ public class SocialmediaManager : MonoBehaviour
         GooglePlayGamesLeaderboardPlayerRank();
 
         GameManager.m_chimpionshipBeltButtonImage.enabled = true;
-        GameManager.m_highScoreDisplayText.enabled = true;
-        GameManager.m_highScoreValueText.enabled = true;
+        _gameManager.m_highScoreValueText.enabled = true;
+        _gameManager.m_highScoreValueText.enabled = true;
 
         if(GameManager.m_playerMutedSounds == 0)
         {
@@ -337,8 +337,8 @@ public class SocialmediaManager : MonoBehaviour
         }
 
         GameManager.m_chimpionshipBeltButtonImage.enabled = true;
-        GameManager.m_highScoreDisplayText.enabled = true;
-        GameManager.m_highScoreValueText.enabled = true;
+        _gameManager.m_highScoreValueText.enabled = true;
+        _gameManager.m_highScoreValueText.enabled = true;
 
         if(GameManager.m_playerMutedSounds == 0)
         {

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 
 public class LevelCreator : MonoBehaviour
@@ -8,6 +7,7 @@ public class LevelCreator : MonoBehaviour
     LandChimp m_landChimp;
     const float m_tileWidth = 1.25f;
     float m_blankCounter = 0 , m_outofbounceX , m_startUpPosY;
+    GameManager _gameManager;
     GameObject m_collectedTiles , m_gameLayer ,  m_tmpTile;
 	int m_heightLevel = 0;
 	string m_lastTile = "PF_GroundRight";
@@ -20,6 +20,7 @@ public class LevelCreator : MonoBehaviour
 	{
         m_collectedTiles = GameObject.Find("Tiles");
         m_gameLayer = GameObject.Find("GameLayer");
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         m_gameSpeed = 6f;
         m_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
 
@@ -125,7 +126,7 @@ public class LevelCreator : MonoBehaviour
             ScoreManager.m_scoreValue += 25;
         }
 
-        ScoreManager.m_scoreDisplay.text = ScoreManager.m_scoreValue.ToString();
+        _gameManager.m_highScoreValueText.text = ScoreManager.m_scoreValue.ToString();
         BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
         
         Invoke("GameSpeed" , 5.8f);

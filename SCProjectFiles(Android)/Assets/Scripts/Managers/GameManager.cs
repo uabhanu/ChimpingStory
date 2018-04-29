@@ -9,13 +9,13 @@ public class GameManager : MonoBehaviour
 {
 	Achievement _selfieAchievement , _undisputedChimpionAchievement;
     AudioSource _musicSource;
-	Image _adsAcceptButtonImage , _adsCancelButtonImage , _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _continueButtonImage , _exitButtonImage;
-    Image _pauseMenuImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage , _resumeButtonImage;
+	Image _adsAcceptButtonImage , _adsCancelButtonImage , _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _continueButtonImage , _exitButtonImage , _firstTimePlayTutorialMenuImage;
+    Image _firstTimePlayTutorialOKButtonImage , _pauseMenuImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage , _resumeButtonImage;
     int _chimpionshipsCount , _currentChimpion;
     LandChimp _landChimp;
     SocialmediaManager _socialmediaManager;
 	SoundManager _soundManager;
-	Text _adsText , _backToLandLoseText , _backToLandWinText , _backToLandWithSuperText , _quitText;
+	Text _adsText , _backToLandLoseText , _backToLandWinText , _backToLandWithSuperText , _firstTimePlayTutorialText , _quitText;
 
     static Animator _swipeDownHandAnimator , _swipeUpHandAnimator;
     static float _defaultGameSpeed;
@@ -33,8 +33,10 @@ public class GameManager : MonoBehaviour
     public static GameObject m_pauseMenuObj , m_uiButtonsTutorialMenuObj;
     public static Image m_adsMenuImage , m_arrow01Image , m_arrow02Image , m_arrow03Image , m_arrow04Image , m_chimpionshipBeltButtonImage , m_muteButtonImage , m_nextButtonImage , m_pauseButtonImage;
     public static Image m_selfieButtonImage , m_selfiePanelImage , m_uiButtonsTutorialMenuImage , m_unmuteButtonImage;
-    public static int m_currentScene , m_firstTimeUIButtonsTutorial , m_playerMutedSounds;
-    public static Text m_chimpionshipBeltButtonTutorialText , m_highScoreDisplayText , m_highScoreValueText , m_leaderboardButtonTutorialText , m_muteUnmuteButtonTutorialText , m_pauseButtonTutorialText;
+    public static int m_currentScene , m_firstTimeUIButtonsTutorial , m_firstTimeWaterLevelTutorial , m_playerMutedSounds;
+    public static Text m_chimpionshipBeltButtonTutorialText , m_leaderboardButtonTutorialText , m_muteUnmuteButtonTutorialText , m_pauseButtonTutorialText;
+
+    public Text m_highScoreLabelText , m_highScoreValueText;
 
     void Start()
 	{
@@ -56,7 +58,7 @@ public class GameManager : MonoBehaviour
             _socialmediaManager.GooglePlayGamesLeaderboardTestMenuDisappear();
         }
 
-        m_highScoreDisplayText.enabled = false;
+        m_highScoreValueText.enabled = false;
         m_highScoreValueText.enabled = false;
         m_muteButtonImage.enabled = false;
         m_pauseButtonImage.enabled = false;
@@ -133,7 +135,7 @@ public class GameManager : MonoBehaviour
         _backToLandLoseText.enabled = true;
         m_chimpionshipBeltButtonImage.enabled = false;
 		_continueButtonImage.enabled = true;
-		m_highScoreDisplayText.enabled = false;
+		m_highScoreValueText.enabled = false;
 		m_highScoreValueText.enabled = false;
         m_muteButtonImage.enabled = false;
         m_pauseButtonImage.enabled = false;
@@ -148,7 +150,7 @@ public class GameManager : MonoBehaviour
         _backToLandWinText.enabled = true;
         m_chimpionshipBeltButtonImage.enabled = false;
 		_continueButtonImage.enabled = true;
-		m_highScoreDisplayText.enabled = false;
+		m_highScoreValueText.enabled = false;
 		m_highScoreValueText.enabled = false;
         m_muteButtonImage.enabled = false;
         m_pauseButtonImage.enabled = false;
@@ -163,7 +165,7 @@ public class GameManager : MonoBehaviour
         _backToLandWithSuperText.enabled = true;
         _continueButtonImage.enabled = true;
         m_chimpionshipBeltButtonImage.enabled = false;
-		m_highScoreDisplayText.enabled = false;
+		m_highScoreValueText.enabled = false;
 		m_highScoreValueText.enabled = false;
         m_muteButtonImage.enabled = false;
         m_pauseButtonImage.enabled = false;
@@ -217,7 +219,7 @@ public class GameManager : MonoBehaviour
             _chimpionshipOKButtonImage.enabled = true;
             m_pauseButtonImage.enabled = false;
             SocialmediaManager.m_gpgsLeaderboardButtonObj.SetActive(false);
-            m_highScoreDisplayText.enabled = false;
+            m_highScoreValueText.enabled = false;
             m_highScoreValueText.enabled = false;
             Time.timeScale = 0;
         }
@@ -231,7 +233,7 @@ public class GameManager : MonoBehaviour
         _chimpionshipOKButtonImage.enabled = false;
         m_pauseButtonImage.enabled = true;
         SocialmediaManager.m_gpgsLeaderboardButtonObj.SetActive(true);
-        m_highScoreDisplayText.enabled = true;
+        m_highScoreValueText.enabled = true;
         m_highScoreValueText.enabled = true;
         Time.timeScale = 1;
     }
@@ -258,8 +260,6 @@ public class GameManager : MonoBehaviour
         if(_firstTimeJump == 0)
         {
             m_chimpionshipBeltButtonImage.enabled = false;
-            m_highScoreDisplayText.enabled = false;
-            m_highScoreValueText.enabled = false;
             LevelCreator.m_gameSpeed = _defaultGameSpeed;
             m_muteButtonImage.enabled = false;
             m_pauseButtonImage.enabled = false;
@@ -280,8 +280,6 @@ public class GameManager : MonoBehaviour
         if(_firstTimeSlide == 0)
         {
             m_chimpionshipBeltButtonImage.enabled = false;
-            m_highScoreDisplayText.enabled = false;
-            m_highScoreValueText.enabled = false;
             LevelCreator.m_gameSpeed = _defaultGameSpeed;
             m_muteButtonImage.enabled = false;
             m_pauseButtonImage.enabled = false;
@@ -295,6 +293,21 @@ public class GameManager : MonoBehaviour
             BhanuPrefs.SetFirstTimeSlideTutorialStatus(_firstTimeSlide);
             Time.timeScale = 0;
         }
+    }
+
+    public void FirstTimeWaterLevelOKButton()
+    {
+        m_chimpionshipBeltButtonImage.enabled = true;
+        _firstTimePlayTutorialMenuImage.enabled = false;
+        _firstTimePlayTutorialOKButtonImage.enabled = false;
+        _firstTimePlayTutorialText.enabled = false;
+        m_highScoreLabelText.enabled = true;
+        m_highScoreValueText.enabled = true;
+        m_pauseButtonImage.enabled = true;
+        SocialmediaManager.m_gpgsLeaderboardButtonImage.enabled = true;
+        m_firstTimeWaterLevelTutorial = 1;
+        BhanuPrefs.SetFirstTimeWaterLevelTutorialStatus(m_firstTimeWaterLevelTutorial);
+        Time.timeScale = 1;
     }
 
     void GetAchievement()
@@ -345,6 +358,7 @@ public class GameManager : MonoBehaviour
             _firstTimeJump = BhanuPrefs.GetFirstTimeJumpTutorialStatus();
             _firstTimeSlide = BhanuPrefs.GetFirstTimeSlideTutorialStatus();
             m_firstTimeUIButtonsTutorial = BhanuPrefs.GetFirstTimeUIButtonsTutorialStatus();
+            m_firstTimeWaterLevelTutorial = BhanuPrefs.GetFirstTimeWaterLevelTutorialStatus();
             m_playerMutedSounds = BhanuPrefs.GetSoundsStatus();
             Time.timeScale = 1;
         }
@@ -355,6 +369,7 @@ public class GameManager : MonoBehaviour
             _firstTimeJump = 0;
             _firstTimeSlide = 0;
             m_firstTimeUIButtonsTutorial = 0;
+            m_firstTimeWaterLevelTutorial = 0;
             m_playerMutedSounds = 0;
 
             if(m_currentScene > 0)
@@ -418,12 +433,6 @@ public class GameManager : MonoBehaviour
             m_arrow02Image = GameObject.Find("Arrow02").GetComponent<Image>();
             m_arrow03Image = GameObject.Find("Arrow03").GetComponent<Image>();
             m_arrow04Image = GameObject.Find("Arrow04").GetComponent<Image>();
-            #region Better Code for getting Arrows
-            //for(int i = 0; i < m_arrowImages.Length; ++i)
-            //{
-            //    m_arrowImages[i] = GameObject.FindGameObjectWithTag("Arrow").GetComponent<Image>();
-            //}
-            #endregion
             m_chimpionshipBeltButton = GameObject.Find("PF_ChimpionshipBeltButton").GetComponent<Button>();
             m_chimpionshipBeltButtonImage = GameObject.Find("PF_ChimpionshipBeltButton").GetComponent<Image>();
             m_chimpionshipBeltButtonTutorialText = GameObject.Find("ChimpionBeltButtonTutorialText").GetComponent<Text>();
@@ -497,16 +506,19 @@ public class GameManager : MonoBehaviour
 		else
 		{
 			_backToLandLoseMenuImage = GameObject.Find("BackToLandLoseMenu").GetComponent<Image>();
-			_backToLandLoseText = GameObject.Find("BackToLandLose").GetComponent<Text>();
+			_backToLandLoseText = GameObject.Find("BackToLandLoseText").GetComponent<Text>();
 			_backToLandWinMenuImage = GameObject.Find("BackToLandWinMenu").GetComponent<Image>();
-			_backToLandWinText = GameObject.Find("BackToLandWin").GetComponent<Text>();
+			_backToLandWinText = GameObject.Find("BackToLandWinText").GetComponent<Text>();
             _backToLandWithSuperMenuImage = GameObject.Find("BackToLandWithSuperMenu").GetComponent<Image>();
-			_backToLandWithSuperText = GameObject.Find("BackToLandWithSuper").GetComponent<Text>();
+			_backToLandWithSuperText = GameObject.Find("BackToLandWithSuperText").GetComponent<Text>();
             m_chimpionshipBeltButton = GameObject.Find("PF_ChimpionshipBeltButton").GetComponent<Button>();
             m_chimpionshipBeltButtonImage = GameObject.Find("PF_ChimpionshipBeltButton").GetComponent<Image>();
 			_continueButtonImage = GameObject.Find("ContinueButton").GetComponent<Image>();
-			m_highScoreDisplayText = GameObject.Find("HighScoreTextDisplay").GetComponent<Text>();
-			m_highScoreValueText = GameObject.Find("HighScoreValueDisplay").GetComponent<Text>();
+            _firstTimePlayTutorialMenuImage = GameObject.Find("FirstTimePlayTutorialMenu").GetComponent<Image>();
+            _firstTimePlayTutorialOKButtonImage = GameObject.Find("FirstTimePlayTutorialOKButton").GetComponent<Image>();
+            _firstTimePlayTutorialText = GameObject.Find("FirstTimePlayTutorialText").GetComponent<Text>();
+			m_highScoreValueText = GameObject.Find("HighScoreLabelText").GetComponent<Text>();
+			m_highScoreValueText = GameObject.Find("HighScoreValueText").GetComponent<Text>();
             m_muteButtonImage = GameObject.Find("MuteButton").GetComponent<Image>();
 			m_pauseButtonImage = GameObject.Find("PF_PauseButton").GetComponent<Image>();
 			m_pauseMenuObj = GameObject.Find("PauseMenu");
@@ -514,6 +526,19 @@ public class GameManager : MonoBehaviour
 			_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
             _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
             m_unmuteButtonImage = GameObject.Find("UnmuteButton").GetComponent<Image>();
+
+            if(m_firstTimeWaterLevelTutorial == 0)
+            {
+                m_chimpionshipBeltButtonImage.enabled = false;
+                _firstTimePlayTutorialMenuImage.enabled = true;
+                _firstTimePlayTutorialText.enabled = true;
+                m_highScoreLabelText.enabled = false;
+                m_highScoreValueText.enabled = false;
+                _firstTimePlayTutorialOKButtonImage.enabled = true;
+                m_pauseButtonImage.enabled = false;
+                SocialmediaManager.m_gpgsLeaderboardButtonImage.enabled = false;
+                Time.timeScale = 0;
+            }
 
             if(MusicManager.m_musicSource != null)
             {
@@ -568,8 +593,8 @@ public class GameManager : MonoBehaviour
         if(m_currentScene > 0)
         {
             _currentChimpion = BhanuPrefs.GetCurrentChimpionshipStatus();
-            m_highScoreDisplayText = GameObject.Find("HighScoreTextDisplay").GetComponent<Text>();
-			m_highScoreValueText = GameObject.Find("HighScoreValueDisplay").GetComponent<Text>();
+            m_highScoreValueText = GameObject.Find("HighScoreLabelText").GetComponent<Text>();
+			m_highScoreValueText = GameObject.Find("HighScoreValueText").GetComponent<Text>();
             _chimpionshipsCount = BhanuPrefs.GetChimpionshipsCount();
             
             Invoke("ChimpionshipBelt" , 0.9f);
@@ -774,7 +799,7 @@ public class GameManager : MonoBehaviour
                 _socialmediaManager.GooglePlayGamesLeaderboardTestMenuDisappear();
             }
 
-		    m_highScoreDisplayText.enabled = false;
+		    m_highScoreValueText.enabled = false;
 		    m_highScoreValueText.enabled = false;
 
             if(SocialmediaManager.m_gpgsAchievementsButtonObj != null)
@@ -935,7 +960,7 @@ public class GameManager : MonoBehaviour
             _socialmediaManager.GooglePlayGamesLeaderboardTestMenuAppear();
         }
 
-		m_highScoreDisplayText.enabled = true;
+		m_highScoreValueText.enabled = true;
 		m_highScoreValueText.enabled = true;
 
         if(SocialmediaManager.m_gpgsAchievementsButtonObj != null)
@@ -994,13 +1019,13 @@ public class GameManager : MonoBehaviour
 		}
 
 		BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
-        ScoreManager.m_scoreDisplay.text = ScoreManager.m_scoreValue.ToString();
+        m_highScoreValueText.text = ScoreManager.m_scoreValue.ToString();
 	}
 
     public void SwipeHandOKButton()
     {
         m_chimpionshipBeltButtonImage.enabled = true;
-        m_highScoreDisplayText.enabled = true;
+        m_highScoreValueText.enabled = true;
         m_highScoreValueText.enabled = true;
         LevelCreator.m_gameSpeed = _defaultGameSpeed;
 

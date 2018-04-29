@@ -7,6 +7,7 @@ public class BhanuPrefs : MonoBehaviour
     const string FIRST_TIME_JUMP_TUTORIAL_KEY = "FirstTimeJumpTutorial";
     const string FIRST_TIME_SLIDE_TUTORIAL_KEY = "FirstTimeSlideTutorial";
     const string FIRST_TIME_UI_BUTTONS_TUTORIAL_KEY = "FirstTimeUIButtonsTutorial";
+    const string FIRST_TIME_WATER_LEVEL_TUTORIAL_KEY = "FirstTimeWaterLevelTutorial";
     const string HIGH_SCORE_KEY = "HighScore";
     const string SOUNDS_STATUS_KEY = "SoundsStatus";
     const string SUPERS_KEY = "Supers";
@@ -70,6 +71,16 @@ public class BhanuPrefs : MonoBehaviour
 
         return 0;
     }
+
+    public static int GetFirstTimeWaterLevelTutorialStatus()
+    {
+        if(PlayerPrefs.HasKey(FIRST_TIME_WATER_LEVEL_TUTORIAL_KEY))
+        {
+            return PlayerPrefs.GetInt(FIRST_TIME_WATER_LEVEL_TUTORIAL_KEY);
+        }
+
+        return 0;
+    }
 		
     public static float GetHighScore()
     {
@@ -106,24 +117,29 @@ public class BhanuPrefs : MonoBehaviour
         PlayerPrefs.SetInt(CHIMPIONSHIPS_COUNT_KEY , chimpionshipsCount);
     }
 
-    public static void SetCurrentChimpionshipStatus(int status)
+    public static void SetCurrentChimpionshipStatus(int chimpionshipStatus)
     {
-        PlayerPrefs.SetInt(CURRENT_CHIMPIONSHIP_STATUS_KEY , status);
+        PlayerPrefs.SetInt(CURRENT_CHIMPIONSHIP_STATUS_KEY , chimpionshipStatus);
     }
 
-    public static void SetFirstTimeJumpTutorialStatus(int status)
+    public static void SetFirstTimeJumpTutorialStatus(int jumpTutStatus)
     {
-        PlayerPrefs.SetInt(FIRST_TIME_JUMP_TUTORIAL_KEY , status);
+        PlayerPrefs.SetInt(FIRST_TIME_JUMP_TUTORIAL_KEY , jumpTutStatus);
     }
 
-    public static void SetFirstTimeSlideTutorialStatus(int status)
+    public static void SetFirstTimeSlideTutorialStatus(int slideTutStatus)
     {
-        PlayerPrefs.SetInt(FIRST_TIME_SLIDE_TUTORIAL_KEY , status);
+        PlayerPrefs.SetInt(FIRST_TIME_SLIDE_TUTORIAL_KEY , slideTutStatus);
     }
 
-    public static void SetFirstTimeUIButtonsTutorialStatus(int status)
+    public static void SetFirstTimeUIButtonsTutorialStatus(int uiButsTutStatus)
     {
-        PlayerPrefs.SetInt(FIRST_TIME_UI_BUTTONS_TUTORIAL_KEY , status);
+        PlayerPrefs.SetInt(FIRST_TIME_UI_BUTTONS_TUTORIAL_KEY , uiButsTutStatus);
+    }
+
+    public static void SetFirstTimeWaterLevelTutorialStatus(int waterLevelStatus)
+    {
+        PlayerPrefs.SetInt(FIRST_TIME_WATER_LEVEL_TUTORIAL_KEY , waterLevelStatus);
     }
 
     public static void SetHighScore(float score)

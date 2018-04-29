@@ -10,7 +10,7 @@ public class WaterChimp : MonoBehaviour
 {
 	Animator m_animator;
     bool m_isDying = false;
-    GameManager m_gameManager;
+    GameManager _gameManager;
     GameObject m_explosionPrefab , m_explosionSystemObj;
     LevelGenerator m_levelGenerator;
     SocialmediaManager _socialmediaManager;
@@ -58,7 +58,7 @@ public class WaterChimp : MonoBehaviour
         StopAllCoroutines();
 
 		m_animator = GetComponent<Animator>();
-        m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         m_levelGenerator = GameObject.Find("LevelGenerator").GetComponent<LevelGenerator>();
         _socialmediaManager = GameObject.Find("SocialmediaManager").GetComponent<SocialmediaManager>();
         _socialmediaManager.GooglePlayGamesAchievements(_portalAchievementID);
@@ -136,12 +136,12 @@ public class WaterChimp : MonoBehaviour
 
     void BackToLandLose()
     {
-        m_gameManager.BackToLandLoseMenu();
+        _gameManager.BackToLandLoseMenu();
     }
 
     void BackToLandWin()
     {
-        m_gameManager.BackToLandWinMenu();
+        _gameManager.BackToLandWinMenu();
     }
 		
     void OnTriggerEnter2D(Collider2D tri2D)
@@ -149,7 +149,7 @@ public class WaterChimp : MonoBehaviour
         if(tri2D.tag == "Coin")
         {
             ScoreManager.m_scoreValue += 25;
-            ScoreManager.m_scoreDisplay.text = ScoreManager.m_scoreValue.ToString();
+            _gameManager.m_highScoreValueText.text = ScoreManager.m_scoreValue.ToString();
             BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
             tri2D.GetComponent<Renderer>().enabled = false;
             tri2D.GetComponent<Collider2D>().enabled = false;
@@ -208,7 +208,7 @@ public class WaterChimp : MonoBehaviour
                 m_soundManager.m_soundsSource.Play();
             }
 
-            m_gameManager.BackToLandWithSuperMenu();
+            _gameManager.BackToLandWithSuperMenu();
         }
     }
 		
