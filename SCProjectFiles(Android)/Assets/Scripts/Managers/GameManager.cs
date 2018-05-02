@@ -9,8 +9,9 @@ public class GameManager : MonoBehaviour
 {
 	Achievement _selfieAchievement , _undisputedChimpionAchievement;
     AudioSource _musicSource;
+    bool _bIAPFullContinueEffect , _bIAPHalfContinueEffect , _bIAPThreeQuartersContinueEffect;
 	Image _adsAcceptButtonImage , _adsCancelButtonImage , _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _continueButtonImage , _exitButtonImage , _firstTimePlayTutorialMenuImage;
-    Image _firstTimePlayTutorialOKButtonImage , _pauseMenuImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage , _resumeButtonImage;
+    Image _firstTimePlayTutorialOKButtonImage , _iapCartButtonImage , _pauseMenuImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage , _resumeButtonImage;
     int _chimpionshipsCount , _currentChimpion;
     LandChimp _landChimp;
     SocialmediaManager _socialmediaManager;
@@ -23,12 +24,13 @@ public class GameManager : MonoBehaviour
     static int _firstTimeJump = 0 , _firstTimeSlide = 0;
 
 	[SerializeField] bool _bSelfieFlashEnabled , _bVersionCodeDisplayEnabled;
+    [SerializeField] GameObject _iapCartMenuObj;
     [SerializeField] Image _chimpionshipBeltMenuImage , _chimpionshipOKButtonImage , _landLevelButtonImage , _waterLevelButtonImage;
     [SerializeField] Sprite[] _chimpionshipBeltSprites;
     [SerializeField] string _chimpionAchievementID , _selfieAchievementID , _selfieLegendAchievementID , _undisputedChimpionAchievementID;
     [SerializeField] Text _chimpionshipBeltText , _memoryLeakTestText , _versionCodeText;
 
-    public static bool b_isFirstTimeTutorialTestingMode , b_isMemoryLeakTestingMode , b_isUnityEditorTestingMode, b_quitButtonTapped;
+    public static bool b_isFirstTimeTutorialTestingMode , b_isMemoryLeakTestingMode , b_isUnityEditorTestingMode , b_quitButtonTapped;
     public static Button m_chimpionshipBeltButton , m_muteButton , m_pauseButton , m_unmuteButton;
     public static GameObject m_pauseMenuObj , m_uiButtonsTutorialMenuObj;
     public static Image m_adsMenuImage , m_arrow01Image , m_arrow02Image , m_arrow03Image , m_arrow04Image , m_chimpionshipBeltButtonImage , m_muteButtonImage , m_nextButtonImage , m_pauseButtonImage;
@@ -87,10 +89,38 @@ public class GameManager : MonoBehaviour
     public void AdsCancelButton()
     {
         _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-        BhanuPrefs.DeleteScore();
-		ScoreManager.m_supersCount = ScoreManager.m_defaultSupersCount;
-		BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
-        SceneManager.LoadScene(m_currentScene);
+
+        if(_bIAPHalfContinueEffect)
+        {
+            ScoreManager.m_scoreValue *= 0.50f;
+		    ScoreManager.m_scoreValue = Mathf.Round(ScoreManager.m_scoreValue);
+            BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
+            Time.timeScale = 1;
+            SceneManager.LoadScene(m_currentScene);
+        }
+
+        else if(_bIAPThreeQuartersContinueEffect)
+        {
+            ScoreManager.m_scoreValue *= 0.75f;
+		    ScoreManager.m_scoreValue = Mathf.Round(ScoreManager.m_scoreValue);
+            BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
+            Time.timeScale = 1;
+            SceneManager.LoadScene(m_currentScene);
+        }
+
+        else if(_bIAPFullContinueEffect)
+        {
+            Time.timeScale = 1;
+            SceneManager.LoadScene(m_currentScene);
+        }
+
+        else
+        {
+            BhanuPrefs.DeleteScore();
+		    ScoreManager.m_supersCount = ScoreManager.m_defaultSupersCount;
+		    BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
+            SceneManager.LoadScene(m_currentScene);
+        }
     }
 
     void AdResult(ShowResult result)
@@ -438,6 +468,7 @@ public class GameManager : MonoBehaviour
             m_chimpionshipBeltButtonTutorialText = GameObject.Find("ChimpionBeltButtonTutorialText").GetComponent<Text>();
             _defaultGameSpeed = LevelCreator.m_gameSpeed;
             _exitButtonImage = GameObject.Find("ExitButton").GetComponent<Image>();
+            _iapCartButtonImage = GameObject.Find("IAPCartButton").GetComponent<Image>();
             _landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
             m_leaderboardButtonTutorialText = GameObject.Find("LeaderboardButtonTutorialText").GetComponent<Text>();
             m_muteUnmuteButtonTutorialText = GameObject.Find("MuteButtonTutorialText").GetComponent<Text>();
@@ -639,6 +670,34 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("WaterSwimmer");
     }
 
+    public void IAPButton()
+    {
+        _iapCartMenuObj.SetActive(true);
+    }
+
+    public void IAPCancelButton()
+    {
+        _iapCartMenuObj.SetActive(false);
+    }
+
+    public void IAPContinuePurchased(int purchaseID)
+    {
+        if(purchaseID == 01)
+        {
+            _bIAPHalfContinueEffect = true;
+        }
+
+        else if(purchaseID == 02)
+        {
+            _bIAPThreeQuartersContinueEffect = true;
+        }
+
+        else
+        {
+            _bIAPFullContinueEffect = true;
+        }
+    }
+
     bool IsChimpion()
     {
         if(SocialmediaManager.m_playerRank == 1)
@@ -812,6 +871,7 @@ public class GameManager : MonoBehaviour
                 SocialmediaManager.m_gpgsLeaderboardButtonObj.SetActive(false);
             }
         
+            _iapCartButtonImage.enabled = true;
 		    m_pauseButtonImage.enabled = false;
 		    _pauseMenuImage.enabled = true;
 		    _resumeButtonImage.enabled = true;
@@ -973,6 +1033,7 @@ public class GameManager : MonoBehaviour
             SocialmediaManager.m_gpgsLeaderboardButtonObj.SetActive(true);
         }
         
+        _iapCartButtonImage.enabled = false;
 		m_pauseButtonImage.enabled = true;
 		_pauseMenuImage.enabled = false;
         _resumeButtonImage.enabled = false;
