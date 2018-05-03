@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
 {
 	Achievement _selfieAchievement , _undisputedChimpionAchievement;
     AudioSource _musicSource;
-    bool _bIAPFullContinueEffect , _bIAPHalfContinueEffect , _bIAPThreeQuartersContinueEffect;
+    [SerializeField] bool _bIAPFullContinueEffect , _bIAPHalfContinueEffect , _bIAPThreeQuartersContinueEffect; //TODO Remove [SerializeField] after finished testing
 	Image _adsAcceptButtonImage , _adsCancelButtonImage , _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _continueButtonImage , _exitButtonImage , _firstTimePlayTutorialMenuImage;
     Image _firstTimePlayTutorialOKButtonImage , _iapCartButtonImage , _pauseMenuImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage , _resumeButtonImage;
     int _chimpionshipsCount , _currentChimpion;
@@ -679,30 +679,46 @@ public class GameManager : MonoBehaviour
     public void IAPCancelButton()
     {
         _iapCartMenuObj.SetActive(false);
+        _iapText.enabled = false;
     }
 
-    public void IAPContinuePurchaseButton(Product iapProduct)
+    public void IAPContinuePurchaseButton(Product product)
     {
         _iapText.enabled = false;
 
-        if(iapProduct != null)
+        // TODO After done testing on device, store these booleans using BhanuPrefs & reset them to false every 24 hours
+        if(product != null)
         {
-            switch (iapProduct.definition.id)
+            switch(product.definition.id)
             {
-                case "01":
+                case "halfcontinuedemo":
                     _bIAPHalfContinueEffect = true;
+                    _bIAPThreeQuartersContinueEffect = false;
+                    _bIAPFullContinueEffect = false;
+                    _iapText.text = "Half Continue Successful :)";
+                    _iapText.enabled = true;
                 break;
 
-                case "02":
+                case "threequarterscontinuedemo":
+                    _bIAPHalfContinueEffect = false;
                     _bIAPThreeQuartersContinueEffect = true;
+                    _bIAPFullContinueEffect = false;
+                    _iapText.text = "Three Quarters Continue Successful :)";
+                    _iapText.enabled = true;
                 break;
 
-                case "03":
+                case "fullcontinuedemo":
+                    _bIAPHalfContinueEffect = false;
+                    _bIAPThreeQuartersContinueEffect = false;
                     _bIAPFullContinueEffect = true;
+                    _iapText.text = "Full Continue Successful :)";
+                    _iapText.enabled = true;
                 break;
 
                 default:
                     Debug.LogError("Sir Bhanu, Please check the ID again :)");
+                    _iapText.text = "Unknown Error :(";
+                    _iapText.enabled = true;
                 break;
             }
         }
@@ -710,6 +726,7 @@ public class GameManager : MonoBehaviour
 
     public void IAPFailed()
     {
+        _iapText.text = "Purchase Cancelled by You :)";
         _iapText.enabled = true;
     }
 
@@ -1049,7 +1066,6 @@ public class GameManager : MonoBehaviour
         }
         
         _iapCartButtonImage.enabled = false;
-        _iapText.enabled = false;
 		m_pauseButtonImage.enabled = true;
 		_pauseMenuImage.enabled = false;
         _resumeButtonImage.enabled = false;
