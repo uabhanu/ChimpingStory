@@ -2,6 +2,7 @@
 using GooglePlayGames.BasicApi;
 using UnityEngine;
 using UnityEngine.Advertisements;
+using UnityEngine.Purchasing;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -28,7 +29,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Image _chimpionshipBeltMenuImage , _chimpionshipOKButtonImage , _landLevelButtonImage , _waterLevelButtonImage;
     [SerializeField] Sprite[] _chimpionshipBeltSprites;
     [SerializeField] string _chimpionAchievementID , _selfieAchievementID , _selfieLegendAchievementID , _undisputedChimpionAchievementID;
-    [SerializeField] Text _chimpionshipBeltText , _memoryLeakTestText , _versionCodeText;
+    [SerializeField] Text _chimpionshipBeltText , _iapText , _memoryLeakTestText , _versionCodeText;
 
     public static bool b_isFirstTimeTutorialTestingMode , b_isMemoryLeakTestingMode , b_isUnityEditorTestingMode , b_quitButtonTapped;
     public static Button m_chimpionshipBeltButton , m_muteButton , m_pauseButton , m_unmuteButton;
@@ -670,7 +671,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("WaterSwimmer");
     }
 
-    public void IAPButton()
+    public void IAPCartButton()
     {
         _iapCartMenuObj.SetActive(true);
     }
@@ -680,22 +681,36 @@ public class GameManager : MonoBehaviour
         _iapCartMenuObj.SetActive(false);
     }
 
-    public void IAPContinuePurchased(int purchaseID)
+    public void IAPContinuePurchaseButton(Product iapProduct)
     {
-        if(purchaseID == 01)
-        {
-            _bIAPHalfContinueEffect = true;
-        }
+        _iapText.enabled = false;
 
-        else if(purchaseID == 02)
+        if(iapProduct != null)
         {
-            _bIAPThreeQuartersContinueEffect = true;
-        }
+            switch (iapProduct.definition.id)
+            {
+                case "01":
+                    _bIAPHalfContinueEffect = true;
+                break;
 
-        else
-        {
-            _bIAPFullContinueEffect = true;
+                case "02":
+                    _bIAPThreeQuartersContinueEffect = true;
+                break;
+
+                case "03":
+                    _bIAPFullContinueEffect = true;
+                break;
+
+                default:
+                    Debug.LogError("Sir Bhanu, Please check the ID again :)");
+                break;
+            }
         }
+    }
+
+    public void IAPFailed()
+    {
+        _iapText.enabled = true;
     }
 
     bool IsChimpion()
@@ -1034,6 +1049,7 @@ public class GameManager : MonoBehaviour
         }
         
         _iapCartButtonImage.enabled = false;
+        _iapText.enabled = false;
 		m_pauseButtonImage.enabled = true;
 		_pauseMenuImage.enabled = false;
         _resumeButtonImage.enabled = false;
