@@ -709,21 +709,21 @@ public class GameManager : MonoBehaviour
                 case "halfcontinuedemo":
                     _iapHalfContinueDeathsAvailable += 5;
                     BhanuPrefs.SetIAPHalfContinueDeaths(_iapHalfContinueDeathsAvailable);
-                    _iapText.text = "50% Continue Purchased :)";
+                    _iapText.text = "50% Continue Purchased :) \n You can now use this " + _iapHalfContinueDeathsAvailable + " times before purchasing again :)";
                     _iapText.enabled = true;
                 break;
 
                 case "threequarterscontinuedemo":
                     _iapThreeQuartersContinueDeathsAvailable += 5;
                     BhanuPrefs.SetIAPThreeQuartersContinueDeaths(_iapThreeQuartersContinueDeathsAvailable);
-                    _iapText.text = "75% Continue Purchased :)";
+                    _iapText.text = "75% Continue Purchased :) \n You can now use this " + _iapThreeQuartersContinueDeathsAvailable + " times before purchasing again :)";
                     _iapText.enabled = true;
                 break;
 
                 case "fullcontinuedemo":
                     _iapFullContinueDeathsAvailable += 5;
                     BhanuPrefs.SetIAPFullContinueDeaths(_iapFullContinueDeathsAvailable);
-                    _iapText.text = "100% Continue Purchased :)";
+                    _iapText.text = "100% Continue Purchased :) \n You can now use this " + _iapFullContinueDeathsAvailable + " times before purchasing again :)";;
                     _iapText.enabled = true;
                 break;
 
