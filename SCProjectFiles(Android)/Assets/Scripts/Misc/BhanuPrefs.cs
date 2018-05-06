@@ -9,9 +9,12 @@ public class BhanuPrefs : MonoBehaviour
     const string FIRST_TIME_UI_BUTTONS_TUTORIAL_KEY = "FirstTimeUIButtonsTutorial";
     const string FIRST_TIME_WATER_LEVEL_TUTORIAL_KEY = "FirstTimeWaterLevelTutorial";
     const string HIGH_SCORE_KEY = "HighScore";
-    const string IAP_FULLCONTINUE_KEY = "FullContinue";
-    const string IAP_HALFCONTINUE_KEY = "HalfContinue";
-    const string IAP_THREEQUARTERSCONTINUE_KEY = "ThreeQuartersContinue";
+    const string IAP_FULL_CONTINUE_KEY = "FullContinue";
+    const string IAP_FULL_CONTINUE_DEATHS_KEY = "FullContinueDeaths";
+    const string IAP_HALF_CONTINUE_KEY = "HalfContinue";
+    const string IAP_HALF_CONTINUE_DEATHS_KEY = "HalfContinueDeaths";
+    const string IAP_THREE_QUARTERS_CONTINUE_KEY = "ThreeQuartersContinue";
+    const string IAP_THREE_QUARTERS_CONTINUE_DEATHS_KEY = "ThreeQuartersContinueDeaths";
     const string SOUNDS_STATUS_KEY = "SoundsStatus";
     const string SUPERS_KEY = "Supers";
 
@@ -100,11 +103,31 @@ public class BhanuPrefs : MonoBehaviour
         return 0;
     }
 
+    public static int GetIAPFullContinueDeaths()
+    {
+        if(PlayerPrefs.HasKey(IAP_FULL_CONTINUE_DEATHS_KEY))
+        {
+            return PlayerPrefs.GetInt(IAP_FULL_CONTINUE_DEATHS_KEY);
+        }
+
+        return 0;
+    }
+
     public static int GetIAPFullContinueStatus()
     {
-        if(PlayerPrefs.HasKey(IAP_FULLCONTINUE_KEY))
+        if(PlayerPrefs.HasKey(IAP_FULL_CONTINUE_KEY))
         {
-            return PlayerPrefs.GetInt(IAP_FULLCONTINUE_KEY);
+            return PlayerPrefs.GetInt(IAP_FULL_CONTINUE_KEY);
+        }
+
+        return 0;
+    }
+
+    public static int GetIAPHalfContinueDeaths()
+    {
+        if(PlayerPrefs.HasKey(IAP_HALF_CONTINUE_DEATHS_KEY))
+        {
+            return PlayerPrefs.GetInt(IAP_HALF_CONTINUE_DEATHS_KEY);
         }
 
         return 0;
@@ -112,9 +135,19 @@ public class BhanuPrefs : MonoBehaviour
 
     public static int GetIAPHalfContinueStatus()
     {
-        if(PlayerPrefs.HasKey(IAP_HALFCONTINUE_KEY))
+        if(PlayerPrefs.HasKey(IAP_HALF_CONTINUE_KEY))
         {
-            return PlayerPrefs.GetInt(IAP_HALFCONTINUE_KEY);
+            return PlayerPrefs.GetInt(IAP_HALF_CONTINUE_KEY);
+        }
+
+        return 0;
+    }
+
+    public static int GetIAPThreeQuartersContinueDeaths()
+    {
+        if(PlayerPrefs.HasKey(IAP_THREE_QUARTERS_CONTINUE_DEATHS_KEY))
+        {
+            return PlayerPrefs.GetInt(IAP_THREE_QUARTERS_CONTINUE_DEATHS_KEY);
         }
 
         return 0;
@@ -122,9 +155,9 @@ public class BhanuPrefs : MonoBehaviour
 
     public static int GetIAPThreeQuartersContinueStatus()
     {
-        if(PlayerPrefs.HasKey(IAP_THREEQUARTERSCONTINUE_KEY))
+        if(PlayerPrefs.HasKey(IAP_THREE_QUARTERS_CONTINUE_KEY))
         {
-            return PlayerPrefs.GetInt(IAP_THREEQUARTERSCONTINUE_KEY);
+            return PlayerPrefs.GetInt(IAP_THREE_QUARTERS_CONTINUE_KEY);
         }
 
         return 0;
@@ -185,19 +218,34 @@ public class BhanuPrefs : MonoBehaviour
         PlayerPrefs.SetFloat(HIGH_SCORE_KEY , highScore);
     }
 
+    public static void SetIAPFullContinueDeaths(int fullContinueDeaths)
+    {
+        PlayerPrefs.SetInt(IAP_FULL_CONTINUE_DEATHS_KEY , fullContinueDeaths);
+    }
+
     public static void SetIAPFullContinueStatus(int fullContinueStatus)
     {
-        PlayerPrefs.SetInt(IAP_FULLCONTINUE_KEY , fullContinueStatus);
+        PlayerPrefs.SetInt(IAP_FULL_CONTINUE_KEY , fullContinueStatus);
+    }
+
+    public static void SetIAPHalfContinueDeaths(int halfContinueDeaths)
+    {
+        PlayerPrefs.SetInt(IAP_HALF_CONTINUE_DEATHS_KEY , halfContinueDeaths);
     }
 
     public static void SetIAPHalfContinueStatus(int halfContinueStatus)
     {
-        PlayerPrefs.SetInt(IAP_HALFCONTINUE_KEY , halfContinueStatus);
+        PlayerPrefs.SetInt(IAP_HALF_CONTINUE_KEY , halfContinueStatus);
+    }
+
+    public static void SetIAPThreeQuartersContinueDeaths(int threeQuartersContinueDeaths)
+    {
+        PlayerPrefs.SetInt(IAP_THREE_QUARTERS_CONTINUE_DEATHS_KEY , threeQuartersContinueDeaths);
     }
 
     public static void SetIAPThreeQuartersContinueStatus(int threeQuartersContinueStatus)
     {
-        PlayerPrefs.SetInt(IAP_THREEQUARTERSCONTINUE_KEY , threeQuartersContinueStatus);
+        PlayerPrefs.SetInt(IAP_THREE_QUARTERS_CONTINUE_KEY , threeQuartersContinueStatus);
     }
 
     public static void SetSoundsStatus(int mute)

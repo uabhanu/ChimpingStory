@@ -12,7 +12,8 @@ public class GameManager : MonoBehaviour
     AudioSource _musicSource;
 	Image _adsAcceptButtonImage , _adsCancelButtonImage , _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _continueButtonImage , _exitButtonImage , _firstTimePlayTutorialMenuImage;
     Image _firstTimePlayTutorialOKButtonImage , _iapCartButtonImage , _pauseMenuImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage , _resumeButtonImage;
-    [SerializeField] int _chimpionshipsCount , _currentChimpion , _iapFullContinueEffect , _iapHalfContinueEffect , _iapThreeQuartersContinueEffect; //TODO Remove [SerializeField] after testing
+    int _chimpionshipsCount , _currentChimpion;
+    [SerializeField] int _iapFullContinueDeathsAvailable , _iapFullContinueEffect , _iapHalfContinueDeathsAvailable , _iapHalfContinueEffect , _iapThreeQuartersContinueDeathsAvailable , _iapThreeQuartersContinueEffect; //TODO Remove [SerializeField] and this comment after testing 
     LandChimp _landChimp;
     SocialmediaManager _socialmediaManager;
 	SoundManager _soundManager;
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
     static int _firstTimeJump = 0 , _firstTimeSlide = 0;
 
 	[SerializeField] bool _bSelfieFlashEnabled , _bVersionCodeDisplayEnabled;
+    [SerializeField] float _iapResetTime; //TODO Set this to 86400 after testing and remove this comment
     [SerializeField] GameObject _iapCartMenuObj;
     [SerializeField] Image _chimpionshipBeltMenuImage , _chimpionshipOKButtonImage , _landLevelButtonImage , _waterLevelButtonImage;
     [SerializeField] Sprite[] _chimpionshipBeltSprites;
@@ -73,7 +75,32 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene(m_currentScene);
+            if(_iapHalfContinueEffect == 1)
+            {
+                ScoreManager.m_scoreValue *= 0.50f;
+		        ScoreManager.m_scoreValue = Mathf.Round(ScoreManager.m_scoreValue);
+                BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
+                _iapHalfContinueDeathsAvailable--;
+                BhanuPrefs.SetIAPHalfContinueDeaths(_iapHalfContinueDeathsAvailable);
+                SceneManager.LoadScene(m_currentScene);
+            }
+
+            else if(_iapThreeQuartersContinueEffect == 1)
+            {
+                ScoreManager.m_scoreValue *= 0.75f;
+		        ScoreManager.m_scoreValue = Mathf.Round(ScoreManager.m_scoreValue);
+                BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
+                _iapThreeQuartersContinueDeathsAvailable--;
+                BhanuPrefs.SetIAPThreeQuartersContinueDeaths(_iapThreeQuartersContinueDeathsAvailable);
+                SceneManager.LoadScene(m_currentScene);
+            }
+
+            else if(_iapFullContinueEffect == 1)
+            {
+                _iapFullContinueDeathsAvailable--;
+                BhanuPrefs.SetIAPFullContinueDeaths(_iapFullContinueDeathsAvailable);
+                SceneManager.LoadScene(m_currentScene);
+            }
         }
     }
 
@@ -96,38 +123,10 @@ public class GameManager : MonoBehaviour
     public void AdsCancelButton()
     {
         _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-
-        if(_iapHalfContinueEffect == 1)
-        {
-            ScoreManager.m_scoreValue *= 0.50f;
-		    ScoreManager.m_scoreValue = Mathf.Round(ScoreManager.m_scoreValue);
-            BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
-            Time.timeScale = 1;
-            SceneManager.LoadScene(m_currentScene);
-        }
-
-        else if(_iapThreeQuartersContinueEffect == 1)
-        {
-            ScoreManager.m_scoreValue *= 0.75f;
-		    ScoreManager.m_scoreValue = Mathf.Round(ScoreManager.m_scoreValue);
-            BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
-            Time.timeScale = 1;
-            SceneManager.LoadScene(m_currentScene);
-        }
-
-        else if(_iapFullContinueEffect == 1)
-        {
-            Time.timeScale = 1;
-            SceneManager.LoadScene(m_currentScene);
-        }
-
-        else
-        {
-            BhanuPrefs.DeleteScore();
-		    ScoreManager.m_supersCount = ScoreManager.m_defaultSupersCount;
-		    BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
-            SceneManager.LoadScene(m_currentScene);
-        }
+        BhanuPrefs.DeleteScore();
+		ScoreManager.m_supersCount = ScoreManager.m_defaultSupersCount;
+		BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
+        SceneManager.LoadScene(m_currentScene);
     }
 
     void AdResult(ShowResult result)
@@ -396,8 +395,11 @@ public class GameManager : MonoBehaviour
             _firstTimeSlide = BhanuPrefs.GetFirstTimeSlideTutorialStatus();
             m_firstTimeUIButtonsTutorial = BhanuPrefs.GetFirstTimeUIButtonsTutorialStatus();
             m_firstTimeWaterLevelTutorial = BhanuPrefs.GetFirstTimeWaterLevelTutorialStatus();
+            _iapFullContinueDeathsAvailable = BhanuPrefs.GetIAPFullContinueDeaths();
             _iapFullContinueEffect = BhanuPrefs.GetIAPFullContinueStatus();
+            _iapHalfContinueDeathsAvailable = BhanuPrefs.GetIAPHalfContinueDeaths();
             _iapHalfContinueEffect = BhanuPrefs.GetIAPHalfContinueStatus();
+            _iapThreeQuartersContinueDeathsAvailable = BhanuPrefs.GetIAPThreeQuartersContinueDeaths();
             _iapThreeQuartersContinueEffect = BhanuPrefs.GetIAPThreeQuartersContinueStatus();
             m_playerMutedSounds = BhanuPrefs.GetSoundsStatus();
             Time.timeScale = 1;
@@ -410,8 +412,11 @@ public class GameManager : MonoBehaviour
             _firstTimeSlide = 0;
             m_firstTimeUIButtonsTutorial = 0;
             m_firstTimeWaterLevelTutorial = 0;
+            _iapFullContinueDeathsAvailable = 0;
             _iapFullContinueEffect = 0;
+            _iapHalfContinueDeathsAvailable = 0;
             _iapHalfContinueEffect = 0;
+            _iapThreeQuartersContinueDeathsAvailable = 0;
             _iapThreeQuartersContinueEffect = 0;
             m_playerMutedSounds = 0;
 
@@ -698,30 +703,33 @@ public class GameManager : MonoBehaviour
     {
         _iapText.enabled = false;
 
-        // TODO After done testing on device, store these booleans using BhanuPrefs & reset them to false every 24 hours
         if(product != null)
         {
             switch(product.definition.id)
             {
                 case "halfcontinuedemo":
+                    _iapHalfContinueDeathsAvailable += 5;
+                    BhanuPrefs.SetIAPHalfContinueDeaths(_iapHalfContinueDeathsAvailable);
                     _iapHalfContinueEffect = 1;
                     BhanuPrefs.SetIAPHalfContinueStatus(_iapHalfContinueEffect);
                     _iapThreeQuartersContinueEffect = 0;
                     BhanuPrefs.SetIAPThreeQuartersContinueStatus(_iapThreeQuartersContinueEffect);
                     _iapFullContinueEffect = 0;
                     BhanuPrefs.SetIAPFullContinueStatus(_iapFullContinueEffect);
-                    _iapText.text = "Half Continue Successful :)";
+                    _iapText.text = "50% Continue Purchased :)";
                     _iapText.enabled = true;
                 break;
 
                 case "threequarterscontinuedemo":
                     _iapHalfContinueEffect = 0;
                     BhanuPrefs.SetIAPHalfContinueStatus(_iapHalfContinueEffect);
+                    _iapThreeQuartersContinueDeathsAvailable += 5;
+                    BhanuPrefs.SetIAPThreeQuartersContinueDeaths(_iapThreeQuartersContinueDeathsAvailable);
                     _iapThreeQuartersContinueEffect = 1;
                     BhanuPrefs.SetIAPThreeQuartersContinueStatus(_iapThreeQuartersContinueEffect);
                     _iapFullContinueEffect = 0;
                     BhanuPrefs.SetIAPFullContinueStatus(_iapFullContinueEffect);
-                    _iapText.text = "Three Quarters Continue Successful :)";
+                    _iapText.text = "75% Continue Purchased :)";
                     _iapText.enabled = true;
                 break;
 
@@ -730,15 +738,17 @@ public class GameManager : MonoBehaviour
                     BhanuPrefs.SetIAPHalfContinueStatus(_iapHalfContinueEffect);
                     _iapThreeQuartersContinueEffect = 0;
                     BhanuPrefs.SetIAPThreeQuartersContinueStatus(_iapThreeQuartersContinueEffect);
+                    _iapFullContinueDeathsAvailable += 5;
+                    BhanuPrefs.SetIAPFullContinueDeaths(_iapFullContinueDeathsAvailable);
                     _iapFullContinueEffect = 1;
                     BhanuPrefs.SetIAPFullContinueStatus(_iapFullContinueEffect);
-                    _iapText.text = "Full Continue Successful :)";
+                    _iapText.text = "100% Continue Purchased :)";
                     _iapText.enabled = true;
                 break;
 
                 default:
                     Debug.LogError("Sir Bhanu, Please check the ID again :)");
-                    _iapText.text = "Unknown Error :(";
+                    _iapText.text = "Oops!! Something went wrong :( Please try again :)";
                     _iapText.enabled = true;
                 break;
             }
@@ -747,7 +757,7 @@ public class GameManager : MonoBehaviour
 
     public void IAPFailed()
     {
-        _iapText.text = "Purchase Cancelled by You :)";
+        _iapText.text = "Oops!! Something went wrong :( Please try again :)";
         _iapText.enabled = true;
     }
 
