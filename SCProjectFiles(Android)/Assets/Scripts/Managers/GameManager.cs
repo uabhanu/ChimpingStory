@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 	Image _adsAcceptButtonImage , _adsCancelButtonImage , _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _continueButtonImage , _exitButtonImage , _firstTimePlayTutorialMenuImage;
     Image _firstTimePlayTutorialOKButtonImage , _iapCartButtonImage , _pauseMenuImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage , _resumeButtonImage;
     int _chimpionshipsCount , _currentChimpion;
-    [SerializeField] int _iapFullContinueDeathsAvailable , _iapFullContinueEffect , _iapHalfContinueDeathsAvailable , _iapHalfContinueEffect , _iapThreeQuartersContinueDeathsAvailable , _iapThreeQuartersContinueEffect; //TODO Remove [SerializeField] and this comment after testing 
+    [SerializeField] int _iapFullContinueDeathsAvailable , _iapHalfContinueDeathsAvailable , _iapThreeQuartersContinueDeathsAvailable; //TODO Remove [SerializeField] and this comment after testing 
     LandChimp _landChimp;
     SocialmediaManager _socialmediaManager;
 	SoundManager _soundManager;
@@ -25,7 +25,6 @@ public class GameManager : MonoBehaviour
     static int _firstTimeJump = 0 , _firstTimeSlide = 0;
 
 	[SerializeField] bool _bSelfieFlashEnabled , _bVersionCodeDisplayEnabled;
-    [SerializeField] float _iapResetTime; //TODO Set this to 86400 after testing and remove this comment
     [SerializeField] GameObject _iapCartMenuObj;
     [SerializeField] Image _chimpionshipBeltMenuImage , _chimpionshipOKButtonImage , _landLevelButtonImage , _waterLevelButtonImage;
     [SerializeField] Sprite[] _chimpionshipBeltSprites;
@@ -51,57 +50,25 @@ public class GameManager : MonoBehaviour
 
     public void Ads()
     {
-        if(_iapFullContinueEffect == 0 && _iapHalfContinueEffect == 0 && _iapThreeQuartersContinueEffect == 0)
-        {
-            m_adsMenuImage.enabled = true;
-            _adsAcceptButtonImage.enabled = true;
-            _adsCancelButtonImage.enabled = true;
-            _adsText.enabled = true;
-            m_chimpionshipBeltButtonImage.enabled = false;
+        m_adsMenuImage.enabled = true;
+        _adsAcceptButtonImage.enabled = true;
+        _adsCancelButtonImage.enabled = true;
+        _adsText.enabled = true;
+        m_chimpionshipBeltButtonImage.enabled = false;
         
-            if(SocialmediaManager.b_isGPGsLeaderboardTestMode)
-            {
-                _socialmediaManager.GooglePlayGamesLeaderboardTestMenuDisappear();
-            }
-
-            m_highScoreLabelText.enabled = false;
-            m_highScoreValueText.enabled = false;
-            m_muteButtonImage.enabled = false;
-            m_pauseButtonImage.enabled = false;
-		    m_selfieButtonImage.enabled = false;
-            SocialmediaManager.m_gpgsLeaderboardButtonImage.enabled = false;
-            m_unmuteButtonImage.enabled = false;
-		    Time.timeScale = 0;
-        }
-        else
+        if(SocialmediaManager.b_isGPGsLeaderboardTestMode)
         {
-            if(_iapHalfContinueEffect == 1)
-            {
-                ScoreManager.m_scoreValue *= 0.50f;
-		        ScoreManager.m_scoreValue = Mathf.Round(ScoreManager.m_scoreValue);
-                BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
-                _iapHalfContinueDeathsAvailable--;
-                BhanuPrefs.SetIAPHalfContinueDeaths(_iapHalfContinueDeathsAvailable);
-                SceneManager.LoadScene(m_currentScene);
-            }
-
-            else if(_iapThreeQuartersContinueEffect == 1)
-            {
-                ScoreManager.m_scoreValue *= 0.75f;
-		        ScoreManager.m_scoreValue = Mathf.Round(ScoreManager.m_scoreValue);
-                BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
-                _iapThreeQuartersContinueDeathsAvailable--;
-                BhanuPrefs.SetIAPThreeQuartersContinueDeaths(_iapThreeQuartersContinueDeathsAvailable);
-                SceneManager.LoadScene(m_currentScene);
-            }
-
-            else if(_iapFullContinueEffect == 1)
-            {
-                _iapFullContinueDeathsAvailable--;
-                BhanuPrefs.SetIAPFullContinueDeaths(_iapFullContinueDeathsAvailable);
-                SceneManager.LoadScene(m_currentScene);
-            }
+            _socialmediaManager.GooglePlayGamesLeaderboardTestMenuDisappear();
         }
+
+        m_highScoreLabelText.enabled = false;
+        m_highScoreValueText.enabled = false;
+        m_muteButtonImage.enabled = false;
+        m_pauseButtonImage.enabled = false;
+		m_selfieButtonImage.enabled = false;
+        SocialmediaManager.m_gpgsLeaderboardButtonImage.enabled = false;
+        m_unmuteButtonImage.enabled = false;
+		Time.timeScale = 0;
     }
 
     public void AdsAcceptButton()
@@ -122,11 +89,49 @@ public class GameManager : MonoBehaviour
 
     public void AdsCancelButton()
     {
+        if(_iapHalfContinueDeathsAvailable > 0 && _iapThreeQuartersContinueDeathsAvailable > 0 && _iapFullContinueDeathsAvailable > 0)
+        {
+            _iapFullContinueDeathsAvailable--;
+            BhanuPrefs.SetIAPFullContinueDeaths(_iapFullContinueDeathsAvailable);
+            SceneManager.LoadScene(m_currentScene);
+        }
+
+        else if(_iapHalfContinueDeathsAvailable > 0 && _iapThreeQuartersContinueDeathsAvailable > 0 && _iapFullContinueDeathsAvailable == 0)
+        {
+            ScoreManager.m_scoreValue *= 0.75f;
+		    ScoreManager.m_scoreValue = Mathf.Round(ScoreManager.m_scoreValue);
+            BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
+            _iapThreeQuartersContinueDeathsAvailable--;
+            BhanuPrefs.SetIAPThreeQuartersContinueDeaths(_iapThreeQuartersContinueDeathsAvailable);
+            SceneManager.LoadScene(m_currentScene);
+        }
+
+        else if(_iapHalfContinueDeathsAvailable > 0 && _iapThreeQuartersContinueDeathsAvailable == 0 && _iapFullContinueDeathsAvailable == 0)
+        {
+            ScoreManager.m_scoreValue *= 0.50f;
+		    ScoreManager.m_scoreValue = Mathf.Round(ScoreManager.m_scoreValue);
+            BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
+            _iapHalfContinueDeathsAvailable--;
+            BhanuPrefs.SetIAPHalfContinueDeaths(_iapHalfContinueDeathsAvailable);
+            SceneManager.LoadScene(m_currentScene);
+        }
+
+        else if(_iapHalfContinueDeathsAvailable > 0 && _iapThreeQuartersContinueDeathsAvailable == 0 && _iapFullContinueDeathsAvailable > 0)
+        {
+            _iapFullContinueDeathsAvailable--;
+            BhanuPrefs.SetIAPFullContinueDeaths(_iapFullContinueDeathsAvailable);
+            SceneManager.LoadScene(m_currentScene);
+        }
+
+        else
+        {
+            BhanuPrefs.DeleteScore();
+		    ScoreManager.m_supersCount = ScoreManager.m_defaultSupersCount;
+		    BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
+            SceneManager.LoadScene(m_currentScene);
+        }
+        
         _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-        BhanuPrefs.DeleteScore();
-		ScoreManager.m_supersCount = ScoreManager.m_defaultSupersCount;
-		BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
-        SceneManager.LoadScene(m_currentScene);
     }
 
     void AdResult(ShowResult result)
@@ -396,11 +401,8 @@ public class GameManager : MonoBehaviour
             m_firstTimeUIButtonsTutorial = BhanuPrefs.GetFirstTimeUIButtonsTutorialStatus();
             m_firstTimeWaterLevelTutorial = BhanuPrefs.GetFirstTimeWaterLevelTutorialStatus();
             _iapFullContinueDeathsAvailable = BhanuPrefs.GetIAPFullContinueDeaths();
-            _iapFullContinueEffect = BhanuPrefs.GetIAPFullContinueStatus();
             _iapHalfContinueDeathsAvailable = BhanuPrefs.GetIAPHalfContinueDeaths();
-            _iapHalfContinueEffect = BhanuPrefs.GetIAPHalfContinueStatus();
             _iapThreeQuartersContinueDeathsAvailable = BhanuPrefs.GetIAPThreeQuartersContinueDeaths();
-            _iapThreeQuartersContinueEffect = BhanuPrefs.GetIAPThreeQuartersContinueStatus();
             m_playerMutedSounds = BhanuPrefs.GetSoundsStatus();
             Time.timeScale = 1;
         }
@@ -413,11 +415,8 @@ public class GameManager : MonoBehaviour
             m_firstTimeUIButtonsTutorial = 0;
             m_firstTimeWaterLevelTutorial = 0;
             _iapFullContinueDeathsAvailable = 0;
-            _iapFullContinueEffect = 0;
             _iapHalfContinueDeathsAvailable = 0;
-            _iapHalfContinueEffect = 0;
             _iapThreeQuartersContinueDeathsAvailable = 0;
-            _iapThreeQuartersContinueEffect = 0;
             m_playerMutedSounds = 0;
 
             if(m_currentScene > 0)
@@ -710,38 +709,20 @@ public class GameManager : MonoBehaviour
                 case "halfcontinuedemo":
                     _iapHalfContinueDeathsAvailable += 5;
                     BhanuPrefs.SetIAPHalfContinueDeaths(_iapHalfContinueDeathsAvailable);
-                    _iapHalfContinueEffect = 1;
-                    BhanuPrefs.SetIAPHalfContinueStatus(_iapHalfContinueEffect);
-                    _iapThreeQuartersContinueEffect = 0;
-                    BhanuPrefs.SetIAPThreeQuartersContinueStatus(_iapThreeQuartersContinueEffect);
-                    _iapFullContinueEffect = 0;
-                    BhanuPrefs.SetIAPFullContinueStatus(_iapFullContinueEffect);
                     _iapText.text = "50% Continue Purchased :)";
                     _iapText.enabled = true;
                 break;
 
                 case "threequarterscontinuedemo":
-                    _iapHalfContinueEffect = 0;
-                    BhanuPrefs.SetIAPHalfContinueStatus(_iapHalfContinueEffect);
                     _iapThreeQuartersContinueDeathsAvailable += 5;
                     BhanuPrefs.SetIAPThreeQuartersContinueDeaths(_iapThreeQuartersContinueDeathsAvailable);
-                    _iapThreeQuartersContinueEffect = 1;
-                    BhanuPrefs.SetIAPThreeQuartersContinueStatus(_iapThreeQuartersContinueEffect);
-                    _iapFullContinueEffect = 0;
-                    BhanuPrefs.SetIAPFullContinueStatus(_iapFullContinueEffect);
                     _iapText.text = "75% Continue Purchased :)";
                     _iapText.enabled = true;
                 break;
 
                 case "fullcontinuedemo":
-                    _iapHalfContinueEffect = 0;
-                    BhanuPrefs.SetIAPHalfContinueStatus(_iapHalfContinueEffect);
-                    _iapThreeQuartersContinueEffect = 0;
-                    BhanuPrefs.SetIAPThreeQuartersContinueStatus(_iapThreeQuartersContinueEffect);
                     _iapFullContinueDeathsAvailable += 5;
                     BhanuPrefs.SetIAPFullContinueDeaths(_iapFullContinueDeathsAvailable);
-                    _iapFullContinueEffect = 1;
-                    BhanuPrefs.SetIAPFullContinueStatus(_iapFullContinueEffect);
                     _iapText.text = "100% Continue Purchased :)";
                     _iapText.enabled = true;
                 break;
