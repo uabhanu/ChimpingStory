@@ -9,12 +9,20 @@ public class BhanuPrefs : MonoBehaviour
     const string FIRST_TIME_UI_BUTTONS_TUTORIAL_KEY = "FirstTimeUIButtonsTutorial";
     const string FIRST_TIME_WATER_LEVEL_TUTORIAL_KEY = "FirstTimeWaterLevelTutorial";
     const string HIGH_SCORE_KEY = "HighScore";
+    const string IAP_FULLCONTINUE_KEY = "FullContinue";
+    const string IAP_HALFCONTINUE_KEY = "HalfContinue";
+    const string IAP_THREEQUARTERSCONTINUE_KEY = "ThreeQuartersContinue";
     const string SOUNDS_STATUS_KEY = "SoundsStatus";
     const string SUPERS_KEY = "Supers";
 
     public static void DeleteAll()
     {
         PlayerPrefs.DeleteAll();
+    }
+
+    public static void DeleteKey(string key)
+    {
+        PlayerPrefs.DeleteKey(key);
     }
 
     public static void DeleteScore()
@@ -92,6 +100,36 @@ public class BhanuPrefs : MonoBehaviour
         return 0;
     }
 
+    public static int GetIAPFullContinueStatus()
+    {
+        if(PlayerPrefs.HasKey(IAP_FULLCONTINUE_KEY))
+        {
+            return PlayerPrefs.GetInt(IAP_FULLCONTINUE_KEY);
+        }
+
+        return 0;
+    }
+
+    public static int GetIAPHalfContinueStatus()
+    {
+        if(PlayerPrefs.HasKey(IAP_HALFCONTINUE_KEY))
+        {
+            return PlayerPrefs.GetInt(IAP_HALFCONTINUE_KEY);
+        }
+
+        return 0;
+    }
+
+    public static int GetIAPThreeQuartersContinueStatus()
+    {
+        if(PlayerPrefs.HasKey(IAP_THREEQUARTERSCONTINUE_KEY))
+        {
+            return PlayerPrefs.GetInt(IAP_THREEQUARTERSCONTINUE_KEY);
+        }
+
+        return 0;
+    }
+
     public static int GetSoundsStatus()
     {
         if(PlayerPrefs.HasKey(SOUNDS_STATUS_KEY))
@@ -142,9 +180,24 @@ public class BhanuPrefs : MonoBehaviour
         PlayerPrefs.SetInt(FIRST_TIME_WATER_LEVEL_TUTORIAL_KEY , waterLevelStatus);
     }
 
-    public static void SetHighScore(float score)
+    public static void SetHighScore(float highScore)
     {
-        PlayerPrefs.SetFloat(HIGH_SCORE_KEY , score);
+        PlayerPrefs.SetFloat(HIGH_SCORE_KEY , highScore);
+    }
+
+    public static void SetIAPFullContinueStatus(int fullContinueStatus)
+    {
+        PlayerPrefs.SetInt(IAP_FULLCONTINUE_KEY , fullContinueStatus);
+    }
+
+    public static void SetIAPHalfContinueStatus(int halfContinueStatus)
+    {
+        PlayerPrefs.SetInt(IAP_HALFCONTINUE_KEY , halfContinueStatus);
+    }
+
+    public static void SetIAPThreeQuartersContinueStatus(int threeQuartersContinueStatus)
+    {
+        PlayerPrefs.SetInt(IAP_THREEQUARTERSCONTINUE_KEY , threeQuartersContinueStatus);
     }
 
     public static void SetSoundsStatus(int mute)

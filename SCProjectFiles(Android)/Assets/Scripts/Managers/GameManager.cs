@@ -10,10 +10,9 @@ public class GameManager : MonoBehaviour
 {
 	Achievement _selfieAchievement , _undisputedChimpionAchievement;
     AudioSource _musicSource;
-    [SerializeField] bool _bIAPFullContinueEffect , _bIAPHalfContinueEffect , _bIAPThreeQuartersContinueEffect; //TODO Remove [SerializeField] after finished testing
 	Image _adsAcceptButtonImage , _adsCancelButtonImage , _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _continueButtonImage , _exitButtonImage , _firstTimePlayTutorialMenuImage;
     Image _firstTimePlayTutorialOKButtonImage , _iapCartButtonImage , _pauseMenuImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage , _resumeButtonImage;
-    int _chimpionshipsCount , _currentChimpion;
+    [SerializeField] int _chimpionshipsCount , _currentChimpion , _iapFullContinueEffect , _iapHalfContinueEffect , _iapThreeQuartersContinueEffect; //TODO Remove [SerializeField] after testing
     LandChimp _landChimp;
     SocialmediaManager _socialmediaManager;
 	SoundManager _soundManager;
@@ -50,25 +49,32 @@ public class GameManager : MonoBehaviour
 
     public void Ads()
     {
-        m_adsMenuImage.enabled = true;
-        _adsAcceptButtonImage.enabled = true;
-        _adsCancelButtonImage.enabled = true;
-        _adsText.enabled = true;
-        m_chimpionshipBeltButtonImage.enabled = false;
-        
-        if(SocialmediaManager.b_isGPGsLeaderboardTestMode)
+        if(_iapFullContinueEffect == 0 && _iapHalfContinueEffect == 0 && _iapThreeQuartersContinueEffect == 0)
         {
-            _socialmediaManager.GooglePlayGamesLeaderboardTestMenuDisappear();
-        }
+            m_adsMenuImage.enabled = true;
+            _adsAcceptButtonImage.enabled = true;
+            _adsCancelButtonImage.enabled = true;
+            _adsText.enabled = true;
+            m_chimpionshipBeltButtonImage.enabled = false;
+        
+            if(SocialmediaManager.b_isGPGsLeaderboardTestMode)
+            {
+                _socialmediaManager.GooglePlayGamesLeaderboardTestMenuDisappear();
+            }
 
-        m_highScoreLabelText.enabled = false;
-        m_highScoreValueText.enabled = false;
-        m_muteButtonImage.enabled = false;
-        m_pauseButtonImage.enabled = false;
-		m_selfieButtonImage.enabled = false;
-        SocialmediaManager.m_gpgsLeaderboardButtonImage.enabled = false;
-        m_unmuteButtonImage.enabled = false;
-		Time.timeScale = 0;
+            m_highScoreLabelText.enabled = false;
+            m_highScoreValueText.enabled = false;
+            m_muteButtonImage.enabled = false;
+            m_pauseButtonImage.enabled = false;
+		    m_selfieButtonImage.enabled = false;
+            SocialmediaManager.m_gpgsLeaderboardButtonImage.enabled = false;
+            m_unmuteButtonImage.enabled = false;
+		    Time.timeScale = 0;
+        }
+        else
+        {
+            SceneManager.LoadScene(m_currentScene);
+        }
     }
 
     public void AdsAcceptButton()
@@ -91,7 +97,7 @@ public class GameManager : MonoBehaviour
     {
         _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
 
-        if(_bIAPHalfContinueEffect)
+        if(_iapHalfContinueEffect == 1)
         {
             ScoreManager.m_scoreValue *= 0.50f;
 		    ScoreManager.m_scoreValue = Mathf.Round(ScoreManager.m_scoreValue);
@@ -100,7 +106,7 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene(m_currentScene);
         }
 
-        else if(_bIAPThreeQuartersContinueEffect)
+        else if(_iapThreeQuartersContinueEffect == 1)
         {
             ScoreManager.m_scoreValue *= 0.75f;
 		    ScoreManager.m_scoreValue = Mathf.Round(ScoreManager.m_scoreValue);
@@ -109,7 +115,7 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene(m_currentScene);
         }
 
-        else if(_bIAPFullContinueEffect)
+        else if(_iapFullContinueEffect == 1)
         {
             Time.timeScale = 1;
             SceneManager.LoadScene(m_currentScene);
@@ -390,6 +396,9 @@ public class GameManager : MonoBehaviour
             _firstTimeSlide = BhanuPrefs.GetFirstTimeSlideTutorialStatus();
             m_firstTimeUIButtonsTutorial = BhanuPrefs.GetFirstTimeUIButtonsTutorialStatus();
             m_firstTimeWaterLevelTutorial = BhanuPrefs.GetFirstTimeWaterLevelTutorialStatus();
+            _iapFullContinueEffect = BhanuPrefs.GetIAPFullContinueStatus();
+            _iapHalfContinueEffect = BhanuPrefs.GetIAPHalfContinueStatus();
+            _iapThreeQuartersContinueEffect = BhanuPrefs.GetIAPThreeQuartersContinueStatus();
             m_playerMutedSounds = BhanuPrefs.GetSoundsStatus();
             Time.timeScale = 1;
         }
@@ -401,6 +410,9 @@ public class GameManager : MonoBehaviour
             _firstTimeSlide = 0;
             m_firstTimeUIButtonsTutorial = 0;
             m_firstTimeWaterLevelTutorial = 0;
+            _iapFullContinueEffect = 0;
+            _iapHalfContinueEffect = 0;
+            _iapThreeQuartersContinueEffect = 0;
             m_playerMutedSounds = 0;
 
             if(m_currentScene > 0)
@@ -692,25 +704,34 @@ public class GameManager : MonoBehaviour
             switch(product.definition.id)
             {
                 case "halfcontinuedemo":
-                    _bIAPHalfContinueEffect = true;
-                    _bIAPThreeQuartersContinueEffect = false;
-                    _bIAPFullContinueEffect = false;
+                    _iapHalfContinueEffect = 1;
+                    BhanuPrefs.SetIAPHalfContinueStatus(_iapHalfContinueEffect);
+                    _iapThreeQuartersContinueEffect = 0;
+                    BhanuPrefs.SetIAPThreeQuartersContinueStatus(_iapThreeQuartersContinueEffect);
+                    _iapFullContinueEffect = 0;
+                    BhanuPrefs.SetIAPFullContinueStatus(_iapFullContinueEffect);
                     _iapText.text = "Half Continue Successful :)";
                     _iapText.enabled = true;
                 break;
 
                 case "threequarterscontinuedemo":
-                    _bIAPHalfContinueEffect = false;
-                    _bIAPThreeQuartersContinueEffect = true;
-                    _bIAPFullContinueEffect = false;
+                    _iapHalfContinueEffect = 0;
+                    BhanuPrefs.SetIAPHalfContinueStatus(_iapHalfContinueEffect);
+                    _iapThreeQuartersContinueEffect = 1;
+                    BhanuPrefs.SetIAPThreeQuartersContinueStatus(_iapThreeQuartersContinueEffect);
+                    _iapFullContinueEffect = 0;
+                    BhanuPrefs.SetIAPFullContinueStatus(_iapFullContinueEffect);
                     _iapText.text = "Three Quarters Continue Successful :)";
                     _iapText.enabled = true;
                 break;
 
                 case "fullcontinuedemo":
-                    _bIAPHalfContinueEffect = false;
-                    _bIAPThreeQuartersContinueEffect = false;
-                    _bIAPFullContinueEffect = true;
+                    _iapHalfContinueEffect = 0;
+                    BhanuPrefs.SetIAPHalfContinueStatus(_iapHalfContinueEffect);
+                    _iapThreeQuartersContinueEffect = 0;
+                    BhanuPrefs.SetIAPThreeQuartersContinueStatus(_iapThreeQuartersContinueEffect);
+                    _iapFullContinueEffect = 1;
+                    BhanuPrefs.SetIAPFullContinueStatus(_iapFullContinueEffect);
                     _iapText.text = "Full Continue Successful :)";
                     _iapText.enabled = true;
                 break;
