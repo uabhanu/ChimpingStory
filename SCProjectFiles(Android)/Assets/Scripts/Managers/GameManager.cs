@@ -89,37 +89,30 @@ public class GameManager : MonoBehaviour
 
     public void AdsCancelButton()
     {
-        if(_iapHalfContinueDeathsAvailable > 0 && _iapThreeQuartersContinueDeathsAvailable > 0 && _iapFullContinueDeathsAvailable > 0)
+        if(_iapFullContinueDeathsAvailable > 0)
         {
             _iapFullContinueDeathsAvailable--;
             BhanuPrefs.SetIAPFullContinueDeaths(_iapFullContinueDeathsAvailable);
             SceneManager.LoadScene(m_currentScene);
         }
 
-        else if(_iapHalfContinueDeathsAvailable > 0 && _iapThreeQuartersContinueDeathsAvailable > 0 && _iapFullContinueDeathsAvailable == 0)
+        else if(_iapThreeQuartersContinueDeathsAvailable > 0)
         {
             ScoreManager.m_scoreValue *= 0.75f;
-		    ScoreManager.m_scoreValue = Mathf.Round(ScoreManager.m_scoreValue);
+            ScoreManager.m_scoreValue = Mathf.Round(ScoreManager.m_scoreValue);
             BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
             _iapThreeQuartersContinueDeathsAvailable--;
             BhanuPrefs.SetIAPThreeQuartersContinueDeaths(_iapThreeQuartersContinueDeathsAvailable);
             SceneManager.LoadScene(m_currentScene);
         }
 
-        else if(_iapHalfContinueDeathsAvailable > 0 && _iapThreeQuartersContinueDeathsAvailable == 0 && _iapFullContinueDeathsAvailable == 0)
+        else if(_iapHalfContinueDeathsAvailable > 0)
         {
             ScoreManager.m_scoreValue *= 0.50f;
-		    ScoreManager.m_scoreValue = Mathf.Round(ScoreManager.m_scoreValue);
+            ScoreManager.m_scoreValue = Mathf.Round(ScoreManager.m_scoreValue);
             BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
             _iapHalfContinueDeathsAvailable--;
             BhanuPrefs.SetIAPHalfContinueDeaths(_iapHalfContinueDeathsAvailable);
-            SceneManager.LoadScene(m_currentScene);
-        }
-
-        else if(_iapHalfContinueDeathsAvailable > 0 && _iapThreeQuartersContinueDeathsAvailable == 0 && _iapFullContinueDeathsAvailable > 0)
-        {
-            _iapFullContinueDeathsAvailable--;
-            BhanuPrefs.SetIAPFullContinueDeaths(_iapFullContinueDeathsAvailable);
             SceneManager.LoadScene(m_currentScene);
         }
 
