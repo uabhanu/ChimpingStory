@@ -908,7 +908,11 @@ public class GameManager : MonoBehaviour
                 SocialmediaManager.m_gpgsLeaderboardButtonObj.SetActive(false);
             }
         
-            _iapCartButtonImage.enabled = true;
+            if(m_currentScene < 2)
+            {
+                _iapCartButtonImage.enabled = true;
+            }
+            
 		    m_pauseButtonImage.enabled = false;
 		    _pauseMenuImage.enabled = true;
 		    _resumeButtonImage.enabled = true;
@@ -1070,7 +1074,11 @@ public class GameManager : MonoBehaviour
             SocialmediaManager.m_gpgsLeaderboardButtonObj.SetActive(true);
         }
         
-        _iapCartButtonImage.enabled = false;
+        if(m_currentScene < 2)
+        {
+            _iapCartButtonImage.enabled = false;
+        }
+
 		m_pauseButtonImage.enabled = true;
 		_pauseMenuImage.enabled = false;
         _resumeButtonImage.enabled = false;
