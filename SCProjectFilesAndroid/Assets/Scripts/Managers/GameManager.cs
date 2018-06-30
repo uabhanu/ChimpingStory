@@ -2,7 +2,6 @@
 using GooglePlayGames.BasicApi;
 using UnityEngine;
 using UnityEngine.Advertisements;
-using UnityEngine.Purchasing;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -13,7 +12,6 @@ public class GameManager : MonoBehaviour
 	Image _adsAcceptButtonImage , _adsCancelButtonImage , _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _continueButtonImage , _exitButtonImage , _firstTimePlayTutorialMenuImage;
     Image _firstTimePlayTutorialOKButtonImage , _iapCartButtonImage , _pauseMenuImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage , _resumeButtonImage;
     int _chimpionshipsCount , _currentChimpion;
-    [SerializeField] int _iapFullContinueDeathsAvailable , _iapHalfContinueDeathsAvailable , _iapThreeQuartersContinueDeathsAvailable; //TODO Remove [SerializeField] and this comment after testing 
     LandChimp _landChimp;
     SocialmediaManager _socialmediaManager;
 	SoundManager _soundManager;
@@ -89,30 +87,30 @@ public class GameManager : MonoBehaviour
 
     public void AdsCancelButton()
     {
-        if(_iapFullContinueDeathsAvailable > 0)
+        if(IAPManager._iapFullContinueDeathsAvailable > 0)
         {
-            _iapFullContinueDeathsAvailable--;
-            BhanuPrefs.SetIAPFullContinueDeaths(_iapFullContinueDeathsAvailable);
+            IAPManager._iapFullContinueDeathsAvailable--;
+            BhanuPrefs.SetIAPFullContinueDeaths(IAPManager._iapFullContinueDeathsAvailable);
             SceneManager.LoadScene(m_currentScene);
         }
 
-        else if(_iapThreeQuartersContinueDeathsAvailable > 0)
+        else if(IAPManager._iapThreeQuartersContinueDeathsAvailable > 0)
         {
             ScoreManager.m_scoreValue *= 0.75f;
             ScoreManager.m_scoreValue = Mathf.Round(ScoreManager.m_scoreValue);
             BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
-            _iapThreeQuartersContinueDeathsAvailable--;
-            BhanuPrefs.SetIAPThreeQuartersContinueDeaths(_iapThreeQuartersContinueDeathsAvailable);
+            IAPManager._iapThreeQuartersContinueDeathsAvailable--;
+            BhanuPrefs.SetIAPThreeQuartersContinueDeaths(IAPManager._iapThreeQuartersContinueDeathsAvailable);
             SceneManager.LoadScene(m_currentScene);
         }
 
-        else if(_iapHalfContinueDeathsAvailable > 0)
+        else if(IAPManager._iapHalfContinueDeathsAvailable > 0)
         {
             ScoreManager.m_scoreValue *= 0.50f;
             ScoreManager.m_scoreValue = Mathf.Round(ScoreManager.m_scoreValue);
             BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
-            _iapHalfContinueDeathsAvailable--;
-            BhanuPrefs.SetIAPHalfContinueDeaths(_iapHalfContinueDeathsAvailable);
+            IAPManager._iapHalfContinueDeathsAvailable--;
+            BhanuPrefs.SetIAPHalfContinueDeaths(IAPManager._iapHalfContinueDeathsAvailable);
             SceneManager.LoadScene(m_currentScene);
         }
 
@@ -393,9 +391,9 @@ public class GameManager : MonoBehaviour
             _firstTimeSlide = BhanuPrefs.GetFirstTimeSlideTutorialStatus();
             m_firstTimeUIButtonsTutorial = BhanuPrefs.GetFirstTimeUIButtonsTutorialStatus();
             m_firstTimeWaterLevelTutorial = BhanuPrefs.GetFirstTimeWaterLevelTutorialStatus();
-            _iapFullContinueDeathsAvailable = BhanuPrefs.GetIAPFullContinueDeaths();
-            _iapHalfContinueDeathsAvailable = BhanuPrefs.GetIAPHalfContinueDeaths();
-            _iapThreeQuartersContinueDeathsAvailable = BhanuPrefs.GetIAPThreeQuartersContinueDeaths();
+            IAPManager._iapFullContinueDeathsAvailable = BhanuPrefs.GetIAPFullContinueDeaths();
+            IAPManager._iapHalfContinueDeathsAvailable = BhanuPrefs.GetIAPHalfContinueDeaths();
+            IAPManager._iapThreeQuartersContinueDeathsAvailable = BhanuPrefs.GetIAPThreeQuartersContinueDeaths();
             m_playerMutedSounds = BhanuPrefs.GetSoundsStatus();
             Time.timeScale = 1;
         }
@@ -407,9 +405,9 @@ public class GameManager : MonoBehaviour
             _firstTimeSlide = 0;
             m_firstTimeUIButtonsTutorial = 0;
             m_firstTimeWaterLevelTutorial = 0;
-            _iapFullContinueDeathsAvailable = 0;
-            _iapHalfContinueDeathsAvailable = 0;
-            _iapThreeQuartersContinueDeathsAvailable = 0;
+            IAPManager._iapFullContinueDeathsAvailable = 0;
+            IAPManager._iapHalfContinueDeathsAvailable = 0;
+            IAPManager._iapThreeQuartersContinueDeathsAvailable = 0;
             m_playerMutedSounds = 0;
 
             if(m_currentScene > 0)
@@ -689,50 +687,6 @@ public class GameManager : MonoBehaviour
     {
         _iapCartMenuObj.SetActive(false);
         _iapText.enabled = false;
-    }
-
-    public void IAPContinuePurchaseButton(Product product)
-    {
-        _iapText.enabled = false;
-
-        if(product != null)
-        {
-            switch(product.definition.id)
-            {
-                case "halfcontinuedemo":
-                    _iapHalfContinueDeathsAvailable += 5;
-                    BhanuPrefs.SetIAPHalfContinueDeaths(_iapHalfContinueDeathsAvailable);
-                    _iapText.text = "50% Continue Purchased :) \n You can now use this " + _iapHalfContinueDeathsAvailable + " times before purchasing again :)";
-                    _iapText.enabled = true;
-                break;
-
-                case "threequarterscontinuedemo":
-                    _iapThreeQuartersContinueDeathsAvailable += 5;
-                    BhanuPrefs.SetIAPThreeQuartersContinueDeaths(_iapThreeQuartersContinueDeathsAvailable);
-                    _iapText.text = "75% Continue Purchased :) \n You can now use this " + _iapThreeQuartersContinueDeathsAvailable + " times before purchasing again :)";
-                    _iapText.enabled = true;
-                break;
-
-                case "fullcontinuedemo":
-                    _iapFullContinueDeathsAvailable += 5;
-                    BhanuPrefs.SetIAPFullContinueDeaths(_iapFullContinueDeathsAvailable);
-                    _iapText.text = "100% Continue Purchased :) \n You can now use this " + _iapFullContinueDeathsAvailable + " times before purchasing again :)";;
-                    _iapText.enabled = true;
-                break;
-
-                default:
-                    Debug.LogError("Sir Bhanu, Please check the ID again :)");
-                    _iapText.text = "Oops!! Something went wrong :( Please try again :)";
-                    _iapText.enabled = true;
-                break;
-            }
-        }
-    }
-
-    public void IAPFailed()
-    {
-        _iapText.text = "Oops!! Something went wrong :( Please try again :)";
-        _iapText.enabled = true;
     }
 
     bool IsChimpion()
