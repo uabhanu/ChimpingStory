@@ -287,11 +287,13 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    public static void FirstTimeJumpTutorial()
+    public void FirstTimeJumpTutorial()
     {
         if(_firstTimeJump == 0)
         {
             m_chimpionshipBeltButtonImage.enabled = false;
+            m_highScoreLabelText.enabled = false;
+            m_highScoreValueText.enabled = false;
             LevelCreator.m_gameSpeed = _defaultGameSpeed;
             m_muteButtonImage.enabled = false;
             m_pauseButtonImage.enabled = false;
@@ -307,11 +309,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public static void FirstTimeSlideTutorial()
+    public void FirstTimeSlideTutorial()
     {
         if(_firstTimeSlide == 0)
         {
             m_chimpionshipBeltButtonImage.enabled = false;
+            m_highScoreLabelText.enabled = false;
+            m_highScoreValueText.enabled = false;
             LevelCreator.m_gameSpeed = _defaultGameSpeed;
             m_muteButtonImage.enabled = false;
             m_pauseButtonImage.enabled = false;

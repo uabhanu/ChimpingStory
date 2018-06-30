@@ -3,6 +3,7 @@
 public class Hurdle : MonoBehaviour
 {
     Camera _mainCamera;
+    GameManager _gameManager;
     LandChimp _landChimp;
     Collider2D _hurdleCollider2D;
     SpriteRenderer _hurdleRenderer;
@@ -12,6 +13,7 @@ public class Hurdle : MonoBehaviour
     void Start()
     {
         _gameLayer = GameObject.Find("GameLayer").transform;
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         _hurdleCollider2D = GetComponent<Collider2D>();
         _hurdleRenderer = GetComponent<SpriteRenderer>();
         _landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
@@ -29,7 +31,7 @@ public class Hurdle : MonoBehaviour
 
         if(_positionOnScreen.x <= -8.81f && transform.IsChildOf(_gameLayer))
         {
-            GameManager.FirstTimeSlideTutorial();
+            _gameManager.FirstTimeSlideTutorial();
         }
 
         if(_landChimp.m_isSlipping || _landChimp.m_isSuper)
