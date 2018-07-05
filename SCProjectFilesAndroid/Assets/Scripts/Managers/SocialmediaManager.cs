@@ -297,6 +297,7 @@ public class SocialmediaManager : MonoBehaviour
     public void GooglePlayGamesLogInButton()
     {
         _bGPGsLogInButtonTapped = true;
+        m_noInternetText.enabled = false;
         GooglePlayGamesLogIn();
     }
 
