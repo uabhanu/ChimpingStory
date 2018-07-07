@@ -1,35 +1,35 @@
 {
   "project_info": {
-    "project_number": "845158637852",
-    "firebase_url": "https://selfie-chimp-29157890.firebaseio.com",
-    "project_id": "selfie-chimp-29157890",
-    "storage_bucket": "selfie-chimp-29157890.appspot.com"
+    "project_number": "828491421321",
+    "firebase_url": "https://bhanugame-12035351.firebaseio.com",
+    "project_id": "bhanugame-12035351",
+    "storage_bucket": "bhanugame-12035351.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:845158637852:android:1daf46df5e50cd2c",
+        "mobilesdk_app_id": "1:828491421321:android:1daf46df5e50cd2c",
         "android_client_info": {
-          "package_name": "com.FLSs.SC"
+          "package_name": "com.FLSs.BGSC"
         }
       },
       "oauth_client": [
         {
-          "client_id": "845158637852-p87fagjhf15nfsjdag8dc5gvm3s4csir.apps.googleusercontent.com",
+          "client_id": "828491421321-p87fagjhf15nfsjdag8dc5gvm3s4csir.apps.googleusercontent.com",
           "client_type": 3
         },
         {
-          "client_id": "845158637852-4cmig1ebb6l92t5q1npn86pj0jtnpk72.apps.googleusercontent.com",
+          "client_id": "828491421321-4cmig1ebb6l92t5q1npn86pj0jtnpk72.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.FLSs.SC",
-            "certificate_hash": "5919bb37b070dde62a7e62f9f3f26426e444793a"
+            "package_name": "com.FLSs.BGSC",
+            "certificate_hash": "F6E1DE21662C18AACDE8B03F1FD0DD7970FE2AE7"
           }
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBmF7V6HPi7zNO2xP54MMNewdY0YNZ6ftE"
+          "current_key": "AIzaSyBrHILJgGzrJKLNoBoHjiVAtESEm0xIqGk"
         }
       ],
       "services": {
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "845158637852-p87fagjhf15nfsjdag8dc5gvm3s4csir.apps.googleusercontent.com",
+              "client_id": "828491421321-p87fagjhf15nfsjdag8dc5gvm3s4csir.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
