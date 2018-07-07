@@ -13,7 +13,7 @@ public class SocialmediaManager : MonoBehaviour
     int _currentScene;
     IScore _highScore;
 
-    static string _leaderboardID = "CgkInMKFu8wYEAIQAw"; //String name doesn't work so use this unique key, same for achievements
+    static string _leaderboardID = "CgkIia2_r44YEAIQAQ"; //String name doesn't work so use this unique key, same for achievements
     static Text _gpgsLeaderboardLogInCheckText;
 
     //[SerializeField] Image _oneSignalMenuImage , _oneSignalPushAcceptButtonImage , _oneSignalPushCancelButtonImage;

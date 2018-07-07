@@ -3,7 +3,7 @@
 public class ScoreManager : MonoBehaviour 
 {
     GameManager _gameManager;
-    string _leaderboardID = "CgkInMKFu8wYEAIQAQ";
+    string _leaderboardID = "CgkIia2_r44YEAIQAQ";
 
     public static bool m_isTestingMode;
     public static float m_minHighScore , m_scoreValue;
