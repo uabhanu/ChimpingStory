@@ -38,7 +38,7 @@ public class SocialmediaManager : MonoBehaviour
         //b_isOneSignalTestMode = true;
         _currentScene = SceneManager.GetActiveScene().buildIndex;
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        OneSignal.StartInit("48e311d3-611f-4dc8-9a48-590f7b15a4e8").HandleNotificationOpened(OneSignalHandleNotificationOpened).EndInit();
+        OneSignal.StartInit("4aa7d0ba-0abb-47ca-baef-51e1fdf67ef8").HandleNotificationOpened(OneSignalHandleNotificationOpened).EndInit();
         OneSignal.inFocusDisplayType = OneSignal.OSInFocusDisplayOption.Notification;
         OneSignal.permissionObserver += OneSignalPermissionObserver;
 
