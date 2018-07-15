@@ -25,22 +25,22 @@ public class IAPManager : MonoBehaviour , IStoreListener
             switch(product.definition.id)
             {
                 case "continue0.5":
-                    _iapHalfContinueDeathsAvailable += 5;
-                    BhanuPrefs.SetIAPHalfContinueDeaths(_iapHalfContinueDeathsAvailable);
+                    // _iapHalfContinueDeathsAvailable += 5;
+                    // BhanuPrefs.SetIAPHalfContinueDeaths(_iapHalfContinueDeathsAvailable);
                     _iapText.text = "50% Continue Purchased :) \n You can now use this " + _iapHalfContinueDeathsAvailable + " times before purchasing again :)";
                     _iapText.enabled = true;
                 break;
 
                 case "continue0.75":
-                    _iapThreeQuartersContinueDeathsAvailable += 5;
-                    BhanuPrefs.SetIAPThreeQuartersContinueDeaths(_iapThreeQuartersContinueDeathsAvailable);
+                    // _iapThreeQuartersContinueDeathsAvailable += 5;
+                    // BhanuPrefs.SetIAPThreeQuartersContinueDeaths(_iapThreeQuartersContinueDeathsAvailable);
                     _iapText.text = "75% Continue Purchased :) \n You can now use this " + _iapThreeQuartersContinueDeathsAvailable + " times before purchasing again :)";
                     _iapText.enabled = true;
                 break;
 
                 case "continuefull":
-                    _iapFullContinueDeathsAvailable += 5;
-                    BhanuPrefs.SetIAPFullContinueDeaths(_iapFullContinueDeathsAvailable);
+                    // _iapFullContinueDeathsAvailable += 5;
+                    // BhanuPrefs.SetIAPFullContinueDeaths(_iapFullContinueDeathsAvailable);
                     _iapText.text = "100% Continue Purchased :) \n You can now use this " + _iapFullContinueDeathsAvailable + " times before purchasing again :)";;
                     _iapText.enabled = true;
                 break;

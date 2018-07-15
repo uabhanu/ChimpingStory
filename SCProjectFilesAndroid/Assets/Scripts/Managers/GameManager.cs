@@ -516,7 +516,7 @@ public class GameManager : MonoBehaviour
                 Time.timeScale = 0;
             }
 
-            if(MusicManager.m_musicSource != null)
+            if(MusicManager.m_musicSource != null && _soundManager.m_soundsSource != null)
             {
                 if(!MusicManager.m_musicSource.isPlaying && m_playerMutedSounds == 0)
                 {
