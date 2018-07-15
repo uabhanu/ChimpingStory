@@ -709,7 +709,7 @@ public class GameManager : MonoBehaviour
     {
         _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
 
-        if(m_firstTimeUIButtonsTutorial == 1)
+        if(m_firstTimeUIButtonsTutorial == 1 && m_currentScene > 0)
         {
             if(MusicManager.m_musicSource != null)
             {
