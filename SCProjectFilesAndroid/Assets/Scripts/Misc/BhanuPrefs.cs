@@ -4,6 +4,7 @@ public class BhanuPrefs : MonoBehaviour
 {
     const string CHIMPIONSHIPS_COUNT_KEY = "NumberOfTimesChimpion";
     const string CURRENT_CHIMPIONSHIP_STATUS_KEY = "CurrentChimpionshipStatus";
+    const string FIRST_TIME_IAP_TUTORIAL_KEY = "FirstTimeIAPTutorial";
     const string FIRST_TIME_JUMP_TUTORIAL_KEY = "FirstTimeJumpTutorial";
     const string FIRST_TIME_SLIDE_TUTORIAL_KEY = "FirstTimeSlideTutorial";
     const string FIRST_TIME_UI_BUTTONS_TUTORIAL_KEY = "FirstTimeUIButtonsTutorial";
@@ -45,6 +46,16 @@ public class BhanuPrefs : MonoBehaviour
         if(PlayerPrefs.HasKey(CURRENT_CHIMPIONSHIP_STATUS_KEY))
         {
             return PlayerPrefs.GetInt(CURRENT_CHIMPIONSHIP_STATUS_KEY);
+        }
+
+        return 0;
+    }
+
+    public static int GetFirstTimeIAPTutorialStatus()
+    {
+        if(PlayerPrefs.HasKey(FIRST_TIME_IAP_TUTORIAL_KEY))
+        {
+            return PlayerPrefs.GetInt(FIRST_TIME_IAP_TUTORIAL_KEY);
         }
 
         return 0;
@@ -158,6 +169,11 @@ public class BhanuPrefs : MonoBehaviour
     public static void SetCurrentChimpionshipStatus(int chimpionshipStatus)
     {
         PlayerPrefs.SetInt(CURRENT_CHIMPIONSHIP_STATUS_KEY , chimpionshipStatus);
+    }
+
+    public static void SetFirstTimeIAPTutorialStatus(int iapTutStatus)
+    {
+        PlayerPrefs.SetInt(FIRST_TIME_IAP_TUTORIAL_KEY , iapTutStatus);
     }
 
     public static void SetFirstTimeJumpTutorialStatus(int jumpTutStatus)

@@ -10,12 +10,6 @@ public class IAPManager : MonoBehaviour , IStoreListener
 
     public static int _iapFullContinueDeathsAvailable , _iapHalfContinueDeathsAvailable , _iapThreeQuartersContinueDeathsAvailable;
 
-	void Awake()
-    {
-        ConfigurationBuilder cb = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
-        UnityPurchasing.Initialize(this , cb);
-    }
-
 	public void IAPContinuePurchaseButton(Product product)
     {
         _iapText.enabled = false;

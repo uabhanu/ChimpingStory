@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     static int _firstTimeJump = 0 , _firstTimeSlide = 0;
 
 	[SerializeField] bool _bSelfieFlashEnabled , _bVersionCodeDisplayEnabled;
-    [SerializeField] GameObject _iapCartMenuObj;
+    [SerializeField] GameObject _iapCartMenuObj , _iapConfirmMenuObj;
     [SerializeField] Image _chimpionshipBeltMenuImage , _chimpionshipOKButtonImage , _landLevelButtonImage , _waterLevelButtonImage;
     [SerializeField] Sprite[] _chimpionshipBeltSprites;
     [SerializeField] string _chimpionAchievementID , _selfieAchievementID , _selfieLegendAchievementID , _undisputedChimpionAchievementID;
@@ -34,14 +34,14 @@ public class GameManager : MonoBehaviour
     public static GameObject m_pauseMenuObj , m_uiButtonsTutorialMenuObj;
     public static Image m_adsMenuImage , m_arrow01Image , m_arrow02Image , m_arrow03Image , m_arrow04Image , m_chimpionshipBeltButtonImage , m_muteButtonImage , m_nextButtonImage , m_pauseButtonImage;
     public static Image m_selfieButtonImage , m_selfiePanelImage , m_uiButtonsTutorialMenuImage , m_unmuteButtonImage;
-    public static int m_currentScene , m_firstTimeUIButtonsTutorial , m_firstTimeWaterLevelTutorial , m_playerMutedSounds;
+    public static int m_currentScene , m_firstTimeIAPTutorialAppeared , m_firstTimeUIButtonsTutorial , m_firstTimeWaterLevelTutorial , m_playerMutedSounds;
     public static Text m_chimpionshipBeltButtonTutorialText , m_leaderboardButtonTutorialText , m_muteUnmuteButtonTutorialText , m_pauseButtonTutorialText;
 
     public Text m_highScoreLabelText , m_highScoreValueText;
 
     void Start()
 	{
-       //b_isFirstTimeTutorialTestingMode = true; //TODO Remove this for Live Version
+        //b_isFirstTimeTutorialTestingMode = true; //TODO Remove this for Live Version
         //b_isMemoryLeakTestingMode = true; //TODO Remove this for Live Version
         GetBhanuObjects();
     }
@@ -116,10 +116,19 @@ public class GameManager : MonoBehaviour
 
         else
         {
-            BhanuPrefs.DeleteScore();
-		    ScoreManager.m_supersCount = ScoreManager.m_defaultSupersCount;
-		    BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
-            SceneManager.LoadScene(m_currentScene);
+            if(m_firstTimeIAPTutorialAppeared == 0)
+            {
+                _iapConfirmMenuObj.SetActive(true);
+                m_firstTimeIAPTutorialAppeared++;
+                BhanuPrefs.SetFirstTimeIAPTutorialStatus(m_firstTimeIAPTutorialAppeared);
+            }
+            else
+            {
+                BhanuPrefs.DeleteScore();
+                ScoreManager.m_supersCount = ScoreManager.m_defaultSupersCount;
+                BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
+                SceneManager.LoadScene(m_currentScene);
+            }
         }
         
         _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
@@ -391,6 +400,7 @@ public class GameManager : MonoBehaviour
         if(!b_isFirstTimeTutorialTestingMode)
         {
             _chimpionshipsCount = BhanuPrefs.GetChimpionshipsCount();
+            m_firstTimeIAPTutorialAppeared = BhanuPrefs.GetFirstTimeIAPTutorialStatus();
             _firstTimeJump = BhanuPrefs.GetFirstTimeJumpTutorialStatus();
             _firstTimeSlide = BhanuPrefs.GetFirstTimeSlideTutorialStatus();
             m_firstTimeUIButtonsTutorial = BhanuPrefs.GetFirstTimeUIButtonsTutorialStatus();
@@ -403,16 +413,16 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            BhanuPrefs.DeleteAll(); //TODO Once game is live, remove this line forever
-            _chimpionshipsCount = 0;
-            _firstTimeJump = 0;
-            _firstTimeSlide = 0;
-            m_firstTimeUIButtonsTutorial = 0;
-            m_firstTimeWaterLevelTutorial = 0;
-            IAPManager._iapFullContinueDeathsAvailable = 0;
-            IAPManager._iapHalfContinueDeathsAvailable = 0;
-            IAPManager._iapThreeQuartersContinueDeathsAvailable = 0;
-            m_playerMutedSounds = 0;
+            BhanuPrefs.DeleteAll();
+            // _chimpionshipsCount = 0;
+            // _firstTimeJump = 0;
+            // _firstTimeSlide = 0;
+            // m_firstTimeUIButtonsTutorial = 0;
+            // m_firstTimeWaterLevelTutorial = 0;
+            // IAPManager._iapFullContinueDeathsAvailable = 0;
+            // IAPManager._iapHalfContinueDeathsAvailable = 0;
+            // IAPManager._iapThreeQuartersContinueDeathsAvailable = 0;
+            // m_playerMutedSounds = 0;
 
             if(m_currentScene > 0)
             {
@@ -691,6 +701,20 @@ public class GameManager : MonoBehaviour
     {
         _iapCartMenuObj.SetActive(false);
         _iapText.enabled = false;
+    }
+
+    public void IAPNoButton()
+    {
+        BhanuPrefs.DeleteScore();
+        ScoreManager.m_supersCount = ScoreManager.m_defaultSupersCount;
+        BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
+        SceneManager.LoadScene(m_currentScene);
+    }
+
+    public void IAPYesButton()
+    {
+        _iapCartMenuObj.SetActive(true);
+        _iapConfirmMenuObj.SetActive(false);
     }
 
     bool IsChimpion()
