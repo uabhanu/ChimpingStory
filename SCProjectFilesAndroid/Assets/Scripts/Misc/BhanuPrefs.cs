@@ -9,6 +9,7 @@ public class BhanuPrefs : MonoBehaviour
     const string FIRST_TIME_SLIDE_TUTORIAL_KEY = "FirstTimeSlideTutorial";
     const string FIRST_TIME_UI_BUTTONS_TUTORIAL_KEY = "FirstTimeUIButtonsTutorial";
     const string FIRST_TIME_WATER_LEVEL_TUTORIAL_KEY = "FirstTimeWaterLevelTutorial";
+    const string GAME_DIFFICULTY_KEY = "GameDifficulty";
     const string HIGH_SCORE_KEY = "HighScore";
     const string IAP_FULL_CONTINUE_DEATHS_KEY = "FullContinueDeaths";
     const string IAP_HALF_CONTINUE_DEATHS_KEY = "HalfContinueDeaths";
@@ -96,6 +97,16 @@ public class BhanuPrefs : MonoBehaviour
         if(PlayerPrefs.HasKey(FIRST_TIME_WATER_LEVEL_TUTORIAL_KEY))
         {
             return PlayerPrefs.GetInt(FIRST_TIME_WATER_LEVEL_TUTORIAL_KEY);
+        }
+
+        return 0;
+    }
+
+    public static int GetGameDifficultyStatus()
+    {
+        if(PlayerPrefs.HasKey(GAME_DIFFICULTY_KEY))
+        {
+            return PlayerPrefs.GetInt(GAME_DIFFICULTY_KEY);
         }
 
         return 0;
@@ -194,6 +205,11 @@ public class BhanuPrefs : MonoBehaviour
     public static void SetFirstTimeWaterLevelTutorialStatus(int waterLevelStatus)
     {
         PlayerPrefs.SetInt(FIRST_TIME_WATER_LEVEL_TUTORIAL_KEY , waterLevelStatus);
+    }
+
+    public static void SetGameDifficultyStatus(int gameDifficultyStatus)
+    {
+        PlayerPrefs.SetInt(GAME_DIFFICULTY_KEY , gameDifficultyStatus);
     }
 
     public static void SetHighScore(float highScore)

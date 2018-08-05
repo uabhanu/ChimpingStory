@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
     public static GameObject m_pauseMenuObj , m_uiButtonsTutorialMenuObj;
     public static Image m_adsMenuImage , m_arrow01Image , m_arrow02Image , m_arrow03Image , m_arrow04Image , m_chimpionshipBeltButtonImage , m_muteButtonImage , m_nextButtonImage , m_pauseButtonImage;
     public static Image m_selfieButtonImage , m_selfiePanelImage , m_uiButtonsTutorialMenuImage , m_unmuteButtonImage;
-    public static int m_currentScene , m_firstTimeIAPTutorialAppeared , m_firstTimeUIButtonsTutorial , m_firstTimeWaterLevelTutorial , m_playerMutedSounds;
+    public static int m_currentScene , m_firstTimeIAPTutorialAppeared , m_firstTimeUIButtonsTutorial , m_firstTimeWaterLevelTutorial , m_gameDifficulty , m_playerMutedSounds;
     public static Text m_chimpionshipBeltButtonTutorialText , m_leaderboardButtonTutorialText , m_muteUnmuteButtonTutorialText , m_pauseButtonTutorialText;
 
     public Text m_highScoreLabelText , m_highScoreValueText;
@@ -414,15 +414,6 @@ public class GameManager : MonoBehaviour
         else
         {
             BhanuPrefs.DeleteAll();
-            // _chimpionshipsCount = 0;
-            // _firstTimeJump = 0;
-            // _firstTimeSlide = 0;
-            // m_firstTimeUIButtonsTutorial = 0;
-            // m_firstTimeWaterLevelTutorial = 0;
-            // IAPManager._iapFullContinueDeathsAvailable = 0;
-            // IAPManager._iapHalfContinueDeathsAvailable = 0;
-            // IAPManager._iapThreeQuartersContinueDeathsAvailable = 0;
-            // m_playerMutedSounds = 0;
 
             if(m_currentScene > 0)
             {
