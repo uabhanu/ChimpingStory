@@ -148,7 +148,12 @@ public class LandChimp : MonoBehaviour
         {
             _chimpAnim.SetBool("Jump" , true);
             _chimpBody2D.velocity = new Vector2(_chimpBody2D.velocity.x , _jumpHeight);
-            SelfieAppear();
+
+            if(GameManager.m_gameDifficulty == 1)
+            {
+                SelfieAppear();
+            }
+            
             _bIsJumping = true;
             Invoke("JumpFinished" , 0.55f);
 		    _soundManager.m_soundsSource.clip = _soundManager.m_jump;
@@ -243,7 +248,12 @@ public class LandChimp : MonoBehaviour
 		{
 			_chimpAnim.SetBool("Jog" , false);
 			_chimpAnim.SetBool("Slide" , true);
-			SelfieAppear();
+
+			if(GameManager.m_gameDifficulty == 1)
+            {
+                SelfieAppear();
+            }
+            
 			_bIsSliding = true;
 			Invoke("SlideFinished" , 0.75f);
 		}

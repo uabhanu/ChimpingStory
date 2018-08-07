@@ -214,7 +214,7 @@ public class LevelCreator : MonoBehaviour
             return;
         }
 
-        if(Random.Range(0 , 6) == 0)
+        if(Random.Range(0 , 6) == 0 && GameManager.m_gameDifficulty == 1)
         {
             GameObject banana = m_collectedTiles.transform.Find("Banana").transform.GetChild(0).gameObject;
             banana.transform.parent = m_gameLayer.transform;
@@ -230,7 +230,7 @@ public class LevelCreator : MonoBehaviour
             _bMiscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 6) == 2)
+        else if(Random.Range(0 , 6) == 2 && GameManager.m_gameDifficulty == 1)
         {
             GameObject coin = m_collectedTiles.transform.Find("Coin").transform.GetChild(0).gameObject;
             coin.transform.parent = m_gameLayer.transform;
@@ -246,7 +246,7 @@ public class LevelCreator : MonoBehaviour
             _bMiscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 6) == 4)
+        else if(Random.Range(0 , 6) == 4 && GameManager.m_gameDifficulty == 1)
         {
             GameObject portal = m_collectedTiles.transform.Find("Portal").transform.GetChild(0).gameObject;
             portal.transform.parent = m_gameLayer.transform;
@@ -254,7 +254,7 @@ public class LevelCreator : MonoBehaviour
             _bMiscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 6) == 5 && ScoreManager.m_supersCount > 0)
+        else if(Random.Range(0 , 6) == 5 && ScoreManager.m_supersCount > 0 && GameManager.m_gameDifficulty == 1)
         {
             GameObject super = m_collectedTiles.transform.Find("Super").transform.GetChild(0).gameObject;
             super.transform.parent = m_gameLayer.transform;
