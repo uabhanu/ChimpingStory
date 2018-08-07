@@ -4,6 +4,7 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+<<<<<<< HEAD
         {
             "type": "extensionHost",
             "request": "launch",
@@ -17,6 +18,9 @@
             ],
             "preLaunchTask": "npm"
         },
+=======
+        
+>>>>>>> master
         {
             "name": "Unity Editor",
             "type": "unity",
