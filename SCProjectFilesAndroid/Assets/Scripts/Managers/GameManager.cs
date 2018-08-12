@@ -87,49 +87,49 @@ public class GameManager : MonoBehaviour
 
     public void AdsCancelButton()
     {
-        if(IAPManager._iapFullContinueDeathsAvailable > 0)
-        {
-            IAPManager._iapFullContinueDeathsAvailable--;
-            BhanuPrefs.SetIAPFullContinueDeaths(IAPManager._iapFullContinueDeathsAvailable);
-            SceneManager.LoadScene(m_currentScene);
-        }
+        // if(IAPManager._iapFullContinueDeathsAvailable > 0)
+        // {
+        //     IAPManager._iapFullContinueDeathsAvailable--;
+        //     BhanuPrefs.SetIAPFullContinueDeaths(IAPManager._iapFullContinueDeathsAvailable);
+        //     SceneManager.LoadScene(m_currentScene);
+        // }
 
-        else if(IAPManager._iapThreeQuartersContinueDeathsAvailable > 0)
-        {
-            ScoreManager.m_scoreValue *= 0.75f;
-            ScoreManager.m_scoreValue = Mathf.Round(ScoreManager.m_scoreValue);
-            BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
-            IAPManager._iapThreeQuartersContinueDeathsAvailable--;
-            BhanuPrefs.SetIAPThreeQuartersContinueDeaths(IAPManager._iapThreeQuartersContinueDeathsAvailable);
-            SceneManager.LoadScene(m_currentScene);
-        }
+        // else if(IAPManager._iapThreeQuartersContinueDeathsAvailable > 0)
+        // {
+        //     ScoreManager.m_scoreValue *= 0.75f;
+        //     ScoreManager.m_scoreValue = Mathf.Round(ScoreManager.m_scoreValue);
+        //     BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
+        //     IAPManager._iapThreeQuartersContinueDeathsAvailable--;
+        //     BhanuPrefs.SetIAPThreeQuartersContinueDeaths(IAPManager._iapThreeQuartersContinueDeathsAvailable);
+        //     SceneManager.LoadScene(m_currentScene);
+        // }
 
-        else if(IAPManager._iapHalfContinueDeathsAvailable > 0)
-        {
-            ScoreManager.m_scoreValue *= 0.50f;
-            ScoreManager.m_scoreValue = Mathf.Round(ScoreManager.m_scoreValue);
-            BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
-            IAPManager._iapHalfContinueDeathsAvailable--;
-            BhanuPrefs.SetIAPHalfContinueDeaths(IAPManager._iapHalfContinueDeathsAvailable);
-            SceneManager.LoadScene(m_currentScene);
-        }
+        // else if(IAPManager._iapHalfContinueDeathsAvailable > 0)
+        // {
+        //     ScoreManager.m_scoreValue *= 0.50f;
+        //     ScoreManager.m_scoreValue = Mathf.Round(ScoreManager.m_scoreValue);
+        //     BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
+        //     IAPManager._iapHalfContinueDeathsAvailable--;
+        //     BhanuPrefs.SetIAPHalfContinueDeaths(IAPManager._iapHalfContinueDeathsAvailable);
+        //     SceneManager.LoadScene(m_currentScene);
+        // }
 
-        else
-        {
-            if(m_firstTimeIAPTutorialAppeared == 0)
-            {
-                _iapConfirmMenuObj.SetActive(true);
-                m_firstTimeIAPTutorialAppeared++;
-                BhanuPrefs.SetFirstTimeIAPTutorialStatus(m_firstTimeIAPTutorialAppeared);
-            }
-            else
-            {
+        // else
+        // {
+        //     if(m_firstTimeIAPTutorialAppeared == 0)
+        //     {
+        //         _iapConfirmMenuObj.SetActive(true);
+        //         m_firstTimeIAPTutorialAppeared++;
+        //         BhanuPrefs.SetFirstTimeIAPTutorialStatus(m_firstTimeIAPTutorialAppeared);
+        //     }
+        //     else
+        //     {
                 BhanuPrefs.DeleteScore();
                 ScoreManager.m_supersCount = ScoreManager.m_defaultSupersCount;
                 BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
                 SceneManager.LoadScene(m_currentScene);
-            }
-        }
+            // }
+        // }
         
         _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
     }
@@ -140,7 +140,7 @@ public class GameManager : MonoBehaviour
         {
             //Debug.Log("Video completed - Offer a reward to the player");
             _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-            ScoreManager.m_scoreValue *= 0.25f;
+            //ScoreManager.m_scoreValue *= 0.25f;
 		    ScoreManager.m_scoreValue = Mathf.Round(ScoreManager.m_scoreValue);
             BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
             Time.timeScale = 1;
@@ -293,7 +293,9 @@ public class GameManager : MonoBehaviour
 
     public void ExitButton()
 	{
+        BhanuPrefs.DeleteScore();
         SceneManager.LoadScene("MainMenu");
+        //TODO Exit Confirm Menu warning about 0 High Score
     }
 
     public void FirstTimeJumpTutorial()
