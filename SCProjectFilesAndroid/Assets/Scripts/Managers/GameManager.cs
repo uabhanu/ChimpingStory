@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     static int _firstTimeJump = 0 , _firstTimeSlide = 0;
 
 	[SerializeField] bool _bSelfieFlashEnabled , _bVersionCodeDisplayEnabled;
-    [SerializeField] GameObject _iapCartMenuObj , _iapConfirmMenuObj;
+    [SerializeField] GameObject _iapCartMenuObj;
     [SerializeField] Image _chimpionshipBeltMenuImage , _chimpionshipOKButtonImage , _landLevelButtonImage , _waterLevelButtonImage;
     [SerializeField] Sprite[] _chimpionshipBeltSprites;
     [SerializeField] string _chimpionAchievementID , _selfieAchievementID , _selfieLegendAchievementID , _undisputedChimpionAchievementID;
@@ -87,50 +87,10 @@ public class GameManager : MonoBehaviour
 
     public void AdsCancelButton()
     {
-        // if(IAPManager._iapFullContinueDeathsAvailable > 0)
-        // {
-        //     IAPManager._iapFullContinueDeathsAvailable--;
-        //     BhanuPrefs.SetIAPFullContinueDeaths(IAPManager._iapFullContinueDeathsAvailable);
-        //     SceneManager.LoadScene(m_currentScene);
-        // }
-
-        // else if(IAPManager._iapThreeQuartersContinueDeathsAvailable > 0)
-        // {
-        //     ScoreManager.m_scoreValue *= 0.75f;
-        //     ScoreManager.m_scoreValue = Mathf.Round(ScoreManager.m_scoreValue);
-        //     BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
-        //     IAPManager._iapThreeQuartersContinueDeathsAvailable--;
-        //     BhanuPrefs.SetIAPThreeQuartersContinueDeaths(IAPManager._iapThreeQuartersContinueDeathsAvailable);
-        //     SceneManager.LoadScene(m_currentScene);
-        // }
-
-        // else if(IAPManager._iapHalfContinueDeathsAvailable > 0)
-        // {
-        //     ScoreManager.m_scoreValue *= 0.50f;
-        //     ScoreManager.m_scoreValue = Mathf.Round(ScoreManager.m_scoreValue);
-        //     BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
-        //     IAPManager._iapHalfContinueDeathsAvailable--;
-        //     BhanuPrefs.SetIAPHalfContinueDeaths(IAPManager._iapHalfContinueDeathsAvailable);
-        //     SceneManager.LoadScene(m_currentScene);
-        // }
-
-        // else
-        // {
-        //     if(m_firstTimeIAPTutorialAppeared == 0)
-        //     {
-        //         _iapConfirmMenuObj.SetActive(true);
-        //         m_firstTimeIAPTutorialAppeared++;
-        //         BhanuPrefs.SetFirstTimeIAPTutorialStatus(m_firstTimeIAPTutorialAppeared);
-        //     }
-        //     else
-        //     {
-                BhanuPrefs.DeleteScore();
-                ScoreManager.m_supersCount = ScoreManager.m_defaultSupersCount;
-                BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
-                SceneManager.LoadScene(m_currentScene);
-            // }
-        // }
-        
+        BhanuPrefs.DeleteScore();
+        ScoreManager.m_supersCount = ScoreManager.m_defaultSupersCount;
+        BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
+        SceneManager.LoadScene(m_currentScene);
         _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
     }
 
@@ -140,7 +100,6 @@ public class GameManager : MonoBehaviour
         {
             //Debug.Log("Video completed - Offer a reward to the player");
             _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-            //ScoreManager.m_scoreValue *= 0.25f;
 		    ScoreManager.m_scoreValue = Mathf.Round(ScoreManager.m_scoreValue);
             BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
             Time.timeScale = 1;
@@ -407,9 +366,6 @@ public class GameManager : MonoBehaviour
             _firstTimeSlide = BhanuPrefs.GetFirstTimeSlideTutorialStatus();
             m_firstTimeUIButtonsTutorial = BhanuPrefs.GetFirstTimeUIButtonsTutorialStatus();
             m_firstTimeWaterLevelTutorial = BhanuPrefs.GetFirstTimeWaterLevelTutorialStatus();
-            IAPManager._iapFullContinueDeathsAvailable = BhanuPrefs.GetIAPFullContinueDeaths();
-            IAPManager._iapHalfContinueDeathsAvailable = BhanuPrefs.GetIAPHalfContinueDeaths();
-            IAPManager._iapThreeQuartersContinueDeathsAvailable = BhanuPrefs.GetIAPThreeQuartersContinueDeaths();
             m_playerMutedSounds = BhanuPrefs.GetSoundsStatus();
             Time.timeScale = 1;
         }
@@ -707,7 +663,6 @@ public class GameManager : MonoBehaviour
     public void IAPYesButton()
     {
         _iapCartMenuObj.SetActive(true);
-        _iapConfirmMenuObj.SetActive(false);
     }
 
     bool IsChimpion()
