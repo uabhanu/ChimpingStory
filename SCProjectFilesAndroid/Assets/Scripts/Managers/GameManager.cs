@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] string _chimpionAchievementID , _selfieAchievementID , _selfieLegendAchievementID , _undisputedChimpionAchievementID;
     [SerializeField] Text _chimpionshipBeltText , _iapText , _memoryLeakTestText , _versionCodeText;
 
-    public static bool b_isFirstTimeTutorialTestingMode , b_isMemoryLeakTestingMode , b_questionButtonPressed , b_isUnityEditorTestingMode , b_quitButtonTapped;
+    public static bool b_isFirstTimeTutorialTestingMode , b_isMemoryLeakTestingMode , b_isUnityEditorTestingMode , b_quitButtonTapped;
     public static Button m_chimpionshipBeltButton , m_muteButton , m_pauseButton , m_unmuteButton;
     public static GameObject m_pauseMenuObj , m_uiButtonsTutorialMenuObj;
     public static Image m_adsMenuImage , m_arrow01Image , m_arrow02Image , m_arrow03Image , m_arrow04Image , m_chimpionshipBeltButtonImage , m_muteButtonImage , m_nextButtonImage , m_pauseButtonImage;
@@ -647,36 +647,12 @@ public class GameManager : MonoBehaviour
     public void IAPCartButton()
     {
         _iapCartMenuObj.SetActive(true);
-        _questionButtonImage.enabled = true;
-        _questionButtonImageCurrentColour = _questionButtonImage.color;
-        _questionButtonImageDefaultColour = _questionButtonImage.color;
     }
 
     public void IAPCancelButton()
     {
-        b_questionButtonPressed = false;
-        Debug.Log("Question Button Pressed : " + b_questionButtonPressed);
-        _questionButtonImage.color = _questionButtonImageDefaultColour;
-        _questionButtonImageCurrentColour = _questionButtonImageDefaultColour;
         _iapCartMenuObj.SetActive(false);
         _iapText.enabled = false;
-    }
-
-    public void IAPDescribeButton()
-    {
-        if(b_questionButtonPressed)
-        {
-            m_iapSmartphoneDescriptionObj.SetActive(true);
-        }
-    }
-
-    public void IAPDescOKButton()
-    {
-        m_iapSmartphoneDescriptionObj.SetActive(false);
-        b_questionButtonPressed = false;
-        Debug.Log("Question Button Pressed : " + b_questionButtonPressed);
-        _questionButtonImage.color = _questionButtonImageDefaultColour;
-        _questionButtonImageCurrentColour = _questionButtonImageDefaultColour;
     }
 
     public void IAPNoButton()
@@ -887,14 +863,6 @@ public class GameManager : MonoBehaviour
 	{
 		SceneManager.LoadScene("LandRunner");
 	}
-
-    public void QuestionButton()
-    {
-        b_questionButtonPressed = true;
-        Debug.Log("Question Button Pressed : " + b_questionButtonPressed);
-        _questionButtonImage.color = Color.green;
-        _questionButtonImageCurrentColour = _questionButtonImage.color;
-    }
 
 	public void QuitButton()
 	{
