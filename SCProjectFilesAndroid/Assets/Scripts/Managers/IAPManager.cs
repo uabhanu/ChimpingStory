@@ -8,7 +8,18 @@ public class IAPManager : MonoBehaviour , IStoreListener
 {
     [SerializeField] Text _iapText;
 
-	public void IAPContinuePurchaseButton(Product product)
+    public void IAPDescribedButton()
+    {
+
+    }
+
+    public void IAPFailedButton()
+    {
+        _iapText.text = "Oops!! Something went wrong :( Please try again :)";
+        _iapText.enabled = true;
+    }
+
+	public void IAPPurchaseButton(Product product)
     {
         _iapText.enabled = false;
 
@@ -38,12 +49,6 @@ public class IAPManager : MonoBehaviour , IStoreListener
                 break;
             }
         }
-    }
-
-    public void IAPFailed()
-    {
-        _iapText.text = "Oops!! Something went wrong :( Please try again :)";
-        _iapText.enabled = true;
     }
 
 	public void OnInitialized(IStoreController storeController , IExtensionProvider extensionsProvider){}
