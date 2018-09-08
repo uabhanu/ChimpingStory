@@ -22,6 +22,7 @@ public class LevelCreator : MonoBehaviour
         m_gameLayer = GameObject.Find("GameLayer");
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         m_gameSpeed = 5f;
+        Invoke("GameDifficultyIncrease" , 30.5f);
         m_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
 
 		for(int i = 0; i < 30; i++)
@@ -90,16 +91,19 @@ public class LevelCreator : MonoBehaviour
 
     void ChangeHeight()
     {
-        int newHeightLevel = Random.Range(0 , 2);
-
-        if(newHeightLevel < m_heightLevel)
+        if(GameManager.m_gameDifficulty ==2)
         {
-            m_heightLevel--;
-        }
+            int newHeightLevel = Random.Range(0 , 2);
 
-        else if(newHeightLevel > m_heightLevel)
-        {
-            m_heightLevel++;
+            if(newHeightLevel < m_heightLevel)
+            {
+                m_heightLevel--;
+            }
+
+            else if(newHeightLevel > m_heightLevel)
+            {
+                m_heightLevel++;
+            }
         }
     }
 
@@ -113,9 +117,19 @@ public class LevelCreator : MonoBehaviour
 		SetTile("PF_GroundRight");
 	}
 
+    void GameDifficultyIncrease()
+    {
+        if(GameManager.m_gameDifficulty < 5)
+        {
+            GameManager.m_gameDifficulty++;
+        }
+
+        Invoke("GameDifficultyIncrease" , 30.5f);
+    }
+
     void GameSpeed()
     {
-        if(GameManager.m_gameDifficulty == 2)
+        if(GameManager.m_gameDifficulty == 3)
         {
             m_gameSpeed += 0.5f;
         }
@@ -214,7 +228,7 @@ public class LevelCreator : MonoBehaviour
             return;
         }
 
-        if(Random.Range(0 , 6) == 0 && GameManager.m_gameDifficulty == 1)
+        if(Random.Range(0 , 6) == 0)
         {
             GameObject banana = m_collectedTiles.transform.Find("Banana").transform.GetChild(0).gameObject;
             banana.transform.parent = m_gameLayer.transform;
@@ -230,7 +244,7 @@ public class LevelCreator : MonoBehaviour
             _bMiscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 6) == 2 && GameManager.m_gameDifficulty == 1)
+        else if(Random.Range(0 , 6) == 2)
         {
             GameObject coin = m_collectedTiles.transform.Find("Coin").transform.GetChild(0).gameObject;
             coin.transform.parent = m_gameLayer.transform;
@@ -238,7 +252,7 @@ public class LevelCreator : MonoBehaviour
             _bMiscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 6) == 3 && m_middleCounter > 6.5f && GameManager.m_gameDifficulty == 1)
+        else if(Random.Range(0 , 6) == 3 && m_middleCounter > 6.5f && GameManager.m_gameDifficulty == 3)
         {
             GameObject hurdle = m_collectedTiles.transform.Find("Hurdle").transform.GetChild(0).gameObject;
             hurdle.transform.parent = m_gameLayer.transform;
@@ -246,7 +260,7 @@ public class LevelCreator : MonoBehaviour
             _bMiscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 6) == 4 && GameManager.m_gameDifficulty == 1)
+        else if(Random.Range(0 , 6) == 4 && GameManager.m_gameDifficulty == 2)
         {
             GameObject portal = m_collectedTiles.transform.Find("Portal").transform.GetChild(0).gameObject;
             portal.transform.parent = m_gameLayer.transform;
@@ -254,7 +268,7 @@ public class LevelCreator : MonoBehaviour
             _bMiscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 6) == 5 && ScoreManager.m_supersCount > 0 && GameManager.m_gameDifficulty == 1)
+        else if(Random.Range(0 , 6) == 5 && ScoreManager.m_supersCount > 0 && GameManager.m_gameDifficulty == 3)
         {
             GameObject super = m_collectedTiles.transform.Find("Super").transform.GetChild(0).gameObject;
             super.transform.parent = m_gameLayer.transform;
@@ -318,12 +332,12 @@ public class LevelCreator : MonoBehaviour
                 m_middleCounter = 15;
             }
 
-            if(GameManager.m_gameDifficulty == 1)
+            else if(GameManager.m_gameDifficulty == 1)
             {
                 m_middleCounter = Random.Range(8 , 15);
             }
 
-            if(GameManager.m_gameDifficulty == 2)
+            else if(GameManager.m_gameDifficulty >= 2)
             {
                 m_middleCounter = Random.Range(1 , 15);
             }
@@ -341,12 +355,12 @@ public class LevelCreator : MonoBehaviour
                 m_blankCounter = 1;
             }
 
-            if(GameManager.m_gameDifficulty == 1)
+            else if(GameManager.m_gameDifficulty == 1)
             {
                 m_blankCounter = Random.Range(1 , 2);
             }
 
-            if(GameManager.m_gameDifficulty == 2)
+            else if(GameManager.m_gameDifficulty >= 2)
             {
                 m_blankCounter = Random.Range(1 , 3);
             }

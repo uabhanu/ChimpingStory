@@ -146,16 +146,11 @@ public class LandChimp : MonoBehaviour
     {
         if(_bIsGrounded && !_bIsJumping && !_bIsSliding && !_bIsUI) //This check exists in Update also for extra support as it's slow
         {
+            _bIsJumping = true;
             _chimpAnim.SetBool("Jump" , true);
             _chimpBody2D.velocity = new Vector2(_chimpBody2D.velocity.x , _jumpHeight);
-
-            if(GameManager.m_gameDifficulty == 1)
-            {
-                SelfieAppear();
-            }
-            
-            _bIsJumping = true;
             Invoke("JumpFinished" , 0.55f);
+            SelfieAppear();
 		    _soundManager.m_soundsSource.clip = _soundManager.m_jump;
 
             if(_soundManager.m_soundsSource.enabled)
@@ -246,16 +241,11 @@ public class LandChimp : MonoBehaviour
     {
 		if(_bIsGrounded && !_bIsJumping && !_bIsUI)
 		{
+            _bIsSliding = true;
 			_chimpAnim.SetBool("Jog" , false);
 			_chimpAnim.SetBool("Slide" , true);
-
-			if(GameManager.m_gameDifficulty == 1)
-            {
-                SelfieAppear();
-            }
-            
-			_bIsSliding = true;
 			Invoke("SlideFinished" , 0.75f);
+            SelfieAppear();
 		}
     }
 
