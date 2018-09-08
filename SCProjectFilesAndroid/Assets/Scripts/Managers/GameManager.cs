@@ -23,9 +23,8 @@ public class GameManager : MonoBehaviour
     static int _firstTimeJump = 0 , _firstTimeSlide = 0;
 
 	[SerializeField] bool _bSelfieFlashEnabled , _bVersionCodeDisplayEnabled;
-    [SerializeField] Color _questionButtonImageCurrentColour , _questionButtonImageDefaultColour;
     [SerializeField] GameObject _iapCartMenuObj;
-    [SerializeField] Image _chimpionshipBeltMenuImage , _chimpionshipOKButtonImage , _landLevelButtonImage , _questionButtonImage , _waterLevelButtonImage;
+    [SerializeField] Image _chimpionshipBeltMenuImage , _chimpionshipOKButtonImage , _landLevelButtonImage , _waterLevelButtonImage;
     [SerializeField] Sprite[] _chimpionshipBeltSprites;
     [SerializeField] string _chimpionAchievementID , _selfieAchievementID , _selfieLegendAchievementID , _undisputedChimpionAchievementID;
     [SerializeField] Text _chimpionshipBeltText , _iapText , _memoryLeakTestText , _versionCodeText;
