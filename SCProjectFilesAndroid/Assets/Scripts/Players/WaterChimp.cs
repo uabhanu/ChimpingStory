@@ -146,11 +146,15 @@ public class WaterChimp : MonoBehaviour
 		
     void OnTriggerEnter2D(Collider2D tri2D)
     {
-        if(tri2D.tag == "Coin")
+        if(tri2D.tag == "Polaroid")
         {
             ScoreManager.m_scoreValue += 25;
             _gameManager.m_highScoreValueText.text = ScoreManager.m_scoreValue.ToString();
             BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
+
+            ScoreManager.m_polaroidsCount++;
+            GameManager.m_polaroidsCountText.text = ScoreManager.m_polaroidsCount.ToString();
+            BhanuPrefs.SetPolaroidsCount(ScoreManager.m_polaroidsCount);
             
             //TODO Remove this LeaderboardUpdate if performance takes a hit
             if(ScoreManager.m_scoreValue >= 5000)

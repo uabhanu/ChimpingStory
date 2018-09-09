@@ -24,10 +24,10 @@ public class GameManager : MonoBehaviour
 
 	[SerializeField] bool _bSelfieFlashEnabled , _bVersionCodeDisplayEnabled;
     [SerializeField] GameObject _iapCartMenuObj;
-    [SerializeField] Image _chimpionshipBeltMenuImage , _chimpionshipOKButtonImage , _landLevelButtonImage , _waterLevelButtonImage;
+    [SerializeField] Image _chimpionshipBeltMenuImage , _chimpionshipOKButtonImage , _landLevelButtonImage , _polaroidImage , _waterLevelButtonImage;
     [SerializeField] Sprite[] _chimpionshipBeltSprites;
     [SerializeField] string _chimpionAchievementID , _selfieAchievementID , _selfieLegendAchievementID , _undisputedChimpionAchievementID;
-    [SerializeField] Text _chimpionshipBeltText , _iapText , _memoryLeakTestText , _versionCodeText;
+    [SerializeField] Text _chimpionshipBeltText , _memoryLeakTestText , _versionCodeText;
 
     public static bool b_isFirstTimeTutorialTestingMode , b_isMemoryLeakTestingMode , b_isUnityEditorTestingMode , b_quitButtonTapped;
     public static Button m_chimpionshipBeltButton , m_muteButton , m_pauseButton , m_unmuteButton;
@@ -37,8 +37,6 @@ public class GameManager : MonoBehaviour
     public static int m_currentScene , m_firstTimeIAPTutorialAppeared , m_firstTimeUIButtonsTutorial , m_firstTimeWaterLevelTutorial , m_gameDifficulty , m_playerMutedSounds;
     public static Text m_chimpionshipBeltButtonTutorialText , m_leaderboardButtonTutorialText , m_muteUnmuteButtonTutorialText , m_pauseButtonTutorialText , m_polaroidsCountText;
 
-    public GameObject m_iapSmartphoneDescriptionObj;
-    public Image m_questionButtonImage;
     public Text m_highScoreLabelText , m_highScoreValueText;
 
     void Start()
@@ -65,6 +63,8 @@ public class GameManager : MonoBehaviour
         m_highScoreValueText.enabled = false;
         m_muteButtonImage.enabled = false;
         m_pauseButtonImage.enabled = false;
+        m_polaroidsCountText.enabled = false;
+        _polaroidImage.enabled = false;
 		m_selfieButtonImage.enabled = false;
         SocialmediaManager.m_gpgsLeaderboardButtonImage.enabled = false;
         m_unmuteButtonImage.enabled = false;
@@ -312,6 +312,8 @@ public class GameManager : MonoBehaviour
         m_highScoreLabelText.enabled = true;
         m_highScoreValueText.enabled = true;
         m_pauseButtonImage.enabled = true;
+        m_polaroidsCountText.enabled = true;
+        _polaroidImage.enabled = true;
         SocialmediaManager.m_gpgsLeaderboardButtonImage.enabled = true;
         m_firstTimeWaterLevelTutorial = 1;
         BhanuPrefs.SetFirstTimeWaterLevelTutorialStatus(m_firstTimeWaterLevelTutorial);
@@ -452,6 +454,7 @@ public class GameManager : MonoBehaviour
             m_pauseMenuObj = GameObject.Find("PauseMenu");
 			_pauseMenuImage = m_pauseMenuObj.GetComponent<Image>();
             m_polaroidsCountText = GameObject.Find("PolaroidsCountText").GetComponent<Text>();
+            m_polaroidsCountText.text = ScoreManager.m_polaroidsCount.ToString();
 			_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
 			m_selfieButtonImage = GameObject.Find("SelfieButton").GetComponent<Image>();
 			m_selfiePanelImage = GameObject.Find("SelfiePanel").GetComponent<Image>();
@@ -473,6 +476,8 @@ public class GameManager : MonoBehaviour
                 m_muteButton.interactable = false;
                 m_nextButtonImage.enabled = true;
                 m_pauseButton.interactable = false;
+                m_polaroidsCountText.enabled = false;
+                _polaroidImage.enabled = false;
                 m_uiButtonsTutorialMenuImage.enabled = true;
                 m_unmuteButton.interactable = false;
                 Time.timeScale = 0;
@@ -528,6 +533,8 @@ public class GameManager : MonoBehaviour
 			m_pauseButtonImage = GameObject.Find("PF_PauseButton").GetComponent<Image>();
 			m_pauseMenuObj = GameObject.Find("PauseMenu");
 			_pauseMenuImage = m_pauseMenuObj.GetComponent<Image>();
+            m_polaroidsCountText = GameObject.Find("PolaroidsCountText").GetComponent<Text>();
+            m_polaroidsCountText.text = ScoreManager.m_polaroidsCount.ToString();
 			_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
             _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
             m_unmuteButtonImage = GameObject.Find("UnmuteButton").GetComponent<Image>();
@@ -541,6 +548,8 @@ public class GameManager : MonoBehaviour
                 m_highScoreValueText.enabled = false;
                 _firstTimePlayTutorialOKButtonImage.enabled = true;
                 m_pauseButtonImage.enabled = false;
+                m_polaroidsCountText.enabled = false;
+                _polaroidImage.enabled = false;
                 SocialmediaManager.m_gpgsLeaderboardButtonImage.enabled = false;
                 Time.timeScale = 0;
             }
@@ -652,7 +661,6 @@ public class GameManager : MonoBehaviour
     public void IAPCancelButton()
     {
         _iapCartMenuObj.SetActive(false);
-        _iapText.enabled = false;
     }
 
     public void IAPNoButton()
@@ -790,6 +798,8 @@ public class GameManager : MonoBehaviour
             m_nextButtonImage.enabled = false;
             m_pauseButtonTutorialText.enabled = false;
             m_uiButtonsTutorialMenuImage.enabled = false;
+            m_polaroidsCountText.enabled = true;
+            _polaroidImage.enabled = true;
             Time.timeScale = 1;
 
             if(!b_isFirstTimeTutorialTestingMode)
@@ -830,6 +840,8 @@ public class GameManager : MonoBehaviour
 
 		    m_highScoreLabelText.enabled = false;
 		    m_highScoreValueText.enabled = false;
+            m_polaroidsCountText.enabled = false;
+            _polaroidImage.enabled = false;
 
             if(SocialmediaManager.m_gpgsAchievementsButtonObj != null)
             {
@@ -996,6 +1008,8 @@ public class GameManager : MonoBehaviour
 
 		m_highScoreLabelText.enabled = true;
 		m_highScoreValueText.enabled = true;
+        m_polaroidsCountText.enabled = true;
+        _polaroidImage.enabled = true;
 
         if(SocialmediaManager.m_gpgsAchievementsButtonObj != null)
         {

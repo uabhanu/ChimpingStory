@@ -24,8 +24,7 @@ public class ScoreManager : MonoBehaviour
         {
             m_polaroidsCount = BhanuPrefs.GetPolaroidsCount();
             m_scoreValue = BhanuPrefs.GetHighScore();
+            _gameManager.m_highScoreValueText.text = m_scoreValue.ToString();
         }
-		
-        _gameManager.m_highScoreValueText.text = m_scoreValue.ToString();
 	}
 }
