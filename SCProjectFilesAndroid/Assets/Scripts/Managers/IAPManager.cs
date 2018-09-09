@@ -6,8 +6,7 @@ using UnityEngine.UI;
 
 public class IAPManager : MonoBehaviour , IStoreListener
 {
-    [SerializeField] Image _questionButtonImage;
-    [SerializeField] Text _iapText;
+    [SerializeField] Text _polaroidsText;
 
     public void OnInitialized(IStoreController storeController , IExtensionProvider extensionsProvider){}
 	public void OnInitializeFailed(InitializationFailureReason initializationFailedMessage){}
@@ -20,31 +19,31 @@ public class IAPManager : MonoBehaviour , IStoreListener
 
 	public void PurchaseButton(Product product)
     {
-        _iapText.enabled = false;
+        _polaroidsText.enabled = false;
 
         if(product != null)
         {
             switch(product.definition.id)
             {
-                case "smrtp01":
-                    _iapText.text = "Smartphone 01 Purchased :)";
-                    _iapText.enabled = true;
+                case "item01":
+                    _polaroidsText.text = product + "Purchased :)";
+                    _polaroidsText.enabled = true;
                 break;
 
-                case "smrtp02":
-                    _iapText.text = "Smartphone 02 Purchased :)";
-                    _iapText.enabled = true;
+                case "item02":
+                    _polaroidsText.text = "Smartphone 02 Purchased :)";
+                    _polaroidsText.enabled = true;
                 break;
 
-                case "smrtp03":
-                    _iapText.text = "Smartphone 03 Purchased :)";
-                    _iapText.enabled = true;
+                case "item03":
+                    _polaroidsText.text = "Smartphone 03 Purchased :)";
+                    _polaroidsText.enabled = true;
                 break;
 
                 default:
                     Debug.LogError("Sir Bhanu, Please check the ID again :)");
-                    _iapText.text = "Oops!! Something went wrong :( Please try again :)";
-                    _iapText.enabled = true;
+                    _polaroidsText.text = "Oops!! Something went wrong :( Please try again :)";
+                    _polaroidsText.enabled = true;
                 break;
             }
         }
@@ -52,7 +51,7 @@ public class IAPManager : MonoBehaviour , IStoreListener
 
     public void PurchaseFailedButton()
     {
-        _iapText.text = "Oops!! Something went wrong :( Please try again :)";
-        _iapText.enabled = true;
+        _polaroidsText.text = "Oops!! Something went wrong :( Please try again :)";
+        _polaroidsText.enabled = true;
     }
 }

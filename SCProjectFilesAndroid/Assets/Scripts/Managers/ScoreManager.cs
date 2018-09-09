@@ -7,7 +7,7 @@ public class ScoreManager : MonoBehaviour
 
     public static bool m_isTestingMode;
     public static float m_minHighScore , m_scoreValue;
-	public static int m_defaultSupersCount = 1 , m_supersCount;
+	public static int m_defaultSupersCount = 1 , m_polaroidsCount , m_supersCount;
 
 	void Start()
 	{
@@ -17,10 +17,12 @@ public class ScoreManager : MonoBehaviour
 
         if(m_isTestingMode)
         {
+            m_polaroidsCount = 150;
             m_scoreValue = 4995f;
         }
         else
         {
+            m_polaroidsCount = BhanuPrefs.GetPolaroidsCount();
             m_scoreValue = BhanuPrefs.GetHighScore();
         }
 		

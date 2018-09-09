@@ -58,9 +58,9 @@ public class LevelCreator : MonoBehaviour
             hurdle.transform.parent = m_collectedTiles.transform.Find("Hurdle").transform;
             hurdle.transform.position = Vector2.zero;
 
-            GameObject coin = Instantiate(Resources.Load("PF_LandLevelCoin", typeof(GameObject))) as GameObject;
-            coin.transform.parent = m_collectedTiles.transform.Find("Coin").transform;
-            coin.transform.position = Vector2.zero;
+            GameObject polaroid = Instantiate(Resources.Load("PF_LandLevelPolaroid", typeof(GameObject))) as GameObject;
+            polaroid.transform.parent = m_collectedTiles.transform.Find("Polaroid").transform;
+            polaroid.transform.position = Vector2.zero;
 
             GameObject portal = Instantiate(Resources.Load("PF_Portal", typeof(GameObject))) as GameObject;
             portal.transform.parent = m_collectedTiles.transform.Find("Portal").transform;
@@ -194,8 +194,8 @@ public class LevelCreator : MonoBehaviour
                     break;
 
                     case "PF_LandLevelCoin(Clone)":
-                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Coin").transform.position;
-                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Coin").transform;
+                        child.gameObject.transform.position = m_collectedTiles.transform.Find("Polaroid").transform.position;
+                        child.gameObject.transform.parent = m_collectedTiles.transform.Find("Polaroid").transform;
                     break;
 
                     case "PF_Portal(Clone)":
@@ -244,19 +244,19 @@ public class LevelCreator : MonoBehaviour
             _bMiscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 6) == 2)
-        {
-            GameObject coin = m_collectedTiles.transform.Find("Coin").transform.GetChild(0).gameObject;
-            coin.transform.parent = m_gameLayer.transform;
-            coin.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 4.3f)));
-            _bMiscObjAdded = true;
-        }
-
         else if(Random.Range(0 , 6) == 3 && m_middleCounter > 6.5f && GameManager.m_gameDifficulty == 3)
         {
             GameObject hurdle = m_collectedTiles.transform.Find("Hurdle").transform.GetChild(0).gameObject;
             hurdle.transform.parent = m_gameLayer.transform;
             hurdle.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 3.3f)));
+            _bMiscObjAdded = true;
+        }
+
+        else if(Random.Range(0 , 6) == 2)
+        {
+            GameObject polaroid = m_collectedTiles.transform.Find("Polaroid").transform.GetChild(0).gameObject;
+            polaroid.transform.parent = m_gameLayer.transform;
+            polaroid.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 4.3f)));
             _bMiscObjAdded = true;
         }
 

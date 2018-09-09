@@ -11,6 +11,7 @@ public class BhanuPrefs : MonoBehaviour
     const string FIRST_TIME_WATER_LEVEL_TUTORIAL_KEY = "FirstTimeWaterLevelTutorial";
     const string GAME_DIFFICULTY_KEY = "GameDifficulty";
     const string HIGH_SCORE_KEY = "HighScore";
+    const string POLAROIDS_COUNT_KEY = "PolaroidsCount";
     const string SOUNDS_STATUS_KEY = "SoundsStatus";
     const string SUPERS_KEY = "Supers";
 
@@ -119,6 +120,16 @@ public class BhanuPrefs : MonoBehaviour
         return 0;
     }
 
+    public static int GetPolaroidsCount()
+    {
+        if(PlayerPrefs.HasKey(POLAROIDS_COUNT_KEY))
+        {
+            return PlayerPrefs.GetInt(POLAROIDS_COUNT_KEY);
+        }
+
+        return 0;
+    }
+
     public static int GetSoundsStatus()
     {
         if(PlayerPrefs.HasKey(SOUNDS_STATUS_KEY))
@@ -182,6 +193,11 @@ public class BhanuPrefs : MonoBehaviour
     public static void SetHighScore(float highScore)
     {
         PlayerPrefs.SetFloat(HIGH_SCORE_KEY , highScore);
+    }
+
+    public static void SetPolaroidsCount(int polaroidsCount)
+    {
+        PlayerPrefs.SetInt(POLAROIDS_COUNT_KEY , polaroidsCount);
     }
 
     public static void SetSoundsStatus(int mute)

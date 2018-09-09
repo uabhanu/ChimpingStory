@@ -1,22 +1,22 @@
 ﻿using UnityEngine;
 
-public class LandLevelCoin : MonoBehaviour
+public class LandLevelPolaroid : MonoBehaviour
 {
-    CircleCollider2D m_coinCollider2D;
+    BoxCollider2D m_polaroidCollider2D;
     Camera m_mainCamera;
     GameManager _gameManager;
 	LandChimp m_landChimp;
 	SoundManager m_soundManager;
-	SpriteRenderer m_coinRenderer;
+	SpriteRenderer m_polaroidRenderer;
     Vector3 m_positionOnScreen;
 
     void Start()
     {
-		m_coinCollider2D = GetComponent<CircleCollider2D>();
-		m_coinRenderer = GetComponent<SpriteRenderer>();
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 		m_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
         m_mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        m_polaroidCollider2D = GetComponent<BoxCollider2D>();
+		m_polaroidRenderer = GetComponent<SpriteRenderer>();
         m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
@@ -31,14 +31,14 @@ public class LandLevelCoin : MonoBehaviour
 
         if(m_landChimp.m_isSuper)
         {
-            m_coinCollider2D.enabled = false;
-            m_coinRenderer.enabled = false;
+            m_polaroidCollider2D.enabled = false;
+            m_polaroidRenderer.enabled = false;
         }
 
         if(!m_landChimp.m_isSuper && m_positionOnScreen.x >= 972)
         {
-            m_coinCollider2D.enabled = true;
-            m_coinRenderer.enabled = true;
+            m_polaroidCollider2D.enabled = true;
+            m_polaroidRenderer.enabled = true;
         }
 	}
 
@@ -46,6 +46,10 @@ public class LandLevelCoin : MonoBehaviour
     {
         if(tri2D.gameObject.tag.Equals("Player"))
         {
+            ScoreManager.m_polaroidsCount++;
+            BhanuPrefs.SetPolaroidsCount(ScoreManager.m_polaroidsCount);
+            GameManager.m_polaroidsCountText.text = ScoreManager.m_polaroidsCount.ToString();
+
             if(m_landChimp.m_isSlipping)
             {
                 ScoreManager.m_scoreValue += 75;
@@ -64,8 +68,8 @@ public class LandLevelCoin : MonoBehaviour
                 m_soundManager.m_soundsSource.Play();
             }
 
-            m_coinCollider2D.enabled = false;
-			m_coinRenderer.enabled = false;
+            m_polaroidCollider2D.enabled = false;
+			m_polaroidRenderer.enabled = false;
         }
     }
 }
