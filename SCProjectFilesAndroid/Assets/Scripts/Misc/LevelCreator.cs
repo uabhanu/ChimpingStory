@@ -232,8 +232,7 @@ public class LevelCreator : MonoBehaviour
         {
             GameObject banana = m_collectedTiles.transform.Find("Banana").transform.GetChild(0).gameObject;
             banana.transform.parent = m_gameLayer.transform;
-            //banana.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 4.3f)));
-            banana.transform.position = new Vector2(m_tilePos.transform.position.x + 3.7f , m_startUpPosY + 4.3f);
+            banana.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 4.3f)));
             _bMiscObjAdded = true;
         }
 
@@ -382,9 +381,9 @@ public class LevelCreator : MonoBehaviour
             }
 		}
         
-        // else if(m_lastTile == "PF_GroundMiddle" && GameManager.m_gameDifficulty >= 1) //TODO Uncomment this line if any issues
-        // {
-		// 	SetTile("PF_GroundRight");
-		// }
+        else if(m_lastTile == "PF_GroundMiddle" && GameManager.m_gameDifficulty >= 1)
+        {
+			SetTile("PF_GroundRight");
+		}
 	}
 }

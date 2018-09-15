@@ -127,6 +127,8 @@ public class SocialmediaManager : MonoBehaviour
         _gameManager.ChimpionshipBelt();
         GooglePlayGamesLeaderboardPlayerRank();
         GooglePlayGamesLeaderboardUpdate();
+        _gameManager.m_polaroidImage.enabled = false;
+        GameManager.m_polaroidsCountText.enabled = false;
 
         if(GameManager.m_firstTimeUIButtonsTutorial == 1)
         {
@@ -172,6 +174,8 @@ public class SocialmediaManager : MonoBehaviour
         _gpgsLeaderboardLogInCheckText.enabled = false;
         _gpgsLeaderboardNotLoggedInOKButtonImage.enabled = false;
         _gpgsMenuImage.enabled = false;
+        _gameManager.m_polaroidImage.enabled = true;
+        GameManager.m_polaroidsCountText.enabled = true;
     }
 
     public void GooglePlayGamesLeaderboardPlayerRank()

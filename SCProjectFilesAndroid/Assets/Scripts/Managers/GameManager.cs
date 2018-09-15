@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
 
 	[SerializeField] bool _bSelfieFlashEnabled , _bVersionCodeDisplayEnabled;
     [SerializeField] GameObject _iapCartMenuObj;
-    [SerializeField] Image _chimpionshipBeltMenuImage , _chimpionshipOKButtonImage , _landLevelButtonImage , _polaroidImage , _waterLevelButtonImage;
+    [SerializeField] Image _chimpionshipBeltMenuImage , _chimpionshipOKButtonImage , _landLevelButtonImage , _waterLevelButtonImage;
     [SerializeField] Sprite[] _chimpionshipBeltSprites;
     [SerializeField] string _chimpionAchievementID , _selfieAchievementID , _selfieLegendAchievementID , _undisputedChimpionAchievementID;
     [SerializeField] Text _chimpionshipBeltText , _memoryLeakTestText , _versionCodeText;
@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     public static Image m_selfieButtonImage , m_selfiePanelImage , m_uiButtonsTutorialMenuImage , m_unmuteButtonImage;
     public static int m_currentScene , m_firstTimeIAPTutorialAppeared , m_firstTimeUIButtonsTutorial , m_firstTimeWaterLevelTutorial , m_gameDifficulty , m_playerMutedSounds;
     public static Text m_chimpionshipBeltButtonTutorialText , m_leaderboardButtonTutorialText , m_muteUnmuteButtonTutorialText , m_pauseButtonTutorialText , m_polaroidsCountText;
-
+    public Image m_polaroidImage;
     public Text m_highScoreLabelText , m_highScoreValueText;
 
     void Start()
@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
         m_muteButtonImage.enabled = false;
         m_pauseButtonImage.enabled = false;
         m_polaroidsCountText.enabled = false;
-        _polaroidImage.enabled = false;
+        m_polaroidImage.enabled = false;
 		m_selfieButtonImage.enabled = false;
         SocialmediaManager.m_gpgsLeaderboardButtonImage.enabled = false;
         m_unmuteButtonImage.enabled = false;
@@ -141,7 +141,7 @@ public class GameManager : MonoBehaviour
 		m_highScoreValueText.enabled = false;
         m_muteButtonImage.enabled = false;
         m_pauseButtonImage.enabled = false;
-        _polaroidImage.enabled = false;
+        m_polaroidImage.enabled = false;
         m_polaroidsCountText.enabled = false;
         SocialmediaManager.m_gpgsLeaderboardButtonObj.SetActive(false);
         m_unmuteButtonImage.enabled = false;
@@ -158,7 +158,7 @@ public class GameManager : MonoBehaviour
 		m_highScoreValueText.enabled = false;
         m_muteButtonImage.enabled = false;
         m_pauseButtonImage.enabled = false;
-        _polaroidImage.enabled = false;
+        m_polaroidImage.enabled = false;
         m_polaroidsCountText.enabled = false;
         SocialmediaManager.m_gpgsLeaderboardButtonObj.SetActive(false);
         m_unmuteButtonImage.enabled = false;
@@ -175,7 +175,7 @@ public class GameManager : MonoBehaviour
 		m_highScoreValueText.enabled = false;
         m_muteButtonImage.enabled = false;
         m_pauseButtonImage.enabled = false;
-        _polaroidImage.enabled = false;
+        m_polaroidImage.enabled = false;
         m_polaroidsCountText.enabled = false;
         SocialmediaManager.m_gpgsLeaderboardButtonObj.SetActive(false);
         m_unmuteButtonImage.enabled = false;
@@ -226,6 +226,8 @@ public class GameManager : MonoBehaviour
             _chimpionshipBeltText.enabled = true;
             _chimpionshipOKButtonImage.enabled = true;
             m_pauseButtonImage.enabled = false;
+            m_polaroidImage.enabled = false;
+            m_polaroidsCountText.enabled = false;
             SocialmediaManager.m_gpgsLeaderboardButtonObj.SetActive(false);
             m_highScoreLabelText.enabled = false;
             m_highScoreValueText.enabled = false;
@@ -240,6 +242,8 @@ public class GameManager : MonoBehaviour
         _chimpionshipBeltText.enabled = false;
         _chimpionshipOKButtonImage.enabled = false;
         m_pauseButtonImage.enabled = true;
+        m_polaroidImage.enabled = true;
+        m_polaroidsCountText.enabled = true;
         SocialmediaManager.m_gpgsLeaderboardButtonObj.SetActive(true);
         m_highScoreLabelText.enabled = true;
         m_highScoreValueText.enabled = true;
@@ -319,7 +323,7 @@ public class GameManager : MonoBehaviour
         m_highScoreValueText.enabled = true;
         m_pauseButtonImage.enabled = true;
         m_polaroidsCountText.enabled = true;
-        _polaroidImage.enabled = true;
+        m_polaroidImage.enabled = true;
         SocialmediaManager.m_gpgsLeaderboardButtonImage.enabled = true;
         m_firstTimeWaterLevelTutorial = 1;
         BhanuPrefs.SetFirstTimeWaterLevelTutorialStatus(m_firstTimeWaterLevelTutorial);
@@ -483,7 +487,7 @@ public class GameManager : MonoBehaviour
                 m_nextButtonImage.enabled = true;
                 m_pauseButton.interactable = false;
                 m_polaroidsCountText.enabled = false;
-                _polaroidImage.enabled = false;
+                m_polaroidImage.enabled = false;
                 m_uiButtonsTutorialMenuImage.enabled = true;
                 m_unmuteButton.interactable = false;
                 Time.timeScale = 0;
@@ -555,7 +559,7 @@ public class GameManager : MonoBehaviour
                 _firstTimePlayTutorialOKButtonImage.enabled = true;
                 m_pauseButtonImage.enabled = false;
                 m_polaroidsCountText.enabled = false;
-                _polaroidImage.enabled = false;
+                m_polaroidImage.enabled = false;
                 SocialmediaManager.m_gpgsLeaderboardButtonImage.enabled = false;
                 Time.timeScale = 0;
             }
@@ -805,7 +809,7 @@ public class GameManager : MonoBehaviour
             m_pauseButtonTutorialText.enabled = false;
             m_uiButtonsTutorialMenuImage.enabled = false;
             m_polaroidsCountText.enabled = true;
-            _polaroidImage.enabled = true;
+            m_polaroidImage.enabled = true;
             Time.timeScale = 1;
 
             if(!b_isFirstTimeTutorialTestingMode)
@@ -847,7 +851,7 @@ public class GameManager : MonoBehaviour
 		    m_highScoreLabelText.enabled = false;
 		    m_highScoreValueText.enabled = false;
             m_polaroidsCountText.enabled = false;
-            _polaroidImage.enabled = false;
+            m_polaroidImage.enabled = false;
 
             if(SocialmediaManager.m_gpgsAchievementsButtonObj != null)
             {
@@ -1015,7 +1019,7 @@ public class GameManager : MonoBehaviour
 		m_highScoreLabelText.enabled = true;
 		m_highScoreValueText.enabled = true;
         m_polaroidsCountText.enabled = true;
-        _polaroidImage.enabled = true;
+        m_polaroidImage.enabled = true;
 
         if(SocialmediaManager.m_gpgsAchievementsButtonObj != null)
         {
