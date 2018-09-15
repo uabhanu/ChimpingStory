@@ -141,6 +141,8 @@ public class GameManager : MonoBehaviour
 		m_highScoreValueText.enabled = false;
         m_muteButtonImage.enabled = false;
         m_pauseButtonImage.enabled = false;
+        _polaroidImage.enabled = false;
+        m_polaroidsCountText.enabled = false;
         SocialmediaManager.m_gpgsLeaderboardButtonObj.SetActive(false);
         m_unmuteButtonImage.enabled = false;
         Time.timeScale = 0;
@@ -156,6 +158,8 @@ public class GameManager : MonoBehaviour
 		m_highScoreValueText.enabled = false;
         m_muteButtonImage.enabled = false;
         m_pauseButtonImage.enabled = false;
+        _polaroidImage.enabled = false;
+        m_polaroidsCountText.enabled = false;
         SocialmediaManager.m_gpgsLeaderboardButtonObj.SetActive(false);
         m_unmuteButtonImage.enabled = false;
         Time.timeScale = 0;
@@ -171,6 +175,8 @@ public class GameManager : MonoBehaviour
 		m_highScoreValueText.enabled = false;
         m_muteButtonImage.enabled = false;
         m_pauseButtonImage.enabled = false;
+        _polaroidImage.enabled = false;
+        m_polaroidsCountText.enabled = false;
         SocialmediaManager.m_gpgsLeaderboardButtonObj.SetActive(false);
         m_unmuteButtonImage.enabled = false;
         Time.timeScale = 0;

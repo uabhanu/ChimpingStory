@@ -91,7 +91,7 @@ public class LevelCreator : MonoBehaviour
 
     void ChangeHeight()
     {
-        if(GameManager.m_gameDifficulty ==2)
+        if(GameManager.m_gameDifficulty >= 2)
         {
             int newHeightLevel = Random.Range(0 , 2);
 
@@ -129,7 +129,7 @@ public class LevelCreator : MonoBehaviour
 
     void GameSpeed()
     {
-        if(GameManager.m_gameDifficulty == 3)
+        if(GameManager.m_gameDifficulty >= 3)
         {
             m_gameSpeed += 0.5f;
         }
@@ -232,11 +232,12 @@ public class LevelCreator : MonoBehaviour
         {
             GameObject banana = m_collectedTiles.transform.Find("Banana").transform.GetChild(0).gameObject;
             banana.transform.parent = m_gameLayer.transform;
-            banana.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 4.3f)));
+            //banana.transform.position = new Vector2(m_tilePos.transform.position.x + m_tileWidth * 3.7f , m_startUpPosY + (m_heightLevel * m_tileWidth + (m_tileWidth * 4.3f)));
+            banana.transform.position = new Vector2(m_tilePos.transform.position.x + 3.7f , m_startUpPosY + 4.3f);
             _bMiscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 6) == 1 && m_gameSpeed < 8 && GameManager.m_gameDifficulty == 2)
+        else if(Random.Range(0 , 6) == 1 && m_gameSpeed < 8 && GameManager.m_gameDifficulty >= 2)
         {
             GameObject bananaSkin = m_collectedTiles.transform.Find("BananaSkin").transform.GetChild(0).gameObject;
             bananaSkin.transform.parent = m_gameLayer.transform;
@@ -244,7 +245,7 @@ public class LevelCreator : MonoBehaviour
             _bMiscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 6) == 3 && m_middleCounter > 6.5f && GameManager.m_gameDifficulty == 3)
+        else if(Random.Range(0 , 6) == 3 && m_middleCounter > 6.5f && GameManager.m_gameDifficulty >= 3)
         {
             GameObject hurdle = m_collectedTiles.transform.Find("Hurdle").transform.GetChild(0).gameObject;
             hurdle.transform.parent = m_gameLayer.transform;
@@ -260,7 +261,7 @@ public class LevelCreator : MonoBehaviour
             _bMiscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 6) == 4 && GameManager.m_gameDifficulty == 2)
+        else if(Random.Range(0 , 6) == 4 && GameManager.m_gameDifficulty >= 1)
         {
             GameObject portal = m_collectedTiles.transform.Find("Portal").transform.GetChild(0).gameObject;
             portal.transform.parent = m_gameLayer.transform;
@@ -268,7 +269,7 @@ public class LevelCreator : MonoBehaviour
             _bMiscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 6) == 5 && ScoreManager.m_supersCount > 0 && GameManager.m_gameDifficulty == 3)
+        else if(Random.Range(0 , 6) == 5 && ScoreManager.m_supersCount > 0 && GameManager.m_gameDifficulty >= 3)
         {
             GameObject super = m_collectedTiles.transform.Find("Super").transform.GetChild(0).gameObject;
             super.transform.parent = m_gameLayer.transform;
@@ -294,7 +295,16 @@ public class LevelCreator : MonoBehaviour
 		    break;
 
 		    case "PF_GroundRight":
-			    m_tmpTile = m_collectedTiles.transform.Find("gRight").transform.GetChild(0).gameObject;
+
+                if(GameManager.m_gameDifficulty >= 1)
+                {
+                    m_tmpTile = m_collectedTiles.transform.Find("gRight").transform.GetChild(0).gameObject;
+                }
+                else
+                {
+                    m_tmpTile = m_collectedTiles.transform.Find("gMiddle").transform.GetChild(0).gameObject;
+                }
+			    
 		    break;
         }
 
@@ -306,7 +316,7 @@ public class LevelCreator : MonoBehaviour
 
 	void SpawnTile()
     {
-		if(m_blankCounter > 0)
+		if(m_blankCounter > 0 && GameManager.m_gameDifficulty > 0)
         {
 			SetTile("PF_Blank");
 			m_blankCounter--;
@@ -325,14 +335,14 @@ public class LevelCreator : MonoBehaviour
 		if(m_lastTile == "PF_Blank")
         {
 			ChangeHeight();
-			SetTile("PF_GroundLeft");
+            SetTile("PF_GroundLeft");
             
             if(GameManager.m_gameDifficulty == 0)
             {
                 m_middleCounter = 15;
             }
 
-            else if(GameManager.m_gameDifficulty == 1)
+            else if(GameManager.m_gameDifficulty >= 1)
             {
                 m_middleCounter = Random.Range(8 , 15);
             }
@@ -347,6 +357,12 @@ public class LevelCreator : MonoBehaviour
                 RandomizeMiscObject();
             }
 		}
+
+        if(GameManager.m_gameDifficulty == 0)
+        {
+            ChangeHeight();
+            SetTile("PF_GroundMiddle");
+        }
         
         else if(m_lastTile == "PF_GroundRight")
         {
@@ -355,7 +371,7 @@ public class LevelCreator : MonoBehaviour
                 m_blankCounter = 1;
             }
 
-            else if(GameManager.m_gameDifficulty == 1)
+            else if(GameManager.m_gameDifficulty >= 1)
             {
                 m_blankCounter = Random.Range(1 , 2);
             }
@@ -366,9 +382,9 @@ public class LevelCreator : MonoBehaviour
             }
 		}
         
-        else if(m_lastTile == "PF_GroundMiddle")
-        {
-			SetTile("PF_GroundRight");
-		}
+        // else if(m_lastTile == "PF_GroundMiddle" && GameManager.m_gameDifficulty >= 1) //TODO Uncomment this line if any issues
+        // {
+		// 	SetTile("PF_GroundRight");
+		// }
 	}
 }
