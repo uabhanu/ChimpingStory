@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour
         {
             //Debug.Log("Video completed - Offer a reward to the player");
             _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-		    ScoreManager.m_scoreValue = Mathf.Round(ScoreManager.m_scoreValue);
+		    //ScoreManager.m_scoreValue = Mathf.Round(ScoreManager.m_scoreValue); TODO Delete this line after confirming that this is not needed
             BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
             Time.timeScale = 1;
             SceneManager.LoadScene(m_currentScene);
