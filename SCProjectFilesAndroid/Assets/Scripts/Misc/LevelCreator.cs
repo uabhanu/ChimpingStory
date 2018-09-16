@@ -4,7 +4,7 @@
 public class LevelCreator : MonoBehaviour
 {
     bool _bMiscObjAdded;
-    const float _difficultyHeightLevel = 1.25f , _difficultyTileWidth = 1.25f , _tileWidth = 1.25f;
+    const float _tileWidth = 1.25f;
     float _blankCounter = 0 , _outofbounceX , _startUpPosY;
     GameManager _gameManager;
     GameObject _collectedTiles , _gameLayer ,  _tmpTile;
@@ -12,11 +12,18 @@ public class LevelCreator : MonoBehaviour
     LandChimp _landChimp;
 	string _lastTile = "PF_GroundRight";
 
-    [SerializeField] float _difficultyIncreaseRate , _minMiddleCounterValue;
+    [SerializeField] float _minMiddleCounterValue , _playerLevelIncreaseRate;
 
     public GameObject m_tilePos;
 
     public static float m_gameSpeed , m_middleCounter = 0;
+
+    void Reset()
+    {
+        _minMiddleCounterValue = 3.05f;
+        _playerLevelIncreaseRate = 7.05f;
+        m_tilePos = GameObject.Find("StartTilePosition");
+    }
 
 	void Start() 
 	{
@@ -24,7 +31,7 @@ public class LevelCreator : MonoBehaviour
         _gameLayer = GameObject.Find("GameLayer");
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         m_gameSpeed = 5f;
-        Invoke("GameDifficultyIncrease" , _difficultyIncreaseRate);
+        Invoke("PlayerLevelIncrease" , _playerLevelIncreaseRate * GameManager.m_playerLevel);
         _landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
 
 		for(int i = 0; i < 30; i++)
@@ -93,7 +100,7 @@ public class LevelCreator : MonoBehaviour
 
     void ChangeHeight()
     {
-        if(GameManager.m_gameDifficulty >= 2)
+        if(GameManager.m_playerLevel >= 6)
         {
             int newHeightLevel = Random.Range(0 , 2);
 
@@ -119,19 +126,19 @@ public class LevelCreator : MonoBehaviour
 		SetTile("PF_GroundRight");
 	}
 
-    void GameDifficultyIncrease()
+    void PlayerLevelIncrease()
     {
-        if(GameManager.m_gameDifficulty < 5)
+        if(GameManager.m_playerLevel < 10)
         {
-            GameManager.m_gameDifficulty++;
+            GameManager.m_playerLevel++;
         }
 
-        Invoke("GameDifficultyIncrease" , _difficultyIncreaseRate);
+        Invoke("PlayerLevelIncrease" , _playerLevelIncreaseRate * GameManager.m_playerLevel);
     }
 
     void GameSpeed()
     {
-        if(GameManager.m_gameDifficulty >= 3)
+        if(GameManager.m_playerLevel >= 6)
         {
             m_gameSpeed += 0.5f;
         }
@@ -196,7 +203,7 @@ public class LevelCreator : MonoBehaviour
                         child.gameObject.transform.parent = _collectedTiles.transform.Find("Hurdle").transform;
                     break;
 
-                    case "PF_LandLevelCoin(Clone)":
+                    case "PF_LandLevelPolaroid(Clone)":
                         child.gameObject.transform.position = _collectedTiles.transform.Find("Polaroid").transform.position;
                         child.gameObject.transform.parent = _collectedTiles.transform.Find("Polaroid").transform;
                     break;
@@ -231,7 +238,7 @@ public class LevelCreator : MonoBehaviour
             return;
         }
 
-        if(Random.Range(0 , 6) == 0)
+        if(Random.Range(0 , 6) == 0 && GameManager.m_playerLevel >= 1)
         {
             GameObject banana = _collectedTiles.transform.Find("Banana").transform.GetChild(0).gameObject;
             banana.transform.parent = _gameLayer.transform;
@@ -239,7 +246,7 @@ public class LevelCreator : MonoBehaviour
             _bMiscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 6) == 1 && m_gameSpeed < 8 && GameManager.m_gameDifficulty >= 2)
+        else if(Random.Range(0 , 6) == 1 && m_gameSpeed < 8 && GameManager.m_playerLevel >= 4)
         {
             GameObject bananaSkin = _collectedTiles.transform.Find("BananaSkin").transform.GetChild(0).gameObject;
             bananaSkin.transform.parent = _gameLayer.transform;
@@ -247,7 +254,7 @@ public class LevelCreator : MonoBehaviour
             _bMiscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 6) == 3 && m_middleCounter > 6.5f && GameManager.m_gameDifficulty >= 3)
+        else if(Random.Range(0 , 6) == 3 && m_middleCounter > 6.5f && GameManager.m_playerLevel >= 3)
         {
             GameObject hurdle = _collectedTiles.transform.Find("Hurdle").transform.GetChild(0).gameObject;
             hurdle.transform.parent = _gameLayer.transform;
@@ -255,7 +262,7 @@ public class LevelCreator : MonoBehaviour
             _bMiscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 6) == 2)
+        else if(Random.Range(0 , 6) == 2 && GameManager.m_playerLevel >= 2)
         {
             GameObject polaroid = _collectedTiles.transform.Find("Polaroid").transform.GetChild(0).gameObject;
             polaroid.transform.parent = _gameLayer.transform;
@@ -263,7 +270,7 @@ public class LevelCreator : MonoBehaviour
             _bMiscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 6) == 4 && GameManager.m_gameDifficulty >= 1)
+        else if(Random.Range(0 , 6) == 4 && GameManager.m_playerLevel >= 7)
         {
             GameObject portal = _collectedTiles.transform.Find("Portal").transform.GetChild(0).gameObject;
             portal.transform.parent = _gameLayer.transform;
@@ -271,7 +278,7 @@ public class LevelCreator : MonoBehaviour
             _bMiscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 6) == 5 && ScoreManager.m_supersCount > 0 && GameManager.m_gameDifficulty >= 3)
+        else if(Random.Range(0 , 6) == 5 && ScoreManager.m_supersCount > 0 && GameManager.m_playerLevel >= 8)
         {
             GameObject super = _collectedTiles.transform.Find("Super").transform.GetChild(0).gameObject;
             super.transform.parent = _gameLayer.transform;
@@ -298,7 +305,7 @@ public class LevelCreator : MonoBehaviour
 
 		    case "PF_GroundRight":
 
-                if(GameManager.m_gameDifficulty >= 1)
+                if(GameManager.m_playerLevel >= 4)
                 {
                     _tmpTile = _collectedTiles.transform.Find("gRight").transform.GetChild(0).gameObject;
                 }
@@ -318,7 +325,7 @@ public class LevelCreator : MonoBehaviour
 
 	void SpawnTile()
     {
-		if(_blankCounter > 0 && GameManager.m_gameDifficulty > 0)
+		if(_blankCounter > 0)
         {
 			SetTile("PF_Blank");
 			_blankCounter--;
@@ -339,17 +346,17 @@ public class LevelCreator : MonoBehaviour
 			ChangeHeight();
             SetTile("PF_GroundLeft");
             
-            if(GameManager.m_gameDifficulty == 0)
+            if(GameManager.m_playerLevel == 1)
             {
                 m_middleCounter = 15;
             }
 
-            else if(GameManager.m_gameDifficulty >= 1)
+            else if(GameManager.m_playerLevel >= 2)
             {
                 m_middleCounter = Random.Range(8 , 15);
             }
 
-            else if(GameManager.m_gameDifficulty >= 2)
+            else if(GameManager.m_playerLevel >= 3)
             {
                 m_middleCounter = Random.Range(1 , 15);
             }
@@ -360,33 +367,33 @@ public class LevelCreator : MonoBehaviour
             }
 		}
 
-        if(GameManager.m_gameDifficulty == 0)
+        if(GameManager.m_playerLevel < 5)
         {
             RandomizeMiscObject();
             SetTile("PF_GroundMiddle");
         }
+
+        else if(_lastTile == "PF_GroundMiddle" && GameManager.m_playerLevel >= 5)
+        {
+			SetTile("PF_GroundRight");
+		}
         
         else if(_lastTile == "PF_GroundRight")
         {
-			if(GameManager.m_gameDifficulty == 0)
+			if(GameManager.m_playerLevel >= 5)
             {
                 _blankCounter = 1;
             }
 
-            else if(GameManager.m_gameDifficulty >= 1)
+            else if(GameManager.m_playerLevel >= 6)
             {
                 _blankCounter = Random.Range(1 , 2);
             }
 
-            else if(GameManager.m_gameDifficulty >= 2)
+            else if(GameManager.m_playerLevel > 7)
             {
                 _blankCounter = Random.Range(1 , 3);
             }
-		}
-        
-        else if(_lastTile == "PF_GroundMiddle" && GameManager.m_gameDifficulty >= 1)
-        {
-			SetTile("PF_GroundRight");
 		}
 	}
 }

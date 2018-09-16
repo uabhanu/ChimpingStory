@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
     public static GameObject m_pauseMenuObj , m_uiButtonsTutorialMenuObj;
     public static Image m_adsMenuImage , m_arrow01Image , m_arrow02Image , m_arrow03Image , m_arrow04Image , m_chimpionshipBeltButtonImage , m_muteButtonImage , m_nextButtonImage , m_pauseButtonImage;
     public static Image m_selfieButtonImage , m_selfiePanelImage , m_uiButtonsTutorialMenuImage , m_unmuteButtonImage;
-    public static int m_currentScene , m_firstTimeIAPTutorialAppeared , m_firstTimeUIButtonsTutorial , m_firstTimeWaterLevelTutorial , m_gameDifficulty , m_playerMutedSounds;
+    public static int m_currentScene , m_firstTimeIAPTutorialAppeared , m_firstTimeUIButtonsTutorial , m_firstTimeWaterLevelTutorial , m_playerLevel = 1 , m_playerMutedSounds;
     public static Text m_chimpionshipBeltButtonTutorialText , m_leaderboardButtonTutorialText , m_muteUnmuteButtonTutorialText , m_pauseButtonTutorialText , m_polaroidsCountText;
     public Image m_polaroidImage;
     public Text m_highScoreLabelText , m_highScoreValueText;

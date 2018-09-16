@@ -25,7 +25,7 @@ public class Blank : MonoBehaviour
 
         if(_positionOnScreen.x <= -8.81f && transform.IsChildOf(_gameLayer))
         {
-            _gameManager.FirstTimeJumpTutorial();
+            //_gameManager.FirstTimeJumpTutorial();
         }
     }
 }

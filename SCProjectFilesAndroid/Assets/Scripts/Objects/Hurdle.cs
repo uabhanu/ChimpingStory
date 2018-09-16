@@ -31,7 +31,7 @@ public class Hurdle : MonoBehaviour
 
         if(_positionOnScreen.x <= -8.81f && transform.IsChildOf(_gameLayer))
         {
-            _gameManager.FirstTimeSlideTutorial();
+            //_gameManager.FirstTimeSlideTutorial();
         }
 
         if(_landChimp.m_isSlipping || _landChimp.m_isSuper)
