@@ -238,7 +238,7 @@ public class LevelCreator : MonoBehaviour
             return;
         }
 
-        if(Random.Range(0 , 6) == 0 && GameManager.m_playerLevel >= 1)
+        else if(Random.Range(0 , 6) == 0 && GameManager.m_playerLevel >= 1)
         {
             GameObject banana = _collectedTiles.transform.Find("Banana").transform.GetChild(0).gameObject;
             banana.transform.parent = _gameLayer.transform;
@@ -351,12 +351,12 @@ public class LevelCreator : MonoBehaviour
                 m_middleCounter = 15;
             }
 
-            else if(GameManager.m_playerLevel >= 2)
+            if(GameManager.m_playerLevel >= 2)
             {
                 m_middleCounter = Random.Range(8 , 15);
             }
 
-            else if(GameManager.m_playerLevel >= 3)
+            if(GameManager.m_playerLevel >= 3)
             {
                 m_middleCounter = Random.Range(1 , 15);
             }
@@ -385,12 +385,12 @@ public class LevelCreator : MonoBehaviour
                 _blankCounter = 1;
             }
 
-            else if(GameManager.m_playerLevel >= 6)
+            if(GameManager.m_playerLevel >= 6)
             {
                 _blankCounter = Random.Range(1 , 2);
             }
 
-            else if(GameManager.m_playerLevel > 7)
+            if(GameManager.m_playerLevel > 7)
             {
                 _blankCounter = Random.Range(1 , 3);
             }

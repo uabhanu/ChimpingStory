@@ -33,10 +33,10 @@ public class GameManager : MonoBehaviour
     public static Button m_chimpionshipBeltButton , m_muteButton , m_pauseButton , m_unmuteButton;
     public static GameObject m_pauseMenuObj , m_uiButtonsTutorialMenuObj;
     public static Image m_adsMenuImage , m_arrow01Image , m_arrow02Image , m_arrow03Image , m_arrow04Image , m_chimpionshipBeltButtonImage , m_muteButtonImage , m_nextButtonImage , m_pauseButtonImage;
-    public static Image m_selfieButtonImage , m_selfiePanelImage , m_uiButtonsTutorialMenuImage , m_unmuteButtonImage;
+    public static Image m_polaroidImage , m_selfieButtonImage , m_selfiePanelImage , m_uiButtonsTutorialMenuImage , m_unmuteButtonImage;
     public static int m_currentScene , m_firstTimeIAPTutorialAppeared , m_firstTimeUIButtonsTutorial , m_firstTimeWaterLevelTutorial , m_playerLevel = 1 , m_playerMutedSounds;
     public static Text m_chimpionshipBeltButtonTutorialText , m_leaderboardButtonTutorialText , m_muteUnmuteButtonTutorialText , m_pauseButtonTutorialText , m_polaroidsCountText;
-    public Image m_polaroidImage;
+
     public Text m_highScoreLabelText , m_highScoreValueText;
 
     void Start()
@@ -465,6 +465,7 @@ public class GameManager : MonoBehaviour
 			_pauseMenuImage = m_pauseMenuObj.GetComponent<Image>();
             m_polaroidsCountText = GameObject.Find("PolaroidsCountText").GetComponent<Text>();
             m_polaroidsCountText.text = ScoreManager.m_polaroidsCount.ToString();
+            m_polaroidImage = GameObject.Find("PolaroidImage").GetComponent<Image>();
 			_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
 			m_selfieButtonImage = GameObject.Find("SelfieButton").GetComponent<Image>();
 			m_selfiePanelImage = GameObject.Find("SelfiePanel").GetComponent<Image>();
@@ -545,6 +546,7 @@ public class GameManager : MonoBehaviour
 			_pauseMenuImage = m_pauseMenuObj.GetComponent<Image>();
             m_polaroidsCountText = GameObject.Find("PolaroidsCountText").GetComponent<Text>();
             m_polaroidsCountText.text = ScoreManager.m_polaroidsCount.ToString();
+            m_polaroidImage = GameObject.Find("PolaroidImage").GetComponent<Image>();
 			_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
             _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
             m_unmuteButtonImage = GameObject.Find("UnmuteButton").GetComponent<Image>();

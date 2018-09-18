@@ -310,6 +310,8 @@ public class LandChimp : MonoBehaviour
         _bIsGrounded = false;
         m_isSuper = true;
         _chimpAnim.SetBool("Super" , true);
+        GameManager.m_polaroidImage.enabled = false;
+        GameManager.m_polaroidsCountText.enabled = false;
         _jumpHeight *= 1.5f;
 		SelfieAppear();
         LevelCreator.m_gameSpeed = _defaultGameSpeed;
@@ -321,6 +323,8 @@ public class LandChimp : MonoBehaviour
     void SuperFinished()
     {
         _chimpAnim.SetBool("Super" , false);
+        GameManager.m_polaroidImage.enabled = true;
+        GameManager.m_polaroidsCountText.enabled = true;
         _jumpHeight /= 1.5f;
         m_isSuper = false;	
         LevelCreator.m_middleCounter = 0;
