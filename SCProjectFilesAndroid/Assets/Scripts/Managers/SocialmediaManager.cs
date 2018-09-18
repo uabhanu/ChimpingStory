@@ -127,8 +127,6 @@ public class SocialmediaManager : MonoBehaviour
         _gameManager.ChimpionshipBelt();
         GooglePlayGamesLeaderboardPlayerRank();
         GooglePlayGamesLeaderboardUpdate();
-        _gameManager.m_polaroidImage.enabled = false;
-        GameManager.m_polaroidsCountText.enabled = false;
 
         if(GameManager.m_firstTimeUIButtonsTutorial == 1)
         {
@@ -156,6 +154,8 @@ public class SocialmediaManager : MonoBehaviour
                 _gameManager.m_highScoreLabelText.enabled = false;
                 _gameManager.m_highScoreValueText.enabled = false;
                 GameManager.m_pauseButtonImage.enabled = false;
+                _gameManager.m_polaroidImage.enabled = false;
+                GameManager.m_polaroidsCountText.enabled = false;
                 m_gpgsLeaderboardButtonImage.enabled = false;
                 _gpgsMenuImage.enabled = true;
                 _gpgsLeaderboardNotLoggedInOKButtonImage.enabled = true;
@@ -176,6 +176,15 @@ public class SocialmediaManager : MonoBehaviour
         _gpgsMenuImage.enabled = false;
         _gameManager.m_polaroidImage.enabled = true;
         GameManager.m_polaroidsCountText.enabled = true;
+
+        if(GameManager.m_playerMutedSounds == 0)
+        {
+            GameManager.m_muteButtonImage.enabled = true;
+        }
+        else
+        {
+            GameManager.m_unmuteButtonImage.enabled = true;
+        }
     }
 
     public void GooglePlayGamesLeaderboardPlayerRank()
