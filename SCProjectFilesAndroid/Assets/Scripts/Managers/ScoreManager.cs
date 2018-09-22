@@ -7,11 +7,11 @@ public class ScoreManager : MonoBehaviour
 
     public static bool m_isTestingMode;
     public static float m_minHighScore , m_scoreValue;
-	public static int m_defaultSupersCount = 1 , m_polaroidsCount , m_supersCount;
+	public static int m_playerLevel , m_polaroidsCount , m_supersCount;
 
 	void Start()
 	{
-        //m_isTestingMode = true; //TODO Remove this after testing finished
+        //m_isTestingMode = true;
 
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
@@ -22,7 +22,10 @@ public class ScoreManager : MonoBehaviour
         }
         else
         {
+            m_playerLevel = BhanuPrefs.GetPlayerLevel();
             m_polaroidsCount = BhanuPrefs.GetPolaroidsCount();
+            m_supersCount = BhanuPrefs.GetSupers();
+
             m_scoreValue = BhanuPrefs.GetHighScore();
             _gameManager.m_highScoreValueText.text = m_scoreValue.ToString();
         }
