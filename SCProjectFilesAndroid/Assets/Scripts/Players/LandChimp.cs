@@ -99,6 +99,8 @@ public class LandChimp : MonoBehaviour
     {
         if(!m_isSuper)
         {
+            Ground.m_groundCollider2D.enabled = true;
+            Ground.m_groundRenderer.enabled = true;
             //Debug.DrawLine(m_raycastTop.position , m_raycastBottom.position , Color.red);
             RaycastHit2D hit2D = Physics2D.Raycast(_raycastTop.position , _raycastBottom.position);
 
@@ -137,6 +139,8 @@ public class LandChimp : MonoBehaviour
 
         else if(m_isSuper)
         {
+            Ground.m_groundCollider2D.enabled = false;
+            Ground.m_groundRenderer.enabled = false;
             LevelCreator.m_middleCounter = 0.5f;
             transform.position = new Vector2(-5.17f , Mathf.Clamp(transform.position.y , -0.98f , 3.25f));
         }
@@ -312,9 +316,10 @@ public class LandChimp : MonoBehaviour
         _chimpAnim.SetBool("Super" , true);
         GameManager.m_polaroidImage.enabled = false;
         GameManager.m_polaroidsCountText.enabled = false;
+        // Ground.m_groundCollider2D.enabled = false;
+        // Ground.m_groundRenderer.enabled = false;
         _jumpHeight *= 1.5f;
 		SelfieAppear();
-        LevelCreator.m_gameSpeed = _defaultGameSpeed;
         SlipFinished();
         _rockSpawner.StartSpawnRoutine();
 		Invoke("SuperFinished" , 30.25f);
@@ -325,8 +330,11 @@ public class LandChimp : MonoBehaviour
         _chimpAnim.SetBool("Super" , false);
         GameManager.m_polaroidImage.enabled = true;
         GameManager.m_polaroidsCountText.enabled = true;
+        //Ground.m_groundCollider2D.enabled = true;
+        //Ground.m_groundRenderer.enabled = true;
         _jumpHeight /= 1.5f;
         m_isSuper = false;	
+        LevelCreator.m_gameSpeed = _defaultGameSpeed;
         LevelCreator.m_middleCounter = 0;
     }
 

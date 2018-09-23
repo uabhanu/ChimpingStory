@@ -289,7 +289,7 @@ public class LevelCreator : MonoBehaviour
             _bMiscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 6) == 1 && m_gameSpeed < 8 && (m_middleCounter > _minMiddleCounterValue || ScoreManager.m_playerLevel > 3))
+        else if(Random.Range(0 , 6) == 1 && m_gameSpeed < 8 && (m_middleCounter > _minMiddleCounterValue + 1 || (ScoreManager.m_playerLevel < 5 && ScoreManager.m_playerLevel > 3)))
         {
             GameObject bananaSkin = _collectedTilesObj.transform.Find("BananaSkin").transform.GetChild(0).gameObject;
             bananaSkin.transform.parent = _gameLayerObj.transform;
@@ -297,7 +297,7 @@ public class LevelCreator : MonoBehaviour
             _bMiscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 6) == 3 && (m_middleCounter > _minMiddleCounterValue || ScoreManager.m_playerLevel > 2))
+        else if(Random.Range(0 , 6) == 3 && (m_middleCounter > _minMiddleCounterValue || (ScoreManager.m_playerLevel < 5 && ScoreManager.m_playerLevel > 2)))
         {
             GameObject hurdle = _collectedTilesObj.transform.Find("Hurdle").transform.GetChild(0).gameObject;
             hurdle.transform.parent = _gameLayerObj.transform;
@@ -305,7 +305,7 @@ public class LevelCreator : MonoBehaviour
             _bMiscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 6) == 2 && (m_middleCounter > _minMiddleCounterValue || ScoreManager.m_playerLevel > 0))
+        else if(Random.Range(0 , 6) == 2)
         {
             GameObject polaroid = _collectedTilesObj.transform.Find("Polaroid").transform.GetChild(0).gameObject;
             polaroid.transform.parent = _gameLayerObj.transform;
@@ -313,7 +313,7 @@ public class LevelCreator : MonoBehaviour
             _bMiscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 6) == 4 && (m_middleCounter > _minMiddleCounterValue || ScoreManager.m_playerLevel > 1))
+        else if(Random.Range(0 , 6) == 4 && (m_middleCounter > _minMiddleCounterValue || (ScoreManager.m_playerLevel < 5 && ScoreManager.m_playerLevel > 3)))
         {
             GameObject portal = _collectedTilesObj.transform.Find("Portal").transform.GetChild(0).gameObject;
             portal.transform.parent = _gameLayerObj.transform;
@@ -347,17 +347,7 @@ public class LevelCreator : MonoBehaviour
 		    break;
 
 		    case "PF_GroundRight":
-
-                if(ScoreManager.m_playerLevel >= 5)
-                {
-                    _tmpTileObj = _collectedTilesObj.transform.Find("gRight").transform.GetChild(0).gameObject;
-                }
-
-                if(ScoreManager.m_playerLevel < 5)
-                {
-                    _tmpTileObj = _collectedTilesObj.transform.Find("gMiddle").transform.GetChild(0).gameObject;
-                }
-               
+                _tmpTileObj = _collectedTilesObj.transform.Find("gRight").transform.GetChild(0).gameObject;
 		    break;
         }
 
@@ -394,14 +384,17 @@ public class LevelCreator : MonoBehaviour
             SetTile("PF_GroundLeft");
 		}
 
-        if(ScoreManager.m_playerLevel < 5)
+        else if(ScoreManager.m_playerLevel < 5)
         {
             SetTile("PF_GroundMiddle");
         }
 
         else if(_lastTile == "PF_GroundMiddle")
         {
-			SetTile("PF_GroundRight");
+            if(ScoreManager.m_playerLevel >= 5)
+            {
+                SetTile("PF_GroundRight");
+            }
 		}
         
         else if(_lastTile == "PF_GroundRight")

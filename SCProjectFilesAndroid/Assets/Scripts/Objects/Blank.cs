@@ -14,18 +14,18 @@ public class Blank : MonoBehaviour
         _mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();  
     }
 
-    void Update() 
-    {
-		if(Time.timeScale == 0f)
-		{
-			return;
-		}
+    // void Update() 
+    // {
+	// 	if(Time.timeScale == 0f)
+	// 	{
+	// 		return;
+	// 	}
 
-        _positionOnScreen = _mainCamera.ScreenToWorldPoint(transform.position);
+    //     _positionOnScreen = _mainCamera.ScreenToWorldPoint(transform.position);
 
-        if(_positionOnScreen.x <= -8.81f && transform.IsChildOf(_gameLayer))
-        {
-            //_gameManager.FirstTimeJumpTutorial();
-        }
-    }
+    //     if(_positionOnScreen.x <= -8.81f && transform.IsChildOf(_gameLayer))
+    //     {
+    //         _gameManager.FirstTimeJumpTutorial();
+    //     }
+    // }
 }
