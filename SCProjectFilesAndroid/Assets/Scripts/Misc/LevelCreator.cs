@@ -7,9 +7,10 @@ public class LevelCreator : MonoBehaviour
     const float _tileWidth = 1.25f;
     float _blankCounter = 0 , _outofbounceX , _startUpPosY;
     GameManager _gameManager;
-    GameObject _collectedTiles , _gameLayer ,  _tmpTile;
+    GameObject _collectedTiles , _gameLayer , _tmpTile;
     int _heightLevel = 0;
     LandChimp _landChimp;
+    ScoreManager _scoreManager;
 	string _lastTile = "PF_GroundRight";
 
     [SerializeField] float _minMiddleCounterValue , _playerLevelIncreaseRate;
@@ -21,7 +22,7 @@ public class LevelCreator : MonoBehaviour
     void Reset()
     {
         _minMiddleCounterValue = 3.05f;
-        _playerLevelIncreaseRate = 7.05f;
+        _playerLevelIncreaseRate = 1.05f;
         m_tilePos = GameObject.Find("StartTilePosition");
     }
 
@@ -33,6 +34,8 @@ public class LevelCreator : MonoBehaviour
         m_gameSpeed = 5f;
         Invoke("PlayerLevelIncrease" , _playerLevelIncreaseRate * ScoreManager.m_playerLevel);
         _landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
+        _scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();  // This line & variable _scoreManager is for testing purposes only
+
 
 		for(int i = 0; i < 30; i++)
         {
@@ -227,6 +230,7 @@ public class LevelCreator : MonoBehaviour
         {
             ScoreManager.m_playerLevel++;
             BhanuPrefs.SetPPlayerLevel(ScoreManager.m_playerLevel);
+            _scoreManager.m_playerLevelValueDisplay = ScoreManager.m_playerLevel;
         }
 
         Invoke("PlayerLevelIncrease" , _playerLevelIncreaseRate * ScoreManager.m_playerLevel);
@@ -239,11 +243,20 @@ public class LevelCreator : MonoBehaviour
             return;
         }
 
-        else if(Random.Range(0 , 6) == 0 && ScoreManager.m_playerLevel >= 0)
+        else if(Random.Range(0 , 6) == 0)
         {
             GameObject banana = _collectedTiles.transform.Find("Banana").transform.GetChild(0).gameObject;
             banana.transform.parent = _gameLayer.transform;
-            banana.transform.position = new Vector2(m_tilePos.transform.position.x + _tileWidth * 3.7f , _startUpPosY + (_heightLevel * _tileWidth + (_tileWidth * 4.3f)));
+
+            if(ScoreManager.m_playerLevel < 5)
+            {
+                banana.transform.position = new Vector2(m_tilePos.transform.position.x + (_tileWidth + 1.25f) * 3.7f , _startUpPosY + (_heightLevel * _tileWidth + (_tileWidth * 4.3f)));
+            }
+            else
+            {
+                banana.transform.position = new Vector2(m_tilePos.transform.position.x + _tileWidth * 3.7f , _startUpPosY + (_heightLevel * _tileWidth + (_tileWidth * 4.3f)));
+            }
+            
             _bMiscObjAdded = true;
         }
 
@@ -255,19 +268,28 @@ public class LevelCreator : MonoBehaviour
             _bMiscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 6) == 3 && m_middleCounter > 6.5f && ScoreManager.m_playerLevel >= 3)
+        else if(Random.Range(0 , 6) == 3 && ScoreManager.m_playerLevel >= 3)
         {
             GameObject hurdle = _collectedTiles.transform.Find("Hurdle").transform.GetChild(0).gameObject;
             hurdle.transform.parent = _gameLayer.transform;
-            hurdle.transform.position = new Vector2(m_tilePos.transform.position.x + _tileWidth * 3.7f , _startUpPosY + (_heightLevel * _tileWidth + (_tileWidth * 3.3f)));
+            hurdle.transform.position = new Vector2(m_tilePos.transform.position.x + _tileWidth * 3.7f , _startUpPosY + (_heightLevel * _tileWidth + (_tileWidth * 4.3f)));
             _bMiscObjAdded = true;
         }
 
-        else if(Random.Range(0 , 6) == 2 && ScoreManager.m_playerLevel >= 2)
+        else if(Random.Range(0 , 6) == 2)
         {
             GameObject polaroid = _collectedTiles.transform.Find("Polaroid").transform.GetChild(0).gameObject;
             polaroid.transform.parent = _gameLayer.transform;
-            polaroid.transform.position = new Vector2(m_tilePos.transform.position.x + _tileWidth * 3.7f , _startUpPosY + (_heightLevel * _tileWidth + (_tileWidth * 4.3f)));
+            
+            if(ScoreManager.m_playerLevel < 6)
+            {
+                polaroid.transform.position = new Vector2(m_tilePos.transform.position.x + (_tileWidth + 0.60f) * 3.7f , _startUpPosY + (_heightLevel * _tileWidth + (_tileWidth * 4.3f)));
+            }
+            else
+            {
+                polaroid.transform.position = new Vector2(m_tilePos.transform.position.x + _tileWidth * 3.7f , _startUpPosY + (_heightLevel * _tileWidth + (_tileWidth * 4.3f)));
+            }
+
             _bMiscObjAdded = true;
         }
 
@@ -326,6 +348,8 @@ public class LevelCreator : MonoBehaviour
 
 	void SpawnTile()
     {
+        RandomizeMiscObject();
+
 		if(_blankCounter > 0)
         {
 			SetTile("PF_Blank");
@@ -344,33 +368,13 @@ public class LevelCreator : MonoBehaviour
 
 		if(_lastTile == "PF_Blank")
         {
+            m_middleCounter = Random.Range(1 , 15);
 			ChangeHeight();
             SetTile("PF_GroundLeft");
-            
-            if(ScoreManager.m_playerLevel == 1)
-            {
-                m_middleCounter = 15;
-            }
-
-            if(ScoreManager.m_playerLevel >= 2)
-            {
-                m_middleCounter = Random.Range(8 , 15);
-            }
-
-            if(ScoreManager.m_playerLevel >= 3)
-            {
-                m_middleCounter = Random.Range(1 , 15);
-            }
-
-            if(m_middleCounter > _minMiddleCounterValue)
-            {
-                RandomizeMiscObject();
-            }
 		}
 
         if(ScoreManager.m_playerLevel < 5)
         {
-            RandomizeMiscObject();
             SetTile("PF_GroundMiddle");
         }
 
