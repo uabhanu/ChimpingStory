@@ -351,7 +351,7 @@ public class SocialmediaManager : MonoBehaviour
 
     public void GooglePlayRateButton()
     {
-        Application.OpenURL("http://uabhanu.wixsite.com/portfolio"); //TODO Game Play Store URL here after it's live
+        Application.OpenURL("https://play.google.com/store/apps/details?id=com.FLSs.BGSC"); //TODO Game Play Store URL here after it's live
     }
 
     //public void OneSignalPushAcceptButton()

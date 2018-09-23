@@ -44,6 +44,7 @@ public class Banana : MonoBehaviour
         {
             _bananaCollider2D.enabled = false;
             _bananaRenderer.enabled = false;
+            LevelCreator.m_bananaObj = null;
         }
         else
         {

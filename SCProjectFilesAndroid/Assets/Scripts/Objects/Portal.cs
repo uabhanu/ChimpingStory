@@ -29,6 +29,7 @@ public class Portal : MonoBehaviour
         {
             m_portalCollider2D.enabled = false;
             m_portalRenderer.enabled = false;
+			LevelCreator.m_portalObj = null;
         }
 
         else if(!m_landChimp.m_isSuper && m_positionOnScreen.x >= 972)

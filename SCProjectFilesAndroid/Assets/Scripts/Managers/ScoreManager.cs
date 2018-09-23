@@ -20,6 +20,7 @@ public class ScoreManager : MonoBehaviour
         if(m_isTestingMode)
         {
             m_playerLevel = 0;
+            m_playerLevelValueDisplay = m_playerLevel; // This line is for testing purposes only
             m_polaroidsCount = 150;
             m_scoreValue = 4995f;
             _gameManager.m_highScoreValueText.text = m_scoreValue.ToString();

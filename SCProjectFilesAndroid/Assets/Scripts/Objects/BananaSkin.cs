@@ -25,10 +25,11 @@ public class BananaSkin : MonoBehaviour
 
         m_positionOnScreen = m_mainCamera.WorldToScreenPoint(transform.position);
 
-        if((m_landChimp.m_isSlipping || m_landChimp.m_isSuper)/* && m_positionOnScreen.x >= 972*/)
+        if((m_landChimp.m_isSlipping || m_landChimp.m_isSuper) && m_positionOnScreen.x >= 972)
         {
             m_skinCollider2D.enabled = false;
             m_skinRenderer.enabled = false;
+            LevelCreator.m_portalObj = null;
         }
         else
         {
