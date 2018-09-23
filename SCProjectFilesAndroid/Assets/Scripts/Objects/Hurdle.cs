@@ -38,6 +38,7 @@ public class Hurdle : MonoBehaviour
         {
             _hurdleCollider2D.enabled = false;
             _hurdleRenderer.enabled = false;
+            LevelCreator.m_hurdleObj = null;
         }
         else
         {

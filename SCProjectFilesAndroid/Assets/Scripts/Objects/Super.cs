@@ -34,6 +34,7 @@ public class Super : MonoBehaviour
         {
             m_superCollider2D.enabled = false;
             m_superRenderer.enabled = false;
+			LevelCreator.m_superObj = null;
         }
 		else
         {

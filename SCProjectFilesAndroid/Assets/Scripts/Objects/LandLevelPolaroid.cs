@@ -70,6 +70,7 @@ public class LandLevelPolaroid : MonoBehaviour
 
             m_polaroidCollider2D.enabled = false;
 			m_polaroidRenderer.enabled = false;
+            LevelCreator.m_polaroidObj = null;
         }
     }
 }

@@ -16,7 +16,7 @@ public class LevelCreator : MonoBehaviour
     [SerializeField] float _minMiddleCounterValue , _playerLevelIncreaseRate;
 
     public static float m_gameSpeed , m_middleCounter = 0;
-    public static GameObject m_bananaObj , m_bananaSkinObj , m_hurdleObj , m_polaroidObj , m_portalObj;
+    public static GameObject m_bananaObj , m_bananaSkinObj , m_hurdleObj , m_polaroidObj , m_portalObj , m_superObj;
 
     public GameObject m_tilePosObj;
 
@@ -70,17 +70,35 @@ public class LevelCreator : MonoBehaviour
                 m_bananaObj = banana;
             }
 
-            GameObject bananaSkin = Instantiate(Resources.Load("PF_BananaSkin", typeof(GameObject))) as GameObject;
-            bananaSkin.transform.parent = _collectedTilesObj.transform.Find("BananaSkin").transform;
-            bananaSkin.transform.position = Vector2.zero;
+            m_bananaSkinObj = GameObject.Find("PF_BananaSkin(Clone)");
+
+            if(m_bananaSkinObj == null)
+            {
+                GameObject bananaSkin = Instantiate(Resources.Load("PF_BananaSkin", typeof(GameObject))) as GameObject;
+                bananaSkin.transform.parent = _collectedTilesObj.transform.Find("BananaSkin").transform;
+                bananaSkin.transform.position = Vector2.zero;
+                m_bananaSkinObj = bananaSkin;
+            }
             
-            GameObject hurdle = Instantiate(Resources.Load("PF_Hurdle", typeof(GameObject))) as GameObject;
-            hurdle.transform.parent = _collectedTilesObj.transform.Find("Hurdle").transform;
-            hurdle.transform.position = Vector2.zero;
+            m_hurdleObj = GameObject.Find("PF_Hurdle(Clone)");
             
-            GameObject polaroid = Instantiate(Resources.Load("PF_LandLevelPolaroid", typeof(GameObject))) as GameObject;
-            polaroid.transform.parent = _collectedTilesObj.transform.Find("Polaroid").transform;
-            polaroid.transform.position = Vector2.zero;
+            if(m_hurdleObj == null)
+            {
+                GameObject hurdle = Instantiate(Resources.Load("PF_Hurdle", typeof(GameObject))) as GameObject;
+                hurdle.transform.parent = _collectedTilesObj.transform.Find("Hurdle").transform;
+                hurdle.transform.position = Vector2.zero;
+                m_hurdleObj = hurdle;
+            }
+            
+            m_polaroidObj = GameObject.Find("PF_LandLevelPolaroid(Clone)");
+
+            if(m_polaroidObj == null)
+            {
+                GameObject polaroid = Instantiate(Resources.Load("PF_LandLevelPolaroid", typeof(GameObject))) as GameObject;
+                polaroid.transform.parent = _collectedTilesObj.transform.Find("Polaroid").transform;
+                polaroid.transform.position = Vector2.zero;
+                m_polaroidObj = polaroid;
+            }
 
             m_portalObj = GameObject.Find("PF_Portal(Clone)");
 
@@ -92,9 +110,15 @@ public class LevelCreator : MonoBehaviour
                 m_portalObj = portal;
             }
 
-            GameObject super = Instantiate(Resources.Load("PF_Super", typeof(GameObject))) as GameObject;
-            super.transform.parent = _collectedTilesObj.transform.Find("Super").transform;
-            super.transform.position = Vector2.zero;
+            m_superObj = GameObject.Find("PF_Super(Clone)");
+
+            if(m_superObj == null)
+            {
+                GameObject super = Instantiate(Resources.Load("PF_Super", typeof(GameObject))) as GameObject;
+                super.transform.parent = _collectedTilesObj.transform.Find("Super").transform;
+                super.transform.position = Vector2.zero;
+                m_superObj = super;
+            }
         }
 
         _collectedTilesObj.transform.position = new Vector2 (-60.0f , -20.0f);
@@ -226,7 +250,7 @@ public class LevelCreator : MonoBehaviour
                     break;
 
                     default:
-                        Destroy(child.gameObject);
+                        //Destroy(child.gameObject); //TODO Find out what's destroying child as this is not doing it
                     break;
                 }
             }

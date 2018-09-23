@@ -36,6 +36,7 @@ public class Portal : MonoBehaviour
         {
             m_portalCollider2D.enabled = true;
             m_portalRenderer.enabled = true;
+			LevelCreator.m_portalObj = null;
         }
     }
 }
