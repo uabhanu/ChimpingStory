@@ -13,12 +13,13 @@ public class ScoreManager : MonoBehaviour
 
 	void Start()
 	{
-        m_isTestingMode = true;
+        //m_isTestingMode = true;
 
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         if(m_isTestingMode)
         {
+            BhanuPrefs.DeleteAll();
             m_playerLevel = 0;
             m_playerLevelValueDisplay = m_playerLevel; // This line is for testing purposes only
             m_polaroidsCount = 150;
