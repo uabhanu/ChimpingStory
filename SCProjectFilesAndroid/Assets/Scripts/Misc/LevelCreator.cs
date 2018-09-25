@@ -10,7 +10,7 @@ public class LevelCreator : MonoBehaviour
     GameObject _collectedTilesObj , _gameLayerObj , _tmpTileObj;
     int _heightLevel = 0;
     LandChimp _landChimp;
-    ScoreManager _scoreManager;
+    ScoreManager _scoreManager;  // This line & variable _scoreManager is for testing purposes only
 	string _lastTile = "PF_GroundRight";
 
     [SerializeField] float _minMiddleCounterValue , _playerLevelIncreaseRate;
@@ -268,7 +268,7 @@ public class LevelCreator : MonoBehaviour
         {
             ScoreManager.m_playerLevel++;
             BhanuPrefs.SetPPlayerLevel(ScoreManager.m_playerLevel);
-            _scoreManager.m_playerLevelValueDisplay = ScoreManager.m_playerLevel;
+            _scoreManager.m_playerLevelValueDisplay = ScoreManager.m_playerLevel;  // This line & variable _scoreManager is for testing purposes only
         }
 
         Invoke("PlayerLevelIncrease" , _playerLevelIncreaseRate + ScoreManager.m_playerLevel);
@@ -343,11 +343,21 @@ public class LevelCreator : MonoBehaviour
 		    break;
 
 		    case "PF_GroundMiddle":
-			    _tmpTileObj = _collectedTilesObj.transform.Find("gMiddle").transform.GetChild(0).gameObject;
+                _tmpTileObj = _collectedTilesObj.transform.Find("gMiddle").transform.GetChild(0).gameObject;
 		    break;
 
 		    case "PF_GroundRight":
-                _tmpTileObj = _collectedTilesObj.transform.Find("gRight").transform.GetChild(0).gameObject;
+                
+                if(ScoreManager.m_playerLevel >= 5)
+                {
+                    _tmpTileObj = _collectedTilesObj.transform.Find("gRight").transform.GetChild(0).gameObject; //TODO Not working for some reason, figure out
+                }
+
+                if(ScoreManager.m_playerLevel < 5)
+                {
+                    _tmpTileObj = _collectedTilesObj.transform.Find("gMiddle").transform.GetChild(0).gameObject;
+                }
+                
 		    break;
         }
 
@@ -389,12 +399,9 @@ public class LevelCreator : MonoBehaviour
             SetTile("PF_GroundMiddle");
         }
 
-        else if(_lastTile == "PF_GroundMiddle")
+        else if(_lastTile == "PF_GroundMiddle" && ScoreManager.m_playerLevel >= 5)
         {
-            if(ScoreManager.m_playerLevel >= 5)
-            {
-                SetTile("PF_GroundRight");
-            }
+            SetTile("PF_GroundRight");   
 		}
         
         else if(_lastTile == "PF_GroundRight")
