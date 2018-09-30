@@ -29,7 +29,7 @@ public class BananaSkin : MonoBehaviour
         {
             m_skinCollider2D.enabled = false;
             m_skinRenderer.enabled = false;
-            LevelCreator.m_bananaSkinObj = null;
+            //LevelCreator.m_bananaSkinObj = null;
         }
         else
         {

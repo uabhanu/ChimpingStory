@@ -60,65 +60,65 @@ public class LevelCreator : MonoBehaviour
 
         for(int i = 0; i < 6; i++)
         {
-            m_bananaObj = GameObject.Find("PF_Banana(Clone)");
+            //m_bananaObj = GameObject.Find("PF_Banana(Clone)");
 
-            if(m_bananaObj == null)
-            {
+            //if(m_bananaObj == null)
+            //{
                 GameObject banana = Instantiate(Resources.Load("PF_Banana", typeof(GameObject))) as GameObject;
                 banana.transform.parent = _collectedTilesObj.transform.Find("Banana").transform;
                 banana.transform.position = Vector2.zero;
-                m_bananaObj = banana;
-            }
+                //m_bananaObj = banana;
+            //}
 
-            m_bananaSkinObj = GameObject.Find("PF_BananaSkin(Clone)");
+            //m_bananaSkinObj = GameObject.Find("PF_BananaSkin(Clone)");
 
-            if(m_bananaSkinObj == null)
-            {
+            //if(m_bananaSkinObj == null)
+            //{
                 GameObject bananaSkin = Instantiate(Resources.Load("PF_BananaSkin", typeof(GameObject))) as GameObject;
                 bananaSkin.transform.parent = _collectedTilesObj.transform.Find("BananaSkin").transform;
                 bananaSkin.transform.position = Vector2.zero;
-                m_bananaSkinObj = bananaSkin;
-            }
+                //m_bananaSkinObj = bananaSkin;
+            //}
             
-            m_hurdleObj = GameObject.Find("PF_Hurdle(Clone)");
+            //m_hurdleObj = GameObject.Find("PF_Hurdle(Clone)");
             
-            if(m_hurdleObj == null)
-            {
+            //if(m_hurdleObj == null)
+            //{
                 GameObject hurdle = Instantiate(Resources.Load("PF_Hurdle", typeof(GameObject))) as GameObject;
                 hurdle.transform.parent = _collectedTilesObj.transform.Find("Hurdle").transform;
                 hurdle.transform.position = Vector2.zero;
-                m_hurdleObj = hurdle;
-            }
+                //m_hurdleObj = hurdle;
+            //}
             
-            m_polaroidObj = GameObject.Find("PF_LandLevelPolaroid(Clone)");
+            //m_polaroidObj = GameObject.Find("PF_LandLevelPolaroid(Clone)");
 
-            if(m_polaroidObj == null)
-            {
+            //if(m_polaroidObj == null)
+            //{
                 GameObject polaroid = Instantiate(Resources.Load("PF_LandLevelPolaroid", typeof(GameObject))) as GameObject;
                 polaroid.transform.parent = _collectedTilesObj.transform.Find("Polaroid").transform;
                 polaroid.transform.position = Vector2.zero;
-                m_polaroidObj = polaroid;
-            }
+                //m_polaroidObj = polaroid;
+            //}
 
-            m_portalObj = GameObject.Find("PF_Portal(Clone)");
+            //m_portalObj = GameObject.Find("PF_Portal(Clone)");
 
-            if(m_portalObj == null)
-            {
+            //if(m_portalObj == null)
+            //{
                 GameObject portal = Instantiate(Resources.Load("PF_Portal", typeof(GameObject))) as GameObject;
                 portal.transform.parent = _collectedTilesObj.transform.Find("Portal").transform;
                 portal.transform.position = Vector2.zero;
-                m_portalObj = portal;
-            }
+                //m_portalObj = portal;
+            //}
 
-            m_superObj = GameObject.Find("PF_Super(Clone)");
+            //m_superObj = GameObject.Find("PF_Super(Clone)");
 
-            if(m_superObj == null)
-            {
+            //if(m_superObj == null)
+            //{
                 GameObject super = Instantiate(Resources.Load("PF_Super", typeof(GameObject))) as GameObject;
                 super.transform.parent = _collectedTilesObj.transform.Find("Super").transform;
                 super.transform.position = Vector2.zero;
-                m_superObj = super;
-            }
+                //m_superObj = super;
+            //}
         }
 
         _collectedTilesObj.transform.position = new Vector2 (-60.0f , -20.0f);
@@ -357,8 +357,6 @@ public class LevelCreator : MonoBehaviour
 
 	void SpawnTile()
     {
-        RandomizeMiscObject();
-
 		if(_blankCounter > 0)
         {
             if(ScoreManager.m_playerLevel >= 5)
@@ -376,6 +374,7 @@ public class LevelCreator : MonoBehaviour
 
         if(m_middleCounter > 0)
         {
+            RandomizeMiscObject();
             SetTile("PF_GroundMiddle");
             m_middleCounter--;
 			return;
