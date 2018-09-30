@@ -35,8 +35,8 @@ public class LandChimp : MonoBehaviour
     {
         _chimpAnim = GetComponent<Animator>();
         _chimpBody2D = GetComponent<Rigidbody2D>();
-		_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         _defaultGameSpeed = LevelCreator.m_gameSpeed;
+		_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         LevelCreator.m_middleCounter = 0;
         _rockSpawner = GameObject.Find("RockSpawner").GetComponent<RockSpawner>();
         _socialmediaManager = GameObject.Find("SocialmediaManager").GetComponent<SocialmediaManager>();
@@ -99,14 +99,12 @@ public class LandChimp : MonoBehaviour
     {
         if(!m_isSuper)
         {
-            Ground.m_groundCollider2D.enabled = true;
-            Ground.m_groundRenderer.enabled = true;
             //Debug.DrawLine(m_raycastTop.position , m_raycastBottom.position , Color.red);
             RaycastHit2D hit2D = Physics2D.Raycast(_raycastTop.position , _raycastBottom.position);
 
             if(hit2D)
             {
-                if(hit2D.collider.gameObject.GetComponent<Ground>()) //No Garbage but just like string comparison, m_isGrounded becoming false a little late for your liking
+                if(hit2D.collider.gameObject.GetComponent<Ground>())
                 {
                     _bIsGrounded = true;
                 }
@@ -139,8 +137,6 @@ public class LandChimp : MonoBehaviour
 
         else if(m_isSuper)
         {
-            Ground.m_groundCollider2D.enabled = false;
-            Ground.m_groundRenderer.enabled = false;
             LevelCreator.m_middleCounter = 0.5f;
             transform.position = new Vector2(-5.17f , Mathf.Clamp(transform.position.y , -0.98f , 3.25f));
         }
@@ -316,9 +312,8 @@ public class LandChimp : MonoBehaviour
         _chimpAnim.SetBool("Super" , true);
         GameManager.m_polaroidImage.enabled = false;
         GameManager.m_polaroidsCountText.enabled = false;
-        // Ground.m_groundCollider2D.enabled = false;
-        // Ground.m_groundRenderer.enabled = false;
         _jumpHeight *= 1.5f;
+        LevelCreator.m_gameSpeed = _defaultGameSpeed;
 		SelfieAppear();
         SlipFinished();
         _rockSpawner.StartSpawnRoutine();
@@ -330,8 +325,6 @@ public class LandChimp : MonoBehaviour
         _chimpAnim.SetBool("Super" , false);
         GameManager.m_polaroidImage.enabled = true;
         GameManager.m_polaroidsCountText.enabled = true;
-        //Ground.m_groundCollider2D.enabled = true;
-        //Ground.m_groundRenderer.enabled = true;
         _jumpHeight /= 1.5f;
         m_isSuper = false;	
         LevelCreator.m_gameSpeed = _defaultGameSpeed;

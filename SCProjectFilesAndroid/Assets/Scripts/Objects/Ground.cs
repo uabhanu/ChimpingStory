@@ -2,12 +2,34 @@
 
 public class Ground : MonoBehaviour 
 {
-	public static BoxCollider2D m_groundCollider2D;
-	public static SpriteRenderer m_groundRenderer;
+	[SerializeField] BoxCollider2D _groundCollider2D;
+	[SerializeField] LandChimp _landChimp;
+	[SerializeField] SpriteRenderer _groundRenderer;
 
 	void Start() 
 	{
-        m_groundCollider2D = GetComponent<BoxCollider2D>();	
-		m_groundRenderer = GetComponent<SpriteRenderer>();
+		_groundCollider2D = GetComponent<BoxCollider2D>();
+		_groundRenderer = GetComponent<SpriteRenderer>();
+		_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
+	}
+
+	void Update()
+	{
+		if(Time.timeScale == 0)
+		{
+			return;
+		}
+
+		if(_landChimp.m_isSuper)
+		{
+			_groundCollider2D.enabled = false;
+			_groundRenderer.enabled = false;
+		}
+
+		if(!_landChimp.m_isSuper)
+		{
+			_groundCollider2D.enabled = true;
+			_groundRenderer.enabled = true;
+		}
 	}
 }
