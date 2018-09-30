@@ -163,13 +163,11 @@ public class LevelCreator : MonoBehaviour
 		{
 			SetTile("PF_GroundMiddle");
 		}
-
-		SetTile("PF_GroundRight");
 	}
 
     void GameSpeed()
     {
-        if(ScoreManager.m_playerLevel >= 6)
+        if(ScoreManager.m_playerLevel >= 6 && !_landChimp.m_isSuper)
         {
             m_gameSpeed += 0.5f;
         }
@@ -347,17 +345,7 @@ public class LevelCreator : MonoBehaviour
 		    break;
 
 		    case "PF_GroundRight":
-                
-                if(ScoreManager.m_playerLevel >= 5)
-                {
-                    _tmpTileObj = _collectedTilesObj.transform.Find("gRight").transform.GetChild(0).gameObject; //TODO Not working for some reason, figure out
-                }
-
-                if(ScoreManager.m_playerLevel < 5)
-                {
-                    _tmpTileObj = _collectedTilesObj.transform.Find("gMiddle").transform.GetChild(0).gameObject;
-                }
-                
+                _tmpTileObj = _collectedTilesObj.transform.Find("gRight").transform.GetChild(0).gameObject;
 		    break;
         }
 
@@ -373,9 +361,17 @@ public class LevelCreator : MonoBehaviour
 
 		if(_blankCounter > 0)
         {
-			SetTile("PF_Blank");
-			_blankCounter--;
-            return;
+            if(ScoreManager.m_playerLevel >= 5)
+            {
+                SetTile("PF_Blank");
+                _blankCounter--;
+                return;
+            }
+            else
+            {
+                SetTile("PF_GroundMiddle");
+                return;
+            }
 		}
 
         if(m_middleCounter > 0)
@@ -394,14 +390,16 @@ public class LevelCreator : MonoBehaviour
             SetTile("PF_GroundLeft");
 		}
 
-        else if(ScoreManager.m_playerLevel < 5)
+        else if(_lastTile == "PF_GroundMiddle")
         {
-            SetTile("PF_GroundMiddle");
-        }
-
-        else if(_lastTile == "PF_GroundMiddle" && ScoreManager.m_playerLevel >= 5)
-        {
-            SetTile("PF_GroundRight");   
+            if(ScoreManager.m_playerLevel >= 5)
+            {
+                SetTile("PF_GroundRight");
+            }
+            else
+            {
+                SetTile("PF_GroundMiddle");
+            }
 		}
         
         else if(_lastTile == "PF_GroundRight")
