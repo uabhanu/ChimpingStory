@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour 
 {
-	Achievement _selfieAchievement , _undisputedChimpionAchievement;
+	//Achievement _selfieAchievement , _undisputedChimpionAchievement;
     AudioSource _musicSource;
 	Image _adsAcceptButtonImage , _adsCancelButtonImage , _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _continueButtonImage , _exitButtonImage , _firstTimePlayTutorialMenuImage;
     Image _firstTimePlayTutorialOKButtonImage , _iapCartButtonImage , _pauseMenuImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage , _resumeButtonImage;
@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
 
     public void AdsAcceptButton()
     {
-        _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
+        //_socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
         m_adsMenuImage.enabled = false;
         _adsAcceptButtonImage.enabled = false;
         _adsCancelButtonImage.enabled = false;
@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
             _socialmediaManager.GooglePlayGamesLeaderboardTestMenuDisappear();
         }
 
-        AdsShow();
+        //AdsShow();
     }
 
     public void AdsCancelButton()
@@ -93,43 +93,43 @@ public class GameManager : MonoBehaviour
         ScoreManager.m_supersCount = 0;
         BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
         SceneManager.LoadScene(m_currentScene);
-        _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
+        //_socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
     }
 
-    void AdResult(ShowResult result)
-    {
-        if(result == ShowResult.Finished)
-        {
-            //Debug.Log("Video completed - Offer a reward to the player");
-            _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-		    //ScoreManager.m_scoreValue = Mathf.Round(ScoreManager.m_scoreValue); TODO Delete this line after confirming that this is not needed
-            BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
-            Time.timeScale = 1;
-            SceneManager.LoadScene(m_currentScene);
-        }
+    //void AdResult(ShowResult result)
+    //{
+    //    if(result == ShowResult.Finished)
+    //    {
+    //        //Debug.Log("Video completed - Offer a reward to the player");
+    //        //_socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
+    //        //ScoreManager.m_scoreValue = Mathf.Round(ScoreManager.m_scoreValue); TODO Delete this line after confirming that this is not needed
+    //        BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
+    //        Time.timeScale = 1;
+    //        SceneManager.LoadScene(m_currentScene);
+    //    }
 
-        else if(result == ShowResult.Skipped)
-        {
-            //Debug.LogWarning("Video was skipped - Do NOT reward the player");
-            _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-            BhanuPrefs.DeleteScore();
-        }
+    //    else if(result == ShowResult.Skipped)
+    //    {
+    //        //Debug.LogWarning("Video was skipped - Do NOT reward the player");
+    //        _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
+    //        BhanuPrefs.DeleteScore();
+    //    }
 
-        else if(result == ShowResult.Failed)
-        {
-            //Debug.LogError("Video failed to show");
-            _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-            BhanuPrefs.DeleteScore();
-        }
-    }
+    //    else if(result == ShowResult.Failed)
+    //    {
+    //        //Debug.LogError("Video failed to show");
+    //        _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
+    //        BhanuPrefs.DeleteScore();
+    //    }
+    //}
 
-    void AdsShow()
-    {
-        _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-        ShowOptions options = new ShowOptions();
-        options.resultCallback = AdResult;
-        Advertisement.Show("rewardedVideo" , options);
-    }
+    //void AdsShow()
+    //{
+    //    _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
+    //    ShowOptions options = new ShowOptions();
+    //    options.resultCallback = AdResult;
+    //    Advertisement.Show("rewardedVideo" , options);
+    //}
 
     public void BackToLandLoseMenu()
     {
@@ -252,7 +252,7 @@ public class GameManager : MonoBehaviour
 
     public void ContinueButton()
     {
-        _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
+        //_socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
 		BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
         SceneManager.LoadScene("LandRunner");
     }
@@ -330,37 +330,29 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    void GetAchievement()
-    {
-        if(SocialmediaManager.b_gpgsLoggedIn)
-        {
-            _selfieAchievement = PlayGamesPlatform.Instance.GetAchievement(_selfieAchievementID);
-            _undisputedChimpionAchievement = PlayGamesPlatform.Instance.GetAchievement(_undisputedChimpionAchievementID);
-        }
+    //void GetAchievement()
+    //{
+    //    if(SocialmediaManager.b_gpgsLoggedIn)
+    //    {
+    //        _selfieAchievement = PlayGamesPlatform.Instance.GetAchievement(_selfieAchievementID);
+    //        _undisputedChimpionAchievement = PlayGamesPlatform.Instance.GetAchievement(_undisputedChimpionAchievementID);
+    //    }
 
-        if(_selfieAchievement == null && _undisputedChimpionAchievement == null)
-        {
-            Invoke("GetAchievement" , 0.5f);
-        }
+    //    if(_selfieAchievement == null && _undisputedChimpionAchievement == null)
+    //    {
+    //        Invoke("GetAchievement" , 0.5f);
+    //    }
 
-        else if(_selfieAchievement != null && _undisputedChimpionAchievement == null)
-        {
-            Invoke("GetAchievement" , 0.5f);
-        }
+    //    else if(_selfieAchievement != null && _undisputedChimpionAchievement == null)
+    //    {
+    //        Invoke("GetAchievement" , 0.5f);
+    //    }
 
-        else if(_selfieAchievement == null && _undisputedChimpionAchievement != null)
-        {
-            Invoke("GetAchievement" , 0.5f);
-        }
-
-        //else
-        //{
-        //    if(m_currentScene > 0)
-        //    {
-        //        SocialmediaManager.m_gpgsAchievementsTestText.text = "Both Selfie & Undisputed Chimpion Achievement Exist";
-        //    }
-        //}
-    }
+    //    else if(_selfieAchievement == null && _undisputedChimpionAchievement != null)
+    //    {
+    //        Invoke("GetAchievement" , 0.5f);
+    //    }
+    //}
 
     void GetBhanuObjects()
     {
@@ -596,11 +588,6 @@ public class GameManager : MonoBehaviour
             }
 		}
 
-        //if(SocialmediaManager.m_isFacebookShareTestMode && SocialmediaManager.m_facebookShareTestMenuObj != null)
-        //{
-        //    SocialmediaManager.m_facebookShareTestMenuObj.SetActive(true);
-        //}
-
         if(SocialmediaManager.b_isGPGsLeaderboardTestMode)
         {
             _socialmediaManager.GooglePlayGamesLeaderboardTestMenuAppear();
@@ -646,7 +633,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
+        //_socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
         Invoke("GetAchievement" , 0.5f);
     }
 
@@ -702,7 +689,7 @@ public class GameManager : MonoBehaviour
 
     public void MuteUnmuteButton()
     {
-        _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
+        //_socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
 
         if(m_firstTimeUIButtonsTutorial == 1 && m_currentScene > 0)
         {
@@ -823,7 +810,7 @@ public class GameManager : MonoBehaviour
 
     public void PauseButton()
 	{
-        _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
+        //_socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
 
         if(m_firstTimeUIButtonsTutorial == 1)
         {
@@ -890,14 +877,6 @@ public class GameManager : MonoBehaviour
 
 	public void QuitButton()
 	{
-        //SocialmediaManager.m_facebookButtonImage.enabled = false;
-        //SocialmediaManager.m_facebookProfilePicImage.enabled = false;
-        //SocialmediaManager.m_facebookUsernameText.enabled = false;
-        
-        //if(SocialmediaManager.m_facebookShareTestMenuObj != null)
-        //{
-        //    SocialmediaManager.m_facebookShareTestMenuObj.SetActive(false);
-        //}
         MusicManager.m_musicSource.Pause();
         m_muteButtonImage.enabled = false;
         b_quitButtonTapped = true;
@@ -934,21 +913,6 @@ public class GameManager : MonoBehaviour
 
 	public void QuitCancelButton()
 	{
-        //if(SocialmediaManager.m_facebookProfilePicExists)
-        //{
-        //    SocialmediaManager.m_facebookProfilePicImage.enabled = true;
-        //    SocialmediaManager.m_facebookUsernameText.enabled = true;
-        //}
-        //else
-        //{
-        //    SocialmediaManager.m_facebookButtonImage.enabled = true;
-        //}
-
-        //if(SocialmediaManager.m_isFacebookShareTestMode && SocialmediaManager.m_facebookShareTestMenuObj != null)
-        //{
-        //    SocialmediaManager.m_facebookShareTestMenuObj.SetActive(true);
-        //}
-
         OneSignal.permissionObserver += SocialmediaManager.OneSignalPermissionObserver;
 
         if(m_playerMutedSounds == 0)
@@ -987,7 +951,7 @@ public class GameManager : MonoBehaviour
 
 	public void ResumeButton()
 	{
-        _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
+        //_socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
 
         if(MusicManager.m_musicSource != null)
         {
@@ -1049,10 +1013,10 @@ public class GameManager : MonoBehaviour
 	{
         _socialmediaManager.GooglePlayGamesAchievements(_selfieAchievementID);
 
-        if(_selfieAchievement != null && _selfieAchievement.IsUnlocked)
-        {
-            _socialmediaManager.GooglePlayGamesIncrementalAchievements(_selfieLegendAchievementID , 1);
-        }
+        //if(_selfieAchievement != null && _selfieAchievement.IsUnlocked)
+        //{
+        //    _socialmediaManager.GooglePlayGamesIncrementalAchievements(_selfieLegendAchievementID , 1);
+        //}
 		_soundManager.m_soundsSource.clip = _soundManager.m_selfie;
 		
         if(_soundManager.m_soundsSource.enabled)

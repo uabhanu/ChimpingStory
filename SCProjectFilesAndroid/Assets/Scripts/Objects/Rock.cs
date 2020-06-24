@@ -62,7 +62,7 @@ public class Rock : MonoBehaviour
 
         if(ScoreManager.m_scoreValue >= 5000)
         {
-            SocialmediaManager.GooglePlayGamesLeaderboardUpdate();
+            //SocialmediaManager.GooglePlayGamesLeaderboardUpdate();
         }
 
 		if(m_explosionSystemObj == null)

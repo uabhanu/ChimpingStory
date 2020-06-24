@@ -1,163 +1,465 @@
 fileFormatVersion: 2
 guid: 0b4cbc8402501464caded0f7edab3779
-timeCreated: 1521139193
-licenseType: Free
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: Play
-    21300002: Quit
-    21300004: Options
-    21300006: Pause
-    21300008: Help
-    21300010: Settings
-    21300012: Restart
-    21300014: Mute
-    21300016: Store
-    21300018: Lock
-    21300020: ArrowLeft
-    21300022: ArrowRight
-    21300024: ArrowUp
-    21300026: ArrowDown
-    21300028: Dollar
-    21300030: Cancel
-    21300032: Accept
-    21300034: Star
-    21300036: Info
-    21300038: Home
-    21300040: Music
-    21300042: Picture
-    21300044: Camera
-    21300046: Buttons_23
-    21300048: Buttons_24
-    21300050: ChimpionshipBelt
-    21300052: Buttons_1
-    21300054: Buttons_2
-    21300056: Buttons_3
-    21300058: Buttons_4
-    21300060: Buttons_5
-    21300062: Buttons_6
-    21300064: Buttons_7
-    21300066: Buttons_8
-    21300068: Buttons_9
-    21300070: Buttons_10
-    21300072: Buttons_11
-    21300074: Buttons_12
-    21300076: Buttons_13
-    21300078: Buttons_14
-    21300080: Buttons_19
-    21300082: Buttons_20
-    21300084: Buttons_21
-    21300086: Buttons_22
-    21300088: Buttons_25
-    21300090: Buttons_26
-    21300092: Buttons_27
-    21300094: Buttons_28
-    21300096: Buttons_29
-    21300098: Buttons_30
-    21300100: Buttons_31
-    21300102: Buttons_32
-    21300104: Buttons_33
-    21300106: Buttons_34
-    21300108: Buttons_36
-    21300110: Unmute
-    21300112: Cart
-    21300114: Buttons_41
-    21300116: Buttons_42
-    21300118: Buttons_43
-    21300120: Buttons_44
-    21300122: Buttons_45
-    21300124: Buttons_46
-    21300126: Buttons_47
-    21300128: Buttons_48
-    21300130: Buttons_49
-    21300132: Buttons_50
-    21300134: Buttons_51
-    21300136: Buttons_52
-    21300138: Buttons_53
-    21300140: Buttons_56
-    21300142: Buttons_57
-    21300144: Buttons_61
-    21300146: Buttons_62
-    21300148: Buttons_63
-    21300150: Buttons_64
-    21300152: Buttons_65
-    21300154: Buttons_66
-    21300156: Buttons_67
-    21300158: Buttons_68
-    21300160: Buttons_69
-    21300162: Buttons_70
-    21300164: Buttons_71
-    21300166: Buttons_72
-    21300168: Buttons_73
-    21300170: Buttons_74
-    21300172: Buttons_75
-    21300174: Buttons_76
-    21300176: Buttons_77
-    21300178: Buttons_78
-    21300180: Ok
-    21300182: Buttons_81
-    21300184: Buttons_82
-    21300186: Buttons_83
-    21300188: Exit
-    21300190: Buttons_85
-    21300192: Buttons_86
-    21300194: Buttons_87
-    21300196: Buttons_88
-    21300198: Buttons_89
-    21300200: Buttons_90
-    21300202: Buttons_91
-    21300204: Buttons_92
-    21300206: Buttons_93
-    21300208: Buttons_94
-    21300210: Buttons_95
-    21300212: Buttons_96
-    21300214: Buttons_98
-    21300216: Selfie
-    21300218: Mail
-    21300220: Buttons_101
-    21300222: Trophy
-    21300224: Buttons_103
-    21300226: Buttons_104
-    21300228: Buttons_105
-    21300230: Buttons_106
-    21300232: Buttons_107
-    21300234: Buttons_108
-    21300236: Buttons_109
-    21300238: Buttons_110
-    21300240: Buttons_111
-    21300242: Buttons_112
-    21300244: Buttons_113
-    21300246: Buttons_114
-    21300248: Buttons_115
-    21300250: Buttons_116
-    21300252: Buttons_117
-    21300254: Buttons_118
-    21300256: Buttons_119
-    21300258: Buttons_120
-    21300260: Buttons_121
-    21300262: Buttons_122
-    21300264: Buttons_123
-    21300266: Buttons_124
-    21300268: Buttons_125
-    21300270: Buttons_126
-    21300272: Buttons_127
-    21300274: Buttons_128
-    21300276: Buttons_129
-    21300278: Buttons_130
-    21300280: Buttons_131
-    21300282: Buttons_132
-    21300284: Buttons_133
-    21300286: ChimpionshipBeltGrey
-    21300288: FBLogIn
-    21300290: GPRate
-    21300292: FBShare
-    21300294: GPGLogIn
-    21300296: LeaderboardGreen
-    21300298: LeaderboardGrey
-    21300300: Achievements
-    21300302: AchievementsGrey
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: Play
+  - first:
+      213: 21300002
+    second: Quit
+  - first:
+      213: 21300004
+    second: Options
+  - first:
+      213: 21300006
+    second: Pause
+  - first:
+      213: 21300008
+    second: Help
+  - first:
+      213: 21300010
+    second: Settings
+  - first:
+      213: 21300012
+    second: Restart
+  - first:
+      213: 21300014
+    second: Mute
+  - first:
+      213: 21300016
+    second: Store
+  - first:
+      213: 21300018
+    second: Lock
+  - first:
+      213: 21300020
+    second: ArrowLeft
+  - first:
+      213: 21300022
+    second: ArrowRight
+  - first:
+      213: 21300024
+    second: ArrowUp
+  - first:
+      213: 21300026
+    second: ArrowDown
+  - first:
+      213: 21300028
+    second: Dollar
+  - first:
+      213: 21300030
+    second: Cancel
+  - first:
+      213: 21300032
+    second: Accept
+  - first:
+      213: 21300034
+    second: Star
+  - first:
+      213: 21300036
+    second: Info
+  - first:
+      213: 21300038
+    second: Home
+  - first:
+      213: 21300040
+    second: Music
+  - first:
+      213: 21300042
+    second: Picture
+  - first:
+      213: 21300044
+    second: Camera
+  - first:
+      213: 21300046
+    second: Buttons_23
+  - first:
+      213: 21300048
+    second: Buttons_24
+  - first:
+      213: 21300050
+    second: ChimpionshipBelt
+  - first:
+      213: 21300052
+    second: Buttons_1
+  - first:
+      213: 21300054
+    second: Buttons_2
+  - first:
+      213: 21300056
+    second: Buttons_3
+  - first:
+      213: 21300058
+    second: Buttons_4
+  - first:
+      213: 21300060
+    second: Buttons_5
+  - first:
+      213: 21300062
+    second: Buttons_6
+  - first:
+      213: 21300064
+    second: Buttons_7
+  - first:
+      213: 21300066
+    second: Buttons_8
+  - first:
+      213: 21300068
+    second: Buttons_9
+  - first:
+      213: 21300070
+    second: Buttons_10
+  - first:
+      213: 21300072
+    second: Buttons_11
+  - first:
+      213: 21300074
+    second: Buttons_12
+  - first:
+      213: 21300076
+    second: Buttons_13
+  - first:
+      213: 21300078
+    second: Buttons_14
+  - first:
+      213: 21300080
+    second: Buttons_19
+  - first:
+      213: 21300082
+    second: Buttons_20
+  - first:
+      213: 21300084
+    second: Buttons_21
+  - first:
+      213: 21300086
+    second: Buttons_22
+  - first:
+      213: 21300088
+    second: Buttons_25
+  - first:
+      213: 21300090
+    second: Buttons_26
+  - first:
+      213: 21300092
+    second: Buttons_27
+  - first:
+      213: 21300094
+    second: Buttons_28
+  - first:
+      213: 21300096
+    second: Buttons_29
+  - first:
+      213: 21300098
+    second: Buttons_30
+  - first:
+      213: 21300100
+    second: Buttons_31
+  - first:
+      213: 21300102
+    second: Buttons_32
+  - first:
+      213: 21300104
+    second: Buttons_33
+  - first:
+      213: 21300106
+    second: Buttons_34
+  - first:
+      213: 21300108
+    second: Buttons_36
+  - first:
+      213: 21300110
+    second: Unmute
+  - first:
+      213: 21300112
+    second: Cart
+  - first:
+      213: 21300114
+    second: Buttons_41
+  - first:
+      213: 21300116
+    second: Buttons_42
+  - first:
+      213: 21300118
+    second: Buttons_43
+  - first:
+      213: 21300120
+    second: Buttons_44
+  - first:
+      213: 21300122
+    second: Buttons_45
+  - first:
+      213: 21300124
+    second: Buttons_46
+  - first:
+      213: 21300126
+    second: Buttons_47
+  - first:
+      213: 21300128
+    second: Buttons_48
+  - first:
+      213: 21300130
+    second: Buttons_49
+  - first:
+      213: 21300132
+    second: Buttons_50
+  - first:
+      213: 21300134
+    second: Buttons_51
+  - first:
+      213: 21300136
+    second: Buttons_52
+  - first:
+      213: 21300138
+    second: Buttons_53
+  - first:
+      213: 21300140
+    second: Buttons_56
+  - first:
+      213: 21300142
+    second: Buttons_57
+  - first:
+      213: 21300144
+    second: Buttons_61
+  - first:
+      213: 21300146
+    second: Buttons_62
+  - first:
+      213: 21300148
+    second: Buttons_63
+  - first:
+      213: 21300150
+    second: Buttons_64
+  - first:
+      213: 21300152
+    second: Buttons_65
+  - first:
+      213: 21300154
+    second: Buttons_66
+  - first:
+      213: 21300156
+    second: Buttons_67
+  - first:
+      213: 21300158
+    second: Buttons_68
+  - first:
+      213: 21300160
+    second: Buttons_69
+  - first:
+      213: 21300162
+    second: Buttons_70
+  - first:
+      213: 21300164
+    second: Buttons_71
+  - first:
+      213: 21300166
+    second: Buttons_72
+  - first:
+      213: 21300168
+    second: Buttons_73
+  - first:
+      213: 21300170
+    second: Buttons_74
+  - first:
+      213: 21300172
+    second: Buttons_75
+  - first:
+      213: 21300174
+    second: Buttons_76
+  - first:
+      213: 21300176
+    second: Buttons_77
+  - first:
+      213: 21300178
+    second: Buttons_78
+  - first:
+      213: 21300180
+    second: Ok
+  - first:
+      213: 21300182
+    second: Buttons_81
+  - first:
+      213: 21300184
+    second: Buttons_82
+  - first:
+      213: 21300186
+    second: Buttons_83
+  - first:
+      213: 21300188
+    second: Exit
+  - first:
+      213: 21300190
+    second: Buttons_85
+  - first:
+      213: 21300192
+    second: Buttons_86
+  - first:
+      213: 21300194
+    second: Buttons_87
+  - first:
+      213: 21300196
+    second: Buttons_88
+  - first:
+      213: 21300198
+    second: Buttons_89
+  - first:
+      213: 21300200
+    second: Buttons_90
+  - first:
+      213: 21300202
+    second: Buttons_91
+  - first:
+      213: 21300204
+    second: Buttons_92
+  - first:
+      213: 21300206
+    second: Buttons_93
+  - first:
+      213: 21300208
+    second: Buttons_94
+  - first:
+      213: 21300210
+    second: Buttons_95
+  - first:
+      213: 21300212
+    second: Buttons_96
+  - first:
+      213: 21300214
+    second: Buttons_98
+  - first:
+      213: 21300216
+    second: Selfie
+  - first:
+      213: 21300218
+    second: Mail
+  - first:
+      213: 21300220
+    second: Buttons_101
+  - first:
+      213: 21300222
+    second: Trophy
+  - first:
+      213: 21300224
+    second: Buttons_103
+  - first:
+      213: 21300226
+    second: Buttons_104
+  - first:
+      213: 21300228
+    second: Buttons_105
+  - first:
+      213: 21300230
+    second: Buttons_106
+  - first:
+      213: 21300232
+    second: Buttons_107
+  - first:
+      213: 21300234
+    second: Buttons_108
+  - first:
+      213: 21300236
+    second: Buttons_109
+  - first:
+      213: 21300238
+    second: Buttons_110
+  - first:
+      213: 21300240
+    second: Buttons_111
+  - first:
+      213: 21300242
+    second: Buttons_112
+  - first:
+      213: 21300244
+    second: Buttons_113
+  - first:
+      213: 21300246
+    second: Buttons_114
+  - first:
+      213: 21300248
+    second: Buttons_115
+  - first:
+      213: 21300250
+    second: Buttons_116
+  - first:
+      213: 21300252
+    second: Buttons_117
+  - first:
+      213: 21300254
+    second: Buttons_118
+  - first:
+      213: 21300256
+    second: Buttons_119
+  - first:
+      213: 21300258
+    second: Buttons_120
+  - first:
+      213: 21300260
+    second: Buttons_121
+  - first:
+      213: 21300262
+    second: Buttons_122
+  - first:
+      213: 21300264
+    second: Buttons_123
+  - first:
+      213: 21300266
+    second: Buttons_124
+  - first:
+      213: 21300268
+    second: Buttons_125
+  - first:
+      213: 21300270
+    second: Buttons_126
+  - first:
+      213: 21300272
+    second: Buttons_127
+  - first:
+      213: 21300274
+    second: Buttons_128
+  - first:
+      213: 21300276
+    second: Buttons_129
+  - first:
+      213: 21300278
+    second: Buttons_130
+  - first:
+      213: 21300280
+    second: Buttons_131
+  - first:
+      213: 21300282
+    second: Buttons_132
+  - first:
+      213: 21300284
+    second: Buttons_133
+  - first:
+      213: 21300286
+    second: ChimpionshipBeltGrey
+  - first:
+      213: 21300288
+    second: FBLogIn
+  - first:
+      213: 21300290
+    second: GPRate
+  - first:
+      213: 21300292
+    second: FBShare
+  - first:
+      213: 21300294
+    second: GPGLogIn
+  - first:
+      213: 21300296
+    second: LeaderboardGreen
+  - first:
+      213: 21300298
+    second: LeaderboardGrey
+  - first:
+      213: 21300300
+    second: Achievements
+  - first:
+      213: 21300302
+    second: AchievementsGrey
   externalObjects: {}
-  serializedVersion: 4
+  serializedVersion: 11
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -175,6 +477,8 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -185,7 +489,7 @@ TextureImporter:
     serializedVersion: 2
     filterMode: 0
     aniso: -1
-    mipBias: -1
+    mipBias: -100
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -197,18 +501,22 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
+  singleChannelComponent: 0
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  applyGammaDecoding: 1
   platformSettings:
-  - buildTarget: DefaultTexturePlatform
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 1
     textureFormat: -1
@@ -218,7 +526,9 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - buildTarget: Standalone
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 1
     textureFormat: -1
@@ -228,7 +538,9 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - buildTarget: iPhone
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: iPhone
     maxTextureSize: 2048
     resizeAlgorithm: 1
     textureFormat: -1
@@ -238,7 +550,9 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - buildTarget: Android
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 1
     textureFormat: -1
@@ -248,7 +562,9 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - buildTarget: WebGL
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 1
     textureFormat: -1
@@ -258,6 +574,7 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -275,6 +592,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 02305410000000000800000000000000
+      internalID: 21300000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: Quit
       rect:
@@ -289,6 +613,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 22305410000000000800000000000000
+      internalID: 21300002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: Pause
       rect:
@@ -303,6 +634,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 62305410000000000800000000000000
+      internalID: 21300006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: Help
       rect:
@@ -317,6 +655,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 82305410000000000800000000000000
+      internalID: 21300008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: Settings
       rect:
@@ -331,6 +676,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: a2305410000000000800000000000000
+      internalID: 21300010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: Restart
       rect:
@@ -345,6 +697,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: c2305410000000000800000000000000
+      internalID: 21300012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: Unmute
       rect:
@@ -359,6 +718,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: e8305410000000000800000000000000
+      internalID: 21300110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: Cart
       rect:
@@ -373,6 +739,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 09305410000000000800000000000000
+      internalID: 21300112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: Lock
       rect:
@@ -387,6 +760,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 23305410000000000800000000000000
+      internalID: 21300018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ArrowLeft
       rect:
@@ -401,6 +781,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 43305410000000000800000000000000
+      internalID: 21300020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ArrowRight
       rect:
@@ -415,6 +802,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 63305410000000000800000000000000
+      internalID: 21300022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ArrowUp
       rect:
@@ -429,6 +823,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 83305410000000000800000000000000
+      internalID: 21300024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ArrowDown
       rect:
@@ -443,6 +844,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: a3305410000000000800000000000000
+      internalID: 21300026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: Dollar
       rect:
@@ -457,6 +865,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: c3305410000000000800000000000000
+      internalID: 21300028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: Cancel
       rect:
@@ -471,6 +886,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: e3305410000000000800000000000000
+      internalID: 21300030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: Ok
       rect:
@@ -485,6 +907,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 4d305410000000000800000000000000
+      internalID: 21300180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: Buttons_81
       rect:
@@ -499,6 +928,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 6d305410000000000800000000000000
+      internalID: 21300182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: Buttons_83
       rect:
@@ -513,6 +949,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: ad305410000000000800000000000000
+      internalID: 21300186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: Exit
       rect:
@@ -527,6 +970,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: cd305410000000000800000000000000
+      internalID: 21300188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: Music
       rect:
@@ -541,6 +991,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 84305410000000000800000000000000
+      internalID: 21300040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: Buttons_98
       rect:
@@ -555,6 +1012,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 6f305410000000000800000000000000
+      internalID: 21300214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: Selfie
       rect:
@@ -569,6 +1033,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 8f305410000000000800000000000000
+      internalID: 21300216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: Mail
       rect:
@@ -583,6 +1054,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: af305410000000000800000000000000
+      internalID: 21300218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: Trophy
       rect:
@@ -597,6 +1075,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: ef305410000000000800000000000000
+      internalID: 21300222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: Mute
       rect:
@@ -611,6 +1096,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: e2305410000000000800000000000000
+      internalID: 21300014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ChimpionshipBelt
       rect:
@@ -625,6 +1117,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 25305410000000000800000000000000
+      internalID: 21300050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ChimpionshipBeltGrey
       rect:
@@ -639,6 +1138,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: e3405410000000000800000000000000
+      internalID: 21300286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: FBLogIn
       rect:
@@ -653,6 +1159,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 04405410000000000800000000000000
+      internalID: 21300288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: GPRate
       rect:
@@ -667,6 +1180,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 24405410000000000800000000000000
+      internalID: 21300290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: FBShare
       rect:
@@ -681,6 +1201,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 44405410000000000800000000000000
+      internalID: 21300292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: GPGLogIn
       rect:
@@ -695,6 +1222,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 64405410000000000800000000000000
+      internalID: 21300294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: LeaderboardGreen
       rect:
@@ -709,6 +1243,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 84405410000000000800000000000000
+      internalID: 21300296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: LeaderboardGrey
       rect:
@@ -723,6 +1264,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: a4405410000000000800000000000000
+      internalID: 21300298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: Achievements
       rect:
@@ -737,6 +1285,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: c4405410000000000800000000000000
+      internalID: 21300300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: AchievementsGrey
       rect:
@@ -751,9 +1306,26 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: e4405410000000000800000000000000
+      internalID: 21300302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
   spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

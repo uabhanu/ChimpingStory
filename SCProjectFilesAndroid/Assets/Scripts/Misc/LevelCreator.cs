@@ -179,7 +179,7 @@ public class LevelCreator : MonoBehaviour
         
         if(ScoreManager.m_scoreValue >= 5000)
         {
-            SocialmediaManager.GooglePlayGamesLeaderboardUpdate();
+            //SocialmediaManager.GooglePlayGamesLeaderboardUpdate();
         }
         
         Invoke("GameSpeed" , 5.8f);

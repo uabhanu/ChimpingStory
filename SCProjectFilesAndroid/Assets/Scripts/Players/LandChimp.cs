@@ -40,7 +40,7 @@ public class LandChimp : MonoBehaviour
         LevelCreator.m_middleCounter = 0;
         _rockSpawner = GameObject.Find("RockSpawner").GetComponent<RockSpawner>();
         _socialmediaManager = GameObject.Find("SocialmediaManager").GetComponent<SocialmediaManager>();
-        _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
+        //_socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
 		_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
@@ -185,7 +185,7 @@ public class LandChimp : MonoBehaviour
     {
         if(tri2D.gameObject.tag.Equals("Fall"))
         {
-            _socialmediaManager.GooglePlayGamesIncrementalAchievements(_holeAchievementID , 1);
+            //_socialmediaManager.GooglePlayGamesIncrementalAchievements(_holeAchievementID , 1);
 			_soundManager.m_soundsSource.clip = _soundManager.m_fallDeath;
 
 			if(_soundManager.m_soundsSource.enabled)

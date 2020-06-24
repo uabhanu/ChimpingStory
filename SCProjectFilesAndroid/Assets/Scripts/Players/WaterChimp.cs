@@ -62,7 +62,7 @@ public class WaterChimp : MonoBehaviour
         m_levelGenerator = GameObject.Find("LevelGenerator").GetComponent<LevelGenerator>();
         _socialmediaManager = GameObject.Find("SocialmediaManager").GetComponent<SocialmediaManager>();
         _socialmediaManager.GooglePlayGamesAchievements(_portalAchievementID);
-        _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
+        //_socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
         m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 
         newRotation = new Vector3();
@@ -159,7 +159,7 @@ public class WaterChimp : MonoBehaviour
             //TODO Remove this LeaderboardUpdate if performance takes a hit
             if(ScoreManager.m_scoreValue >= 5000)
             {
-                SocialmediaManager.GooglePlayGamesLeaderboardUpdate();
+                //SocialmediaManager.GooglePlayGamesLeaderboardUpdate();
             }
 
             tri2D.GetComponent<Renderer>().enabled = false;
