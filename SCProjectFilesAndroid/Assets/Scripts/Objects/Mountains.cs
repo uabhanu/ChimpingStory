@@ -2,6 +2,7 @@
 
 public class Mountains : MonoBehaviour 
 {
+	[SerializeField] float m_speed;
 	void Update() 
 	{
 		if(Time.timeScale == 0f)
@@ -9,7 +10,7 @@ public class Mountains : MonoBehaviour
 			return;
 		}
 
-        transform.Translate(Vector2.left * (LevelCreator.m_gameSpeed / 4) * Time.deltaTime);
+        transform.Translate(Vector2.left * m_speed * Time.deltaTime);
 
 		if(transform.position.x <= -43.2f)
 		{

@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 	Image _adsAcceptButtonImage , _adsCancelButtonImage , _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _continueButtonImage , _exitButtonImage , _firstTimePlayTutorialMenuImage;
     Image _firstTimePlayTutorialOKButtonImage , _iapCartButtonImage , _pauseMenuImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage , _resumeButtonImage;
     int _chimpionshipsCount , _currentChimpion;
-    LandChimp _landChimp;
+    LandPuss _landChimp;
     SocialmediaManager _socialmediaManager;
 	SoundManager _soundManager;
 	Text _adsText , _backToLandLoseText , _backToLandWinText , _backToLandWithSuperText , _firstTimePlayTutorialText , _quitText;
@@ -276,7 +276,6 @@ public class GameManager : MonoBehaviour
             m_chimpionshipBeltButtonImage.enabled = false;
             m_highScoreLabelText.enabled = false;
             m_highScoreValueText.enabled = false;
-            LevelCreator.m_gameSpeed = _defaultGameSpeed;
             m_muteButtonImage.enabled = false;
             m_pauseButtonImage.enabled = false;
             SocialmediaManager.m_gpgsLeaderboardButtonImage.enabled = false;
@@ -298,7 +297,6 @@ public class GameManager : MonoBehaviour
             m_chimpionshipBeltButtonImage.enabled = false;
             m_highScoreLabelText.enabled = false;
             m_highScoreValueText.enabled = false;
-            LevelCreator.m_gameSpeed = _defaultGameSpeed;
             m_muteButtonImage.enabled = false;
             m_pauseButtonImage.enabled = false;
             SocialmediaManager.m_gpgsLeaderboardButtonImage.enabled = false;
@@ -443,10 +441,9 @@ public class GameManager : MonoBehaviour
             m_chimpionshipBeltButton = GameObject.Find("PF_ChimpionshipBeltButton").GetComponent<Button>();
             m_chimpionshipBeltButtonImage = GameObject.Find("PF_ChimpionshipBeltButton").GetComponent<Image>();
             m_chimpionshipBeltButtonTutorialText = GameObject.Find("ChimpionBeltButtonTutorialText").GetComponent<Text>();
-            _defaultGameSpeed = LevelCreator.m_gameSpeed;
             _exitButtonImage = GameObject.Find("ExitButton").GetComponent<Image>();
             _iapCartButtonImage = GameObject.Find("IAPCartButton").GetComponent<Image>();
-            _landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
+            _landChimp = GameObject.Find("LandPuss").GetComponent<LandPuss>();
             m_leaderboardButtonTutorialText = GameObject.Find("LeaderboardButtonTutorialText").GetComponent<Text>();
             m_muteUnmuteButtonTutorialText = GameObject.Find("MuteButtonTutorialText").GetComponent<Text>();
             m_nextButtonImage = GameObject.Find("NextButton").GetComponent<Image>();
@@ -1056,7 +1053,6 @@ public class GameManager : MonoBehaviour
         m_chimpionshipBeltButtonImage.enabled = true;
         m_highScoreLabelText.enabled = true;
         m_highScoreValueText.enabled = true;
-        LevelCreator.m_gameSpeed = _defaultGameSpeed;
 
         if(m_playerMutedSounds == 0)
         {

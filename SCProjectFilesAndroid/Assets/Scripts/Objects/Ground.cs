@@ -3,14 +3,14 @@
 public class Ground : MonoBehaviour 
 {
 	[SerializeField] BoxCollider2D _groundCollider2D;
-	[SerializeField] LandChimp _landChimp;
+	[SerializeField] LandPuss _landChimp;
 	[SerializeField] SpriteRenderer _groundRenderer;
 
 	void Start() 
 	{
 		_groundCollider2D = GetComponent<BoxCollider2D>();
 		_groundRenderer = GetComponent<SpriteRenderer>();
-		_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
+		_landChimp = GameObject.Find("LandPuss").GetComponent<LandPuss>();
 	}
 
 	void Update()

@@ -10,7 +10,7 @@ public class Banana : MonoBehaviour
     BoxCollider2D _bananaCollider2D;
     Camera _mainCamera;
     GameManager _gameManager;
-	LandChimp _landChimp;
+	LandPuss _landChimp;
     SocialmediaManager _socialmediaManager;
 	SoundManager _soundManager;
 	SpriteRenderer _bananaRenderer;
@@ -24,7 +24,7 @@ public class Banana : MonoBehaviour
 		_bananaRenderer = GetComponent<SpriteRenderer>();
         _bGotAllAchievements = false;
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-		_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
+		_landChimp = GameObject.Find("LandPuss").GetComponent<LandPuss>();
         _mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         _socialmediaManager = GameObject.Find("SocialmediaManager").GetComponent<SocialmediaManager>();
         _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();

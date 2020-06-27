@@ -4,17 +4,19 @@ public class Super : MonoBehaviour
 {
 	BoxCollider2D m_superCollider2D;
 	Camera m_mainCamera;
-	LandChimp m_landChimp;
+	LandPuss m_landChimp;
 	GameObject m_explosionPrefab , m_explosionSystemObj;
 	SoundManager m_soundManager;
 	SpriteRenderer m_superRenderer;
 	Vector3 m_positionOnScreen;
 
+	[SerializeField] float m_speed;
+
 	void Start() 
 	{
         m_explosionPrefab = Resources.Load("PF_Explosion") as GameObject;
 		m_explosionSystemObj = GameObject.FindGameObjectWithTag("Explosion");
-		m_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
+		m_landChimp = GameObject.Find("LandPuss").GetComponent<LandPuss>();
 		m_mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 		m_superCollider2D = GetComponent<BoxCollider2D>();	
@@ -34,7 +36,6 @@ public class Super : MonoBehaviour
         {
             m_superCollider2D.enabled = false;
             m_superRenderer.enabled = false;
-			LevelCreator.m_superObj = null;
         }
 		else
         {

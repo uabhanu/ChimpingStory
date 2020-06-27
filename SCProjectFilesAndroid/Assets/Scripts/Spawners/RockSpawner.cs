@@ -2,12 +2,12 @@
 
 public class RockSpawner : MonoBehaviour
 {
-	LandChimp m_landChimp;
+	LandPuss m_landChimp;
 	GameObject m_rockPrefab;
 
 	void Start()
 	{
-		m_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
+		m_landChimp = GameObject.Find("LandPuss").GetComponent<LandPuss>();
 		m_rockPrefab = Resources.Load("PF_SuperModeRock") as GameObject;
 	}
 

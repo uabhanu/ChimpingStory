@@ -14,7 +14,7 @@ public class SwipeManager : MonoBehaviour
 {
     float m_swipeResistanceX = 2.5f , m_swipeResistanceY = 2.5f;
     int m_currentScene;
-    LandChimp m_landChimp;
+    LandPuss m_landChimp;
     static SwipeManager instance;
     Vector3 m_touchPos;
 
@@ -28,7 +28,7 @@ public class SwipeManager : MonoBehaviour
 
         if(m_currentScene == 1)
         {
-            m_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
+            m_landChimp = GameObject.Find("LandPuss").GetComponent<LandPuss>();
         }
     }
 

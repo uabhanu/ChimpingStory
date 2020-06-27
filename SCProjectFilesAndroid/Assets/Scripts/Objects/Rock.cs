@@ -4,12 +4,13 @@ public class Rock : MonoBehaviour
 {
     Camera m_mainCamera;
     GameManager _gameManager;
-	LandChimp m_landChimp;
+	LandPuss m_landChimp;
 	Collider2D m_rockCollider2D;
     GameObject m_explosionPrefab , m_explosionSystemObj;
 	SpriteRenderer m_rockRenderer;
 	Vector3 m_positionOnScreen;
 
+    [SerializeField] float m_speed;
     [SerializeField] Vector2[] m_randomPositions;
 
 	void Start() 
@@ -17,7 +18,7 @@ public class Rock : MonoBehaviour
         m_explosionPrefab = Resources.Load("PF_Explosion") as GameObject;
         m_explosionSystemObj = GameObject.FindGameObjectWithTag("Explosion");
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        m_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
+        m_landChimp = GameObject.Find("LandPuss").GetComponent<LandPuss>();
 		m_mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
 		m_rockCollider2D = GetComponent<Collider2D>();
 		m_rockRenderer = GetComponent<SpriteRenderer>();
@@ -31,7 +32,7 @@ public class Rock : MonoBehaviour
             return;
         }
 
-        transform.Translate(Vector2.left * (LevelCreator.m_gameSpeed * 1.5f) * Time.deltaTime);
+        transform.Translate(Vector2.left * m_speed * Time.deltaTime);
 		m_positionOnScreen = m_mainCamera.WorldToScreenPoint(transform.position);
 
 		if(m_positionOnScreen.x < 0)

@@ -4,7 +4,7 @@ public class Hurdle : MonoBehaviour
 {
     Camera _mainCamera;
     GameManager _gameManager;
-    LandChimp _landChimp;
+    LandPuss _landChimp;
     Collider2D _hurdleCollider2D;
     SpriteRenderer _hurdleRenderer;
     Transform _gameLayer;
@@ -16,7 +16,7 @@ public class Hurdle : MonoBehaviour
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         _hurdleCollider2D = GetComponent<Collider2D>();
         _hurdleRenderer = GetComponent<SpriteRenderer>();
-        _landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
+        _landChimp = GameObject.Find("LandPuss").GetComponent<LandPuss>();
         _mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
     }
 	

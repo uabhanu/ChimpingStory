@@ -5,7 +5,7 @@ public class LandLevelPolaroid : MonoBehaviour
     BoxCollider2D m_polaroidCollider2D;
     Camera m_mainCamera;
     GameManager _gameManager;
-	LandChimp m_landChimp;
+	LandPuss m_landChimp;
 	SoundManager m_soundManager;
 	SpriteRenderer m_polaroidRenderer;
     Vector3 m_positionOnScreen;
@@ -13,7 +13,7 @@ public class LandLevelPolaroid : MonoBehaviour
     void Start()
     {
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-		m_landChimp = GameObject.Find("LandChimp").GetComponent<LandChimp>();
+		m_landChimp = GameObject.Find("LandPuss").GetComponent<LandPuss>();
         m_mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         m_polaroidCollider2D = GetComponent<BoxCollider2D>();
 		m_polaroidRenderer = GetComponent<SpriteRenderer>();
