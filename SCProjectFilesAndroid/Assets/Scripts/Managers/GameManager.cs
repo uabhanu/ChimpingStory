@@ -1,7 +1,7 @@
-﻿using GooglePlayGames;
-using GooglePlayGames.BasicApi;
+﻿//using GooglePlayGames;
+//using GooglePlayGames.BasicApi;
 using UnityEngine;
-using UnityEngine.Advertisements;
+//using UnityEngine.Advertisements;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -194,7 +194,7 @@ public class GameManager : MonoBehaviour
                 {
                     _chimpionshipsCount++;
                     BhanuPrefs.SetChimpionshipsCount(_chimpionshipsCount);
-                    SocialmediaManager.OneSignalTagSend("Current Chimpion " , "Yes");
+                    //SocialmediaManager.OneSignalTagSend("Current Chimpion " , "Yes");
                     _currentChimpion = 1;
                     BhanuPrefs.SetCurrentChimpionshipStatus(_currentChimpion);
                 }
@@ -203,17 +203,17 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                SocialmediaManager.OneSignalTagSend("Current Chimpion " , "No");
+                //SocialmediaManager.OneSignalTagSend("Current Chimpion " , "No");
                 _currentChimpion = 0;
                 BhanuPrefs.SetCurrentChimpionshipStatus(_currentChimpion);
             }
 
-            SocialmediaManager.OneSignalTagSend("Chimpionships Won " , _chimpionshipsCount.ToString());
+            //SocialmediaManager.OneSignalTagSend("Chimpionships Won " , _chimpionshipsCount.ToString());
         }
         else
         {
-            SocialmediaManager.OneSignalTagSend("Current Chimpion " , "Status Unknown because GPGs Not Logged In");
-            SocialmediaManager.OneSignalTagSend("Chimpionships Won " , _chimpionshipsCount.ToString());
+            //SocialmediaManager.OneSignalTagSend("Current Chimpion " , "Status Unknown because GPGs Not Logged In");
+            //SocialmediaManager.OneSignalTagSend("Chimpionships Won " , _chimpionshipsCount.ToString());
         }
     }
 
@@ -359,7 +359,7 @@ public class GameManager : MonoBehaviour
         m_currentScene = SceneManager.GetActiveScene().buildIndex;
         m_muteButton = GameObject.Find("MuteButton").GetComponent<Button>();
         m_muteButtonImage = GameObject.Find("MuteButton").GetComponent<Image>();
-        OneSignal.permissionObserver += SocialmediaManager.OneSignalPermissionObserver;
+        //OneSignal.permissionObserver += SocialmediaManager.OneSignalPermissionObserver;
         _socialmediaManager = GameObject.Find("SocialmediaManager").GetComponent<SocialmediaManager>();
         m_unmuteButton = GameObject.Find("UnmuteButton").GetComponent<Button>();
         m_unmuteButtonImage = GameObject.Find("UnmuteButton").GetComponent<Image>();
@@ -913,7 +913,7 @@ public class GameManager : MonoBehaviour
 
 	public void QuitCancelButton()
 	{
-        OneSignal.permissionObserver += SocialmediaManager.OneSignalPermissionObserver;
+        //OneSignal.permissionObserver += SocialmediaManager.OneSignalPermissionObserver;
 
         if(m_playerMutedSounds == 0)
         {

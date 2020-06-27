@@ -1,5 +1,5 @@
-﻿using GooglePlayGames;
-using GooglePlayGames.BasicApi;
+﻿//using GooglePlayGames;
+//using GooglePlayGames.BasicApi;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms;
@@ -39,8 +39,8 @@ public class SocialmediaManager : MonoBehaviour
         _currentScene = SceneManager.GetActiveScene().buildIndex;
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         //OneSignal.StartInit("4aa7d0ba-0abb-47ca-baef-51e1fdf67ef8").HandleNotificationOpened(OneSignalHandleNotificationOpened).EndInit();
-        OneSignal.inFocusDisplayType = OneSignal.OSInFocusDisplayOption.Notification;
-        OneSignal.permissionObserver += OneSignalPermissionObserver;
+        //OneSignal.inFocusDisplayType = OneSignal.OSInFocusDisplayOption.Notification;
+        //OneSignal.permissionObserver += OneSignalPermissionObserver;
 
         if(_currentScene == 0)
         {
@@ -381,40 +381,40 @@ public class SocialmediaManager : MonoBehaviour
     //    _oneSignalPushText.enabled = true;
     //}
 
-    public static void OneSignalPermissionObserver(OSPermissionStateChanges stateChange)
-    {
-        if(stateChange.from.status == OSNotificationPermission.NotDetermined)
-        {
-          if(GameManager.m_currentScene == 0)
-          {
-              m_oneSignalText.text = "No Permission Info :(";
-          }
-        }
+    //public static void OneSignalPermissionObserver(OSPermissionStateChanges stateChange)
+    //{
+    //    if(stateChange.from.status == OSNotificationPermission.NotDetermined)
+    //    {
+    //      if(GameManager.m_currentScene == 0)
+    //      {
+    //          m_oneSignalText.text = "No Permission Info :(";
+    //      }
+    //    }
 
-        else if(stateChange.to.status == OSNotificationPermission.Authorized)
-        {
-            if(GameManager.m_currentScene == 0)
-            {
-                m_oneSignalText.text = "Thanks for accepting notifications :)";
-            }
-        }
+    //    else if(stateChange.to.status == OSNotificationPermission.Authorized)
+    //    {
+    //        if(GameManager.m_currentScene == 0)
+    //        {
+    //            m_oneSignalText.text = "Thanks for accepting notifications :)";
+    //        }
+    //    }
              
-        else if(stateChange.to.status == OSNotificationPermission.Denied)
-        {
-            if(GameManager.m_currentScene == 0)
-            {
-                m_oneSignalText.text = "Notifications not accepted. You can turn them on later under your device settings :)";
-            }
-        }
-    }
+    //    else if(stateChange.to.status == OSNotificationPermission.Denied)
+    //    {
+    //        if(GameManager.m_currentScene == 0)
+    //        {
+    //            m_oneSignalText.text = "Notifications not accepted. You can turn them on later under your device settings :)";
+    //        }
+    //    }
+    //}
 
-    public static void OneSignalTagDelete(string key)
-    {
-        OneSignal.DeleteTag(key);
-    }
+    //public static void OneSignalTagDelete(string key)
+    //{
+    //    OneSignal.DeleteTag(key);
+    //}
 
-    public static void OneSignalTagSend(string key , string value)
-    {
-        OneSignal.SendTag(key , value);
-    }
+    //public static void OneSignalTagSend(string key , string value)
+    //{
+    //    OneSignal.SendTag(key , value);
+    //}
 }
