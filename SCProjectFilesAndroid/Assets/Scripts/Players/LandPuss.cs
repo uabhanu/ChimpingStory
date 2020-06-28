@@ -6,14 +6,13 @@ public class LandPuss : MonoBehaviour
 {
     Animator _pussAnim;
     bool _bIsGrounded , _bHighSlip , _bIsJumping , _bLowSlip , _bIsSliding , _bIsUI;
-    float _defaultGameSpeed , _yPosInSuperMode;
-	GameManager _gameManager;
+    GameManager _gameManager;
     Rigidbody2D _pussBody2D;
     RockSpawner _rockSpawner;
     SocialmediaManager _socialmediaManager;
 	SoundManager _soundManager;
 
-    [SerializeField] float _jumpHeight , _lowSlipMultiplier , _highSlipMultiplier , _slipTime;
+    [SerializeField] float _defaultMoveSpeed , _jumpHeight , _lowSlipMultiplier , _highSlipMultiplier , _slipTime;
     [SerializeField] string _holeAchievementID , _slipAchievementID , _superAchievementID;
     [SerializeField] Transform _raycastBottom , _raycastTop;
 
@@ -51,6 +50,7 @@ public class LandPuss : MonoBehaviour
 
         BhanuInput();
         Grounded();
+        Movement();
         UICheck();
     }
 
@@ -181,6 +181,11 @@ public class LandPuss : MonoBehaviour
         {
             Invoke("SelfieDisappear" , 0.75f);
         }
+    }
+
+    void Movement()
+    {
+        transform.Translate(-Vector2.left * _defaultMoveSpeed * Time.deltaTime , Space.Self);
     }
 
     void OnTriggerEnter2D(Collider2D tri2D)
