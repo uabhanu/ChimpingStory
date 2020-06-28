@@ -12,7 +12,7 @@ public class Mountains : MonoBehaviour
 
         transform.Translate(Vector2.left * m_speed * Time.deltaTime);
 
-		if(transform.position.x <= -43.2f)
+		if(transform.position.x <= -28.74f)
 		{
 			transform.position = new Vector3(0f , transform.position.y , transform.position.z);
 		}
