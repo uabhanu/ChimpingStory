@@ -4,17 +4,17 @@ using UnityEngine;
 public class LandGenerator : MonoBehaviour 
 {
 
-    private const float PLAYER_DISTANCE_SPAWN_LEVEL_PART = 0.5f;
+    private const float PLAYER_DISTANCE_SPAWN_LEVEL_PART = 200.0f;
 
     [SerializeField] private Transform _levelPartStart;
     [SerializeField] private List<Transform> _levelPartList;
     [SerializeField] private LandPuss _landPuss;
 
-    private Vector3 lastEndPosition;
+    [SerializeField] private Vector3 _lastEndPosition;
 
     private void Awake() 
     {
-        lastEndPosition = _levelPartStart.Find("EndPosition").position;
+        _lastEndPosition = _levelPartStart.transform.position;
 
         int startingSpawnLevelParts = 5;
 
@@ -26,7 +26,7 @@ public class LandGenerator : MonoBehaviour
 
     private void Update() 
     {
-        if(Vector3.Distance(_landPuss.GetPosition() , lastEndPosition) < PLAYER_DISTANCE_SPAWN_LEVEL_PART) 
+        if(Vector3.Distance(_landPuss.GetPosition() , _lastEndPosition) < PLAYER_DISTANCE_SPAWN_LEVEL_PART) 
         {
             // Spawn another level part
             SpawnLevelPart();
@@ -36,8 +36,8 @@ public class LandGenerator : MonoBehaviour
     private void SpawnLevelPart() 
     {
         Transform chosenLevelPart = _levelPartList[Random.Range(0 , _levelPartList.Count)];
-        Transform lastLevelPartTransform = SpawnLevelPart(chosenLevelPart , lastEndPosition);
-        lastEndPosition = lastLevelPartTransform.Find("EndPosition").position;
+        Transform lastLevelPartTransform = SpawnLevelPart(chosenLevelPart , _lastEndPosition);
+        _lastEndPosition = lastLevelPartTransform.Find("EndPosition").position;
     }
 
     private Transform SpawnLevelPart(Transform levelPart , Vector3 spawnPosition) 
