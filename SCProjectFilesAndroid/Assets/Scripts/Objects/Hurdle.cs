@@ -7,12 +7,10 @@ public class Hurdle : MonoBehaviour
     LandPuss _landChimp;
     Collider2D _hurdleCollider2D;
     SpriteRenderer _hurdleRenderer;
-    Transform _gameLayer;
     Vector3 _positionOnScreen;
 
     void Start()
     {
-        _gameLayer = GameObject.Find("GameLayer").transform;
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         _hurdleCollider2D = GetComponent<Collider2D>();
         _hurdleRenderer = GetComponent<SpriteRenderer>();
@@ -29,16 +27,10 @@ public class Hurdle : MonoBehaviour
 
         _positionOnScreen = _mainCamera.ScreenToWorldPoint(transform.position);
 
-        if(_positionOnScreen.x <= -8.81f && transform.IsChildOf(_gameLayer))
-        {
-            //_gameManager.FirstTimeSlideTutorial();
-        }
-
         if(_landChimp.m_isSlipping || _landChimp.m_isSuper)
         {
             _hurdleCollider2D.enabled = false;
             _hurdleRenderer.enabled = false;
-            //LevelCreator.m_hurdleObj = null;
         }
         else
         {
