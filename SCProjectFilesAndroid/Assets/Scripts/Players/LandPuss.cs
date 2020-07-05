@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class LandPuss : MonoBehaviour
 {
     Animator _pussAnim;
-    bool _bIsGrounded , _bHighSlip , _bIsJumping , _bLowSlip , _bIsSliding , _bIsUI;
+    [SerializeField] bool _bIsGrounded , _bHighSlip , _bIsJumping , _bLowSlip , _bIsSliding , _bIsUI;
     GameManager _gameManager;
     Rigidbody2D _pussBody2D;
     RockSpawner _rockSpawner;

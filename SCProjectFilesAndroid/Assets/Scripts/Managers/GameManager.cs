@@ -41,8 +41,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
 	{
-        //b_isFirstTimeTutorialTestingMode = true; //TODO Remove this for Live Version
-        //b_isMemoryLeakTestingMode = true; //TODO Remove this for Live Version
+        //b_isFirstTimeTutorialTestingMode = true; //This is for testing only
+        //b_isMemoryLeakTestingMode = true; //This is for testing only
+        //b_isUnityEditorTestingMode = true; //This is for testing only
         GetBhanuObjects();
     }
 
