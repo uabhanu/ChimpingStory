@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor.Experimental.GraphView;
+using UnityEngine;
 
 public class BhanuPrefs : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class BhanuPrefs : MonoBehaviour
     const string HIGH_SCORE_KEY = "HighScore";
     const string PLAYER_LEVEL_KEY = "PlayerLevel";
     const string POLAROIDS_COUNT_KEY = "PolaroidsCount";
+    const string PORTAL_PICKED_UP_KEY = "PortalPickedUp";
+    const string PORTAL_RESPAWN_TIMER_KEY = "PortalRespawnTimer";
     const string SOUNDS_STATUS_KEY = "SoundsStatus";
     const string SUPERS_KEY = "Supers";
 
@@ -141,6 +144,26 @@ public class BhanuPrefs : MonoBehaviour
         return 0;
     }
 
+    public static int GetPortalPickedUp()
+    {
+        if(PlayerPrefs.HasKey(PORTAL_PICKED_UP_KEY))
+        {
+            return PlayerPrefs.GetInt(PORTAL_PICKED_UP_KEY);
+        }
+
+        return 0;
+    }
+
+    public static float GetPortalRespawnTimer()
+    {
+        if(PlayerPrefs.HasKey(PORTAL_RESPAWN_TIMER_KEY))
+        {
+            return PlayerPrefs.GetFloat(PORTAL_RESPAWN_TIMER_KEY);
+        }
+
+        return 0.0f;
+    }
+
     public static int GetSoundsStatus()
     {
         if(PlayerPrefs.HasKey(SOUNDS_STATUS_KEY))
@@ -206,7 +229,7 @@ public class BhanuPrefs : MonoBehaviour
         PlayerPrefs.SetFloat(HIGH_SCORE_KEY , highScore);
     }
 
-    public static void SetPPlayerLevel(int playerLevel)
+    public static void SetPlayerLevel(int playerLevel)
     {
         PlayerPrefs.SetInt(PLAYER_LEVEL_KEY , playerLevel);
     }
@@ -214,6 +237,16 @@ public class BhanuPrefs : MonoBehaviour
     public static void SetPolaroidsCount(int polaroidsCount)
     {
         PlayerPrefs.SetInt(POLAROIDS_COUNT_KEY , polaroidsCount);
+    }
+
+    public static void SetPortalPickedUp(int portalPickedUp)
+    {
+        PlayerPrefs.SetInt(PORTAL_PICKED_UP_KEY , portalPickedUp);
+    }
+
+    public static void SetPortalRespawnTimer(float portalRespawnTimer)
+    {
+        PlayerPrefs.SetFloat(PORTAL_PICKED_UP_KEY , portalRespawnTimer);
     }
 
     public static void SetSoundsStatus(int mute)

@@ -42,7 +42,8 @@ public class LandGenerator : MonoBehaviour
 
     private Transform SpawnLevelPart(Transform levelPart , Vector3 spawnPosition) 
     {
-        Transform levelPartTransform = Instantiate(levelPart , spawnPosition , Quaternion.identity);
+        float randomYPos = Random.Range(spawnPosition.y - 1.5f , spawnPosition.y + 1.5f);
+        Transform levelPartTransform = Instantiate(levelPart , new Vector3(spawnPosition.x , randomYPos , spawnPosition.z) , Quaternion.identity);
         return levelPartTransform;
     }
 

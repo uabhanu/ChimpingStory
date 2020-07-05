@@ -1,24 +1,19 @@
-﻿//using GooglePlayGames;
-//using GooglePlayGames.BasicApi;
-using UnityEngine;
-//using UnityEngine.Advertisements;
+﻿using UnityEngine;
+using UnityEngine.Advertisements;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour 
 {
-	//Achievement _selfieAchievement , _undisputedChimpionAchievement;
     AudioSource _musicSource;
 	Image _adsAcceptButtonImage , _adsCancelButtonImage , _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _continueButtonImage , _exitButtonImage , _firstTimePlayTutorialMenuImage;
     Image _firstTimePlayTutorialOKButtonImage , _iapCartButtonImage , _pauseMenuImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage , _resumeButtonImage;
     int _chimpionshipsCount , _currentChimpion;
     LandPuss _landChimp;
-    SocialmediaManager _socialmediaManager;
 	SoundManager _soundManager;
 	Text _adsText , _backToLandLoseText , _backToLandWinText , _backToLandWithSuperText , _firstTimePlayTutorialText , _quitText;
 
     static Animator _swipeDownHandAnimator , _swipeUpHandAnimator;
-    static float _defaultGameSpeed;
     static Image _swipeDownHandImage , _swipeUpHandImage , _swipeHandOKButtonImage , _swipeHandPanelImage;
     static int _firstTimeJump = 0 , _firstTimeSlide = 0;
 
@@ -44,6 +39,7 @@ public class GameManager : MonoBehaviour
         //b_isFirstTimeTutorialTestingMode = true; //This is for testing only
         //b_isMemoryLeakTestingMode = true; //This is for testing only
         //b_isUnityEditorTestingMode = true; //This is for testing only
+        Advertisement.Initialize("3696337");
         GetBhanuObjects();
     }
 
@@ -54,12 +50,6 @@ public class GameManager : MonoBehaviour
         _adsCancelButtonImage.enabled = true;
         _adsText.enabled = true;
         m_chimpionshipBeltButtonImage.enabled = false;
-        
-        if(SocialmediaManager.b_isGPGsLeaderboardTestMode)
-        {
-            _socialmediaManager.GooglePlayGamesLeaderboardTestMenuDisappear();
-        }
-
         m_highScoreLabelText.enabled = false;
         m_highScoreValueText.enabled = false;
         m_muteButtonImage.enabled = false;
@@ -67,25 +57,17 @@ public class GameManager : MonoBehaviour
         m_polaroidsCountText.enabled = false;
         m_polaroidImage.enabled = false;
 		m_selfieButtonImage.enabled = false;
-        SocialmediaManager.m_gpgsLeaderboardButtonImage.enabled = false;
         m_unmuteButtonImage.enabled = false;
 		Time.timeScale = 0;
     }
 
     public void AdsAcceptButton()
     {
-        //_socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
         m_adsMenuImage.enabled = false;
         _adsAcceptButtonImage.enabled = false;
         _adsCancelButtonImage.enabled = false;
         _adsText.enabled = false;
-        
-        if(SocialmediaManager.b_isGPGsLogInTestMode)
-        {
-            _socialmediaManager.GooglePlayGamesLeaderboardTestMenuDisappear();
-        }
-
-        //AdsShow();
+        AdsShow();
     }
 
     public void AdsCancelButton()
@@ -94,43 +76,36 @@ public class GameManager : MonoBehaviour
         ScoreManager.m_supersCount = 0;
         BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
         SceneManager.LoadScene(m_currentScene);
-        //_socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
     }
 
-    //void AdResult(ShowResult result)
-    //{
-    //    if(result == ShowResult.Finished)
-    //    {
-    //        //Debug.Log("Video completed - Offer a reward to the player");
-    //        //_socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-    //        //ScoreManager.m_scoreValue = Mathf.Round(ScoreManager.m_scoreValue); TODO Delete this line after confirming that this is not needed
-    //        BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
-    //        Time.timeScale = 1;
-    //        SceneManager.LoadScene(m_currentScene);
-    //    }
+    void AdsShow()
+    {
+        ShowOptions options = new ShowOptions();
+        options.resultCallback = AdsWatchResult;
+        Advertisement.Show("rewardedVideo" , options);
+    }
 
-    //    else if(result == ShowResult.Skipped)
-    //    {
-    //        //Debug.LogWarning("Video was skipped - Do NOT reward the player");
-    //        _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-    //        BhanuPrefs.DeleteScore();
-    //    }
+    void AdsWatchResult(ShowResult result)
+    {
+        if(result == ShowResult.Finished)
+        {
+            BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
+            Time.timeScale = 1;
+            SceneManager.LoadScene(m_currentScene);
+        }
 
-    //    else if(result == ShowResult.Failed)
-    //    {
-    //        //Debug.LogError("Video failed to show");
-    //        _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-    //        BhanuPrefs.DeleteScore();
-    //    }
-    //}
+        else if(result == ShowResult.Skipped)
+        {
+            //Debug.LogWarning("Video was skipped - Do NOT reward the player");
+            BhanuPrefs.DeleteScore();
+        }
 
-    //void AdsShow()
-    //{
-    //    _socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-    //    ShowOptions options = new ShowOptions();
-    //    options.resultCallback = AdResult;
-    //    Advertisement.Show("rewardedVideo" , options);
-    //}
+        else if(result == ShowResult.Failed)
+        {
+            //Debug.LogError("Video failed to show");
+            BhanuPrefs.DeleteScore();
+        }
+    }
 
     public void BackToLandLoseMenu()
     {
@@ -144,7 +119,6 @@ public class GameManager : MonoBehaviour
         m_pauseButtonImage.enabled = false;
         m_polaroidImage.enabled = false;
         m_polaroidsCountText.enabled = false;
-        SocialmediaManager.m_gpgsLeaderboardButtonObj.SetActive(false);
         m_unmuteButtonImage.enabled = false;
         Time.timeScale = 0;
     }
@@ -161,7 +135,6 @@ public class GameManager : MonoBehaviour
         m_pauseButtonImage.enabled = false;
         m_polaroidImage.enabled = false;
         m_polaroidsCountText.enabled = false;
-        SocialmediaManager.m_gpgsLeaderboardButtonObj.SetActive(false);
         m_unmuteButtonImage.enabled = false;
         Time.timeScale = 0;
     }
@@ -178,82 +151,12 @@ public class GameManager : MonoBehaviour
         m_pauseButtonImage.enabled = false;
         m_polaroidImage.enabled = false;
         m_polaroidsCountText.enabled = false;
-        SocialmediaManager.m_gpgsLeaderboardButtonObj.SetActive(false);
         m_unmuteButtonImage.enabled = false;
         Time.timeScale = 0;
     }
 
-    public void ChimpionshipBelt()
-    {
-        if(SocialmediaManager.b_gpgsLoggedIn)
-        {
-            if(IsChimpion())
-            {
-                m_chimpionshipBeltButtonImage.sprite = _chimpionshipBeltSprites[1];
-            
-                if(_currentChimpion == 0)
-                {
-                    _chimpionshipsCount++;
-                    BhanuPrefs.SetChimpionshipsCount(_chimpionshipsCount);
-                    //SocialmediaManager.OneSignalTagSend("Current Chimpion " , "Yes");
-                    _currentChimpion = 1;
-                    BhanuPrefs.SetCurrentChimpionshipStatus(_currentChimpion);
-                }
-            
-                _socialmediaManager.GooglePlayGamesAchievements(_chimpionAchievementID);
-            }
-            else
-            {
-                //SocialmediaManager.OneSignalTagSend("Current Chimpion " , "No");
-                _currentChimpion = 0;
-                BhanuPrefs.SetCurrentChimpionshipStatus(_currentChimpion);
-            }
-
-            //SocialmediaManager.OneSignalTagSend("Chimpionships Won " , _chimpionshipsCount.ToString());
-        }
-        else
-        {
-            //SocialmediaManager.OneSignalTagSend("Current Chimpion " , "Status Unknown because GPGs Not Logged In");
-            //SocialmediaManager.OneSignalTagSend("Chimpionships Won " , _chimpionshipsCount.ToString());
-        }
-    }
-
-    public void ChimpionshipBeltButton()
-    {
-        if(m_firstTimeUIButtonsTutorial == 1)
-        {
-            m_chimpionshipBeltButtonImage.enabled = false;
-            _chimpionshipBeltMenuImage.enabled = true;
-            _chimpionshipBeltText.enabled = true;
-            _chimpionshipOKButtonImage.enabled = true;
-            m_pauseButtonImage.enabled = false;
-            m_polaroidImage.enabled = false;
-            m_polaroidsCountText.enabled = false;
-            SocialmediaManager.m_gpgsLeaderboardButtonObj.SetActive(false);
-            m_highScoreLabelText.enabled = false;
-            m_highScoreValueText.enabled = false;
-            Time.timeScale = 0;
-        }
-    }
-
-    public void ChimpionshipBeltOKButton()
-    {
-        m_chimpionshipBeltButtonImage.enabled = true;
-        _chimpionshipBeltMenuImage.enabled = false;
-        _chimpionshipBeltText.enabled = false;
-        _chimpionshipOKButtonImage.enabled = false;
-        m_pauseButtonImage.enabled = true;
-        m_polaroidImage.enabled = true;
-        m_polaroidsCountText.enabled = true;
-        SocialmediaManager.m_gpgsLeaderboardButtonObj.SetActive(true);
-        m_highScoreLabelText.enabled = true;
-        m_highScoreValueText.enabled = true;
-        Time.timeScale = 1;
-    }
-
     public void ContinueButton()
     {
-        //_socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
 		BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
         SceneManager.LoadScene("LandRunner");
     }
@@ -279,7 +182,6 @@ public class GameManager : MonoBehaviour
             m_highScoreValueText.enabled = false;
             m_muteButtonImage.enabled = false;
             m_pauseButtonImage.enabled = false;
-            SocialmediaManager.m_gpgsLeaderboardButtonImage.enabled = false;
             _swipeUpHandAnimator.enabled = true;
             _swipeUpHandImage.enabled = true;
             _swipeHandOKButtonImage.enabled = true;
@@ -300,7 +202,6 @@ public class GameManager : MonoBehaviour
             m_highScoreValueText.enabled = false;
             m_muteButtonImage.enabled = false;
             m_pauseButtonImage.enabled = false;
-            SocialmediaManager.m_gpgsLeaderboardButtonImage.enabled = false;
             _swipeDownHandAnimator.enabled = true;
             _swipeDownHandImage.enabled = true;
             _swipeHandOKButtonImage.enabled = true;
@@ -323,43 +224,16 @@ public class GameManager : MonoBehaviour
         m_pauseButtonImage.enabled = true;
         m_polaroidsCountText.enabled = true;
         m_polaroidImage.enabled = true;
-        SocialmediaManager.m_gpgsLeaderboardButtonImage.enabled = true;
         m_firstTimeWaterLevelTutorial = 1;
         BhanuPrefs.SetFirstTimeWaterLevelTutorialStatus(m_firstTimeWaterLevelTutorial);
         Time.timeScale = 1;
     }
-
-    //void GetAchievement()
-    //{
-    //    if(SocialmediaManager.b_gpgsLoggedIn)
-    //    {
-    //        _selfieAchievement = PlayGamesPlatform.Instance.GetAchievement(_selfieAchievementID);
-    //        _undisputedChimpionAchievement = PlayGamesPlatform.Instance.GetAchievement(_undisputedChimpionAchievementID);
-    //    }
-
-    //    if(_selfieAchievement == null && _undisputedChimpionAchievement == null)
-    //    {
-    //        Invoke("GetAchievement" , 0.5f);
-    //    }
-
-    //    else if(_selfieAchievement != null && _undisputedChimpionAchievement == null)
-    //    {
-    //        Invoke("GetAchievement" , 0.5f);
-    //    }
-
-    //    else if(_selfieAchievement == null && _undisputedChimpionAchievement != null)
-    //    {
-    //        Invoke("GetAchievement" , 0.5f);
-    //    }
-    //}
 
     void GetBhanuObjects()
     {
         m_currentScene = SceneManager.GetActiveScene().buildIndex;
         m_muteButton = GameObject.Find("MuteButton").GetComponent<Button>();
         m_muteButtonImage = GameObject.Find("MuteButton").GetComponent<Image>();
-        //OneSignal.permissionObserver += SocialmediaManager.OneSignalPermissionObserver;
-        _socialmediaManager = GameObject.Find("SocialmediaManager").GetComponent<SocialmediaManager>();
         m_unmuteButton = GameObject.Find("UnmuteButton").GetComponent<Button>();
         m_unmuteButtonImage = GameObject.Find("UnmuteButton").GetComponent<Image>();
 
@@ -377,12 +251,6 @@ public class GameManager : MonoBehaviour
         else
         {
             BhanuPrefs.DeleteAll();
-
-            if(m_currentScene > 0)
-            {
-                SocialmediaManager.m_gpgsAchievementsTestText.text = "First Time Play Tutorial";
-                SocialmediaManager.m_gpgsAchievementsTestText.enabled = true;
-            }
         }
 
         if(m_currentScene == 0)
@@ -449,16 +317,16 @@ public class GameManager : MonoBehaviour
             m_muteUnmuteButtonTutorialText = GameObject.Find("MuteButtonTutorialText").GetComponent<Text>();
             m_nextButtonImage = GameObject.Find("NextButton").GetComponent<Image>();
             m_pauseButton = GameObject.Find("PF_PauseButton").GetComponent<Button>();
-			m_pauseButtonImage = GameObject.Find("PF_PauseButton").GetComponent<Image>();
+            m_pauseButtonImage = GameObject.Find("PF_PauseButton").GetComponent<Image>();
             m_pauseButtonTutorialText = GameObject.Find("PauseButtonTutorialText").GetComponent<Text>();
             m_pauseMenuObj = GameObject.Find("PauseMenu");
-			_pauseMenuImage = m_pauseMenuObj.GetComponent<Image>();
+            _pauseMenuImage = m_pauseMenuObj.GetComponent<Image>();
             m_polaroidsCountText = GameObject.Find("PolaroidsCountText").GetComponent<Text>();
             m_polaroidsCountText.text = ScoreManager.m_polaroidsCount.ToString();
             m_polaroidImage = GameObject.Find("PolaroidImage").GetComponent<Image>();
-			_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
-			m_selfieButtonImage = GameObject.Find("SelfieButton").GetComponent<Image>();
-			m_selfiePanelImage = GameObject.Find("SelfiePanel").GetComponent<Image>();
+            _resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
+            m_selfieButtonImage = GameObject.Find("SelfieButton").GetComponent<Image>();
+            m_selfiePanelImage = GameObject.Find("SelfiePanel").GetComponent<Image>();
             _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
             _swipeDownHandAnimator = GameObject.Find("SwipeDownHand").GetComponent<Animator>();
             _swipeUpHandAnimator = GameObject.Find("SwipeUpHand").GetComponent<Animator>();
@@ -514,30 +382,30 @@ public class GameManager : MonoBehaviour
             }
         }
 
-		else
-		{
-			_backToLandLoseMenuImage = GameObject.Find("BackToLandLoseMenu").GetComponent<Image>();
-			_backToLandLoseText = GameObject.Find("BackToLandLoseText").GetComponent<Text>();
-			_backToLandWinMenuImage = GameObject.Find("BackToLandWinMenu").GetComponent<Image>();
-			_backToLandWinText = GameObject.Find("BackToLandWinText").GetComponent<Text>();
+        else
+        {
+            _backToLandLoseMenuImage = GameObject.Find("BackToLandLoseMenu").GetComponent<Image>();
+            _backToLandLoseText = GameObject.Find("BackToLandLoseText").GetComponent<Text>();
+            _backToLandWinMenuImage = GameObject.Find("BackToLandWinMenu").GetComponent<Image>();
+            _backToLandWinText = GameObject.Find("BackToLandWinText").GetComponent<Text>();
             _backToLandWithSuperMenuImage = GameObject.Find("BackToLandWithSuperMenu").GetComponent<Image>();
-			_backToLandWithSuperText = GameObject.Find("BackToLandWithSuperText").GetComponent<Text>();
+            _backToLandWithSuperText = GameObject.Find("BackToLandWithSuperText").GetComponent<Text>();
             m_chimpionshipBeltButton = GameObject.Find("PF_ChimpionshipBeltButton").GetComponent<Button>();
             m_chimpionshipBeltButtonImage = GameObject.Find("PF_ChimpionshipBeltButton").GetComponent<Image>();
-			_continueButtonImage = GameObject.Find("ContinueButton").GetComponent<Image>();
+            _continueButtonImage = GameObject.Find("ContinueButton").GetComponent<Image>();
             _firstTimePlayTutorialMenuImage = GameObject.Find("FirstTimePlayTutorialMenu").GetComponent<Image>();
             _firstTimePlayTutorialOKButtonImage = GameObject.Find("FirstTimePlayTutorialOKButton").GetComponent<Image>();
             _firstTimePlayTutorialText = GameObject.Find("FirstTimePlayTutorialText").GetComponent<Text>();
-			m_highScoreLabelText = GameObject.Find("HighScoreLabelText").GetComponent<Text>();
-			m_highScoreValueText = GameObject.Find("HighScoreValueText").GetComponent<Text>();
+            m_highScoreLabelText = GameObject.Find("HighScoreLabelText").GetComponent<Text>();
+            m_highScoreValueText = GameObject.Find("HighScoreValueText").GetComponent<Text>();
             m_muteButtonImage = GameObject.Find("MuteButton").GetComponent<Image>();
-			m_pauseButtonImage = GameObject.Find("PF_PauseButton").GetComponent<Image>();
-			m_pauseMenuObj = GameObject.Find("PauseMenu");
-			_pauseMenuImage = m_pauseMenuObj.GetComponent<Image>();
+            m_pauseButtonImage = GameObject.Find("PF_PauseButton").GetComponent<Image>();
+            m_pauseMenuObj = GameObject.Find("PauseMenu");
+            _pauseMenuImage = m_pauseMenuObj.GetComponent<Image>();
             m_polaroidsCountText = GameObject.Find("PolaroidsCountText").GetComponent<Text>();
             m_polaroidsCountText.text = ScoreManager.m_polaroidsCount.ToString();
             m_polaroidImage = GameObject.Find("PolaroidImage").GetComponent<Image>();
-			_resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
+            _resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
             _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
             m_unmuteButtonImage = GameObject.Find("UnmuteButton").GetComponent<Image>();
 
@@ -552,7 +420,6 @@ public class GameManager : MonoBehaviour
                 m_pauseButtonImage.enabled = false;
                 m_polaroidsCountText.enabled = false;
                 m_polaroidImage.enabled = false;
-                SocialmediaManager.m_gpgsLeaderboardButtonImage.enabled = false;
                 Time.timeScale = 0;
             }
 
@@ -584,36 +451,6 @@ public class GameManager : MonoBehaviour
                     m_unmuteButtonImage.enabled = true;
                 }
             }
-		}
-
-        if(SocialmediaManager.b_isGPGsLeaderboardTestMode)
-        {
-            _socialmediaManager.GooglePlayGamesLeaderboardTestMenuAppear();
-            ScoreManager.m_minHighScore = 5f;
-        }
-        else
-        {
-            ScoreManager.m_minHighScore = 5000f;
-        }
-
-        if(SocialmediaManager.b_isGPGsLogInTestMode && SocialmediaManager.m_gpgsLogInTestText != null)
-        {
-            SocialmediaManager.m_gpgsLogInTestText.enabled = true;
-        }
-
-        if(m_currentScene > 0)
-        {
-            _currentChimpion = BhanuPrefs.GetCurrentChimpionshipStatus();
-            m_highScoreLabelText = GameObject.Find("HighScoreLabelText").GetComponent<Text>();
-			m_highScoreValueText = GameObject.Find("HighScoreValueText").GetComponent<Text>();
-            _chimpionshipsCount = BhanuPrefs.GetChimpionshipsCount();
-            
-            Invoke("ChimpionshipBelt" , 0.9f);
-
-            if(SocialmediaManager.b_isGPGsAchievementsTestMode)
-            {
-                SocialmediaManager.m_gpgsAchievementsTestText.enabled = true;
-            }
         }
 
         if(b_isMemoryLeakTestingMode)
@@ -630,9 +467,6 @@ public class GameManager : MonoBehaviour
                 _memoryLeakTestText.enabled = true;
             }
         }
-
-        //_socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-        Invoke("GetAchievement" , 0.5f);
     }
 
     public void GoToFallingLevelButton()
@@ -673,22 +507,8 @@ public class GameManager : MonoBehaviour
         _iapCartMenuObj.SetActive(true);
     }
 
-    bool IsChimpion()
-    {
-        if(SocialmediaManager.m_playerRank == 1)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
     public void MuteUnmuteButton()
     {
-        //_socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-
         if(m_firstTimeUIButtonsTutorial == 1 && m_currentScene > 0)
         {
             if(MusicManager.m_musicSource != null)
@@ -808,8 +628,6 @@ public class GameManager : MonoBehaviour
 
     public void PauseButton()
 	{
-        //_socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-
         if(m_firstTimeUIButtonsTutorial == 1)
         {
             if(MusicManager.m_musicSource != null)
@@ -830,25 +648,10 @@ public class GameManager : MonoBehaviour
                 _exitButtonImage.enabled = true;
             }
 
-            if(SocialmediaManager.b_isGPGsLeaderboardTestMode)
-            {
-                _socialmediaManager.GooglePlayGamesLeaderboardTestMenuDisappear();
-            }
-
 		    m_highScoreLabelText.enabled = false;
 		    m_highScoreValueText.enabled = false;
             m_polaroidsCountText.enabled = false;
             m_polaroidImage.enabled = false;
-
-            if(SocialmediaManager.m_gpgsAchievementsButtonObj != null)
-            {
-                SocialmediaManager.m_gpgsAchievementsButtonImage.enabled = true;
-            }
-
-            if(SocialmediaManager.m_gpgsLeaderboardButtonObj != null)
-            {
-                SocialmediaManager.m_gpgsLeaderboardButtonObj.SetActive(false);
-            }
         
             if(m_currentScene < 2)
             {
@@ -878,22 +681,6 @@ public class GameManager : MonoBehaviour
         MusicManager.m_musicSource.Pause();
         m_muteButtonImage.enabled = false;
         b_quitButtonTapped = true;
-        SocialmediaManager.m_gpgsLogInButtonImage.enabled = false;
-        SocialmediaManager.m_gpgsProfilePicImage.enabled = false;
-        SocialmediaManager.m_gpgsProfilePicMaskImage.enabled = false;
-        SocialmediaManager.m_gpgsRateButtonImage.enabled = false;
-        SocialmediaManager.m_gpgsUsernameText.enabled = false;
-        
-        if(SocialmediaManager.m_gpgsLogInTestText != null)
-        {
-            SocialmediaManager.m_gpgsLogInTestText.enabled = false;
-        }
-
-        if(SocialmediaManager.m_noInternetText != null)
-        {
-            SocialmediaManager.m_noInternetText.enabled = false;
-        }
-        
         _playButtonImage.enabled = false;
 		_quitButtonImage.enabled = false;
 		_quitMenuImage.enabled = true;
@@ -911,8 +698,6 @@ public class GameManager : MonoBehaviour
 
 	public void QuitCancelButton()
 	{
-        //OneSignal.permissionObserver += SocialmediaManager.OneSignalPermissionObserver;
-
         if(m_playerMutedSounds == 0)
         {
             MusicManager.m_musicSource.Play();
@@ -923,24 +708,9 @@ public class GameManager : MonoBehaviour
             m_unmuteButtonImage.enabled = true;
         }
 
-        b_quitButtonTapped = false;
-
-        if(SocialmediaManager.b_gpgsLoggedIn)
-        {
-            _socialmediaManager.GooglePlayGamesLoggedIn();
-        }
-        else
-        {
-            _socialmediaManager.GooglePlayGamesLoggedOut();
-        }
-        
-        if(SocialmediaManager.b_isGPGsLogInTestMode && SocialmediaManager.m_gpgsLogInTestText != null)
-        {
-            SocialmediaManager.m_gpgsLogInTestText.enabled = true;
-        }
-
 		_playButtonImage.enabled = true;
 		_quitButtonImage.enabled = true;
+        b_quitButtonTapped = false;
 		_quitMenuImage.enabled = false;
 		_quitAcceptButtonImage.enabled = false;
 		_quitCancelButtonImage.enabled = false;
@@ -949,8 +719,6 @@ public class GameManager : MonoBehaviour
 
 	public void ResumeButton()
 	{
-        //_socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
-
         if(MusicManager.m_musicSource != null)
         {
             if(m_playerMutedSounds == 0 && !MusicManager.m_musicSource.isPlaying)
@@ -975,25 +743,10 @@ public class GameManager : MonoBehaviour
             _exitButtonImage.enabled = false;
         }
 
-        if(SocialmediaManager.b_isGPGsLeaderboardTestMode)
-        {
-            _socialmediaManager.GooglePlayGamesLeaderboardTestMenuAppear();
-        }
-
 		m_highScoreLabelText.enabled = true;
 		m_highScoreValueText.enabled = true;
         m_polaroidsCountText.enabled = true;
         m_polaroidImage.enabled = true;
-
-        if(SocialmediaManager.m_gpgsAchievementsButtonObj != null)
-        {
-            SocialmediaManager.m_gpgsAchievementsButtonImage.enabled = false;
-        }
-
-        if(SocialmediaManager.m_gpgsLeaderboardButtonObj != null)
-        {
-            SocialmediaManager.m_gpgsLeaderboardButtonObj.SetActive(true);
-        }
         
         if(m_currentScene < 2)
         {
@@ -1009,12 +762,6 @@ public class GameManager : MonoBehaviour
 
 	public void SelfieButton()
 	{
-        _socialmediaManager.GooglePlayGamesAchievements(_selfieAchievementID);
-
-        //if(_selfieAchievement != null && _selfieAchievement.IsUnlocked)
-        //{
-        //    _socialmediaManager.GooglePlayGamesIncrementalAchievements(_selfieLegendAchievementID , 1);
-        //}
 		_soundManager.m_soundsSource.clip = _soundManager.m_selfie;
 		
         if(_soundManager.m_soundsSource.enabled)
@@ -1065,7 +812,6 @@ public class GameManager : MonoBehaviour
         }
         
         m_pauseButtonImage.enabled = true;
-        SocialmediaManager.m_gpgsLeaderboardButtonImage.enabled = true;
         _swipeDownHandAnimator.enabled = false;
         _swipeUpHandAnimator.enabled = false;
         _swipeDownHandImage.enabled = false;

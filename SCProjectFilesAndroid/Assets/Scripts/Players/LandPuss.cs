@@ -9,10 +9,9 @@ public class LandPuss : MonoBehaviour
     GameManager _gameManager;
     Rigidbody2D _pussBody2D;
     RockSpawner _rockSpawner;
-    SocialmediaManager _socialmediaManager;
 	SoundManager _soundManager;
 
-    [SerializeField] float _defaultMoveSpeed , _jumpHeight , _lowSlipMultiplier , _highSlipMultiplier , _slipTime;
+    [SerializeField] float _defaultMoveSpeed , _jumpHeight , _slipTime;
     [SerializeField] string _holeAchievementID , _slipAchievementID , _superAchievementID;
     [SerializeField] Transform _raycastBottom , _raycastTop;
 
@@ -20,8 +19,6 @@ public class LandPuss : MonoBehaviour
 
 	void Reset()
 	{
-        _highSlipMultiplier = 1.75f;
-        _lowSlipMultiplier = 1.54f;
         m_isSlipping = false;
 		m_isSuper = false;
         _jumpHeight = 15.5f;
@@ -36,8 +33,6 @@ public class LandPuss : MonoBehaviour
         _pussBody2D = GetComponent<Rigidbody2D>();
 		_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         _rockSpawner = GameObject.Find("RockSpawner").GetComponent<RockSpawner>();
-        _socialmediaManager = GameObject.Find("SocialmediaManager").GetComponent<SocialmediaManager>();
-        //_socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
 		_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
@@ -192,7 +187,6 @@ public class LandPuss : MonoBehaviour
     {
         if(tri2D.gameObject.tag.Equals("Fall"))
         {
-            //_socialmediaManager.GooglePlayGamesIncrementalAchievements(_holeAchievementID , 1);
 			_soundManager.m_soundsSource.clip = _soundManager.m_fallDeath;
 
 			if(_soundManager.m_soundsSource.enabled)
@@ -227,7 +221,6 @@ public class LandPuss : MonoBehaviour
 
 		if(tri2D.gameObject.tag.Equals("Super"))
 		{
-            _socialmediaManager.GooglePlayGamesAchievements(_superAchievementID);
 			Super();
 		}
     }
@@ -235,13 +228,11 @@ public class LandPuss : MonoBehaviour
     void SelfieAppear()
     {
         GameManager.m_selfieButtonImage.enabled = true;
-        _socialmediaManager.GooglePlayGamesLeaderboardTestMenuDisappear();
     }
 
     void SelfieDisappear()
     {
         GameManager.m_selfieButtonImage.enabled = false;
-        _socialmediaManager.GooglePlayGamesLeaderboardTestMenuAppear();
     }
 
     public void Slide()
@@ -283,14 +274,12 @@ public class LandPuss : MonoBehaviour
             {
                 _bHighSlip = false;
                 _bLowSlip = false;
-                _socialmediaManager.GooglePlayGamesAchievements(_slipAchievementID);
             }
             
             else if(_bLowSlip)
             {
                 _bHighSlip = false;
                 _bLowSlip = false;
-                _socialmediaManager.GooglePlayGamesAchievements(_slipAchievementID);
             }
         }
         
@@ -330,37 +319,6 @@ public class LandPuss : MonoBehaviour
         else if(EventSystem.current.currentSelectedGameObject == null)
         {
             _bIsUI = false;
-        }
-
-        if(SocialmediaManager.b_gpgsLoggedIn)
-        {
-            SocialmediaManager.b_gpgsAchievementsButtonAvailable = true;
-            SocialmediaManager.b_gpgsLeaderboardButtonAvailable = true;
-        }
-        else
-        {
-            SocialmediaManager.b_gpgsAchievementsButtonAvailable = false;
-            SocialmediaManager.b_gpgsLeaderboardButtonAvailable = false;
-        }
-
-        if(SocialmediaManager.b_gpgsAchievementsButtonAvailable)
-        {
-            SocialmediaManager.m_gpgsAchievementsButtonImage.sprite = _socialmediaManager.m_gpgsAchievementsButtonSprites[1];
-        }
-
-        if(!SocialmediaManager.b_gpgsAchievementsButtonAvailable)
-        {
-            SocialmediaManager.m_gpgsAchievementsButtonImage.sprite = _socialmediaManager.m_gpgsAchievementsButtonSprites[0];
-        }
-
-        if(SocialmediaManager.b_gpgsLeaderboardButtonAvailable)
-        {
-            SocialmediaManager.m_gpgsLeaderboardButtonImage.sprite = _socialmediaManager.m_gpgsLeaderboardButtonSprites[1];
-        }
-
-        if(!SocialmediaManager.b_gpgsLeaderboardButtonAvailable)
-        {
-            SocialmediaManager.m_gpgsLeaderboardButtonImage.sprite = _socialmediaManager.m_gpgsLeaderboardButtonSprites[0];
         }
     }
 }
