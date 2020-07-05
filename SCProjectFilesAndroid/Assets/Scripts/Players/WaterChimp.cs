@@ -13,7 +13,6 @@ public class WaterChimp : MonoBehaviour
     GameManager _gameManager;
     GameObject m_explosionPrefab , m_explosionSystemObj;
     LevelGenerator m_levelGenerator;
-    SocialmediaManager _socialmediaManager;
 	SoundManager m_soundManager;
 
 	[SerializeField] Sprite[] m_chimpSprites;		
@@ -60,9 +59,6 @@ public class WaterChimp : MonoBehaviour
 		m_animator = GetComponent<Animator>();
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         m_levelGenerator = GameObject.Find("LevelGenerator").GetComponent<LevelGenerator>();
-        _socialmediaManager = GameObject.Find("SocialmediaManager").GetComponent<SocialmediaManager>();
-        _socialmediaManager.GooglePlayGamesAchievements(_portalAchievementID);
-        //_socialmediaManager.GooglePlayGamesLeaderboardPlayerRank();
         m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 
         newRotation = new Vector3();
@@ -82,37 +78,6 @@ public class WaterChimp : MonoBehaviour
     
     void Update()
     {
-        if(SocialmediaManager.b_gpgsLoggedIn)
-        {
-            SocialmediaManager.b_gpgsAchievementsButtonAvailable = true;
-            SocialmediaManager.b_gpgsLeaderboardButtonAvailable = true;
-        }
-        else
-        {
-            SocialmediaManager.b_gpgsAchievementsButtonAvailable = false;
-            SocialmediaManager.b_gpgsLeaderboardButtonAvailable = false;
-        }
-
-        if(SocialmediaManager.b_gpgsAchievementsButtonAvailable)
-        {
-            SocialmediaManager.m_gpgsAchievementsButtonImage.sprite = _socialmediaManager.m_gpgsAchievementsButtonSprites[1];
-        }
-
-        if(!SocialmediaManager.b_gpgsAchievementsButtonAvailable)
-        {
-            SocialmediaManager.m_gpgsAchievementsButtonImage.sprite = _socialmediaManager.m_gpgsAchievementsButtonSprites[0];
-        }
-
-        if(SocialmediaManager.b_gpgsLeaderboardButtonAvailable)
-        {
-            SocialmediaManager.m_gpgsLeaderboardButtonImage.sprite = _socialmediaManager.m_gpgsLeaderboardButtonSprites[1];
-        }
-
-        if(!SocialmediaManager.b_gpgsLeaderboardButtonAvailable)
-        {
-            SocialmediaManager.m_gpgsLeaderboardButtonImage.sprite = _socialmediaManager.m_gpgsLeaderboardButtonSprites[0];
-        }
-
         if(playerState == PlayerState.Enabled)
         {
             if(playerStatus == PlayerStatus.MovingDown || playerStatus == PlayerStatus.MovinUp)
@@ -155,12 +120,6 @@ public class WaterChimp : MonoBehaviour
             ScoreManager.m_polaroidsCount++;
             GameManager.m_polaroidsCountText.text = ScoreManager.m_polaroidsCount.ToString();
             BhanuPrefs.SetPolaroidsCount(ScoreManager.m_polaroidsCount);
-            
-            //TODO Remove this LeaderboardUpdate if performance takes a hit
-            if(ScoreManager.m_scoreValue >= 5000)
-            {
-                //SocialmediaManager.GooglePlayGamesLeaderboardUpdate();
-            }
 
             tri2D.GetComponent<Renderer>().enabled = false;
             tri2D.GetComponent<Collider2D>().enabled = false;
@@ -207,7 +166,6 @@ public class WaterChimp : MonoBehaviour
         
         else if(tri2D.tag == "Super")
         {
-            _socialmediaManager.GooglePlayGamesAchievements(_replenishAchievementID);
             tri2D.GetComponent<Renderer>().enabled = false;
             tri2D.GetComponent<Collider2D>().enabled = false;
 			ScoreManager.m_supersCount++;

@@ -2,19 +2,21 @@
 
 public class Mountains : MonoBehaviour 
 {
-	[SerializeField] float m_speed;
+	private float m_offset;
+
+	[SerializeField] private Transform m_landPuss;
 	void Update() 
 	{
 		if(Time.timeScale == 0f)
 		{
 			return;
 		}
+			
+        m_offset = transform.position.x - m_landPuss.position.x;
 
-        transform.Translate(Vector2.left * m_speed * Time.deltaTime);
-
-		if(transform.position.x <= -28.74f) //Use Player Position here
-		{
-			//transform.position = new Vector3(0f , transform.position.y , transform.position.z);
-		}
+		if(m_offset < -20.02f)
+        {
+			transform.position = new Vector3(m_landPuss.position.x , transform.position.y , transform.position.z);
+        }
 	}
 }

@@ -2,34 +2,27 @@
 
 public class Ground : MonoBehaviour 
 {
-	[SerializeField] BoxCollider2D _groundCollider2D;
-	[SerializeField] LandPuss _landChimp;
-	[SerializeField] SpriteRenderer _groundRenderer;
+	[SerializeField] private float m_offset;
 
-	void Start() 
-	{
-		_groundCollider2D = GetComponent<BoxCollider2D>();
-		_groundRenderer = GetComponent<SpriteRenderer>();
-		_landChimp = GameObject.Find("LandPuss").GetComponent<LandPuss>();
-	}
+	[SerializeField] private Transform m_landPuss;
 
-	void Update()
+    private void Start()
+    {
+        m_landPuss = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+
+    private void Update()
 	{
-		if(Time.timeScale == 0)
+		if(Time.timeScale == 0f)
 		{
 			return;
 		}
+			
+        m_offset = transform.position.x - m_landPuss.position.x;
 
-		if(_landChimp.m_isSuper)
-		{
-			_groundCollider2D.enabled = false;
-			_groundRenderer.enabled = false;
-		}
-
-		if(!_landChimp.m_isSuper)
-		{
-			_groundCollider2D.enabled = true;
-			_groundRenderer.enabled = true;
-		}
+		if(m_offset < -12.05f)
+        {
+			gameObject.SetActive(false);
+        }
 	}
 }
