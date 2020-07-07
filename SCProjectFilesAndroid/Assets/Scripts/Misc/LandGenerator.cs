@@ -1,50 +1,50 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class LandGenerator : MonoBehaviour 
 {
 
-    private const float PLAYER_DISTANCE_SPAWN_LEVEL_PART = 200.0f;
+    private const float PLAYER_DISTANCE_SPAWN_LAND_PART = 200.0f;
 
-    [SerializeField] private Transform _levelPartStart;
-    [SerializeField] private List<Transform> _levelPartList;
+    [SerializeField] private Transform _landPartStart;
+    [SerializeField] private Transform _landPartToSpawn;
     [SerializeField] private LandPuss _landPuss;
 
     [SerializeField] private Vector3 _lastEndPosition;
 
     private void Awake() 
     {
-        _lastEndPosition = _levelPartStart.transform.position;
+        _lastEndPosition = _landPartStart.transform.position;
 
-        int startingSpawnLevelParts = 5;
+        int startingSpawnLandParts = 5;
 
-        for(int i = 0; i < startingSpawnLevelParts; i++) 
+        for(int i = 0; i < startingSpawnLandParts; i++) 
         {
-            SpawnLevelPart();
+            SpawnLandPart();
         }
     }
 
     private void Update() 
     {
-        if(Vector3.Distance(_landPuss.GetPosition() , _lastEndPosition) < PLAYER_DISTANCE_SPAWN_LEVEL_PART) 
+        if(Vector3.Distance(_landPuss.GetPosition() , _lastEndPosition) < PLAYER_DISTANCE_SPAWN_LAND_PART) 
         {
             // Spawn another level part
-            SpawnLevelPart();
+            SpawnLandPart();
         }
     }
 
-    private void SpawnLevelPart() 
+    private void SpawnLandPart() 
     {
-        Transform chosenLevelPart = _levelPartList[Random.Range(0 , _levelPartList.Count)];
-        Transform lastLevelPartTransform = SpawnLevelPart(chosenLevelPart , _lastEndPosition);
-        _lastEndPosition = lastLevelPartTransform.Find("EndPosition").position;
+        Transform chosenLandPart = _landPartToSpawn;
+        Transform lastLandPartTransform = SpawnLandPart(chosenLandPart , _lastEndPosition);
+        _lastEndPosition = lastLandPartTransform.Find("EndPosition").position;
     }
 
-    private Transform SpawnLevelPart(Transform levelPart , Vector3 spawnPosition) 
+    private Transform SpawnLandPart(Transform landPart , Vector3 spawnPosition) 
     {
         float randomYPos = Random.Range(spawnPosition.y - 1.5f , spawnPosition.y + 1.5f);
-        Transform levelPartTransform = Instantiate(levelPart , new Vector3(spawnPosition.x , randomYPos , spawnPosition.z) , Quaternion.identity);
-        return levelPartTransform;
+        Transform landPartTransform = Instantiate(landPart , new Vector3(spawnPosition.x , randomYPos , spawnPosition.z) , Quaternion.identity);
+        return landPartTransform;
     }
 
 }
+
