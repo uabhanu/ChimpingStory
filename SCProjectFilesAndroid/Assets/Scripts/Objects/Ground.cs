@@ -2,9 +2,8 @@
 
 public class Ground : MonoBehaviour 
 {
-	[SerializeField] private float m_offset;
-
-	[SerializeField] private Transform m_landPuss;
+	private float m_offset;
+	private Transform m_landPuss;
 
     private void Start()
     {

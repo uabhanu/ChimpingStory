@@ -5,7 +5,7 @@ public class LandGenerator : MonoBehaviour
 
     private const float PLAYER_DISTANCE_SPAWN_LAND_PART = 200.0f;
 
-    [SerializeField] private Transform _landPartStart;
+    [SerializeField] private Transform _landEndPosition;
     [SerializeField] private Transform _landPartToSpawn;
     [SerializeField] private LandPuss _landPuss;
 
@@ -13,7 +13,7 @@ public class LandGenerator : MonoBehaviour
 
     private void Awake() 
     {
-        _lastEndPosition = _landPartStart.transform.position;
+        _lastEndPosition = _landEndPosition.transform.position;
 
         int startingSpawnLandParts = 5;
 

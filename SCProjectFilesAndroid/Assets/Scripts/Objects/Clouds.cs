@@ -3,8 +3,12 @@
 public class Clouds : MonoBehaviour 
 {
 	private float m_offset;
-	
-	[SerializeField] private Transform m_landPuss;
+	private Transform m_landPuss;
+
+	private void Start()
+    {
+        m_landPuss = GameObject.FindGameObjectWithTag("Player").transform;
+    }
 	void Update() 
 	{
 		if(Time.timeScale == 0f)
