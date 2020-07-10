@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     static int _firstTimeJump = 0 , _firstTimeSlide = 0;
 
 	[SerializeField] bool _bSelfieFlashEnabled , _bVersionCodeDisplayEnabled;
-    [SerializeField] GameObject _iapCartMenuObj;
+    [SerializeField] GameObject _iapCartMenuObj , _inGameUIObj , _pauseMenuObj;
     [SerializeField] Image _chimpionshipBeltMenuImage , _chimpionshipOKButtonImage , _landLevelButtonImage , _waterLevelButtonImage;
     [SerializeField] Sprite[] _chimpionshipBeltSprites;
     [SerializeField] string _chimpionAchievementID , _selfieAchievementID , _selfieLegendAchievementID , _undisputedChimpionAchievementID;
@@ -310,8 +310,6 @@ public class GameManager : MonoBehaviour
             m_chimpionshipBeltButton = GameObject.Find("PF_ChimpionshipBeltButton").GetComponent<Button>();
             m_chimpionshipBeltButtonImage = GameObject.Find("PF_ChimpionshipBeltButton").GetComponent<Image>();
             m_chimpionshipBeltButtonTutorialText = GameObject.Find("ChimpionBeltButtonTutorialText").GetComponent<Text>();
-            _exitButtonImage = GameObject.Find("ExitButton").GetComponent<Image>();
-            _iapCartButtonImage = GameObject.Find("IAPCartButton").GetComponent<Image>();
             _landChimp = GameObject.Find("LandPuss").GetComponent<LandPuss>();
             m_leaderboardButtonTutorialText = GameObject.Find("LeaderboardButtonTutorialText").GetComponent<Text>();
             m_muteUnmuteButtonTutorialText = GameObject.Find("MuteButtonTutorialText").GetComponent<Text>();
@@ -319,12 +317,9 @@ public class GameManager : MonoBehaviour
             m_pauseButton = GameObject.Find("PF_PauseButton").GetComponent<Button>();
             m_pauseButtonImage = GameObject.Find("PF_PauseButton").GetComponent<Image>();
             m_pauseButtonTutorialText = GameObject.Find("PauseButtonTutorialText").GetComponent<Text>();
-            m_pauseMenuObj = GameObject.Find("PauseMenu");
-            _pauseMenuImage = m_pauseMenuObj.GetComponent<Image>();
             m_polaroidsCountText = GameObject.Find("PolaroidsCountText").GetComponent<Text>();
             m_polaroidsCountText.text = ScoreManager.m_polaroidsCount.ToString();
             m_polaroidImage = GameObject.Find("PolaroidImage").GetComponent<Image>();
-            _resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
             m_selfieButtonImage = GameObject.Find("SelfieButton").GetComponent<Image>();
             m_selfiePanelImage = GameObject.Find("SelfiePanel").GetComponent<Image>();
             _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
@@ -400,8 +395,6 @@ public class GameManager : MonoBehaviour
             m_highScoreValueText = GameObject.Find("HighScoreValueText").GetComponent<Text>();
             m_muteButtonImage = GameObject.Find("MuteButton").GetComponent<Image>();
             m_pauseButtonImage = GameObject.Find("PF_PauseButton").GetComponent<Image>();
-            m_pauseMenuObj = GameObject.Find("PauseMenu");
-            _pauseMenuImage = m_pauseMenuObj.GetComponent<Image>();
             m_polaroidsCountText = GameObject.Find("PolaroidsCountText").GetComponent<Text>();
             m_polaroidsCountText.text = ScoreManager.m_polaroidsCount.ToString();
             m_polaroidImage = GameObject.Find("PolaroidImage").GetComponent<Image>();
@@ -648,19 +641,9 @@ public class GameManager : MonoBehaviour
                 _exitButtonImage.enabled = true;
             }
 
-		    m_highScoreLabelText.enabled = false;
-		    m_highScoreValueText.enabled = false;
-            m_polaroidsCountText.enabled = false;
-            m_polaroidImage.enabled = false;
-        
-            if(m_currentScene < 2)
-            {
-                _iapCartButtonImage.enabled = true;
-            }
-            
-		    m_pauseButtonImage.enabled = false;
-		    _pauseMenuImage.enabled = true;
-		    _resumeButtonImage.enabled = true;
+		    
+            _inGameUIObj.SetActive(false);
+            _pauseMenuObj.SetActive(true);
 
 		    if(m_selfiePanelImage != null)
 		    {
@@ -743,20 +726,8 @@ public class GameManager : MonoBehaviour
             _exitButtonImage.enabled = false;
         }
 
-		m_highScoreLabelText.enabled = true;
-		m_highScoreValueText.enabled = true;
-        m_polaroidsCountText.enabled = true;
-        m_polaroidImage.enabled = true;
-        
-        if(m_currentScene < 2)
-        {
-            _iapCartButtonImage.enabled = false;
-        }
-
-		m_pauseButtonImage.enabled = true;
-		_pauseMenuImage.enabled = false;
-        _resumeButtonImage.enabled = false;
-
+		_inGameUIObj.SetActive(true);
+        _pauseMenuObj.SetActive(false);
 		Time.timeScale = 1;
 	}
 

@@ -2,21 +2,15 @@
 
 public class Banana : MonoBehaviour
 {
-    BoxCollider2D _bananaCollider2D;
-    Camera _mainCamera;
-    GameManager _gameManager;
-	LandPuss _landChimp;
-	SoundManager _soundManager;
-	SpriteRenderer _bananaRenderer;
-    Vector3 _positionOnScreen;
+    private float _offset;
+    private GameManager _gameManager;
+	private LandPuss _landPuss;
+	private SoundManager _soundManager;
 
     void Start()
     {
-		_bananaCollider2D = GetComponent<BoxCollider2D>();
-		_bananaRenderer = GetComponent<SpriteRenderer>();
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-		_landChimp = GameObject.Find("LandPuss").GetComponent<LandPuss>();
-        _mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+		_landPuss = GameObject.Find("LandPuss").GetComponent<LandPuss>();
         _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
@@ -26,21 +20,13 @@ public class Banana : MonoBehaviour
 		{
 			return;
 		}
+			
+        _offset = transform.position.x - _landPuss.transform.position.x;
 
-        _positionOnScreen = _mainCamera.WorldToScreenPoint(transform.position);
-
-        if(_landChimp.m_isSuper)
+		if(_offset < -12.05f)
         {
-            _bananaCollider2D.enabled = false;
-            _bananaRenderer.enabled = false;
-        }
-        else
-        {
-            if(_positionOnScreen.x >= 972)
-            {
-                _bananaCollider2D.enabled = true;
-                _bananaRenderer.enabled = true;
-            }
+			gameObject.SetActive(false);
+			CollectiblesGenerator.m_TotalCollectibles--;
         }
 	}
 
@@ -48,7 +34,7 @@ public class Banana : MonoBehaviour
     {
         if(tri2D.gameObject.tag.Equals("Player"))
         {
-            if(_landChimp.m_isSlipping)
+            if(_landPuss.m_isSlipping)
             {
                 ScoreManager.m_scoreValue += 75;
             }
@@ -66,8 +52,8 @@ public class Banana : MonoBehaviour
                 _soundManager.m_soundsSource.Play();
             }
 
-            _bananaCollider2D.enabled = false;
-			_bananaRenderer.enabled = false;
+            gameObject.SetActive(false);
+            CollectiblesGenerator.m_TotalCollectibles--;
         }
     }
 }

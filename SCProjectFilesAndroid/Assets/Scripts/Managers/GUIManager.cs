@@ -8,7 +8,7 @@ public class GUIManager : MonoBehaviour
 
     void Start()
     {
-        m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        m_gameManager = GameObject.Find("LandLevelManager").GetComponent<GameManager>();
         levelManager.StartLevel();
     }
 }

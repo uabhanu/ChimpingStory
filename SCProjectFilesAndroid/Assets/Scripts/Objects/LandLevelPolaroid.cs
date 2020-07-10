@@ -12,7 +12,7 @@ public class LandLevelPolaroid : MonoBehaviour
 
     void Start()
     {
-        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _gameManager = GameObject.Find("LandLevelManager").GetComponent<GameManager>();
 		m_landChimp = GameObject.Find("LandPuss").GetComponent<LandPuss>();
         m_mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         m_polaroidCollider2D = GetComponent<BoxCollider2D>();

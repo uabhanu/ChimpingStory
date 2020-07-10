@@ -11,7 +11,7 @@ public class Hurdle : MonoBehaviour
 
     void Start()
     {
-        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _gameManager = GameObject.Find("LandLevelManager").GetComponent<GameManager>();
         _hurdleCollider2D = GetComponent<Collider2D>();
         _hurdleRenderer = GetComponent<SpriteRenderer>();
         _landChimp = GameObject.Find("LandPuss").GetComponent<LandPuss>();

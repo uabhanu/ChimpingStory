@@ -17,7 +17,7 @@ public class Rock : MonoBehaviour
 	{
         m_explosionPrefab = Resources.Load("PF_Explosion") as GameObject;
         m_explosionSystemObj = GameObject.FindGameObjectWithTag("Explosion");
-        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _gameManager = GameObject.Find("LandLevelManager").GetComponent<GameManager>();
         m_landChimp = GameObject.Find("LandPuss").GetComponent<LandPuss>();
 		m_mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
 		m_rockCollider2D = GetComponent<Collider2D>();

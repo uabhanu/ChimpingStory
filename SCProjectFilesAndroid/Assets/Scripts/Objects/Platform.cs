@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Ground : MonoBehaviour 
+public class Platform : MonoBehaviour 
 {
 	private float m_offset;
 	private Transform m_landPuss;
@@ -22,6 +22,7 @@ public class Ground : MonoBehaviour
 		if(m_offset < -12.05f)
         {
 			gameObject.SetActive(false);
+			PlatformsGenerator.m_totalPlatforms--;
         }
 	}
 }

@@ -18,7 +18,7 @@ public class Mountains : MonoBehaviour
 			
         m_offset = transform.position.x - m_landPuss.position.x;
 
-		if(m_offset < -6.0f)
+		if(m_offset < -12.0f)
         {
 			gameObject.SetActive(false);
 			MountainsGenerator.m_totalMountains--; //TODO Use Events system to do this from within the CloudsGenerator class in the future

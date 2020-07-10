@@ -97,17 +97,17 @@ public class LandPuss : MonoBehaviour
     {
         if(!m_isSuper)
         {
-            //Debug.DrawLine(m_raycastTop.position , m_raycastBottom.position , Color.red);
+            //Debug.DrawLine(_raycastTop.position , _raycastBottom.position , Color.red);
             RaycastHit2D hit2D = Physics2D.Raycast(_raycastTop.position , _raycastBottom.position);
 
             if(hit2D)
             {
-                if(hit2D.collider.gameObject.GetComponent<Ground>())
+                if(hit2D.collider.gameObject.GetComponent<Platform>())
                 {
                     _bIsGrounded = true;
                 }
 
-                else if(!hit2D.collider.gameObject.GetComponent<Ground>())
+                else if(!hit2D.collider.gameObject.GetComponent<Platform>())
                 {
                     _bIsGrounded = false;
                     SlideFinished();

@@ -40,7 +40,7 @@ public class MountainsGenerator : MonoBehaviour
 
     private Transform SpawnMountainsPart(Transform mountainsPart , Vector3 spawnPosition) 
     {
-        Transform mountainsPartTransform = Instantiate(mountainsPart , new Vector3(spawnPosition.x , -4.30f , spawnPosition.z) , Quaternion.identity);
+        Transform mountainsPartTransform = Instantiate(mountainsPart , new Vector3(spawnPosition.x , -3.29f , spawnPosition.z) , Quaternion.identity);
         return mountainsPartTransform;
     }
 }

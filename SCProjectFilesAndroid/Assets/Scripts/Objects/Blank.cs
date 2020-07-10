@@ -10,7 +10,7 @@ public class Blank : MonoBehaviour
     void Start()
     {
         _gameLayer = GameObject.Find("GameLayer").transform;
-        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _gameManager = GameObject.Find("LandLevelManager").GetComponent<GameManager>();
         _mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();  
     }
 

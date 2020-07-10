@@ -57,7 +57,7 @@ public class WaterChimp : MonoBehaviour
         StopAllCoroutines();
 
 		m_animator = GetComponent<Animator>();
-        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _gameManager = GameObject.Find("LandLevelManager").GetComponent<GameManager>();
         m_levelGenerator = GameObject.Find("LevelGenerator").GetComponent<LevelGenerator>();
         m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 
