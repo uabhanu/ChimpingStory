@@ -14,13 +14,6 @@ public class LandGenerator : MonoBehaviour
     private void Awake() 
     {
         _lastEndPosition = _landEndPosition.transform.position;
-
-        int startingSpawnLandParts = 5;
-
-        for(int i = 0; i < startingSpawnLandParts; i++) 
-        {
-            SpawnLandPart();
-        }
     }
 
     private void Update() 
@@ -42,7 +35,7 @@ public class LandGenerator : MonoBehaviour
     private Transform SpawnLandPart(Transform landPart , Vector3 spawnPosition) 
     {
         float randomYPos = Random.Range(spawnPosition.y - 1.5f , spawnPosition.y + 1.5f);
-        Transform landPartTransform = Instantiate(landPart , new Vector3(spawnPosition.x , randomYPos , spawnPosition.z) , Quaternion.identity);
+        Transform landPartTransform = Instantiate(landPart , new Vector3(spawnPosition.x , Mathf.Clamp(randomYPos , -4.90f , 0.70f) , spawnPosition.z) , Quaternion.identity);
         return landPartTransform;
     }
 

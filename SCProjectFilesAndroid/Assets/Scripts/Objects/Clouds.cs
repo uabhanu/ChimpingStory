@@ -2,7 +2,7 @@
 
 public class Clouds : MonoBehaviour 
 {
-	private float m_offset;
+	[SerializeField] private float m_offset;
 	private Transform m_landPuss;
 
 	private void Start()
