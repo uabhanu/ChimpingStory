@@ -3,16 +3,19 @@
 public class MountainsGenerator : MonoBehaviour
 {
     private const float PLAYER_DISTANCE_SPAWN_MOUNTAINS_PART = 200.0f;
+    private const int MAX_MOUNTAINS = 1;
 
     [SerializeField] private Transform _mountainsEndPosition;
     [SerializeField] private Transform _mountainsPartToSpawn;
     [SerializeField] private LandPuss _landPuss;
-
     [SerializeField] private Vector3 _lastEndPosition;
+
+    public static int m_totalMountains;
 
     private void Awake() 
     {
         _lastEndPosition = _mountainsEndPosition.transform.position;
+        m_totalMountains = 0;
     }
 
     private void Update() 
@@ -26,9 +29,13 @@ public class MountainsGenerator : MonoBehaviour
 
     private void SpawnCloudPart() 
     {
-        Transform chosenMountainsPart = _mountainsPartToSpawn;
-        Transform lastMountainsPartTransform = SpawnMountainsPart(chosenMountainsPart , _lastEndPosition);
-        _lastEndPosition = lastMountainsPartTransform.Find("EndPosition").position;
+        if(m_totalMountains < MAX_MOUNTAINS)
+        {
+            Transform chosenMountainsPart = _mountainsPartToSpawn;
+            Transform lastMountainsPartTransform = SpawnMountainsPart(chosenMountainsPart , _lastEndPosition);
+            _lastEndPosition = lastMountainsPartTransform.Find("EndPosition").position;
+            m_totalMountains++;
+        }
     }
 
     private Transform SpawnMountainsPart(Transform mountainsPart , Vector3 spawnPosition) 

@@ -3,18 +3,19 @@
 public class CloudsGenerator : MonoBehaviour
 {
     private const float PLAYER_DISTANCE_SPAWN_CLOUDS_PART = 200.0f;
-    private const int MAX_CLOUDS = 2;
+    private const int MAX_CLOUDS = 1;
 
-    [SerializeField] private int m_totalClouds = 0;
     [SerializeField] private Transform _cloudsEndPosition;
     [SerializeField] private Transform _cloudsPartToSpawn;
     [SerializeField] private LandPuss _landPuss;
-
     [SerializeField] private Vector3 _lastEndPosition;
+
+    public static int m_totalClouds;
 
     private void Awake() 
     {
         _lastEndPosition = _cloudsEndPosition.transform.position;
+        m_totalClouds = 0;
     }
 
     private void Update() 

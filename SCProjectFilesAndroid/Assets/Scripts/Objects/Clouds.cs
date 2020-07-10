@@ -18,9 +18,10 @@ public class Clouds : MonoBehaviour
 			
         m_offset = transform.position.x - m_landPuss.position.x;
 
-		if(m_offset < -39.0f)
+		if(m_offset < -19.0f)
         {
-			transform.position = new Vector3(m_landPuss.position.x , transform.position.y , transform.position.z);
+			gameObject.SetActive(false);
+			CloudsGenerator.m_totalClouds--; //TODO Use Events system to do this from within the CloudsGenerator class in the future
         }
 	}
 }
