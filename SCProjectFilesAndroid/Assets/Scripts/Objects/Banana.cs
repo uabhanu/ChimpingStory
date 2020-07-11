@@ -27,6 +27,7 @@ public class Banana : MonoBehaviour
         {
 			gameObject.SetActive(false);
 			CollectiblesGenerator.m_TotalCollectibles--;
+            //Debug.Log("Collectibles Subtract Through Banana.cs as out of screen");
         }
 	}
 
@@ -54,6 +55,7 @@ public class Banana : MonoBehaviour
 
             gameObject.SetActive(false);
             CollectiblesGenerator.m_TotalCollectibles--;
+            //Debug.Log("Collectibles Subtract Through Banana.cs as collected");
         }
     }
 }

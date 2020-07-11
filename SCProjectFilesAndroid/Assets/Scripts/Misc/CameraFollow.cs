@@ -2,7 +2,7 @@
 
 public class CameraFollow : MonoBehaviour
 {
-    [SerializeField] private float m_offsetX , m_offsetY;
+    private float m_offsetX , m_offsetY;
 
     [SerializeField] private Transform m_characterToFollow;
 

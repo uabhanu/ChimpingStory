@@ -2,6 +2,7 @@
 
 public class CollectiblesGenerator : MonoBehaviour
 {
+    //TODO This better be BananasGenerator, PortalsGenerator, etc. Check with Sri
     private bool _bIsOkToSpawn;
     private const float PLAYER_DISTANCE_SPAWN_LAND_PART = 200.0f; //TODO use this for Player Y Position
     private const int MAX_COLLECTIBLES = 1;
@@ -57,6 +58,7 @@ public class CollectiblesGenerator : MonoBehaviour
             _bIsOkToSpawn = false;
         }
 
+        Debug.Log("Is Ok to Spawn Outcome : " + _bIsOkToSpawn); //TODO Issue is here
         return _bIsOkToSpawn;
     }
 
@@ -64,11 +66,12 @@ public class CollectiblesGenerator : MonoBehaviour
     {
         if(IsOkToSpawn())
         {
-            if(m_TotalCollectibles < MAX_COLLECTIBLES) //TODO Need to debug this as after some time, Banana stops spawaning
+            if(m_TotalCollectibles < MAX_COLLECTIBLES)
             {
                 float randomYPos = Random.Range(transform.position.y - 1.5f , transform.position.y + 1.5f);
                 Instantiate(_mCollectiblePrefab , new Vector3(transform.position.x + 15.5f , Mathf.Clamp(randomYPos , -4.90f , 0.70f) , transform.position.z) , Quaternion.identity);
                 m_TotalCollectibles++;
+                //Debug.Log("Collectibles Addition Through CollectiblesGenerator.cs as Collectible Spawned");
             }
         }
     }
