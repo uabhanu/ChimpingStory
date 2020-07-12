@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 
 public class CollectiblesGenerator : MonoBehaviour
 {
@@ -31,18 +32,12 @@ public class CollectiblesGenerator : MonoBehaviour
         }
 
         Movement();
-
-        if(Vector3.Distance(_landPuss.GetPosition() , _lastEndPosition) < PLAYER_DISTANCE_SPAWN_COLLECTIBLE) 
-        {
-            // Spawn another collectibles part
-            SpawnCollectiblesPart();
-        }
     }
 
     private void SpawnCollectiblesPart() 
     {
-        //if(IsOkToSpawn())
-        //{
+        if(IsOkToSpawn())
+        {
             if(m_TotalCollectibles < MAX_COLLECTIBLES)
             {
                 Transform chosenCollectiblesPart = _collectiblesPartToSpawn;
@@ -50,12 +45,12 @@ public class CollectiblesGenerator : MonoBehaviour
                 _lastEndPosition = lastCollectiblesPartTransform.Find("EndPosition").position;
                 m_TotalCollectibles++;
             }
-        //}
+        }
     }
 
-    private Transform SpawnCollectiblesPart(Transform collectiblesPart , Vector3 spawnPosition) 
+    private Transform SpawnCollectiblesPart(Transform collectiblesPart , Vector3 position) 
     {
-        Transform collectiblesPartTransform = Instantiate(collectiblesPart , spawnPosition , Quaternion.identity);
+        Transform collectiblesPartTransform = Instantiate(collectiblesPart , new Vector3(transform.position.x , transform.position.y , transform.position.z) , Quaternion.identity);
         return collectiblesPartTransform;
     }
 
@@ -97,5 +92,11 @@ public class CollectiblesGenerator : MonoBehaviour
     {
         _moveSpeed = _landPuss.GetMoveSpeed();
         transform.Translate(-Vector2.left * _moveSpeed * Time.deltaTime , Space.Self);
+
+        if(Vector3.Distance(_landPuss.GetPosition() , _lastEndPosition) < PLAYER_DISTANCE_SPAWN_COLLECTIBLE) 
+        {
+            // Spawn another collectibles part
+            SpawnCollectiblesPart();
+        }
     }
 }
