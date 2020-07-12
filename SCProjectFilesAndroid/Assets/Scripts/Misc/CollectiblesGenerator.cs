@@ -31,26 +31,35 @@ public class CollectiblesGenerator : MonoBehaviour
             return;
         }
 
-        Movement();
-    }
+        _bIsOkToSpawn = IsOkToSpawn();
 
-    private void SpawnCollectiblesPart() 
-    {
-        if(IsOkToSpawn())
+        Movement();
+
+        if(_bIsOkToSpawn)
         {
-            if(m_TotalCollectibles < MAX_COLLECTIBLES)
+            if(Vector3.Distance(_landPuss.GetPosition() , _lastEndPosition) < PLAYER_DISTANCE_SPAWN_COLLECTIBLE) 
             {
-                Transform chosenCollectiblesPart = _collectiblesPartToSpawn;
-                Transform lastCollectiblesPartTransform = SpawnCollectiblesPart(chosenCollectiblesPart , _lastEndPosition);
-                _lastEndPosition = lastCollectiblesPartTransform.Find("EndPosition").position;
-                m_TotalCollectibles++;
+                // Spawn another collectibles part
+                SpawnCollectiblesPart();
             }
         }
     }
 
-    private Transform SpawnCollectiblesPart(Transform collectiblesPart , Vector3 position) 
+    private void SpawnCollectiblesPart() 
     {
-        Transform collectiblesPartTransform = Instantiate(collectiblesPart , new Vector3(transform.position.x , transform.position.y , transform.position.z) , Quaternion.identity);
+        if(m_TotalCollectibles < MAX_COLLECTIBLES)
+        {
+            Transform chosenCollectiblesPart = _collectiblesPartToSpawn;
+            Transform lastCollectiblesPartTransform = SpawnCollectiblesPart(chosenCollectiblesPart , _lastEndPosition);
+            _lastEndPosition = lastCollectiblesPartTransform.Find("EndPosition").position;
+            m_TotalCollectibles++;
+        }
+    }
+
+    private Transform SpawnCollectiblesPart(Transform collectiblesPart , Vector3 position)
+    {
+        position = new Vector3(transform.position.x , transform.position.y , transform.position.z);
+        Transform collectiblesPartTransform = Instantiate(collectiblesPart , position , Quaternion.identity);
         return collectiblesPartTransform;
     }
 
@@ -61,6 +70,8 @@ public class CollectiblesGenerator : MonoBehaviour
 
         if(hit2D)
         {
+            Debug.Log("Object Hit : " + hit2D.collider.gameObject.name);
+
             if(hit2D.collider.gameObject.tag == "Collectibles")
             {
                 Debug.Log("Raycast Hit : " + hit2D.collider.gameObject);
@@ -92,11 +103,5 @@ public class CollectiblesGenerator : MonoBehaviour
     {
         _moveSpeed = _landPuss.GetMoveSpeed();
         transform.Translate(-Vector2.left * _moveSpeed * Time.deltaTime , Space.Self);
-
-        if(Vector3.Distance(_landPuss.GetPosition() , _lastEndPosition) < PLAYER_DISTANCE_SPAWN_COLLECTIBLE) 
-        {
-            // Spawn another collectibles part
-            SpawnCollectiblesPart();
-        }
     }
 }
