@@ -2,7 +2,6 @@
 
 public class Banana : MonoBehaviour
 {
-    private float _offset;
     private GameManager _gameManager;
 	private LandPuss _landPuss;
 	private SoundManager _soundManager;
@@ -13,23 +12,6 @@ public class Banana : MonoBehaviour
 		_landPuss = GameObject.Find("LandPuss").GetComponent<LandPuss>();
         _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
-
-    void Update() 
-	{
-		if(Time.timeScale == 0f)
-		{
-			return;
-		}
-			
-        _offset = transform.position.x - _landPuss.transform.position.x;
-
-		if(_offset < -12.05f)
-        {
-			gameObject.SetActive(false);
-			CollectiblesGenerator.m_TotalCollectibles--;
-            //Debug.Log("Collectibles Subtract Through Banana.cs as out of screen");
-        }
-	}
 
     void OnTriggerEnter2D(Collider2D tri2D)
     {
@@ -54,7 +36,7 @@ public class Banana : MonoBehaviour
             }
 
             gameObject.SetActive(false);
-            CollectiblesGenerator.m_TotalCollectibles--;
+            //CollectiblesGenerator.m_TotalCollectibles--;
             //Debug.Log("Collectibles Subtract Through Banana.cs as collected");
         }
     }

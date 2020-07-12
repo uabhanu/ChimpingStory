@@ -10,12 +10,12 @@ public class MountainsGenerator : MonoBehaviour
     [SerializeField] private LandPuss _landPuss;
     [SerializeField] private Vector3 _lastEndPosition;
 
-    public static int m_totalMountains;
+    public static int m_TotalMountains;
 
     private void Awake() 
     {
         _lastEndPosition = _mountainsEndPosition.transform.position;
-        m_totalMountains = 0;
+        m_TotalMountains = 0;
     }
 
     private void Update() 
@@ -23,18 +23,18 @@ public class MountainsGenerator : MonoBehaviour
         if(Vector3.Distance(_landPuss.GetPosition() , _lastEndPosition) < PLAYER_DISTANCE_SPAWN_MOUNTAINS_PART) 
         {
             // Spawn another cloud part
-            SpawnCloudPart();
+            SpawnMountainsPart();
         }
     }
 
-    private void SpawnCloudPart() 
+    private void SpawnMountainsPart() 
     {
-        if(m_totalMountains < MAX_MOUNTAINS)
+        if(m_TotalMountains < MAX_MOUNTAINS)
         {
             Transform chosenMountainsPart = _mountainsPartToSpawn;
             Transform lastMountainsPartTransform = SpawnMountainsPart(chosenMountainsPart , _lastEndPosition);
             _lastEndPosition = lastMountainsPartTransform.Find("EndPosition").position;
-            m_totalMountains++;
+            m_TotalMountains++;
         }
     }
 

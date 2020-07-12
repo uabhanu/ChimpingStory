@@ -21,7 +21,7 @@ public class Clouds : MonoBehaviour
 		if(m_offset < -19.0f)
         {
 			gameObject.SetActive(false);
-			CloudsGenerator.m_totalClouds--; //TODO Use Events system to do this from within the CloudsGenerator class in the future
+			CloudsGenerator.m_TotalClouds--; //TODO Use Events system to do this from within the CloudsGenerator class in the future
         }
 	}
 }

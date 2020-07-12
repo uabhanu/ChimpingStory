@@ -11,12 +11,12 @@ public class PlatformsGenerator : MonoBehaviour
     [SerializeField] private LandPuss _landPuss;
     [SerializeField] private Vector3 _lastEndPosition;
 
-    public static int m_totalPlatforms;
+    public static int m_TotalPlatforms;
 
     private void Awake() 
     {
         _lastEndPosition = _landEndPosition.transform.position;
-        m_totalPlatforms = 0;
+        m_TotalPlatforms = 0;
     }
 
     private void Update() 
@@ -30,12 +30,12 @@ public class PlatformsGenerator : MonoBehaviour
 
     private void SpawnLandPart() 
     {
-        if(m_totalPlatforms < MAX_PLATFORMS)
+        if(m_TotalPlatforms < MAX_PLATFORMS)
         {
             Transform chosenLandPart = _landPartToSpawn;
             Transform lastLandPartTransform = SpawnLandPart(chosenLandPart , _lastEndPosition);
             _lastEndPosition = lastLandPartTransform.Find("EndPosition").position;
-            m_totalPlatforms++;
+            m_TotalPlatforms++;
         }
     }
 

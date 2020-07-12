@@ -4,12 +4,13 @@ using UnityEngine.SceneManagement;
 
 public class LandPuss : MonoBehaviour
 {
-    Animator _pussAnim;
-    [SerializeField] bool _bIsGrounded , _bHighSlip , _bIsJumping , _bLowSlip , _bIsSliding , _bIsUI;
-    GameManager _gameManager;
-    Rigidbody2D _pussBody2D;
-    RockSpawner _rockSpawner;
-	SoundManager _soundManager;
+    private Animator _pussAnim;
+    private bool _bIsGrounded , _bHighSlip , _bIsJumping , _bLowSlip , _bIsSliding , _bIsUI;
+    private float _currentMoveSpeed;
+    private GameManager _gameManager;
+    private Rigidbody2D _pussBody2D;
+    private RockSpawner _rockSpawner;
+	private SoundManager _soundManager;
 
     [SerializeField] float _defaultMoveSpeed , _jumpHeight , _slipTime;
     [SerializeField] string _holeAchievementID , _slipAchievementID , _superAchievementID;
@@ -93,6 +94,11 @@ public class LandPuss : MonoBehaviour
         return transform.position;
     }
 
+    public float GetMoveSpeed()
+    {
+        return _currentMoveSpeed;
+    }
+
     void Grounded()
     {
         if(!m_isSuper)
@@ -141,13 +147,13 @@ public class LandPuss : MonoBehaviour
 
 	public void Jump()
     {
-        if(_bIsGrounded && !_bIsJumping && !_bIsSliding && !_bIsUI) //This check exists in Update also for extra support as it's slow
+        if(_bIsGrounded && !_bIsJumping && !_bIsSliding && !_bIsUI) //This check exists in Update also for extra support as it's slow and this is for PC Game Version only
         {
             _bIsJumping = true;
             _pussAnim.SetBool("Jump" , true);
             _pussBody2D.velocity = new Vector2(_pussBody2D.velocity.x , _jumpHeight);
             Invoke("JumpFinished" , 0.55f);
-            SelfieAppear();
+            //SelfieAppear();
 		    _soundManager.m_soundsSource.clip = _soundManager.m_jump;
 
             if(_soundManager.m_soundsSource.enabled)
@@ -169,18 +175,19 @@ public class LandPuss : MonoBehaviour
         
         if(!m_isSuper)
         {
-            SelfieDisappear();
+            //SelfieDisappear();
         }
 
         else if(m_isSuper)
         {
-            Invoke("SelfieDisappear" , 0.75f);
+            //Invoke("SelfieDisappear" , 0.75f);
         }
     }
 
     void Movement()
     {
-        transform.Translate(-Vector2.left * _defaultMoveSpeed * Time.deltaTime , Space.Self);
+        _currentMoveSpeed = _defaultMoveSpeed;
+        transform.Translate(-Vector2.left * _currentMoveSpeed * Time.deltaTime , Space.Self);
     }
 
     void OnTriggerEnter2D(Collider2D tri2D)
@@ -225,15 +232,15 @@ public class LandPuss : MonoBehaviour
 		}
     }
 
-    void SelfieAppear()
-    {
-        GameManager.m_selfieButtonImage.enabled = true;
-    }
+    //void SelfieAppear()
+    //{
+    //    GameManager.m_selfieButtonImage.enabled = true;
+    //}
 
-    void SelfieDisappear()
-    {
-        GameManager.m_selfieButtonImage.enabled = false;
-    }
+    //void SelfieDisappear()
+    //{
+    //    GameManager.m_selfieButtonImage.enabled = false;
+    //}
 
     public void Slide()
     {
@@ -243,7 +250,7 @@ public class LandPuss : MonoBehaviour
 			_pussAnim.SetBool("Jog" , false);
 			_pussAnim.SetBool("Slide" , true);
 			Invoke("SlideFinished" , 0.75f);
-            SelfieAppear();
+            //SelfieAppear();
 		}
     }
 
@@ -254,7 +261,7 @@ public class LandPuss : MonoBehaviour
 
         if(!_bIsJumping)
         {
-            SelfieDisappear();
+            //SelfieDisappear();
         }
     }
 
@@ -294,7 +301,7 @@ public class LandPuss : MonoBehaviour
         GameManager.m_polaroidImage.enabled = false;
         GameManager.m_polaroidsCountText.enabled = false;
         _jumpHeight *= 1.5f;
-		SelfieAppear();
+		//SelfieAppear();
         SlipFinished();
         _rockSpawner.StartSpawnRoutine();
 		Invoke("SuperFinished" , 30.25f);

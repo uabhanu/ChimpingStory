@@ -1,15 +1,13 @@
 ﻿using UnityEngine;
 
-public class Platform : MonoBehaviour 
+public class Platform : MonoBehaviour
 {
 	private float m_offset;
 	private Transform m_landPuss;
-
-    private void Start()
+	private void Start()
     {
         m_landPuss = GameObject.FindGameObjectWithTag("Player").transform;
     }
-
     private void Update()
 	{
 		if(Time.timeScale == 0f)
@@ -22,7 +20,7 @@ public class Platform : MonoBehaviour
 		if(m_offset < -12.05f)
         {
 			gameObject.SetActive(false);
-			PlatformsGenerator.m_totalPlatforms--;
+			PlatformsGenerator.m_TotalPlatforms--;
         }
 	}
 }

@@ -10,12 +10,12 @@ public class CloudsGenerator : MonoBehaviour
     [SerializeField] private LandPuss _landPuss;
     [SerializeField] private Vector3 _lastEndPosition;
 
-    public static int m_totalClouds;
+    public static int m_TotalClouds;
 
     private void Awake() 
     {
         _lastEndPosition = _cloudsEndPosition.transform.position;
-        m_totalClouds = 0;
+        m_TotalClouds = 0;
     }
 
     private void Update() 
@@ -29,12 +29,12 @@ public class CloudsGenerator : MonoBehaviour
 
     private void SpawnCloudsPart() 
     {
-        if(m_totalClouds < MAX_CLOUDS)
+        if(m_TotalClouds < MAX_CLOUDS)
         {
             Transform chosenCloudsPart = _cloudsPartToSpawn;
             Transform lastCloudsPartTransform = SpawnCloudsPart(chosenCloudsPart , _lastEndPosition);
             _lastEndPosition = lastCloudsPartTransform.Find("EndPosition").position;
-            m_totalClouds++;
+            m_TotalClouds++;
         }
     }
 

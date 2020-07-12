@@ -2,24 +2,28 @@
 
 public class CollectiblesGenerator : MonoBehaviour
 {
-    //TODO This better be BananasGenerator, PortalsGenerator, etc. Check with Sri
-    private bool _bIsOkToSpawn;
-    private const float PLAYER_DISTANCE_SPAWN_LAND_PART = 200.0f; //TODO use this for Player Y Position
+    private const float PLAYER_DISTANCE_SPAWN_COLLECTIBLE = 200.0f;
     private const int MAX_COLLECTIBLES = 1;
 
-    [SerializeField] private float _mDefaultMoveSpeed;
-    [SerializeField] private GameObject _mCollectiblePrefab;
-    [SerializeField] Transform _mRaycastBottom , _mRaycastTop;
+    private bool _bIsOkToSpawn;
+    private float _moveSpeed;
+
+    [SerializeField] private Transform _collectiblesEndPosition;
+    [SerializeField] private Transform _collectiblesPartToSpawn;
+    [SerializeField] private Transform _raycastBottom;
+    [SerializeField] private Transform _raycastTop;
+    [SerializeField] private LandPuss _landPuss;
+    [SerializeField] private Vector3 _lastEndPosition;
 
     public static int m_TotalCollectibles;
 
-    void Start()
+    private void Awake() 
     {
+        _lastEndPosition = _collectiblesEndPosition.transform.position;
         m_TotalCollectibles = 0;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update() 
     {
         if(Time.timeScale == 0)
         {
@@ -27,28 +31,56 @@ public class CollectiblesGenerator : MonoBehaviour
         }
 
         Movement();
-        SpawnCollectible();
+
+        if(Vector3.Distance(_landPuss.GetPosition() , _lastEndPosition) < PLAYER_DISTANCE_SPAWN_COLLECTIBLE) 
+        {
+            // Spawn another collectibles part
+            SpawnCollectiblesPart();
+        }
     }
 
-    void Movement()
+    private void SpawnCollectiblesPart() 
     {
-        transform.Translate(-Vector2.left * _mDefaultMoveSpeed * Time.deltaTime , Space.Self);
+        //if(IsOkToSpawn())
+        //{
+            if(m_TotalCollectibles < MAX_COLLECTIBLES)
+            {
+                Transform chosenCollectiblesPart = _collectiblesPartToSpawn;
+                Transform lastCollectiblesPartTransform = SpawnCollectiblesPart(chosenCollectiblesPart , _lastEndPosition);
+                _lastEndPosition = lastCollectiblesPartTransform.Find("EndPosition").position;
+                m_TotalCollectibles++;
+            }
+        //}
+    }
+
+    private Transform SpawnCollectiblesPart(Transform collectiblesPart , Vector3 spawnPosition) 
+    {
+        Transform collectiblesPartTransform = Instantiate(collectiblesPart , spawnPosition , Quaternion.identity);
+        return collectiblesPartTransform;
     }
 
     bool IsOkToSpawn()
     {
-        Debug.DrawLine(_mRaycastTop.position , _mRaycastBottom.position , Color.red);
-        RaycastHit2D hit2D = Physics2D.Raycast(_mRaycastTop.position , _mRaycastBottom.position);
+        Debug.DrawLine(_raycastTop.position , _raycastBottom.position , Color.red);
+        RaycastHit2D hit2D = Physics2D.Raycast(_raycastTop.position , _raycastBottom.position);
 
         if(hit2D)
         {
-            if(hit2D.collider.gameObject.GetComponent<Platform>())
+            if(hit2D.collider.gameObject.tag == "Collectibles")
             {
+                Debug.Log("Raycast Hit : " + hit2D.collider.gameObject);
+                _bIsOkToSpawn = false;
+            }
+
+            else if(hit2D.collider.gameObject.tag == "Platform")
+            {
+                Debug.Log("Raycast Hit : " + hit2D.collider.gameObject);
                 _bIsOkToSpawn = true;
             }
 
-            else if(!hit2D.collider.gameObject.GetComponent<Platform>())
+            else
             {
+                Debug.Log("Raycast Hit : " + hit2D.collider.gameObject);
                 _bIsOkToSpawn = false;
             }
         }
@@ -58,21 +90,12 @@ public class CollectiblesGenerator : MonoBehaviour
             _bIsOkToSpawn = false;
         }
 
-        Debug.Log("Is Ok to Spawn Outcome : " + _bIsOkToSpawn); //TODO Issue is here
         return _bIsOkToSpawn;
     }
 
-    void SpawnCollectible()
+    void Movement()
     {
-        if(IsOkToSpawn())
-        {
-            if(m_TotalCollectibles < MAX_COLLECTIBLES)
-            {
-                float randomYPos = Random.Range(transform.position.y - 1.5f , transform.position.y + 1.5f);
-                Instantiate(_mCollectiblePrefab , new Vector3(transform.position.x + 15.5f , Mathf.Clamp(randomYPos , -4.90f , 0.70f) , transform.position.z) , Quaternion.identity);
-                m_TotalCollectibles++;
-                //Debug.Log("Collectibles Addition Through CollectiblesGenerator.cs as Collectible Spawned");
-            }
-        }
+        _moveSpeed = _landPuss.GetMoveSpeed();
+        transform.Translate(-Vector2.left * _moveSpeed * Time.deltaTime , Space.Self);
     }
 }
