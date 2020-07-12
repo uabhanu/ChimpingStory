@@ -35,7 +35,7 @@ public class Banana : MonoBehaviour
                 _soundManager.m_soundsSource.Play();
             }
 
-            gameObject.SetActive(false);
+            Destroy(gameObject);
             //CollectiblesGenerator.m_TotalCollectibles--;
             //Debug.Log("Collectibles Subtract Through Banana.cs as collected");
         }

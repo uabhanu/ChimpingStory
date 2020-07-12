@@ -3,19 +3,15 @@
 public class CloudsGenerator : MonoBehaviour
 {
     private const float PLAYER_DISTANCE_SPAWN_CLOUDS_PART = 200.0f;
-    private const int MAX_CLOUDS = 1;
 
     [SerializeField] private Transform _cloudsEndPosition;
     [SerializeField] private Transform _cloudsPartToSpawn;
     [SerializeField] private LandPuss _landPuss;
     [SerializeField] private Vector3 _lastEndPosition;
 
-    public static int m_TotalClouds;
-
     private void Awake() 
     {
         _lastEndPosition = _cloudsEndPosition.transform.position;
-        m_TotalClouds = 0;
     }
 
     private void Update() 
@@ -29,13 +25,9 @@ public class CloudsGenerator : MonoBehaviour
 
     private void SpawnCloudsPart() 
     {
-        if(m_TotalClouds < MAX_CLOUDS)
-        {
-            Transform chosenCloudsPart = _cloudsPartToSpawn;
-            Transform lastCloudsPartTransform = SpawnCloudsPart(chosenCloudsPart , _lastEndPosition);
-            _lastEndPosition = lastCloudsPartTransform.Find("EndPosition").position;
-            m_TotalClouds++;
-        }
+        Transform chosenCloudsPart = _cloudsPartToSpawn;
+        Transform lastCloudsPartTransform = SpawnCloudsPart(chosenCloudsPart , _lastEndPosition);
+        _lastEndPosition = lastCloudsPartTransform.Find("EndPosition").position;
     }
 
     private Transform SpawnCloudsPart(Transform cloudsPart , Vector3 spawnPosition) 

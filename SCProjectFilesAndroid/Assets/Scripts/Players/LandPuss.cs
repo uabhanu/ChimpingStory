@@ -108,12 +108,12 @@ public class LandPuss : MonoBehaviour
 
             if(hit2D)
             {
-                if(hit2D.collider.gameObject.GetComponent<Platform>())
+                if(hit2D.collider.gameObject.tag.Equals("Platform"))
                 {
                     _bIsGrounded = true;
                 }
 
-                else if(!hit2D.collider.gameObject.GetComponent<Platform>())
+                else if(!hit2D.collider.gameObject.tag.Equals("Platform"))
                 {
                     _bIsGrounded = false;
                     SlideFinished();
