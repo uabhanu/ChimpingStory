@@ -70,23 +70,23 @@ public class CollectiblesGenerator : MonoBehaviour
 
         if(hit2D)
         {
-            Debug.Log("Object Hit : " + hit2D.collider.gameObject.name);
+            //Debug.Log("Object Hit : " + hit2D.collider.gameObject.name);
 
             if(hit2D.collider.gameObject.tag == "Collectibles")
             {
-                Debug.Log("Raycast Hit : " + hit2D.collider.gameObject);
+                //Debug.Log("Raycast Hit : " + hit2D.collider.gameObject);
                 _bIsOkToSpawn = false;
             }
 
             else if(hit2D.collider.gameObject.tag == "Platform")
             {
-                Debug.Log("Raycast Hit : " + hit2D.collider.gameObject);
+                //Debug.Log("Raycast Hit : " + hit2D.collider.gameObject);
                 _bIsOkToSpawn = true;
             }
 
             else
             {
-                Debug.Log("Raycast Hit : " + hit2D.collider.gameObject);
+                //Debug.Log("Raycast Hit : " + hit2D.collider.gameObject);
                 _bIsOkToSpawn = false;
             }
         }
