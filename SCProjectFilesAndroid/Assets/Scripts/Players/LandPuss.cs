@@ -192,7 +192,7 @@ public class LandPuss : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D tri2D)
     {
-        if(tri2D.gameObject.tag.Equals("Fall"))
+        if(tri2D.gameObject.tag.Equals("Killbox"))
         {
 			_soundManager.m_soundsSource.clip = _soundManager.m_fallDeath;
 

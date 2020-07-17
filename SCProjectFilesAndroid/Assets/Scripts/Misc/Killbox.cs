@@ -32,6 +32,10 @@ public class Killbox : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider2D)
     {
-        Debug.Log("Killbox : " + collider2D.gameObject);
+        if(collider2D.gameObject.tag.Equals("Collectibles"))
+        {
+            Kill(collider2D.gameObject);
+            Debug.Log("Killbox : " + collider2D.gameObject);
+        }
     }
 }
