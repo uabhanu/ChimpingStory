@@ -1,13 +1,15 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class PlatformsGenerator : MonoBehaviour 
 {
     private const float PLAYER_DISTANCE_SPAWN_LAND_PART = 20.0f;
+    private Vector3 _lastEndPosition;
 
     [SerializeField] private Transform _platformEndPosition;
-    [SerializeField] private Transform _platformToSpawn;
+    [SerializeField] private Transform _platformStart;
+    [SerializeField] private List<Transform> _platformsList;
     [SerializeField] private LandPuss _landPuss;
-    [SerializeField] private Vector3 _lastEndPosition;
 
     private void Awake() 
     {
@@ -25,10 +27,7 @@ public class PlatformsGenerator : MonoBehaviour
 
     private void SpawnLandPart() 
     {
-        //TODO Instead of some random sizes, choose sizes as the default size - some value & + some value etc. so you can move the end position & Killbox BoxColliders accordingly
-        Transform chosenLandPart = _platformToSpawn;
-        PlatformSize platformSizeReference = _platformToSpawn.GetComponentInChildren<PlatformSize>();
-        platformSizeReference.PlatformResize();
+        Transform chosenLandPart = _platformsList[Random.Range(0 , _platformsList.Count)];
         Transform lastLandPartTransform = SpawnLandPart(chosenLandPart , _lastEndPosition);
         _lastEndPosition = lastLandPartTransform.Find("EndPosition").position;
     }
