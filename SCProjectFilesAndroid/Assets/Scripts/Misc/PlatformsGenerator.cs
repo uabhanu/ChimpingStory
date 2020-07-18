@@ -25,7 +25,10 @@ public class PlatformsGenerator : MonoBehaviour
 
     private void SpawnLandPart() 
     {
+        //TODO Instead of some random sizes, choose sizes as the default size - some value & + some value etc. so you can move the end position & Killbox BoxColliders accordingly
         Transform chosenLandPart = _platformToSpawn;
+        PlatformSize platformSizeReference = _platformToSpawn.GetComponentInChildren<PlatformSize>();
+        platformSizeReference.PlatformResize();
         Transform lastLandPartTransform = SpawnLandPart(chosenLandPart , _lastEndPosition);
         _lastEndPosition = lastLandPartTransform.Find("EndPosition").position;
     }
