@@ -2,7 +2,7 @@
 
 public class PlatformsGenerator : MonoBehaviour 
 {
-    private const float PLAYER_DISTANCE_SPAWN_LAND_PART = 200.0f;
+    private const float PLAYER_DISTANCE_SPAWN_LAND_PART = 20.0f;
 
     [SerializeField] private Transform _platformEndPosition;
     [SerializeField] private Transform _platformToSpawn;

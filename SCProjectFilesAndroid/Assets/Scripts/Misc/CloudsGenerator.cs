@@ -2,7 +2,7 @@
 
 public class CloudsGenerator : MonoBehaviour
 {
-    private const float PLAYER_DISTANCE_SPAWN_CLOUDS_PART = 200.0f;
+    private const float PLAYER_DISTANCE_SPAWN_CLOUDS_PART = 40.0f;
 
     [SerializeField] private Transform _cloudsEndPosition;
     [SerializeField] private Transform _cloudsPartToSpawn;

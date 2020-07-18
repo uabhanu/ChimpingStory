@@ -2,7 +2,7 @@
 
 public class MountainsGenerator : MonoBehaviour
 {
-    private const float PLAYER_DISTANCE_SPAWN_MOUNTAINS_PART = 200.0f;
+    private const float PLAYER_DISTANCE_SPAWN_MOUNTAINS_PART = 40.0f;
 
     [SerializeField] private Transform _mountainsEndPosition;
     [SerializeField] private Transform _mountainsPartToSpawn;
