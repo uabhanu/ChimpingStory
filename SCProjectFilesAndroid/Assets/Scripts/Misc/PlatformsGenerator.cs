@@ -2,17 +2,16 @@
 
 public class PlatformsGenerator : MonoBehaviour 
 {
-
     private const float PLAYER_DISTANCE_SPAWN_LAND_PART = 200.0f;
 
-    [SerializeField] private Transform _landEndPosition;
-    [SerializeField] private Transform _landPartToSpawn;
+    [SerializeField] private Transform _platformEndPosition;
+    [SerializeField] private Transform _platformToSpawn;
     [SerializeField] private LandPuss _landPuss;
     [SerializeField] private Vector3 _lastEndPosition;
 
     private void Awake() 
     {
-        _lastEndPosition = _landEndPosition.transform.position;
+        _lastEndPosition = _platformEndPosition.transform.position;
     }
 
     private void Update() 
@@ -26,14 +25,14 @@ public class PlatformsGenerator : MonoBehaviour
 
     private void SpawnLandPart() 
     {
-        Transform chosenLandPart = _landPartToSpawn;
+        Transform chosenLandPart = _platformToSpawn;
         Transform lastLandPartTransform = SpawnLandPart(chosenLandPart , _lastEndPosition);
         _lastEndPosition = lastLandPartTransform.Find("EndPosition").position;
     }
 
     private Transform SpawnLandPart(Transform landPart , Vector3 spawnPosition) 
     {
-        float randomYPos = Random.Range(spawnPosition.y - 1.5f , spawnPosition.y + 1.5f);
+        float randomYPos = Random.Range(spawnPosition.y - 3.5f , spawnPosition.y + 3.5f);
         Transform landPartTransform = Instantiate(landPart , new Vector3(spawnPosition.x , Mathf.Clamp(randomYPos , -4.90f , 0.70f) , spawnPosition.z) , Quaternion.identity);
         return landPartTransform;
     }
