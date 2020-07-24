@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour 
 {
     AudioSource _musicSource;
-	Image _adsAcceptButtonImage , _adsCancelButtonImage , _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _continueButtonImage , _exitButtonImage , _firstTimePlayTutorialMenuImage;
-    Image _firstTimePlayTutorialOKButtonImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage , _resumeButtonImage;
+	Image _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _continueButtonImage , _exitButtonImage , _firstTimePlayTutorialMenuImage;
+    Image _firstTimePlayTutorialOKButtonImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage;
     int _chimpionshipsCount , _currentChimpion;
     LandPuss _landChimp;
 	SoundManager _soundManager;
@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     static int _firstTimeJump = 0 , _firstTimeSlide = 0;
 
 	[SerializeField] bool _bSelfieFlashEnabled;
-    [SerializeField] GameObject _iapCartMenuObj , _inGameUIObj , _pauseMenuObj;
+    [SerializeField] GameObject _adsMenuObj , _iapCartMenuObj , _inGameUIObj , _pauseMenuObj;
     [SerializeField] Image _chimpionshipBeltMenuImage , _chimpionshipOKButtonImage , _landLevelButtonImage , _waterLevelButtonImage;
     [SerializeField] Sprite[] _chimpionshipBeltSprites;
     [SerializeField] string _chimpionAchievementID , _selfieAchievementID , _selfieLegendAchievementID , _undisputedChimpionAchievementID;
@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     public static bool b_isFirstTimeTutorialTestingMode , b_isMemoryLeakTestingMode , b_isUnityEditorTestingMode , b_quitButtonTapped;
     public static Button m_chimpionshipBeltButton , m_muteButton , m_pauseButton , m_unmuteButton;
     public static GameObject m_pauseMenuObj , m_uiButtonsTutorialMenuObj;
-    public static Image m_adsMenuImage , m_arrow01Image , m_arrow02Image , m_arrow03Image , m_arrow04Image , m_chimpionshipBeltButtonImage , m_muteButtonImage , m_nextButtonImage , m_pauseButtonImage;
+    public static Image m_arrow01Image , m_arrow02Image , m_arrow03Image , m_arrow04Image , m_chimpionshipBeltButtonImage , m_muteButtonImage , m_nextButtonImage , m_pauseButtonImage;
     public static Image m_polaroidImage , m_selfieButtonImage , m_selfiePanelImage , m_uiButtonsTutorialMenuImage , m_unmuteButtonImage;
     public static int m_currentScene , m_firstTimeIAPTutorialAppeared , m_firstTimeUIButtonsTutorial , m_firstTimeWaterLevelTutorial , m_playerMutedSounds;
     public static Text m_chimpionshipBeltButtonTutorialText , m_leaderboardButtonTutorialText , m_muteUnmuteButtonTutorialText , m_pauseButtonTutorialText , m_polaroidsCountText;
@@ -45,10 +45,8 @@ public class GameManager : MonoBehaviour
 
     public void Ads()
     {
-        m_adsMenuImage.enabled = true;
-        _adsAcceptButtonImage.enabled = true;
-        _adsCancelButtonImage.enabled = true;
-        _adsText.enabled = true;
+        _adsMenuObj.SetActive(true);
+        _inGameUIObj.SetActive(false);
         m_chimpionshipBeltButtonImage.enabled = false;
         m_highScoreLabelText.enabled = false;
         m_highScoreValueText.enabled = false;
@@ -63,10 +61,7 @@ public class GameManager : MonoBehaviour
 
     public void AdsAcceptButton()
     {
-        m_adsMenuImage.enabled = false;
-        _adsAcceptButtonImage.enabled = false;
-        _adsCancelButtonImage.enabled = false;
-        _adsText.enabled = false;
+        _adsMenuObj.SetActive(false);
         AdsShow();
     }
 
@@ -294,10 +289,6 @@ public class GameManager : MonoBehaviour
 
         else if(m_currentScene == 1)
         {
-            _adsText = GameObject.Find("AdsText").GetComponent<Text>();
-            _adsAcceptButtonImage = GameObject.Find("AdsAcceptButton").GetComponent<Image>();
-            _adsCancelButtonImage = GameObject.Find("AdsCancelButton").GetComponent<Image>();
-            m_adsMenuImage = GameObject.Find("AdsMenu").GetComponent<Image>();
             m_arrow01Image = GameObject.Find("Arrow01").GetComponent<Image>();
             m_arrow02Image = GameObject.Find("Arrow02").GetComponent<Image>();
             m_arrow03Image = GameObject.Find("Arrow03").GetComponent<Image>();
@@ -393,7 +384,6 @@ public class GameManager : MonoBehaviour
             m_polaroidsCountText = GameObject.Find("PolaroidsCountText").GetComponent<Text>();
             m_polaroidsCountText.text = ScoreManager.m_polaroidsCount.ToString();
             m_polaroidImage = GameObject.Find("PolaroidImage").GetComponent<Image>();
-            _resumeButtonImage = GameObject.Find("ResumeButton").GetComponent<Image>();
             _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
             m_unmuteButtonImage = GameObject.Find("UnmuteButton").GetComponent<Image>();
 
