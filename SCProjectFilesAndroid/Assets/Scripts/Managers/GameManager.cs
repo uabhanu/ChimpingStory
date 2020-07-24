@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     AudioSource _musicSource;
 	Image _adsAcceptButtonImage , _adsCancelButtonImage , _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _continueButtonImage , _exitButtonImage , _firstTimePlayTutorialMenuImage;
-    Image _firstTimePlayTutorialOKButtonImage , _iapCartButtonImage , _pauseMenuImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage , _resumeButtonImage;
+    Image _firstTimePlayTutorialOKButtonImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage , _resumeButtonImage;
     int _chimpionshipsCount , _currentChimpion;
     LandPuss _landChimp;
 	SoundManager _soundManager;
@@ -17,12 +17,12 @@ public class GameManager : MonoBehaviour
     static Image _swipeDownHandImage , _swipeUpHandImage , _swipeHandOKButtonImage , _swipeHandPanelImage;
     static int _firstTimeJump = 0 , _firstTimeSlide = 0;
 
-	[SerializeField] bool _bSelfieFlashEnabled , _bVersionCodeDisplayEnabled;
+	[SerializeField] bool _bSelfieFlashEnabled;
     [SerializeField] GameObject _iapCartMenuObj , _inGameUIObj , _pauseMenuObj;
     [SerializeField] Image _chimpionshipBeltMenuImage , _chimpionshipOKButtonImage , _landLevelButtonImage , _waterLevelButtonImage;
     [SerializeField] Sprite[] _chimpionshipBeltSprites;
     [SerializeField] string _chimpionAchievementID , _selfieAchievementID , _selfieLegendAchievementID , _undisputedChimpionAchievementID;
-    [SerializeField] Text _chimpionshipBeltText , _memoryLeakTestText , _versionCodeText;
+    [SerializeField] Text _chimpionshipBeltText , _memoryLeakTestText;
 
     public static bool b_isFirstTimeTutorialTestingMode , b_isMemoryLeakTestingMode , b_isUnityEditorTestingMode , b_quitButtonTapped;
     public static Button m_chimpionshipBeltButton , m_muteButton , m_pauseButton , m_unmuteButton;
@@ -289,11 +289,6 @@ public class GameManager : MonoBehaviour
             else
             {
                 Invoke("GetBhanuObjects" , 0.5f);
-            }
-
-            if(_bVersionCodeDisplayEnabled)
-            {
-                _versionCodeText.enabled = true;
             }
         }
 
