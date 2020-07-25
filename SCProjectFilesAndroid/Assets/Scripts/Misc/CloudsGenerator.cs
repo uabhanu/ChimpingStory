@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class BackgroundsGenerator : MonoBehaviour
+public class CloudsGenerator : MonoBehaviour
 {
     private const float PLAYER_DISTANCE_SPAWN_CLOUDS_PART = 40.0f;
 
