@@ -24,7 +24,7 @@ public class ScoreManager : MonoBehaviour
             //m_playerLevelValueDisplay = m_playerLevel; // This line is for testing purposes only
             m_polaroidsCount = 150;
             m_scoreValue = 4995f;
-            _gameManager.m_highScoreValueText.text = m_scoreValue.ToString();
+            _gameManager.m_HighScoreValueText.text = m_scoreValue.ToString();
         }
         else
         {
@@ -34,7 +34,7 @@ public class ScoreManager : MonoBehaviour
             m_supersCount = BhanuPrefs.GetSupers();
 
             m_scoreValue = BhanuPrefs.GetHighScore();
-            _gameManager.m_highScoreValueText.text = m_scoreValue.ToString();
+            _gameManager.m_HighScoreValueText.text = m_scoreValue.ToString();
         }
 	}
 }

@@ -48,7 +48,7 @@ public class LandLevelPolaroid : MonoBehaviour
         {
             ScoreManager.m_polaroidsCount++;
             BhanuPrefs.SetPolaroidsCount(ScoreManager.m_polaroidsCount);
-            GameManager.m_polaroidsCountText.text = ScoreManager.m_polaroidsCount.ToString();
+            _gameManager.m_PolaroidsCountText.text = ScoreManager.m_polaroidsCount.ToString();
 
             if(m_landChimp.m_isSlipping)
             {
@@ -59,7 +59,7 @@ public class LandLevelPolaroid : MonoBehaviour
                 ScoreManager.m_scoreValue += 25;
             }
 
-            _gameManager.m_highScoreValueText.text = ScoreManager.m_scoreValue.ToString();
+            _gameManager.m_HighScoreValueText.text = ScoreManager.m_scoreValue.ToString();
             BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
 			m_soundManager.m_soundsSource.clip = m_soundManager.m_coinCollected;
 			
@@ -70,7 +70,6 @@ public class LandLevelPolaroid : MonoBehaviour
 
             m_polaroidCollider2D.enabled = false;
 			m_polaroidRenderer.enabled = false;
-            //LevelCreator.m_polaroidObj = null;
         }
     }
 }

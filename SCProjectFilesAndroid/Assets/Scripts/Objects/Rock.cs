@@ -58,7 +58,7 @@ public class Rock : MonoBehaviour
 	void SpawnExplosion()
 	{
 		ScoreManager.m_scoreValue += 100;
-        _gameManager.m_highScoreValueText.text = ScoreManager.m_scoreValue.ToString();
+        _gameManager.m_HighScoreValueText.text = ScoreManager.m_scoreValue.ToString();
 		BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
 
         if(ScoreManager.m_scoreValue >= 5000)

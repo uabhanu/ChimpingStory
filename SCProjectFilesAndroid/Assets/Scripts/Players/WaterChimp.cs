@@ -114,11 +114,11 @@ public class WaterChimp : MonoBehaviour
         if(tri2D.tag == "Polaroid")
         {
             ScoreManager.m_scoreValue += 25;
-            _gameManager.m_highScoreValueText.text = ScoreManager.m_scoreValue.ToString();
+            _gameManager.m_HighScoreValueText.text = ScoreManager.m_scoreValue.ToString();
             BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
 
             ScoreManager.m_polaroidsCount++;
-            GameManager.m_polaroidsCountText.text = ScoreManager.m_polaroidsCount.ToString();
+            _gameManager.m_PolaroidsCountText.text = ScoreManager.m_polaroidsCount.ToString();
             BhanuPrefs.SetPolaroidsCount(ScoreManager.m_polaroidsCount);
 
             tri2D.GetComponent<Renderer>().enabled = false;

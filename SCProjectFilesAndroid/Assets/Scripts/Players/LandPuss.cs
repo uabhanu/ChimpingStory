@@ -298,8 +298,7 @@ public class LandPuss : MonoBehaviour
         _bIsGrounded = false;
         m_isSuper = true;
         _pussAnim.SetBool("Super" , true);
-        GameManager.m_polaroidImage.enabled = false;
-        GameManager.m_polaroidsCountText.enabled = false;
+        _gameManager.m_PolaroidsCountText.enabled = false;
         _jumpHeight *= 1.5f;
 		//SelfieAppear();
         SlipFinished();
@@ -310,8 +309,7 @@ public class LandPuss : MonoBehaviour
     void SuperFinished()
     {
         _pussAnim.SetBool("Super" , false);
-        GameManager.m_polaroidImage.enabled = true;
-        GameManager.m_polaroidsCountText.enabled = true;
+        _gameManager.m_PolaroidsCountText.enabled = true;
         _jumpHeight /= 1.5f;
         m_isSuper = false;	
     }
