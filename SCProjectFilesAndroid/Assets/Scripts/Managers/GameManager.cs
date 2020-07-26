@@ -161,7 +161,6 @@ public class GameManager : MonoBehaviour
 	{
         BhanuPrefs.DeleteScore();
         SceneManager.LoadScene("MainMenu");
-        //TODO Exit Confirm Menu warning about 0 High Score
     }
 
     public void FirstTimeJumpTutorial()

@@ -18,7 +18,7 @@ public class FarTreesGenerator : MonoBehaviour
     {
         if(Vector3.Distance(_landPuss.GetPosition() , _lastEndPosition) < PLAYER_DISTANCE_SPAWN_FAR_TREES_PART) 
         {
-            // Spawn another cloud part
+            // Spawn another far trees part
             SpawnFarTreesPart();
         }
     }

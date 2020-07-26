@@ -18,7 +18,7 @@ public class CloudsGenerator : MonoBehaviour
     {
         if(Vector3.Distance(_landPuss.GetPosition() , _lastEndPosition) < PLAYER_DISTANCE_SPAWN_CLOUDS_PART) 
         {
-            // Spawn another cloud part
+            // Spawn another clouds part
             SpawnCloudsPart();
         }
     }

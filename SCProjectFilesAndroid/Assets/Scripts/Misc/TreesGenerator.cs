@@ -18,7 +18,7 @@ public class TreesGenerator : MonoBehaviour
     {
         if(Vector3.Distance(_landPuss.GetPosition() , _lastEndPosition) < PLAYER_DISTANCE_SPAWN_TREES_PART) 
         {
-            // Spawn another cloud part
+            // Spawn another trees part
             SpawnTreesPart();
         }
     }
@@ -32,7 +32,7 @@ public class TreesGenerator : MonoBehaviour
 
     private Transform SpawnTreesPart(Transform treesPart , Vector3 spawnPosition) 
     {
-        Transform treesPartTransform = Instantiate(treesPart , new Vector3(spawnPosition.x , -0.66f , spawnPosition.z) , Quaternion.identity);
+        Transform treesPartTransform = Instantiate(treesPart , new Vector3(spawnPosition.x , -1.23f , spawnPosition.z) , Quaternion.identity);
         return treesPartTransform;
     }
 }

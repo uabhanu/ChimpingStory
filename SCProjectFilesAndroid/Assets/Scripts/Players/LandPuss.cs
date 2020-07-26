@@ -151,7 +151,7 @@ public class LandPuss : MonoBehaviour
         {
             _bIsJumping = true;
             _pussAnim.SetBool("Jump" , true);
-            _pussBody2D.velocity = new Vector2(_pussBody2D.velocity.x , _jumpHeight);
+            _pussBody2D.velocity = new Vector2(_pussBody2D.velocity.x , _jumpHeight); //TODO Use Force and call this in FixedUpdate() instead to get Parabolic Jump effect
             Invoke("JumpFinished" , 0.55f);
             //SelfieAppear();
 		    _soundManager.m_soundsSource.clip = _soundManager.m_jump;
