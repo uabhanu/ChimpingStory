@@ -2,6 +2,7 @@
 
 public class TreesGenerator : MonoBehaviour
 {
+    //TODO Backgrounds are overlapping due to the parallax and the reason is, EndPosition now constantly changing so we now need a min offset check before spawning this part
     private const float PLAYER_DISTANCE_SPAWN_TREES_PART = 40.0f;
 
     [SerializeField] private Transform _treesEndPosition;

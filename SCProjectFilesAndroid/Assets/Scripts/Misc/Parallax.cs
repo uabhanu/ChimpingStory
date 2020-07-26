@@ -2,7 +2,6 @@
 
 public class Parallax : MonoBehaviour
 {
-    //TODO This is causing backgrounds to overlap. Try applying this script to children instead and all children with the same parallax offset. Also, try making EndPosition child of it's respective object
     private LandPuss _landPussReference;
 
     [SerializeField] private float _parallaxOffset;
