@@ -35,8 +35,8 @@ public class PlatformsGenerator : MonoBehaviour
 
     private Transform SpawnLandPart(Transform landPart , Vector3 spawnPosition) 
     {
-        float randomYPos = Random.Range(spawnPosition.y - 3.5f , spawnPosition.y + 3.5f);
-        Transform landPartTransform = Instantiate(landPart , new Vector3(spawnPosition.x , Mathf.Clamp(randomYPos , -4.50f , 0.40f) , spawnPosition.z) , Quaternion.identity);
+        //TODO Use the Prefab variants for difference in the positions as Code Monkey did
+        Transform landPartTransform = Instantiate(landPart , spawnPosition , Quaternion.identity);
         return landPartTransform;
     }
 
