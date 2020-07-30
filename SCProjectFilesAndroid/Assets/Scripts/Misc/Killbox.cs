@@ -4,7 +4,7 @@ public class Killbox : MonoBehaviour
 {
     void Kill(GameObject gameObject)
     {
-        Destroy(gameObject);
+        Destroy(gameObject); //TODO Use Object pooling later
     }
 
     private void OnTriggerEnter2D(Collider2D collider2D)
@@ -19,12 +19,12 @@ public class Killbox : MonoBehaviour
             Kill(collider2D.gameObject);
         }
 
-        if(collider2D.gameObject.tag.Equals("Mountains"))
+        if(collider2D.gameObject.tag.Equals("Platform"))
         {
             Kill(collider2D.gameObject);
         }
 
-        if(collider2D.gameObject.tag.Equals("Platform"))
+        if(collider2D.gameObject.tag.Equals("Trees"))
         {
             Kill(collider2D.gameObject);
         }
