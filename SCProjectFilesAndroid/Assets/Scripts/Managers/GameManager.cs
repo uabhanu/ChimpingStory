@@ -5,24 +5,22 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour 
 {
-    AudioSource _musicSource;
-	Image _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _continueButtonImage , _exitButtonImage , _firstTimePlayTutorialMenuImage;
-    Image _firstTimePlayTutorialOKButtonImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage;
-    int _chimpionshipsCount , _currentChimpion;
-    LandPuss _landChimp;
-	SoundManager _soundManager;
-	Text _adsText , _backToLandLoseText , _backToLandWinText , _backToLandWithSuperText , _firstTimePlayTutorialText , _quitText;
+    private AudioSource _musicSource;
+	private Image _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _continueButtonImage , _exitButtonImage , _firstTimePlayTutorialMenuImage;
+    private Image _firstTimePlayTutorialOKButtonImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage;
+    private int _chimpionshipsCount , _currentChimpion;
+    private LandPuss _landChimp;
+	private SoundManager _soundManager;
+	private Text _adsText , _backToLandLoseText , _backToLandWinText , _backToLandWithSuperText , _firstTimePlayTutorialText , _quitText;
 
-    static Animator _swipeDownHandAnimator , _swipeUpHandAnimator;
-    static Image _swipeDownHandImage , _swipeUpHandImage , _swipeHandOKButtonImage , _swipeHandPanelImage;
-    static int _firstTimeJump = 0 , _firstTimeSlide = 0;
+    private static Animator _swipeDownHandAnimator , _swipeUpHandAnimator;
+    private static Image _swipeDownHandImage , _swipeUpHandImage , _swipeHandOKButtonImage , _swipeHandPanelImage;
+    private static int _firstTimeJump = 0 , _firstTimeSlide = 0;
 
-	[SerializeField] bool _bSelfieFlashEnabled;
-    [SerializeField] GameObject _adsMenuObj , _iapCartMenuObj , _inGameUIObj , _pauseMenuObj;
-    [SerializeField] Image _chimpionshipBeltMenuImage , _chimpionshipOKButtonImage , _landLevelButtonImage , _waterLevelButtonImage;
-    [SerializeField] Sprite[] _chimpionshipBeltSprites;
-    [SerializeField] string _chimpionAchievementID , _selfieAchievementID , _selfieLegendAchievementID , _undisputedChimpionAchievementID;
-    [SerializeField] Text _chimpionshipBeltText , _memoryLeakTestText;
+	[SerializeField] private bool _bSelfieFlashEnabled;
+    [SerializeField] private GameObject _adsMenuObj , _iapCartMenuObj , _inGameUIObj , _pauseMenuObj;
+    [SerializeField] private Sprite[] _chimpionshipBeltSprites;
+    [SerializeField] private string _chimpionAchievementID , _selfieAchievementID , _selfieLegendAchievementID , _undisputedChimpionAchievementID;
 
     public static bool b_isFirstTimeTutorialTestingMode , b_isMemoryLeakTestingMode , b_isUnityEditorTestingMode , b_quitButtonTapped;
     public static Button m_chimpionshipBeltButton , m_muteButton , m_pauseButton , m_unmuteButton;
@@ -420,20 +418,20 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if(b_isMemoryLeakTestingMode)
-        {
-            if(m_currentScene == 1)
-            {
-                _memoryLeakTestText.enabled = true;
-                _waterLevelButtonImage.enabled = true;
-            }
+        //if(b_isMemoryLeakTestingMode)
+        //{
+        //    if(m_currentScene == 1)
+        //    {
+        //        _memoryLeakTestText.enabled = true;
+        //        _waterLevelButtonImage.enabled = true;
+        //    }
 
-            if(m_currentScene == 2)
-            {
-                _landLevelButtonImage.enabled = true;
-                _memoryLeakTestText.enabled = true;
-            }
-        }
+        //    if(m_currentScene == 2)
+        //    {
+        //        _landLevelButtonImage.enabled = true;
+        //        _memoryLeakTestText.enabled = true;
+        //    }
+        //}
     }
 
     public void GoToFallingLevelButton()

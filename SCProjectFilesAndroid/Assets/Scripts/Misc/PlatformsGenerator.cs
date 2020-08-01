@@ -35,8 +35,9 @@ public class PlatformsGenerator : MonoBehaviour
 
     private Transform SpawnLandPart(Transform landPart , Vector3 spawnPosition) 
     {
-        //TODO Use the Prefab variants for difference in the positions as Code Monkey did
-        Transform landPartTransform = Instantiate(landPart , spawnPosition , Quaternion.identity);
+        float randomYPositionOffset = Random.Range(-0.5f , 0.5f);
+        //TODO Use Mathf.Clamp so the platforms don't spawn beyond the max top position and below the minimum bottom position
+        Transform landPartTransform = Instantiate(landPart , new Vector3(spawnPosition.x , spawnPosition.y + randomYPositionOffset , spawnPosition.z) , Quaternion.identity);
         return landPartTransform;
     }
 
