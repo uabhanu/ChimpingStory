@@ -36,8 +36,6 @@ public class Banana : MonoBehaviour
             }
 
             Destroy(gameObject);
-            //CollectiblesGenerator.m_TotalCollectibles--;
-            //Debug.Log("Collectibles Subtract Through Banana.cs as collected");
         }
     }
 }

@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class PlatformsGenerator : MonoBehaviour 
 {
-    //TODO Use Prefab variants to spawn Collectibles & Enemies
     private const float PLAYER_DISTANCE_SPAWN_LAND_PART = 20.0f;
     private Vector3 _lastEndPosition;
 

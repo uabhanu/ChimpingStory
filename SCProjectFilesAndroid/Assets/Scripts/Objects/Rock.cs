@@ -2,75 +2,40 @@
 
 public class Rock : MonoBehaviour 
 {
-    Camera m_mainCamera;
-    GameManager _gameManager;
-	LandPuss m_landChimp;
-	Collider2D m_rockCollider2D;
-    GameObject m_explosionPrefab , m_explosionSystemObj;
-	SpriteRenderer m_rockRenderer;
-	Vector3 m_positionOnScreen;
-
-    [SerializeField] float m_speed;
-    [SerializeField] Vector2[] m_randomPositions;
+    private GameManager _gameManager;
+    private SoundManager m_soundManager;
+    
+    [SerializeField] private GameObject m_explosionPrefab;
+    [SerializeField] private Vector2[] m_randomPositions;
 
 	void Start() 
 	{
-        m_explosionPrefab = Resources.Load("PF_Explosion") as GameObject;
-        m_explosionSystemObj = GameObject.FindGameObjectWithTag("Explosion");
-        _gameManager = GameObject.Find("LandLevelManager").GetComponent<GameManager>();
-        m_landChimp = GameObject.Find("LandPuss").GetComponent<LandPuss>();
-		m_mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
-		m_rockCollider2D = GetComponent<Collider2D>();
-		m_rockRenderer = GetComponent<SpriteRenderer>();
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         transform.position = m_randomPositions[Random.Range(0 , m_randomPositions.Length)];
 	}
-
-	void Update() 
-	{
-		if(Time.timeScale == 0)
-        {
-            return;
-        }
-
-        transform.Translate(Vector2.left * m_speed * Time.deltaTime);
-		m_positionOnScreen = m_mainCamera.WorldToScreenPoint(transform.position);
-
-		if(m_positionOnScreen.x < 0)
-		{
-			Destroy(gameObject);
-		}
-
-        if(!m_landChimp.m_isSuper && m_positionOnScreen.x >= 0.99f) //Try >= 765.3f if this doesn't work
-        {
-            m_rockCollider2D.enabled = false;
-            m_rockRenderer.enabled = false;
-        }
-    }
 		
     void OnTriggerEnter2D(Collider2D tri2D)
     {
         if(tri2D.gameObject.tag.Equals("Player"))
         {
+            m_soundManager.m_soundsSource.clip = m_soundManager.m_rockExplosion;
+			
+            if(m_soundManager.m_soundsSource.enabled)
+            {
+                m_soundManager.m_soundsSource.Play();
+            }
+
             SpawnExplosion();
         }
     }
 
 	void SpawnExplosion()
 	{
+        Explosion.m_explosionType = "Rock";
+        Instantiate(m_explosionPrefab , transform.position , Quaternion.identity);
 		ScoreManager.m_scoreValue += 100;
         _gameManager.m_HighScoreValueText.text = ScoreManager.m_scoreValue.ToString();
 		BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
-
-        if(ScoreManager.m_scoreValue >= 5000)
-        {
-            //SocialmediaManager.GooglePlayGamesLeaderboardUpdate();
-        }
-
-		if(m_explosionSystemObj == null)
-		{
-			m_explosionSystemObj = Instantiate(m_explosionPrefab);
-			Explosion.m_explosionType = "Rock";
-			Destroy(gameObject);
-		}
 	}
 }

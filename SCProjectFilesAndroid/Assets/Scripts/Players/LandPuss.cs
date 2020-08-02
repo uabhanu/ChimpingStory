@@ -9,10 +9,10 @@ public class LandPuss : MonoBehaviour
     private float _currentMoveSpeed;
     private GameManager _gameManager;
     private Rigidbody2D _pussBody2D;
-    private RockSpawner _rockSpawner;
 	private SoundManager _soundManager;
 
     [SerializeField] float _defaultMoveSpeed , _jumpHeight , _slipTime;
+    [SerializeField] GameObject _rockSpawner;
     [SerializeField] string _holeAchievementID , _slipAchievementID , _superAchievementID;
     [SerializeField] Transform _raycastBottom , _raycastTop;
 
@@ -33,7 +33,6 @@ public class LandPuss : MonoBehaviour
         _pussAnim = GetComponent<Animator>();
         _pussBody2D = GetComponent<Rigidbody2D>();
 		_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        _rockSpawner = GameObject.Find("RockSpawner").GetComponent<RockSpawner>();
 		_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
@@ -296,21 +295,21 @@ public class LandPuss : MonoBehaviour
 	void Super()
 	{
         _bIsGrounded = false;
+
         m_isSuper = true;
         _pussAnim.SetBool("Super" , true);
-        _gameManager.m_PolaroidsCountText.enabled = false;
         _jumpHeight *= 1.5f;
 		//SelfieAppear();
         SlipFinished();
-        _rockSpawner.StartSpawnRoutine();
+        //_rockSpawner.SetActive(true); //TODO Uncomment after Rock Spawner Logic is finished 
 		Invoke("SuperFinished" , 30.25f);
 	}
 
     void SuperFinished()
     {
         _pussAnim.SetBool("Super" , false);
-        _gameManager.m_PolaroidsCountText.enabled = true;
         _jumpHeight /= 1.5f;
+        _rockSpawner.SetActive(false);
         m_isSuper = false;	
     }
 

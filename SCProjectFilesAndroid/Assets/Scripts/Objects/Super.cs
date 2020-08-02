@@ -2,12 +2,12 @@
 
 public class Super : MonoBehaviour 
 {
-	private LandPuss _landPuss;
 	private SoundManager m_soundManager;
+
+	[SerializeField] private GameObject m_explosionPrefab;
 
 	void Start() 
 	{
-		_landPuss = GameObject.Find("LandPuss").GetComponent<LandPuss>();
         m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 	}
 
@@ -31,6 +31,14 @@ public class Super : MonoBehaviour
             {
                 m_soundManager.m_soundsSource.Play();
             }
+
+			SpawnExplosion();
         }
+	}
+
+	void SpawnExplosion()
+	{
+        Explosion.m_explosionType = "Super";
+        Instantiate(m_explosionPrefab , transform.position , Quaternion.identity);
 	}
 }

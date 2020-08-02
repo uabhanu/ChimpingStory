@@ -7,7 +7,7 @@ public class Explosion : MonoBehaviour
 
     [SerializeField] [Tooltip("Select the value of seconds after which this object should be destroyed")] [Range(0.1f , 1.1f)] float m_destroyAfter;
 	[SerializeField] Material m_rock , m_super;
-
+	
 	public static string m_explosionType;
 
     void Start()
@@ -24,6 +24,7 @@ public class Explosion : MonoBehaviour
 
 			case "Super":
 				m_explosionSystem.GetComponent<Renderer>().material = m_super;
+				m_soundManager.m_soundsSource.clip = m_soundManager.m_superCollected;
 			break;
 		}
 
