@@ -2,25 +2,13 @@
 
 public class Super : MonoBehaviour 
 {
-	BoxCollider2D m_superCollider2D;
-	Camera m_mainCamera;
-	LandPuss m_landChimp;
-	GameObject m_explosionPrefab , m_explosionSystemObj;
-	SoundManager m_soundManager;
-	SpriteRenderer m_superRenderer;
-	Vector3 m_positionOnScreen;
-
-	[SerializeField] float m_speed;
+	private LandPuss _landPuss;
+	private SoundManager m_soundManager;
 
 	void Start() 
 	{
-        m_explosionPrefab = Resources.Load("PF_Explosion") as GameObject;
-		m_explosionSystemObj = GameObject.FindGameObjectWithTag("Explosion");
-		m_landChimp = GameObject.Find("LandPuss").GetComponent<LandPuss>();
-		m_mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+		_landPuss = GameObject.Find("LandPuss").GetComponent<LandPuss>();
         m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
-		m_superCollider2D = GetComponent<BoxCollider2D>();	
-		m_superRenderer = GetComponent<SpriteRenderer>();
 	}
 
 	void Update() 
@@ -28,22 +16,6 @@ public class Super : MonoBehaviour
 		if(Time.timeScale == 0)
         {
             return;
-        }
-
-        m_positionOnScreen = m_mainCamera.WorldToScreenPoint(transform.position);
-
-        if(m_landChimp.m_isSuper)
-        {
-            m_superCollider2D.enabled = false;
-            m_superRenderer.enabled = false;
-        }
-		else
-        {
-            if(m_positionOnScreen.x >= 972)
-            {
-                m_superCollider2D.enabled = true;
-                m_superRenderer.enabled = true;
-            }
         }
 	}
 		
@@ -59,19 +31,6 @@ public class Super : MonoBehaviour
             {
                 m_soundManager.m_soundsSource.Play();
             }
-
-			SpawnExplosion();
         }
-	}
-
-	void SpawnExplosion()
-	{
-		if(m_explosionSystemObj == null)
-		{
-			m_explosionSystemObj = Instantiate(m_explosionPrefab);
-			Explosion.m_explosionType = "Super";
-			m_superCollider2D.enabled = false;
-            m_superRenderer.enabled = false;
-		}
 	}
 }
