@@ -17,7 +17,7 @@ public class PlatformsGenerator : MonoBehaviour
     }
 
     private void Update() 
-    {
+    { 
         if(Vector3.Distance(_landPuss.GetPosition() , _lastEndPosition) < PLAYER_DISTANCE_SPAWN_LAND_PART) 
         {
             // Spawn another level part
@@ -34,6 +34,7 @@ public class PlatformsGenerator : MonoBehaviour
 
     private Transform SpawnLandPart(Transform landPart , Vector3 spawnPosition) 
     {
+        //TODO Do the following if not in Super mode, else just spawn at the lowest possible y position
         float randomYPositionOffset = Random.Range(-0.5f , 0.5f);
         //TODO Use Mathf.Clamp so the platforms don't spawn beyond the max top position and below the minimum bottom position
         Transform landPartTransform = Instantiate(landPart , new Vector3(spawnPosition.x , spawnPosition.y + randomYPositionOffset , spawnPosition.z) , Quaternion.identity);

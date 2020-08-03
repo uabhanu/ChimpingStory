@@ -6,13 +6,11 @@ public class Rock : MonoBehaviour
     private SoundManager m_soundManager;
     
     [SerializeField] private GameObject m_explosionPrefab;
-    [SerializeField] private Vector2[] m_randomPositions;
 
 	void Start() 
 	{
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
-        transform.position = m_randomPositions[Random.Range(0 , m_randomPositions.Length)];
 	}
 		
     void OnTriggerEnter2D(Collider2D tri2D)

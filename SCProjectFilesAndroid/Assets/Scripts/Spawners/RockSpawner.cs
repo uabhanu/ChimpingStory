@@ -2,6 +2,8 @@
 
 public class RockSpawner : MonoBehaviour
 {
+    private int nextCheck = 1;
+
 	[SerializeField] GameObject m_rockPrefab;
 
     private void Update()
@@ -11,7 +13,11 @@ public class RockSpawner : MonoBehaviour
 			return;
 		}
 
-        SpawnRock();
+        if(Time.time >= nextCheck)
+        {
+            nextCheck = Mathf.FloorToInt(Time.time) + nextCheck;
+            SpawnRock();
+        }
     }
 
     void SpawnRock()

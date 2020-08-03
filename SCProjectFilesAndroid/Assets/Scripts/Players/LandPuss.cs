@@ -11,8 +11,8 @@ public class LandPuss : MonoBehaviour
     private Rigidbody2D _pussBody2D;
 	private SoundManager _soundManager;
 
-    [SerializeField] float _defaultMoveSpeed , _jumpHeight , _slipTime;
-    [SerializeField] GameObject _rockSpawner;
+    [SerializeField] float _defaultMoveSpeed , _defaultGravityScale , _defaultJumpHeight , _jumpHeight , _slipTime;
+    [SerializeField] GameObject _bottomWall , _rockSpawner , _topWall;
     [SerializeField] string _holeAchievementID , _slipAchievementID , _superAchievementID;
     [SerializeField] Transform _raycastBottom , _raycastTop;
 
@@ -20,6 +20,8 @@ public class LandPuss : MonoBehaviour
 
 	void Reset()
 	{
+        _defaultJumpHeight = 20.0f;
+        _defaultMoveSpeed = 5.0f;
         m_isSlipping = false;
 		m_isSuper = false;
         _jumpHeight = 15.5f;
@@ -32,6 +34,7 @@ public class LandPuss : MonoBehaviour
     {
         _pussAnim = GetComponent<Animator>();
         _pussBody2D = GetComponent<Rigidbody2D>();
+        _defaultGravityScale = _pussBody2D.gravityScale;
 		_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 		_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
@@ -136,11 +139,6 @@ public class LandPuss : MonoBehaviour
                 _bIsGrounded = false;
                 SlideFinished();
             }
-        }
-
-        else if(m_isSuper)
-        {
-            transform.position = new Vector2(-5.17f , Mathf.Clamp(transform.position.y , -0.98f , 3.25f));
         }
     }
 
@@ -294,23 +292,26 @@ public class LandPuss : MonoBehaviour
 
 	void Super()
 	{
+        _bottomWall.SetActive(true);
         _bIsGrounded = false;
-
         m_isSuper = true;
         _pussAnim.SetBool("Super" , true);
-        _jumpHeight *= 1.5f;
+        _pussBody2D.gravityScale = 3;
+        _rockSpawner.SetActive(true);
 		//SelfieAppear();
         SlipFinished();
-        //_rockSpawner.SetActive(true); //TODO Uncomment after Rock Spawner Logic is finished 
+        _topWall.SetActive(true);
 		Invoke("SuperFinished" , 30.25f);
 	}
 
     void SuperFinished()
     {
+        _bottomWall.SetActive(false);
+        _pussBody2D.gravityScale = _defaultGravityScale;
         _pussAnim.SetBool("Super" , false);
-        _jumpHeight /= 1.5f;
         _rockSpawner.SetActive(false);
         m_isSuper = false;	
+        _topWall.SetActive(false);
     }
 
     void UICheck()
