@@ -35,9 +35,8 @@ public class PlatformsGenerator : MonoBehaviour
     private Transform SpawnLandPart(Transform landPart , Vector3 spawnPosition) 
     {
         //TODO Do the following if not in Super mode, else just spawn at the lowest possible y position
-        float randomYPositionOffset = Random.Range(-0.5f , 0.5f);
-        //TODO Use Mathf.Clamp so the platforms don't spawn beyond the max top position and below the minimum bottom position
-        Transform landPartTransform = Instantiate(landPart , new Vector3(spawnPosition.x , spawnPosition.y + randomYPositionOffset , spawnPosition.z) , Quaternion.identity);
+        float randomYPosition = Random.Range(spawnPosition.y - 0.5f , spawnPosition.y + 0.5f); //TODO Ideal values yet to be decided
+        Transform landPartTransform = Instantiate(landPart , new Vector3(spawnPosition.x , Mathf.Clamp(randomYPosition , -4.50f , 0.70f) , spawnPosition.z) , Quaternion.identity);
         return landPartTransform;
     }
 

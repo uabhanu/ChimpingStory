@@ -11,8 +11,9 @@ public class LandPuss : MonoBehaviour
     private Rigidbody2D _pussBody2D;
 	private SoundManager _soundManager;
 
-    [SerializeField] float _defaultMoveSpeed , _defaultGravityScale , _defaultJumpHeight , _jumpHeight , _slipTime;
-    [SerializeField] GameObject _bottomWall , _rockSpawner , _topWall;
+    [SerializeField] float _defaultMoveSpeed , _defaultGravityScale , _jumpHeight , _slipTime;
+    [SerializeField] GameObject _bottomWall , _topWall;
+    [SerializeField] RockSpawner _rockSpawnerScript;
     [SerializeField] string _holeAchievementID , _slipAchievementID , _superAchievementID;
     [SerializeField] Transform _raycastBottom , _raycastTop;
 
@@ -20,11 +21,10 @@ public class LandPuss : MonoBehaviour
 
 	void Reset()
 	{
-        _defaultJumpHeight = 20.0f;
         _defaultMoveSpeed = 5.0f;
         m_isSlipping = false;
 		m_isSuper = false;
-        _jumpHeight = 15.5f;
+        _jumpHeight = 20.5f;
         _raycastBottom = GameObject.Find("RaycastBottom").transform;
         _raycastTop = GameObject.Find("RaycastTop").transform;
         _slipTime = 30f;
@@ -297,7 +297,7 @@ public class LandPuss : MonoBehaviour
         m_isSuper = true;
         _pussAnim.SetBool("Super" , true);
         _pussBody2D.gravityScale = 3;
-        _rockSpawner.SetActive(true);
+        _rockSpawnerScript.enabled = true;
 		//SelfieAppear();
         SlipFinished();
         _topWall.SetActive(true);
@@ -309,7 +309,7 @@ public class LandPuss : MonoBehaviour
         _bottomWall.SetActive(false);
         _pussBody2D.gravityScale = _defaultGravityScale;
         _pussAnim.SetBool("Super" , false);
-        _rockSpawner.SetActive(false);
+        _rockSpawnerScript.enabled = false;
         m_isSuper = false;	
         _topWall.SetActive(false);
     }

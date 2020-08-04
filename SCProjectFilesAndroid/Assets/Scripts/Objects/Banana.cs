@@ -35,7 +35,7 @@ public class Banana : MonoBehaviour
                 _soundManager.m_soundsSource.Play();
             }
 
-            Destroy(gameObject);
+            Destroy(gameObject); //TODO Object Pooling instead of Destroy
         }
     }
 }

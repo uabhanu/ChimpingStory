@@ -58,6 +58,6 @@ public class Super : MonoBehaviour
 	{
         Explosion.m_explosionType = "Super";
         Instantiate(m_explosionPrefab , transform.position , Quaternion.identity);
-		Destroy(gameObject);
+		Destroy(gameObject); //TODO Object Pooling instead of Destroy
 	}
 }

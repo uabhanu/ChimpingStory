@@ -35,5 +35,6 @@ public class Rock : MonoBehaviour
 		ScoreManager.m_scoreValue += 100;
         _gameManager.m_HighScoreValueText.text = ScoreManager.m_scoreValue.ToString();
 		BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
+        Destroy(gameObject); //TODO Object Pooling instead of Destroy
 	}
 }
