@@ -2,6 +2,7 @@
 
 public class CloudsGenerator : MonoBehaviour
 {
+    //TODO Night Mode
     private const float PLAYER_DISTANCE_SPAWN_CLOUDS_PART = 40.0f;
 
     [SerializeField] private LandPuss _landPuss;

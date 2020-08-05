@@ -13,7 +13,6 @@ public class LandPuss : MonoBehaviour
 
     [SerializeField] float _defaultMoveSpeed , _defaultGravityScale , _jumpHeight , _slipTime;
     [SerializeField] GameObject _bottomWall , _topWall;
-    [SerializeField] RockSpawner _rockSpawnerScript;
     [SerializeField] string _holeAchievementID , _slipAchievementID , _superAchievementID;
     [SerializeField] Transform _raycastBottom , _raycastTop;
 
@@ -32,6 +31,7 @@ public class LandPuss : MonoBehaviour
 
 	void Start()
     {
+        _currentMoveSpeed = _defaultMoveSpeed;
         _pussAnim = GetComponent<Animator>();
         _pussBody2D = GetComponent<Rigidbody2D>();
         _defaultGravityScale = _pussBody2D.gravityScale;
@@ -183,7 +183,6 @@ public class LandPuss : MonoBehaviour
 
     void Movement()
     {
-        _currentMoveSpeed = _defaultMoveSpeed;
         transform.Translate(-Vector2.left * _currentMoveSpeed * Time.deltaTime , Space.Self);
     }
 
@@ -294,10 +293,10 @@ public class LandPuss : MonoBehaviour
 	{
         _bottomWall.SetActive(true);
         _bIsGrounded = false;
+        _currentMoveSpeed *= 2;
         m_isSuper = true;
         _pussAnim.SetBool("Super" , true);
         _pussBody2D.gravityScale = 3;
-        _rockSpawnerScript.enabled = true;
 		//SelfieAppear();
         SlipFinished();
         _topWall.SetActive(true);
@@ -307,9 +306,9 @@ public class LandPuss : MonoBehaviour
     void SuperFinished()
     {
         _bottomWall.SetActive(false);
+        _currentMoveSpeed = _defaultMoveSpeed;
         _pussBody2D.gravityScale = _defaultGravityScale;
         _pussAnim.SetBool("Super" , false);
-        _rockSpawnerScript.enabled = false;
         m_isSuper = false;	
         _topWall.SetActive(false);
     }
