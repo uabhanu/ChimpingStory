@@ -9,15 +9,17 @@ public class LandPuss : MonoBehaviour
     private bool _bIsGrounded , _bHighSlip , _bIsJumping , _bLowSlip , _bIsSliding , _bIsUI;
     private float _currentMoveSpeed;
     private GameManager _gameManager;
-    private GameObject[] _allplatformObjs;
+    private GameObject[] _rockObjs;
     private Rigidbody2D _pussBody2D;
 	private SoundManager _soundManager;
 
-    [SerializeField] float _defaultMoveSpeed , _defaultGravityScale , _jumpHeight , _slipTime , _superTime;
-    [SerializeField] GameObject _bottomWall , _topWall;
-    [SerializeField] string _holeAchievementID , _slipAchievementID , _superAchievementID;
-    [SerializeField] Transform _raycastBottom , _raycastTop;
-    [SerializeField] Text _superTimerText; //This is for Testing only
+    [SerializeField] private float _defaultMoveSpeed , _defaultGravityScale , _jumpHeight , _slipTime , _superTime;
+    [SerializeField] private GameObject _bottomWall , _topWall;
+    [SerializeField] private PlatformsGenerator _platformsGenerator;
+    [SerializeField] private RocksGenerator _rocksGenerator;
+    [SerializeField] private string _holeAchievementID , _slipAchievementID , _superAchievementID;
+    [SerializeField] private Transform _raycastBottom , _raycastTop;
+    [SerializeField] private Text _superTimerText; //This is for Testing only
 
     public bool m_isSlipping , m_isSuper;
 
@@ -143,6 +145,13 @@ public class LandPuss : MonoBehaviour
                 _bIsGrounded = false;
                 SlideFinished();
             }
+        }
+
+        //TODO The block below is for testing only so remove after Super Chimp Logic successful
+        if(m_isSuper)
+        {
+            _superTime -= Time.deltaTime;
+            _superTimerText.text = _superTime.ToString();
         }
     }
 
@@ -295,13 +304,6 @@ public class LandPuss : MonoBehaviour
 
 	void Super()
 	{
-        _allplatformObjs = GameObject.FindGameObjectsWithTag("Platform");
-
-        for(int i = 0; i < _allplatformObjs.Length; i++)
-        {
-            Destroy(_allplatformObjs[i].gameObject);
-        }
-
         _bottomWall.SetActive(true);
         _bIsGrounded = false;
         _currentMoveSpeed *= 2;
@@ -311,13 +313,21 @@ public class LandPuss : MonoBehaviour
 		//SelfieAppear();
         SlipFinished();
         _topWall.SetActive(true);
-
-        _superTimerText.text = _superTime.ToString();
 		Invoke("SuperFinished" , _superTime);
 	}
 
     void SuperFinished()
     {
+        _rockObjs = GameObject.FindGameObjectsWithTag("Rock");
+
+        for(int i = 0 ; i < _rockObjs.Length ; i++)
+        {
+            if(_rockObjs[i].gameObject.transform.position.y > -4.50f)
+            {
+                Destroy(_rockObjs[i].gameObject);
+            }
+        }
+
         _bottomWall.SetActive(false);
         _currentMoveSpeed = _defaultMoveSpeed;
         _pussBody2D.gravityScale = _defaultGravityScale;
