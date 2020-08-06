@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LandPuss : MonoBehaviour
 {
@@ -8,13 +9,15 @@ public class LandPuss : MonoBehaviour
     private bool _bIsGrounded , _bHighSlip , _bIsJumping , _bLowSlip , _bIsSliding , _bIsUI;
     private float _currentMoveSpeed;
     private GameManager _gameManager;
+    private GameObject[] _allplatformObjs;
     private Rigidbody2D _pussBody2D;
 	private SoundManager _soundManager;
 
-    [SerializeField] float _defaultMoveSpeed , _defaultGravityScale , _jumpHeight , _slipTime;
+    [SerializeField] float _defaultMoveSpeed , _defaultGravityScale , _jumpHeight , _slipTime , _superTime;
     [SerializeField] GameObject _bottomWall , _topWall;
     [SerializeField] string _holeAchievementID , _slipAchievementID , _superAchievementID;
     [SerializeField] Transform _raycastBottom , _raycastTop;
+    [SerializeField] Text _superTimerText; //This is for Testing only
 
     public bool m_isSlipping , m_isSuper;
 
@@ -26,7 +29,8 @@ public class LandPuss : MonoBehaviour
         _jumpHeight = 20.5f;
         _raycastBottom = GameObject.Find("RaycastBottom").transform;
         _raycastTop = GameObject.Find("RaycastTop").transform;
-        _slipTime = 30f;
+        _slipTime = 30.25f;
+        _superTime = 30.25f;
 	}
 
 	void Start()
@@ -291,6 +295,13 @@ public class LandPuss : MonoBehaviour
 
 	void Super()
 	{
+        _allplatformObjs = GameObject.FindGameObjectsWithTag("Platform");
+
+        for(int i = 0; i < _allplatformObjs.Length; i++)
+        {
+            Destroy(_allplatformObjs[i].gameObject);
+        }
+
         _bottomWall.SetActive(true);
         _bIsGrounded = false;
         _currentMoveSpeed *= 2;
@@ -300,7 +311,9 @@ public class LandPuss : MonoBehaviour
 		//SelfieAppear();
         SlipFinished();
         _topWall.SetActive(true);
-		Invoke("SuperFinished" , 30.25f);
+
+        _superTimerText.text = _superTime.ToString();
+		Invoke("SuperFinished" , _superTime);
 	}
 
     void SuperFinished()
