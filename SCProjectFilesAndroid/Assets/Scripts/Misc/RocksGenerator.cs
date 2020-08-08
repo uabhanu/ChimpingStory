@@ -20,8 +20,12 @@ public class RocksGenerator : MonoBehaviour
         {
             if(Time.time > _nextActionTime)
             {
+                if(_nextActionTime > 2.2f) //On the 1st Spawn, too many rocks are spawned which is why I asked update not to spawn until _nextActionTime > 2.2f and it works great now!!
+                {
+                    SpawnRock();
+                }
+
                 _nextActionTime += _period;
-                SpawnRock();
             }
         }
     }
@@ -29,7 +33,7 @@ public class RocksGenerator : MonoBehaviour
     private void SpawnRock() 
     {
         int randomYPositionIndex = Random.Range(0 , _yPositions.Length);
-        Instantiate(_rockTransformToSpawn , new Vector3(transform.position.x , randomYPositionIndex , transform.position.z) , Quaternion.identity);
+        Instantiate(_rockTransformToSpawn , new Vector3(transform.position.x , _yPositions[randomYPositionIndex] , transform.position.z) , Quaternion.identity);
     }
 }
 
