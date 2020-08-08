@@ -47,7 +47,9 @@ public class PlatformsGenerator : MonoBehaviour
 
         else if(_landPuss.m_isSuper)
         {
-            _platformEndPositionTransform = Instantiate(objectToSpawn , new Vector3(spawnPosition.x , -4.50f , spawnPosition.z) , Quaternion.identity);
+            GameObject afterSuperPlatform = Resources.Load("PF_AfterSuperPlatform") as GameObject;
+            objectToSpawn = afterSuperPlatform.transform;
+            _platformEndPositionTransform = Instantiate(objectToSpawn , new Vector3(spawnPosition.x - 4.90f , -4.50f , spawnPosition.z) , Quaternion.identity);
         }
 
         return _platformEndPositionTransform;

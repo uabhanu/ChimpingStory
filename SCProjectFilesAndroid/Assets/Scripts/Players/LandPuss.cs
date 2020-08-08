@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class LandPuss : MonoBehaviour
 {
+    private const float DEFAULT_SUPER_TIME = 30.25f;
+    private const float DEFAULT_MOVE_SPEED = 5.0f;
+
     private Animator _pussAnim;
     private bool _bIsGrounded , _bHighSlip , _bIsJumping , _bLowSlip , _bIsSliding , _bIsUI;
     private float _currentMoveSpeed;
@@ -13,7 +16,7 @@ public class LandPuss : MonoBehaviour
     private Rigidbody2D _pussBody2D;
 	private SoundManager _soundManager;
 
-    [SerializeField] private float _defaultMoveSpeed , _defaultGravityScale , _jumpHeight , _slipTime , _superTime;
+    [SerializeField] private float _defaultGravityScale , _jumpHeight , _slipTime , _superTime;
     [SerializeField] private GameObject _bottomWall , _topWall;
     [SerializeField] private PlatformsGenerator _platformsGenerator;
     [SerializeField] private RocksGenerator _rocksGenerator;
@@ -25,22 +28,26 @@ public class LandPuss : MonoBehaviour
 
 	void Reset()
 	{
-        _defaultMoveSpeed = 5.0f;
+        _currentMoveSpeed = DEFAULT_MOVE_SPEED;
+        _pussBody2D = GetComponent<Rigidbody2D>();
+        _defaultGravityScale = _pussBody2D.gravityScale; 
         m_isSlipping = false;
 		m_isSuper = false;
         _jumpHeight = 20.5f;
+        _platformsGenerator = GameObject.Find("PlatformsGenerator").GetComponent<PlatformsGenerator>();
         _raycastBottom = GameObject.Find("RaycastBottom").transform;
         _raycastTop = GameObject.Find("RaycastTop").transform;
+        _rocksGenerator = GameObject.Find("RocksGenerator").GetComponent<RocksGenerator>();
         _slipTime = 30.25f;
-        _superTime = 30.25f;
+        _superTime = DEFAULT_SUPER_TIME;
+        _superTimerText = GameObject.Find("SuperTimerText").GetComponent<Text>();
 	}
 
 	void Start()
     {
-        _currentMoveSpeed = _defaultMoveSpeed;
+        _currentMoveSpeed = DEFAULT_MOVE_SPEED;
         _pussAnim = GetComponent<Animator>();
         _pussBody2D = GetComponent<Rigidbody2D>();
-        _defaultGravityScale = _pussBody2D.gravityScale;
 		_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 		_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
@@ -329,10 +336,11 @@ public class LandPuss : MonoBehaviour
         }
 
         _bottomWall.SetActive(false);
-        _currentMoveSpeed = _defaultMoveSpeed;
+        _currentMoveSpeed = DEFAULT_MOVE_SPEED;
         _pussBody2D.gravityScale = _defaultGravityScale;
         _pussAnim.SetBool("Super" , false);
         m_isSuper = false;	
+        _superTime = DEFAULT_SUPER_TIME;
         _topWall.SetActive(false);
     }
 
