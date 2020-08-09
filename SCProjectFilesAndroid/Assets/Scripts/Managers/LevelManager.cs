@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    public WaterChimp m_waterChimp; 
+    //public WaterChimp m_waterChimp; 
     //public GUIManager guiManager;                       //Holds a link to the GUI Manager
     public LevelGenerator levelGenerator;               //Holds a link to the Level Generator
     //public MissionManager missionManager;               //Holds a link to the Mission Manager
-    public PowerupManager powerupManager;               //Holds a link to the Powerup Manager
+    //public PowerupManager powerupManager;               //Holds a link to the Powerup Manager
 
     private int collectedCoins;                         //Hold the current collected coin ammount
 
@@ -50,7 +50,7 @@ public class LevelManager : MonoBehaviour
 	public void Restart()
     {
         levelGenerator.Reset();
-        m_waterChimp.Reset();
+        //m_waterChimp.Reset();
         //missionManager.SaveData();
 
         StartLevel();
@@ -58,7 +58,7 @@ public class LevelManager : MonoBehaviour
     //Returns to the main menu
     public void QuitToMain()
     {
-        m_waterChimp.Reset();
+        //m_waterChimp.Reset();
         levelGenerator.Reset();
         //missionManager.SaveData();
     }
@@ -67,7 +67,7 @@ public class LevelManager : MonoBehaviour
     {
         collectedCoins = 0;
 
-        m_waterChimp.EnableChimp();
+        //m_waterChimp.EnableChimp();
         levelGenerator.StartToGenerate();
 
         //missionManager.LoadData();
@@ -75,16 +75,16 @@ public class LevelManager : MonoBehaviour
     //Pauses the level
 	public void PauseLevel()
     {
-        m_waterChimp.SetPauseState(true);
+        //m_waterChimp.SetPauseState(true);
         levelGenerator.SetPauseState(true);
-        powerupManager.SetPauseState(true);
+        //powerupManager.SetPauseState(true);
 	}
     //Resume the level
     public void ResumeLevel()
     {
-        m_waterChimp.SetPauseState(false);
+        //m_waterChimp.SetPauseState(false);
         levelGenerator.SetPauseState(false);
-        powerupManager.SetPauseState(false);
+        //powerupManager.SetPauseState(false);
     }
     //Stops the level after a crash
     public void StopLevel()
@@ -96,7 +96,7 @@ public class LevelManager : MonoBehaviour
     //Revives the player, launches a sonic wave, and continue the level generation
     public void ReviveUsed()
     {
-        m_waterChimp.Revive();
+        //m_waterChimp.Revive();
         //StartCoroutine(FunctionLibrary.CallWithDelay(levelGenerator.ContinueGeneration, 0.75f));
     }
     //Called when the level has ended

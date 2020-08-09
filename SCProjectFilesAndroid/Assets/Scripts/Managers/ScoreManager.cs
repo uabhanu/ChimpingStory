@@ -2,7 +2,7 @@
 
 public class ScoreManager : MonoBehaviour 
 {
-    GameManager _gameManager;
+    WaterLevelManager _waterLevelManager;
     string _leaderboardID = "CgkIia2_r44YEAIQAQ";
 
     public static bool m_isTestingMode;
@@ -15,7 +15,7 @@ public class ScoreManager : MonoBehaviour
 	{
         //m_isTestingMode = true;
 
-        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _waterLevelManager = GameObject.Find("WaterLevelManager").GetComponent<WaterLevelManager>();
 
         if(m_isTestingMode)
         {
@@ -24,7 +24,7 @@ public class ScoreManager : MonoBehaviour
             //m_playerLevelValueDisplay = m_playerLevel; // This line is for testing purposes only
             m_polaroidsCount = 150;
             m_scoreValue = 4995f;
-            _gameManager.m_HighScoreValueText.text = m_scoreValue.ToString();
+            _waterLevelManager.m_HighScoreValueText.text = m_scoreValue.ToString();
         }
         else
         {
@@ -32,9 +32,8 @@ public class ScoreManager : MonoBehaviour
             //m_playerLevelValueDisplay = m_playerLevel; // This line is for testing purposes only
             m_polaroidsCount = BhanuPrefs.GetPolaroidsCount();
             m_supersCount = BhanuPrefs.GetSupers();
-
             m_scoreValue = BhanuPrefs.GetHighScore();
-            _gameManager.m_HighScoreValueText.text = m_scoreValue.ToString();
+            _waterLevelManager.m_HighScoreValueText.text = m_scoreValue.ToString();
         }
 	}
 }

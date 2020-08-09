@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 	private Image _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _continueButtonImage , _exitButtonImage , _firstTimePlayTutorialMenuImage;
     private Image _firstTimePlayTutorialOKButtonImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage;
     private int _chimpionshipsCount , _currentChimpion;
-    private LandPuss _landChimp;
+    private LandPuss _landPuss;
 	private SoundManager _soundManager;
 	private Text _adsText , _backToLandLoseText , _backToLandWinText , _backToLandWithSuperText , _firstTimePlayTutorialText , _quitText;
 
@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     private static int _firstTimeJump = 0 , _firstTimeSlide = 0;
 
 	[SerializeField] private bool _bSelfieFlashEnabled;
-    [SerializeField] private GameObject _adsMenuObj , _iapCartMenuObj , _inGameUIObj , _pauseMenuObj;
+    [SerializeField] private GameObject _adsMenuObj , _iapCartMenuObj , _inGameUIObj , _pauseMenuObj , _selfieButtonObj , _selfiePanelObj;
     [SerializeField] private Sprite[] _chimpionshipBeltSprites;
     [SerializeField] private string _chimpionAchievementID , _selfieAchievementID , _selfieLegendAchievementID , _undisputedChimpionAchievementID;
 
@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     public static Button m_chimpionshipBeltButton , m_muteButton , m_pauseButton , m_unmuteButton;
     public static GameObject m_pauseMenuObj , m_uiButtonsTutorialMenuObj;
     public static Image m_arrow01Image , m_arrow02Image , m_arrow03Image , m_arrow04Image , m_chimpionshipBeltButtonImage , m_muteButtonImage , m_nextButtonImage , m_pauseButtonImage;
-    public static Image m_selfieButtonImage , m_selfiePanelImage , m_uiButtonsTutorialMenuImage , m_unmuteButtonImage;
+    public static Image m_uiButtonsTutorialMenuImage , m_unmuteButtonImage;
     public static int m_currentScene , m_firstTimeIAPTutorialAppeared , m_firstTimeUIButtonsTutorial , m_firstTimeWaterLevelTutorial , m_playerMutedSounds;
     public static Text m_chimpionshipBeltButtonTutorialText , m_leaderboardButtonTutorialText , m_muteUnmuteButtonTutorialText , m_pauseButtonTutorialText;
 
@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
         m_muteButtonImage.enabled = false;
         m_pauseButtonImage.enabled = false;
         m_PolaroidsCountText.enabled = false;
-		m_selfieButtonImage.enabled = false;
+		_selfieButtonObj.SetActive(false);
         m_unmuteButtonImage.enabled = false;
 		Time.timeScale = 0;
     }
@@ -152,7 +152,7 @@ public class GameManager : MonoBehaviour
 
     void EndFlash()
 	{
-		m_selfiePanelImage.enabled = false;
+		_selfiePanelObj.SetActive(false);
 	}
 
     public void ExitButton()
@@ -288,7 +288,7 @@ public class GameManager : MonoBehaviour
             m_chimpionshipBeltButton = GameObject.Find("PF_ChimpionshipBeltButton").GetComponent<Button>();
             m_chimpionshipBeltButtonImage = GameObject.Find("PF_ChimpionshipBeltButton").GetComponent<Image>();
             m_chimpionshipBeltButtonTutorialText = GameObject.Find("ChimpionBeltButtonTutorialText").GetComponent<Text>();
-            _landChimp = GameObject.Find("LandPuss").GetComponent<LandPuss>();
+            _landPuss = GameObject.Find("LandPuss").GetComponent<LandPuss>();
             m_leaderboardButtonTutorialText = GameObject.Find("LeaderboardButtonTutorialText").GetComponent<Text>();
             m_muteUnmuteButtonTutorialText = GameObject.Find("MuteButtonTutorialText").GetComponent<Text>();
             m_nextButtonImage = GameObject.Find("NextButton").GetComponent<Image>();
@@ -296,8 +296,6 @@ public class GameManager : MonoBehaviour
             m_pauseButtonImage = GameObject.Find("PF_PauseButton").GetComponent<Image>();
             m_pauseButtonTutorialText = GameObject.Find("PauseButtonTutorialText").GetComponent<Text>();
             m_PolaroidsCountText.text = ScoreManager.m_polaroidsCount.ToString();
-            m_selfieButtonImage = GameObject.Find("SelfieButton").GetComponent<Image>();
-            m_selfiePanelImage = GameObject.Find("SelfiePanel").GetComponent<Image>();
             _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
             _swipeDownHandAnimator = GameObject.Find("SwipeDownHand").GetComponent<Animator>();
             _swipeUpHandAnimator = GameObject.Find("SwipeUpHand").GetComponent<Animator>();
@@ -360,9 +358,9 @@ public class GameManager : MonoBehaviour
             _backToLandWinText = GameObject.Find("BackToLandWinText").GetComponent<Text>();
             _backToLandWithSuperMenuImage = GameObject.Find("BackToLandWithSuperMenu").GetComponent<Image>();
             _backToLandWithSuperText = GameObject.Find("BackToLandWithSuperText").GetComponent<Text>();
-            m_chimpionshipBeltButton = GameObject.Find("PF_ChimpionshipBeltButton").GetComponent<Button>();
-            m_chimpionshipBeltButtonImage = GameObject.Find("PF_ChimpionshipBeltButton").GetComponent<Image>();
-            _continueButtonImage = GameObject.Find("ContinueButton").GetComponent<Image>();
+            //m_chimpionshipBeltButton = GameObject.Find("PF_ChimpionshipBeltButton").GetComponent<Button>();
+            //m_chimpionshipBeltButtonImage = GameObject.Find("PF_ChimpionshipBeltButton").GetComponent<Image>();
+            _continueButtonImage = GameObject.Find("FirstTimeTutorialOKButton").GetComponent<Image>();
             _firstTimePlayTutorialMenuImage = GameObject.Find("FirstTimePlayTutorialMenu").GetComponent<Image>();
             _firstTimePlayTutorialOKButtonImage = GameObject.Find("FirstTimePlayTutorialOKButton").GetComponent<Image>();
             _firstTimePlayTutorialText = GameObject.Find("FirstTimePlayTutorialText").GetComponent<Text>();
@@ -615,12 +613,8 @@ public class GameManager : MonoBehaviour
 		    
             _inGameUIObj.SetActive(false);
             _pauseMenuObj.SetActive(true);
-
-		    if(m_selfiePanelImage != null)
-		    {
-			    m_selfieButtonImage.enabled = false;	
-		    }
-
+			_selfieButtonObj.SetActive(false);
+		    
 		    Time.timeScale = 0;
         }
 	}
@@ -711,20 +705,20 @@ public class GameManager : MonoBehaviour
             _soundManager.m_soundsSource.Play();
         }
 
-		m_selfieButtonImage.enabled = false;
+		_selfieButtonObj.SetActive(false);
 
 		if(_bSelfieFlashEnabled)
 		{
-			m_selfiePanelImage.enabled = true;
+			_selfiePanelObj.SetActive(true);
 			Invoke("EndFlash" , 0.25f);
 		}
 
-		if(_landChimp.m_isSlipping)
+		if(_landPuss.m_isSlipping)
         {
             ScoreManager.m_scoreValue += 60;
         }
 
-        else if(_landChimp.m_isSuper) 
+        else if(_landPuss.m_isSuper) 
 		{
 			ScoreManager.m_scoreValue += 200;
 		} 

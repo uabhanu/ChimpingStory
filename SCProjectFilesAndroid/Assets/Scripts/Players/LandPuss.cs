@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class LandPuss : MonoBehaviour
 {
@@ -22,7 +21,7 @@ public class LandPuss : MonoBehaviour
     [SerializeField] private RocksGenerator _rocksGenerator;
     [SerializeField] private string _holeAchievementID , _slipAchievementID , _superAchievementID;
     [SerializeField] private Transform _raycastBottom , _raycastTop;
-    [SerializeField] private Text _superTimerText; //This is for Testing only
+    //[SerializeField] private Text _superTimerText; //This is for Testing only
 
     public bool m_isSlipping , m_isSuper;
 
@@ -40,7 +39,7 @@ public class LandPuss : MonoBehaviour
         _rocksGenerator = GameObject.Find("RocksGenerator").GetComponent<RocksGenerator>();
         _slipTime = 30.25f;
         _superTime = DEFAULT_SUPER_TIME;
-        _superTimerText = GameObject.Find("SuperTimerText").GetComponent<Text>();
+        //_superTimerText = GameObject.Find("SuperTimerText").GetComponent<Text>();
 	}
 
 	void Start()
@@ -155,11 +154,11 @@ public class LandPuss : MonoBehaviour
         }
 
         //TODO The block below is for testing only so remove after Super Chimp Logic successful
-        if(m_isSuper)
-        {
-            _superTime -= Time.deltaTime;
-            _superTimerText.text = _superTime.ToString();
-        }
+        //if(m_isSuper)
+        //{
+        //    _superTime -= Time.deltaTime;
+        //    _superTimerText.text = _superTime.ToString();
+        //}
     }
 
 	public void Jump()

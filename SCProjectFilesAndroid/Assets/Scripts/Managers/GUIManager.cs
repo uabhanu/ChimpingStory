@@ -1,14 +1,14 @@
-using UnityEngine;
+//using UnityEngine;
 
-public class GUIManager : MonoBehaviour
-{
-    GameManager m_gameManager;
+//public class GUIManager : MonoBehaviour
+//{
+//    GameManager m_gameManager;
 
-    [SerializeField] LevelManager levelManager;
+//    [SerializeField] LevelManager levelManager;
 
-    void Start()
-    {
-        m_gameManager = GameObject.Find("LandLevelManager").GetComponent<GameManager>();
-        levelManager.StartLevel();
-    }
-}
+//    void Start()
+//    {
+//        m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+//        levelManager.StartLevel();
+//    }
+//}

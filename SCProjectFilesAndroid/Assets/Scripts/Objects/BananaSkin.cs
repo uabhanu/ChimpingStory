@@ -4,13 +4,13 @@ public class BananaSkin : MonoBehaviour
 {
     Camera m_mainCamera;
     Collider2D m_skinCollider2D;
-	LandPuss m_landChimp;
+	LandPuss m_landPuss;
     SpriteRenderer m_skinRenderer;
     Vector3 m_positionOnScreen;
 
 	void Start()
     {
-		m_landChimp = GameObject.Find("LandPuss").GetComponent<LandPuss>();
+		m_landPuss = GameObject.Find("LandPuss").GetComponent<LandPuss>();
         m_mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         m_skinCollider2D = GetComponent<Collider2D>();
         m_skinRenderer = GetComponent<SpriteRenderer>();
@@ -25,7 +25,7 @@ public class BananaSkin : MonoBehaviour
 
         m_positionOnScreen = m_mainCamera.WorldToScreenPoint(transform.position);
 
-        if(m_landChimp.m_isSlipping || m_landChimp.m_isSuper)
+        if(m_landPuss.m_isSlipping || m_landPuss.m_isSuper)
         {
             m_skinCollider2D.enabled = false;
             m_skinRenderer.enabled = false;
