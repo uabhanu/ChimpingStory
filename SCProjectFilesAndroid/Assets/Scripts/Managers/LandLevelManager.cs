@@ -3,7 +3,7 @@ using UnityEngine.Advertisements;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour 
+public class LandLevelManager : MonoBehaviour 
 {
     private AudioSource _musicSource;
 	private Image _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _continueButtonImage , _exitButtonImage , _firstTimePlayTutorialMenuImage;

@@ -2,13 +2,13 @@
 
 //public class GUIManager : MonoBehaviour
 //{
-//    GameManager m_gameManager;
+//    LandLevelManager m_gameManager;
 
 //    [SerializeField] LevelManager levelManager;
 
 //    void Start()
 //    {
-//        m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+//        m_gameManager = GameObject.Find("LandLevelManager").GetComponent<LandLevelManager>();
 //        levelManager.StartLevel();
 //    }
 //}

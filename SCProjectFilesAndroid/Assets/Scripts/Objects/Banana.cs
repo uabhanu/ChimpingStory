@@ -2,13 +2,13 @@
 
 public class Banana : MonoBehaviour
 {
-    private GameManager _gameManager;
+    private LandLevelManager _gameManager;
 	private LandPuss _landPuss;
 	private SoundManager _soundManager;
 
     void Start()
     {
-        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _gameManager = GameObject.Find("LandLevelManager").GetComponent<LandLevelManager>();
 		_landPuss = GameObject.Find("LandPuss").GetComponent<LandPuss>();
         _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }

@@ -2,12 +2,12 @@
 
 public class Polaroid : MonoBehaviour
 {
-    GameManager _gameManager;
+    LandLevelManager _gameManager;
 	SoundManager m_soundManager;
 
     void Start()
     {
-        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _gameManager = GameObject.Find("LandLevelManager").GetComponent<LandLevelManager>();
         m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 

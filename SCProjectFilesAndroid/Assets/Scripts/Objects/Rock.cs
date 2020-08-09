@@ -2,14 +2,14 @@
 
 public class Rock : MonoBehaviour 
 {
-    private GameManager _gameManager;
+    private LandLevelManager _gameManager;
     private SoundManager m_soundManager;
     
     [SerializeField] private GameObject m_explosionPrefab;
 
 	void Start() 
 	{
-        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _gameManager = GameObject.Find("LandLevelManager").GetComponent<LandLevelManager>();
         m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 	}
 		

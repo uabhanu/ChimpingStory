@@ -10,7 +10,7 @@ public class LandPuss : MonoBehaviour
     private Animator _pussAnim;
     private bool _bIsGrounded , _bHighSlip , _bIsJumping , _bLowSlip , _bIsSliding , _bIsUI;
     private float _currentMoveSpeed;
-    private GameManager _gameManager;
+    private LandLevelManager _gameManager;
     private GameObject[] _rockObjs;
     private Rigidbody2D _pussBody2D;
 	private SoundManager _soundManager;
@@ -47,7 +47,7 @@ public class LandPuss : MonoBehaviour
         _currentMoveSpeed = DEFAULT_MOVE_SPEED;
         _pussAnim = GetComponent<Animator>();
         _pussBody2D = GetComponent<Rigidbody2D>();
-		_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+		_gameManager = GameObject.Find("LandLevelManager").GetComponent<LandLevelManager>();
 		_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
@@ -66,7 +66,7 @@ public class LandPuss : MonoBehaviour
 
     void BhanuInput()
     {
-        if(GameManager.b_isUnityEditorTestingMode)
+        if(LandLevelManager.b_isUnityEditorTestingMode)
         {
             #if UNITY_EDITOR || UNITY_STANDALONE
             if(Input.GetMouseButtonDown(0))
@@ -202,7 +202,7 @@ public class LandPuss : MonoBehaviour
 
     void Movement()
     {
-        transform.Translate(-Vector2.left * _currentMoveSpeed * Time.deltaTime , Space.Self);
+        transform.Translate(Vector2.right * _currentMoveSpeed * Time.deltaTime , Space.World);
     }
 
     void OnTriggerEnter2D(Collider2D tri2D)
@@ -249,12 +249,12 @@ public class LandPuss : MonoBehaviour
 
     //void SelfieAppear()
     //{
-    //    GameManager.m_selfieButtonImage.enabled = true;
+    //    LandLevelManager.m_selfieButtonImage.enabled = true;
     //}
 
     //void SelfieDisappear()
     //{
-    //    GameManager.m_selfieButtonImage.enabled = false;
+    //    LandLevelManager.m_selfieButtonImage.enabled = false;
     //}
 
     public void Slide()

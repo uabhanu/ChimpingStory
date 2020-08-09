@@ -34,7 +34,7 @@ public class SwipeManager : MonoBehaviour
 
     void Update() 
 	{
-		if(GameManager.m_currentScene == 2 || Time.deltaTime == 0f)
+		if(LandLevelManager.m_currentScene == 2 || Time.deltaTime == 0f)
 		{
 			return;
 		}

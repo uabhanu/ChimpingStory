@@ -63,6 +63,6 @@ public class WaterPuss : MonoBehaviour
 
     void Movement()
     {
-        transform.Translate(Vector2.left * _currentMoveSpeed * Time.deltaTime , Space.Self);
+        transform.Translate(Vector2.left * _currentMoveSpeed * Time.deltaTime , Space.World);
     }
 }
