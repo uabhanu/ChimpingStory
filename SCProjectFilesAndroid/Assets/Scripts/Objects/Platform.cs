@@ -8,12 +8,10 @@ public class Platform : MonoBehaviour
     void Start()
     {
         _landPuss = GameObject.Find("LandPuss").GetComponent<LandPuss>();
-        
         _platformCollider2D = GetComponent<BoxCollider2D>();
         _platformRenderer = GetComponent<SpriteRenderer>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(Time.timeScale == 0)

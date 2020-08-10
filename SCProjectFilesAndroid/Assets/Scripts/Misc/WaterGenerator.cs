@@ -30,7 +30,7 @@ public class WaterGenerator : MonoBehaviour
 
     private Transform SpawnWaterPart(Transform waterPart , Vector3 spawnPosition) 
     {
-        Transform waterPartTransform = Instantiate(waterPart , new Vector3(spawnPosition.x  , 0.33f , spawnPosition.z) , Quaternion.identity);
+        Transform waterPartTransform = Instantiate(waterPart , new Vector3(spawnPosition.x , 0f , spawnPosition.z) , Quaternion.identity);
         return waterPartTransform;
     }
 }

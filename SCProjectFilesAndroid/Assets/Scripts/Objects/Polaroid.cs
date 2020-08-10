@@ -2,13 +2,19 @@
 
 public class Polaroid : MonoBehaviour
 {
-    LandLevelManager _gameManager;
-	SoundManager m_soundManager;
+    private BoxCollider2D _polaroidCollider2D;
+    private LandLevelManager _gameManager;
+    private LandPuss _landPuss;
+	private SoundManager _soundManager;
+    private SpriteRenderer _polaroidRenderer;
 
     void Start()
     {
         _gameManager = GameObject.Find("LandLevelManager").GetComponent<LandLevelManager>();
-        m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        _landPuss = GameObject.Find("LandPuss").GetComponent<LandPuss>();
+        _polaroidCollider2D = GetComponent<BoxCollider2D>();
+        _polaroidRenderer = GetComponent<SpriteRenderer>();
+        _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
     void Update() 
@@ -17,6 +23,18 @@ public class Polaroid : MonoBehaviour
 		{
 			return;
 		}
+
+        if(_landPuss.m_isSuper)
+        {
+            _polaroidCollider2D.enabled = false;
+            _polaroidRenderer.enabled = false;
+        }
+
+        else if(!_landPuss.m_isSuper)
+        {
+            _polaroidCollider2D.enabled = true;
+            _polaroidRenderer.enabled = true;
+        }
 	}
 
     void OnTriggerEnter2D(Collider2D tri2D)
@@ -29,11 +47,11 @@ public class Polaroid : MonoBehaviour
             ScoreManager.m_scoreValue += 25;
             _gameManager.m_HighScoreValueText.text = ScoreManager.m_scoreValue.ToString();
             BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
-			m_soundManager.m_soundsSource.clip = m_soundManager.m_coinCollected;
+			_soundManager.m_soundsSource.clip = _soundManager.m_coinCollected;
 			
-            if(m_soundManager.m_soundsSource.enabled)
+            if(_soundManager.m_soundsSource.enabled)
             {
-                m_soundManager.m_soundsSource.Play();
+                _soundManager.m_soundsSource.Play();
             }
 
             Destroy(gameObject); //TODO Object Pooling instead of Destroy
