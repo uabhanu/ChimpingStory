@@ -2,15 +2,39 @@
 
 public class Banana : MonoBehaviour
 {
+    private BoxCollider2D _bananaCollider2D;
     private LandLevelManager _gameManager;
 	private LandPuss _landPuss;
 	private SoundManager _soundManager;
+    private SpriteRenderer _bananaRenderer;
 
     void Start()
     {
+        _bananaCollider2D = GetComponent<BoxCollider2D>();
+        _bananaRenderer = GetComponent<SpriteRenderer>();
         _gameManager = GameObject.Find("LandLevelManager").GetComponent<LandLevelManager>();
 		_landPuss = GameObject.Find("LandPuss").GetComponent<LandPuss>();
         _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+    }
+
+    void Update()
+    {
+        if(Time.timeScale == 0)
+        {
+            return;
+        }
+
+        if(_landPuss.m_isSuper)
+        {
+            _bananaCollider2D.enabled = false;
+            _bananaRenderer.enabled = false;
+        }
+
+        else if(!_landPuss.m_isSuper)
+        {
+            _bananaCollider2D.enabled = true;
+            _bananaRenderer.enabled = true;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D tri2D)

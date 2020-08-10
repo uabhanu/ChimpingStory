@@ -23,7 +23,7 @@ public class RocksGenerator : MonoBehaviour
             if(Time.time > _nextActionTime)
             {
                 _nextActionTime += _period;
-                SpawnRock(); //TODO When this runs first time, the rocks number is a lot higher than after that which may need to be fixed
+                SpawnRock(); //TODO Try doing this like CloudsGenerator
             }
         }
     }

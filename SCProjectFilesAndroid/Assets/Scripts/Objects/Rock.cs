@@ -2,26 +2,30 @@
 
 public class Rock : MonoBehaviour 
 {
+    private CircleCollider2D _portalCollider2D;
     private LandLevelManager _gameManager;
-    private SoundManager m_soundManager;
+    private SoundManager _soundManager;
+    private SpriteRenderer _portalRenderer;
     
     [SerializeField] private GameObject m_explosionPrefab;
 
 	void Start() 
 	{
         _gameManager = GameObject.Find("LandLevelManager").GetComponent<LandLevelManager>();
-        m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        _portalCollider2D = GetComponent<CircleCollider2D>();
+        _portalRenderer = GetComponent<SpriteRenderer>();
+        _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 	}
 		
     void OnTriggerEnter2D(Collider2D tri2D)
     {
         if(tri2D.gameObject.tag.Equals("Player"))
         {
-            m_soundManager.m_soundsSource.clip = m_soundManager.m_rockExplosion;
+            _soundManager.m_soundsSource.clip = _soundManager.m_rockExplosion;
 			
-            if(m_soundManager.m_soundsSource.enabled)
+            if(_soundManager.m_soundsSource.enabled)
             {
-                m_soundManager.m_soundsSource.Play();
+                _soundManager.m_soundsSource.Play();
             }
 
             SpawnExplosion();
