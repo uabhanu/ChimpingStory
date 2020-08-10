@@ -3,9 +3,9 @@
 public class TreesGenerator : MonoBehaviour
 {
     private const float PLAYER_DISTANCE_SPAWN_TREES_PART = 40.0f;
+    private Transform _lastEndPositionTransform;
 
     [SerializeField] private LandPuss _landPuss;
-    [SerializeField] private Transform _lastEndPositionTransform;
     [SerializeField] private Transform _treesEndPosition;
     [SerializeField] private Transform _treesPartToSpawn;
 

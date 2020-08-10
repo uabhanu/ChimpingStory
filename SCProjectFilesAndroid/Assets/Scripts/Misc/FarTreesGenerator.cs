@@ -3,11 +3,11 @@
 public class FarTreesGenerator : MonoBehaviour
 {
     private const float PLAYER_DISTANCE_SPAWN_FAR_TREES_PART = 40.0f;
+    private Transform _lastEndPositionTransform;
 
     [SerializeField] private LandPuss _landPuss;
     [SerializeField] private Transform _farTreesEndPosition;
     [SerializeField] private Transform _farTreesPartToSpawn;
-    [SerializeField] private Transform _lastEndPositionTransform;
 
     private void Awake() 
     {
