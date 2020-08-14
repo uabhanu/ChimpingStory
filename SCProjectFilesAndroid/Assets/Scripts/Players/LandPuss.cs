@@ -233,6 +233,8 @@ public class LandPuss : MonoBehaviour
 
 		if(tri2D.gameObject.tag.Equals("Portal"))
 		{
+            Portal._pickedUp++;
+            BhanuPrefs.SetPortalPickedUp(Portal._pickedUp);
             SceneManager.LoadScene("WaterSwimmer");
 		}
 

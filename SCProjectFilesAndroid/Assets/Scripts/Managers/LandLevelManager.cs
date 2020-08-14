@@ -5,13 +5,14 @@ using UnityEngine.UI;
 
 public class LandLevelManager : MonoBehaviour 
 {
+    //TODO Portals should be visible every 24 hours
+    //TODO Super Visible only after it's collected from the Water Level
+
     private AudioSource _musicSource;
-	private Image _backToLandLoseMenuImage , _backToLandWinMenuImage , _backToLandWithSuperMenuImage , _continueButtonImage , _exitButtonImage , _firstTimePlayTutorialMenuImage;
-    private Image _firstTimePlayTutorialOKButtonImage , _playButtonImage , _quitButtonImage , _quitAcceptButtonImage , _quitCancelButtonImage , _quitMenuImage;
-    private int _chimpionshipsCount , _currentChimpion;
+    //private int _chimpionshipsCount , _currentChimpion; TODO This is for future use
     private LandPuss _landPuss;
 	private SoundManager _soundManager;
-	private Text _adsText , _backToLandLoseText , _backToLandWinText , _backToLandWithSuperText , _firstTimePlayTutorialText , _quitText;
+	private Text _firstTimePlayTutorialText, _quitText;
 
     private static Animator _swipeDownHandAnimator , _swipeUpHandAnimator;
     private static Image _swipeDownHandImage , _swipeUpHandImage , _swipeHandOKButtonImage , _swipeHandPanelImage;
@@ -99,51 +100,6 @@ public class LandLevelManager : MonoBehaviour
         }
     }
 
-    public void BackToLandLoseMenu()
-    {
-        _backToLandLoseMenuImage.enabled = true;
-        _backToLandLoseText.enabled = true;
-        m_chimpionshipBeltButtonImage.enabled = false;
-		_continueButtonImage.enabled = true;
-		m_HighScoreLabelText.enabled = false;
-		m_HighScoreValueText.enabled = false;
-        m_muteButtonImage.enabled = false;
-        m_pauseButtonImage.enabled = false;
-        m_PolaroidsCountText.enabled = false;
-        m_unmuteButtonImage.enabled = false;
-        Time.timeScale = 0;
-    }
-
-    public void BackToLandWinMenu()
-    {
-        _backToLandWinMenuImage.enabled = true;
-        _backToLandWinText.enabled = true;
-        m_chimpionshipBeltButtonImage.enabled = false;
-		_continueButtonImage.enabled = true;
-		m_HighScoreLabelText.enabled = false;
-		m_HighScoreValueText.enabled = false;
-        m_muteButtonImage.enabled = false;
-        m_pauseButtonImage.enabled = false;
-        m_PolaroidsCountText.enabled = false;
-        m_unmuteButtonImage.enabled = false;
-        Time.timeScale = 0;
-    }
-
-    public void BackToLandWithSuperMenu()
-    {
-        _backToLandWithSuperMenuImage.enabled = true;
-        _backToLandWithSuperText.enabled = true;
-        _continueButtonImage.enabled = true;
-        m_chimpionshipBeltButtonImage.enabled = false;
-		m_HighScoreLabelText.enabled = false;
-		m_HighScoreValueText.enabled = false;
-        m_muteButtonImage.enabled = false;
-        m_pauseButtonImage.enabled = false;
-        m_PolaroidsCountText.enabled = false;
-        m_unmuteButtonImage.enabled = false;
-        Time.timeScale = 0;
-    }
-
     public void ContinueButton()
     {
 		BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
@@ -204,8 +160,6 @@ public class LandLevelManager : MonoBehaviour
     public void FirstTimeWaterLevelOKButton()
     {
         m_chimpionshipBeltButtonImage.enabled = true;
-        _firstTimePlayTutorialMenuImage.enabled = false;
-        _firstTimePlayTutorialOKButtonImage.enabled = false;
         _firstTimePlayTutorialText.enabled = false;
         m_HighScoreLabelText.enabled = true;
         m_HighScoreValueText.enabled = true;
@@ -226,7 +180,7 @@ public class LandLevelManager : MonoBehaviour
 
         if(!b_isFirstTimeTutorialTestingMode)
         {
-            _chimpionshipsCount = BhanuPrefs.GetChimpionshipsCount();
+            //_chimpionshipsCount = BhanuPrefs.GetChimpionshipsCount();
             m_firstTimeIAPTutorialAppeared = BhanuPrefs.GetFirstTimeIAPTutorialStatus();
             _firstTimeJump = BhanuPrefs.GetFirstTimeJumpTutorialStatus();
             _firstTimeSlide = BhanuPrefs.GetFirstTimeSlideTutorialStatus();
@@ -240,196 +194,73 @@ public class LandLevelManager : MonoBehaviour
             BhanuPrefs.DeleteAll();
         }
 
-        if(m_currentScene == 0)
+        m_arrow01Image = GameObject.Find("Arrow01").GetComponent<Image>();
+        m_arrow02Image = GameObject.Find("Arrow02").GetComponent<Image>();
+        m_arrow03Image = GameObject.Find("Arrow03").GetComponent<Image>();
+        m_arrow04Image = GameObject.Find("Arrow04").GetComponent<Image>();
+        m_chimpionshipBeltButton = GameObject.Find("PF_ChimpionshipBeltButton").GetComponent<Button>();
+        m_chimpionshipBeltButtonImage = GameObject.Find("PF_ChimpionshipBeltButton").GetComponent<Image>();
+        m_chimpionshipBeltButtonTutorialText = GameObject.Find("ChimpionBeltButtonTutorialText").GetComponent<Text>();
+        _landPuss = GameObject.Find("LandPuss").GetComponent<LandPuss>();
+        m_leaderboardButtonTutorialText = GameObject.Find("LeaderboardButtonTutorialText").GetComponent<Text>();
+        m_muteUnmuteButtonTutorialText = GameObject.Find("MuteButtonTutorialText").GetComponent<Text>();
+        m_nextButtonImage = GameObject.Find("NextButton").GetComponent<Image>();
+        m_pauseButton = GameObject.Find("PF_PauseButton").GetComponent<Button>();
+        m_pauseButtonImage = GameObject.Find("PF_PauseButton").GetComponent<Image>();
+        m_pauseButtonTutorialText = GameObject.Find("PauseButtonTutorialText").GetComponent<Text>();
+        m_PolaroidsCountText.text = ScoreManager.m_polaroidsCount.ToString();
+        _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        _swipeDownHandAnimator = GameObject.Find("SwipeDownHand").GetComponent<Animator>();
+        _swipeUpHandAnimator = GameObject.Find("SwipeUpHand").GetComponent<Animator>();
+        _swipeDownHandImage = GameObject.Find("SwipeDownHand").GetComponent<Image>();
+        _swipeUpHandImage = GameObject.Find("SwipeUpHand").GetComponent<Image>();
+        _swipeHandOKButtonImage = GameObject.Find("SwipeHandOKButton").GetComponent<Image>();
+        _swipeHandPanelImage = GameObject.Find("SwipeHandPanel").GetComponent<Image>();
+        m_uiButtonsTutorialMenuObj = GameObject.Find("UIButtonsTutorialMenu");
+        m_uiButtonsTutorialMenuImage = m_uiButtonsTutorialMenuObj.GetComponent<Image>();
+
+        if(m_firstTimeUIButtonsTutorial == 0)
         {
-            _playButtonImage = GameObject.Find("PlayButton").GetComponent<Image>();
-            _quitText = GameObject.Find("QuitText").GetComponent<Text>();
-            _quitButtonImage = GameObject.Find("QuitButton").GetComponent<Image>();
-            _quitAcceptButtonImage = GameObject.Find("QuitAcceptButton").GetComponent<Image>();
-            _quitCancelButtonImage = GameObject.Find("QuitCancelButton").GetComponent<Image>();
-            _quitMenuImage = GameObject.Find("QuitMenu").GetComponent<Image>();
+            m_arrow01Image.enabled = true;
+            m_chimpionshipBeltButton.interactable = false;
+            m_leaderboardButtonTutorialText.enabled = true;
+            m_muteButton.interactable = false;
+            m_nextButtonImage.enabled = true;
+            m_pauseButton.interactable = false;
+            m_PolaroidsCountText.enabled = false;
+            m_uiButtonsTutorialMenuImage.enabled = true;
+            m_unmuteButton.interactable = false;
+            Time.timeScale = 0;
+        }
 
-            if(MusicManager.m_musicSource != null)
+        if(MusicManager.m_musicSource != null && _soundManager.m_soundsSource != null)
+        {
+            if(!MusicManager.m_musicSource.isPlaying && m_playerMutedSounds == 0)
             {
-                if(!MusicManager.m_musicSource.isPlaying && m_playerMutedSounds == 0)
-                {
-                    MusicManager.m_musicSource.Play();
-                    m_muteButtonImage.enabled = true;
-                }
-
-                else if(MusicManager.m_musicSource.isPlaying && m_playerMutedSounds == 0)
-                {
-                    m_muteButtonImage.enabled = true;
-                }
-
-                else if(MusicManager.m_musicSource.isPlaying && m_playerMutedSounds == 1)
-                {
-                    MusicManager.m_musicSource.Pause();
-                    m_unmuteButtonImage.enabled = true;
-                }
-
-                else
-                {
-                    m_unmuteButtonImage.enabled = true;
-                }
+                MusicManager.m_musicSource.Play();
+                m_muteButtonImage.enabled = true;
+                _soundManager.m_soundsSource.enabled = true;
             }
+
+            else if(MusicManager.m_musicSource.isPlaying && m_playerMutedSounds == 0)
+            {
+                m_muteButtonImage.enabled = true;
+                _soundManager.m_soundsSource.enabled = true;
+            }
+
+            else if(MusicManager.m_musicSource.isPlaying && m_playerMutedSounds == 1)
+            {
+                MusicManager.m_musicSource.Pause();
+                _soundManager.m_soundsSource.enabled = false;
+                m_unmuteButtonImage.enabled = true;
+            }
+
             else
             {
-                Invoke("GetBhanuObjects" , 0.5f);
+                _soundManager.m_soundsSource.enabled = false;
+                m_unmuteButtonImage.enabled = true;
             }
         }
-
-        else if(m_currentScene == 1)
-        {
-            m_arrow01Image = GameObject.Find("Arrow01").GetComponent<Image>();
-            m_arrow02Image = GameObject.Find("Arrow02").GetComponent<Image>();
-            m_arrow03Image = GameObject.Find("Arrow03").GetComponent<Image>();
-            m_arrow04Image = GameObject.Find("Arrow04").GetComponent<Image>();
-            m_chimpionshipBeltButton = GameObject.Find("PF_ChimpionshipBeltButton").GetComponent<Button>();
-            m_chimpionshipBeltButtonImage = GameObject.Find("PF_ChimpionshipBeltButton").GetComponent<Image>();
-            m_chimpionshipBeltButtonTutorialText = GameObject.Find("ChimpionBeltButtonTutorialText").GetComponent<Text>();
-            _landPuss = GameObject.Find("LandPuss").GetComponent<LandPuss>();
-            m_leaderboardButtonTutorialText = GameObject.Find("LeaderboardButtonTutorialText").GetComponent<Text>();
-            m_muteUnmuteButtonTutorialText = GameObject.Find("MuteButtonTutorialText").GetComponent<Text>();
-            m_nextButtonImage = GameObject.Find("NextButton").GetComponent<Image>();
-            m_pauseButton = GameObject.Find("PF_PauseButton").GetComponent<Button>();
-            m_pauseButtonImage = GameObject.Find("PF_PauseButton").GetComponent<Image>();
-            m_pauseButtonTutorialText = GameObject.Find("PauseButtonTutorialText").GetComponent<Text>();
-            m_PolaroidsCountText.text = ScoreManager.m_polaroidsCount.ToString();
-            _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
-            _swipeDownHandAnimator = GameObject.Find("SwipeDownHand").GetComponent<Animator>();
-            _swipeUpHandAnimator = GameObject.Find("SwipeUpHand").GetComponent<Animator>();
-            _swipeDownHandImage = GameObject.Find("SwipeDownHand").GetComponent<Image>();
-            _swipeUpHandImage = GameObject.Find("SwipeUpHand").GetComponent<Image>();
-            _swipeHandOKButtonImage = GameObject.Find("SwipeHandOKButton").GetComponent<Image>();
-            _swipeHandPanelImage = GameObject.Find("SwipeHandPanel").GetComponent<Image>();
-            m_uiButtonsTutorialMenuObj = GameObject.Find("UIButtonsTutorialMenu");
-            m_uiButtonsTutorialMenuImage = m_uiButtonsTutorialMenuObj.GetComponent<Image>();
-
-            if(m_firstTimeUIButtonsTutorial == 0)
-            {
-                m_arrow01Image.enabled = true;
-                m_chimpionshipBeltButton.interactable = false;
-                m_leaderboardButtonTutorialText.enabled = true;
-                m_muteButton.interactable = false;
-                m_nextButtonImage.enabled = true;
-                m_pauseButton.interactable = false;
-                m_PolaroidsCountText.enabled = false;
-                m_uiButtonsTutorialMenuImage.enabled = true;
-                m_unmuteButton.interactable = false;
-                Time.timeScale = 0;
-            }
-
-            if(MusicManager.m_musicSource != null && _soundManager.m_soundsSource != null)
-            {
-                if(!MusicManager.m_musicSource.isPlaying && m_playerMutedSounds == 0)
-                {
-                    MusicManager.m_musicSource.Play();
-                    m_muteButtonImage.enabled = true;
-                    _soundManager.m_soundsSource.enabled = true;
-                }
-
-                else if(MusicManager.m_musicSource.isPlaying && m_playerMutedSounds == 0)
-                {
-                    m_muteButtonImage.enabled = true;
-                    _soundManager.m_soundsSource.enabled = true;
-                }
-
-                else if(MusicManager.m_musicSource.isPlaying && m_playerMutedSounds == 1)
-                {
-                    MusicManager.m_musicSource.Pause();
-                    _soundManager.m_soundsSource.enabled = false;
-                    m_unmuteButtonImage.enabled = true;
-                }
-
-                else
-                {
-                    _soundManager.m_soundsSource.enabled = false;
-                    m_unmuteButtonImage.enabled = true;
-                }
-            }
-        }
-
-        else
-        {
-            _backToLandLoseMenuImage = GameObject.Find("BackToLandLoseMenu").GetComponent<Image>();
-            _backToLandLoseText = GameObject.Find("BackToLandLoseText").GetComponent<Text>();
-            _backToLandWinMenuImage = GameObject.Find("BackToLandWinMenu").GetComponent<Image>();
-            _backToLandWinText = GameObject.Find("BackToLandWinText").GetComponent<Text>();
-            _backToLandWithSuperMenuImage = GameObject.Find("BackToLandWithSuperMenu").GetComponent<Image>();
-            _backToLandWithSuperText = GameObject.Find("BackToLandWithSuperText").GetComponent<Text>();
-            //m_chimpionshipBeltButton = GameObject.Find("PF_ChimpionshipBeltButton").GetComponent<Button>();
-            //m_chimpionshipBeltButtonImage = GameObject.Find("PF_ChimpionshipBeltButton").GetComponent<Image>();
-            _continueButtonImage = GameObject.Find("FirstTimeTutorialOKButton").GetComponent<Image>();
-            _firstTimePlayTutorialMenuImage = GameObject.Find("FirstTimePlayTutorialMenu").GetComponent<Image>();
-            _firstTimePlayTutorialOKButtonImage = GameObject.Find("FirstTimePlayTutorialOKButton").GetComponent<Image>();
-            _firstTimePlayTutorialText = GameObject.Find("FirstTimePlayTutorialText").GetComponent<Text>();
-            m_HighScoreLabelText = GameObject.Find("HighScoreLabelText").GetComponent<Text>();
-            m_HighScoreValueText = GameObject.Find("HighScoreValueText").GetComponent<Text>();
-            m_muteButtonImage = GameObject.Find("MuteButton").GetComponent<Image>();
-            m_pauseButtonImage = GameObject.Find("PF_PauseButton").GetComponent<Image>();
-            m_PolaroidsCountText = GameObject.Find("PolaroidsCountText").GetComponent<Text>();
-            m_PolaroidsCountText.text = ScoreManager.m_polaroidsCount.ToString();
-            _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
-            m_unmuteButtonImage = GameObject.Find("UnmuteButton").GetComponent<Image>();
-
-            if(m_firstTimeWaterLevelTutorial == 0)
-            {
-                m_chimpionshipBeltButtonImage.enabled = false;
-                _firstTimePlayTutorialMenuImage.enabled = true;
-                _firstTimePlayTutorialText.enabled = true;
-                m_HighScoreLabelText.enabled = false;
-                m_HighScoreValueText.enabled = false;
-                _firstTimePlayTutorialOKButtonImage.enabled = true;
-                m_pauseButtonImage.enabled = false;
-                m_PolaroidsCountText.enabled = false;
-                Time.timeScale = 0;
-            }
-
-            if(MusicManager.m_musicSource != null)
-            {
-                if(!MusicManager.m_musicSource.isPlaying && m_playerMutedSounds == 0)
-                {
-                    MusicManager.m_musicSource.Play();
-                    m_muteButtonImage.enabled = true;
-                    _soundManager.m_soundsSource.enabled = true;
-                }
-
-                else if(MusicManager.m_musicSource.isPlaying && m_playerMutedSounds == 0)
-                {
-                    m_muteButtonImage.enabled = true;
-                    _soundManager.m_soundsSource.enabled = true;
-                }
-
-                else if(MusicManager.m_musicSource.isPlaying && m_playerMutedSounds == 1)
-                {
-                    MusicManager.m_musicSource.Pause();
-                    _soundManager.m_soundsSource.enabled = false;
-                    m_unmuteButtonImage.enabled = true;
-                }
-
-                else
-                {
-                    _soundManager.m_soundsSource.enabled = false;
-                    m_unmuteButtonImage.enabled = true;
-                }
-            }
-        }
-
-        //if(b_isMemoryLeakTestingMode)
-        //{
-        //    if(m_currentScene == 1)
-        //    {
-        //        _memoryLeakTestText.enabled = true;
-        //        _waterLevelButtonImage.enabled = true;
-        //    }
-
-        //    if(m_currentScene == 2)
-        //    {
-        //        _landLevelButtonImage.enabled = true;
-        //        _memoryLeakTestText.enabled = true;
-        //    }
-        //}
     }
 
     public void GoToFallingLevelButton()
@@ -604,13 +435,7 @@ public class LandLevelManager : MonoBehaviour
             {
                 m_chimpionshipBeltButtonImage.enabled = false;
             }
-        
-            if(_exitButtonImage != null)
-            {
-                _exitButtonImage.enabled = true;
-            }
 
-		    
             _inGameUIObj.SetActive(false);
             _pauseMenuObj.SetActive(true);
 			_selfieButtonObj.SetActive(false);
@@ -629,11 +454,6 @@ public class LandLevelManager : MonoBehaviour
         MusicManager.m_musicSource.Pause();
         m_muteButtonImage.enabled = false;
         b_quitButtonTapped = true;
-        _playButtonImage.enabled = false;
-		_quitButtonImage.enabled = false;
-		_quitMenuImage.enabled = true;
-		_quitAcceptButtonImage.enabled = true;
-		_quitCancelButtonImage.enabled = true;
 		_quitText.enabled = true;
         m_unmuteButtonImage.enabled = false;
 	}
@@ -656,12 +476,7 @@ public class LandLevelManager : MonoBehaviour
             m_unmuteButtonImage.enabled = true;
         }
 
-		_playButtonImage.enabled = true;
-		_quitButtonImage.enabled = true;
         b_quitButtonTapped = false;
-		_quitMenuImage.enabled = false;
-		_quitAcceptButtonImage.enabled = false;
-		_quitCancelButtonImage.enabled = false;
 		_quitText.enabled = false;
 	}
 
@@ -684,11 +499,6 @@ public class LandLevelManager : MonoBehaviour
         if(m_chimpionshipBeltButtonImage != null)
         {
             m_chimpionshipBeltButtonImage.enabled = true;
-        }
-
-        if(_exitButtonImage != null)
-        {
-            _exitButtonImage.enabled = false;
         }
 
 		_inGameUIObj.SetActive(true);
