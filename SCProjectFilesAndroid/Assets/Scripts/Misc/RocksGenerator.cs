@@ -2,14 +2,12 @@
 
 public class RocksGenerator : MonoBehaviour 
 {
-    private const float PLAYER_DISTANCE_SPAWN_ROCK = 40.0f;
     private float _nextActionTime = 0.0f;
-    private Transform _lastEndPositionTransform;
 
-    [SerializeField] private float[] _yPositions; 
-    [SerializeField] private float _period;
+    [SerializeField] private float _period = 1.1f;
+    [SerializeField] private float[] _yPositions;
     [SerializeField] private LandPuss _landPuss;
-    [SerializeField] private Transform _rockPrefab;
+    [SerializeField] private Transform _rockTransformToSpawn;
 
     private void Update() 
     {
@@ -18,37 +16,24 @@ public class RocksGenerator : MonoBehaviour
             return;
         }
 
-        if(_landPuss.m_isSuper)
+        if(_landPuss.m_isSuper) 
         {
             if(Time.time > _nextActionTime)
             {
-                _nextActionTime += _period;
-                _lastEndPositionTransform = _rockPrefab.transform;
-                Debug.Log(_lastEndPositionTransform.name);
-            }
+                if(_nextActionTime > 2.2f) //On the 1st Spawn, too many rocks are spawned which is why I asked update not to spawn until _nextActionTime > 2.2f and it works great now!!
+                {
+                    SpawnRock();
+                }
 
-            if(Vector3.Distance(_landPuss.GetPosition() , _lastEndPositionTransform.position) < PLAYER_DISTANCE_SPAWN_ROCK) 
-            {
-                SpawnRock();
+                _nextActionTime += _period;
             }
-        }
-        else
-        {
-            return;
         }
     }
 
     private void SpawnRock() 
     {
-        Transform lastRockTransform = SpawnRock(_rockPrefab , _lastEndPositionTransform.position);
-        _lastEndPositionTransform = lastRockTransform.Find("EndPosition");
-    }
-
-    private Transform SpawnRock(Transform rock , Vector3 spawnPosition) 
-    {
-        int i = Random.Range(0 , _yPositions.Length);
-        Transform rockTransform = Instantiate(rock , new Vector3(spawnPosition.x  , _yPositions[i] , spawnPosition.z) , Quaternion.identity);
-        return rockTransform;
+        int randomYPositionIndex = Random.Range(0 , _yPositions.Length);
+        Instantiate(_rockTransformToSpawn , new Vector3(transform.position.x , _yPositions[randomYPositionIndex] , transform.position.z) , Quaternion.identity);
     }
 }
 

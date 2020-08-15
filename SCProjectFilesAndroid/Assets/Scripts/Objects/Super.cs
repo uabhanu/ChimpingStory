@@ -14,7 +14,8 @@ public class Super : MonoBehaviour
 	void Start() 
 	{
 		_landPuss = GameObject.Find("LandPuss").GetComponent<LandPuss>();
-		m_pickedUp = BhanuPrefs.GetSuperPickedUp();
+		//m_pickedUp = BhanuPrefs.GetSuperPickedUp();
+		m_pickedUp = 0; //TODO This is for testing only and once done, remove this line and uncomment the one above
 		m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         _superCollider2D = GetComponent<BoxCollider2D>();
         _superRenderer = GetComponent<SpriteRenderer>();
