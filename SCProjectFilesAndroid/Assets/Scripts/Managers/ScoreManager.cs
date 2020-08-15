@@ -35,7 +35,7 @@ public class ScoreManager : MonoBehaviour
             m_playerLevel = BhanuPrefs.GetPlayerLevel();
             //m_playerLevelValueDisplay = m_playerLevel; // This line is for testing purposes only
             m_polaroidsCount = BhanuPrefs.GetPolaroidsCount();
-            m_supersCount = BhanuPrefs.GetSupers();
+            m_supersCount = BhanuPrefs.GetSuperPickedUp();
             m_scoreValue = BhanuPrefs.GetHighScore();
             
             if(_sceneIndex == 1) //TODO This is temporary fix and ScoreManager should take care of anything related to Score and not the LandLevelManager or WaterLevelManager

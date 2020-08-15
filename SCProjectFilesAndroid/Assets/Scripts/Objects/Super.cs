@@ -9,9 +9,12 @@ public class Super : MonoBehaviour
 
 	[SerializeField] private GameObject m_explosionPrefab;
 
+	public static int m_pickedUp;
+
 	void Start() 
 	{
 		_landPuss = GameObject.Find("LandPuss").GetComponent<LandPuss>();
+		m_pickedUp = BhanuPrefs.GetSuperPickedUp();
 		m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         _superCollider2D = GetComponent<BoxCollider2D>();
         _superRenderer = GetComponent<SpriteRenderer>();
@@ -24,13 +27,12 @@ public class Super : MonoBehaviour
             return;
         }
 
-		if(_landPuss.m_isSuper)
+		if(_landPuss.m_isSuper || m_pickedUp == 1)
         {
             _superCollider2D.enabled = false;
             _superRenderer.enabled = false;
         }
-
-        else if(!_landPuss.m_isSuper)
+        else
         {
             _superCollider2D.enabled = true;
             _superRenderer.enabled = true;
@@ -42,7 +44,7 @@ public class Super : MonoBehaviour
 		if(tri2D.gameObject.tag.Equals("Player"))
 		{
             ScoreManager.m_supersCount--;
-            BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
+            BhanuPrefs.SetSuperPickedUp(ScoreManager.m_supersCount);
 			m_soundManager.m_soundsSource.clip = m_soundManager.m_superCollected;
 			
             if(m_soundManager.m_soundsSource.enabled)

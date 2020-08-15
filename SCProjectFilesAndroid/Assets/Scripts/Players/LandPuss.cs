@@ -233,8 +233,8 @@ public class LandPuss : MonoBehaviour
 
 		if(tri2D.gameObject.tag.Equals("Portal"))
 		{
-            Portal._pickedUp++;
-            BhanuPrefs.SetPortalPickedUp(Portal._pickedUp);
+            Portal.m_pickedUp++;
+            BhanuPrefs.SetPortalPickedUp(Portal.m_pickedUp);
             SceneManager.LoadScene("WaterSwimmer");
 		}
 
@@ -245,7 +245,9 @@ public class LandPuss : MonoBehaviour
 
 		if(tri2D.gameObject.tag.Equals("Super"))
 		{
-			Super();
+            Super.m_pickedUp++;
+            BhanuPrefs.SetSuperPickedUp(Super.m_pickedUp);
+			SuperPuss();
 		}
     }
 
@@ -310,7 +312,7 @@ public class LandPuss : MonoBehaviour
         m_isSlipping = false;
     }
 
-	void Super()
+	void SuperPuss()
 	{
         _bottomWall.SetActive(true);
         _bIsGrounded = false;

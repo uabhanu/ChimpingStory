@@ -16,7 +16,7 @@ public class BhanuPrefs : MonoBehaviour
     const string PORTAL_PICKED_UP_KEY = "PortalPickedUp";
     const string PORTAL_RESPAWN_TIMER_KEY = "PortalRespawnTimer";
     const string SOUNDS_STATUS_KEY = "SoundsStatus";
-    const string SUPERS_KEY = "Supers";
+    const string SUPER_PICKED_UP_KEY = "SuperPickedUp";
 
     public static void DeleteAll()
     {
@@ -173,11 +173,11 @@ public class BhanuPrefs : MonoBehaviour
         return 0;
     }
 
-    public static int GetSupers()
+    public static int GetSuperPickedUp()
     {
-        if(PlayerPrefs.HasKey(SUPERS_KEY))
+        if(PlayerPrefs.HasKey(SUPER_PICKED_UP_KEY))
         {
-            return PlayerPrefs.GetInt(SUPERS_KEY);
+            return PlayerPrefs.GetInt(SUPER_PICKED_UP_KEY);
         }
 
         return 0;
@@ -253,8 +253,8 @@ public class BhanuPrefs : MonoBehaviour
         PlayerPrefs.SetInt(SOUNDS_STATUS_KEY , mute);
     }
 
-    public static void SetSupers(int supers)
+    public static void SetSuperPickedUp(int superPickedUp)
     {
-        PlayerPrefs.SetInt(SUPERS_KEY , supers);
+        PlayerPrefs.SetInt(SUPER_PICKED_UP_KEY , superPickedUp);
     }
 }

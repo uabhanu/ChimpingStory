@@ -67,7 +67,7 @@ public class LandLevelManager : MonoBehaviour
     {
         BhanuPrefs.DeleteScore();
         ScoreManager.m_supersCount = 0;
-        BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
+        BhanuPrefs.SetSuperPickedUp(ScoreManager.m_supersCount);
         SceneManager.LoadScene(m_currentScene);
     }
 
@@ -102,7 +102,7 @@ public class LandLevelManager : MonoBehaviour
 
     public void ContinueButton()
     {
-		BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
+		BhanuPrefs.SetSuperPickedUp(ScoreManager.m_supersCount);
         SceneManager.LoadScene("LandRunner");
     }
 
@@ -292,7 +292,7 @@ public class LandLevelManager : MonoBehaviour
     {
         BhanuPrefs.DeleteScore();
         ScoreManager.m_supersCount = 0;
-        BhanuPrefs.SetSupers(ScoreManager.m_supersCount);
+        BhanuPrefs.SetSuperPickedUp(ScoreManager.m_supersCount);
         SceneManager.LoadScene(m_currentScene);
     }
 

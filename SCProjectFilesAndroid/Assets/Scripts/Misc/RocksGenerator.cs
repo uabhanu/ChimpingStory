@@ -20,10 +20,11 @@ public class RocksGenerator : MonoBehaviour
 
         if(_landPuss.m_isSuper)
         {
-            if(Time.time > _nextActionTime && _lastEndPositionTransform == null)
+            if(Time.time > _nextActionTime)
             {
                 _nextActionTime += _period;
                 _lastEndPositionTransform = _rockPrefab.transform;
+                Debug.Log(_lastEndPositionTransform.name);
             }
 
             if(Vector3.Distance(_landPuss.GetPosition() , _lastEndPositionTransform.position) < PLAYER_DISTANCE_SPAWN_ROCK) 
