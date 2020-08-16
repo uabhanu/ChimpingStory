@@ -3,6 +3,7 @@ using UnityEngine;
 public class WaterPuss : MonoBehaviour
 {
     private const float DEFAULT_MOVE_SPEED = 5.0f;
+    private const float DEFAULT_GRAVITY_SCALE = 0.5f;
 
     //private Animator _pussAnim;
     //private bool _bIsFloating;
@@ -48,6 +49,7 @@ public class WaterPuss : MonoBehaviour
 
     public void Float()
     {
+        _pussBody2D.gravityScale = 0;
         _pussBody2D.velocity = new Vector2(_pussBody2D.velocity.x , _floatHeight);
     }
 
@@ -64,5 +66,10 @@ public class WaterPuss : MonoBehaviour
     void Movement()
     {
         transform.Translate(Vector2.left * _currentMoveSpeed * Time.deltaTime , Space.World);
+    }
+
+    private void OnCollisionEnter2D(Collision2D col2D)
+    {
+        //TODO Set Gravity scale back to the default value
     }
 }
