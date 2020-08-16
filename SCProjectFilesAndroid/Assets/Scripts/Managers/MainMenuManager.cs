@@ -1,23 +1,19 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
     private int _playerMutedSounds;
 
-    [SerializeField] GameObject _muteButtonObj , _playButtonObj , _quitButtonObj , _quitNoButtonObj , _quitYesButtonObj , _unmuteButtonObj;
     [SerializeField] GameObject _quitMenuObj;
 
     public void MuteButton()
     {
         if(MusicManager.m_musicSource != null)
         {
-            _muteButtonObj.SetActive(false);
             MusicManager.m_musicSource.Pause();
             _playerMutedSounds = 1;
             BhanuPrefs.SetSoundsStatus(_playerMutedSounds);
-            _unmuteButtonObj.SetActive(true);
         }
     }
 
@@ -45,11 +41,9 @@ public class MainMenuManager : MonoBehaviour
     {
         if(MusicManager.m_musicSource != null)
         {
-            _muteButtonObj.SetActive(true);
             MusicManager.m_musicSource.Play();
             _playerMutedSounds = 0;
             BhanuPrefs.SetSoundsStatus(_playerMutedSounds);
-            _unmuteButtonObj.SetActive(false);
         }
     }
 }

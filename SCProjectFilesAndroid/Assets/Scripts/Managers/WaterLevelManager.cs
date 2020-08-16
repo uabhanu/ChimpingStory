@@ -3,19 +3,25 @@ using UnityEngine.UI;
 
 public class WaterLevelManager : MonoBehaviour
 {
-    [SerializeField] GameObject _inGameUIObj , _otherUIObj;
+    [SerializeField] GameObject _inGameMenuObj , _pauseMenuObj;
     
     public Text m_HighScoreValueText;
     void Start()
     {
-        _otherUIObj.SetActive(true);
+        
+    }
+
+    public void PauseButton()
+    {
+        _inGameMenuObj.SetActive(false);
+        _pauseMenuObj.SetActive(true);
         Time.timeScale = 0;
     }
 
-    public void FirstTimeTutorialOKButton()
+    public void ResumeButton()
     {
-        _inGameUIObj.SetActive(true);
-        _otherUIObj.SetActive(false);
+        _inGameMenuObj.SetActive(true);
+        _pauseMenuObj.SetActive(false);
         Time.timeScale = 1;
     }
 }

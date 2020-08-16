@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class WaterGenerator : MonoBehaviour
+public class Layer01Generator : MonoBehaviour
 {
     private const float PLAYER_DISTANCE_SPAWN_WATER_PART = 40.0f;
     private Transform _lastEndPositionTransform;
