@@ -6,7 +6,7 @@ public class WaterPuss : MonoBehaviour
     private const float DEFAULT_GRAVITY_SCALE = 0.5f;
 
     //private Animator _pussAnim;
-    //private bool _bIsFloating;
+    private bool _bCanFloat;
     private Rigidbody2D _pussBody2D;
 
     [SerializeField] private float _currentMoveSpeed;
@@ -23,6 +23,7 @@ public class WaterPuss : MonoBehaviour
 
     void Start()
     {
+        _bCanFloat = true;
         _currentMoveSpeed = DEFAULT_MOVE_SPEED;
         //_pussAnim = GetComponent<Animator>();
         _pussBody2D = GetComponent<Rigidbody2D>();
@@ -49,8 +50,12 @@ public class WaterPuss : MonoBehaviour
 
     public void Float()
     {
-        _pussBody2D.gravityScale = 0;
-        _pussBody2D.velocity = new Vector2(_pussBody2D.velocity.x , _floatHeight);
+        if(_bCanFloat)
+        {
+            _pussBody2D.gravityScale = 0;
+            _pussBody2D.velocity = new Vector2(_pussBody2D.velocity.x , _floatHeight);
+            _bCanFloat = false;
+        }
     }
 
     public Vector3 GetPosition()
@@ -70,6 +75,14 @@ public class WaterPuss : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D col2D)
     {
-        //TODO Set Gravity scale back to the default value
+        if(col2D.gameObject.tag.Equals("Bottom"))
+        {
+            _bCanFloat = true;
+        }
+
+        if(col2D.gameObject.tag.Equals("Top"))
+        {
+            _pussBody2D.gravityScale = DEFAULT_GRAVITY_SCALE;
+        }
     }
 }
