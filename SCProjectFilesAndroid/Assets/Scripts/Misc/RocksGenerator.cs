@@ -4,7 +4,7 @@ public class RocksGenerator : MonoBehaviour
 {
     private float _nextActionTime = 0.0f;
 
-    [SerializeField] private float _period = 1.1f;
+    [SerializeField] private float _period;
     [SerializeField] private float[] _yPositions;
     [SerializeField] private LandPuss _landPuss;
     [SerializeField] private Transform _rockTransformToSpawn;
@@ -20,12 +20,8 @@ public class RocksGenerator : MonoBehaviour
         {
             if(Time.time > _nextActionTime)
             {
-                if(_nextActionTime > 2.2f) //On the 1st Spawn, too many rocks are spawned which is why I asked update not to spawn until _nextActionTime > 2.2f and it works great now!!
-                {
-                    SpawnRock();
-                }
-
                 _nextActionTime += _period;
+                SpawnRock(); //TODO Figure out a way to Spawn only one Rock instead of a bunch when this runs the first time
             }
         }
     }
@@ -33,7 +29,8 @@ public class RocksGenerator : MonoBehaviour
     private void SpawnRock() 
     {
         int randomYPositionIndex = Random.Range(0 , _yPositions.Length);
-        Instantiate(_rockTransformToSpawn , new Vector3(transform.position.x , _yPositions[randomYPositionIndex] , transform.position.z) , Quaternion.identity);
+        Instantiate(_rockTransformToSpawn , new Vector3(_landPuss.GetPosition().x , _yPositions[randomYPositionIndex] , transform.position.z) , Quaternion.identity);
+        Debug.Log("Spawned the Rock");
     }
 }
 

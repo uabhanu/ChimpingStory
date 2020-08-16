@@ -316,7 +316,7 @@ public class LandPuss : MonoBehaviour
 	{
         _bottomWall.SetActive(true);
         _bIsGrounded = false;
-        _currentMoveSpeed *= 2;
+        _currentMoveSpeed *= 3;
         m_isSuper = true;
         _pussAnim.SetBool("Super" , true);
         _pussBody2D.gravityScale = 3;
