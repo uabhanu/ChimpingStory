@@ -24,10 +24,10 @@ public class LandLevelManager : MonoBehaviour
     [SerializeField] private string _chimpionAchievementID , _selfieAchievementID , _selfieLegendAchievementID , _undisputedChimpionAchievementID;
 
     public static bool b_isFirstTimeTutorialTestingMode , b_isMemoryLeakTestingMode , b_isUnityEditorTestingMode , b_quitButtonTapped;
-    public static Button m_chimpionshipBeltButton , m_muteButton , m_pauseButton , m_unmuteButton;
+    public static Button m_chimpionshipBeltButton , m_soundOffButton , m_pauseButton , m_soundOnButton;
     public static GameObject m_pauseMenuObj , m_uiButtonsTutorialMenuObj;
-    public static Image m_arrow01Image , m_arrow02Image , m_arrow03Image , m_arrow04Image , m_chimpionshipBeltButtonImage , m_muteButtonImage , m_nextButtonImage , m_pauseButtonImage;
-    public static Image m_uiButtonsTutorialMenuImage , m_unmuteButtonImage;
+    public static Image m_arrow01Image , m_arrow02Image , m_arrow03Image , m_arrow04Image , m_chimpionshipBeltButtonImage , m_soundOffButtonImage , m_nextButtonImage , m_pauseButtonImage;
+    public static Image m_uiButtonsTutorialMenuImage , m_soundOnButtonImage;
     public static int m_currentScene , m_firstTimeIAPTutorialAppeared , m_firstTimeUIButtonsTutorial , m_firstTimeWaterLevelTutorial , m_playerMutedSounds;
     public static Text m_chimpionshipBeltButtonTutorialText , m_leaderboardButtonTutorialText , m_muteUnmuteButtonTutorialText , m_pauseButtonTutorialText;
 
@@ -49,11 +49,11 @@ public class LandLevelManager : MonoBehaviour
         m_chimpionshipBeltButtonImage.enabled = false;
         m_HighScoreLabelText.enabled = false;
         m_HighScoreValueText.enabled = false;
-        m_muteButtonImage.enabled = false;
+        m_soundOffButtonImage.enabled = false;
         m_pauseButtonImage.enabled = false;
         m_PolaroidsCountText.enabled = false;
 		_selfieButtonObj.SetActive(false);
-        m_unmuteButtonImage.enabled = false;
+        m_soundOnButtonImage.enabled = false;
 		Time.timeScale = 0;
     }
 
@@ -124,13 +124,13 @@ public class LandLevelManager : MonoBehaviour
             m_chimpionshipBeltButtonImage.enabled = false;
             m_HighScoreLabelText.enabled = false;
             m_HighScoreValueText.enabled = false;
-            m_muteButtonImage.enabled = false;
+            m_soundOffButtonImage.enabled = false;
             m_pauseButtonImage.enabled = false;
             _swipeUpHandAnimator.enabled = true;
             _swipeUpHandImage.enabled = true;
             _swipeHandOKButtonImage.enabled = true;
             _swipeHandPanelImage.enabled = true;
-            m_unmuteButtonImage.enabled = false;
+            m_soundOnButtonImage.enabled = false;
             _firstTimeJump++;
             BhanuPrefs.SetFirstTimeJumpTutorialStatus(_firstTimeJump);
             Time.timeScale = 0;
@@ -144,13 +144,13 @@ public class LandLevelManager : MonoBehaviour
             m_chimpionshipBeltButtonImage.enabled = false;
             m_HighScoreLabelText.enabled = false;
             m_HighScoreValueText.enabled = false;
-            m_muteButtonImage.enabled = false;
+            m_soundOffButtonImage.enabled = false;
             m_pauseButtonImage.enabled = false;
             _swipeDownHandAnimator.enabled = true;
             _swipeDownHandImage.enabled = true;
             _swipeHandOKButtonImage.enabled = true;
             _swipeHandPanelImage.enabled = true;
-            m_unmuteButtonImage.enabled = false;
+            m_soundOnButtonImage.enabled = false;
             _firstTimeSlide++;
             BhanuPrefs.SetFirstTimeSlideTutorialStatus(_firstTimeSlide);
             Time.timeScale = 0;
@@ -173,10 +173,10 @@ public class LandLevelManager : MonoBehaviour
     void GetBhanuObjects()
     {
         m_currentScene = SceneManager.GetActiveScene().buildIndex;
-        m_muteButton = GameObject.Find("MuteButton").GetComponent<Button>();
-        m_muteButtonImage = GameObject.Find("MuteButton").GetComponent<Image>();
-        m_unmuteButton = GameObject.Find("UnmuteButton").GetComponent<Button>();
-        m_unmuteButtonImage = GameObject.Find("UnmuteButton").GetComponent<Image>();
+        m_soundOffButton = GameObject.Find("SoundOffButton").GetComponent<Button>();
+        m_soundOffButtonImage = m_soundOffButton.GetComponent<Image>();
+        m_soundOnButton = GameObject.Find("SoundOnButton").GetComponent<Button>();
+        m_soundOnButtonImage = m_soundOnButton.GetComponent<Image>();
 
         if(!b_isFirstTimeTutorialTestingMode)
         {
@@ -224,12 +224,12 @@ public class LandLevelManager : MonoBehaviour
             m_arrow01Image.enabled = true;
             m_chimpionshipBeltButton.interactable = false;
             m_leaderboardButtonTutorialText.enabled = true;
-            m_muteButton.interactable = false;
+            m_soundOffButton.interactable = false;
             m_nextButtonImage.enabled = true;
             m_pauseButton.interactable = false;
             m_PolaroidsCountText.enabled = false;
             m_uiButtonsTutorialMenuImage.enabled = true;
-            m_unmuteButton.interactable = false;
+            m_soundOnButton.interactable = false;
             Time.timeScale = 0;
         }
 
@@ -238,13 +238,13 @@ public class LandLevelManager : MonoBehaviour
             if(!MusicManager.m_musicSource.isPlaying && m_playerMutedSounds == 0)
             {
                 MusicManager.m_musicSource.Play();
-                m_muteButtonImage.enabled = true;
+                m_soundOffButtonImage.enabled = true;
                 _soundManager.m_soundsSource.enabled = true;
             }
 
             else if(MusicManager.m_musicSource.isPlaying && m_playerMutedSounds == 0)
             {
-                m_muteButtonImage.enabled = true;
+                m_soundOffButtonImage.enabled = true;
                 _soundManager.m_soundsSource.enabled = true;
             }
 
@@ -252,13 +252,13 @@ public class LandLevelManager : MonoBehaviour
             {
                 MusicManager.m_musicSource.Pause();
                 _soundManager.m_soundsSource.enabled = false;
-                m_unmuteButtonImage.enabled = true;
+                m_soundOnButtonImage.enabled = true;
             }
 
             else
             {
                 _soundManager.m_soundsSource.enabled = false;
-                m_unmuteButtonImage.enabled = true;
+                m_soundOnButtonImage.enabled = true;
             }
         }
     }
@@ -307,23 +307,23 @@ public class LandLevelManager : MonoBehaviour
         {
             if(MusicManager.m_musicSource != null)
             {
-                if(m_muteButtonImage.enabled)
+                if(m_soundOffButtonImage.enabled)
                 {
-                    m_muteButtonImage.enabled = false;
+                    m_soundOffButtonImage.enabled = false;
                     MusicManager.m_musicSource.Pause();
                     m_playerMutedSounds = 1;
                     BhanuPrefs.SetSoundsStatus(m_playerMutedSounds);
-                    m_unmuteButtonImage.enabled = true;
+                    m_soundOnButtonImage.enabled = true;
                     _soundManager.m_soundsSource.enabled = false;
                 }
 
-                else if(!m_muteButtonImage.enabled)
+                else if(!m_soundOffButtonImage.enabled)
                 {
-                    m_muteButtonImage.enabled = true;
+                    m_soundOffButtonImage.enabled = true;
                     MusicManager.m_musicSource.Play();
                     m_playerMutedSounds = 0;
                     BhanuPrefs.SetSoundsStatus(m_playerMutedSounds);
-                    m_unmuteButtonImage.enabled = false;
+                    m_soundOnButtonImage.enabled = false;
                     _soundManager.m_soundsSource.enabled = true;
                 }
             }
@@ -333,22 +333,22 @@ public class LandLevelManager : MonoBehaviour
         {
             if(MusicManager.m_musicSource != null)
             {
-                if(m_muteButtonImage.enabled)
+                if(m_soundOffButtonImage.enabled)
                 {
-                    m_muteButtonImage.enabled = false;
+                    m_soundOffButtonImage.enabled = false;
                     MusicManager.m_musicSource.Pause();
                     m_playerMutedSounds = 1;
                     BhanuPrefs.SetSoundsStatus(m_playerMutedSounds);
-                    m_unmuteButtonImage.enabled = true;
+                    m_soundOnButtonImage.enabled = true;
                 }
 
-                else if(!m_muteButtonImage.enabled)
+                else if(!m_soundOffButtonImage.enabled)
                 {
-                    m_muteButtonImage.enabled = true;
+                    m_soundOffButtonImage.enabled = true;
                     MusicManager.m_musicSource.Play();
                     m_playerMutedSounds = 0;
                     BhanuPrefs.SetSoundsStatus(m_playerMutedSounds);
-                    m_unmuteButtonImage.enabled = false;
+                    m_soundOnButtonImage.enabled = false;
                 }
             }
         }
@@ -372,15 +372,15 @@ public class LandLevelManager : MonoBehaviour
 
             if(m_playerMutedSounds == 0)
             {
-                m_muteButton.interactable = true;
-                m_muteButtonImage.enabled = true;
-                m_unmuteButton.interactable = true;
+                m_soundOffButton.interactable = true;
+                m_soundOffButtonImage.enabled = true;
+                m_soundOnButton.interactable = true;
             }
             else
             {
-                m_muteButton.interactable = true;
-                m_unmuteButton.interactable = true;
-                m_unmuteButtonImage.enabled = true;
+                m_soundOffButton.interactable = true;
+                m_soundOnButton.interactable = true;
+                m_soundOnButtonImage.enabled = true;
             }
             
             m_muteUnmuteButtonTutorialText.enabled = true;
@@ -428,8 +428,8 @@ public class LandLevelManager : MonoBehaviour
                 MusicManager.m_musicSource.Pause();
             }
 
-            m_muteButtonImage.enabled = false;
-            m_unmuteButtonImage.enabled = false;
+            m_soundOffButtonImage.enabled = false;
+            m_soundOnButtonImage.enabled = false;
 
             if(m_chimpionshipBeltButtonImage != null)
             {
@@ -452,10 +452,10 @@ public class LandLevelManager : MonoBehaviour
 	public void QuitButton()
 	{
         MusicManager.m_musicSource.Pause();
-        m_muteButtonImage.enabled = false;
+        m_soundOffButtonImage.enabled = false;
         b_quitButtonTapped = true;
 		_quitText.enabled = true;
-        m_unmuteButtonImage.enabled = false;
+        m_soundOnButtonImage.enabled = false;
 	}
 
 	public void QuitAcceptButton()
@@ -469,11 +469,11 @@ public class LandLevelManager : MonoBehaviour
         if(m_playerMutedSounds == 0)
         {
             MusicManager.m_musicSource.Play();
-            m_muteButtonImage.enabled = true;
+            m_soundOffButtonImage.enabled = true;
         }
         else
         {
-            m_unmuteButtonImage.enabled = true;
+            m_soundOnButtonImage.enabled = true;
         }
 
         b_quitButtonTapped = false;
@@ -487,12 +487,12 @@ public class LandLevelManager : MonoBehaviour
             if(m_playerMutedSounds == 0 && !MusicManager.m_musicSource.isPlaying)
             {
                 MusicManager.m_musicSource.Play();
-                m_muteButtonImage.enabled = true;
+                m_soundOffButtonImage.enabled = true;
             }
 
             else if(m_playerMutedSounds == 1)
             {
-                m_unmuteButtonImage.enabled = true;
+                m_soundOnButtonImage.enabled = true;
             }
         }
 
@@ -550,11 +550,11 @@ public class LandLevelManager : MonoBehaviour
 
         if(m_playerMutedSounds == 0)
         {
-            m_muteButtonImage.enabled = true;
+            m_soundOffButtonImage.enabled = true;
         }
         else
         {
-            m_unmuteButtonImage.enabled = true;
+            m_soundOnButtonImage.enabled = true;
         }
         
         m_pauseButtonImage.enabled = true;
