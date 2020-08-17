@@ -6,6 +6,7 @@ public class MainMenuManager : MonoBehaviour
     private int _playerMutedSounds;
 
     [SerializeField] GameObject _quitMenuObj;
+    [SerializeField] GameObject _soundOffButtonObj , _soundOnButtonObj;
 
     public void SoundOffButton()
     {
@@ -13,6 +14,8 @@ public class MainMenuManager : MonoBehaviour
         {
             MusicManager.m_musicSource.Pause();
             _playerMutedSounds = 1;
+            _soundOffButtonObj.SetActive(false);
+            _soundOnButtonObj.SetActive(true);
             BhanuPrefs.SetSoundsStatus(_playerMutedSounds);
         }
     }
@@ -23,6 +26,8 @@ public class MainMenuManager : MonoBehaviour
         {
             MusicManager.m_musicSource.Play();
             _playerMutedSounds = 0;
+            _soundOffButtonObj.SetActive(true);
+            _soundOnButtonObj.SetActive(false);
             BhanuPrefs.SetSoundsStatus(_playerMutedSounds);
         }
     }
