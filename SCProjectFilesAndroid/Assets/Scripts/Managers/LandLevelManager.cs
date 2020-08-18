@@ -137,34 +137,18 @@ public class LandLevelManager : MonoBehaviour
         _swipeHandOKButtonImage = GameObject.Find("SwipeHandOKButton").GetComponent<Image>();
         _swipeHandPanelImage = GameObject.Find("SwipeHandPanel").GetComponent<Image>();
 
-        if(MusicManager.m_musicSource != null && _soundManager.m_soundsSource != null)
+        if(m_playerMutedSounds == 1)
         {
-            if(!MusicManager.m_musicSource.isPlaying && m_playerMutedSounds == 0)
-            {
-                MusicManager.m_musicSource.Play();
-                _soundOffButtonObj.SetActive(true);
-                _soundManager.m_soundsSource.enabled = true;
-            }
+            _soundManager.m_soundsSource.Play();
+            _soundOffButtonObj.SetActive(true);
+            _soundOnButtonObj.SetActive(false);
+        }
 
-            else if(MusicManager.m_musicSource.isPlaying && m_playerMutedSounds == 0)
-            {
-                _soundOffButtonObj.SetActive(true);
-                _soundManager.m_soundsSource.enabled = true;
-            }
-
-            else if(MusicManager.m_musicSource.isPlaying && m_playerMutedSounds == 1)
-            {
-                MusicManager.m_musicSource.Pause();
-                _soundManager.m_soundsSource.enabled = false;
-                _soundOnButtonObj.SetActive(true);
-            }
-
-            else
-            {
-                _soundManager.m_soundsSource.enabled = false;
-                _soundOffButtonObj.SetActive(false);
-                _soundOnButtonObj.SetActive(false);
-            }
+        else if(m_playerMutedSounds == 0)
+        {
+            _soundManager.m_soundsSource.Pause();
+            _soundOffButtonObj.SetActive(false);
+            _soundOnButtonObj.SetActive(true);
         }
     }
 
@@ -206,47 +190,12 @@ public class LandLevelManager : MonoBehaviour
         _iapCartMenuObj.SetActive(true);
     }
 
-    //public void MuteUnmuteButton()
-    //{
-    //    if(MusicManager.m_musicSource != null)
-    //    {
-    //        if(_soundOffButtonObj.activeSelf)
-    //        {
-    //            _soundOffButtonObj.SetActive(false);
-    //            MusicManager.m_musicSource.Pause();
-    //            m_playerMutedSounds = 1;
-    //            BhanuPrefs.SetSoundsStatus(m_playerMutedSounds);
-    //            _soundOnButtonObj.SetActive(true);
-    //            _soundManager.m_soundsSource.enabled = false;
-    //        }
-
-    //        else if(!_soundOffButtonObj.activeSelf)
-    //        {
-    //            _soundOffButtonObj.SetActive(true);
-    //            MusicManager.m_musicSource.Play();
-    //            m_playerMutedSounds = 0;
-    //            BhanuPrefs.SetSoundsStatus(m_playerMutedSounds);
-    //            _soundOnButtonObj.SetActive(false);
-    //            _soundManager.m_soundsSource.enabled = true;
-    //        }
-    //    }
-    //}
-
     public void PauseButton()
 	{
-        if(m_firstTimeUIButtonsTutorial == 1)
-        {
-            if(MusicManager.m_musicSource != null)
-            {
-                MusicManager.m_musicSource.Pause();
-            }
-
-            _inGameUIObj.SetActive(false);
-            _pauseMenuObj.SetActive(true);
-			_selfieButtonObj.SetActive(false);
-		    
-		    Time.timeScale = 0;
-        }
+        _inGameUIObj.SetActive(false);
+        _pauseMenuObj.SetActive(true);
+        _soundManager._musicSource.Pause();
+		Time.timeScale = 0;
 	}
 
 	public void PlayButton()
@@ -277,12 +226,13 @@ public class LandLevelManager : MonoBehaviour
 	{
 		_inGameUIObj.SetActive(true);
         _pauseMenuObj.SetActive(false);
+        _soundManager._musicSource.Play();
 		Time.timeScale = 1;
 	}
 
 	public void SelfieButton()
 	{
-		_soundManager.m_soundsSource.clip = _soundManager.m_selfie;
+		_soundManager.m_soundsSource.clip = _soundManager._selfie;
 		
         if(_soundManager.m_soundsSource.enabled)
         {
@@ -318,26 +268,20 @@ public class LandLevelManager : MonoBehaviour
 
     public void SoundOffButton()
     {
-        if(MusicManager.m_musicSource != null)
-        {
-            MusicManager.m_musicSource.Pause();
-            m_playerMutedSounds = 1;
-            _soundOffButtonObj.SetActive(false);
-            _soundOnButtonObj.SetActive(true);
-            BhanuPrefs.SetSoundsStatus(m_playerMutedSounds);
-        }
+        _soundManager._musicSource.Pause();
+        m_playerMutedSounds = 1;
+        _soundOffButtonObj.SetActive(false);
+        _soundOnButtonObj.SetActive(true);
+        BhanuPrefs.SetSoundsStatus(m_playerMutedSounds);
     }
 
     public void SoundOnButton()
     {
-        if(MusicManager.m_musicSource != null)
-        {
-            MusicManager.m_musicSource.Play();
-            m_playerMutedSounds = 0;
-            _soundOffButtonObj.SetActive(true);
-            _soundOnButtonObj.SetActive(false);
-            BhanuPrefs.SetSoundsStatus(m_playerMutedSounds);
-        }
+        _soundManager._musicSource.Play();
+        m_playerMutedSounds = 0;
+        _soundOffButtonObj.SetActive(true);
+        _soundOnButtonObj.SetActive(false);
+        BhanuPrefs.SetSoundsStatus(m_playerMutedSounds);
     }
 
     public void SwipeHandOKButton()

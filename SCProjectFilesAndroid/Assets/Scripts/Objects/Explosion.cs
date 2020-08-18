@@ -19,12 +19,12 @@ public class Explosion : MonoBehaviour
 		{
 			case "Rock":
 				m_explosionSystem.GetComponent<Renderer>().material = m_rock;
-				m_soundManager.m_soundsSource.clip = m_soundManager.m_rockExplosion;
+				m_soundManager.m_soundsSource.clip = m_soundManager._rockExplosion;
 			break;
 
 			case "Super":
 				m_explosionSystem.GetComponent<Renderer>().material = m_super;
-				m_soundManager.m_soundsSource.clip = m_soundManager.m_superCollected;
+				m_soundManager.m_soundsSource.clip = m_soundManager._superCollected;
 			break;
 		}
 

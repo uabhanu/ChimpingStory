@@ -47,7 +47,7 @@ public class Polaroid : MonoBehaviour
             ScoreManager.m_scoreValue += 25;
             _gameManager.m_HighScoreValueText.text = ScoreManager.m_scoreValue.ToString();
             BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
-			_soundManager.m_soundsSource.clip = _soundManager.m_coinCollected;
+			_soundManager.m_soundsSource.clip = _soundManager._coinCollected;
 			
             if(_soundManager.m_soundsSource.enabled)
             {

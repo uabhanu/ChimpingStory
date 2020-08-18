@@ -46,7 +46,7 @@ public class Super : MonoBehaviour
 		{
             ScoreManager.m_supersCount--;
             BhanuPrefs.SetSuperPickedUp(ScoreManager.m_supersCount);
-			m_soundManager.m_soundsSource.clip = m_soundManager.m_superCollected;
+			m_soundManager.m_soundsSource.clip = m_soundManager._superCollected;
 			
             if(m_soundManager.m_soundsSource.enabled)
             {

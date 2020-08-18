@@ -21,7 +21,7 @@ public class Rock : MonoBehaviour
     {
         if(tri2D.gameObject.tag.Equals("Player"))
         {
-            _soundManager.m_soundsSource.clip = _soundManager.m_rockExplosion;
+            _soundManager.m_soundsSource.clip = _soundManager._rockExplosion;
 			
             if(_soundManager.m_soundsSource.enabled)
             {

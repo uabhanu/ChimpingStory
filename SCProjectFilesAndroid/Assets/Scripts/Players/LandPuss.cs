@@ -170,7 +170,7 @@ public class LandPuss : MonoBehaviour
             _pussBody2D.velocity = Vector2.up * _jumpHeight; //You may experience different jump feel on different devices as Time.deltaTime not used following Code Monkey
             Invoke("JumpFinished" , 0.55f);
             //SelfieAppear();
-		    _soundManager.m_soundsSource.clip = _soundManager.m_jump;
+		    _soundManager.m_soundsSource.clip = _soundManager._jump;
 
             if(_soundManager.m_soundsSource.enabled)
             {
@@ -209,7 +209,7 @@ public class LandPuss : MonoBehaviour
     {
         if(tri2D.gameObject.tag.Equals("Killbox"))
         {
-			_soundManager.m_soundsSource.clip = _soundManager.m_fallDeath;
+			_soundManager.m_soundsSource.clip = _soundManager._fallDeath;
 
 			if(_soundManager.m_soundsSource.enabled)
             {
@@ -221,7 +221,7 @@ public class LandPuss : MonoBehaviour
 
         if(tri2D.gameObject.tag.Equals("Hurdle"))
         {
-			_soundManager.m_soundsSource.clip = _soundManager.m_hurdleDeath;
+			_soundManager.m_soundsSource.clip = _soundManager._hurdleDeath;
 
 			if(_soundManager.m_soundsSource.enabled)
             {
