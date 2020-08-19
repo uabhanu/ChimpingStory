@@ -3,26 +3,22 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
-    private int _playerMutedSounds;
-
     [SerializeField] GameObject _quitMenuObj;
     [SerializeField] GameObject _soundOffButtonObj , _soundOnButtonObj;
     [SerializeField] SoundManager _soundManager;
 
     private void Start()
     {
-        _playerMutedSounds = BhanuPrefs.GetSoundsStatus();
-
-        if(_playerMutedSounds == 0)
+        if(SoundManager.m_playerMutedSounds == 0)
         {
-            _soundManager._musicSource.Pause();
+            _soundManager.m_musicSource.Pause();
             _soundOffButtonObj.SetActive(false);
             _soundOnButtonObj.SetActive(true);
         }
 
-        else if(_playerMutedSounds == 1)
+        else if(SoundManager.m_playerMutedSounds == 1)
         {
-            _soundManager._musicSource.Play();
+            _soundManager.m_musicSource.Play();
             _soundOffButtonObj.SetActive(true);
             _soundOnButtonObj.SetActive(false);
         }
@@ -30,20 +26,20 @@ public class MainMenuManager : MonoBehaviour
 
     public void SoundOffButton()
     {
-        _soundManager._musicSource.Pause();
-        _playerMutedSounds = 1;
+        _soundManager.m_musicSource.Pause();
+        SoundManager.m_playerMutedSounds = 1;
         _soundOffButtonObj.SetActive(false);
         _soundOnButtonObj.SetActive(true);
-        BhanuPrefs.SetSoundsStatus(_playerMutedSounds);
+        BhanuPrefs.SetSoundsStatus(SoundManager.m_playerMutedSounds);
     }
 
     public void SoundOnButton()
     {
-        _soundManager._musicSource.Play();
-        _playerMutedSounds = 0;
+        _soundManager.m_musicSource.Play();
+        SoundManager.m_playerMutedSounds = 0;
         _soundOffButtonObj.SetActive(true);
         _soundOnButtonObj.SetActive(false);
-        BhanuPrefs.SetSoundsStatus(_playerMutedSounds);   
+        BhanuPrefs.SetSoundsStatus(SoundManager.m_playerMutedSounds);   
     }
 
     public void PlayButton()

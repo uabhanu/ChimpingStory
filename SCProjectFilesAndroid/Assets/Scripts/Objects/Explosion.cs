@@ -19,18 +19,18 @@ public class Explosion : MonoBehaviour
 		{
 			case "Rock":
 				m_explosionSystem.GetComponent<Renderer>().material = m_rock;
-				m_soundManager.m_soundsSource.clip = m_soundManager._rockExplosion;
+				m_soundManager.m_soundsSource.clip = m_soundManager.m_rockExplosion;
 			break;
 
 			case "Super":
 				m_explosionSystem.GetComponent<Renderer>().material = m_super;
-				m_soundManager.m_soundsSource.clip = m_soundManager._superCollected;
+				m_soundManager.m_soundsSource.clip = m_soundManager.m_superCollected;
 			break;
 		}
 
         m_explosionSystem.Play();
 
-		if(m_soundManager.m_soundsSource.enabled)
+		if(SoundManager.m_playerMutedSounds == 0)
         {
             m_soundManager.m_soundsSource.Play();
         }

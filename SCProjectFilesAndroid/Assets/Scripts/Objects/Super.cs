@@ -46,9 +46,9 @@ public class Super : MonoBehaviour
 		{
             ScoreManager.m_supersCount--;
             BhanuPrefs.SetSuperPickedUp(ScoreManager.m_supersCount);
-			m_soundManager.m_soundsSource.clip = m_soundManager._superCollected;
+			m_soundManager.m_soundsSource.clip = m_soundManager.m_superCollected;
 			
-            if(m_soundManager.m_soundsSource.enabled)
+            if(SoundManager.m_playerMutedSounds == 0)
             {
                 m_soundManager.m_soundsSource.Play();
             }

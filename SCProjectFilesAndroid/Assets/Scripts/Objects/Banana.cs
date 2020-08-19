@@ -52,9 +52,9 @@ public class Banana : MonoBehaviour
 
             _gameManager.m_HighScoreValueText.text = ScoreManager.m_scoreValue.ToString();
             BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
-			_soundManager.m_soundsSource.clip = _soundManager._bananaCollected;
+			_soundManager.m_soundsSource.clip = _soundManager.m_bananaCollected;
 
-			if(_soundManager.m_soundsSource.enabled)
+			if(SoundManager.m_playerMutedSounds == 0)
             {
                 _soundManager.m_soundsSource.Play();
             }
