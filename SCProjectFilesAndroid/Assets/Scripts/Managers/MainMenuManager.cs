@@ -9,6 +9,25 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] GameObject _soundOffButtonObj , _soundOnButtonObj;
     [SerializeField] SoundManager _soundManager;
 
+    private void Start()
+    {
+        _playerMutedSounds = BhanuPrefs.GetSoundsStatus();
+
+        if(_playerMutedSounds == 0)
+        {
+            _soundManager._musicSource.Pause();
+            _soundOffButtonObj.SetActive(false);
+            _soundOnButtonObj.SetActive(true);
+        }
+
+        else if(_playerMutedSounds == 1)
+        {
+            _soundManager._musicSource.Play();
+            _soundOffButtonObj.SetActive(true);
+            _soundOnButtonObj.SetActive(false);
+        }
+    }
+
     public void SoundOffButton()
     {
         _soundManager._musicSource.Pause();

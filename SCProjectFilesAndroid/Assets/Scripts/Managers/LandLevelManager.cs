@@ -111,23 +111,8 @@ public class LandLevelManager : MonoBehaviour
     {
         m_currentScene = SceneManager.GetActiveScene().buildIndex;
 
-        if(!b_isFirstTimeTutorialTestingMode)
-        {
-            //_chimpionshipsCount = BhanuPrefs.GetChimpionshipsCount();
-            m_firstTimeIAPTutorialAppeared = BhanuPrefs.GetFirstTimeIAPTutorialStatus();
-            _firstTimeJump = BhanuPrefs.GetFirstTimeJumpTutorialStatus();
-            _firstTimeSlide = BhanuPrefs.GetFirstTimeSlideTutorialStatus();
-            m_firstTimeUIButtonsTutorial = BhanuPrefs.GetFirstTimeUIButtonsTutorialStatus();
-            m_firstTimeWaterLevelTutorial = BhanuPrefs.GetFirstTimeWaterLevelTutorialStatus();
-            m_playerMutedSounds = BhanuPrefs.GetSoundsStatus();
-            Time.timeScale = 1;
-        }
-        else
-        {
-            BhanuPrefs.DeleteAll();
-        }
-
         _landPuss = GameObject.Find("LandPuss").GetComponent<LandPuss>();
+        m_playerMutedSounds = BhanuPrefs.GetSoundsStatus();
         m_PolaroidsCountText.text = ScoreManager.m_polaroidsCount.ToString();
         _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         _swipeDownHandAnimator = GameObject.Find("SwipeDownHand").GetComponent<Animator>();
@@ -137,19 +122,30 @@ public class LandLevelManager : MonoBehaviour
         _swipeHandOKButtonImage = GameObject.Find("SwipeHandOKButton").GetComponent<Image>();
         _swipeHandPanelImage = GameObject.Find("SwipeHandPanel").GetComponent<Image>();
 
+       
         if(m_playerMutedSounds == 1)
         {
-            _soundManager.m_soundsSource.Play();
+            if(_soundManager._musicSource.loop)
+            {
+                _soundManager.m_soundsSource.Play();
+            }
+            
             _soundOffButtonObj.SetActive(true);
             _soundOnButtonObj.SetActive(false);
         }
 
         else if(m_playerMutedSounds == 0)
         {
-            _soundManager.m_soundsSource.Pause();
+            if(_soundManager._musicSource.loop)
+            {
+                _soundManager.m_soundsSource.Pause();
+            }
+
             _soundOffButtonObj.SetActive(false);
             _soundOnButtonObj.SetActive(true);
         }
+
+        Time.timeScale = 1;
     }
 
     public void GoToFallingLevelButton()
@@ -268,7 +264,11 @@ public class LandLevelManager : MonoBehaviour
 
     public void SoundOffButton()
     {
-        _soundManager._musicSource.Pause();
+        if(_soundManager._musicSource.loop)
+        {
+            _soundManager.m_soundsSource.Pause();
+        }
+
         m_playerMutedSounds = 1;
         _soundOffButtonObj.SetActive(false);
         _soundOnButtonObj.SetActive(true);
@@ -277,7 +277,11 @@ public class LandLevelManager : MonoBehaviour
 
     public void SoundOnButton()
     {
-        _soundManager._musicSource.Play();
+        if(_soundManager._musicSource.loop)
+        {
+            _soundManager.m_soundsSource.Play();
+        }
+
         m_playerMutedSounds = 0;
         _soundOffButtonObj.SetActive(true);
         _soundOnButtonObj.SetActive(false);
