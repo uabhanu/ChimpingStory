@@ -211,7 +211,7 @@ public class LandPuss : MonoBehaviour
         {
 			_soundManager.m_soundsSource.clip = _soundManager.m_fallDeath;
 
-			if(_soundManager.m_soundsSource.enabled)
+			if(SoundManager.m_playerMutedSounds == 0)
             {
                 _soundManager.m_soundsSource.Play();
             }
@@ -223,7 +223,7 @@ public class LandPuss : MonoBehaviour
         {
 			_soundManager.m_soundsSource.clip = _soundManager.m_hurdleDeath;
 
-			if(_soundManager.m_soundsSource.enabled)
+			if(SoundManager.m_playerMutedSounds == 0)
             {
                 _soundManager.m_soundsSource.Play();
             }

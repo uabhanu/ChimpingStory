@@ -3,34 +3,45 @@ using UnityEngine.UI;
 
 public class WaterLevelManager : MonoBehaviour
 {
-    private int _playerMutedSounds;
-
-    [SerializeField] GameObject _inGameMenuObj , _pauseMenuObj;
+    [SerializeField] GameObject _inGameMenuObj , _pauseMenuObj , _soundOffButtonObj , _soundOnButtonObj;
+    [SerializeField] SoundManager _soundManager;
     
-    public Text m_HighScoreValueText;
+    public Text m_HighScoreValueText; //TODO This should be in the ScoreManager Script
     void Start()
     {
-        
+        if(SoundManager.m_playerMutedSounds == 1)
+        {
+            _soundManager.m_musicSource.Pause();
+            _soundOffButtonObj.SetActive(false);
+            _soundOnButtonObj.SetActive(true);
+        }
+
+        else if(SoundManager.m_playerMutedSounds == 0)
+        {
+            _soundManager.m_musicSource.Play();
+            _soundOffButtonObj.SetActive(true);
+            _soundOnButtonObj.SetActive(false);
+        }
+
+        Time.timeScale = 1;
     }
 
     public void SoundOffButton()
     {
-        if(MusicManager.m_musicSource != null)
-        {
-            MusicManager.m_musicSource.Pause();
-            _playerMutedSounds = 1;
-            BhanuPrefs.SetSoundsStatus(_playerMutedSounds);
-        }
+        _soundManager.m_musicSource.Pause();
+        SoundManager.m_playerMutedSounds = 1;
+        _soundOffButtonObj.SetActive(false);
+        _soundOnButtonObj.SetActive(true);
+        BhanuPrefs.SetSoundsStatus(SoundManager.m_playerMutedSounds);
     }
 
     public void SoundOnButton()
     {
-        if(MusicManager.m_musicSource != null)
-        {
-            MusicManager.m_musicSource.Play();
-            _playerMutedSounds = 0;
-            BhanuPrefs.SetSoundsStatus(_playerMutedSounds);
-        }
+        _soundManager.m_musicSource.Play();
+        SoundManager.m_playerMutedSounds = 0;
+        _soundOffButtonObj.SetActive(true);
+        _soundOnButtonObj.SetActive(false);
+        BhanuPrefs.SetSoundsStatus(SoundManager.m_playerMutedSounds);   
     }
 
     public void PauseButton()

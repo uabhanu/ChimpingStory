@@ -9,14 +9,14 @@ public class MainMenuManager : MonoBehaviour
 
     private void Start()
     {
-        if(SoundManager.m_playerMutedSounds == 0)
+        if(SoundManager.m_playerMutedSounds == 1)
         {
             _soundManager.m_musicSource.Pause();
             _soundOffButtonObj.SetActive(false);
             _soundOnButtonObj.SetActive(true);
         }
 
-        else if(SoundManager.m_playerMutedSounds == 1)
+        else if(SoundManager.m_playerMutedSounds == 0)
         {
             _soundManager.m_musicSource.Play();
             _soundOffButtonObj.SetActive(true);
