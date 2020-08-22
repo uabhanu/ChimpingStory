@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class WaterLevelManager : MonoBehaviour
 {
-    private int _timerValue;
+    [SerializeField] private float _timerValue; //TODO After testing done, set the value back to 30 in the inspector
 
     [SerializeField] private GameObject _soundOffButtonObj , _soundOnButtonObj;
     [SerializeField] private GameObject _exitToLandMenuObj , _inGameMenuObj , _pauseMenuObj; 
@@ -12,6 +12,7 @@ public class WaterLevelManager : MonoBehaviour
     [SerializeField] private Text _timerDisplay;
     
     public Text m_HighScoreValueText; //TODO This should be in the ScoreManager Script
+
     private void Start()
     {
         if(SoundManager.m_playerMutedSounds == 1)
@@ -28,7 +29,6 @@ public class WaterLevelManager : MonoBehaviour
             _soundOnButtonObj.SetActive(false);
         }
 
-        _timerValue = 30;
         _timerDisplay.text = _timerValue.ToString();
         Time.timeScale = 1;
     }
@@ -41,12 +41,17 @@ public class WaterLevelManager : MonoBehaviour
         }
 
         //TODO Figure out a way to do this les expensive way
-        _timerValue -= (int)Time.deltaTime;
-        _timerDisplay.text = _timerValue.ToString();
-
-        if(_timerValue == 0)
+        if(_timerValue > 0)
         {
+            _timerValue -= Time.deltaTime;
+            _timerDisplay.text = Mathf.Round(_timerValue).ToString();
+        }
+
+        if(_timerValue <= 0)
+        {
+            Time.timeScale = 0;
             _exitToLandMenuObj.SetActive(true);
+            _inGameMenuObj.SetActive(false);
             return;
 
         }
