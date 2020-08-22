@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class WaterCollectiblesGenerator : MonoBehaviour
+public class CollectiblesGenerator : MonoBehaviour
 {
     private const float PLAYER_DISTANCE_SPAWN_COLLECTIBLES_PART = 20.0f;
     private Vector3 _lastEndPosition;

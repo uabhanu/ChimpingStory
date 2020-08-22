@@ -332,7 +332,7 @@ public class LandPuss : MonoBehaviour
 
         for(int i = 0 ; i < _rockObjs.Length ; i++)
         {
-            if(_rockObjs[i].gameObject.transform.position.y > -4.50f)
+            if(_rockObjs[i].gameObject.transform.position.x > -7.56f || _rockObjs[i].gameObject.transform.position.x < -44.25f)
             {
                 Destroy(_rockObjs[i].gameObject);
             }
