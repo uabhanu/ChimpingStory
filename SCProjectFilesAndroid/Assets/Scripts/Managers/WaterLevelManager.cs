@@ -1,13 +1,18 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class WaterLevelManager : MonoBehaviour
 {
-    [SerializeField] GameObject _inGameMenuObj , _pauseMenuObj , _soundOffButtonObj , _soundOnButtonObj;
-    [SerializeField] SoundManager _soundManager;
+    private int _timerValue;
+
+    [SerializeField] private GameObject _soundOffButtonObj , _soundOnButtonObj;
+    [SerializeField] private GameObject _exitToLandMenuObj , _inGameMenuObj , _pauseMenuObj; 
+    [SerializeField] private SoundManager _soundManager;
+    [SerializeField] private Text _timerDisplay;
     
     public Text m_HighScoreValueText; //TODO This should be in the ScoreManager Script
-    void Start()
+    private void Start()
     {
         if(SoundManager.m_playerMutedSounds == 1)
         {
@@ -23,7 +28,33 @@ public class WaterLevelManager : MonoBehaviour
             _soundOnButtonObj.SetActive(false);
         }
 
+        _timerValue = 30;
+        _timerDisplay.text = _timerValue.ToString();
         Time.timeScale = 1;
+    }
+
+    private void Update()
+    {
+        if(Time.timeScale == 0)
+        {
+            return;
+        }
+
+        //TODO Figure out a way to do this les expensive way
+        _timerValue -= (int)Time.deltaTime;
+        _timerDisplay.text = _timerValue.ToString();
+
+        if(_timerValue == 0)
+        {
+            _exitToLandMenuObj.SetActive(true);
+            return;
+
+        }
+    }
+
+    public void ExitToLandButton()
+    {
+        SceneManager.LoadScene("LandRunner");
     }
 
     public void SoundOffButton()
