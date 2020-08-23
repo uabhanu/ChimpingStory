@@ -18,9 +18,9 @@ public class RocksGenerator : MonoBehaviour
 
         if(_landPuss.m_isSuper) 
         {
-            if(Time.time > _nextActionTime)
+            if((Time.time - _nextActionTime) > _period)
             {
-                _nextActionTime += _period;
+                _nextActionTime = Time.time;
                 SpawnRock(); //TODO Figure out a way to Spawn only one Rock instead of a bunch when this runs the first time
             }
         }

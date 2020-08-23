@@ -1,17 +1,17 @@
 ﻿using UnityEngine;
 
-public class Banana : MonoBehaviour
+public class Coin : MonoBehaviour
 {
-    private BoxCollider2D _bananaCollider2D;
+    private CircleCollider2D _coinCollider2D;
     private LandLevelManager _gameManager;
 	private LandPuss _landPuss;
 	private SoundManager _soundManager;
-    private SpriteRenderer _bananaRenderer;
+    private SpriteRenderer _coinRenderer;
 
     void Start()
     {
-        _bananaCollider2D = GetComponent<BoxCollider2D>();
-        _bananaRenderer = GetComponent<SpriteRenderer>();
+        _coinCollider2D = GetComponent<CircleCollider2D>();
+        _coinRenderer = GetComponent<SpriteRenderer>();
         _gameManager = GameObject.Find("LandLevelManager").GetComponent<LandLevelManager>();
 		_landPuss = GameObject.Find("LandPuss").GetComponent<LandPuss>();
         _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
@@ -26,14 +26,14 @@ public class Banana : MonoBehaviour
 
         if(_landPuss.m_isSuper)
         {
-            _bananaCollider2D.enabled = false;
-            _bananaRenderer.enabled = false;
+            _coinCollider2D.enabled = false;
+            _coinRenderer.enabled = false;
         }
 
         else if(!_landPuss.m_isSuper)
         {
-            _bananaCollider2D.enabled = true;
-            _bananaRenderer.enabled = true;
+            _coinCollider2D.enabled = true;
+            _coinRenderer.enabled = true;
         }
     }
 
@@ -41,18 +41,10 @@ public class Banana : MonoBehaviour
     {
         if(tri2D.gameObject.tag.Equals("Player"))
         {
-            if(_landPuss.m_isSlipping)
-            {
-                ScoreManager.m_scoreValue += 75;
-            }
-            else
-            {
-                ScoreManager.m_scoreValue += 25;
-            }
-
+            ScoreManager.m_scoreValue += 25;
             _gameManager.m_HighScoreValueText.text = ScoreManager.m_scoreValue.ToString();
             BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
-			_soundManager.m_soundsSource.clip = _soundManager.m_bananaCollected;
+			_soundManager.m_soundsSource.clip = _soundManager.m_coinCollected;
 
 			if(SoundManager.m_playerMutedSounds == 0)
             {
