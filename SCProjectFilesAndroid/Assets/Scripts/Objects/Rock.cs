@@ -2,18 +2,14 @@
 
 public class Rock : MonoBehaviour 
 {
-    private CircleCollider2D _portalCollider2D;
-    private LandLevelManager _gameManager;
+    private ScoreManager _scoreManager;
     private SoundManager _soundManager;
-    private SpriteRenderer _portalRenderer;
     
     [SerializeField] private GameObject m_explosionPrefab;
 
 	void Start() 
 	{
-        _gameManager = GameObject.Find("LandLevelManager").GetComponent<LandLevelManager>();
-        _portalCollider2D = GetComponent<CircleCollider2D>();
-        _portalRenderer = GetComponent<SpriteRenderer>();
+        _scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 	}
 		
@@ -36,9 +32,9 @@ public class Rock : MonoBehaviour
 	{
         Explosion.m_explosionType = "Rock";
         Instantiate(m_explosionPrefab , transform.position , Quaternion.identity);
-		ScoreManager.m_scoreValue += 100;
-        _gameManager.m_HighScoreValueText.text = ScoreManager.m_scoreValue.ToString();
-		BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
+		_scoreManager.m_scoreValue += 100;
+        _scoreManager.m_HighScoreValueText.text = _scoreManager.m_scoreValue.ToString();
+		BhanuPrefs.SetHighScore(_scoreManager.m_scoreValue);
         Destroy(gameObject); //TODO Object Pooling instead of Destroy
 	}
 }

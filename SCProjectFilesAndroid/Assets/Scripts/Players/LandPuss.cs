@@ -177,11 +177,6 @@ public class LandPuss : MonoBehaviour
                 _soundManager.m_soundsSource.Play();
             }
         }
-        
-        if(m_isSuper)
-        {
-            _pussBody2D.velocity = new Vector2(_pussBody2D.velocity.x , _jumpHeight);
-        }
     }
 
     void JumpFinished()
@@ -233,21 +228,16 @@ public class LandPuss : MonoBehaviour
 
 		if(tri2D.gameObject.tag.Equals("Portal"))
 		{
-            Portal.m_pickedUp++;
-            BhanuPrefs.SetPortalPickedUp(Portal.m_pickedUp);
+            //Portal.m_pickedUp++;
+            //BhanuPrefs.SetPortalPickedUp(Portal.m_pickedUp);
             SceneManager.LoadScene("WaterSwimmer");
 		}
 
-        if(tri2D.gameObject.tag.Equals("Skin"))
-        {
-            Slip();
-        }
-
 		if(tri2D.gameObject.tag.Equals("Super"))
 		{
-            Super.m_pickedUp++;
-            BhanuPrefs.SetSuperPickedUp(Super.m_pickedUp);
-			SuperPuss();
+            //Super.m_pickedUp++;
+            //BhanuPrefs.SetSuperPickedUp(Super.m_pickedUp);
+			SceneManager.LoadScene("SuperPuss");
 		}
     }
 
@@ -282,69 +272,6 @@ public class LandPuss : MonoBehaviour
         {
             //SelfieDisappear();
         }
-    }
-
-    void Slip()
-    {
-        _pussAnim.SetBool("Slip" , true);
-        Invoke("SlipFinished" , _slipTime);
-    }
-
-    void SlipFinished()
-    {
-		_pussAnim.SetBool("Slip" , false);
-
-        if(!m_isSuper)
-        {
-            if(_bHighSlip)
-            {
-                _bHighSlip = false;
-                _bLowSlip = false;
-            }
-            
-            else if(_bLowSlip)
-            {
-                _bHighSlip = false;
-                _bLowSlip = false;
-            }
-        }
-        
-        m_isSlipping = false;
-    }
-
-	void SuperPuss()
-	{
-        _bottomWall.SetActive(true);
-        _bIsGrounded = false;
-        _currentMoveSpeed *= 3;
-        m_isSuper = true;
-        _pussAnim.SetBool("Super" , true);
-        _pussBody2D.gravityScale = 3;
-		//SelfieAppear();
-        SlipFinished();
-        _topWall.SetActive(true);
-		Invoke("SuperFinished" , _superTime);
-	}
-
-    void SuperFinished()
-    {
-        _rockObjs = GameObject.FindGameObjectsWithTag("Rock");
-
-        for(int i = 0 ; i < _rockObjs.Length ; i++)
-        {
-            if(_rockObjs[i].gameObject.transform.position.x > -7.56f || _rockObjs[i].gameObject.transform.position.x < -44.25f)
-            {
-                Destroy(_rockObjs[i].gameObject);
-            }
-        }
-
-        _bottomWall.SetActive(false);
-        _currentMoveSpeed = DEFAULT_MOVE_SPEED;
-        _pussBody2D.gravityScale = _defaultGravityScale;
-        _pussAnim.SetBool("Super" , false);
-        m_isSuper = false;	
-        _superTime = DEFAULT_SUPER_TIME;
-        _topWall.SetActive(false);
     }
 
     void UICheck()

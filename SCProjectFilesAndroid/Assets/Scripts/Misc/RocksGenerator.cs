@@ -6,7 +6,7 @@ public class RocksGenerator : MonoBehaviour
 
     [SerializeField] private float _period;
     [SerializeField] private float[] _yPositions;
-    [SerializeField] private LandPuss _landPuss;
+    [SerializeField] private SuperPuss _superPuss;
     [SerializeField] private Transform _rockTransformToSpawn;
 
     private void Update() 
@@ -16,20 +16,17 @@ public class RocksGenerator : MonoBehaviour
             return;
         }
 
-        if(_landPuss.m_isSuper) 
+        if((Time.time - _nextActionTime) > _period)
         {
-            if((Time.time - _nextActionTime) > _period)
-            {
-                _nextActionTime = Time.time;
-                SpawnRock(); //TODO Figure out a way to Spawn only one Rock instead of a bunch when this runs the first time
-            }
-        }
+            _nextActionTime = Time.time;
+            SpawnRock();
+        }        
     }
 
     private void SpawnRock() 
     {
         int randomYPositionIndex = Random.Range(0 , _yPositions.Length);
-        Instantiate(_rockTransformToSpawn , new Vector3(_landPuss.GetPosition().x , _yPositions[randomYPositionIndex] , transform.position.z) , Quaternion.identity);
+        Instantiate(_rockTransformToSpawn , new Vector3(_superPuss.GetPosition().x , _yPositions[randomYPositionIndex] , transform.position.z) , Quaternion.identity);
         Debug.Log("Spawned the Rock");
     }
 }

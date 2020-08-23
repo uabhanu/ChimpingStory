@@ -6,8 +6,6 @@ using UnityEngine.UI;
 public class LandLevelManager : MonoBehaviour 
 {
     //TODO Text Mesh Pro
-    //TODO Within the respective classes, disable the Colliders & Renderers in the Start() if Super Puss and figure out a way to turn the necessary ones back on after Super
-    //TODO Super Puss mode now not within the Land Level but instead is a separate scene like WaterSwimmer so remove all the Rendering/Colliders off from all the objects and if Super Check where applicable
     //private int _chimpionshipsCount , _currentChimpion; TODO This is for future use
     private LandPuss _landPuss;
 	private SoundManager _soundManager;
@@ -18,6 +16,7 @@ public class LandLevelManager : MonoBehaviour
     
     [SerializeField] private bool _bSelfieFlashEnabled;
     [SerializeField] private GameObject _adsMenuObj , _iapCartMenuObj , _inGameUIObj , _pauseMenuObj , _selfieButtonObj , _selfiePanelObj , _soundOffButtonObj , _soundOnButtonObj;
+    [SerializeField] private ScoreManager _scoreManager;
     [SerializeField] private Sprite[] _chimpionshipBeltSprites;
     [SerializeField] private string _chimpionAchievementID , _selfieAchievementID , _selfieLegendAchievementID , _undisputedChimpionAchievementID;
 
@@ -26,8 +25,6 @@ public class LandLevelManager : MonoBehaviour
     public static Image m_uiButtonsTutorialMenuImage;
     public static int m_currentScene , m_firstTimeIAPTutorialAppeared , m_firstTimeUIButtonsTutorial , m_firstTimeWaterLevelTutorial;
     public static Text m_chimpionshipBeltButtonTutorialText , m_leaderboardButtonTutorialText , m_muteUnmuteButtonTutorialText , m_pauseButtonTutorialText;
-
-    public Text m_HighScoreLabelText , m_HighScoreValueText , m_PolaroidsCountText;
 
     void Start()
 	{
@@ -42,9 +39,8 @@ public class LandLevelManager : MonoBehaviour
     {
         _adsMenuObj.SetActive(true);
         _inGameUIObj.SetActive(false);
-        m_HighScoreLabelText.enabled = false;
-        m_HighScoreValueText.enabled = false;
-        m_PolaroidsCountText.enabled = false;
+        _scoreManager.m_HighScoreLabelText.enabled = false;
+        _scoreManager.m_HighScoreValueText.enabled = false;
 		_selfieButtonObj.SetActive(false);
 		Time.timeScale = 0;
     }
@@ -58,8 +54,6 @@ public class LandLevelManager : MonoBehaviour
     public void AdsCancelButton()
     {
         BhanuPrefs.DeleteScore();
-        ScoreManager.m_supersCount = 0;
-        BhanuPrefs.SetSuperPickedUp(ScoreManager.m_supersCount);
         SceneManager.LoadScene(m_currentScene);
     }
 
@@ -74,7 +68,7 @@ public class LandLevelManager : MonoBehaviour
     {
         if(result == ShowResult.Finished)
         {
-            BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
+            BhanuPrefs.SetHighScore(_scoreManager.m_scoreValue);
             Time.timeScale = 1;
             SceneManager.LoadScene(m_currentScene);
         }
@@ -92,12 +86,6 @@ public class LandLevelManager : MonoBehaviour
         }
     }
 
-    public void ContinueButton()
-    {
-		BhanuPrefs.SetSuperPickedUp(ScoreManager.m_supersCount);
-        SceneManager.LoadScene("LandRunner");
-    }
-
     void EndFlash()
 	{
 		_selfiePanelObj.SetActive(false);
@@ -113,7 +101,6 @@ public class LandLevelManager : MonoBehaviour
     {
         m_currentScene = SceneManager.GetActiveScene().buildIndex;
         _landPuss = GameObject.Find("LandPuss").GetComponent<LandPuss>();
-        m_PolaroidsCountText.text = ScoreManager.m_polaroidsCount.ToString();
         _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         _swipeDownHandAnimator = GameObject.Find("SwipeDownHand").GetComponent<Animator>();
         _swipeUpHandAnimator = GameObject.Find("SwipeUpHand").GetComponent<Animator>();
@@ -168,8 +155,6 @@ public class LandLevelManager : MonoBehaviour
     public void IAPNoButton()
     {
         BhanuPrefs.DeleteScore();
-        ScoreManager.m_supersCount = 0;
-        BhanuPrefs.SetSuperPickedUp(ScoreManager.m_supersCount);
         SceneManager.LoadScene(m_currentScene);
     }
 
@@ -235,23 +220,9 @@ public class LandLevelManager : MonoBehaviour
 			Invoke("EndFlash" , 0.25f);
 		}
 
-		if(_landPuss.m_isSlipping)
-        {
-            ScoreManager.m_scoreValue += 60;
-        }
-
-        else if(_landPuss.m_isSuper) 
-		{
-			ScoreManager.m_scoreValue += 200;
-		} 
-
-		else 
-		{
-			ScoreManager.m_scoreValue += 20;
-		}
-
-		BhanuPrefs.SetHighScore(ScoreManager.m_scoreValue);
-        m_HighScoreValueText.text = ScoreManager.m_scoreValue.ToString();
+		_scoreManager.m_scoreValue += 20;
+		BhanuPrefs.SetHighScore(_scoreManager.m_scoreValue);
+        _scoreManager.m_HighScoreValueText.text = _scoreManager.m_scoreValue.ToString();
 	}
 
     public void SoundOffButton()
@@ -270,18 +241,5 @@ public class LandLevelManager : MonoBehaviour
         _soundOffButtonObj.SetActive(true);
         _soundOnButtonObj.SetActive(false);
         BhanuPrefs.SetSoundsStatus(SoundManager.m_playerMutedSounds);
-    }
-
-    public void SwipeHandOKButton()
-    {
-        m_HighScoreLabelText.enabled = true;
-        m_HighScoreValueText.enabled = true;
-        _swipeDownHandAnimator.enabled = false;
-        _swipeUpHandAnimator.enabled = false;
-        _swipeDownHandImage.enabled = false;
-        _swipeUpHandImage.enabled = false;
-        _swipeHandOKButtonImage.enabled = false;
-        _swipeHandPanelImage.enabled = false;
-        Time.timeScale = 1;
     }
 }
