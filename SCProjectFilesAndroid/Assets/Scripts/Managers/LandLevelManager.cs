@@ -7,6 +7,7 @@ public class LandLevelManager : MonoBehaviour
 {
     //TODO Text Mesh Pro
     //TODO Within the respective classes, disable the Colliders & Renderers in the Start() if Super Puss and figure out a way to turn the necessary ones back on after Super
+    //TODO Super Puss mode now not within the Land Level but instead is a separate scene like WaterSwimmer so remove all the Rendering/Colliders off from all the objects and if Super Check where applicable
     //private int _chimpionshipsCount , _currentChimpion; TODO This is for future use
     private LandPuss _landPuss;
 	private SoundManager _soundManager;
