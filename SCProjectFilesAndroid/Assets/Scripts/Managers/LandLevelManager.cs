@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class LandLevelManager : MonoBehaviour 
 {
+    //TODO Text Mesh Pro
+    //TODO Within the respective classes, disable the Colliders & Renderers in the Start() if Super Puss and figure out a way to turn the necessary ones back on after Super
     //private int _chimpionshipsCount , _currentChimpion; TODO This is for future use
     private LandPuss _landPuss;
 	private SoundManager _soundManager;
