@@ -30,7 +30,7 @@ public class SpaceGenerator : MonoBehaviour
 
     private Transform SpawnSpacePart(Transform spacePart , Vector3 spawnPosition) 
     {
-        Transform spacePartTransform = Instantiate(spacePart , new Vector3(spawnPosition.x , 0f , spawnPosition.z) , Quaternion.identity);
+        Transform spacePartTransform = Instantiate(spacePart , new Vector3(spawnPosition.x , -0.28f , spawnPosition.z) , Quaternion.identity);
         return spacePartTransform;
     }
 }
