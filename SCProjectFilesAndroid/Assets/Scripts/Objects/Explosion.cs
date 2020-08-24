@@ -2,32 +2,20 @@
 
 public class Explosion : MonoBehaviour
 {
-    ParticleSystem m_explosionSystem;
-    SoundManager m_soundManager;
+    private ParticleSystem m_explosionSystem;
+    private SoundManager m_soundManager;
 
-    [SerializeField] [Tooltip("Select the value of seconds after which this object should be destroyed")] [Range(0.1f , 1.1f)] float m_destroyAfter;
-	[SerializeField] Material m_rock , m_super;
+    [SerializeField] [Tooltip("Select the value of seconds after which this object should be destroyed")] [Range(0.1f , 1.1f)] private float m_destroyAfter;
+	[SerializeField] private Material _explosionMaterial;
 	
 	public static string m_explosionType;
 
     void Start()
     {
 		m_explosionSystem = GetComponent<ParticleSystem>();
+		m_explosionSystem.GetComponent<Renderer>().material = _explosionMaterial;
 		m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
-
-		switch(m_explosionType)
-		{
-			case "Rock":
-				m_explosionSystem.GetComponent<Renderer>().material = m_rock;
-				m_soundManager.m_soundsSource.clip = m_soundManager.m_rockExplosion;
-			break;
-
-			case "Super":
-				m_explosionSystem.GetComponent<Renderer>().material = m_super;
-				m_soundManager.m_soundsSource.clip = m_soundManager.m_superCollected;
-			break;
-		}
-
+		m_soundManager.m_soundsSource.clip = m_soundManager.m_rockExplosion;
         m_explosionSystem.Play();
 
 		if(SoundManager.m_playerMutedSounds == 0)

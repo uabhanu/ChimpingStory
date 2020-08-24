@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 
-public class RocksGenerator : MonoBehaviour 
+public class MeteorsGenerator : MonoBehaviour 
 {
     private float _nextActionTime = 0.0f;
 
-    [SerializeField] private float _period;
+    [SerializeField] [Tooltip ("Lower the value, more meteors and vice versa")] private float _period;
     [SerializeField] private float[] _yPositions;
     [SerializeField] private SuperPuss _superPuss;
-    [SerializeField] private Transform _rockTransformToSpawn;
+    [SerializeField] private Transform _meteorTransformToSpawn;
 
     private void Update() 
     {
@@ -19,15 +19,14 @@ public class RocksGenerator : MonoBehaviour
         if((Time.time - _nextActionTime) > _period)
         {
             _nextActionTime = Time.time;
-            SpawnRock();
+            SpawnMeteor();
         }        
     }
 
-    private void SpawnRock() 
+    private void SpawnMeteor() 
     {
         int randomYPositionIndex = Random.Range(0 , _yPositions.Length);
-        Instantiate(_rockTransformToSpawn , new Vector3(_superPuss.GetPosition().x , _yPositions[randomYPositionIndex] , transform.position.z) , Quaternion.identity);
-        Debug.Log("Spawned the Rock");
+        Instantiate(_meteorTransformToSpawn , new Vector3(_superPuss.GetPosition().x , _yPositions[randomYPositionIndex] , transform.position.z) , Quaternion.identity);
     }
 }
 

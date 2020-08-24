@@ -15,7 +15,7 @@ public class CameraFollow : MonoBehaviour
     {
         Vector3 tempPosition = transform.position;
         tempPosition.x = m_characterToFollow.position.x + m_offsetX;
-        tempPosition.y = Mathf.Clamp(m_characterToFollow.position.y + m_offsetY , -0.50f , 0.27f);
+        tempPosition.y = Mathf.Clamp(m_characterToFollow.position.y + m_offsetY , -0.50f , -0.1f);
         tempPosition.z = -10;
         transform.position = tempPosition;
     }

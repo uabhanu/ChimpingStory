@@ -18,7 +18,7 @@ public class LandPuss : MonoBehaviour
     [SerializeField] private float _defaultGravityScale , _jumpHeight , _slipTime , _superTime;
     [SerializeField] private GameObject _bottomWall , _topWall;
     [SerializeField] private PlatformsGenerator _platformsGenerator;
-    [SerializeField] private RocksGenerator _rocksGenerator;
+    [SerializeField] private MeteorsGenerator _rocksGenerator;
     [SerializeField] private string _holeAchievementID , _slipAchievementID , _superAchievementID;
     [SerializeField] private Transform _raycastBottom , _raycastTop;
     //[SerializeField] private Text _superTimerText; //This is for Testing only
@@ -36,7 +36,7 @@ public class LandPuss : MonoBehaviour
         _platformsGenerator = GameObject.Find("PlatformsGenerator").GetComponent<PlatformsGenerator>();
         _raycastBottom = GameObject.Find("RaycastBottom").transform;
         _raycastTop = GameObject.Find("RaycastTop").transform;
-        _rocksGenerator = GameObject.Find("RocksGenerator").GetComponent<RocksGenerator>();
+        _rocksGenerator = GameObject.Find("MeteorsGenerator").GetComponent<MeteorsGenerator>();
         _slipTime = 30.25f;
         _superTime = DEFAULT_SUPER_TIME;
         //_superTimerText = GameObject.Find("SuperTimerText").GetComponent<Text>();

@@ -39,8 +39,6 @@ public class LandLevelManager : MonoBehaviour
     {
         _adsMenuObj.SetActive(true);
         _inGameUIObj.SetActive(false);
-        _scoreManager.m_HighScoreLabelText.enabled = false;
-        _scoreManager.m_HighScoreValueText.enabled = false;
 		_selfieButtonObj.SetActive(false);
 		Time.timeScale = 0;
     }
