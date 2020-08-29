@@ -49,11 +49,11 @@ public class WaterLevelManager : MonoBehaviour
 
         if(_timerValue <= 0)
         {
-            Time.timeScale = 0;
-            _exitToLandMenuObj.SetActive(true);
-            _inGameMenuObj.SetActive(false);
-            return;
-
+            //Time.timeScale = 0;
+            //_exitToLandMenuObj.SetActive(true);
+            //_inGameMenuObj.SetActive(false);
+            //return;
+            SceneManager.LoadScene("LandRunner");
         }
     }
 

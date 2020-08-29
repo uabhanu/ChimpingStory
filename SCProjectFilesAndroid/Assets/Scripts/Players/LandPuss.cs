@@ -7,7 +7,7 @@ public class LandPuss : MonoBehaviour
     private const float DEFAULT_MOVE_SPEED = 5.0f;
 
     private Animator _pussAnim;
-    private bool _bIsGrounded , _bIsJumping , _bIsSliding , _bIsUI;
+    [SerializeField] private bool _bIsGrounded , _bIsJumping , _bIsSliding , _bIsUI;
     private float _currentMoveSpeed;
     private LandLevelManager _gameManager;
     private Rigidbody2D _pussBody2D;
@@ -20,7 +20,7 @@ public class LandPuss : MonoBehaviour
 
     public bool m_isSuper;
 
-	void Reset()
+	private void Reset()
 	{
         _currentMoveSpeed = DEFAULT_MOVE_SPEED;
         _pussBody2D = GetComponent<Rigidbody2D>();
@@ -31,7 +31,7 @@ public class LandPuss : MonoBehaviour
         //_superTimerText = GameObject.Find("SuperTimerText").GetComponent<Text>();
 	}
 
-	void Start()
+	private void Start()
     {
         _currentMoveSpeed = DEFAULT_MOVE_SPEED;
         _pussAnim = GetComponent<Animator>();
@@ -40,7 +40,7 @@ public class LandPuss : MonoBehaviour
 		_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
-    void Update()
+    private void Update()
     {
         if(Time.timeScale == 0)
         {
@@ -53,7 +53,7 @@ public class LandPuss : MonoBehaviour
         UICheck();
     }
 
-    void BhanuInput()
+    private void BhanuInput()
     {
         if(LandLevelManager.b_isUnityEditorTestingMode)
         {
@@ -87,7 +87,7 @@ public class LandPuss : MonoBehaviour
         }
     }
 
-    void CheatDeath()
+    private void CheatDeath()
     {
         _gameManager.Ads();
     }
@@ -102,7 +102,7 @@ public class LandPuss : MonoBehaviour
         return _currentMoveSpeed;
     }
 
-    void Grounded()
+    private void Grounded()
     {
         
         Debug.DrawLine(_raycastTop.position , _raycastBottom.position , Color.red);
@@ -110,22 +110,10 @@ public class LandPuss : MonoBehaviour
 
         if(hit2D)
         {
-            if(hit2D.collider.gameObject.tag.Equals("Platform"))
+            if(hit2D.collider.gameObject.tag.Equals("Platform")) //TODO Figure out a way to make this Grounded false in a right way
             {
                 Debug.Log(hit2D.collider.gameObject.name);
                 _bIsGrounded = true;
-            }
-
-            else if(!hit2D.collider.gameObject.tag.Equals("Platform"))
-            {
-                _bIsGrounded = false;
-                //SlideFinished(); //TODO This may be useful later so don't delete
-            }
-
-            else
-            {
-                _bIsGrounded = false;
-                //SlideFinished();
             }
         }
         else
@@ -153,7 +141,7 @@ public class LandPuss : MonoBehaviour
         }
     }
 
-    void JumpFinished()
+    private void JumpFinished()
     {
         _pussAnim.SetBool("Jump" , false);
         _bIsJumping = false;      
@@ -169,12 +157,28 @@ public class LandPuss : MonoBehaviour
         }
     }
 
-    void Movement()
+    private void Movement()
     {
         transform.Translate(Vector2.right * _currentMoveSpeed * Time.deltaTime , Space.World);
     }
 
-    void OnTriggerEnter2D(Collider2D tri2D)
+    //private void OnCollisionEnter2D(Collision2D col2D)
+    //{
+    //    if(col2D.gameObject.tag.Equals("Platform"))
+    //    {
+    //        _bIsGrounded = true;
+    //    }
+    //}
+
+    //private void OnCollisionExit2D(Collision2D col2D)
+    //{
+    //    if(col2D.gameObject.tag.Equals("Platform"))
+    //    {
+    //        _bIsGrounded = false;
+    //    }
+    //}
+
+    private void OnTriggerEnter2D(Collider2D tri2D)
     {
         if(tri2D.gameObject.tag.Equals("Killbox"))
         {
