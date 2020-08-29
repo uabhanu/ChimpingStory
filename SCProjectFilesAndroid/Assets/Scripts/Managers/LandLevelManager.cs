@@ -98,7 +98,7 @@ public class LandLevelManager : MonoBehaviour
     void GetBhanuObjects()
     {
         m_currentScene = SceneManager.GetActiveScene().buildIndex;
-        _landPuss = GameObject.Find("LandPuss").GetComponent<LandPuss>();
+        _landPuss = GameObject.Find("PF_LandPuss").GetComponent<LandPuss>();
         _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         _swipeDownHandAnimator = GameObject.Find("SwipeDownHand").GetComponent<Animator>();
         _swipeUpHandAnimator = GameObject.Find("SwipeUpHand").GetComponent<Animator>();

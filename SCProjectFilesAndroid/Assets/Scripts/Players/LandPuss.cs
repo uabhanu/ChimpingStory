@@ -4,41 +4,30 @@ using UnityEngine.SceneManagement;
 
 public class LandPuss : MonoBehaviour
 {
-    private const float DEFAULT_SUPER_TIME = 30.25f;
     private const float DEFAULT_MOVE_SPEED = 5.0f;
 
     private Animator _pussAnim;
-    private bool _bIsGrounded , _bHighSlip , _bIsJumping , _bLowSlip , _bIsSliding , _bIsUI;
+    private bool _bIsGrounded , _bIsJumping , _bIsSliding , _bIsUI;
     private float _currentMoveSpeed;
     private LandLevelManager _gameManager;
-    private GameObject[] _rockObjs;
     private Rigidbody2D _pussBody2D;
 	private SoundManager _soundManager;
 
-    [SerializeField] private float _defaultGravityScale , _jumpHeight , _slipTime , _superTime;
-    [SerializeField] private GameObject _bottomWall , _topWall;
-    [SerializeField] private PlatformsGenerator _platformsGenerator;
-    [SerializeField] private MeteorsGenerator _rocksGenerator;
+    [SerializeField] private float _jumpHeight;
     [SerializeField] private string _holeAchievementID , _slipAchievementID , _superAchievementID;
     [SerializeField] private Transform _raycastBottom , _raycastTop;
     //[SerializeField] private Text _superTimerText; //This is for Testing only
 
-    public bool m_isSlipping , m_isSuper;
+    public bool m_isSuper;
 
 	void Reset()
 	{
         _currentMoveSpeed = DEFAULT_MOVE_SPEED;
         _pussBody2D = GetComponent<Rigidbody2D>();
-        _defaultGravityScale = _pussBody2D.gravityScale; 
-        m_isSlipping = false;
 		m_isSuper = false;
         _jumpHeight = 20.5f;
-        _platformsGenerator = GameObject.Find("PlatformsGenerator").GetComponent<PlatformsGenerator>();
         _raycastBottom = GameObject.Find("RaycastBottom").transform;
         _raycastTop = GameObject.Find("RaycastTop").transform;
-        _rocksGenerator = GameObject.Find("MeteorsGenerator").GetComponent<MeteorsGenerator>();
-        _slipTime = 30.25f;
-        _superTime = DEFAULT_SUPER_TIME;
         //_superTimerText = GameObject.Find("SuperTimerText").GetComponent<Text>();
 	}
 
@@ -115,50 +104,35 @@ public class LandPuss : MonoBehaviour
 
     void Grounded()
     {
-        if(!m_isSuper)
+        
+        Debug.DrawLine(_raycastTop.position , _raycastBottom.position , Color.red);
+        RaycastHit2D hit2D = Physics2D.Raycast(_raycastTop.position , _raycastBottom.position);
+
+        if(hit2D)
         {
-            //Debug.DrawLine(_raycastTop.position , _raycastBottom.position , Color.red);
-            RaycastHit2D hit2D = Physics2D.Raycast(_raycastTop.position , _raycastBottom.position);
-
-            if(hit2D)
+            if(hit2D.collider.gameObject.tag.Equals("Platform"))
             {
-                if(hit2D.collider.gameObject.tag.Equals("Platform"))
-                {
-                    _bIsGrounded = true;
-                }
-
-                else if(!hit2D.collider.gameObject.tag.Equals("Platform"))
-                {
-                    _bIsGrounded = false;
-                    SlideFinished();
-                }
-
-                else
-                {
-                    _bIsGrounded = false;
-                    SlideFinished();
-                }
+                Debug.Log(hit2D.collider.gameObject.name);
+                _bIsGrounded = true;
             }
 
-            else if(!hit2D)
+            else if(!hit2D.collider.gameObject.tag.Equals("Platform"))
             {
                 _bIsGrounded = false;
-                SlideFinished();
+                //SlideFinished(); //TODO This may be useful later so don't delete
             }
 
             else
             {
                 _bIsGrounded = false;
-                SlideFinished();
+                //SlideFinished();
             }
         }
-
-        //TODO The block below is for testing only so remove after Super Chimp Logic successful
-        //if(m_isSuper)
-        //{
-        //    _superTime -= Time.deltaTime;
-        //    _superTimerText.text = _superTime.ToString();
-        //}
+        else
+        {
+            _bIsGrounded = false;
+            //SlideFinished();
+        }
     }
 
 	public void Jump()

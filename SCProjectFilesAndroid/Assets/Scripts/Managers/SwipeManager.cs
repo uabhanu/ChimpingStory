@@ -28,7 +28,7 @@ public class SwipeManager : MonoBehaviour
 
         if(m_currentScene == 1)
         {
-            m_landPuss = GameObject.Find("LandPuss").GetComponent<LandPuss>();
+            m_landPuss = GameObject.Find("PF_LandPuss").GetComponent<LandPuss>();
         }
     }
 
