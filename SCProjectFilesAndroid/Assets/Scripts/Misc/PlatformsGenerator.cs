@@ -49,7 +49,8 @@ public class PlatformsGenerator : MonoBehaviour
         {
             GameObject afterSuperPlatform = Resources.Load("PF_AfterSuperPlatform") as GameObject;
             objectToSpawn = afterSuperPlatform.transform;
-            _platformEndPositionTransform = Instantiate(objectToSpawn , new Vector3(spawnPosition.x - 4.90f , -4.50f , spawnPosition.z) , Quaternion.identity);
+            //_platformEndPositionTransform = Instantiate(objectToSpawn , new Vector3(spawnPosition.x - 4.90f , -4.50f , spawnPosition.z) , Quaternion.identity);
+            _platformEndPositionTransform = Instantiate(objectToSpawn , spawnPosition , Quaternion.identity); //TODO This is the right way and once this is working as expected, remove the line above
         }
 
         return _platformEndPositionTransform;

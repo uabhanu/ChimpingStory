@@ -7,7 +7,7 @@ public class LandPuss : MonoBehaviour
     private const float DEFAULT_MOVE_SPEED = 5.0f;
 
     private Animator _pussAnim;
-    [SerializeField] private bool _bIsGrounded , _bIsJumping , _bIsSliding , _bIsUI;
+    private bool _bIsGrounded , _bIsJumping , _bIsSliding , _bIsUI;
     private float _currentMoveSpeed;
     private LandLevelManager _gameManager;
     private Rigidbody2D _pussBody2D;
@@ -112,7 +112,12 @@ public class LandPuss : MonoBehaviour
         {
             if(hit2D.collider.gameObject.tag.Equals("Platform")) //TODO Figure out a way to make this Grounded false in a right way
             {
-                Debug.Log(hit2D.collider.gameObject.name);
+                Debug.Log("Platform : " + hit2D.collider.gameObject.name);
+                _bIsGrounded = true;
+            }
+            else
+            {
+                Debug.Log("Other Object : " + hit2D.collider.gameObject.name);
                 _bIsGrounded = true;
             }
         }
@@ -166,6 +171,7 @@ public class LandPuss : MonoBehaviour
     //{
     //    if(col2D.gameObject.tag.Equals("Platform"))
     //    {
+    //        Debug.Log("Platform : " + col2D.collider.gameObject.name);
     //        _bIsGrounded = true;
     //    }
     //}
@@ -174,6 +180,7 @@ public class LandPuss : MonoBehaviour
     //{
     //    if(col2D.gameObject.tag.Equals("Platform"))
     //    {
+    //        Debug.Log("Other Object : " + col2D.collider.gameObject.name);
     //        _bIsGrounded = false;
     //    }
     //}
