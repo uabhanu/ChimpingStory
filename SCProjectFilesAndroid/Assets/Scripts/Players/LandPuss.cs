@@ -5,17 +5,18 @@ using UnityEngine.SceneManagement;
 public class LandPuss : MonoBehaviour
 {
     private const float DEFAULT_MOVE_SPEED = 5.0f;
+    private const float DEFAULT_SLIDE_TIME = 0.5f;
 
     private Animator _pussAnim;
     private bool _bIsGrounded , _bIsJumping , _bIsSliding , _bIsUI;
-    private float _currentMoveSpeed;
     private LandLevelManager _gameManager;
     private Rigidbody2D _pussBody2D;
 	private SoundManager _soundManager;
 
+    [SerializeField] private float _currentMoveSpeed , _currentSlideTime;
     [SerializeField] private float _jumpHeight;
     [SerializeField] private string _holeAchievementID , _slipAchievementID , _superAchievementID;
-    [SerializeField] private Transform _raycastBottom , _raycastTop;
+    [SerializeField] private Transform _raycastBottom , _raycastLeft , _raycastRight , _raycastTop;
     //[SerializeField] private Text _superTimerText; //This is for Testing only
 
     public bool m_isSuper;
@@ -23,10 +24,13 @@ public class LandPuss : MonoBehaviour
 	private void Reset()
 	{
         _currentMoveSpeed = DEFAULT_MOVE_SPEED;
+        _currentSlideTime = DEFAULT_SLIDE_TIME;
         _pussBody2D = GetComponent<Rigidbody2D>();
 		m_isSuper = false;
         _jumpHeight = 20.5f;
         _raycastBottom = GameObject.Find("RaycastBottom").transform;
+        _raycastLeft = GameObject.Find("RaycastLeft").transform;
+        _raycastRight = GameObject.Find("RaycastRight").transform;
         _raycastTop = GameObject.Find("RaycastTop").transform;
         //_superTimerText = GameObject.Find("SuperTimerText").GetComponent<Text>();
 	}
@@ -49,6 +53,7 @@ public class LandPuss : MonoBehaviour
 
         BhanuInput();
         Grounded();
+        //Hurdle();
         Movement();
         UICheck();
     }
@@ -104,7 +109,6 @@ public class LandPuss : MonoBehaviour
 
     private void Grounded()
     {
-        
         Debug.DrawLine(_raycastTop.position , _raycastBottom.position , Color.red);
         RaycastHit2D hit2D = Physics2D.Raycast(_raycastTop.position , _raycastBottom.position);
 
@@ -112,12 +116,12 @@ public class LandPuss : MonoBehaviour
         {
             if(hit2D.collider.gameObject.tag.Equals("Platform")) //TODO Figure out a way to make this Grounded false in a right way
             {
-                Debug.Log("Platform : " + hit2D.collider.gameObject.name);
+                //Debug.Log("Platform : " + hit2D.collider.gameObject.name);
                 _bIsGrounded = true;
             }
             else
             {
-                Debug.Log("Other Object : " + hit2D.collider.gameObject.name);
+                //Debug.Log("Other Object : " + hit2D.collider.gameObject.name);
                 _bIsGrounded = true;
             }
         }
@@ -125,6 +129,32 @@ public class LandPuss : MonoBehaviour
         {
             _bIsGrounded = false;
             //SlideFinished();
+        }
+    }
+
+    private void Hurdle()
+    {
+        Debug.DrawLine(_raycastLeft.position , _raycastRight.position , Color.yellow);
+        RaycastHit2D hit2D = Physics2D.Raycast(_raycastLeft.position , _raycastRight.position);
+
+        if(hit2D)
+        {
+            if(hit2D.collider.gameObject.tag.Equals("Hurdle"))
+            {
+                Debug.Log("Hurdle : " + hit2D.collider.gameObject.name);
+
+			    if(!_bIsSliding)
+                {
+                    _soundManager.m_soundsSource.clip = _soundManager.m_hurdleDeath;
+
+			        if(SoundManager.m_playerMutedSounds == 0)
+                    {
+                        _soundManager.m_soundsSource.Play();
+                    }
+
+                    CheatDeath();
+                }
+            }
         }
     }
 
@@ -167,24 +197,6 @@ public class LandPuss : MonoBehaviour
         transform.Translate(Vector2.right * _currentMoveSpeed * Time.deltaTime , Space.World);
     }
 
-    //private void OnCollisionEnter2D(Collision2D tri2D)
-    //{
-    //    if(tri2D.gameObject.tag.Equals("Platform"))
-    //    {
-    //        Debug.Log("Platform : " + tri2D.collider.gameObject.name);
-    //        _bIsGrounded = true;
-    //    }
-    //}
-
-    //private void OnCollisionExit2D(Collision2D tri2D)
-    //{
-    //    if(tri2D.gameObject.tag.Equals("Platform"))
-    //    {
-    //        Debug.Log("Other Object : " + tri2D.collider.gameObject.name);
-    //        _bIsGrounded = false;
-    //    }
-    //}
-
     private void OnTriggerEnter2D(Collider2D tri2D)
     {
         if(tri2D.gameObject.tag.Equals("Death"))
@@ -201,11 +213,11 @@ public class LandPuss : MonoBehaviour
 
         if(tri2D.gameObject.tag.Equals("Hurdle"))
         {
-			if(!_bIsSliding)
+            if(!_bIsSliding) //TODO Since the collider triggers only once, when the puss gets back up too soon, still gets away so fixing this WIP
             {
                 _soundManager.m_soundsSource.clip = _soundManager.m_hurdleDeath;
 
-			    if(SoundManager.m_playerMutedSounds == 0)
+                if(SoundManager.m_playerMutedSounds == 0)
                 {
                     _soundManager.m_soundsSource.Play();
                 }
@@ -214,7 +226,7 @@ public class LandPuss : MonoBehaviour
             }
         }
 
-		if(tri2D.gameObject.tag.Equals("Portal"))
+        if(tri2D.gameObject.tag.Equals("Portal"))
 		{
             //Portal.m_pickedUp++;
             //BhanuPrefs.SetPortalPickedUp(Portal.m_pickedUp);
@@ -246,7 +258,7 @@ public class LandPuss : MonoBehaviour
             _bIsSliding = true;
 			_pussAnim.SetBool("Jog" , false);
 			_pussAnim.SetBool("Slide" , true);
-			Invoke("SlideFinished" , 0.75f);
+			Invoke("SlideFinished" , _currentSlideTime);
             //SelfieAppear();
 		}
     }

@@ -9,7 +9,7 @@ public class Killbox : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider2D)
     {
-        if(collider2D.gameObject.tag.Equals("Destructible") || collider2D.gameObject.tag.Equals("Platform"))
+        if(collider2D.gameObject.tag.Equals("Destructible"))
         {
             Kill(collider2D.gameObject);
         }
