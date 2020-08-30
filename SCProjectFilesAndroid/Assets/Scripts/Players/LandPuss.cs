@@ -167,27 +167,27 @@ public class LandPuss : MonoBehaviour
         transform.Translate(Vector2.right * _currentMoveSpeed * Time.deltaTime , Space.World);
     }
 
-    //private void OnCollisionEnter2D(Collision2D col2D)
+    //private void OnCollisionEnter2D(Collision2D tri2D)
     //{
-    //    if(col2D.gameObject.tag.Equals("Platform"))
+    //    if(tri2D.gameObject.tag.Equals("Platform"))
     //    {
-    //        Debug.Log("Platform : " + col2D.collider.gameObject.name);
+    //        Debug.Log("Platform : " + tri2D.collider.gameObject.name);
     //        _bIsGrounded = true;
     //    }
     //}
 
-    //private void OnCollisionExit2D(Collision2D col2D)
+    //private void OnCollisionExit2D(Collision2D tri2D)
     //{
-    //    if(col2D.gameObject.tag.Equals("Platform"))
+    //    if(tri2D.gameObject.tag.Equals("Platform"))
     //    {
-    //        Debug.Log("Other Object : " + col2D.collider.gameObject.name);
+    //        Debug.Log("Other Object : " + tri2D.collider.gameObject.name);
     //        _bIsGrounded = false;
     //    }
     //}
 
     private void OnTriggerEnter2D(Collider2D tri2D)
     {
-        if(tri2D.gameObject.tag.Equals("Killbox"))
+        if(tri2D.gameObject.tag.Equals("Death"))
         {
 			_soundManager.m_soundsSource.clip = _soundManager.m_fallDeath;
 
@@ -201,14 +201,17 @@ public class LandPuss : MonoBehaviour
 
         if(tri2D.gameObject.tag.Equals("Hurdle"))
         {
-			_soundManager.m_soundsSource.clip = _soundManager.m_hurdleDeath;
-
-			if(SoundManager.m_playerMutedSounds == 0)
+			if(!_bIsSliding)
             {
-                _soundManager.m_soundsSource.Play();
-            }
+                _soundManager.m_soundsSource.clip = _soundManager.m_hurdleDeath;
 
-            CheatDeath();
+			    if(SoundManager.m_playerMutedSounds == 0)
+                {
+                    _soundManager.m_soundsSource.Play();
+                }
+
+                CheatDeath();
+            }
         }
 
 		if(tri2D.gameObject.tag.Equals("Portal"))
