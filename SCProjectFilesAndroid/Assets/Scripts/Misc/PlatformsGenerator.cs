@@ -39,19 +39,10 @@ public class PlatformsGenerator : MonoBehaviour
     private Transform SpawnLandPart(Transform objectToSpawn , Vector3 spawnPosition) 
     {
         float randomYPosition = Random.Range(spawnPosition.y - 0.5f , spawnPosition.y + 0.5f);
-
-        if(!_landPuss.m_isSuper)
-        {
-            _platformEndPositionTransform = Instantiate(objectToSpawn , new Vector3(spawnPosition.x , Mathf.Clamp(randomYPosition , -4.50f , 0.70f) , spawnPosition.z) , Quaternion.identity);
-        }
-
-        else if(_landPuss.m_isSuper)
-        {
-            GameObject afterSuperPlatform = Resources.Load("PF_AfterSuperPlatform") as GameObject;
-            objectToSpawn = afterSuperPlatform.transform;
-            _platformEndPositionTransform = Instantiate(objectToSpawn , new Vector3(spawnPosition.x - 4.50f , 0.50f , spawnPosition.z) , Quaternion.identity);
-        }
-
+        //_platformEndPositionTransform = Instantiate(objectToSpawn , new Vector3(spawnPosition.x , Mathf.Clamp(randomYPosition , -4.50f , 0.70f) , spawnPosition.z) , Quaternion.identity);
+         
+        //TODO Remove the line below after testing and use the one above instead
+        _platformEndPositionTransform = Instantiate(objectToSpawn , new Vector3(spawnPosition.x , -4.50f , spawnPosition.z) , Quaternion.identity); //TODO Remove this after testing
         return _platformEndPositionTransform;
     }
 }
