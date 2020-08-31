@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
-    [SerializeField] GameObject _quitMenuObj;
+    [SerializeField] GameObject _mainMenuObj , _quitMenuObj;
     [SerializeField] GameObject _soundOffButtonObj , _soundOnButtonObj;
     [SerializeField] SoundManager _soundManager;
 
@@ -49,16 +49,18 @@ public class MainMenuManager : MonoBehaviour
 
     public void QuitButton()
     {
+        _mainMenuObj.SetActive(false);
         _quitMenuObj.SetActive(true);
     }
 
-    public void QuitAcceptButton()
+    public void QuitYesButton()
     {
         Application.Quit();
     }
 
-    public void QuitCancelButton()
+    public void QuitNoButton()
     {
+        _mainMenuObj.SetActive(true);
         _quitMenuObj.SetActive(false);
     }
 }
