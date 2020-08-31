@@ -8,7 +8,7 @@ public class LandPuss : MonoBehaviour
     private const float DEFAULT_SLIDE_TIME = 0.5f;
 
     private Animator _pussAnim;
-    private bool _bIsGrounded , _bIsJumping , _bIsSliding , _bIsUI;
+    [SerializeField] private bool _bIsGrounded , _bIsJumping , _bIsSliding , _bIsUI;
     private LandLevelManager _gameManager;
     private Rigidbody2D _pussBody2D;
 	private SoundManager _soundManager;
@@ -16,7 +16,7 @@ public class LandPuss : MonoBehaviour
     [SerializeField] private float _currentMoveSpeed , _currentSlideTime;
     [SerializeField] private float _jumpHeight;
     [SerializeField] private string _holeAchievementID , _slipAchievementID , _superAchievementID;
-    [SerializeField] private Transform _raycastBottom , _raycastLeft , _raycastRight , _raycastTop;
+    [SerializeField] private Transform _raycastBottom , _raycastTop;
     //[SerializeField] private Text _superTimerText; //This is for Testing only
 
     public bool m_isSuper;
@@ -29,8 +29,6 @@ public class LandPuss : MonoBehaviour
 		m_isSuper = false;
         _jumpHeight = 20.5f;
         _raycastBottom = GameObject.Find("RaycastBottom").transform;
-        _raycastLeft = GameObject.Find("RaycastLeft").transform;
-        _raycastRight = GameObject.Find("RaycastRight").transform;
         _raycastTop = GameObject.Find("RaycastTop").transform;
         //_superTimerText = GameObject.Find("SuperTimerText").GetComponent<Text>();
 	}
@@ -53,7 +51,6 @@ public class LandPuss : MonoBehaviour
 
         BhanuInput();
         Grounded();
-        //Hurdle();
         Movement();
         UICheck();
     }
@@ -114,47 +111,22 @@ public class LandPuss : MonoBehaviour
 
         if(hit2D)
         {
-            if(hit2D.collider.gameObject.tag.Equals("Platform")) //TODO Figure out a way to make this Grounded false in a right way
+            if(hit2D.collider.gameObject.tag.Equals("Platform"))
             {
-                //Debug.Log("Platform : " + hit2D.collider.gameObject.name);
                 _bIsGrounded = true;
             }
-            else
+
+            //TODO the raycast should collide with the platform only instead of other objects so the only time the grounded becomes false is when it's not colliding with Platform instead of colliding with other object
+            else if(!hit2D.collider.gameObject.tag.Equals("Platform"))
             {
-                //Debug.Log("Other Object : " + hit2D.collider.gameObject.name);
-                _bIsGrounded = true;
+                _bIsGrounded = false;
+                SlideFinished();
             }
         }
         else
         {
             _bIsGrounded = false;
-            //SlideFinished();
-        }
-    }
-
-    private void Hurdle()
-    {
-        Debug.DrawLine(_raycastLeft.position , _raycastRight.position , Color.yellow);
-        RaycastHit2D hit2D = Physics2D.Raycast(_raycastLeft.position , _raycastRight.position);
-
-        if(hit2D)
-        {
-            if(hit2D.collider.gameObject.tag.Equals("Hurdle"))
-            {
-                Debug.Log("Hurdle : " + hit2D.collider.gameObject.name);
-
-			    if(!_bIsSliding)
-                {
-                    _soundManager.m_soundsSource.clip = _soundManager.m_hurdleDeath;
-
-			        if(SoundManager.m_playerMutedSounds == 0)
-                    {
-                        _soundManager.m_soundsSource.Play();
-                    }
-
-                    CheatDeath();
-                }
-            }
+            SlideFinished();
         }
     }
 
@@ -211,21 +183,6 @@ public class LandPuss : MonoBehaviour
             CheatDeath();
         }
 
-        if(tri2D.gameObject.tag.Equals("Hurdle"))
-        {
-            if(!_bIsSliding) //TODO Since the collider triggers only once, when the puss gets back up too soon, still gets away so fixing this WIP
-            {
-                _soundManager.m_soundsSource.clip = _soundManager.m_hurdleDeath;
-
-                if(SoundManager.m_playerMutedSounds == 0)
-                {
-                    _soundManager.m_soundsSource.Play();
-                }
-
-                CheatDeath();
-            }
-        }
-
         if(tri2D.gameObject.tag.Equals("Portal"))
 		{
             //Portal.m_pickedUp++;
@@ -250,6 +207,24 @@ public class LandPuss : MonoBehaviour
     //{
     //    LandLevelManager.m_selfieButtonImage.enabled = false;
     //}
+
+    private void OnTriggerStay2D(Collider2D tri2D)
+    {
+        if(tri2D.gameObject.tag.Equals("Hurdle"))
+        {
+            if(!_bIsSliding) //TODO Since the collider triggers only once, when the puss gets back up too soon, still gets away so fixing this WIP
+            {
+                _soundManager.m_soundsSource.clip = _soundManager.m_hurdleDeath;
+
+                if(SoundManager.m_playerMutedSounds == 0)
+                {
+                    _soundManager.m_soundsSource.Play();
+                }
+
+                CheatDeath();
+            }
+        }
+    }
 
     public void Slide()
     {
