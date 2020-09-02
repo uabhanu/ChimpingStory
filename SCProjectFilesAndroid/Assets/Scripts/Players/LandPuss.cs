@@ -111,15 +111,16 @@ public class LandPuss : MonoBehaviour
 
         if(hit2D)
         {
-            if(hit2D.collider.gameObject.tag.Equals("Platform"))
+            if(hit2D.collider.gameObject.tag.Equals("Ground") || hit2D.collider.gameObject.tag.Equals("Platform"))
             {
                 Debug.Log("Hit : " + hit2D.collider.gameObject.name);
                 _bIsGrounded = true;
             }
-
-            if(!hit2D.collider.gameObject.tag.Equals("Platform"))
+            else
             {
                 //TODO this is executing after a few secs no idea why so debugging this using test Platform and Tes generator WIP and I already tried layerMask value as 9 << 9 but still same
+                // Noted that raycast colliding with Clouds that's causing the grounded to be false and the collision with objects other than Platform or Ground needs to be stopped
+                Debug.Log("Hit : " + hit2D.collider.gameObject.name);
                 _bIsGrounded = false;
                 SlideFinished();
             }
