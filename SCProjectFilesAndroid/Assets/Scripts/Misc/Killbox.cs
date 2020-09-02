@@ -13,10 +13,5 @@ public class Killbox : MonoBehaviour
         {
             Kill(collider2D.gameObject);
         }
-
-        if(collider2D.gameObject.tag.Equals("Ground"))
-        {
-            Kill(collider2D.gameObject);
-        }
     }
 }
