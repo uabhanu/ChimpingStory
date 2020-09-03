@@ -8,13 +8,15 @@ public class LandPuss : MonoBehaviour
     private const float DEFAULT_SLIDE_TIME = 0.5f;
 
     private Animator _pussAnim;
-    [SerializeField] private bool _bIsGrounded , _bIsJumping , _bIsSliding , _bIsUI;
+    private bool _bIsGrounded , _bIsJumping , _bIsSliding , _bIsUI;
+    private float _raycastDistance;
     private LandLevelManager _gameManager;
     private Rigidbody2D _pussBody2D;
 	private SoundManager _soundManager;
 
     [SerializeField] private float _currentMoveSpeed , _currentSlideTime;
     [SerializeField] private float _jumpHeight;
+    [SerializeField] private LayerMask _layerMask;
     [SerializeField] private string _holeAchievementID , _slipAchievementID , _superAchievementID;
     [SerializeField] private Transform _raycastBottom , _raycastTop;
     //[SerializeField] private Text _superTimerText; //This is for Testing only
@@ -39,6 +41,7 @@ public class LandPuss : MonoBehaviour
         _pussAnim = GetComponent<Animator>();
         _pussBody2D = GetComponent<Rigidbody2D>();
 		_gameManager = GameObject.Find("LandLevelManager").GetComponent<LandLevelManager>();
+        _raycastDistance = Vector3.Distance(_raycastTop.position , _raycastBottom.position);
 		_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
@@ -53,6 +56,11 @@ public class LandPuss : MonoBehaviour
         Grounded();
         Movement();
         UICheck();
+
+        if(!_bIsGrounded)
+        {
+            SlideFinished();
+        }
     }
 
     private void BhanuInput()
@@ -106,30 +114,19 @@ public class LandPuss : MonoBehaviour
 
     private void Grounded()
     {
-        Debug.DrawLine(_raycastTop.position , _raycastBottom.position , Color.red);
-        RaycastHit2D hit2D = Physics2D.Raycast(_raycastTop.position , _raycastBottom.position);
+        //Color rayColour = Color.red;
+        //Debug.DrawRay(_raycastTop.position , _raycastBottom.position , rayColour);
+        RaycastHit2D hit2D = Physics2D.Raycast(_raycastTop.position , Vector2.down , _raycastDistance , _layerMask);
 
         if(hit2D)
         {
-            if(hit2D.collider.gameObject.tag.Equals("Platform"))
-            {
-                Debug.Log("Hit : " + hit2D.collider.gameObject.name);
-                _bIsGrounded = true;
-            }
-            else
-            {
-                //TODO this is executing after a few secs no idea why so debugging this using test Platform and Tes generator WIP and I already tried layerMask value as 9 << 9 but still same
-                // Noted that raycast colliding with Clouds that's causing the grounded to be false and the collision with objects other than Platform or Ground needs to be stopped
-                Debug.Log("Hit : " + hit2D.collider.gameObject.name);
-                _bIsGrounded = false;
-                SlideFinished();
-            }
+            
+            _bIsGrounded = true;
         }
-        //else
-        //{
-        //    _bIsGrounded = false;
-        //    SlideFinished();
-        //}
+        else
+        {
+            _bIsGrounded = false;
+        }
     }
 
 	public void Jump()
