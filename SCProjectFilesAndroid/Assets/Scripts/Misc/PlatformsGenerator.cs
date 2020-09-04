@@ -38,11 +38,7 @@ public class PlatformsGenerator : MonoBehaviour
 
     private Transform SpawnLandPart(Transform objectToSpawn , Vector3 spawnPosition) 
     {
-        float randomYPosition = Random.Range(spawnPosition.y - 0.5f , spawnPosition.y + 0.5f);
-        //_platformEndPositionTransform = Instantiate(objectToSpawn , new Vector3(spawnPosition.x , Mathf.Clamp(randomYPosition , -4.50f , 0.70f) , spawnPosition.z) , Quaternion.identity);
-         
-        //TODO Remove the line below after testing and use the one above instead
-        _platformEndPositionTransform = Instantiate(objectToSpawn , new Vector3(spawnPosition.x , -4.50f , spawnPosition.z) , Quaternion.identity); //TODO Remove this after testing
+        _platformEndPositionTransform = Instantiate(objectToSpawn , spawnPosition , Quaternion.identity);
         return _platformEndPositionTransform;
     }
 }
