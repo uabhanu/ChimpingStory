@@ -6,6 +6,7 @@ public class PlatformsGenerator : MonoBehaviour
     private const float PLAYER_DISTANCE_SPAWN_PLATFORMS_PART = 20.0f;
     private Vector3 _lastEndPosition;
 
+    [SerializeField] private float _spawnYPosition;
     [SerializeField] private LandPuss _landPuss;
     [SerializeField] private List<Transform> _platformTransformsList;
     [SerializeField] private Transform _platformEndPositionTransform;
@@ -38,7 +39,7 @@ public class PlatformsGenerator : MonoBehaviour
 
     private Transform SpawnLandPart(Transform objectToSpawn , Vector3 spawnPosition) 
     {
-        _platformEndPositionTransform = Instantiate(objectToSpawn , new Vector3(spawnPosition.x , objectToSpawn.transform.position.y , spawnPosition.z) , Quaternion.identity);
+        _platformEndPositionTransform = Instantiate(objectToSpawn , new Vector3(spawnPosition.x , _spawnYPosition , spawnPosition.z) , Quaternion.identity);
         return _platformEndPositionTransform;
     }
 }
