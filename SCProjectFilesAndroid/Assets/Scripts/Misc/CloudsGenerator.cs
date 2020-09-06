@@ -2,7 +2,7 @@
 
 public class CloudsGenerator : MonoBehaviour
 {
-    //TODO Night Mode
+    //TODO Turn all of these generators into one BackgroundGenerator and instead of LandPuss, WaterPuss, etc. use Transform Puss and leave PlatformGenerator as it is
     private const float PLAYER_DISTANCE_SPAWN_CLOUDS_PART = 60.0f;
     private Transform _lastEndPositionTransform;
 
