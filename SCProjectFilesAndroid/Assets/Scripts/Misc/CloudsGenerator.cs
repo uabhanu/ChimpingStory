@@ -32,7 +32,7 @@ public class CloudsGenerator : MonoBehaviour
 
     private Transform SpawnCloudsPart(Transform cloudsPart , Vector3 spawnPosition) 
     {
-        Transform cloudsPartTransform = Instantiate(cloudsPart , new Vector3(spawnPosition.x  , 0.33f , spawnPosition.z) , Quaternion.identity);
+        Transform cloudsPartTransform = Instantiate(cloudsPart , new Vector3(spawnPosition.x  , cloudsPart.position.y , spawnPosition.z) , Quaternion.identity);
         return cloudsPartTransform;
     }
 }
