@@ -7,7 +7,7 @@ public class PlatformsGenerator : MonoBehaviour
     private Vector3 _lastEndPosition;
 
     [SerializeField] private float _spawnYPosition;
-    [SerializeField] private LandPuss _landPuss;
+    [SerializeField] private Transform _puss;
     [SerializeField] private List<Transform> _platformTransformsList;
     [SerializeField] private Transform _platformEndPositionTransform;
 
@@ -23,7 +23,7 @@ public class PlatformsGenerator : MonoBehaviour
             return;
         }
 
-        if(Vector3.Distance(_landPuss.GetPosition() , _lastEndPosition) < PLAYER_DISTANCE_SPAWN_PLATFORMS_PART) 
+        if(Vector3.Distance(_puss.position , _lastEndPosition) < PLAYER_DISTANCE_SPAWN_PLATFORMS_PART) 
         {
             // Spawn another level part
             SpawnLandPart();

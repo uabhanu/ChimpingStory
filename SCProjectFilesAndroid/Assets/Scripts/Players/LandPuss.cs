@@ -102,11 +102,6 @@ public class LandPuss : MonoBehaviour
         _gameManager.Ads();
     }
 
-    public Vector3 GetPosition()
-    {
-        return transform.position;
-    }
-
     public float GetMoveSpeed()
     {
         return _currentMoveSpeed;
