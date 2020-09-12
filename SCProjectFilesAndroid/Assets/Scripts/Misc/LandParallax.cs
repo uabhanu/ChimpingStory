@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class LandParallax : MonoBehaviour
 {
-    private int _sceneIndex;
+    //TODO Figure out a way to convert this into just Parallax so can be used in all the levels and can take SerializeField variable Direction
+    //TODO Once this is done, use Parallax for Space Level too or use it anyway even if converting into Parallax fails
     private LandPuss _landPussReference;
 
     [SerializeField] private float _parallaxOffset;
@@ -11,7 +11,6 @@ public class LandParallax : MonoBehaviour
     private void Start()
     {
         _landPussReference = FindObjectOfType<LandPuss>();
-        _sceneIndex = SceneManager.GetActiveScene().buildIndex;
     }
 
     private void Update()
@@ -21,11 +20,6 @@ public class LandParallax : MonoBehaviour
             return;
         }
 
-        //TODO There is no object in the Water Level Scene using this script but somehow this is being called so put this check as a temporary measure
-
-        if(_sceneIndex == 1)
-        {
-            transform.Translate(Vector2.right * _landPussReference.GetMoveSpeed() * _parallaxOffset * Time.deltaTime , Space.World);
-        }
+        transform.Translate(Vector2.right * _landPussReference.GetMoveSpeed() * _parallaxOffset * Time.deltaTime , Space.World);
     }
 }
