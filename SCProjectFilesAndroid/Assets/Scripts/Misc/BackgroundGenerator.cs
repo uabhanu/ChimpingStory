@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class BackgroundGenerator : MonoBehaviour
 {
@@ -6,7 +7,7 @@ public class BackgroundGenerator : MonoBehaviour
     private Transform _lastEndPositionTransform;
 
     [SerializeField] private Transform _backgroundEndPosition;
-    [SerializeField] private Transform _backgroundPartToSpawn;
+    [SerializeField] private List<Transform> _backgroundTransformsList;
     [SerializeField] private Transform _puss;
 
     private void Awake() 
@@ -24,7 +25,7 @@ public class BackgroundGenerator : MonoBehaviour
 
     private void SpawnBackgroundPart() 
     {
-        Transform chosenBackgroundPart = _backgroundPartToSpawn;
+        Transform chosenBackgroundPart = _backgroundTransformsList[Random.Range(0 , _backgroundTransformsList.Count)];
         Transform lastBackgroundPartTransform = SpawnBackgroundPart(chosenBackgroundPart , _lastEndPositionTransform.position);
         _lastEndPositionTransform = lastBackgroundPartTransform.Find("EndPosition");
     }
