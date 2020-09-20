@@ -1,6 +1,9 @@
+using SelfiePuss.Events;
+using SelfiePuss.Utilities;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
-public class WaterPuss : MonoBehaviour
+public class WaterPuss : MonoBehaviour , IEventListener
 {
     private const float DEFAULT_MOVE_SPEED = 5.0f;
 
@@ -13,20 +16,26 @@ public class WaterPuss : MonoBehaviour
     [SerializeField] private WaterLevelManager _waterLevelManager;
 
 
-    void Reset()
+    private void Reset()
     {
         _currentMoveSpeed = DEFAULT_MOVE_SPEED;
         _pussBody2D = GetComponent<Rigidbody2D>();
     }
 
-    void Start()
+    private void Start()
     {
         _currentMoveSpeed = DEFAULT_MOVE_SPEED;
         //_pussAnim = GetComponent<Animator>();
         _pussBody2D = GetComponent<Rigidbody2D>();
+        RegisterEvents();
     }
 
-    void Update()
+    private void OnDestroy()
+    {
+        UnregisterEvents();
+    }
+
+    private void Update()
     {
         if(Time.timeScale == 0)
         {
@@ -37,7 +46,7 @@ public class WaterPuss : MonoBehaviour
         Movement();
     }
 
-    void BhanuInput()
+    private void BhanuInput()
     {
         if(SwipeManager.Instance.IsSwiping(SwipeDirection.UP))
         {
@@ -60,8 +69,34 @@ public class WaterPuss : MonoBehaviour
         return _currentMoveSpeed;
     }
 
-    void Movement()
+    private void Movement()
     {
         transform.Translate(Vector2.left * _currentMoveSpeed * Time.deltaTime , Space.World);
     }
+
+    private void OnTriggerEnter2D(Collider2D col2D)
+    {
+        if(col2D.gameObject.tag.Equals("Enemy"))
+        {
+            EventsManager.InvokeEvent(SelfiePussEvent.CollidedWithEnemy);
+        }
+    }
+
+    #region Abstract Method Implementations
+
+	public void RegisterEvents()
+	{
+		EventsManager.SubscribeToEvent(SelfiePussEvent.CollidedWithEnemy , OnCollisionWithEnemy);
+	}
+
+	public void UnregisterEvents()
+	{
+		EventsManager.UnsubscribeFromEvent(SelfiePussEvent.CollidedWithEnemy , OnCollisionWithEnemy);
+	}
+
+	private void OnCollisionWithEnemy()
+    {
+        SceneManager.LoadScene("LandRunner");
+    }
+	#endregion
 }
