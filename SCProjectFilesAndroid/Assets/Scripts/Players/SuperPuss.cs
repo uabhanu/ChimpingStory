@@ -50,11 +50,6 @@ public class SuperPuss : MonoBehaviour
         _pussBody2D.velocity = new Vector2(_pussBody2D.velocity.x , _flyHeight);
     }
 
-    public Vector3 GetPosition()
-    {
-        return transform.position;
-    }
-
     public float GetMoveSpeed()
     {
         return _currentMoveSpeed;
