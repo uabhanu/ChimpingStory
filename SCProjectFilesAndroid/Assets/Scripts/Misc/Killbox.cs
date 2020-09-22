@@ -7,11 +7,12 @@ public class Killbox : MonoBehaviour
         Destroy(gameObject); //TODO Use Object pooling later
     }
 
-    private void OnTriggerEnter2D(Collider2D collider2D)
+    private void OnTriggerEnter2D(Collider2D col2D)
     {
-        if(collider2D.gameObject.tag.Equals("Destructible"))
+        if(col2D.gameObject.tag.Equals("Destructible"))
         {
-            Kill(collider2D.gameObject);
+            Debug.Log("Destructible Collided and it's name is : " + col2D.gameObject.name);
+            Kill(col2D.gameObject);
         }
     }
 }

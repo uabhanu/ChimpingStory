@@ -3,29 +3,42 @@ using UnityEngine;
 
 public class CoinsGenerator : MonoBehaviour
 {
-    private float _nextActionTime = 0.0f;
+    private const float PLAYER_DISTANCE_SPAWN_COINS_PART = 10.0f;
+    private Vector3 _lastEndPosition;
 
-    [SerializeField] [Tooltip ("Lower the value, more meteors and vice versa")] private float _period;
+    [SerializeField] private Transform _puss;
     [SerializeField] private List<Transform> _coinTransformsList;
-    [SerializeField] private Transform _waterPuss;
+    [SerializeField] private Transform _coinEndPositionTransform;
+
+    private void Awake() 
+    {
+        _lastEndPosition = _coinEndPositionTransform.transform.position;
+    }
 
     private void Update() 
-    {
+    { 
         if(Time.timeScale == 0)
         {
             return;
         }
 
-        if((Time.time - _nextActionTime) > _period)
+        if(Vector3.Distance(_puss.position , _lastEndPosition) < PLAYER_DISTANCE_SPAWN_COINS_PART) 
         {
-            _nextActionTime = Time.time;
-            SpawnCoins();
-        }        
+            // Spawn another coins part
+            SpawnCoinsPart();
+        }
     }
 
-    private void SpawnCoins() 
+    private void SpawnCoinsPart() 
     {
-        Transform chosenCoinsSetToSpawn = _coinTransformsList[Random.Range(0 , _coinTransformsList.Count)];
-        Instantiate(chosenCoinsSetToSpawn , new Vector3(_waterPuss.position.x - 20f , transform.position.y , transform.position.z) , Quaternion.identity);
+        Transform chosenPlatformToSpawn = _coinTransformsList[Random.Range(0 , _coinTransformsList.Count)];
+        Transform lastLandPartTransform = SpawnCoinsPart(chosenPlatformToSpawn , _lastEndPosition);
+        _lastEndPosition = lastLandPartTransform.Find("EndPosition").position;
+    }
+
+    private Transform SpawnCoinsPart(Transform coinsPartToSpawn , Vector3 spawnPosition) 
+    {
+        _coinEndPositionTransform = Instantiate(coinsPartToSpawn , new Vector3(spawnPosition.x , coinsPartToSpawn.position.y , spawnPosition.z) , Quaternion.identity);
+        return _coinEndPositionTransform;
     }
 }

@@ -37,9 +37,9 @@ public class PlatformsGenerator : MonoBehaviour
         _lastEndPosition = lastLandPartTransform.Find("EndPosition").position;
     }
 
-    private Transform SpawnLandPart(Transform objectToSpawn , Vector3 spawnPosition) 
+    private Transform SpawnLandPart(Transform platformsPartToSpawn , Vector3 spawnPosition) 
     {
-        _platformEndPositionTransform = Instantiate(objectToSpawn , new Vector3(spawnPosition.x , _spawnYPosition , spawnPosition.z) , Quaternion.identity);
+        _platformEndPositionTransform = Instantiate(platformsPartToSpawn , new Vector3(spawnPosition.x , _spawnYPosition , spawnPosition.z) , Quaternion.identity);
         return _platformEndPositionTransform;
     }
 }
