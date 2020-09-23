@@ -3,7 +3,7 @@ using SelfiePuss.Utilities;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
-public class WaterPuss : MonoBehaviour , IEventListener
+public class WaterPuss : MonoBehaviour
 {
     private const float DEFAULT_MOVE_SPEED = 5.0f;
 
@@ -27,12 +27,6 @@ public class WaterPuss : MonoBehaviour , IEventListener
         _currentMoveSpeed = DEFAULT_MOVE_SPEED;
         //_pussAnim = GetComponent<Animator>();
         _pussBody2D = GetComponent<Rigidbody2D>();
-        RegisterEvents();
-    }
-
-    private void OnDestroy()
-    {
-        UnregisterEvents();
     }
 
     private void Update()
@@ -78,25 +72,7 @@ public class WaterPuss : MonoBehaviour , IEventListener
     {
         if(col2D.gameObject.tag.Equals("Enemy"))
         {
-            EventsManager.InvokeEvent(SelfiePussEvent.CollidedWithEnemy);
+            SceneManager.LoadScene("LandRunner");
         }
     }
-
-    #region Abstract Method Implementations
-
-	public void RegisterEvents()
-	{
-		EventsManager.SubscribeToEvent(SelfiePussEvent.CollidedWithEnemy , OnCollisionWithEnemy);
-	}
-
-	public void UnregisterEvents()
-	{
-		EventsManager.UnsubscribeFromEvent(SelfiePussEvent.CollidedWithEnemy , OnCollisionWithEnemy);
-	}
-
-	private void OnCollisionWithEnemy()
-    {
-        SceneManager.LoadScene("LandRunner");
-    }
-	#endregion
 }

@@ -2,6 +2,7 @@
 
 public class Rock : MonoBehaviour 
 {
+    //TODO Write the same script for Super Object
     private ScoreManager _scoreManager;
     private SoundManager _soundManager;
     
