@@ -12,7 +12,6 @@ public class WaterPuss : MonoBehaviour
 
     [SerializeField] private float _currentMoveSpeed;
     [SerializeField] private float _floatHeight;
-    [SerializeField] private SoundManager _soundManager;
     [SerializeField] private WaterLevelManager _waterLevelManager;
 
 

@@ -1,28 +1,27 @@
 ﻿using UnityEngine;
 
-public class Rock : MonoBehaviour 
+public class Meteor : MonoBehaviour 
 {
     //TODO Write the same script for Super Object
     private ScoreManager _scoreManager;
-    private SoundManager _soundManager;
     
     [SerializeField] private GameObject m_explosionPrefab;
+    [SerializeField] private SoundManagerObject _soundManagerObject;
 
 	void Start() 
 	{
         _scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
-        _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 	}
 		
     void OnTriggerEnter2D(Collider2D tri2D)
     {
         if(tri2D.gameObject.tag.Equals("Player"))
         {
-            _soundManager.m_soundsSource.clip = _soundManager.m_rockExplosion;
+            _soundManagerObject.m_soundsSource.clip = _soundManagerObject.m_rockExplosion;
 			
-            if(SoundManager.m_playerMutedSounds == 0)
+            if(_soundManagerObject.m_playerMutedSounds == 0)
             {
-                _soundManager.m_soundsSource.Play();
+                _soundManagerObject.m_soundsSource.Play();
             }
 
             SpawnExplosion();
@@ -31,7 +30,7 @@ public class Rock : MonoBehaviour
 
 	void SpawnExplosion()
 	{
-        Explosion.m_explosionType = "Rock";
+        Explosion.m_explosionType = "Meteor";
         Instantiate(m_explosionPrefab , transform.position , Quaternion.identity);
 		_scoreManager.m_scoreValue += 100;
         _scoreManager.m_HighScoreValueText.text = _scoreManager.m_scoreValue.ToString();

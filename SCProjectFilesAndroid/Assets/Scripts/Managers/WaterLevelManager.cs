@@ -8,23 +8,25 @@ public class WaterLevelManager : MonoBehaviour
 
     [SerializeField] private GameObject _soundOffButtonObj , _soundOnButtonObj;
     [SerializeField] private GameObject _exitToLandMenuObj , _inGameMenuObj , _pauseMenuObj; 
-    [SerializeField] private SoundManager _soundManager;
+    [SerializeField] private SoundManagerObject _soundManagerObject;
     [SerializeField] private Text _timerDisplay;
     
     public Text m_HighScoreValueText; //TODO This should be in the ScoreManager Script
 
     private void Start()
     {
-        if(SoundManager.m_playerMutedSounds == 1)
+        _soundManagerObject.GetSoundsStatus();
+
+        if(_soundManagerObject.m_playerMutedSounds == 1)
         {
-            _soundManager.m_musicSource.Pause();
+            _soundManagerObject.m_musicSource.Pause();
             _soundOffButtonObj.SetActive(false);
             _soundOnButtonObj.SetActive(true);
         }
 
-        else if(SoundManager.m_playerMutedSounds == 0)
+        else if(_soundManagerObject.m_playerMutedSounds == 0)
         {
-            _soundManager.m_musicSource.Play();
+            _soundManagerObject.m_musicSource.Play();
             _soundOffButtonObj.SetActive(true);
             _soundOnButtonObj.SetActive(false);
         }
@@ -64,20 +66,20 @@ public class WaterLevelManager : MonoBehaviour
 
     public void SoundOffButton()
     {
-        _soundManager.m_musicSource.Pause();
-        SoundManager.m_playerMutedSounds = 1;
+        _soundManagerObject.m_musicSource.Pause();
+        _soundManagerObject.m_playerMutedSounds = 1;
         _soundOffButtonObj.SetActive(false);
         _soundOnButtonObj.SetActive(true);
-        BhanuPrefs.SetSoundsStatus(SoundManager.m_playerMutedSounds);
+        BhanuPrefs.SetSoundsStatus(_soundManagerObject.m_playerMutedSounds);
     }
 
     public void SoundOnButton()
     {
-        _soundManager.m_musicSource.Play();
-        SoundManager.m_playerMutedSounds = 0;
+        _soundManagerObject.m_musicSource.Play();
+        _soundManagerObject.m_playerMutedSounds = 0;
         _soundOffButtonObj.SetActive(true);
         _soundOnButtonObj.SetActive(false);
-        BhanuPrefs.SetSoundsStatus(SoundManager.m_playerMutedSounds);   
+        BhanuPrefs.SetSoundsStatus(_soundManagerObject.m_playerMutedSounds);   
     }
 
     public void PauseButton()

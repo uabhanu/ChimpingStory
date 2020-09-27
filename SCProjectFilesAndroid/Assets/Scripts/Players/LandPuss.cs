@@ -12,11 +12,11 @@ public class LandPuss : MonoBehaviour
     private float _raycastDistance;
     private LandLevelManager _gameManager;
     private Rigidbody2D _pussBody2D;
-	private SoundManager _soundManager;
 
     [SerializeField] private float _currentMoveSpeed , _currentSlideTime;
     [SerializeField] private float _jumpHeight;
     [SerializeField] private LayerMask _layerMask;
+    [SerializeField] private SoundManagerObject _soundManagerObject;
     [SerializeField] private string _holeAchievementID , _slipAchievementID , _superAchievementID;
     [SerializeField] private Transform _raycastBottom , _raycastTop;
     //[SerializeField] private Text _superTimerText; //This is for Testing only
@@ -42,7 +42,6 @@ public class LandPuss : MonoBehaviour
         _pussBody2D = GetComponent<Rigidbody2D>();
 		_gameManager = GameObject.Find("LandLevelManager").GetComponent<LandLevelManager>();
         _raycastDistance = Vector3.Distance(_raycastTop.position , _raycastBottom.position);
-		_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
     private void Update()
@@ -133,12 +132,13 @@ public class LandPuss : MonoBehaviour
             _pussBody2D.velocity = Vector2.up * _jumpHeight; //You may experience different jump feel on different devices as Time.deltaTime not used following Code Monkey
             Invoke("JumpFinished" , 0.55f);
             //SelfieAppear();
-		    _soundManager.m_soundsSource.clip = _soundManager.m_jump;
+            _soundManagerObject.m_soundsSource.clip = _soundManagerObject.m_jump;
 
-            if(SoundManager.m_playerMutedSounds == 0)
+            if(_soundManagerObject.m_playerMutedSounds == 0)
             {
-                _soundManager.m_soundsSource.Play();
+                _soundManagerObject.m_soundsSource.Play();
             }
+
         }
     }
 
@@ -167,11 +167,11 @@ public class LandPuss : MonoBehaviour
     {
         if(tri2D.gameObject.tag.Equals("Death"))
         {
-			_soundManager.m_soundsSource.clip = _soundManager.m_fallDeath;
+			_soundManagerObject.m_soundsSource.clip = _soundManagerObject.m_fallDeath;
 
-			if(SoundManager.m_playerMutedSounds == 0)
+			if(_soundManagerObject.m_playerMutedSounds == 0)
             {
-                _soundManager.m_soundsSource.Play();
+                _soundManagerObject.m_soundsSource.Play();
             }
 
             CheatDeath();
@@ -208,11 +208,11 @@ public class LandPuss : MonoBehaviour
         {
             if(!_bIsSliding) //TODO Since the collider triggers only once, when the puss gets back up too soon, still gets away so fixing this WIP
             {
-                _soundManager.m_soundsSource.clip = _soundManager.m_hurdleDeath;
+                _soundManagerObject.m_soundsSource.clip = _soundManagerObject.m_hurdleDeath;
 
-                if(SoundManager.m_playerMutedSounds == 0)
+                if(_soundManagerObject.m_playerMutedSounds == 0)
                 {
-                    _soundManager.m_soundsSource.Play();
+                    _soundManagerObject.m_soundsSource.Play();
                 }
 
                 CheatDeath();

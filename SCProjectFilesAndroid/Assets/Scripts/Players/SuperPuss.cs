@@ -9,7 +9,6 @@ public class SuperPuss : MonoBehaviour
 
     [SerializeField] private float _currentMoveSpeed;
     [SerializeField] private float _flyHeight;
-    [SerializeField] private SoundManager _soundManager;
     [SerializeField] private SuperLevelManager _superLevelManager;
 
 

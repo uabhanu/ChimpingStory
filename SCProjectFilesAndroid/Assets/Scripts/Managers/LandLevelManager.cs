@@ -8,7 +8,6 @@ public class LandLevelManager : MonoBehaviour
     //TODO Text Mesh Pro
     //private int _chimpionshipsCount , _currentChimpion; TODO This is for future use
     private LandPuss _landPuss;
-	private SoundManager _soundManager;
 	private Text _quitText;
 
     private static Animator _swipeDownHandAnimator , _swipeUpHandAnimator;
@@ -17,6 +16,7 @@ public class LandLevelManager : MonoBehaviour
     [SerializeField] private bool _bSelfieFlashEnabled;
     [SerializeField] private GameObject _adsMenuObj , _iapCartMenuObj , _inGameUIObj , _pauseMenuObj , _selfieButtonObj , _selfiePanelObj , _soundOffButtonObj , _soundOnButtonObj;
     [SerializeField] private ScoreManager _scoreManager;
+    [SerializeField] private SoundManagerObject _soundManagerObject;
     [SerializeField] private Sprite[] _chimpionshipBeltSprites;
     [SerializeField] private string _chimpionAchievementID , _selfieAchievementID , _selfieLegendAchievementID , _undisputedChimpionAchievementID;
 
@@ -99,7 +99,7 @@ public class LandLevelManager : MonoBehaviour
     {
         m_currentScene = SceneManager.GetActiveScene().buildIndex;
         _landPuss = GameObject.Find("PF_LandPuss").GetComponent<LandPuss>();
-        _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        _soundManagerObject.GetSoundsStatus();
         _swipeDownHandAnimator = GameObject.Find("SwipeDownHand").GetComponent<Animator>();
         _swipeUpHandAnimator = GameObject.Find("SwipeUpHand").GetComponent<Animator>();
         _swipeDownHandImage = GameObject.Find("SwipeDownHand").GetComponent<Image>();
@@ -108,16 +108,16 @@ public class LandLevelManager : MonoBehaviour
         _swipeHandPanelImage = GameObject.Find("SwipeHandPanel").GetComponent<Image>();
 
        
-        if(SoundManager.m_playerMutedSounds == 1)
+        if(_soundManagerObject.m_playerMutedSounds == 1)
         {
-            _soundManager.m_musicSource.Pause();
+            _soundManagerObject.m_musicSource.Pause();
             _soundOffButtonObj.SetActive(false);
             _soundOnButtonObj.SetActive(true);
         }
 
-        else if(SoundManager.m_playerMutedSounds == 0)
+        else if(_soundManagerObject.m_playerMutedSounds == 0)
         {
-            _soundManager.m_musicSource.Play();
+            _soundManagerObject.m_musicSource.Play();
             _soundOffButtonObj.SetActive(true);
             _soundOnButtonObj.SetActive(false);
         }
@@ -165,7 +165,7 @@ public class LandLevelManager : MonoBehaviour
 	{
         _inGameUIObj.SetActive(false);
         _pauseMenuObj.SetActive(true);
-        _soundManager.m_musicSource.Pause();
+        _soundManagerObject.m_musicSource.Pause();
 		Time.timeScale = 0;
 	}
 
@@ -197,17 +197,17 @@ public class LandLevelManager : MonoBehaviour
 	{
 		_inGameUIObj.SetActive(true);
         _pauseMenuObj.SetActive(false);
-        _soundManager.m_musicSource.Play();
+        _soundManagerObject.m_musicSource.Play();
 		Time.timeScale = 1;
 	}
 
 	public void SelfieButton()
 	{
-		_soundManager.m_soundsSource.clip = _soundManager.m_selfie;
+        _soundManagerObject.m_soundsSource.clip = _soundManagerObject.m_selfie;
 		
-        if(SoundManager.m_playerMutedSounds == 0)
+        if(_soundManagerObject.m_playerMutedSounds == 0)
         {
-            _soundManager.m_soundsSource.Play();
+            _soundManagerObject.m_soundsSource.Play();
         }
 
 		_selfieButtonObj.SetActive(false);
@@ -225,19 +225,19 @@ public class LandLevelManager : MonoBehaviour
 
     public void SoundOffButton()
     {
-        _soundManager.m_musicSource.Pause();
-        SoundManager.m_playerMutedSounds++;
+        _soundManagerObject.m_musicSource.Pause();
+        _soundManagerObject.m_playerMutedSounds++;
         _soundOffButtonObj.SetActive(false);
         _soundOnButtonObj.SetActive(true);
-        BhanuPrefs.SetSoundsStatus(SoundManager.m_playerMutedSounds);
+        BhanuPrefs.SetSoundsStatus(_soundManagerObject.m_playerMutedSounds);
     }
 
     public void SoundOnButton()
     {
-        _soundManager.m_musicSource.Play();
-        SoundManager.m_playerMutedSounds = 0;
+        _soundManagerObject.m_musicSource.Play();
+        _soundManagerObject.m_playerMutedSounds = 0;
         _soundOffButtonObj.SetActive(true);
         _soundOnButtonObj.SetActive(false);
-        BhanuPrefs.SetSoundsStatus(SoundManager.m_playerMutedSounds);
+        BhanuPrefs.SetSoundsStatus(_soundManagerObject.m_playerMutedSounds);
     }
 }
