@@ -15,7 +15,7 @@ public class LandLevelManager : MonoBehaviour
     
     [SerializeField] private bool _bSelfieFlashEnabled;
     [SerializeField] private GameObject _adsMenuObj , _iapCartMenuObj , _inGameUIObj , _pauseMenuObj , _selfieButtonObj , _selfiePanelObj , _soundOffButtonObj , _soundOnButtonObj;
-    [SerializeField] private ScoreManager _scoreManager;
+    [SerializeField] private ScoreManagerObject _scoreManagerObject;
     [SerializeField] private SoundManagerObject _soundManagerObject;
     [SerializeField] private Sprite[] _chimpionshipBeltSprites;
     [SerializeField] private string _chimpionAchievementID , _selfieAchievementID , _selfieLegendAchievementID , _undisputedChimpionAchievementID;
@@ -66,7 +66,7 @@ public class LandLevelManager : MonoBehaviour
     {
         if(result == ShowResult.Finished)
         {
-            BhanuPrefs.SetHighScore(_scoreManager.m_scoreValue);
+            BhanuPrefs.SetHighScore(_scoreManagerObject.m_scoreValue);
             Time.timeScale = 1;
             SceneManager.LoadScene(m_currentScene);
         }
@@ -99,6 +99,7 @@ public class LandLevelManager : MonoBehaviour
     {
         m_currentScene = SceneManager.GetActiveScene().buildIndex;
         _landPuss = GameObject.Find("PF_LandPuss").GetComponent<LandPuss>();
+        _scoreManagerObject.GetScoreItems();
         _soundManagerObject.GetSoundsStatus();
         _swipeDownHandAnimator = GameObject.Find("SwipeDownHand").GetComponent<Animator>();
         _swipeUpHandAnimator = GameObject.Find("SwipeUpHand").GetComponent<Animator>();
@@ -218,9 +219,9 @@ public class LandLevelManager : MonoBehaviour
 			Invoke("EndFlash" , 0.25f);
 		}
 
-		_scoreManager.m_scoreValue += 20;
-		BhanuPrefs.SetHighScore(_scoreManager.m_scoreValue);
-        _scoreManager.m_HighScoreValueText.text = _scoreManager.m_scoreValue.ToString();
+		_scoreManagerObject.m_scoreValue += 20;
+		BhanuPrefs.SetHighScore(_scoreManagerObject.m_scoreValue);
+        _scoreManagerObject.m_HighScoreValueText.text = _scoreManagerObject.m_scoreValue.ToString();
 	}
 
     public void SoundOffButton()

@@ -8,6 +8,7 @@ public class WaterLevelManager : MonoBehaviour
 
     [SerializeField] private GameObject _soundOffButtonObj , _soundOnButtonObj;
     [SerializeField] private GameObject _exitToLandMenuObj , _inGameMenuObj , _pauseMenuObj; 
+    [SerializeField] private ScoreManagerObject _scoreManagerObject;
     [SerializeField] private SoundManagerObject _soundManagerObject;
     [SerializeField] private Text _timerDisplay;
     
@@ -15,6 +16,7 @@ public class WaterLevelManager : MonoBehaviour
 
     private void Start()
     {
+        _scoreManagerObject.GetScoreItems();
         _soundManagerObject.GetSoundsStatus();
 
         if(_soundManagerObject.m_playerMutedSounds == 1)

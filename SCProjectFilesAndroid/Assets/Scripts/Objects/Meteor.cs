@@ -3,15 +3,9 @@
 public class Meteor : MonoBehaviour 
 {
     //TODO Write the same script for Super Object
-    private ScoreManager _scoreManager;
-    
     [SerializeField] private GameObject m_explosionPrefab;
+    [SerializeField] private ScoreManagerObject _scoreManagerObject;
     [SerializeField] private SoundManagerObject _soundManagerObject;
-
-	void Start() 
-	{
-        _scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
-	}
 		
     void OnTriggerEnter2D(Collider2D tri2D)
     {
@@ -32,9 +26,9 @@ public class Meteor : MonoBehaviour
 	{
         Explosion.m_explosionType = "Meteor";
         Instantiate(m_explosionPrefab , transform.position , Quaternion.identity);
-		_scoreManager.m_scoreValue += 100;
-        _scoreManager.m_HighScoreValueText.text = _scoreManager.m_scoreValue.ToString();
-		BhanuPrefs.SetHighScore(_scoreManager.m_scoreValue);
+		_scoreManagerObject.m_scoreValue += 100;
+        _scoreManagerObject.m_HighScoreValueText.text = _scoreManagerObject.m_scoreValue.ToString();
+		BhanuPrefs.SetHighScore(_scoreManagerObject.m_scoreValue);
         Destroy(gameObject); //TODO Object Pooling instead of Destroy
 	}
 }
