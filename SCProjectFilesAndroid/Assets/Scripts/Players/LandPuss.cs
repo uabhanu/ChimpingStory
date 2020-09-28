@@ -17,6 +17,7 @@ public class LandPuss : MonoBehaviour
     [SerializeField] private float _jumpHeight;
     [SerializeField] private LayerMask _layerMask;
     [SerializeField] private SoundManagerObject _soundManagerObject;
+    [SerializeField] private SwipeManagerObject _swipeManagerObject;
     [SerializeField] private string _holeAchievementID , _slipAchievementID , _superAchievementID;
     [SerializeField] private Transform _raycastBottom , _raycastTop;
     //[SerializeField] private Text _superTimerText; //This is for Testing only
@@ -84,13 +85,15 @@ public class LandPuss : MonoBehaviour
             }
             #endif
         }
+
+        _swipeManagerObject.BhanuSwipes();
         
-        if(SwipeManager.Instance.IsSwiping(SwipeDirection.UP))
+        if(_swipeManagerObject.IsSwiping(SwipeDirection.UP))
         {
             Jump();
         }
 
-        if(SwipeManager.Instance.IsSwiping(SwipeDirection.DOWN))
+        if(_swipeManagerObject.IsSwiping(SwipeDirection.DOWN))
         {
             Slide();
         }

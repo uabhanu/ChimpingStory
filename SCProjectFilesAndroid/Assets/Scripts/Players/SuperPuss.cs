@@ -9,7 +9,7 @@ public class SuperPuss : MonoBehaviour
 
     [SerializeField] private float _currentMoveSpeed;
     [SerializeField] private float _flyHeight;
-    [SerializeField] private SuperLevelManager _superLevelManager;
+    [SerializeField] private SwipeManagerObject _swipeManagerObject;
 
 
     void Reset()
@@ -38,7 +38,9 @@ public class SuperPuss : MonoBehaviour
 
     void BhanuInput()
     {
-        if(SwipeManager.Instance.IsSwiping(SwipeDirection.UP))
+        _swipeManagerObject.BhanuSwipes();
+
+        if(_swipeManagerObject.IsSwiping(SwipeDirection.UP))
         {
             Fly();
         }

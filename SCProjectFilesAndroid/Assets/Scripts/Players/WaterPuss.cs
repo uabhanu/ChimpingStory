@@ -1,5 +1,3 @@
-using SelfiePuss.Events;
-using SelfiePuss.Utilities;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
@@ -12,7 +10,7 @@ public class WaterPuss : MonoBehaviour
 
     [SerializeField] private float _currentMoveSpeed;
     [SerializeField] private float _floatHeight;
-    [SerializeField] private WaterLevelManager _waterLevelManager;
+    [SerializeField] private SwipeManagerObject _swipeManagerObject;
 
 
     private void Reset()
@@ -41,7 +39,9 @@ public class WaterPuss : MonoBehaviour
 
     private void BhanuInput()
     {
-        if(SwipeManager.Instance.IsSwiping(SwipeDirection.UP))
+        _swipeManagerObject.BhanuSwipes();
+
+        if(_swipeManagerObject.IsSwiping(SwipeDirection.UP))
         {
             Float();
         }
