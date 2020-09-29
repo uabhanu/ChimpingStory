@@ -3,37 +3,24 @@ using UnityEngine.Advertisements;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class LandLevelManager : MonoBehaviour 
+[CreateAssetMenu]
+public class GameManagerObject : ScriptableObject 
 {
     //TODO Text Mesh Pro
     //private int _chimpionshipsCount , _currentChimpion; TODO This is for future use
-    private LandPuss _landPuss;
-	private Text _quitText;
+	private GameObject _adsMenuObj , _inGameUIObj , _pauseMenuObj , _selfiePanelObj;
+    private GameObject _selfieButtonObj , _soundOffButtonObj , _soundOnButtonObj;
+    private int _currentSceneIndex;
+    private Text _quitText;
 
-    private static Animator _swipeDownHandAnimator , _swipeUpHandAnimator;
-    private static Image _swipeDownHandImage , _swipeUpHandImage , _swipeHandOKButtonImage , _swipeHandPanelImage;
     
     [SerializeField] private bool _bSelfieFlashEnabled;
-    [SerializeField] private GameObject _adsMenuObj , _iapCartMenuObj , _inGameUIObj , _pauseMenuObj , _selfieButtonObj , _selfiePanelObj , _soundOffButtonObj , _soundOnButtonObj;
     [SerializeField] private ScoreManagerObject _scoreManagerObject;
     [SerializeField] private SoundManagerObject _soundManagerObject;
     [SerializeField] private Sprite[] _chimpionshipBeltSprites;
     [SerializeField] private string _chimpionAchievementID , _selfieAchievementID , _selfieLegendAchievementID , _undisputedChimpionAchievementID;
 
-    public static bool b_isFirstTimeTutorialTestingMode , b_isMemoryLeakTestingMode , b_isUnityEditorTestingMode , b_quitButtonTapped;
-    public static GameObject m_pauseMenuObj;
-    public static Image m_uiButtonsTutorialMenuImage;
-    public static int m_currentScene , m_firstTimeIAPTutorialAppeared , m_firstTimeUIButtonsTutorial , m_firstTimeWaterLevelTutorial;
-    public static Text m_chimpionshipBeltButtonTutorialText , m_leaderboardButtonTutorialText , m_muteUnmuteButtonTutorialText , m_pauseButtonTutorialText;
-
-    void Start()
-	{
-        //b_isFirstTimeTutorialTestingMode = true; //This is for testing only
-        //b_isMemoryLeakTestingMode = true; //This is for testing only
-        //b_isUnityEditorTestingMode = true; //This is for testing only
-        Advertisement.Initialize("3696337");
-        GetBhanuObjects();
-    }
+    public bool _bisUnityEditorTestingMode;
 
     public void Ads()
     {
@@ -52,7 +39,7 @@ public class LandLevelManager : MonoBehaviour
     public void AdsCancelButton()
     {
         BhanuPrefs.DeleteScore();
-        SceneManager.LoadScene(m_currentScene);
+        SceneManager.LoadScene(_currentSceneIndex);
     }
 
     void AdsShow()
@@ -68,7 +55,7 @@ public class LandLevelManager : MonoBehaviour
         {
             BhanuPrefs.SetHighScore(_scoreManagerObject.m_scoreValue);
             Time.timeScale = 1;
-            SceneManager.LoadScene(m_currentScene);
+            SceneManager.LoadScene(_currentSceneIndex);
         }
 
         else if(result == ShowResult.Skipped)
@@ -84,10 +71,10 @@ public class LandLevelManager : MonoBehaviour
         }
     }
 
-    void EndFlash()
-	{
-		_selfiePanelObj.SetActive(false);
-	}
+ //   void EndFlash()
+	//{
+	//	_selfiePanelObj.SetActive(false);
+	//}
 
     public void ExitButton()
 	{
@@ -95,20 +82,27 @@ public class LandLevelManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    void GetBhanuObjects()
+    public void GetBhanuObjects()
     {
-        m_currentScene = SceneManager.GetActiveScene().buildIndex;
-        _landPuss = GameObject.Find("PF_LandPuss").GetComponent<LandPuss>();
+        Advertisement.Initialize("3696337");
+
+        _currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        _adsMenuObj = GameObject.FindGameObjectWithTag("AdsMenu");
+        _inGameUIObj = GameObject.FindGameObjectWithTag("InGameUI");
+        _pauseMenuObj = GameObject.FindGameObjectWithTag("PauseMenu");
+        _selfieButtonObj = GameObject.FindGameObjectWithTag("SelfieButton");
+        _selfiePanelObj = GameObject.FindGameObjectWithTag("SelfiePanel");
+        _soundOffButtonObj = GameObject.FindGameObjectWithTag("SoundOff");
+        _soundOnButtonObj = GameObject.FindGameObjectWithTag("SoundOn");
         _scoreManagerObject.GetScoreItems();
         _soundManagerObject.GetSoundsStatus();
-        _swipeDownHandAnimator = GameObject.Find("SwipeDownHand").GetComponent<Animator>();
-        _swipeUpHandAnimator = GameObject.Find("SwipeUpHand").GetComponent<Animator>();
-        _swipeDownHandImage = GameObject.Find("SwipeDownHand").GetComponent<Image>();
-        _swipeUpHandImage = GameObject.Find("SwipeUpHand").GetComponent<Image>();
-        _swipeHandOKButtonImage = GameObject.Find("SwipeHandOKButton").GetComponent<Image>();
-        _swipeHandPanelImage = GameObject.Find("SwipeHandPanel").GetComponent<Image>();
 
-       
+        _adsMenuObj.SetActive(false);
+        _pauseMenuObj.SetActive(false);
+        _selfieButtonObj.SetActive(false);
+        _selfiePanelObj.SetActive(false);
+      
         if(_soundManagerObject.m_playerMutedSounds == 1)
         {
             _soundManagerObject.m_musicSource.Pause();
@@ -124,42 +118,6 @@ public class LandLevelManager : MonoBehaviour
         }
 
         Time.timeScale = 1;
-    }
-
-    public void GoToFallingLevelButton()
-    {
-        SceneManager.LoadScene("FallingDown");
-    }
-
-    public void GoToLandLevelButton()
-    {
-        SceneManager.LoadScene("LandRunner");
-    }
-
-    public void GoToWaterLevelButton()
-    {
-        SceneManager.LoadScene("WaterSwimmer");
-    }
-
-    public void IAPCartButton()
-    {
-        _iapCartMenuObj.SetActive(true);
-    }
-
-    public void IAPCancelButton()
-    {
-        _iapCartMenuObj.SetActive(false);
-    }
-
-    public void IAPNoButton()
-    {
-        BhanuPrefs.DeleteScore();
-        SceneManager.LoadScene(m_currentScene);
-    }
-
-    public void IAPYesButton()
-    {
-        _iapCartMenuObj.SetActive(true);
     }
 
     public void PauseButton()
@@ -178,7 +136,6 @@ public class LandLevelManager : MonoBehaviour
 	public void QuitButton()
 	{
         MusicManager.m_musicSource.Pause();
-        b_quitButtonTapped = true;
 		_quitText.enabled = true;
 	}
 
@@ -190,7 +147,6 @@ public class LandLevelManager : MonoBehaviour
 
 	public void QuitCancelButton()
 	{
-        b_quitButtonTapped = false;
 		_quitText.enabled = false;
 	}
 
@@ -216,7 +172,7 @@ public class LandLevelManager : MonoBehaviour
 		if(_bSelfieFlashEnabled)
 		{
 			_selfiePanelObj.SetActive(true);
-			Invoke("EndFlash" , 0.25f);
+			//Invoke("EndFlash" , 0.25f);
 		}
 
 		_scoreManagerObject.m_scoreValue += 20;

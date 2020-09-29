@@ -10,11 +10,11 @@ public class LandPuss : MonoBehaviour
     private Animator _pussAnim;
     private bool _bIsGrounded , _bIsJumping , _bIsSliding , _bIsUI;
     private float _raycastDistance;
-    private LandLevelManager _gameManager;
     private Rigidbody2D _pussBody2D;
 
     [SerializeField] private float _currentMoveSpeed , _currentSlideTime;
     [SerializeField] private float _jumpHeight;
+    [SerializeField] private GameManagerObject _gameManagerObj;
     [SerializeField] private LayerMask _layerMask;
     [SerializeField] private SoundManagerObject _soundManagerObject;
     [SerializeField] private SwipeManagerObject _swipeManagerObject;
@@ -41,7 +41,6 @@ public class LandPuss : MonoBehaviour
         _currentMoveSpeed = DEFAULT_MOVE_SPEED;
         _pussAnim = GetComponent<Animator>();
         _pussBody2D = GetComponent<Rigidbody2D>();
-		_gameManager = GameObject.Find("LandLevelManager").GetComponent<LandLevelManager>();
         _raycastDistance = Vector3.Distance(_raycastTop.position , _raycastBottom.position);
     }
 
@@ -65,7 +64,7 @@ public class LandPuss : MonoBehaviour
 
     private void BhanuInput()
     {
-        if(LandLevelManager.b_isUnityEditorTestingMode)
+        if(_gameManagerObj._bisUnityEditorTestingMode)
         {
             #if UNITY_EDITOR || UNITY_STANDALONE
             if(Input.GetMouseButtonDown(0))
@@ -85,7 +84,7 @@ public class LandPuss : MonoBehaviour
             }
             #endif
         }
-
+        
         _swipeManagerObject.BhanuSwipes();
         
         if(_swipeManagerObject.IsSwiping(SwipeDirection.UP))
@@ -101,7 +100,7 @@ public class LandPuss : MonoBehaviour
 
     private void CheatDeath()
     {
-        _gameManager.Ads();
+        _gameManagerObj.Ads();
     }
 
     public float GetMoveSpeed()
