@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class LandLevelManager : MonoBehaviour
 {
     [SerializeField] GameManagerObject _gameManagerObj;
 
     void Start()
     {
-        _gameManagerObj.GetBhanuObjects();   
+        _gameManagerObj.GetLandLevelObjects();   
     }
 }

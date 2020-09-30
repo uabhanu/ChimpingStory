@@ -8,8 +8,8 @@ public class GameManagerObject : ScriptableObject
 {
     //TODO Text Mesh Pro
     //private int _chimpionshipsCount , _currentChimpion; TODO This is for future use
-	private GameObject _adsMenuObj , _inGameUIObj , _pauseMenuObj , _selfiePanelObj;
     private GameObject _selfieButtonObj , _soundOffButtonObj , _soundOnButtonObj;
+	private GameObject _adsMenuObj , _inGameUIObj , _pauseMenuObj , _selfiePanelObj;
     private int _currentSceneIndex;
     private Text _quitText;
 
@@ -82,7 +82,7 @@ public class GameManagerObject : ScriptableObject
         SceneManager.LoadScene("MainMenu");
     }
 
-    public void GetBhanuObjects()
+    public void GetLandLevelObjects()
     {
         Advertisement.Initialize("3696337");
 
@@ -102,6 +102,36 @@ public class GameManagerObject : ScriptableObject
         _pauseMenuObj.SetActive(false);
         _selfieButtonObj.SetActive(false);
         _selfiePanelObj.SetActive(false);
+      
+        if(_soundManagerObject.m_playerMutedSounds == 1)
+        {
+            _soundManagerObject.m_musicSource.Pause();
+            _soundOffButtonObj.SetActive(false);
+            _soundOnButtonObj.SetActive(true);
+        }
+
+        else if(_soundManagerObject.m_playerMutedSounds == 0)
+        {
+            _soundManagerObject.m_musicSource.Play();
+            _soundOffButtonObj.SetActive(true);
+            _soundOnButtonObj.SetActive(false);
+        }
+
+        Time.timeScale = 1;
+    }
+
+    public void GetOtherLevelObjects()
+    {
+        _currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        _inGameUIObj = GameObject.FindGameObjectWithTag("InGameUI");
+        _pauseMenuObj = GameObject.FindGameObjectWithTag("PauseMenu");
+        _soundOffButtonObj = GameObject.FindGameObjectWithTag("SoundOff");
+        _soundOnButtonObj = GameObject.FindGameObjectWithTag("SoundOn");
+        _scoreManagerObject.GetScoreItems();
+        _soundManagerObject.GetSoundsStatus();
+
+        _pauseMenuObj.SetActive(false);
       
         if(_soundManagerObject.m_playerMutedSounds == 1)
         {
