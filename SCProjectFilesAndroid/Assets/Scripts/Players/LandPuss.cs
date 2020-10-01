@@ -247,14 +247,17 @@ public class LandPuss : MonoBehaviour
 
     void UICheck()
     {
-        if(EventSystem.current.currentSelectedGameObject != null)
+        if(_gameManagerObj._bisUnityEditorTestingMode)
         {
-            _bIsUI = true;
-        }
+            if(EventSystem.current.currentSelectedGameObject != null)
+            {
+                _bIsUI = true;
+            }
 
-        else if(EventSystem.current.currentSelectedGameObject == null)
-        {
-            _bIsUI = false;
+            else if(EventSystem.current.currentSelectedGameObject == null)
+            {
+                _bIsUI = false;
+            }
         }
     }
 }
