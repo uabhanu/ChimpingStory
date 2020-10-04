@@ -6,9 +6,12 @@ namespace SelfiePuss.Events
 	{
 		private static event Action 				AdStarted;
 		private static event Action                 AdFailed;
-		private static event Action                 CountDownOver;
+		private static event Action                 CoinCollected;
+		private static event Action                 CountdownFinished;
+		private static event Action                 FallDeath;
+		private static event Action                 HurdleDeath;
+		private static event Action                 Jump;
 		private static event Action                 NewVersion;
-		private static event Action                 OutOfWater;
 		private static event Action                 Paused;
 		private static event Action<bool>           PlaySoundsChanged;
 		private static event Action<bool>           PlayMusicChanged;
@@ -16,6 +19,12 @@ namespace SelfiePuss.Events
 		private static event Action<bool> 			RestartScene;
 		private static event Action                 Resumed;
 		private static event Action                 RewardAdWatched;
+		private static event Action                 RockExplosion;
+		private static event Action                 ScoreChanged;
+		private static event Action                 SelfieTaken;
+		private static event Action                 SoundOff;
+		private static event Action                 SoundOn;
+		private static event Action                 SuperCollected;
 
 		public static void SubscribeToEvent(SelfiePussEvent evt , Action actionFunction)
 		{
@@ -29,16 +38,28 @@ namespace SelfiePuss.Events
 					AdFailed += actionFunction;
 				return;
 
-				case SelfiePussEvent.CountDownOver:
-					CountDownOver += actionFunction;
+				case SelfiePussEvent.CoinCollected:
+					CoinCollected += actionFunction;
+				return;
+
+				case SelfiePussEvent.CountdownFinished:
+					CountdownFinished += actionFunction;
+				return;
+
+				case SelfiePussEvent.FallDeath:
+					FallDeath += actionFunction;
+				return;
+
+				case SelfiePussEvent.HurdleDeath:
+					HurdleDeath += actionFunction;
+				return;
+
+				case SelfiePussEvent.Jump:
+					Jump += actionFunction;
 				return;
 
 				case SelfiePussEvent.NewVersion:
 					NewVersion += actionFunction;
-				return;
-
-				case SelfiePussEvent.CollidedWithEnemy:
-					OutOfWater += actionFunction;
 				return;
 
 				case SelfiePussEvent.Paused:
@@ -55,6 +76,30 @@ namespace SelfiePuss.Events
 
 				case SelfiePussEvent.RewardAdWatched:
 					RewardAdWatched += actionFunction;
+				return;
+
+				case SelfiePussEvent.MeteorExplosion:
+					RockExplosion += actionFunction;
+				return;
+
+				case SelfiePussEvent.ScoreChanged:
+					ScoreChanged += actionFunction;
+				return;
+
+				case SelfiePussEvent.SelfieTaken:
+					SelfieTaken += actionFunction;
+				return;
+
+				case SelfiePussEvent.SoundsMuted:
+					SoundOff += actionFunction;
+				return;
+
+				case SelfiePussEvent.SoundsUnmuted:
+					SoundOn += actionFunction;
+				return;
+
+				case SelfiePussEvent.SuperCollected:
+					SuperCollected += actionFunction;
 				return;
 			}
 		}
@@ -89,16 +134,28 @@ namespace SelfiePuss.Events
 					AdFailed -= actionFunction;
 				return;
 
-				case SelfiePussEvent.CountDownOver:
-					CountDownOver -= actionFunction;
+				case SelfiePussEvent.CoinCollected:
+					CoinCollected -= actionFunction;
+				return;
+
+				case SelfiePussEvent.CountdownFinished:
+					CountdownFinished -= actionFunction;
+				return;
+
+				case SelfiePussEvent.FallDeath:
+					FallDeath -= actionFunction;
+				return;
+
+				case SelfiePussEvent.HurdleDeath:
+					HurdleDeath -= actionFunction;
+				return;
+
+				case SelfiePussEvent.Jump:
+					Jump -= actionFunction;
 				return;
 
 				case SelfiePussEvent.NewVersion:
 					NewVersion -= actionFunction;
-				return;
-
-				case SelfiePussEvent.CollidedWithEnemy:
-					OutOfWater -= actionFunction;
 				return;
 
 				case SelfiePussEvent.Paused:
@@ -115,6 +172,30 @@ namespace SelfiePuss.Events
 
 				case SelfiePussEvent.RewardAdWatched:
 					RewardAdWatched -= actionFunction;
+				return;
+
+				case SelfiePussEvent.MeteorExplosion:
+					RockExplosion -= actionFunction;
+				return;
+
+				case SelfiePussEvent.ScoreChanged:
+					ScoreChanged -= actionFunction;
+				return;
+
+				case SelfiePussEvent.SelfieTaken:
+					SelfieTaken -= actionFunction;
+				return;
+
+				case SelfiePussEvent.SoundsMuted:
+					SoundOff -= actionFunction;
+				return;
+
+				case SelfiePussEvent.SoundsUnmuted:
+					SoundOn -= actionFunction;
+				return;
+
+				case SelfiePussEvent.SuperCollected:
+					SuperCollected -= actionFunction;
 				return;
 			}
 		}
@@ -149,16 +230,28 @@ namespace SelfiePuss.Events
 					AdFailed?.Invoke();
 				return;
 
-				case SelfiePussEvent.CountDownOver:
-					CountDownOver?.Invoke();
+				case SelfiePussEvent.CoinCollected:
+					CoinCollected?.Invoke();
+				return;
+
+				case SelfiePussEvent.CountdownFinished:
+					CountdownFinished?.Invoke();
+				return;
+
+				case SelfiePussEvent.FallDeath:
+					FallDeath?.Invoke();
+				return;
+
+				case SelfiePussEvent.HurdleDeath:
+					HurdleDeath?.Invoke();
+				return;
+
+				case SelfiePussEvent.Jump:
+					Jump?.Invoke();
 				return;
 
 				case SelfiePussEvent.NewVersion:
 					NewVersion?.Invoke();
-				return;
-
-				case SelfiePussEvent.CollidedWithEnemy:
-					OutOfWater?.Invoke();
 				return;
 
 				case SelfiePussEvent.Paused:
@@ -175,6 +268,30 @@ namespace SelfiePuss.Events
 
 				case SelfiePussEvent.RewardAdWatched:
 					RewardAdWatched?.Invoke();
+				return;
+
+				case SelfiePussEvent.MeteorExplosion:
+					RockExplosion?.Invoke();
+				return;
+
+				case SelfiePussEvent.ScoreChanged:
+					ScoreChanged?.Invoke();
+				return;
+
+				case SelfiePussEvent.SelfieTaken:
+					SelfieTaken?.Invoke();
+				return;
+
+				case SelfiePussEvent.SoundsMuted:
+					SoundOff?.Invoke();
+				return;
+
+				case SelfiePussEvent.SoundsUnmuted:
+					SoundOn?.Invoke();
+				return;
+
+				case SelfiePussEvent.SuperCollected:
+					SuperCollected?.Invoke();
 				return;
 			}
 		}

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using SelfiePuss.Events;
+using UnityEngine;
 
 public class Explosion : MonoBehaviour
 {
@@ -6,7 +7,7 @@ public class Explosion : MonoBehaviour
 
     [SerializeField] [Tooltip("Select the value of seconds after which this object should be destroyed")] [Range(0.1f , 1.1f)] private float m_destroyAfter;
 	[SerializeField] private Material _explosionMaterial;
-    [SerializeField] private SoundManagerObject _soundManagerObject;
+    [SerializeField] private SoundManagerSO _soundManagerObject;
 	
 	public static string m_explosionType;
 
@@ -14,14 +15,8 @@ public class Explosion : MonoBehaviour
     {
 		m_explosionSystem = GetComponent<ParticleSystem>();
 		m_explosionSystem.GetComponent<Renderer>().material = _explosionMaterial;
-		_soundManagerObject.m_soundsSource.clip = _soundManagerObject.m_rockExplosion;
+		EventsManager.InvokeEvent(SelfiePussEvent.MeteorExplosion); //TODO This may have to be changed later to do Super Explosion or Meteor Explosion
         m_explosionSystem.Play();
-
-		if(_soundManagerObject.m_playerMutedSounds == 0)
-        {
-            _soundManagerObject.m_soundsSource.Play();
-        }
-
         Destroy(gameObject , m_destroyAfter);
     }
 }

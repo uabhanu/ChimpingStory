@@ -2,7 +2,7 @@
 
 public class LandLevelManager : MonoBehaviour
 {
-    [SerializeField] GameManagerObject _gameManagerObj;
+    [SerializeField] GameManagerSO _gameManagerObj;
 
     void Start()
     {

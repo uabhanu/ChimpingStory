@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 5b04f7a4da4ce05498cdf531410bdb2d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _coinCollectedAudioClip: {fileID: 8300000, guid: daf30d22298569940abc095aa6663bdd,
+      type: 3}
+  - _fallDeathAudioClip: {fileID: 8300000, guid: 2a8c1d1e4fb464b4689602cd3d2bca41,
+      type: 3}
+  - _hurdleDeathAudioClip: {fileID: 8300000, guid: 05b6c0e4905ffc441bc9b89d7cdd48fb,
+      type: 3}
+  - _jumpAudioClip: {fileID: 8300000, guid: 07780a69c31643540bbc766be1f754ed, type: 3}
+  - _meteorExplosionAudioClip: {fileID: 8300000, guid: db292c55d9e50364684d8305791432bd,
+      type: 3}
+  - _selfieAudioClip: {fileID: 8300000, guid: 2a504a74bda51e04c93593a4b1f29ea9, type: 3}
+  - _superCollectedAudioClip: {fileID: 8300000, guid: d2e21da7766871747a223d16469cf1e2,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

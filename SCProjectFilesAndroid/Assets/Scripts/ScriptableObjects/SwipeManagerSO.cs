@@ -10,7 +10,7 @@ public enum SwipeDirection
 }
 
 [CreateAssetMenu]
-public class SwipeManagerObject : ScriptableObject
+public class SwipeManagerSO : ScriptableObject
 {
     private float _swipeResistanceX = 2.5f , _swipeResistanceY = 2.5f;
     private Vector3 _touchPos;

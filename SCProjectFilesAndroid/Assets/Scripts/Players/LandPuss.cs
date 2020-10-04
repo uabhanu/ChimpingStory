@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using SelfiePuss.Events;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
@@ -14,10 +15,9 @@ public class LandPuss : MonoBehaviour
 
     [SerializeField] private float _currentMoveSpeed , _currentSlideTime;
     [SerializeField] private float _jumpHeight;
-    [SerializeField] private GameManagerObject _gameManagerObj;
+    [SerializeField] private GameManagerSO _gameManagerObj;
     [SerializeField] private LayerMask _layerMask;
-    [SerializeField] private SoundManagerObject _soundManagerObject;
-    [SerializeField] private SwipeManagerObject _swipeManagerObject;
+    [SerializeField] private SwipeManagerSO _swipeManagerSO;
     [SerializeField] private string _holeAchievementID , _slipAchievementID , _superAchievementID;
     [SerializeField] private Transform _raycastBottom , _raycastTop;
     //[SerializeField] private Text _superTimerText; //This is for Testing only
@@ -85,14 +85,14 @@ public class LandPuss : MonoBehaviour
             #endif
         }
         
-        _swipeManagerObject.BhanuSwipes();
+        _swipeManagerSO.BhanuSwipes();
         
-        if(_swipeManagerObject.IsSwiping(SwipeDirection.UP))
+        if(_swipeManagerSO.IsSwiping(SwipeDirection.UP))
         {
             Jump();
         }
 
-        if(_swipeManagerObject.IsSwiping(SwipeDirection.DOWN))
+        if(_swipeManagerSO.IsSwiping(SwipeDirection.DOWN))
         {
             Slide();
         }
@@ -134,13 +134,7 @@ public class LandPuss : MonoBehaviour
             _pussBody2D.velocity = Vector2.up * _jumpHeight; //You may experience different jump feel on different devices as Time.deltaTime not used following Code Monkey
             Invoke("JumpFinished" , 0.55f);
             //SelfieAppear();
-            _soundManagerObject.m_soundsSource.clip = _soundManagerObject.m_jump;
-
-            if(_soundManagerObject.m_playerMutedSounds == 0)
-            {
-                _soundManagerObject.m_soundsSource.Play();
-            }
-
+            EventsManager.InvokeEvent(SelfiePussEvent.Jump);
         }
     }
 
@@ -169,13 +163,7 @@ public class LandPuss : MonoBehaviour
     {
         if(tri2D.gameObject.tag.Equals("Death"))
         {
-			_soundManagerObject.m_soundsSource.clip = _soundManagerObject.m_fallDeath;
-
-			if(_soundManagerObject.m_playerMutedSounds == 0)
-            {
-                _soundManagerObject.m_soundsSource.Play();
-            }
-
+			EventsManager.InvokeEvent(SelfiePussEvent.FallDeath);
             CheatDeath();
         }
 
@@ -210,13 +198,7 @@ public class LandPuss : MonoBehaviour
         {
             if(!_bIsSliding) //TODO Since the collider triggers only once, when the puss gets back up too soon, still gets away so fixing this WIP
             {
-                _soundManagerObject.m_soundsSource.clip = _soundManagerObject.m_hurdleDeath;
-
-                if(_soundManagerObject.m_playerMutedSounds == 0)
-                {
-                    _soundManagerObject.m_soundsSource.Play();
-                }
-
+                EventsManager.InvokeEvent(SelfiePussEvent.HurdleDeath);
                 CheatDeath();
             }
         }
@@ -227,7 +209,6 @@ public class LandPuss : MonoBehaviour
 		if(_bIsGrounded && !_bIsJumping && !_bIsUI)
 		{
             _bIsSliding = true;
-			_pussAnim.SetBool("Jog" , false);
 			_pussAnim.SetBool("Slide" , true);
 			Invoke("SlideFinished" , _currentSlideTime);
             //SelfieAppear();

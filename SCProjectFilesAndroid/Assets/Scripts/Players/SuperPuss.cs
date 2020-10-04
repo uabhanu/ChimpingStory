@@ -9,7 +9,7 @@ public class SuperPuss : MonoBehaviour
 
     [SerializeField] private float _currentMoveSpeed;
     [SerializeField] private float _flyHeight;
-    [SerializeField] private SwipeManagerObject _swipeManagerObject;
+    [SerializeField] private SwipeManagerSO _swipeManagerObject;
 
 
     void Reset()

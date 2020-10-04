@@ -4,21 +4,24 @@
 	{
 		AdStarted
 	  , AdFailed
-	  ,	CollidedWithEnemy
-	  , CountDownOver
+      ,	CoinCollected
+	  ,	CountdownFinished
+	  ,	FallDeath
+	  ,	HurdleDeath
+	  ,	Jump
 	  ,	NewVersion
 	  , Paused
 	  ,	PunishAdWatched
 	  , Resumed
 	  , RewardAdWatched
+	  ,	MeteorExplosion
 	  , PlaySoundsChanged
 	  , PlayMusicChanged
 	  , RestartScene
+	  , ScoreChanged
+	  ,	SelfieTaken
+	  , SoundsMuted
+	  , SoundsUnmuted
+	  ,	SuperCollected
 	}
-
-	//public struct GemSwapInfo
-	//{
-	//	public ColumnCreepInfo m_gem01;
-	//	public ColumnCreepInfo m_gem02;
-	//}
 }

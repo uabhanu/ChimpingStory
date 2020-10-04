@@ -1,24 +1,18 @@
-﻿using UnityEngine;
+﻿using SelfiePuss.Events;
+using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    [SerializeField] private ScoreManagerObject _scoreManagerObject;	
-    [SerializeField] private SoundManagerObject _soundManagerObject;
+    [SerializeField] private ScoreManagerSO _scoreManagerSO; //TODO Put this in ScoreManager Monobehaviour class and so on	
 
     void OnTriggerEnter2D(Collider2D tri2D)
     {
         if(tri2D.gameObject.tag.Equals("Player"))
         {
-            _scoreManagerObject.m_scoreValue += 25;
-            _scoreManagerObject.m_HighScoreValueText.text = _scoreManagerObject.m_scoreValue.ToString();
-            BhanuPrefs.SetHighScore(_scoreManagerObject.m_scoreValue);
-			_soundManagerObject.m_soundsSource.clip = _soundManagerObject.m_coinCollected;
-
-			if(_soundManagerObject.m_playerMutedSounds == 0)
-            {
-                _soundManagerObject.m_soundsSource.Play();
-            }
-
+            _scoreManagerSO.m_ScoreValue += 25;
+            BhanuPrefs.SetHighScore(_scoreManagerSO.m_ScoreValue);
+            EventsManager.InvokeEvent(SelfiePussEvent.ScoreChanged);
+			EventsManager.InvokeEvent(SelfiePussEvent.CoinCollected);
             Destroy(gameObject); //TODO Object Pooling instead of Destroy
         }
     }

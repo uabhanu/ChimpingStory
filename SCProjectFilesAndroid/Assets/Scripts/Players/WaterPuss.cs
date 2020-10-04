@@ -10,7 +10,7 @@ public class WaterPuss : MonoBehaviour
 
     [SerializeField] private float _currentMoveSpeed;
     [SerializeField] private float _floatHeight;
-    [SerializeField] private SwipeManagerObject _swipeManagerObject;
+    [SerializeField] private SwipeManagerSO _swipeManagerObject;
 
 
     private void Reset()
