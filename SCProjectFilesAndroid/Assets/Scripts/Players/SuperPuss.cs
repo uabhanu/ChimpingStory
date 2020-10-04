@@ -4,7 +4,7 @@ public class SuperPuss : MonoBehaviour
 {
     private Rigidbody2D _pussBody2D;
 
-    [SerializeField] private Animator _animator;
+    [SerializeField] private Animator _pussAnim;
     [SerializeField] private float _currentMoveSpeed;
     [SerializeField] private float _flyHeight;
     [SerializeField] private SwipeManagerSO _swipeManagerObject;
@@ -17,7 +17,7 @@ public class SuperPuss : MonoBehaviour
 
     void Start()
     {
-        _animator.SetBool("Fly" , true);
+        _pussAnim.SetBool("Fly" , true);
         //_pussAnim = GetComponent<Animator>();
         _pussBody2D = GetComponent<Rigidbody2D>();
     }

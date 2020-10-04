@@ -3,11 +3,9 @@ using UnityEngine;
 
 public class WaterPuss : MonoBehaviour
 {
-    private const float DEFAULT_MOVE_SPEED = 5.0f;
-
-    //private Animator _pussAnim;
     private Rigidbody2D _pussBody2D;
 
+    [SerializeField] private Animator _pussAnim;
     [SerializeField] private float _currentMoveSpeed;
     [SerializeField] private float _floatHeight;
     [SerializeField] private SwipeManagerSO _swipeManagerObject;
@@ -15,14 +13,12 @@ public class WaterPuss : MonoBehaviour
 
     private void Reset()
     {
-        _currentMoveSpeed = DEFAULT_MOVE_SPEED;
         _pussBody2D = GetComponent<Rigidbody2D>();
     }
 
     private void Start()
     {
-        _currentMoveSpeed = DEFAULT_MOVE_SPEED;
-        //_pussAnim = GetComponent<Animator>();
+        _pussAnim.SetBool("Fly" , true);
         _pussBody2D = GetComponent<Rigidbody2D>();
     }
 
