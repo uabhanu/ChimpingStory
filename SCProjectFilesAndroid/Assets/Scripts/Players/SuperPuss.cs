@@ -2,11 +2,9 @@
 
 public class SuperPuss : MonoBehaviour
 {
-    private const float DEFAULT_MOVE_SPEED = 15.0f;
-
-    //private Animator _pussAnim;
     private Rigidbody2D _pussBody2D;
 
+    [SerializeField] private Animator _animator;
     [SerializeField] private float _currentMoveSpeed;
     [SerializeField] private float _flyHeight;
     [SerializeField] private SwipeManagerSO _swipeManagerObject;
@@ -14,13 +12,12 @@ public class SuperPuss : MonoBehaviour
 
     void Reset()
     {
-        _currentMoveSpeed = DEFAULT_MOVE_SPEED;
         _pussBody2D = GetComponent<Rigidbody2D>();
     }
 
     void Start()
     {
-        _currentMoveSpeed = DEFAULT_MOVE_SPEED;
+        _animator.SetBool("Fly" , true);
         //_pussAnim = GetComponent<Animator>();
         _pussBody2D = GetComponent<Rigidbody2D>();
     }

@@ -9,7 +9,6 @@ public class GameManagerSO : ScriptableObject
 {
     //TODO Text Mesh Pro
     //private int _chimpionshipsCount , _currentChimpion; TODO This is for future use
-    private float _countdownValue;
     private GameObject _selfieButtonObj;
 	private GameObject _adsMenuObj , _inGameUIObj , _mainMenuObj , _pauseMenuObj , _quitMenuObj , _selfiePanelObj;
     private int _currentSceneIndex;
@@ -17,6 +16,7 @@ public class GameManagerSO : ScriptableObject
 
     
     [SerializeField] private bool _bSelfieFlashEnabled;
+    [SerializeField] private float _countdownValue;
     [SerializeField] private ScoreManagerSO _scoreManagerSO;
     [SerializeField] private SoundManagerSO _soundManagerSO;
     [SerializeField] private Sprite[] _chimpionshipBeltSprites;
@@ -93,7 +93,6 @@ public class GameManagerSO : ScriptableObject
     public void GetReferences()
     {
         _currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        _countdownValue = 30.0f;
         _soundsMuteButtonObj = GameObject.FindGameObjectWithTag("Mute");
         _soundsUnmuteButtonObj = GameObject.FindGameObjectWithTag("Unmute");
 
