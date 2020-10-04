@@ -9,6 +9,7 @@ public class GameManagerSO : ScriptableObject
 {
     //TODO Text Mesh Pro
     //private int _chimpionshipsCount , _currentChimpion; TODO This is for future use
+    private float _countdownValue;
     private GameObject _selfieButtonObj;
 	private GameObject _adsMenuObj , _inGameUIObj , _mainMenuObj , _pauseMenuObj , _quitMenuObj , _selfiePanelObj;
     private int _currentSceneIndex;
@@ -22,7 +23,6 @@ public class GameManagerSO : ScriptableObject
     [SerializeField] private string _chimpionAchievementID , _selfieAchievementID , _selfieLegendAchievementID , _undisputedChimpionAchievementID;
 
     public bool _bisUnityEditorTestingMode;
-    public float m_CountdownValue;
     public GameObject _soundsMuteButtonObj , _soundsUnmuteButtonObj;
 
     public void Ads()
@@ -83,6 +83,11 @@ public class GameManagerSO : ScriptableObject
 	{
         BhanuPrefs.DeleteScore();
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public float GetCountDownValue()
+    {
+        return _countdownValue;
     }
 
     public void GetLandLevelObjects()
@@ -151,7 +156,7 @@ public class GameManagerSO : ScriptableObject
 
     public void GetOtherLevelObjects()
     {
-        m_CountdownValue = 30.0f;
+        _countdownValue = 30.0f;
         _currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
         _inGameUIObj = GameObject.FindGameObjectWithTag("InGameUI");

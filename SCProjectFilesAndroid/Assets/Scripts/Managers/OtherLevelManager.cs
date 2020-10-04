@@ -1,22 +1,18 @@
-﻿using SelfiePuss.Events;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class OtherLevelManager : MonoBehaviour
 {
+    [SerializeField] private float _countDownTimer;
+    
     [SerializeField] private GameManagerSO _gameManagerSO;
     [SerializeField] private Text _countdownDisplayText;
 
     private void Start()
     {
-        _gameManagerSO.GetOtherLevelObjects();   
-        RegisterEvents();
-    }
-
-    private void OnDestroy()
-    {
-        UnregisterEvents();
+        _gameManagerSO.GetOtherLevelObjects();
+        _countDownTimer = _gameManagerSO.GetCountDownValue();
     }
 
     private void Update()
@@ -26,31 +22,16 @@ public class OtherLevelManager : MonoBehaviour
             return;
         }
 
-        if(_gameManagerSO.m_CountdownValue > 0)
+        if(_countDownTimer > 0)
         {
-            _gameManagerSO.m_CountdownValue -= Time.deltaTime;
+            _countDownTimer -= Time.deltaTime;
         }
     
-        _countdownDisplayText.text = Mathf.Round(_gameManagerSO.m_CountdownValue).ToString();
+        _countdownDisplayText.text = Mathf.Round(_countDownTimer).ToString();
 
-        if(_gameManagerSO.m_CountdownValue == 0)
+        if(_countDownTimer <= 0)
         {
-            EventsManager.InvokeEvent(SelfiePussEvent.CountdownFinished);
+            SceneManager.LoadScene("LandRunner");
         }
-    }
-
-    private void OnCountdownFinished()
-    {
-        SceneManager.LoadScene("LandRunner"); //TODO This is executing before the value becoming zero and upon colliding with coin of water level and meteor of space level so fixing WIP
-    }
-
-    private void RegisterEvents()
-    {
-        EventsManager.SubscribeToEvent(SelfiePussEvent.ScoreChanged , OnCountdownFinished);
-    }
-
-    private void UnregisterEvents()
-    {
-        EventsManager.UnsubscribeFromEvent(SelfiePussEvent.ScoreChanged , OnCountdownFinished);
     }
 }
