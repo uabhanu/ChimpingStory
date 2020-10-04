@@ -11,7 +11,7 @@ public class OtherLevelManager : MonoBehaviour
 
     private void Start()
     {
-        _gameManagerSO.GetOtherLevelObjects();
+        _gameManagerSO.GetReferences();
         _countDownTimer = _gameManagerSO.GetCountDownValue();
     }
 

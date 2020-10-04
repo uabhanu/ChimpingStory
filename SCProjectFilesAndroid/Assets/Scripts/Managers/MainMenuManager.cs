@@ -6,6 +6,6 @@ public class MainMenuManager : MonoBehaviour
 
     private void Start()
     {
-        _gameManagerSO.GetMainMenuLevelObjects();
+        _gameManagerSO.GetReferences();
     }
 }
