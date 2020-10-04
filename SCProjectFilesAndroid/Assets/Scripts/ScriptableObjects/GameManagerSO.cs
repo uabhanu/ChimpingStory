@@ -90,79 +90,51 @@ public class GameManagerSO : ScriptableObject
         return _countdownValue;
     }
 
-    public void GetLandLevelObjects()
-    {
-        Advertisement.Initialize("3696337");
-
-        _currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-
-        _adsMenuObj = GameObject.FindGameObjectWithTag("AdsMenu");
-        _inGameUIObj = GameObject.FindGameObjectWithTag("InGameUI");
-        _pauseMenuObj = GameObject.FindGameObjectWithTag("PauseMenu");
-        _selfieButtonObj = GameObject.FindGameObjectWithTag("SelfieButton");
-        _selfiePanelObj = GameObject.FindGameObjectWithTag("SelfiePanel");
-        _soundsMuteButtonObj = GameObject.FindGameObjectWithTag("Mute");
-        _soundsUnmuteButtonObj = GameObject.FindGameObjectWithTag("Unmute");
-
-        if(_soundManagerSO.m_playerMutedSounds == 1)
-        {
-            EventsManager.InvokeEvent(SelfiePussEvent.SoundsMuted);
-            _soundsMuteButtonObj.SetActive(false);
-            _soundsUnmuteButtonObj.SetActive(true);
-        }
-
-        else if(_soundManagerSO.m_playerMutedSounds == 0)
-        {
-            EventsManager.InvokeEvent(SelfiePussEvent.SoundsUnmuted);
-            _soundsMuteButtonObj.SetActive(true);
-            _soundsUnmuteButtonObj.SetActive(false);
-        }
-
-        _adsMenuObj.SetActive(false);
-        _pauseMenuObj.SetActive(false);
-        _selfieButtonObj.SetActive(false);
-        _selfiePanelObj.SetActive(false);
-
-        Time.timeScale = 1;
-    }
-
-    public void GetMainMenuLevelObjects()
+    public void GetReferences()
     {
         _currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-
-        _mainMenuObj = GameObject.FindGameObjectWithTag("MainMenu");
-        _quitMenuObj = GameObject.FindGameObjectWithTag("QuitMenu");
-        _soundsMuteButtonObj = GameObject.FindGameObjectWithTag("Mute");
-        _soundsUnmuteButtonObj = GameObject.FindGameObjectWithTag("Unmute");
-
-        if(_soundManagerSO.m_playerMutedSounds == 1)
-        {
-            EventsManager.InvokeEvent(SelfiePussEvent.SoundsMuted);
-            _soundsMuteButtonObj.SetActive(false);
-            _soundsUnmuteButtonObj.SetActive(true);
-        }
-
-        else if(_soundManagerSO.m_playerMutedSounds == 0)
-        {
-            EventsManager.InvokeEvent(SelfiePussEvent.SoundsUnmuted);
-            _soundsMuteButtonObj.SetActive(true);
-            _soundsUnmuteButtonObj.SetActive(false);
-        }
-
-        _quitMenuObj.SetActive(false);
-
-        Time.timeScale = 1;
-    }
-
-    public void GetOtherLevelObjects()
-    {
         _countdownValue = 30.0f;
-        _currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-
-        _inGameUIObj = GameObject.FindGameObjectWithTag("InGameUI");
-        _pauseMenuObj = GameObject.FindGameObjectWithTag("PauseMenu");
         _soundsMuteButtonObj = GameObject.FindGameObjectWithTag("Mute");
         _soundsUnmuteButtonObj = GameObject.FindGameObjectWithTag("Unmute");
+
+        switch(_currentSceneIndex)
+        {
+            case 0:
+                _mainMenuObj = GameObject.FindGameObjectWithTag("MainMenu");
+                _quitMenuObj = GameObject.FindGameObjectWithTag("QuitMenu");
+
+                _quitMenuObj.SetActive(false);
+            break;
+
+            case 1:
+                Advertisement.Initialize("3696337");
+
+                _adsMenuObj = GameObject.FindGameObjectWithTag("AdsMenu");
+                _inGameUIObj = GameObject.FindGameObjectWithTag("InGameUI");
+                _pauseMenuObj = GameObject.FindGameObjectWithTag("PauseMenu");
+                _selfieButtonObj = GameObject.FindGameObjectWithTag("SelfieButton");
+                _selfiePanelObj = GameObject.FindGameObjectWithTag("SelfiePanel");
+
+                _adsMenuObj.SetActive(false);
+                _pauseMenuObj.SetActive(false);
+                _selfieButtonObj.SetActive(false);
+                _selfiePanelObj.SetActive(false);
+            break;
+
+            case 2:
+                _inGameUIObj = GameObject.FindGameObjectWithTag("InGameUI");
+                _pauseMenuObj = GameObject.FindGameObjectWithTag("PauseMenu");
+
+                _pauseMenuObj.SetActive(false);
+            break;
+
+            case 3:
+                _inGameUIObj = GameObject.FindGameObjectWithTag("InGameUI");
+                _pauseMenuObj = GameObject.FindGameObjectWithTag("PauseMenu");
+                
+                _pauseMenuObj.SetActive(false);
+            break;
+        }
 
         if(_soundManagerSO.m_playerMutedSounds == 1)
         {
@@ -177,8 +149,6 @@ public class GameManagerSO : ScriptableObject
             _soundsMuteButtonObj.SetActive(true);
             _soundsUnmuteButtonObj.SetActive(false);
         }
-
-        _pauseMenuObj.SetActive(false);
 
         Time.timeScale = 1;
     }

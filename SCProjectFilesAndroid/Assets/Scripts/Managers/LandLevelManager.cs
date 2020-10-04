@@ -2,10 +2,10 @@
 
 public class LandLevelManager : MonoBehaviour
 {
-    [SerializeField] GameManagerSO _gameManagerObj;
+    [SerializeField] GameManagerSO _gameManagerSO;
 
     void Start()
     {
-        _gameManagerObj.GetLandLevelObjects();   
+        _gameManagerSO.GetReferences();   
     }
 }
