@@ -15,7 +15,7 @@ public class LandPuss : MonoBehaviour
 
     [SerializeField] private float _currentMoveSpeed , _currentSlideTime;
     [SerializeField] private float _jumpHeight;
-    [SerializeField] private GameManagerSO _gameManagerObj;
+    [SerializeField] private GameManagerSO _gameManagerSO;
     [SerializeField] private LayerMask _layerMask;
     [SerializeField] private SwipeManagerSO _swipeManagerSO;
     [SerializeField] private string _holeAchievementID , _slipAchievementID , _superAchievementID;
@@ -64,7 +64,7 @@ public class LandPuss : MonoBehaviour
 
     private void BhanuInput()
     {
-        if(_gameManagerObj._bisUnityEditorTestingMode)
+        if(_gameManagerSO._bisUnityEditorTestingMode)
         {
             #if UNITY_EDITOR || UNITY_STANDALONE
             if(Input.GetMouseButtonDown(0))
@@ -100,7 +100,7 @@ public class LandPuss : MonoBehaviour
 
     private void CheatDeath()
     {
-        _gameManagerObj.Ads();
+        _gameManagerSO.AdsUI();
     }
 
     public float GetMoveSpeed()
@@ -228,7 +228,7 @@ public class LandPuss : MonoBehaviour
 
     void UICheck()
     {
-        if(_gameManagerObj._bisUnityEditorTestingMode)
+        if(_gameManagerSO._bisUnityEditorTestingMode)
         {
             if(EventSystem.current.currentSelectedGameObject != null)
             {

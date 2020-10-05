@@ -4,7 +4,6 @@
 public class SoundManagerSO : ScriptableObject
 {
     [SerializeField] private AudioClip _coinCollectedAudioClip , _fallDeathAudioClip , _hurdleDeathAudioClip , _jumpAudioClip , _meteorExplosionAudioClip , _selfieAudioClip , _superCollectedAudioClip;
-    public int m_playerMutedSounds;
 
     public AudioClip GetCoinCollectedAudioClip()
     {

@@ -2,8 +2,9 @@
 {
     public enum SelfiePussEvent
 	{
-		AdStarted
-	  , AdFailed
+		AdsStarted
+	  , AdsFailed
+	  , AdsUI
       ,	CoinCollected
 	  ,	CountdownFinished
 	  ,	FallDeath

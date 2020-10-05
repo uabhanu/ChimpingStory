@@ -4,8 +4,9 @@ namespace SelfiePuss.Events
 {
 	public class EventsManager
 	{
-		private static event Action 				AdStarted;
-		private static event Action                 AdFailed;
+		private static event Action 				AdsStarted;
+		private static event Action                 AdsFailed;
+		private static event Action 				AdsUI;
 		private static event Action                 CoinCollected;
 		private static event Action                 CountdownFinished;
 		private static event Action                 FallDeath;
@@ -30,12 +31,16 @@ namespace SelfiePuss.Events
 		{
 			switch(evt)
 			{
-				case SelfiePussEvent.AdStarted:
-					AdStarted += actionFunction;
+				case SelfiePussEvent.AdsStarted:
+					AdsStarted += actionFunction;
 				return;
 
-				case SelfiePussEvent.AdFailed:
-					AdFailed += actionFunction;
+				case SelfiePussEvent.AdsFailed:
+					AdsFailed += actionFunction;
+				return;
+
+				case SelfiePussEvent.AdsUI:
+					AdsUI += actionFunction;
 				return;
 
 				case SelfiePussEvent.CoinCollected:
@@ -126,12 +131,16 @@ namespace SelfiePuss.Events
 		{
 			switch(evt)
 			{
-				case SelfiePussEvent.AdStarted:
-					AdStarted -= actionFunction;
+				case SelfiePussEvent.AdsStarted:
+					AdsStarted -= actionFunction;
 				return;
 
-				case SelfiePussEvent.AdFailed:
-					AdFailed -= actionFunction;
+				case SelfiePussEvent.AdsFailed:
+					AdsFailed -= actionFunction;
+				return;
+
+				case SelfiePussEvent.AdsUI:
+					AdsUI -= actionFunction;
 				return;
 
 				case SelfiePussEvent.CoinCollected:
@@ -222,12 +231,16 @@ namespace SelfiePuss.Events
 		{
 			switch(evt)
 			{
-				case SelfiePussEvent.AdStarted:
-					AdStarted?.Invoke();
+				case SelfiePussEvent.AdsStarted:
+					AdsStarted?.Invoke();
 				return;
 
-				case SelfiePussEvent.AdFailed:
-					AdFailed?.Invoke();
+				case SelfiePussEvent.AdsFailed:
+					AdsFailed?.Invoke();
+				return;
+
+				case SelfiePussEvent.AdsUI:
+					AdsUI?.Invoke();
 				return;
 
 				case SelfiePussEvent.CoinCollected:

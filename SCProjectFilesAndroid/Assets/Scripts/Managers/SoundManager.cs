@@ -6,8 +6,11 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioSource _musicSource , _soundsSource;
     [SerializeField] private SoundManagerSO _soundManagerSO;
 
+    public int m_PlayerMutedSounds;
+
     private void Start()
     {
+        m_PlayerMutedSounds = BhanuPrefs.GetSoundsMuteStatus();
         RegisterEvents();
     }
 
@@ -16,11 +19,16 @@ public class SoundManager : MonoBehaviour
         UnregisterEvents();
     }
 
+    public int GetPlayerMutedSoundsValue()
+    {
+        return m_PlayerMutedSounds;
+    }
+
     private void OnCoinCollected()
     {
         _soundsSource.clip = _soundManagerSO.GetCoinCollectedAudioClip();
 
-        if(_soundManagerSO.m_playerMutedSounds == 0)
+        if(m_PlayerMutedSounds == 0)
         {
             _soundsSource.Play();
         }
@@ -30,7 +38,7 @@ public class SoundManager : MonoBehaviour
     {
         _soundsSource.clip = _soundManagerSO.GetFallDeathAudioClip();
 
-        if(_soundManagerSO.m_playerMutedSounds == 0)
+        if(m_PlayerMutedSounds == 0)
         {
             _soundsSource.Play();
         }
@@ -40,7 +48,7 @@ public class SoundManager : MonoBehaviour
     {
         _soundsSource.clip = _soundManagerSO.GetHurdleDeathAudioClip();
 
-        if(_soundManagerSO.m_playerMutedSounds == 0)
+        if(m_PlayerMutedSounds == 0)
         {
             _soundsSource.Play();
         }
@@ -50,7 +58,7 @@ public class SoundManager : MonoBehaviour
     {
         _soundsSource.clip = _soundManagerSO.GetJumpAudioClip();
 
-        if(_soundManagerSO.m_playerMutedSounds == 0)
+        if(m_PlayerMutedSounds == 0)
         {
             _soundsSource.Play();
         }
@@ -60,7 +68,7 @@ public class SoundManager : MonoBehaviour
     {
         _soundsSource.clip = _soundManagerSO.GetMeteorExplosionAudioClip();
 
-        if(_soundManagerSO.m_playerMutedSounds == 0)
+        if(m_PlayerMutedSounds == 0)
         {
             _soundsSource.Play();
         }
@@ -69,22 +77,22 @@ public class SoundManager : MonoBehaviour
     private void OnPaused()
     {
         _musicSource.Pause();
-        _soundManagerSO.m_playerMutedSounds = 1;
-        BhanuPrefs.SetSoundsStatus(_soundManagerSO.m_playerMutedSounds);
+        m_PlayerMutedSounds = 1;
+        BhanuPrefs.SetSoundsStatus(m_PlayerMutedSounds);
     }
 
     private void OnResumed()
     {
         _musicSource.Play();
-        _soundManagerSO.m_playerMutedSounds = 0;
-        BhanuPrefs.SetSoundsStatus(_soundManagerSO.m_playerMutedSounds);
+        m_PlayerMutedSounds = 0;
+        BhanuPrefs.SetSoundsStatus(m_PlayerMutedSounds);
     }
 
     private void OnSelfieTaken()
     {
         _soundsSource.clip = _soundManagerSO.GetSelfieAudioClip();
 
-        if(_soundManagerSO.m_playerMutedSounds == 0)
+        if(m_PlayerMutedSounds == 0)
         {
             _soundsSource.Play();
         }
@@ -93,22 +101,22 @@ public class SoundManager : MonoBehaviour
     private void OnSoundsMuted()
     {
         _musicSource.Pause();
-        _soundManagerSO.m_playerMutedSounds = 1;
-        BhanuPrefs.SetSoundsStatus(_soundManagerSO.m_playerMutedSounds);
+        m_PlayerMutedSounds = 1;
+        BhanuPrefs.SetSoundsStatus(m_PlayerMutedSounds);
     }
 
     private void OnSoundsUnmuted()
     {
         _musicSource.Play();
-        _soundManagerSO.m_playerMutedSounds = 0;
-        BhanuPrefs.SetSoundsStatus(_soundManagerSO.m_playerMutedSounds);
+        m_PlayerMutedSounds = 0;
+        BhanuPrefs.SetSoundsStatus(m_PlayerMutedSounds);
     }
 
     private void OnSuperCollected()
     {
         _soundsSource.clip = _soundManagerSO.GetSuperCollectedAudioClip();
 
-        if(_soundManagerSO.m_playerMutedSounds == 0)
+        if(m_PlayerMutedSounds == 0)
         {
             _soundsSource.Play();
         }

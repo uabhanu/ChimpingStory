@@ -163,7 +163,7 @@ public class BhanuPrefs : MonoBehaviour
         return 0.0f;
     }
 
-    public static int GetSoundsStatus()
+    public static int GetSoundsMuteStatus()
     {
         if(PlayerPrefs.HasKey(SOUNDS_STATUS_KEY))
         {
