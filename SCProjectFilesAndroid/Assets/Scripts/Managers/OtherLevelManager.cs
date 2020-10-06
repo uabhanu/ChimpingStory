@@ -17,7 +17,6 @@ public class OtherLevelManager : MonoBehaviour
     private void Start()
     {
         GetReferences();
-        _countDownTimer = _gameManagerSO.GetCountDownValue();
     }
 
     private void Update()
@@ -46,6 +45,8 @@ public class OtherLevelManager : MonoBehaviour
         _countDownTimer = _gameManagerSO.GetCountDownValue();
 
         _pauseMenuObj.SetActive(false);
+
+        _soundManager.m_PlayerMutedSounds = BhanuPrefs.GetSoundsMuteStatus();
         
         if(_soundManager.m_PlayerMutedSounds == 0)
         {
@@ -83,6 +84,8 @@ public class OtherLevelManager : MonoBehaviour
     public void SoundsMuteButton()
     {
         EventsManager.InvokeEvent(SelfiePussEvent.SoundsMuted);
+        _soundManager.m_PlayerMutedSounds = 1;
+        BhanuPrefs.SetSoundsStatus(_soundManager.m_PlayerMutedSounds);
         _soundsMuteButtonObj.SetActive(false);
         _soundsUnmuteButtonObj.SetActive(true);
     }
@@ -90,6 +93,8 @@ public class OtherLevelManager : MonoBehaviour
     public void SoundsUnmuteButton()
     {
         EventsManager.InvokeEvent(SelfiePussEvent.SoundsUnmuted);
+        _soundManager.m_PlayerMutedSounds = 0;
+        BhanuPrefs.SetSoundsStatus(_soundManager.m_PlayerMutedSounds);
         _soundsMuteButtonObj.SetActive(true);
         _soundsUnmuteButtonObj.SetActive(false);
     }

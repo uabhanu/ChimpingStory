@@ -8,7 +8,7 @@ public class LandLevelManager : MonoBehaviour
     private int _currentSceneIndex;
 
     [SerializeField] private GameObject _selfieButtonObj;
-	[SerializeField] private GameObject _adsMenuObj , _inGameUIObj , _mainMenuObj , _pauseMenuObj , _selfiePanelObj;
+	[SerializeField] private GameObject _adsMenuObj , _inGameUIObj , _pauseMenuObj , _selfiePanelObj;
     [SerializeField] GameManagerSO _gameManagerSO;
     [SerializeField] private ScoreManagerSO _scoreManagerSO;
     [SerializeField] private SoundManager _soundManager;
@@ -90,7 +90,9 @@ public class LandLevelManager : MonoBehaviour
     public void GetReferences()
     {
         Advertisement.Initialize("3696337");
+
         _currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        _soundManager.m_PlayerMutedSounds = BhanuPrefs.GetSoundsMuteStatus();
 
         _adsMenuObj.SetActive(false);
         _pauseMenuObj.SetActive(false);
@@ -154,6 +156,8 @@ public class LandLevelManager : MonoBehaviour
     public void SoundsMuteButton()
     {
         EventsManager.InvokeEvent(SelfiePussEvent.SoundsMuted);
+        _soundManager.m_PlayerMutedSounds = 1;
+        BhanuPrefs.SetSoundsStatus(_soundManager.m_PlayerMutedSounds);
         _soundsMuteButtonObj.SetActive(false);
         _soundsUnmuteButtonObj.SetActive(true);
     }
@@ -161,6 +165,8 @@ public class LandLevelManager : MonoBehaviour
     public void SoundsUnmuteButton()
     {
         EventsManager.InvokeEvent(SelfiePussEvent.SoundsUnmuted);
+        _soundManager.m_PlayerMutedSounds = 0;
+        BhanuPrefs.SetSoundsStatus(_soundManager.m_PlayerMutedSounds);
         _soundsMuteButtonObj.SetActive(true);
         _soundsUnmuteButtonObj.SetActive(false);
     }

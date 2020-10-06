@@ -10,7 +10,6 @@ public class SoundManager : MonoBehaviour
 
     private void Start()
     {
-        m_PlayerMutedSounds = BhanuPrefs.GetSoundsMuteStatus();
         RegisterEvents();
     }
 
@@ -77,15 +76,11 @@ public class SoundManager : MonoBehaviour
     private void OnPaused()
     {
         _musicSource.Pause();
-        m_PlayerMutedSounds = 1;
-        BhanuPrefs.SetSoundsStatus(m_PlayerMutedSounds);
     }
 
     private void OnResumed()
     {
         _musicSource.Play();
-        m_PlayerMutedSounds = 0;
-        BhanuPrefs.SetSoundsStatus(m_PlayerMutedSounds);
     }
 
     private void OnSelfieTaken()
@@ -101,15 +96,11 @@ public class SoundManager : MonoBehaviour
     private void OnSoundsMuted()
     {
         _musicSource.Pause();
-        m_PlayerMutedSounds = 1;
-        BhanuPrefs.SetSoundsStatus(m_PlayerMutedSounds);
     }
 
     private void OnSoundsUnmuted()
     {
         _musicSource.Play();
-        m_PlayerMutedSounds = 0;
-        BhanuPrefs.SetSoundsStatus(m_PlayerMutedSounds);
     }
 
     private void OnSuperCollected()

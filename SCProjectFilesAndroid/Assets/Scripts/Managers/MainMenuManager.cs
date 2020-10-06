@@ -21,6 +21,8 @@ public class MainMenuManager : MonoBehaviour
         _currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
         _quitMenuObj.SetActive(false);
+
+        _soundManager.m_PlayerMutedSounds = BhanuPrefs.GetSoundsMuteStatus();
         
         if(_soundManager.m_PlayerMutedSounds == 0)
         {
@@ -35,6 +37,8 @@ public class MainMenuManager : MonoBehaviour
             _soundsMuteButtonObj.SetActive(false);
             _soundsUnmuteButtonObj.SetActive(true);
         }
+
+        Time.timeScale = 1;
     }
 
 	public void PlayButton()
@@ -63,6 +67,8 @@ public class MainMenuManager : MonoBehaviour
     public void SoundsMuteButton()
     {
         EventsManager.InvokeEvent(SelfiePussEvent.SoundsMuted);
+        _soundManager.m_PlayerMutedSounds = 1;
+        BhanuPrefs.SetSoundsStatus(_soundManager.m_PlayerMutedSounds);
         _soundsMuteButtonObj.SetActive(false);
         _soundsUnmuteButtonObj.SetActive(true);
     }
@@ -70,6 +76,8 @@ public class MainMenuManager : MonoBehaviour
     public void SoundsUnmuteButton()
     {
         EventsManager.InvokeEvent(SelfiePussEvent.SoundsUnmuted);
+        _soundManager.m_PlayerMutedSounds = 0;
+        BhanuPrefs.SetSoundsStatus(_soundManager.m_PlayerMutedSounds);
         _soundsMuteButtonObj.SetActive(true);
         _soundsUnmuteButtonObj.SetActive(false);
     }

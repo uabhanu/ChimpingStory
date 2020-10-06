@@ -1,6 +1,5 @@
 ﻿using SelfiePuss.Events;
 using UnityEngine;
-using UnityEngine.Advertisements;
 
 [CreateAssetMenu]
 public class GameManagerSO : ScriptableObject 
