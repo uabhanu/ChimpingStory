@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
+    [SerializeField] private int _playerMutedSounds;
     [SerializeField] private AudioSource _musicSource , _soundsSource;
     [SerializeField] private SoundManagerSO _soundManagerSO;
 
-    public int m_PlayerMutedSounds;
-
     private void Start()
     {
+        _playerMutedSounds = BhanuPrefs.GetSoundsMuteStatus();
         RegisterEvents();
     }
 
@@ -20,14 +20,20 @@ public class SoundManager : MonoBehaviour
 
     public int GetPlayerMutedSoundsValue()
     {
-        return m_PlayerMutedSounds;
+        return _playerMutedSounds;
+    }
+
+    public void SetPlayerMutedSoundsValue(int playerMutedSounds)
+    {
+        _playerMutedSounds = playerMutedSounds;
+        BhanuPrefs.SetSoundsMuteStatus(_playerMutedSounds);
     }
 
     private void OnCoinCollected()
     {
         _soundsSource.clip = _soundManagerSO.GetCoinCollectedAudioClip();
 
-        if(m_PlayerMutedSounds == 0)
+        if(_playerMutedSounds == 0)
         {
             _soundsSource.Play();
         }
@@ -37,7 +43,7 @@ public class SoundManager : MonoBehaviour
     {
         _soundsSource.clip = _soundManagerSO.GetFallDeathAudioClip();
 
-        if(m_PlayerMutedSounds == 0)
+        if(_playerMutedSounds == 0)
         {
             _soundsSource.Play();
         }
@@ -47,7 +53,7 @@ public class SoundManager : MonoBehaviour
     {
         _soundsSource.clip = _soundManagerSO.GetHurdleDeathAudioClip();
 
-        if(m_PlayerMutedSounds == 0)
+        if(_playerMutedSounds == 0)
         {
             _soundsSource.Play();
         }
@@ -57,7 +63,7 @@ public class SoundManager : MonoBehaviour
     {
         _soundsSource.clip = _soundManagerSO.GetJumpAudioClip();
 
-        if(m_PlayerMutedSounds == 0)
+        if(_playerMutedSounds == 0)
         {
             _soundsSource.Play();
         }
@@ -67,7 +73,7 @@ public class SoundManager : MonoBehaviour
     {
         _soundsSource.clip = _soundManagerSO.GetMeteorExplosionAudioClip();
 
-        if(m_PlayerMutedSounds == 0)
+        if(_playerMutedSounds == 0)
         {
             _soundsSource.Play();
         }
@@ -87,7 +93,7 @@ public class SoundManager : MonoBehaviour
     {
         _soundsSource.clip = _soundManagerSO.GetSelfieAudioClip();
 
-        if(m_PlayerMutedSounds == 0)
+        if(_playerMutedSounds == 0)
         {
             _soundsSource.Play();
         }
@@ -107,7 +113,7 @@ public class SoundManager : MonoBehaviour
     {
         _soundsSource.clip = _soundManagerSO.GetSuperCollectedAudioClip();
 
-        if(m_PlayerMutedSounds == 0)
+        if(_playerMutedSounds == 0)
         {
             _soundsSource.Play();
         }

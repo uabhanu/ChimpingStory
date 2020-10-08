@@ -248,7 +248,7 @@ public class BhanuPrefs : MonoBehaviour
         PlayerPrefs.SetFloat(PORTAL_PICKED_UP_KEY , portalRespawnTimer);
     }
 
-    public static void SetSoundsStatus(int mute)
+    public static void SetSoundsMuteStatus(int mute)
     {
         PlayerPrefs.SetInt(SOUNDS_STATUS_KEY , mute);
     }

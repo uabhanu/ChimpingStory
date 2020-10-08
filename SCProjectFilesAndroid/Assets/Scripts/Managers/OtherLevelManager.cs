@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class OtherLevelManager : MonoBehaviour
 {
-    private int _currentSceneIndex;
+    private int _currentSceneIndex , _playerMutedSounds;
 
     [SerializeField] private float _countDownTimer;
     [SerializeField] private GameManagerSO _gameManagerSO;
@@ -46,16 +46,16 @@ public class OtherLevelManager : MonoBehaviour
 
         _pauseMenuObj.SetActive(false);
 
-        _soundManager.m_PlayerMutedSounds = BhanuPrefs.GetSoundsMuteStatus();
+        _playerMutedSounds = _soundManager.GetPlayerMutedSoundsValue();
         
-        if(_soundManager.m_PlayerMutedSounds == 0)
+        if(_playerMutedSounds == 0)
         {
             EventsManager.InvokeEvent(SelfiePussEvent.SoundsUnmuted);
             _soundsMuteButtonObj.SetActive(true);
             _soundsUnmuteButtonObj.SetActive(false);
         }
 
-        else if(_soundManager.m_PlayerMutedSounds == 1)
+        else if(_playerMutedSounds == 1)
         {
             EventsManager.InvokeEvent(SelfiePussEvent.SoundsMuted);
             _soundsMuteButtonObj.SetActive(false);
@@ -84,8 +84,8 @@ public class OtherLevelManager : MonoBehaviour
     public void SoundsMuteButton()
     {
         EventsManager.InvokeEvent(SelfiePussEvent.SoundsMuted);
-        _soundManager.m_PlayerMutedSounds = 1;
-        BhanuPrefs.SetSoundsStatus(_soundManager.m_PlayerMutedSounds);
+        _playerMutedSounds = 1;
+        _soundManager.SetPlayerMutedSoundsValue(_playerMutedSounds);
         _soundsMuteButtonObj.SetActive(false);
         _soundsUnmuteButtonObj.SetActive(true);
     }
@@ -93,8 +93,8 @@ public class OtherLevelManager : MonoBehaviour
     public void SoundsUnmuteButton()
     {
         EventsManager.InvokeEvent(SelfiePussEvent.SoundsUnmuted);
-        _soundManager.m_PlayerMutedSounds = 0;
-        BhanuPrefs.SetSoundsStatus(_soundManager.m_PlayerMutedSounds);
+        _playerMutedSounds = 0;
+        _soundManager.SetPlayerMutedSoundsValue(_playerMutedSounds);
         _soundsMuteButtonObj.SetActive(true);
         _soundsUnmuteButtonObj.SetActive(false);
     }
