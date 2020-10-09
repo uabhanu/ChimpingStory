@@ -86,7 +86,10 @@ public class SoundManager : MonoBehaviour
 
     private void OnResumed()
     {
-        _musicSource.Play();
+        if(_playerMutedSounds == 0)
+        {
+            _musicSource.Play();
+        }
     }
 
     private void OnSelfieTaken()

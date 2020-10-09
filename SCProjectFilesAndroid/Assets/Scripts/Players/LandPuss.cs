@@ -1,6 +1,5 @@
 ﻿using SelfiePuss.Events;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class LandPuss : MonoBehaviour
@@ -9,7 +8,7 @@ public class LandPuss : MonoBehaviour
     private const float DEFAULT_SLIDE_TIME = 0.5f;
 
     private Animator _pussAnim;
-    private bool _bIsGrounded , _bIsJumping , _bIsSliding , _bIsUI;
+    private bool _bIsGrounded , _bIsJumping , _bIsSliding;
     private float _raycastDistance;
     private Rigidbody2D _pussBody2D;
 
@@ -54,7 +53,6 @@ public class LandPuss : MonoBehaviour
         BhanuInput();
         Grounded();
         Movement();
-        UICheck();
 
         if(!_bIsGrounded)
         {
@@ -69,18 +67,12 @@ public class LandPuss : MonoBehaviour
             #if UNITY_EDITOR || UNITY_STANDALONE
             if(Input.GetMouseButtonDown(0))
             {
-                if((_bIsGrounded && !_bIsJumping && !_bIsSliding && !_bIsUI) || m_isSuper)
-                {
-                    Jump();
-                }
+                Jump();
             }
 
             if(Input.GetMouseButtonDown(1))
             {
-                if((_bIsGrounded && !_bIsJumping && !_bIsSliding && !_bIsUI) || m_isSuper)
-                {
-                    Slide();
-                }
+                Slide();
             }
             #endif
         }
@@ -127,7 +119,7 @@ public class LandPuss : MonoBehaviour
 
 	public void Jump()
     {
-        if(_bIsGrounded && !_bIsJumping && !_bIsSliding && !_bIsUI) //This check exists in Update also for extra support as it's slow and this is for PC Game Version only
+        if(_bIsGrounded && !_bIsJumping && !_bIsSliding && !_gameManagerSO.UICheck())
         {
             _bIsJumping = true;
             _pussAnim.SetBool("Jump" , true);
@@ -206,7 +198,7 @@ public class LandPuss : MonoBehaviour
 
     public void Slide()
     {
-		if(_bIsGrounded && !_bIsJumping && !_bIsUI)
+		if(_bIsGrounded && !_bIsJumping && !_gameManagerSO.UICheck())
 		{
             _bIsSliding = true;
 			_pussAnim.SetBool("Slide" , true);
@@ -223,22 +215,6 @@ public class LandPuss : MonoBehaviour
         if(!_bIsJumping)
         {
             //SelfieDisappear();
-        }
-    }
-
-    void UICheck()
-    {
-        if(_gameManagerSO._bisUnityEditorTestingMode)
-        {
-            if(EventSystem.current.currentSelectedGameObject != null)
-            {
-                _bIsUI = true;
-            }
-
-            else if(EventSystem.current.currentSelectedGameObject == null)
-            {
-                _bIsUI = false;
-            }
         }
     }
 }

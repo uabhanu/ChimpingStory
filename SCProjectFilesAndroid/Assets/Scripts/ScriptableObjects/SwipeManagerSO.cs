@@ -12,31 +12,38 @@ public enum SwipeDirection
 [CreateAssetMenu]
 public class SwipeManagerSO : ScriptableObject
 {
+    private bool _bIsUI;
     private float _swipeResistanceX = 2.5f , _swipeResistanceY = 2.5f;
     private Vector3 _touchPos;
+
+    [SerializeField] private GameManagerSO _gameManagerSO;
+
     public SwipeDirection SwDirection{set;get;}
 
     public void BhanuSwipes()
     {
         SwDirection = SwipeDirection.NONE;
 
-        if(Input.GetMouseButtonDown(0))
+        if(!_gameManagerSO.UICheck())
         {
-            _touchPos = Input.mousePosition;
-        }
-
-        if(Input.GetMouseButtonUp(0))
-        {
-            Vector2 deltaSwipe = _touchPos - Input.mousePosition;
-
-            if(Mathf.Abs(deltaSwipe.x) > _swipeResistanceX)
+            if(Input.GetMouseButtonDown(0))
             {
-                SwDirection |= (deltaSwipe.x < 0) ? SwipeDirection.RIGHT : SwipeDirection.LEFT;
+                _touchPos = Input.mousePosition;
             }
 
-            if(Mathf.Abs(deltaSwipe.y) > _swipeResistanceY)
+            if(Input.GetMouseButtonUp(0))
             {
-                SwDirection |= (deltaSwipe.y < 0) ? SwipeDirection.UP : SwipeDirection.DOWN;
+                Vector2 deltaSwipe = _touchPos - Input.mousePosition;
+
+                if(Mathf.Abs(deltaSwipe.x) > _swipeResistanceX)
+                {
+                    SwDirection |= (deltaSwipe.x < 0) ? SwipeDirection.RIGHT : SwipeDirection.LEFT;
+                }
+
+                if(Mathf.Abs(deltaSwipe.y) > _swipeResistanceY)
+                {
+                    SwDirection |= (deltaSwipe.y < 0) ? SwipeDirection.UP : SwipeDirection.DOWN;
+                }
             }
         }
     }
