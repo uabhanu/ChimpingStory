@@ -28,17 +28,14 @@ public class GameManagerSO : ScriptableObject
 
     public bool UICheck()
     {
-        if(_bisUnityEditorTestingMode)
+        if(EventSystem.current.currentSelectedGameObject != null)
         {
-            if(EventSystem.current.currentSelectedGameObject != null)
-            {
-                _bIsUI = true;
-            }
+            _bIsUI = true;
+        }
 
-            else if(EventSystem.current.currentSelectedGameObject == null)
-            {
-                _bIsUI = false;
-            }
+        else if(EventSystem.current.currentSelectedGameObject == null)
+        {
+            _bIsUI = false;
         }
 
         return _bIsUI;
