@@ -188,7 +188,7 @@ public class LandPuss : MonoBehaviour
     {
         if(tri2D.gameObject.tag.Equals("Hurdle"))
         {
-            if(!_bIsSliding) //TODO Since the collider triggers only once, when the puss gets back up too soon, still gets away so fixing this WIP
+            if(!_bIsSliding)
             {
                 EventsManager.InvokeEvent(SelfiePussEvent.HurdleDeath);
                 CheatDeath();
