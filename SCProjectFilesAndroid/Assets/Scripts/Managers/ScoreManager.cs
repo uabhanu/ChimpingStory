@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    private string _coinColourString;
+    private int _scoreIncrementValue;
 
     [SerializeField] private Coin _coinReference;
     [SerializeField] private ScoreManagerSO _scoreManagerSO;
@@ -24,23 +24,8 @@ public class ScoreManager : MonoBehaviour
 
     private void OnScoreChanged()
     {
-        _coinColourString = _coinReference.GetCoinColourString();
-
-        switch(_coinColourString)
-        {
-            case "Green":
-                _scoreManagerSO.m_ScoreValue += 50;
-            break;
-
-            case "Red":
-                _scoreManagerSO.m_ScoreValue += 75;
-            break;
-
-            case "White":
-                _scoreManagerSO.m_ScoreValue += 25;
-            break;
-        }
-
+        _scoreIncrementValue = _coinReference.GetScoreIncrementValue();
+        _scoreManagerSO.m_ScoreValue += _scoreIncrementValue;
         BhanuPrefs.SetHighScore(_scoreManagerSO.m_ScoreValue);
         _highScoreValueText.text = _scoreManagerSO.m_ScoreValue.ToString();
     }

@@ -3,34 +3,38 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    [SerializeField] private string _coinColourString , _coinSpriteColourString;
-    [SerializeField] private Color _coinSpriteColour;
+    private int _scoreIncrementValue = 0;
+
+    [SerializeField] private Color m_CoinSpriteColour;
     [SerializeField] private SpriteRenderer _coinRenderer;
 
     private void Start()
     {
-        _coinSpriteColour = _coinRenderer.color;
-        _coinSpriteColourString = _coinSpriteColour.ToString();
+        m_CoinSpriteColour = _coinRenderer.color;
 
-        switch(_coinSpriteColourString)
+        if(m_CoinSpriteColour.ToString() == "RGBA(1.000, 1.000, 1.000, 1.000")
         {
-            case "RGBA(1.000, 1.000, 1.000, 1.000)" :
-                _coinColourString = "White";
-            break;
+            _scoreIncrementValue = 25;
+            //Debug.Log("Start() Score Increment Value : " + _scoreIncrementValue);
+        }
 
-            case "RGBA(0.000, 1.000, 0.000, 1.000)" :
-                _coinColourString = "Green";
-            break;
+        else if(m_CoinSpriteColour.ToString() == "RGBA(0.000, 1.000, 0.000, 1.000)")
+        {
+            _scoreIncrementValue = 50;
+            //Debug.Log("Start() Score Increment Value : " + _scoreIncrementValue);
+        }
 
-            case "RGBA(0.686, 0.000, 0.000, 1.000)" :
-                _coinColourString = "Red";
-            break;
+        else if(m_CoinSpriteColour.ToString() == "RGBA(0.686, 0.000, 0.000, 1.000)")
+        {
+            _scoreIncrementValue =  75;
+            //Debug.Log("Start() Score Increment Value : " + _scoreIncrementValue);
         }
     }
 
-    public string GetCoinColourString()
+    public int GetScoreIncrementValue()
     {
-        return _coinColourString; //TODO This is not getting the value from the start method for some reason so debugging WIP
+        Debug.Log("GetScoreIncrementValue() Score Increment Value : " + _scoreIncrementValue);
+        return _scoreIncrementValue;
     }
 
     void OnTriggerEnter2D(Collider2D tri2D)
