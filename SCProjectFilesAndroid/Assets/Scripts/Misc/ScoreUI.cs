@@ -9,6 +9,7 @@ public class ScoreUI : MonoBehaviour
     private void Awake()
     {
         RegisterEvents();
+        UpdateScoreatStart(BhanuPrefs.GetHighScore());
     }
 
     private void OnDestroy()
@@ -17,6 +18,11 @@ public class ScoreUI : MonoBehaviour
     }
 
     private void OnScoreUpdate(int scoreValue)
+    {
+        _highScoreValueText.text = scoreValue.ToString();
+    }
+
+    private void UpdateScoreatStart(int scoreValue)
     {
         _highScoreValueText.text = scoreValue.ToString();
     }

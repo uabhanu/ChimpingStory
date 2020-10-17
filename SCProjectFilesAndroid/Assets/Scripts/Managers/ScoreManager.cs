@@ -4,9 +4,6 @@ using UnityEngine;
 public class ScoreManager : MonoBehaviour
 {
     private int _meteorScoreIncrementValue = 100 , _coinScoreIncrementValue , _scoreValue;
-    
-    [SerializeField] private Coin _coinReference;
-    [SerializeField] private ScoreManagerSO _scoreManagerSO;
 
     private void Awake()
     {
@@ -17,7 +14,6 @@ public class ScoreManager : MonoBehaviour
     {
         _coinScoreIncrementValue = 0;
         _scoreValue = BhanuPrefs.GetHighScore();
-        _scoreManagerSO.SetScoreValue(_scoreValue);
         EventsManager.InvokeEvent(SelfiePussEvent.ScoreUpdate);
     }
 
@@ -29,30 +25,24 @@ public class ScoreManager : MonoBehaviour
     private void IncrementScore(int incrementValue)
     {
         _scoreValue += incrementValue;
+        BhanuPrefs.SetHighScore(_scoreValue);
         EventsManager.InvokeEvent(SelfiePussEvent.ScoreUpdate , _scoreValue);
     }
 
     private void OnAdsSkipped()
     {
         _scoreValue = 0;
-        _scoreManagerSO.SetScoreValue(_scoreValue);
-    }
-
-    private void OnGetCoinReference()
-    {
-        _coinScoreIncrementValue = _coinReference.GetScoreIncrementValue(); //This is not working
     }
 
     private void OnScoreChangedByCoin()
     {
+        _coinScoreIncrementValue = 25; //TODO Get the correct increment value
         IncrementScore(_coinScoreIncrementValue);
-        _scoreManagerSO.SetScoreValue(_scoreValue);
     }
 
     private void OnScoreChangedByMeteor()
     {
         IncrementScore(_meteorScoreIncrementValue);
-        _scoreManagerSO.SetScoreValue(_scoreValue);
     }
 
     private void OnScoreRetainedByRewardAd()
@@ -69,7 +59,6 @@ public class ScoreManager : MonoBehaviour
     private void RegisterEvents()
     {
         EventsManager.SubscribeToEvent(SelfiePussEvent.AdsSkipped , OnAdsSkipped);
-        EventsManager.SubscribeToEvent(SelfiePussEvent.CoinCollected , OnGetCoinReference);
         EventsManager.SubscribeToEvent(SelfiePussEvent.CoinCollected , OnScoreChangedByCoin);
         EventsManager.SubscribeToEvent(SelfiePussEvent.MeteorExplosion , OnScoreChangedByMeteor);
         EventsManager.SubscribeToEvent(SelfiePussEvent.RewardsAdWatched , OnScoreRetainedByRewardAd);
@@ -79,7 +68,6 @@ public class ScoreManager : MonoBehaviour
     private void UnregisterEvents()
     {
         EventsManager.UnsubscribeFromEvent(SelfiePussEvent.AdsSkipped , OnAdsSkipped);
-        EventsManager.UnsubscribeFromEvent(SelfiePussEvent.CoinCollected , OnGetCoinReference);
         EventsManager.UnsubscribeFromEvent(SelfiePussEvent.CoinCollected , OnScoreChangedByCoin);
         EventsManager.UnsubscribeFromEvent(SelfiePussEvent.MeteorExplosion , OnScoreChangedByMeteor);
         EventsManager.UnsubscribeFromEvent(SelfiePussEvent.RewardsAdWatched , OnScoreRetainedByRewardAd);

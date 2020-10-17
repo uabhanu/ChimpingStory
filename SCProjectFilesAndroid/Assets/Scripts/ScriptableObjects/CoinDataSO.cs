@@ -3,6 +3,7 @@
 [CreateAssetMenu]
 public class CoinDataSO : ScriptableObject
 {
-    public int _scoreIncrementValue;
-    public SpriteRenderer _coinRenderer;
+    public Color m_CoinSpriteColour;
+    public int m_ScoreIncrementValue;
+    public SpriteRenderer m_CoinRenderer;
 }
