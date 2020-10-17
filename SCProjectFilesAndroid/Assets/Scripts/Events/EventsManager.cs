@@ -4,6 +4,7 @@ namespace SelfiePuss.Events
 {
 	public class EventsManager
 	{
+		private static event Action 				AdsSkipped;
 		private static event Action 				AdsStarted;
 		private static event Action                 AdsFailed;
 		private static event Action 				AdsUI;
@@ -12,6 +13,7 @@ namespace SelfiePuss.Events
 		private static event Action                 FallDeath;
 		private static event Action                 HurdleDeath;
 		private static event Action                 Jump;
+		private static event Action                 MeteorExplosion;
 		private static event Action                 NewVersion;
 		private static event Action                 Paused;
 		private static event Action<bool>           PlaySoundsChanged;
@@ -20,8 +22,6 @@ namespace SelfiePuss.Events
 		private static event Action<bool> 			RestartScene;
 		private static event Action                 Resumed;
 		private static event Action                 RewardAdWatched;
-		private static event Action                 RockExplosion;
-		private static event Action                 ScoreChanged;
 		private static event Action                 SelfieTaken;
 		private static event Action                 SoundOff;
 		private static event Action                 SoundOn;
@@ -31,6 +31,10 @@ namespace SelfiePuss.Events
 		{
 			switch(evt)
 			{
+				case SelfiePussEvent.AdsSkipped:
+					AdsSkipped += actionFunction;
+				return;
+
 				case SelfiePussEvent.AdsStarted:
 					AdsStarted += actionFunction;
 				return;
@@ -63,6 +67,10 @@ namespace SelfiePuss.Events
 					Jump += actionFunction;
 				return;
 
+				case SelfiePussEvent.MeteorExplosion:
+					MeteorExplosion += actionFunction;
+				return;
+
 				case SelfiePussEvent.NewVersion:
 					NewVersion += actionFunction;
 				return;
@@ -79,16 +87,8 @@ namespace SelfiePuss.Events
 					Resumed += actionFunction;
 				return;
 
-				case SelfiePussEvent.RewardAdWatched:
+				case SelfiePussEvent.RewardsAdWatched:
 					RewardAdWatched += actionFunction;
-				return;
-
-				case SelfiePussEvent.MeteorExplosion:
-					RockExplosion += actionFunction;
-				return;
-
-				case SelfiePussEvent.ScoreChanged:
-					ScoreChanged += actionFunction;
 				return;
 
 				case SelfiePussEvent.SelfieTaken:
@@ -131,6 +131,10 @@ namespace SelfiePuss.Events
 		{
 			switch(evt)
 			{
+				case SelfiePussEvent.AdsSkipped:
+					AdsSkipped -= actionFunction;
+				return;
+
 				case SelfiePussEvent.AdsStarted:
 					AdsStarted -= actionFunction;
 				return;
@@ -163,6 +167,10 @@ namespace SelfiePuss.Events
 					Jump -= actionFunction;
 				return;
 
+				case SelfiePussEvent.MeteorExplosion:
+					MeteorExplosion -= actionFunction;
+				return;
+
 				case SelfiePussEvent.NewVersion:
 					NewVersion -= actionFunction;
 				return;
@@ -179,16 +187,8 @@ namespace SelfiePuss.Events
 					Resumed -= actionFunction;
 				return;
 
-				case SelfiePussEvent.RewardAdWatched:
+				case SelfiePussEvent.RewardsAdWatched:
 					RewardAdWatched -= actionFunction;
-				return;
-
-				case SelfiePussEvent.MeteorExplosion:
-					RockExplosion -= actionFunction;
-				return;
-
-				case SelfiePussEvent.ScoreChanged:
-					ScoreChanged -= actionFunction;
 				return;
 
 				case SelfiePussEvent.SelfieTaken:
@@ -231,6 +231,10 @@ namespace SelfiePuss.Events
 		{
 			switch(evt)
 			{
+				case SelfiePussEvent.AdsSkipped:
+					AdsSkipped?.Invoke();
+				return;
+
 				case SelfiePussEvent.AdsStarted:
 					AdsStarted?.Invoke();
 				return;
@@ -263,6 +267,10 @@ namespace SelfiePuss.Events
 					Jump?.Invoke();
 				return;
 
+				case SelfiePussEvent.MeteorExplosion:
+					MeteorExplosion?.Invoke();
+				return;
+
 				case SelfiePussEvent.NewVersion:
 					NewVersion?.Invoke();
 				return;
@@ -279,16 +287,8 @@ namespace SelfiePuss.Events
 					Resumed?.Invoke();
 				return;
 
-				case SelfiePussEvent.RewardAdWatched:
+				case SelfiePussEvent.RewardsAdWatched:
 					RewardAdWatched?.Invoke();
-				return;
-
-				case SelfiePussEvent.MeteorExplosion:
-					RockExplosion?.Invoke();
-				return;
-
-				case SelfiePussEvent.ScoreChanged:
-					ScoreChanged?.Invoke();
 				return;
 
 				case SelfiePussEvent.SelfieTaken:

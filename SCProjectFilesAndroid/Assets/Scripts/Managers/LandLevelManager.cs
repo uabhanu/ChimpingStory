@@ -10,7 +10,7 @@ public class LandLevelManager : MonoBehaviour
     [SerializeField] private GameObject _selfieButtonObj;
 	[SerializeField] private GameObject _adsMenuObj , _inGameUIObj , _pauseMenuObj , _selfiePanelObj;
     [SerializeField] GameManagerSO _gameManagerSO;
-    [SerializeField] private ScoreManagerSO _scoreManagerSO;
+    [SerializeField] private ScoreManager _scoreManager;
     [SerializeField] private SoundManager _soundManager;
     [SerializeField] GameObject _soundsMuteButtonObj , _soundsUnmuteButtonObj;
 
@@ -43,7 +43,7 @@ public class LandLevelManager : MonoBehaviour
 
     public void AdsCancelButton()
     {
-        BhanuPrefs.DeleteScore();
+        EventsManager.InvokeEvent(SelfiePussEvent.AdsSkipped);
         SceneManager.LoadScene(_currentSceneIndex);
     }
 
@@ -58,28 +58,21 @@ public class LandLevelManager : MonoBehaviour
     {
         if(result == ShowResult.Finished)
         {
-            BhanuPrefs.SetHighScore(_scoreManagerSO.m_ScoreValue);
+            EventsManager.InvokeEvent(SelfiePussEvent.RewardsAdWatched);
             Time.timeScale = 1;
             SceneManager.LoadScene(_currentSceneIndex);
         }
 
         else if(result == ShowResult.Skipped)
         {
-            //Debug.LogWarning("Video was skipped - Do NOT reward the player");
-            BhanuPrefs.DeleteScore();
+            
         }
 
         else if(result == ShowResult.Failed)
         {
-            //Debug.LogError("Video failed to show");
-            BhanuPrefs.DeleteScore();
+            
         }
     }
-
- //   void EndFlash()
-	//{
-	//	_selfiePanelObj.SetActive(false);
-	//}
 
     public void ExitButton()
 	{
@@ -149,9 +142,7 @@ public class LandLevelManager : MonoBehaviour
 			//Invoke("EndFlash" , 0.25f);
 		}
 
-		_scoreManagerSO.m_ScoreValue += 20;
-		BhanuPrefs.SetHighScore(_scoreManagerSO.m_ScoreValue);
-        EventsManager.InvokeEvent(SelfiePussEvent.ScoreChanged);
+        EventsManager.InvokeEvent(SelfiePussEvent.SelfieTaken);
 	}
 
     public void SoundsMuteButton()

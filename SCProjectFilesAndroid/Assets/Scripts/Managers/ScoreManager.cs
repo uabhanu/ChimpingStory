@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    private int _scoreIncrementValue;
+    private int _scoreIncrementValue , _scoreValue;
 
     [SerializeField] private Coin _coinReference;
     [SerializeField] private ScoreManagerSO _scoreManagerSO;
@@ -12,8 +12,9 @@ public class ScoreManager : MonoBehaviour
 
     private void Start()
     {
-        _scoreManagerSO.m_ScoreValue = BhanuPrefs.GetHighScore();
-        _highScoreValueText.text = _scoreManagerSO.m_ScoreValue.ToString();
+        _scoreIncrementValue = 0;
+        _scoreValue = _scoreManagerSO.GetScoreValue();
+        _highScoreValueText.text = _scoreManagerSO.GetScoreValue().ToString();
         RegisterEvents();
     }
 
@@ -22,21 +23,53 @@ public class ScoreManager : MonoBehaviour
         UnregisterEvents();
     }
 
-    private void OnScoreChanged()
+    private void OnAdsSkipped()
+    {
+        _scoreValue = 0;
+        _scoreManagerSO.SetScoreValue(_scoreValue);
+        _highScoreValueText.text = _scoreManagerSO.GetScoreValue().ToString();
+    }
+
+    private void OnScoreChangedByCoin()
     {
         _scoreIncrementValue = _coinReference.GetScoreIncrementValue();
-        _scoreManagerSO.m_ScoreValue += _scoreIncrementValue;
-        BhanuPrefs.SetHighScore(_scoreManagerSO.m_ScoreValue);
-        _highScoreValueText.text = _scoreManagerSO.m_ScoreValue.ToString();
+        _scoreValue += _scoreIncrementValue;  //This is working great
+        _scoreManagerSO.SetScoreValue(_scoreValue);
+        _highScoreValueText.text = _scoreManagerSO.GetScoreValue().ToString();
+    }
+
+    private void OnScoreChangedByMeteor()
+    {
+        _scoreValue += 100;
+        _scoreManagerSO.SetScoreValue(_scoreValue);
+        _highScoreValueText.text = _scoreManagerSO.GetScoreValue().ToString();
+    }
+
+    private void OnScoreRetainedByRewardAd()
+    {
+        _highScoreValueText.text = _scoreManagerSO.GetScoreValue().ToString();
+    }
+
+    private void OnScoreChangedBySelfie()
+    {
+        
     }
 
     private void RegisterEvents()
     {
-        EventsManager.SubscribeToEvent(SelfiePussEvent.ScoreChanged , OnScoreChanged);
+        EventsManager.SubscribeToEvent(SelfiePussEvent.AdsSkipped , OnAdsSkipped);
+        EventsManager.SubscribeToEvent(SelfiePussEvent.CoinCollected , OnScoreChangedByCoin);
+        EventsManager.SubscribeToEvent(SelfiePussEvent.MeteorExplosion , OnScoreChangedByMeteor);
+        EventsManager.SubscribeToEvent(SelfiePussEvent.RewardsAdWatched , OnScoreRetainedByRewardAd);
+        EventsManager.SubscribeToEvent(SelfiePussEvent.SelfieTaken , OnScoreChangedBySelfie);
     }
 
     private void UnregisterEvents()
     {
-        EventsManager.UnsubscribeFromEvent(SelfiePussEvent.ScoreChanged , OnScoreChanged);
+        EventsManager.UnsubscribeFromEvent(SelfiePussEvent.AdsSkipped , OnAdsSkipped);
+        EventsManager.UnsubscribeFromEvent(SelfiePussEvent.CoinCollected , OnScoreChangedByCoin);
+        EventsManager.UnsubscribeFromEvent(SelfiePussEvent.MeteorExplosion , OnScoreChangedByMeteor);
+        EventsManager.UnsubscribeFromEvent(SelfiePussEvent.RewardsAdWatched , OnScoreRetainedByRewardAd);
+        EventsManager.UnsubscribeFromEvent(SelfiePussEvent.SelfieTaken , OnScoreChangedBySelfie);
     }
 }

@@ -41,7 +41,6 @@ public class Coin : MonoBehaviour
     {
         if(tri2D.gameObject.tag.Equals("Player"))
         {
-            EventsManager.InvokeEvent(SelfiePussEvent.ScoreChanged);
 			EventsManager.InvokeEvent(SelfiePussEvent.CoinCollected);
             Destroy(gameObject); //TODO Object Pooling instead of Destroy
         }

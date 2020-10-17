@@ -2,7 +2,8 @@
 {
     public enum SelfiePussEvent
 	{
-		AdsStarted
+		AdsSkipped
+	  , AdsStarted
 	  , AdsFailed
 	  , AdsUI
       ,	CoinCollected
@@ -14,12 +15,12 @@
 	  , Paused
 	  ,	PunishAdWatched
 	  , Resumed
-	  , RewardAdWatched
+	  , RewardsAdWatched
+	  , ScoreZeroBySkippedAd
 	  ,	MeteorExplosion
 	  , PlaySoundsChanged
 	  , PlayMusicChanged
 	  , RestartScene
-	  , ScoreChanged
 	  ,	SelfieTaken
 	  , SoundsMuted
 	  , SoundsUnmuted
