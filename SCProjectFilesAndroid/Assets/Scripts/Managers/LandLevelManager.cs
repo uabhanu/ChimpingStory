@@ -10,7 +10,6 @@ public class LandLevelManager : MonoBehaviour
     [SerializeField] private GameObject _selfieButtonObj;
 	[SerializeField] private GameObject _adsMenuObj , _inGameUIObj , _pauseMenuObj , _selfiePanelObj;
     [SerializeField] GameManagerSO _gameManagerSO;
-    [SerializeField] private ScoreManager _scoreManager;
     [SerializeField] private SoundManager _soundManager;
     [SerializeField] GameObject _soundsMuteButtonObj , _soundsUnmuteButtonObj;
 

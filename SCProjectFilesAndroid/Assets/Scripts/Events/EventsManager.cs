@@ -22,6 +22,7 @@ namespace SelfiePuss.Events
 		private static event Action<bool> 			RestartScene;
 		private static event Action                 Resumed;
 		private static event Action                 RewardAdWatched;
+		private static event Action<int>            ScoreUpdate;
 		private static event Action                 SelfieTaken;
 		private static event Action                 SoundOff;
 		private static event Action                 SoundOn;
@@ -127,6 +128,16 @@ namespace SelfiePuss.Events
 			}
 		}
 
+		public static void SubscribeToEvent(SelfiePussEvent evt , Action<int> actionFunction)
+		{
+			switch(evt)
+			{
+				case SelfiePussEvent.ScoreUpdate:
+					ScoreUpdate += actionFunction;
+				return;
+			}
+		}
+
 		public static void UnsubscribeFromEvent(SelfiePussEvent evt , Action actionFunction)
 		{
 			switch(evt)
@@ -227,6 +238,16 @@ namespace SelfiePuss.Events
 			}
 		}
 
+		public static void UnsubscribeFromEvent(SelfiePussEvent evt , Action<int> actionFunction)
+		{
+			switch(evt)
+			{
+				case SelfiePussEvent.ScoreUpdate:
+					ScoreUpdate -= actionFunction;
+				return;
+			}
+		}
+
 		public static void InvokeEvent(SelfiePussEvent evt)
 		{
 			switch(evt)
@@ -323,6 +344,16 @@ namespace SelfiePuss.Events
 
 				case SelfiePussEvent.RestartScene:
 					RestartScene?.Invoke(changedToValue);
+				return;
+			}
+		}
+
+		public static void InvokeEvent(SelfiePussEvent evt , int changedToValue)
+		{
+			switch(evt)
+			{
+				case SelfiePussEvent.ScoreUpdate:
+					ScoreUpdate?.Invoke(changedToValue);
 				return;
 			}
 		}

@@ -16,6 +16,7 @@
 	  ,	PunishAdWatched
 	  , Resumed
 	  , RewardsAdWatched
+	  , ScoreUpdate
 	  , ScoreZeroBySkippedAd
 	  ,	MeteorExplosion
 	  , PlaySoundsChanged
