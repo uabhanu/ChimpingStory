@@ -9,7 +9,7 @@ public class ScoreUI : MonoBehaviour
     private void Awake()
     {
         RegisterEvents();
-        UpdateScoreatStart(BhanuPrefs.GetHighScore());
+        UpdateScore(BhanuPrefs.GetHighScore());
     }
 
     private void OnDestroy()
@@ -22,7 +22,7 @@ public class ScoreUI : MonoBehaviour
         _highScoreValueText.text = scoreValue.ToString();
     }
 
-    private void UpdateScoreatStart(int scoreValue)
+    private void UpdateScore(int scoreValue)
     {
         _highScoreValueText.text = scoreValue.ToString();
     }

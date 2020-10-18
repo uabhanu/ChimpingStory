@@ -12,6 +12,7 @@ namespace SelfiePuss.Events
 		private static event Action                 CountdownFinished;
 		private static event Action                 FallDeath;
 		private static event Action                 HurdleDeath;
+		private static event Action<int>            IncrementValueReceived;
 		private static event Action                 Jump;
 		private static event Action                 MeteorExplosion;
 		private static event Action                 NewVersion;
@@ -132,6 +133,10 @@ namespace SelfiePuss.Events
 		{
 			switch(evt)
 			{
+				case SelfiePussEvent.IncrementValueReceived:
+					IncrementValueReceived += actionFunction;
+				return;
+
 				case SelfiePussEvent.ScoreUpdate:
 					ScoreUpdate += actionFunction;
 				return;
@@ -242,6 +247,10 @@ namespace SelfiePuss.Events
 		{
 			switch(evt)
 			{
+				case SelfiePussEvent.IncrementValueReceived:
+					IncrementValueReceived -= actionFunction;
+				return;
+
 				case SelfiePussEvent.ScoreUpdate:
 					ScoreUpdate -= actionFunction;
 				return;
@@ -352,6 +361,10 @@ namespace SelfiePuss.Events
 		{
 			switch(evt)
 			{
+				case SelfiePussEvent.IncrementValueReceived:
+					IncrementValueReceived?.Invoke(changedToValue);
+				return;
+
 				case SelfiePussEvent.ScoreUpdate:
 					ScoreUpdate?.Invoke(changedToValue);
 				return;

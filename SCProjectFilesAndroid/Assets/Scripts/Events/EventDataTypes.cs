@@ -10,6 +10,7 @@
 	  ,	CountdownFinished
 	  ,	FallDeath
 	  ,	HurdleDeath
+	  , IncrementValueReceived
 	  ,	Jump
 	  ,	NewVersion
 	  , Paused

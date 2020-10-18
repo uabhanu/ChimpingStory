@@ -15,6 +15,7 @@ public class Coin : MonoBehaviour
         _coinSpriteColour = _coinDataSOs[i].m_CoinSpriteColour;
         _coinRenderer.color = _coinSpriteColour;
         _scoreIncrementValue = _coinDataSOs[i].m_ScoreIncrementValue;
+        EventsManager.InvokeEvent(SelfiePussEvent.IncrementValueReceived , _scoreIncrementValue);
     }
 
     void OnTriggerEnter2D(Collider2D tri2D)
