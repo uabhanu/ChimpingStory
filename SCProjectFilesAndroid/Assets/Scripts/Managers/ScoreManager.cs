@@ -32,6 +32,8 @@ public class ScoreManager : MonoBehaviour
     private void OnAdsSkipped()
     {
         _scoreValue = 0;
+        BhanuPrefs.SetHighScore(_scoreValue);
+        EventsManager.InvokeEvent(SelfiePussEvent.ScoreUpdate , _scoreValue);
     }
 
     private void OnIncrementValueReceived()
