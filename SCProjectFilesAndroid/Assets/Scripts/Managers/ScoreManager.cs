@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
-    private int _meteorScoreIncrementValue = 100 , _coinScoreIncrementValue , _scoreValue;
+    private int _meteorScoreIncrementValue = 100;
+    private int _scoreValue;
 
     private void Awake()
     {
@@ -12,7 +13,6 @@ public class ScoreManager : MonoBehaviour
 
     private void Start()
     {
-        _coinScoreIncrementValue = 0;
         _scoreValue = BhanuPrefs.GetHighScore();
         EventsManager.InvokeEvent(SelfiePussEvent.ScoreUpdate);
     }
@@ -36,15 +36,9 @@ public class ScoreManager : MonoBehaviour
         EventsManager.InvokeEvent(SelfiePussEvent.ScoreUpdate , _scoreValue);
     }
 
-    private void OnIncrementValueReceived()
+    private void OnScoreChangedByCoin(int scoreIncrementValue)
     {
-         
-    }
-
-    private void OnScoreChangedByCoin()
-    {
-        _coinScoreIncrementValue = 25; //TODO Getting the increment value from the Coin through an event WIP
-        IncrementScore(_coinScoreIncrementValue);
+        IncrementScore(scoreIncrementValue);
     }
 
     private void OnScoreChangedByMeteor()
@@ -67,7 +61,6 @@ public class ScoreManager : MonoBehaviour
     {
         EventsManager.SubscribeToEvent(SelfiePussEvent.AdsSkipped , OnAdsSkipped);
         EventsManager.SubscribeToEvent(SelfiePussEvent.CoinCollected , OnScoreChangedByCoin);
-        EventsManager.SubscribeToEvent(SelfiePussEvent.IncrementValueReceived , OnIncrementValueReceived);
         EventsManager.SubscribeToEvent(SelfiePussEvent.MeteorExplosion , OnScoreChangedByMeteor);
         EventsManager.SubscribeToEvent(SelfiePussEvent.RewardsAdWatched , OnScoreRetainedByRewardAd);
         EventsManager.SubscribeToEvent(SelfiePussEvent.SelfieTaken , OnScoreChangedBySelfie);
@@ -77,7 +70,6 @@ public class ScoreManager : MonoBehaviour
     {
         EventsManager.UnsubscribeFromEvent(SelfiePussEvent.AdsSkipped , OnAdsSkipped);
         EventsManager.UnsubscribeFromEvent(SelfiePussEvent.CoinCollected , OnScoreChangedByCoin);
-        EventsManager.UnsubscribeFromEvent(SelfiePussEvent.IncrementValueReceived , OnIncrementValueReceived);
         EventsManager.UnsubscribeFromEvent(SelfiePussEvent.MeteorExplosion , OnScoreChangedByMeteor);
         EventsManager.UnsubscribeFromEvent(SelfiePussEvent.RewardsAdWatched , OnScoreRetainedByRewardAd);
         EventsManager.UnsubscribeFromEvent(SelfiePussEvent.SelfieTaken , OnScoreChangedBySelfie);

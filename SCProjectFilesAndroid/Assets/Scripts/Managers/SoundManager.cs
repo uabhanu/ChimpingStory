@@ -29,7 +29,7 @@ public class SoundManager : MonoBehaviour
         BhanuPrefs.SetSoundsMuteStatus(_playerMutedSounds);
     }
 
-    private void OnCoinCollected()
+    private void OnCoinCollected(int _unusedParameter)
     {
         _soundsSource.clip = _soundManagerSO.GetCoinCollectedAudioClip();
 

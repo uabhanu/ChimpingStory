@@ -8,7 +8,7 @@ namespace SelfiePuss.Events
 		private static event Action 				AdsStarted;
 		private static event Action                 AdsFailed;
 		private static event Action 				AdsUI;
-		private static event Action                 CoinCollected;
+		private static event Action<int>            CoinCollected;
 		private static event Action                 CountdownFinished;
 		private static event Action                 FallDeath;
 		private static event Action                 HurdleDeath;
@@ -47,10 +47,6 @@ namespace SelfiePuss.Events
 
 				case SelfiePussEvent.AdsUI:
 					AdsUI += actionFunction;
-				return;
-
-				case SelfiePussEvent.CoinCollected:
-					CoinCollected += actionFunction;
 				return;
 
 				case SelfiePussEvent.CountdownFinished:
@@ -133,8 +129,8 @@ namespace SelfiePuss.Events
 		{
 			switch(evt)
 			{
-				case SelfiePussEvent.IncrementValueReceived:
-					IncrementValueReceived += actionFunction;
+				case SelfiePussEvent.CoinCollected:
+					CoinCollected += actionFunction;
 				return;
 
 				case SelfiePussEvent.ScoreUpdate:
@@ -161,10 +157,6 @@ namespace SelfiePuss.Events
 
 				case SelfiePussEvent.AdsUI:
 					AdsUI -= actionFunction;
-				return;
-
-				case SelfiePussEvent.CoinCollected:
-					CoinCollected -= actionFunction;
 				return;
 
 				case SelfiePussEvent.CountdownFinished:
@@ -247,8 +239,8 @@ namespace SelfiePuss.Events
 		{
 			switch(evt)
 			{
-				case SelfiePussEvent.IncrementValueReceived:
-					IncrementValueReceived -= actionFunction;
+				case SelfiePussEvent.CoinCollected:
+					CoinCollected -= actionFunction;
 				return;
 
 				case SelfiePussEvent.ScoreUpdate:
@@ -275,10 +267,6 @@ namespace SelfiePuss.Events
 
 				case SelfiePussEvent.AdsUI:
 					AdsUI?.Invoke();
-				return;
-
-				case SelfiePussEvent.CoinCollected:
-					CoinCollected?.Invoke();
 				return;
 
 				case SelfiePussEvent.CountdownFinished:
@@ -361,8 +349,8 @@ namespace SelfiePuss.Events
 		{
 			switch(evt)
 			{
-				case SelfiePussEvent.IncrementValueReceived:
-					IncrementValueReceived?.Invoke(changedToValue);
+				case SelfiePussEvent.CoinCollected:
+					CoinCollected?.Invoke(changedToValue);
 				return;
 
 				case SelfiePussEvent.ScoreUpdate:
