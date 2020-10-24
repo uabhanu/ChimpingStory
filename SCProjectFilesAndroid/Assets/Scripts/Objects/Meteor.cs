@@ -3,7 +3,8 @@
 public class Meteor : MonoBehaviour 
 {
     //TODO Write the same script for Super Object
-    [SerializeField] private GameObject m_explosionPrefab;
+    [SerializeField] private GameObject _explosionPrefab;
+    [SerializeField] private MeteorDataSO _meteorDataSO;
     [SerializeField] private SoundManagerSO _soundManagerObject;
 		
     void OnTriggerEnter2D(Collider2D tri2D)
@@ -17,7 +18,8 @@ public class Meteor : MonoBehaviour
 	void SpawnExplosion()
 	{
         Explosion.m_explosionType = "Meteor";
-        Instantiate(m_explosionPrefab , transform.position , Quaternion.identity);
+        Instantiate(_explosionPrefab , transform.position , Quaternion.identity);
+        Instantiate(_meteorDataSO.m_MeteorSmashedPointsPrefab , transform.position , Quaternion.identity);
         Destroy(gameObject); //TODO Object Pooling instead of Destroy
 	}
 }

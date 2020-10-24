@@ -4,8 +4,9 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - _coinRenderer: {fileID: 212741872029593368, guid: 6641b386c6b069941bdb9dda55d3d7a9,
-      type: 3}
+  - m_Prefab25: {instanceID: 0}
+  - m_Prefab50: {instanceID: 0}
+  - m_Prefab75: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
