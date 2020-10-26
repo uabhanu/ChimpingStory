@@ -28,32 +28,20 @@ public class ScoreUI : MonoBehaviour
         _highScoreValueText.text = scoreValue.ToString();
     }
 
-    private void OnSpawnPointsPrefab(Transform pointsPrefabPosition)
+    private void OnTimeToSpawnPointsPrefab(Transform pointsPrefabPosition)
     {
-        SetPointsPrefabPosition(pointsPrefabPosition);
-    }
-
-    private void OnTimeToSpawnPointsPrefab(Transform unusedVariable)
-    {
-        Instantiate(_meteorDataSO.GetMeteorSmashedPointsPrefab() , transform.position , Quaternion.identity);
-    }
-
-    private void SetPointsPrefabPosition(Transform pointsPrefabPosition)
-    {
-        _meteorDataSO.GetMeteorSmashedPointsPrefab().transform.position = pointsPrefabPosition.position;
+        Instantiate(_meteorDataSO.GetMeteorSmashedPointsPrefab() , pointsPrefabPosition.position , Quaternion.identity);
     }
 
     private void RegisterEvents()
     {
         EventsManager.SubscribeToEvent(SelfiePussEvent.ScoreUpdate , OnScoreUpdate);
         EventsManager.SubscribeToEvent(SelfiePussEvent.SpawnPointsPrefab , OnTimeToSpawnPointsPrefab);
-        EventsManager.SubscribeToEvent(SelfiePussEvent.SpawnPointsPrefab , OnSpawnPointsPrefab);
     }
 
     private void UnregisterEvents()
     {
         EventsManager.UnsubscribeFromEvent(SelfiePussEvent.ScoreUpdate , OnScoreUpdate);
         EventsManager.UnsubscribeFromEvent(SelfiePussEvent.SpawnPointsPrefab , OnTimeToSpawnPointsPrefab);
-        EventsManager.UnsubscribeFromEvent(SelfiePussEvent.SpawnPointsPrefab , OnSpawnPointsPrefab);
     }
 }
