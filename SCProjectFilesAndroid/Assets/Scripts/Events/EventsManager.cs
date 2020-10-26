@@ -13,7 +13,7 @@ namespace SelfiePuss.Events
 		private static event Action                 CountdownFinished;
 		private static event Action                 FallDeath;
 		private static event Action                 HurdleDeath;
-		private static event Action<RectTransform>  SpawnPointsPrefab;
+		private static event Action<Transform>		SpawnPointsPrefab;
 		private static event Action                 Jump;
 		private static event Action                 MeteorExplosion;
 		private static event Action                 NewVersion;
@@ -140,7 +140,7 @@ namespace SelfiePuss.Events
 			}
 		}
 
-		public static void SubscribeToEvent(SelfiePussEvent evt , Action<RectTransform> actionFunction)
+		public static void SubscribeToEvent(SelfiePussEvent evt , Action<Transform> actionFunction)
 		{
 			switch(evt)
 			{
@@ -260,7 +260,7 @@ namespace SelfiePuss.Events
 			}
 		}
 
-		public static void UnsubscribeFromEvent(SelfiePussEvent evt , Action<RectTransform> actionFunction)
+		public static void UnsubscribeFromEvent(SelfiePussEvent evt , Action<Transform> actionFunction)
 		{
 			switch(evt)
 			{
@@ -380,7 +380,7 @@ namespace SelfiePuss.Events
 			}
 		}
 
-		public static void InvokeEvent(SelfiePussEvent evt , RectTransform changedToValue)
+		public static void InvokeEvent(SelfiePussEvent evt , Transform changedToValue)
 		{
 			switch(evt)
 			{

@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class ScoreUI : MonoBehaviour
 {
-    [SerializeField] private GameObject _pointsPrefab;
     [SerializeField] private MeteorDataSO _meteorDataSO;
     [SerializeField] private Text _highScoreValueText;
 
@@ -29,19 +28,19 @@ public class ScoreUI : MonoBehaviour
         _highScoreValueText.text = scoreValue.ToString();
     }
 
-    private void OnSpawnPointsPrefab(RectTransform pointsPrefabPosition)
+    private void OnSpawnPointsPrefab(Transform pointsPrefabPosition)
     {
         SetPointsPrefabPosition(pointsPrefabPosition);
     }
 
-    private void OnTimeToSpawnPointsPrefab(RectTransform unusedVariable)
+    private void OnTimeToSpawnPointsPrefab(Transform unusedVariable)
     {
         Instantiate(_meteorDataSO.GetMeteorSmashedPointsPrefab() , transform.position , Quaternion.identity);
     }
 
-    private void SetPointsPrefabPosition(RectTransform pointsPrefabPosition)
+    private void SetPointsPrefabPosition(Transform pointsPrefabPosition)
     {
-        _pointsPrefab.transform.position = pointsPrefabPosition.position;
+        _meteorDataSO.GetMeteorSmashedPointsPrefab().transform.position = pointsPrefabPosition.position;
     }
 
     private void RegisterEvents()

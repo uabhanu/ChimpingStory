@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class CollectedPointsPrefab : MonoBehaviour
+public class PointsPrefab : MonoBehaviour
 {
     public void DestroyPrefab()
     {
