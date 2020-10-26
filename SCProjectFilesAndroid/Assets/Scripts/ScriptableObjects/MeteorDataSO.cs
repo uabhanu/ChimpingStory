@@ -3,5 +3,16 @@
 [CreateAssetMenu]
 public class MeteorDataSO : ScriptableObject
 {
-    public GameObject m_MeteorSmashedPointsPrefab;
+    [SerializeField] private GameObject _meteorSmashedPointsPrefab;
+    [SerializeField] private RectTransform _pointsPrefabPosition;
+
+    public GameObject GetMeteorSmashedPointsPrefab()
+    {
+        return _meteorSmashedPointsPrefab;
+    }
+
+    public RectTransform GetPointsPrefabPosition()
+    {
+        return _pointsPrefabPosition;
+    }
 }

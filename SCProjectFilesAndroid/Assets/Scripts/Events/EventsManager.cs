@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace SelfiePuss.Events
 {
@@ -12,7 +13,7 @@ namespace SelfiePuss.Events
 		private static event Action                 CountdownFinished;
 		private static event Action                 FallDeath;
 		private static event Action                 HurdleDeath;
-		private static event Action<int>            IncrementValueReceived;
+		private static event Action<RectTransform>  SpawnPointsPrefab;
 		private static event Action                 Jump;
 		private static event Action                 MeteorExplosion;
 		private static event Action                 NewVersion;
@@ -139,6 +140,16 @@ namespace SelfiePuss.Events
 			}
 		}
 
+		public static void SubscribeToEvent(SelfiePussEvent evt , Action<RectTransform> actionFunction)
+		{
+			switch(evt)
+			{
+				case SelfiePussEvent.SpawnPointsPrefab:
+					SpawnPointsPrefab += actionFunction;
+				return;
+			}
+		}
+
 		public static void UnsubscribeFromEvent(SelfiePussEvent evt , Action actionFunction)
 		{
 			switch(evt)
@@ -249,6 +260,16 @@ namespace SelfiePuss.Events
 			}
 		}
 
+		public static void UnsubscribeFromEvent(SelfiePussEvent evt , Action<RectTransform> actionFunction)
+		{
+			switch(evt)
+			{
+				case SelfiePussEvent.SpawnPointsPrefab:
+					SpawnPointsPrefab -= actionFunction;
+				return;
+			}
+		}
+
 		public static void InvokeEvent(SelfiePussEvent evt)
 		{
 			switch(evt)
@@ -355,6 +376,16 @@ namespace SelfiePuss.Events
 
 				case SelfiePussEvent.ScoreUpdate:
 					ScoreUpdate?.Invoke(changedToValue);
+				return;
+			}
+		}
+
+		public static void InvokeEvent(SelfiePussEvent evt , RectTransform changedToValue)
+		{
+			switch(evt)
+			{
+				case SelfiePussEvent.SpawnPointsPrefab:
+					SpawnPointsPrefab?.Invoke(changedToValue);
 				return;
 			}
 		}
