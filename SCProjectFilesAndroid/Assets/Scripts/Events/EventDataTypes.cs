@@ -25,7 +25,8 @@
 	  ,	SelfieTaken
 	  , SoundsMuted
 	  , SoundsUnmuted
-	  , SpawnPointsPrefab
+	  , SpawnCoinPointsPrefab
+	  , SpawnMeteorPointsPrefab
 	  ,	SuperCollected
 	}
 }

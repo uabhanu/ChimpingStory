@@ -6,6 +6,7 @@ public class ScoreUI : MonoBehaviour
 {
     [SerializeField] private float _xOffset;
     [SerializeField] private GameObject _spawnedPointsPrefabObj;
+    [SerializeField] private CoinDataSO _coinDataSO;
     [SerializeField] private MeteorDataSO _meteorDataSO;
     [SerializeField] private Text _highScoreValueText;
 
@@ -30,23 +31,31 @@ public class ScoreUI : MonoBehaviour
         _highScoreValueText.text = scoreValue.ToString();
     }
 
-    private void OnTimeToSpawnPointsPrefab(Vector2 explosionPosition)
+    private void OnTimeToSpawnCoinPointsPrefab(Vector2 coinPosition)
+    {
+        Instantiate(_coinDataSO.GetCoinPointsPrefab() , coinPosition , Quaternion.identity);
+        _spawnedPointsPrefabObj = GameObject.FindGameObjectWithTag("Points");
+        _spawnedPointsPrefabObj.GetComponent<RectTransform>().anchoredPosition = new Vector2(coinPosition.x + _xOffset , coinPosition.y);
+    }
+
+    private void OnTimeToSpawnMeteorPointsPrefab(Vector2 explosionPosition)
     {
         Instantiate(_meteorDataSO.GetMeteorSmashedPointsPrefab() , explosionPosition , Quaternion.identity);
         _spawnedPointsPrefabObj = GameObject.FindGameObjectWithTag("Points");
-         //Anchored Position or Local Position at the left giving the same result & whether explosion position or player position assigned, the points prefab keeps moving to the right which is not desirable
-        _spawnedPointsPrefabObj.GetComponent<RectTransform>().anchoredPosition = explosionPosition;
+        _spawnedPointsPrefabObj.GetComponent<RectTransform>().anchoredPosition = new Vector2(explosionPosition.x + _xOffset , explosionPosition.y);
     }
 
     private void RegisterEvents()
     {
         EventsManager.SubscribeToEvent(SelfiePussEvent.ScoreUpdate , OnScoreUpdate);
-        EventsManager.SubscribeToEvent(SelfiePussEvent.SpawnPointsPrefab , OnTimeToSpawnPointsPrefab);
+        EventsManager.SubscribeToEvent(SelfiePussEvent.SpawnCoinPointsPrefab , OnTimeToSpawnCoinPointsPrefab);
+        EventsManager.SubscribeToEvent(SelfiePussEvent.SpawnMeteorPointsPrefab , OnTimeToSpawnMeteorPointsPrefab);
     }
 
     private void UnregisterEvents()
     {
         EventsManager.UnsubscribeFromEvent(SelfiePussEvent.ScoreUpdate , OnScoreUpdate);
-        EventsManager.UnsubscribeFromEvent(SelfiePussEvent.SpawnPointsPrefab , OnTimeToSpawnPointsPrefab);
+        EventsManager.UnsubscribeFromEvent(SelfiePussEvent.SpawnCoinPointsPrefab , OnTimeToSpawnCoinPointsPrefab);
+        EventsManager.UnsubscribeFromEvent(SelfiePussEvent.SpawnMeteorPointsPrefab , OnTimeToSpawnMeteorPointsPrefab);
     }
 }

@@ -13,7 +13,8 @@ namespace SelfiePuss.Events
 		private static event Action                 CountdownFinished;
 		private static event Action                 FallDeath;
 		private static event Action                 HurdleDeath;
-		private static event Action<Vector2>		SpawnPointsPrefab;
+		private static event Action<Vector2>		SpawnCoinPointsPrefab;
+		private static event Action<Vector2>		SpawnMeteorPointsPrefab;
 		private static event Action                 Jump;
 		private static event Action                 MeteorExplosion;
 		private static event Action                 NewVersion;
@@ -144,8 +145,12 @@ namespace SelfiePuss.Events
 		{
 			switch(evt)
 			{
-				case SelfiePussEvent.SpawnPointsPrefab:
-					SpawnPointsPrefab += actionFunction;
+				case SelfiePussEvent.SpawnCoinPointsPrefab:
+					SpawnCoinPointsPrefab += actionFunction;
+				return;
+
+				case SelfiePussEvent.SpawnMeteorPointsPrefab:
+					SpawnMeteorPointsPrefab += actionFunction;
 				return;
 			}
 		}
@@ -264,8 +269,12 @@ namespace SelfiePuss.Events
 		{
 			switch(evt)
 			{
-				case SelfiePussEvent.SpawnPointsPrefab:
-					SpawnPointsPrefab -= actionFunction;
+				case SelfiePussEvent.SpawnCoinPointsPrefab:
+					SpawnCoinPointsPrefab -= actionFunction;
+				return;
+
+				case SelfiePussEvent.SpawnMeteorPointsPrefab:
+					SpawnMeteorPointsPrefab -= actionFunction;
 				return;
 			}
 		}
@@ -384,8 +393,12 @@ namespace SelfiePuss.Events
 		{
 			switch(evt)
 			{
-				case SelfiePussEvent.SpawnPointsPrefab:
-					SpawnPointsPrefab?.Invoke(changedToValue);
+				case SelfiePussEvent.SpawnCoinPointsPrefab:
+					SpawnCoinPointsPrefab?.Invoke(changedToValue);
+				return;
+
+				case SelfiePussEvent.SpawnMeteorPointsPrefab:
+					SpawnMeteorPointsPrefab?.Invoke(changedToValue);
 				return;
 			}
 		}

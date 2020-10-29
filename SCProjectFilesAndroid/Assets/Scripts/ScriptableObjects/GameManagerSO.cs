@@ -10,7 +10,6 @@ public class GameManagerSO : ScriptableObject
 
     private bool _bIsUI;
 
-    [SerializeField] private bool _isUICheckOkToDo;
     [SerializeField] private float _countdownValue;
     [SerializeField] private Sprite[] _chimpionshipBeltSprites;
     [SerializeField] private string _chimpionAchievementID , _selfieAchievementID , _selfieLegendAchievementID , _undisputedChimpionAchievementID;
@@ -29,19 +28,16 @@ public class GameManagerSO : ScriptableObject
 
     public bool UICheck()
     {
-        if(_isUICheckOkToDo)
+        if(EventSystem.current.currentSelectedGameObject != null)
         {
-            if(EventSystem.current.currentSelectedGameObject != null)
-            {
-                _bIsUI = true;
-            }
-
-            else if(EventSystem.current.currentSelectedGameObject == null)
-            {
-                _bIsUI = false;
-            }
+            _bIsUI = true;
         }
 
+        else if(EventSystem.current.currentSelectedGameObject == null)
+        {
+            _bIsUI = false;
+        }
+        
         return _bIsUI;
     }
 }

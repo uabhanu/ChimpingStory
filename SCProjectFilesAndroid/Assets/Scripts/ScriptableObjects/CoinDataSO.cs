@@ -3,6 +3,16 @@
 [CreateAssetMenu]
 public class CoinDataSO : ScriptableObject
 {
-    public GameObject m_CoinCollectedPointsPrefab;
-    public int m_ScoreIncrementValue;
+    [SerializeField] private GameObject _coinPointsPrefab;
+    [SerializeField] private int _scoreIncrementValue;
+
+    public GameObject GetCoinPointsPrefab()
+    {
+        return _coinPointsPrefab;
+    }
+
+    public int GetScoreIncrementValue()
+    {
+        return _scoreIncrementValue;
+    }
 }

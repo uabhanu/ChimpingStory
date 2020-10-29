@@ -9,9 +9,9 @@ public class Coin : MonoBehaviour
     {
         if(tri2D.gameObject.tag.Equals("Player"))
         {
-			EventsManager.InvokeEvent(SelfiePussEvent.CoinCollected , _coinDataSO.m_ScoreIncrementValue);
-            Instantiate(_coinDataSO.m_CoinCollectedPointsPrefab , transform.position , Quaternion.identity);
+			EventsManager.InvokeEvent(SelfiePussEvent.CoinCollected , _coinDataSO.GetScoreIncrementValue());
+            EventsManager.InvokeEvent(SelfiePussEvent.SpawnCoinPointsPrefab , transform.localPosition);
             Destroy(gameObject); //TODO Object Pooling instead of Destroy
         }
-    }
+    }    
 }

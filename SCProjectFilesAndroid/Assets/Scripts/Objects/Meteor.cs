@@ -19,7 +19,7 @@ public class Meteor : MonoBehaviour
 	{
         Explosion.m_explosionType = "Meteor";
         Instantiate(_explosionPrefab , transform.position , Quaternion.identity);
-        EventsManager.InvokeEvent(SelfiePussEvent.SpawnPointsPrefab , transform.localPosition);
+        EventsManager.InvokeEvent(SelfiePussEvent.SpawnMeteorPointsPrefab , transform.localPosition);
         Destroy(gameObject); //TODO Object Pooling instead of Destroy
 	}
 }
