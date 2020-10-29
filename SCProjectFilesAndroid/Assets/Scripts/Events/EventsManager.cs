@@ -5,31 +5,31 @@ namespace SelfiePuss.Events
 {
 	public class EventsManager
 	{
-		private static event Action 				AdsSkipped;
-		private static event Action 				AdsStarted;
-		private static event Action                 AdsFailed;
-		private static event Action 				AdsUI;
-		private static event Action<int>            CoinCollected;
-		private static event Action                 CountdownFinished;
-		private static event Action                 FallDeath;
-		private static event Action                 HurdleDeath;
-		private static event Action<Vector2>		SpawnCoinPointsPrefab;
-		private static event Action<Vector2>		SpawnMeteorPointsPrefab;
-		private static event Action                 Jump;
-		private static event Action                 MeteorExplosion;
-		private static event Action                 NewVersion;
-		private static event Action                 Paused;
-		private static event Action<bool>           PlaySoundsChanged;
-		private static event Action<bool>           PlayMusicChanged;
-		private static event Action                 PunishAdWatched;
-		private static event Action<bool> 			RestartScene;
-		private static event Action                 Resumed;
-		private static event Action                 RewardAdWatched;
-		private static event Action<int>            ScoreUpdate;
-		private static event Action                 SelfieTaken;
-		private static event Action                 SoundOff;
-		private static event Action                 SoundOn;
-		private static event Action                 SuperCollected;
+		private static event Action 							AdsSkipped;
+		private static event Action 							AdsStarted;
+		private static event Action								AdsFailed;
+		private static event Action 							AdsUI;
+		private static event Action<int>						CoinCollected;
+		private static event Action								CountdownFinished;
+		private static event Action								FallDeath;
+		private static event Action								HurdleDeath;
+		private static event Action<Vector2 , CoinDataSO>		SpawnCoinPointsPrefab;
+		private static event Action<Vector2>					SpawnMeteorPointsPrefab;
+		private static event Action								Jump;
+		private static event Action								MeteorExplosion;
+		private static event Action								NewVersion;
+		private static event Action								Paused;
+		private static event Action<bool>						PlaySoundsChanged;
+		private static event Action<bool>						PlayMusicChanged;
+		private static event Action								PunishAdWatched;
+		private static event Action<bool> 						RestartScene;
+		private static event Action								Resumed;
+		private static event Action								RewardAdWatched;
+		private static event Action<int>						ScoreUpdate;
+		private static event Action								SelfieTaken;
+		private static event Action								SoundOff;
+		private static event Action								SoundOn;
+		private static event Action								SuperCollected;
 
 		public static void SubscribeToEvent(SelfiePussEvent evt , Action actionFunction)
 		{
@@ -145,12 +145,18 @@ namespace SelfiePuss.Events
 		{
 			switch(evt)
 			{
-				case SelfiePussEvent.SpawnCoinPointsPrefab:
-					SpawnCoinPointsPrefab += actionFunction;
-				return;
-
 				case SelfiePussEvent.SpawnMeteorPointsPrefab:
 					SpawnMeteorPointsPrefab += actionFunction;
+				return;
+			}
+		}
+
+		public static void SubscribeToEvent(SelfiePussEvent evt , Action<Vector2 , CoinDataSO> actionFunction)
+		{
+			switch(evt)
+			{
+				case SelfiePussEvent.SpawnCoinPointsPrefab:
+					SpawnCoinPointsPrefab += actionFunction;
 				return;
 			}
 		}
@@ -269,12 +275,18 @@ namespace SelfiePuss.Events
 		{
 			switch(evt)
 			{
-				case SelfiePussEvent.SpawnCoinPointsPrefab:
-					SpawnCoinPointsPrefab -= actionFunction;
-				return;
-
 				case SelfiePussEvent.SpawnMeteorPointsPrefab:
 					SpawnMeteorPointsPrefab -= actionFunction;
+				return;
+			}
+		}
+
+		public static void UnsubscribeFromEvent(SelfiePussEvent evt , Action<Vector2 , CoinDataSO> actionFunction)
+		{
+			switch(evt)
+			{
+				case SelfiePussEvent.SpawnCoinPointsPrefab:
+					SpawnCoinPointsPrefab -= actionFunction;
 				return;
 			}
 		}
@@ -393,12 +405,18 @@ namespace SelfiePuss.Events
 		{
 			switch(evt)
 			{
-				case SelfiePussEvent.SpawnCoinPointsPrefab:
-					SpawnCoinPointsPrefab?.Invoke(changedToValue);
-				return;
-
 				case SelfiePussEvent.SpawnMeteorPointsPrefab:
 					SpawnMeteorPointsPrefab?.Invoke(changedToValue);
+				return;
+			}
+		}
+
+		public static void InvokeEvent(SelfiePussEvent evt , Vector2 changedToPosition , CoinDataSO changedToDataSO)
+		{
+			switch(evt)
+			{
+				case SelfiePussEvent.SpawnCoinPointsPrefab:
+					SpawnCoinPointsPrefab?.Invoke(changedToPosition , changedToDataSO);
 				return;
 			}
 		}

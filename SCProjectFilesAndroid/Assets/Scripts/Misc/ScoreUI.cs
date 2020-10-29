@@ -6,7 +6,6 @@ public class ScoreUI : MonoBehaviour
 {
     [SerializeField] private float _xOffset;
     [SerializeField] private GameObject _spawnedPointsPrefabObj;
-    [SerializeField] private CoinDataSO _coinDataSO;
     [SerializeField] private MeteorDataSO _meteorDataSO;
     [SerializeField] private Text _highScoreValueText;
 
@@ -31,9 +30,9 @@ public class ScoreUI : MonoBehaviour
         _highScoreValueText.text = scoreValue.ToString();
     }
 
-    private void OnTimeToSpawnCoinPointsPrefab(Vector2 coinPosition)
+    private void OnTimeToSpawnCoinPointsPrefab(Vector2 coinPosition , CoinDataSO coinDataSO)
     {
-        Instantiate(_coinDataSO.GetCoinPointsPrefab() , coinPosition , Quaternion.identity);
+        Instantiate(coinDataSO.GetCoinPointsPrefab() , coinPosition , Quaternion.identity);
         _spawnedPointsPrefabObj = GameObject.FindGameObjectWithTag("Points");
         _spawnedPointsPrefabObj.GetComponent<RectTransform>().anchoredPosition = new Vector2(coinPosition.x + _xOffset , coinPosition.y);
     }
