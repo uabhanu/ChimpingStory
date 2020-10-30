@@ -5,14 +5,16 @@ using UnityEngine.UI;
 public class ScoreUI : MonoBehaviour
 {
     [SerializeField] private float _xOffset;
+    [SerializeField] private CoinDataSO _coinDataSO;
     [SerializeField] private GameObject _spawnedPointsPrefabObj;
+    [SerializeField] private LandPuss _landPussReference;
     [SerializeField] private MeteorDataSO _meteorDataSO;
     [SerializeField] private Text _highScoreValueText;
 
     private void Awake()
     {
         RegisterEvents();
-        UpdateScore(BhanuPrefs.GetHighScore());
+        UpdateScoreAtStart(BhanuPrefs.GetHighScore());
     }
 
     private void OnDestroy()
@@ -25,7 +27,7 @@ public class ScoreUI : MonoBehaviour
         _highScoreValueText.text = scoreValue.ToString();
     }
 
-    private void UpdateScore(int scoreValue)
+    private void UpdateScoreAtStart(int scoreValue) //This is not a redundant function and gets called at Start of this script
     {
         _highScoreValueText.text = scoreValue.ToString();
     }
@@ -35,6 +37,11 @@ public class ScoreUI : MonoBehaviour
         Instantiate(coinDataSO.GetCoinPointsPrefab() , coinPosition , Quaternion.identity);
         _spawnedPointsPrefabObj = GameObject.FindGameObjectWithTag("Points");
         _spawnedPointsPrefabObj.transform.position = new Vector2(coinPosition.x + _xOffset , coinPosition.y);
+
+        if(_landPussReference.IsSliding())
+        {
+            _spawnedPointsPrefabObj.GetComponent<TMPro.TextMeshPro>().text = "+" + (_coinDataSO.GetScoreIncrementValue() * 2).ToString();
+        }
     }
 
     private void OnTimeToSpawnMeteorPointsPrefab(Vector2 explosionPosition)
