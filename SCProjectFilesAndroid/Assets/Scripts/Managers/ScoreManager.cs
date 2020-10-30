@@ -1,10 +1,13 @@
 ﻿using SelfiePuss.Events;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
     private int _meteorScoreIncrementValue = 100;
     private int _scoreValue;
+
+    [SerializeField] private LandPuss _landPussReference;
 
     private void Awake()
     {
@@ -38,6 +41,11 @@ public class ScoreManager : MonoBehaviour
 
     private void OnScoreChangedByCoin(int scoreIncrementValue)
     {
+        if(_landPussReference.IsSliding())
+        {
+            scoreIncrementValue *= 2;
+        }
+
         IncrementScore(scoreIncrementValue);
     }
 

@@ -196,6 +196,16 @@ public class LandPuss : MonoBehaviour
         }
     }
 
+    public bool IsJumping()
+    {
+        return _bIsJumping;
+    }
+
+    public bool IsSliding()
+    {
+        return _bIsSliding;
+    }
+
     public void Slide()
     {
 		if(_bIsGrounded && !_bIsJumping && !_gameManagerSO.UICheck())
