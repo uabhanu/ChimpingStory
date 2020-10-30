@@ -34,14 +34,14 @@ public class ScoreUI : MonoBehaviour
     {
         Instantiate(coinDataSO.GetCoinPointsPrefab() , coinPosition , Quaternion.identity);
         _spawnedPointsPrefabObj = GameObject.FindGameObjectWithTag("Points");
-        _spawnedPointsPrefabObj.GetComponent<RectTransform>().anchoredPosition = new Vector2(coinPosition.x + _xOffset , coinPosition.y);
+        _spawnedPointsPrefabObj.transform.position = new Vector2(coinPosition.x + _xOffset , coinPosition.y);
     }
 
     private void OnTimeToSpawnMeteorPointsPrefab(Vector2 explosionPosition)
     {
         Instantiate(_meteorDataSO.GetMeteorSmashedPointsPrefab() , explosionPosition , Quaternion.identity);
         _spawnedPointsPrefabObj = GameObject.FindGameObjectWithTag("Points");
-        _spawnedPointsPrefabObj.GetComponent<RectTransform>().anchoredPosition = new Vector2(explosionPosition.x + _xOffset , explosionPosition.y);
+        _spawnedPointsPrefabObj.transform.position = new Vector2(explosionPosition.x + _xOffset , explosionPosition.y);
     }
 
     private void RegisterEvents()
