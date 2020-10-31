@@ -9,7 +9,6 @@ public class ScoreUI : MonoBehaviour
     [SerializeField] private GameObject _spawnedPointsPrefabObj;
     [SerializeField] private LandPuss _landPussReference;
     [SerializeField] private MeteorDataSO _meteorDataSO;
-    //[SerializeField] private Text _highScoreValueText;
     [SerializeField] private TextMeshProUGUI _highScoreValueText;
 
     private void Awake()
@@ -25,12 +24,18 @@ public class ScoreUI : MonoBehaviour
 
     private void OnScoreUpdate(int scoreValue)
     {
-        _highScoreValueText.text = scoreValue.ToString();
+        if(_highScoreValueText != null)
+        {
+            _highScoreValueText.text = scoreValue.ToString();
+        }
     }
 
     private void UpdateScoreAtStart(int scoreValue) //This is not a redundant function and gets called at Start of this script
     {
-        _highScoreValueText.text = scoreValue.ToString();
+        if(_highScoreValueText != null)
+        {
+            _highScoreValueText.text = scoreValue.ToString();
+        }
     }
 
     private void OnTimeToSpawnCoinPointsPrefab(Vector2 coinPosition , CoinDataSO coinDataSO)
@@ -41,7 +46,7 @@ public class ScoreUI : MonoBehaviour
 
         if(_landPussReference != null && _landPussReference.IsSliding())
         {
-            _spawnedPointsPrefabObj.GetComponent<TMPro.TextMeshPro>().text = "+" + (_coinDataSO.GetScoreIncrementValue() * 2).ToString();
+            _spawnedPointsPrefabObj.GetComponent<TextMeshPro>().text = "+" + (_coinDataSO.GetScoreIncrementValue() * 2).ToString();
         }
     }
 
