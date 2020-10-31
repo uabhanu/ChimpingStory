@@ -1,7 +1,7 @@
 ﻿using SelfiePuss.Events;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class OtherLevelManager : MonoBehaviour
 {
@@ -12,7 +12,7 @@ public class OtherLevelManager : MonoBehaviour
     [SerializeField] private GameObject _inGameUIObj , _pauseMenuObj;
     [SerializeField] GameObject _soundsMuteButtonObj , _soundsUnmuteButtonObj;
     [SerializeField] private SoundManager _soundManager;
-    [SerializeField] private Text _countdownDisplayText;
+    [SerializeField] private TextMeshProUGUI _countdownDisplayText;
 
     private void Start()
     {

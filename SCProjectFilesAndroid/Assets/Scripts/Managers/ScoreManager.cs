@@ -41,7 +41,7 @@ public class ScoreManager : MonoBehaviour
 
     private void OnScoreChangedByCoin(int scoreIncrementValue)
     {
-        if(_landPussReference.IsSliding())
+        if(_landPussReference != null && _landPussReference.IsSliding())
         {
             scoreIncrementValue *= 2;
         }

@@ -1,6 +1,6 @@
 ﻿using SelfiePuss.Events;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ScoreUI : MonoBehaviour
 {
@@ -9,7 +9,8 @@ public class ScoreUI : MonoBehaviour
     [SerializeField] private GameObject _spawnedPointsPrefabObj;
     [SerializeField] private LandPuss _landPussReference;
     [SerializeField] private MeteorDataSO _meteorDataSO;
-    [SerializeField] private Text _highScoreValueText;
+    //[SerializeField] private Text _highScoreValueText;
+    [SerializeField] private TextMeshProUGUI _highScoreValueText;
 
     private void Awake()
     {
@@ -38,7 +39,7 @@ public class ScoreUI : MonoBehaviour
         _spawnedPointsPrefabObj = GameObject.FindGameObjectWithTag("Points");
         _spawnedPointsPrefabObj.transform.position = new Vector2(coinPosition.x + _xOffset , coinPosition.y);
 
-        if(_landPussReference.IsSliding())
+        if(_landPussReference != null && _landPussReference.IsSliding())
         {
             _spawnedPointsPrefabObj.GetComponent<TMPro.TextMeshPro>().text = "+" + (_coinDataSO.GetScoreIncrementValue() * 2).ToString();
         }
