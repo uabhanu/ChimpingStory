@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 08bf2ef89858cc8428a9779ccb6bfc0c
+guid: 33434b5baba6d7a4ab8d3e4995ce1c52
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Shiny Signature
+  - Bing Bam Boum
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
