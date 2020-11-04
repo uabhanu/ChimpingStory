@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 33434b5baba6d7a4ab8d3e4995ce1c52
+guid: 5a4f1fb728ad5274085cc829356e6c75
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,8 +9,9 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Bing Bam Boum
-  fallbackFontReferences: []
+  - Mirandah Normal
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 91631ee057060944e88d74caff35b1c4, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1
