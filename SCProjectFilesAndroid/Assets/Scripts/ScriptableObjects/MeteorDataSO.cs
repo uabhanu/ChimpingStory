@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "ScriptableObjects/New Meteor Data", fileName = "NewPMeteorData")]
 public class MeteorDataSO : ScriptableObject
 {
     [SerializeField] private GameObject _meteorSmashedPointsPrefab;

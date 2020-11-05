@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "ScriptableObjects/New Coin Data", fileName = "NewCoinData")]
 public class CoinDataSO : ScriptableObject
 {
     [SerializeField] private GameObject _coinPointsPrefab;

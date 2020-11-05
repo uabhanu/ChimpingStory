@@ -9,7 +9,7 @@ public enum SwipeDirection
     DOWN = 8,
 }
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName ="ScriptableObjects/New Swipe Manager", fileName = "NewSwipeManager")]
 public class SwipeManagerSO : ScriptableObject
 {
     private bool _bIsUI;

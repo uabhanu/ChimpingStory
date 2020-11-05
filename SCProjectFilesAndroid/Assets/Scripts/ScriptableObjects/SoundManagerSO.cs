@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "ScriptableObjects/New Sound Manager", fileName = "NewSoundManager")]
 public class SoundManagerSO : ScriptableObject
 {
     [SerializeField] private AudioClip _coinCollectedAudioClip , _fallDeathAudioClip , _hurdleDeathAudioClip , _jumpAudioClip , _meteorExplosionAudioClip , _selfieAudioClip , _superCollectedAudioClip;

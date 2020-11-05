@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "ScriptableObjects/New Game Manager", fileName = "NewGameManager")]
 public class GameManagerSO : ScriptableObject 
 {
     //TODO Text Mesh Pro
