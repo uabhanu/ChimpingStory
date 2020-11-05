@@ -1,25 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using PathologicalGames;
+using SelfiePuss.Utilities;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class PlatformsGenerator : MonoBehaviour 
 {
-    private const float PLAYER_DISTANCE_SPAWN_PLATFORMS_PART = 20.0f;
-    private Vector3 _lastEndPosition;
+    private const                float   PLAYER_DISTANCE_SPAWN_PLATFORMS_PART = 20.0f;
+    [SerializeField] private     Vector3 _lastEndPosition;
+    private                      float   currentX             = 1.0f;
+    [SerializeField] private     float   perlinIncrementValue = 0.5f;
+
+    [SerializeField] private float     _spawnYPosition;
+    [SerializeField] private float     _spawnHighYPosition;
+    [SerializeField] private float     _spawnLowYPosition;
     
+    [SerializeField] private Transform _puss;
+    //[SerializeField] private List<Transform> _platformTransformsList;
+    [FormerlySerializedAs("_spawnPool")] [SerializeField] private SpawnPool _platformsPool;
+    [SerializeField]                                      private SpawnPool _coinsPool;
 
-    [SerializeField] private float           _spawnYPosition;
-    [SerializeField] private Transform       _puss;
-    [SerializeField] private List<Transform> _platformTransformsList;
-    [SerializeField] private Transform       _platformEndPositionTransform;
-    [SerializeField] private SpawnPool       _spawnPool;
-
-    private void Awake() 
-    {
-        _lastEndPosition = _platformEndPositionTransform.transform.position;
-    }
+    private float perlinValue;
+    private float remappedPerlinValue;
+    private float lowestPerlin     = 0.4f;
+    private float highestPerlin    = 0.75f;
 
     private void Update() 
     { 
@@ -40,13 +47,33 @@ public class PlatformsGenerator : MonoBehaviour
         }
     }
     
-    private void SpawnLandPart() 
+    private void SpawnLandPart()
     {
-        var chosenPlatformToSpawn = _platformTransformsList[Random.Range(0 , _platformTransformsList.Count)];
-        _lastEndPosition = _spawnPool.Spawn(chosenPlatformToSpawn
-                                          , new Vector3(_lastEndPosition.x, _spawnYPosition, _lastEndPosition.z)
-                                          , Quaternion.identity
-                                           ).Find("EndPosition").position;
+        perlinValue =  PerlinNoise.FBM(currentX, 6, 0.75f);
+        //perlinValue =  PerlinNoise.Perlin(currentX);
+        if (perlinValue < lowestPerlin)
+        {
+            lowestPerlin = perlinValue;
+        }
+        else if (perlinValue > highestPerlin)
+        {
+            highestPerlin = perlinValue;
+        }
+        remappedPerlinValue =  perlinValue.Map(lowestPerlin, highestPerlin, _spawnLowYPosition, _spawnHighYPosition);
+        currentX            += perlinIncrementValue;
+        var chosenPlatformToSpawn = _platformsPool._perPrefabPoolOptions[Random.Range(0 , _platformsPool._perPrefabPoolOptions.Count)].prefab;
+
+        _lastEndPosition.y = remappedPerlinValue;
+        var spawnedTransform = _platformsPool.Spawn(chosenPlatformToSpawn, _lastEndPosition, Quaternion.identity);
+
+        var spriteRenderer = spawnedTransform.gameObject.GetComponent<SpriteRenderer>();
+        var size = spriteRenderer.size;
+
+        _lastEndPosition.x += size.x;
+        //_lastEndPosition = _spawnPool.Spawn(chosenPlatformToSpawn
+        //                                  , new Vector3(_lastEndPosition.x, _spawnYPosition, _lastEndPosition.z)
+        //                                  , Quaternion.identity
+        //                                   ).Find("EndPosition").position;
     }
 }
 
