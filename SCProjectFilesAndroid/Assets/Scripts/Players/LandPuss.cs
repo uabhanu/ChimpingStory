@@ -50,7 +50,7 @@ public class LandPuss : MonoBehaviour
             return;
         }
 
-        BhanuInput();
+        ProcessInput();
         Grounded();
         Movement();
 
@@ -60,21 +60,21 @@ public class LandPuss : MonoBehaviour
         }
     }
 
-    private void BhanuInput()
+    private void ProcessInput()
     {
-        if(_gameManagerSO._bisUnityEditorTestingMode)
+        //if(_gameManagerSO._bisUnityEditorTestingMode)
         {
-            #if UNITY_EDITOR || UNITY_STANDALONE
-            if(Input.GetMouseButtonDown(0))
-            {
-                Jump();
-            }
+          #if UNITY_EDITOR 
+          if(Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
+          {
+              Jump();
+          }
 
-            if(Input.GetMouseButtonDown(1))
-            {
-                Slide();
-            }
-            #endif
+          if(Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.LeftShift))
+          {
+              Slide();
+          }
+          #endif
         }
         
         _swipeManagerSO.BhanuSwipes();

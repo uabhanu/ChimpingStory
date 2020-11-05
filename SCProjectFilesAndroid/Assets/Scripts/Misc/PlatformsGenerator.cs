@@ -1,15 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using PathologicalGames;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PlatformsGenerator : MonoBehaviour 
 {
     private const float PLAYER_DISTANCE_SPAWN_PLATFORMS_PART = 20.0f;
     private Vector3 _lastEndPosition;
+    
 
-    [SerializeField] private float _spawnYPosition;
-    [SerializeField] private Transform _puss;
+    [SerializeField] private float           _spawnYPosition;
+    [SerializeField] private Transform       _puss;
     [SerializeField] private List<Transform> _platformTransformsList;
-    [SerializeField] private Transform _platformEndPositionTransform;
+    [SerializeField] private Transform       _platformEndPositionTransform;
+    [SerializeField] private SpawnPool       _spawnPool;
 
     private void Awake() 
     {
@@ -23,24 +28,25 @@ public class PlatformsGenerator : MonoBehaviour
             return;
         }
 
-        if(Vector3.Distance(_puss.position , _lastEndPosition) < PLAYER_DISTANCE_SPAWN_PLATFORMS_PART) 
+        SpawnNewTerrain();
+    }
+
+    private void SpawnNewTerrain()
+    {
+        if (Vector3.Distance(_puss.position, _lastEndPosition) < PLAYER_DISTANCE_SPAWN_PLATFORMS_PART)
         {
             // Spawn another level part
             SpawnLandPart();
         }
     }
-
+    
     private void SpawnLandPart() 
     {
-        Transform chosenPlatformToSpawn = _platformTransformsList[Random.Range(0 , _platformTransformsList.Count)];
-        Transform lastLandPartTransform = SpawnLandPart(chosenPlatformToSpawn , _lastEndPosition);
-        _lastEndPosition = lastLandPartTransform.Find("EndPosition").position;
-    }
-
-    private Transform SpawnLandPart(Transform platformsPartToSpawn , Vector3 spawnPosition) 
-    {
-        _platformEndPositionTransform = Instantiate(platformsPartToSpawn , new Vector3(spawnPosition.x , _spawnYPosition , spawnPosition.z) , Quaternion.identity);
-        return _platformEndPositionTransform;
+        var chosenPlatformToSpawn = _platformTransformsList[Random.Range(0 , _platformTransformsList.Count)];
+        _lastEndPosition = _spawnPool.Spawn(chosenPlatformToSpawn
+                                          , new Vector3(_lastEndPosition.x, _spawnYPosition, _lastEndPosition.z)
+                                          , Quaternion.identity
+                                           ).Find("EndPosition").position;
     }
 }
 
