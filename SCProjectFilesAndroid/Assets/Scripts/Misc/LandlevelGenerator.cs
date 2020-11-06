@@ -23,10 +23,19 @@ public class LandlevelGenerator : MonoBehaviour
     [FormerlySerializedAs("_spawnPool")] [SerializeField] private SpawnPool _platformsPool;
     [SerializeField]                                      private SpawnPool _coinsPool;
 
-    private float perlinValue;
-    private float remappedPerlinValue;
-    private float lowestPerlin     = 0.4f;
-    private float highestPerlin    = 0.75f;
+    private       float perlinValue;
+    private       float remappedPerlinValue;
+    private       float lowestPerlin                       = 0.4f;
+    private       float highestPerlin                      = 0.75f;
+    private const uint  NUM_PLATFORMS_TO_GENERATE_ON_START = 30;
+    
+    private void Start()
+    {
+        for (int numGenerations = 0; numGenerations < NUM_PLATFORMS_TO_GENERATE_ON_START; numGenerations++)
+        {
+            SpawnLandPart();
+        }
+    }
 
     private void Update() 
     { 
