@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-public class PlatformsGenerator : MonoBehaviour 
+public class LandlevelGenerator : MonoBehaviour 
 {
     private const                float   PLAYER_DISTANCE_SPAWN_PLATFORMS_PART = 20.0f;
     [SerializeField] private     Vector3 _lastEndPosition;
