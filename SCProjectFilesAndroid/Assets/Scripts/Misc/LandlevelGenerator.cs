@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-public class LandlevelGenerator : MonoBehaviour 
+public class LandLevelGenerator : MonoBehaviour 
 {
     private const uint  NUM_PLATFORMS_TO_GENERATE_ON_START = 30;
     private const float   PLAYER_DISTANCE_SPAWN_PLATFORMS_PART = 20.0f;
@@ -72,7 +72,8 @@ public class LandlevelGenerator : MonoBehaviour
 
         // Instead of _lastEndPosition, I passed in _lastEndPosition.x & PlatformYPosition due to the different types of platforms and hence commented the line below as well
         //_lastEndPosition.y = remappedPerlinValue;
-        var spawnedTransform = _platformsPool.Spawn(chosenPlatformToSpawn , new Vector2(_lastEndPosition.x , chosenPlatformToSpawn.position.y) , Quaternion.identity);
+        //var spawnedTransform = _platformsPool.Spawn(chosenPlatformToSpawn , _lastEndPosition , Quaternion.identity); //TODO Once testing done, uncomment this line and remove the line below
+        var spawnedTransform = _platformsPool.Spawn(chosenPlatformToSpawn , new Vector2(_lastEndPosition.x , chosenPlatformToSpawn.position.y) , Quaternion.identity); //This is for Testing only
         var spriteRenderer = spawnedTransform.gameObject.GetComponent<SpriteRenderer>();
         var size = spriteRenderer.size;
 
