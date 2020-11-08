@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-public class LandLevelGenerator : MonoBehaviour 
+public class LandlevelGenerator : MonoBehaviour 
 {
     private const uint  NUM_PLATFORMS_TO_GENERATE_ON_START = 30;
     private const float   PLAYER_DISTANCE_SPAWN_PLATFORMS_PART = 20.0f;
